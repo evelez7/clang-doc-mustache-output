@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>PatchPointOpers</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class PatchPointOpers</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5B2F6C6C7B684D561DA159D3DCAFC02CEE14EF0A">PatchPointOpers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAC3B8A61AE7B3A345DD7DB714C66A1539C4107F">getNextScratchIdx</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EAEFE7B12F1C66C04C10DB6411E2F722141BA434">isAnyReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1CD8FEC659464E266F220D97CC43DAFDF15BF160">hasDef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D9BD0513A968BDFDD3C7A17A2737039F83683671">getID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#66ECD52A154D9B5A7196951175A152FCBCA150DA">getNumPatchBytes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B61DDA5BD9C3A470B8118DEC7339E58FC59AB9EA">getCallTarget</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3629451DF93855EBE1E2CFA336D7F9B95B1B815D">getCallingConv</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#235E07AE43262C7F52D262C19AC4279AB958550F">getArgIdx</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DE69613C01708EC1A1FDB2F38CFACE325C3929F9">getNumCallArgs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4A473271137CD932823F41E266FBC054D3961EF7">getVarIdx</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B19129D67E263D886291AF4AD586F1501954B489">getStackMapStartIdx</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class PatchPointOpers</h1>
+                        <p>Defined at line 77 of file llvm/include/llvm/CodeGen/StackMaps.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> MI-level patchpoint operands.</p>
+                            </div>
+                            <div>
+                                <p> MI patchpoint operations take the form:</p>
+                                <p> [</p>
+                                <p>&lt;def</p>
+                                <p>&gt;], </p>
+                                <p>&lt;id</p>
+                                <p>&gt;, </p>
+                                <p>&lt;numBytes</p>
+                                <p>&gt;, </p>
+                                <p>&lt;target</p>
+                                <p>&gt;, </p>
+                                <p>&lt;numArgs</p>
+                                <p>&gt;, </p>
+                                <p>&lt;cc</p>
+                                <p>&gt;, ...</p>
+                            </div>
+                            <div>
+                                <p> IR patchpoint intrinsics do not have the </p>
+                                <p>&lt;cc</p>
+                                <p>&gt; operand because calling</p>
+                                <p> convention is part of the subclass data.</p>
+                            </div>
+                            <div>
+                                <p> SD patchpoint nodes do not have a def operand because it is part of the</p>
+                                <p> SDValue.</p>
+                            </div>
+                            <div>
+                                <p> Patchpoints following the anyregcc convention are handled specially. For</p>
+                                <p> these, the stack map also records the location of the return value and</p>
+                                <p> arguments.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="5B2F6C6C7B684D561DA159D3DCAFC02CEE14EF0A">
+                                <pre><code class="language-cpp code-clang-doc">void PatchPointOpers (const MachineInstr * MI)</code></pre>
+                                <p>Defined at line 61 of file llvm/lib/CodeGen/StackMaps.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DAC3B8A61AE7B3A345DD7DB714C66A1539C4107F">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNextScratchIdx (unsigned int StartIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the next scratch register operand index.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 76 of file llvm/lib/CodeGen/StackMaps.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EAEFE7B12F1C66C04C10DB6411E2F722141BA434">
+                                <pre><code class="language-cpp code-clang-doc">bool isAnyReg ()</code></pre>
+                                <p>Defined at line 98 of file llvm/include/llvm/CodeGen/StackMaps.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1CD8FEC659464E266F220D97CC43DAFDF15BF160">
+                                <pre><code class="language-cpp code-clang-doc">bool hasDef ()</code></pre>
+                                <p>Defined at line 99 of file llvm/include/llvm/CodeGen/StackMaps.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D9BD0513A968BDFDD3C7A17A2737039F83683671">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getID ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the ID for the given patchpoint.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 102 of file llvm/include/llvm/CodeGen/StackMaps.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="66ECD52A154D9B5A7196951175A152FCBCA150DA">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getNumPatchBytes ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the number of patchable bytes the given patchpoint should emit.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 105 of file llvm/include/llvm/CodeGen/StackMaps.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B61DDA5BD9C3A470B8118DEC7339E58FC59AB9EA">
+                                <pre><code class="language-cpp code-clang-doc">const MachineOperand &amp; getCallTarget ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the target of the underlying call.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 110 of file llvm/include/llvm/CodeGen/StackMaps.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3629451DF93855EBE1E2CFA336D7F9B95B1B815D">
+                                <pre><code class="language-cpp code-clang-doc">CallingConv::ID getCallingConv ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the calling convention</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 115 of file llvm/include/llvm/CodeGen/StackMaps.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="235E07AE43262C7F52D262C19AC4279AB958550F">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getArgIdx ()</code></pre>
+                                <p>Defined at line 119 of file llvm/include/llvm/CodeGen/StackMaps.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DE69613C01708EC1A1FDB2F38CFACE325C3929F9">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getNumCallArgs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the number of call arguments</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 122 of file llvm/include/llvm/CodeGen/StackMaps.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4A473271137CD932823F41E266FBC054D3961EF7">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getVarIdx ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the operand index of the variable list of non-argument operands.</p>
+                                        <p> These hold the &quot;live state&quot;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 128 of file llvm/include/llvm/CodeGen/StackMaps.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B19129D67E263D886291AF4AD586F1501954B489">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getStackMapStartIdx ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the index at which stack map locations will be recorded.</p>
+                                        <p> Arguments are not recorded unless the anyregcc convention is used.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 134 of file llvm/include/llvm/CodeGen/StackMaps.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ValueProfileCollector</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ValueProfileCollector</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A7629ECD6816ED56BE2EC85060AB2F18CB251B93">ValueProfileCollector</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A7DAB649B33793366A41EC498995114DCED8D5F5">ValueProfileCollector</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AEAA57B9D4E26C263FFC2C37FC9C8F8357C70787">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#16D0EA152D975D97BAA0872FFD36F539EEDE76DF">ValueProfileCollector</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F680DE01BEBBFEE8932241661FF937F3DB595C2A">~ValueProfileCollector</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B669D182D08456A2200DA5F8FF7F8220081DE2F8">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#18FFD3BE422C3AD825357C248FB86F2A292F683F">get</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ValueProfileCollector</h1>
+                        <p>Defined at line 57 of file llvm/lib/Transforms/Instrumentation/ValueProfileCollector.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Utility analysis that determines what values are worth profiling.</p>
+                                <p> The actual logic is inside the ValueProfileCollectorImpl, whose job is to</p>
+                                <p> populate the Candidates vector.</p>
+                            </div>
+                            <div>
+                                <p> Value profiling an expression means to track the values that this expression</p>
+                                <p> takes at runtime and the frequency of each value.</p>
+                                <p> It is important to distinguish between two sets of value profiles for a</p>
+                                <p> particular expression:</p>
+                                <p>  1) The set of values at the point of evaluation.</p>
+                                <p>  2) The set of values at the point of use.</p>
+                                <p> In some cases, the two sets are identical, but it&#39;s not unusual for the two</p>
+                                <p> to differ.</p>
+                            </div>
+                            <div>
+                                <p> To elaborate more, consider this C code, and focus on the expression `nn`:</p>
+                                <p>  void foo(int nn, bool b) {</p>
+                                <p>    if (b)  memcpy(x, y, nn);</p>
+                                <p>  }</p>
+                                <p> The point of evaluation can be as early as the start of the function, and</p>
+                                <p> let&#39;s say the value profile for `nn` is:</p>
+                                <p>     total=100; (value,freq) set = {(8,10), (32,50)}</p>
+                                <p> The point of use is right before we call memcpy, and since we execute the</p>
+                                <p> memcpy conditionally, the value profile of `nn` can be:</p>
+                                <p>     total=15; (value,freq) set = {(8,10), (4,5)}</p>
+                            </div>
+                            <div>
+                                <p> For this reason, a plugin is responsible for computing the insertion point</p>
+                                <p> for each value to be profiled. The `CandidateInfo` structure encapsulates</p>
+                                <p> all the information needed for each value profile site.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="A7629ECD6816ED56BE2EC85060AB2F18CB251B93">
+                                <pre><code class="language-cpp code-clang-doc">void ValueProfileCollector (ValueProfileCollector &amp;&amp; )</code></pre>
+                                <p>Defined at line 66 of file llvm/lib/Transforms/Instrumentation/ValueProfileCollector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A7DAB649B33793366A41EC498995114DCED8D5F5">
+                                <pre><code class="language-cpp code-clang-doc">void ValueProfileCollector (Function &amp; Fn, TargetLibraryInfo &amp; TLI)</code></pre>
+                                <p>Defined at line 66 of file llvm/lib/Transforms/Instrumentation/ValueProfileCollector.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AEAA57B9D4E26C263FFC2C37FC9C8F8357C70787">
+                                <pre><code class="language-cpp code-clang-doc">ValueProfileCollector &amp; operator= (ValueProfileCollector &amp;&amp; )</code></pre>
+                                <p>Defined at line 67 of file llvm/lib/Transforms/Instrumentation/ValueProfileCollector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="16D0EA152D975D97BAA0872FFD36F539EEDE76DF">
+                                <pre><code class="language-cpp code-clang-doc">void ValueProfileCollector (const ValueProfileCollector &amp; )</code></pre>
+                                <p>Defined at line 69 of file llvm/lib/Transforms/Instrumentation/ValueProfileCollector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F680DE01BEBBFEE8932241661FF937F3DB595C2A">
+                                <pre><code class="language-cpp code-clang-doc">void ~ValueProfileCollector ()</code></pre>
+                                <p>Defined at line 70 of file llvm/lib/Transforms/Instrumentation/ValueProfileCollector.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B669D182D08456A2200DA5F8FF7F8220081DE2F8">
+                                <pre><code class="language-cpp code-clang-doc">ValueProfileCollector &amp; operator= (const ValueProfileCollector &amp; )</code></pre>
+                                <p>Defined at line 70 of file llvm/lib/Transforms/Instrumentation/ValueProfileCollector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="18FFD3BE422C3AD825357C248FB86F2A292F683F">
+                                <pre><code class="language-cpp code-clang-doc">std::vector&lt;CandidateInfo&gt; get (InstrProfValueKind Kind)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> returns a list of value profiling candidates of the given kind</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 72 of file llvm/lib/Transforms/Instrumentation/ValueProfileCollector.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

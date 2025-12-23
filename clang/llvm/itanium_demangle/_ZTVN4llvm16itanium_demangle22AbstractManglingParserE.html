@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>AbstractManglingParser</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">itanium_demangle</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct AbstractManglingParser</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#First">First</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Last">Last</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Names">Names</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Subs">Subs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#OuterTemplateParams">OuterTemplateParams</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TemplateParams">TemplateParams</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ForwardTemplateRefs">ForwardTemplateRefs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TryToParseTemplateArgs">TryToParseTemplateArgs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#PermitForwardTemplateReferences">PermitForwardTemplateReferences</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#HasIncompleteTemplateParameterTracking">HasIncompleteTemplateParameterTracking</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ParsingLambdaParamsAtLevel">ParsingLambdaParamsAtLevel</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumSyntheticTemplateParameters">NumSyntheticTemplateParameters</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ASTAllocator">ASTAllocator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Ops">Ops</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumOps">NumOps</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7653835A6039434BB7DE32DD4D095929722313B9">AbstractManglingParser&lt;Derived, Alloc&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8BBEFAACC6ED6694A9DF7DAF596A97EAABA512F9">getDerived</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A6C951469C8783C19978236127B5E902C2A518F4">reset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5F7A2DF0801B13C265D1C84BA973820FAD367766">make</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#98E9B48104051BCE5937ECC36D763C01B90963F9">makeNodeArray</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8AD0B68BC0A209FF00161717B58F24F9F7086247">popTrailingNodeArray</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E81E0DBE4FAED16A6B5F93252D1CA8D089739C5E">consumeIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D3CC0895DA37995EC85B2E7E32B2EF6FE2B637DE">consumeIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FC56E191034397C6A2C2B3A011D127FA6EF4ADDD">consume</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B78732EE81F4B4951D769852381C618BA7DA7A7A">look</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#781B58A59777F2A436D7B7FA8F6A88BAD8EBAA7E">numLeft</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FE6B7E1C27EAB0A858E3150FEDE739580D90247D">isTemplateParamDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#61A9B93D623682E5497BF2927F092A46144A8C9F">resolveForwardTemplateRefs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52086AF06112701A030F26D6951DCF46E834FCED">parseNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79515F59B6BD64A38559B3414B581514BEA4C74A">parseCVQualifiers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A0558451C63C4A19EE92A5C1EB37EFCE350A380F">parsePositiveInteger</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#47ED2544DB58CA8021D749DBF3F939D6B1ABAFC8">parseBareSourceName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D860FC9BEF33E75637E7AABA8D90462B7968A173">parseSeqId</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44AC09431F7322AB428C3018CE1DF2EB3B6554CD">parseSubstitution</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DEEBDA7CA0DC9194D93D00929558F9B87EA6C27D">parseTemplateParam</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1910E596297D3A17B2BC3DB6761023474828D6A">parseTemplateParamDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DCE1DD12F3B3D6E808AE48EC9680351DA4FD0A6E">parseTemplateArgs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C74AE2F22D98529BF98A69E8F8F060A09D1E3988">parseTemplateArg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E543F7D6258726B5F06752F51C6D4364B9F22F2">parseExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C08CBA9943547909DB0A90A0D05241895A796EC5">parsePrefixExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C25AB41EED1011E991BF91F3486CBEA751173EF5">parseBinaryExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DCDD798DE7612F926A452DD3C6DA7E5E8A5B6EFD">parseIntegerLiteral</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#147B30B350CA6039D22DB5A22B73B963D106F127">parseExprPrimary</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#97CA86BA52CC2E25700789EEAD61FC817739BFD2">parseFloatingLiteral</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9A5D31414BC984B843B228FB9759F61DEF6A45F4">parseFunctionParam</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B955F8118518CF7579C719375FD7899F6D9256A">parseConversionExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2552482588DF7A83D09511B2933308C43225CB67">parseBracedExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#38210D2D0B79415135BC4BC47660D578E612B96F">parseFoldExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DBB3F978340F22CF2341D81F7ED54751EECCED2B">parsePointerToMemberConversionExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#97EBBA47C1711383A2EC9EFEFD8A50A27E5AF966">parseSubobjectExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C945E2D8D8340505BEF2A2A91700BDCE5ED8E678">parseConstraintExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4058065E7F9F6AB324A15B774F4D347C046FCF77">parseRequiresExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#547AC37F1DB46C48A078C26FE841799DD2B2B2A6">parseType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#005196816415B37E6F3181C9DDC9D7C25FF170A0">parseFunctionType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#10A69AF5934ADA4B8717A237F6D4D08A4069434E">parseVectorType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FF44B139387A0025156955184195FA75120AF7EA">parseDecltype</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4821958DB5162A8E9AF1F750408454B55940FD4F">parseArrayType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B152875368A8115106CC3870A01A11C3E0EF3CE">parsePointerToMemberType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E4BAB1FE3033E8D8ADD61C23DE3AF2E7D21B9779">parseClassEnumType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#51A8391DE087F65B232ECB905A718F7AA0A06D05">parseQualifiedType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7739B36C43C0D3D85A9859BFD147BB0796A9F60">parseEncoding</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3FC84926F85039EA91626BFE9603C888303F84B2">parseCallOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EFF9B1413C2873156E15B7C9521F62DD1234756C">parseSpecialName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2DD1857061CA1679E97D53F4AA1C9B08A0305210">parseName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D644608F15424123055EBBB01074F946587AAE43">parseLocalName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D0F43C88665D734E5034A924BBFF42FF7E2D183D">parseOperatorName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#43A0857EAD2D326B6AD0EDCF59E5653D9B0AAFC7">parseModuleNameOpt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#61A3C794830E0CA635DF9566FFA041D4F4094EED">parseUnqualifiedName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D8CA440697DC355D1228558B7137B74957EB4A57">parseUnnamedTypeName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E9DD16CAD902F152F88301DFD01E7D9D23614C6E">parseSourceName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDBAA1CB401FB0D8E854A0162B8D72F785DA5F0C">parseUnscopedName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E2DB7D6A04712D2957018AFCFA78916B9F5CA040">parseNestedName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1DCF37D60C4FA6DDC95EF94F144E1080D5500F09">parseCtorDtorName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B7EADEF5B4D2647587C5E24FBC5C88F52019115">parseAbiTags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#178150060A51D74B741CAA012533762EFFDFEA81">parseOperatorEncoding</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#33D1AA9D680892A6D7A2A93B1476A5988F56832B">parseUnresolvedName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CFBE254778C5323CC52154FDDA5F87C8E9F83B4A">parseSimpleId</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B021DEBDACDDF6E9C946F181BF458D6C5437C70">parseBaseUnresolvedName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF9D49DCC1AF506F0DB808014B848BAA017A70F2">parseUnresolvedType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#307EBB9E3B2C8ED340752E1E80B38B262E1FA722">parseDestructorName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1EE48B9F46DE9B165C94CD0D681EDE9D1977F7D5">parse</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Derived, typename Alloc&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct AbstractManglingParser</h1>
+                        <p>Defined at line 2746 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="First" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const char * First</code></pre>
+                        </div>
+                        <div id="Last" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const char * Last</code></pre>
+                        </div>
+                        <div id="Names" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >PODSmallVector Names</code></pre>
+                        </div>
+                        <div id="Subs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >PODSmallVector Subs</code></pre>
+                        </div>
+                        <div id="OuterTemplateParams" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >PODSmallVector OuterTemplateParams</code></pre>
+                        </div>
+                        <div id="TemplateParams" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >PODSmallVector TemplateParams</code></pre>
+                        </div>
+                        <div id="ForwardTemplateRefs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >PODSmallVector ForwardTemplateRefs</code></pre>
+                        </div>
+                        <div id="TryToParseTemplateArgs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool TryToParseTemplateArgs</code></pre>
+                        </div>
+                        <div id="PermitForwardTemplateReferences" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool PermitForwardTemplateReferences</code></pre>
+                        </div>
+                        <div id="HasIncompleteTemplateParameterTracking" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool HasIncompleteTemplateParameterTracking</code></pre>
+                        </div>
+                        <div id="ParsingLambdaParamsAtLevel" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >size_t ParsingLambdaParamsAtLevel</code></pre>
+                        </div>
+                        <div id="NumSyntheticTemplateParameters" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int[3] NumSyntheticTemplateParameters</code></pre>
+                        </div>
+                        <div id="ASTAllocator" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Alloc ASTAllocator</code></pre>
+                        </div>
+                        <div id="Ops" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static const OperatorInfo[] Ops</code></pre>
+                        </div>
+                        <div id="NumOps" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static const size_t NumOps</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="7653835A6039434BB7DE32DD4D095929722313B9">
+                                <pre><code class="language-cpp code-clang-doc">void AbstractManglingParser&lt;Derived, Alloc&gt; (const char * First_, const char * Last_)</code></pre>
+                                <p>Defined at line 2826 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8BBEFAACC6ED6694A9DF7DAF596A97EAABA512F9">
+                                <pre><code class="language-cpp code-clang-doc">Derived &amp; getDerived ()</code></pre>
+                                <p>Defined at line 2829 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A6C951469C8783C19978236127B5E902C2A518F4">
+                                <pre><code class="language-cpp code-clang-doc">void reset (const char * First_, const char * Last_)</code></pre>
+                                <p>Defined at line 2831 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F7A2DF0801B13C265D1C84BA973820FAD367766">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;class T, class... Args&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">Node * make (Args &amp;&amp;... args)</code></pre>
+                                <p>Defined at line 2845 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="98E9B48104051BCE5937ECC36D763C01B90963F9">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;class It&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">NodeArray makeNodeArray (It begin, It end)</code></pre>
+                                <p>Defined at line 2849 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8AD0B68BC0A209FF00161717B58F24F9F7086247">
+                                <pre><code class="language-cpp code-clang-doc">NodeArray popTrailingNodeArray (size_t FromPosition)</code></pre>
+                                <p>Defined at line 2857 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E81E0DBE4FAED16A6B5F93252D1CA8D089739C5E">
+                                <pre><code class="language-cpp code-clang-doc">bool consumeIf (basic_string_view S)</code></pre>
+                                <p>Defined at line 2865 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D3CC0895DA37995EC85B2E7E32B2EF6FE2B637DE">
+                                <pre><code class="language-cpp code-clang-doc">bool consumeIf (char C)</code></pre>
+                                <p>Defined at line 2873 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FC56E191034397C6A2C2B3A011D127FA6EF4ADDD">
+                                <pre><code class="language-cpp code-clang-doc">char consume ()</code></pre>
+                                <p>Defined at line 2881 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B78732EE81F4B4951D769852381C618BA7DA7A7A">
+                                <pre><code class="language-cpp code-clang-doc">char look (unsigned int Lookahead)</code></pre>
+                                <p>Defined at line 2883 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="781B58A59777F2A436D7B7FA8F6A88BAD8EBAA7E">
+                                <pre><code class="language-cpp code-clang-doc">size_t numLeft ()</code></pre>
+                                <p>Defined at line 2889 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FE6B7E1C27EAB0A858E3150FEDE739580D90247D">
+                                <pre><code class="language-cpp code-clang-doc">bool isTemplateParamDecl ()</code></pre>
+                                <p>Defined at line 2903 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="61A9B93D623682E5497BF2927F092A46144A8C9F">
+                                <pre><code class="language-cpp code-clang-doc">bool resolveForwardTemplateRefs (NameState &amp; State)</code></pre>
+                                <p>Defined at line 2952 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="52086AF06112701A030F26D6951DCF46E834FCED">
+                                <pre><code class="language-cpp code-clang-doc">basic_string_view parseNumber (bool AllowNegative)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>&lt;number</p>
+                                        <p>&gt; ::= [n] </p>
+                                        <p>&lt;non</p>
+                                        <p>-negative decimal integer&gt;</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3899 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79515F59B6BD64A38559B3414B581514BEA4C74A">
+                                <pre><code class="language-cpp code-clang-doc">Qualifiers parseCVQualifiers ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p>&lt;CV</p>
+                                        <p>-Qualifiers&gt; ::= [r] [V] [K]</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4717 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A0558451C63C4A19EE92A5C1EB37EFCE350A380F">
+                                <pre><code class="language-cpp code-clang-doc">bool parsePositiveInteger (size_t * Out)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>&lt;positive</p>
+                                        <p> length number&gt; ::= [0-9]*</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3913 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="47ED2544DB58CA8021D749DBF3F939D6B1ABAFC8">
+                                <pre><code class="language-cpp code-clang-doc">basic_string_view parseBareSourceName ()</code></pre>
+                                <p>Defined at line 3925 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D860FC9BEF33E75637E7AABA8D90462B7968A173">
+                                <pre><code class="language-cpp code-clang-doc">bool parseSeqId (size_t * Out)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>&lt;seq</p>
+                                        <p>-id&gt; ::= </p>
+                                        <p>&lt;</p>
+                                        <p>0-9A-Z&gt;+</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5800 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44AC09431F7322AB428C3018CE1DF2EB3B6554CD">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseSubstitution ()</code></pre>
+                                <p>Defined at line 5833 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DEEBDA7CA0DC9194D93D00929558F9B87EA6C27D">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseTemplateParam ()</code></pre>
+                                <p>Defined at line 5899 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1910E596297D3A17B2BC3DB6761023474828D6A">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseTemplateParamDecl (TemplateParamList * Params)</code></pre>
+                                <p>Defined at line 5969 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DCE1DD12F3B3D6E808AE48EC9680351DA4FD0A6E">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseTemplateArgs (bool TagTemplates)</code></pre>
+                                <p>Defined at line 6105 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C74AE2F22D98529BF98A69E8F8F060A09D1E3988">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseTemplateArg ()</code></pre>
+                                <p>Defined at line 6052 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E543F7D6258726B5F06752F51C6D4364B9F22F2">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseExpr ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse the </p>
+                                        <p>&lt;expression</p>
+                                        <p>&gt; production.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5176 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C08CBA9943547909DB0A90A0D05241895A796EC5">
+                                <pre><code class="language-cpp code-clang-doc">Node * parsePrefixExpr (basic_string_view Kind, Prec Prec)</code></pre>
+                                <p>Defined at line 4684 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C25AB41EED1011E991BF91F3486CBEA751173EF5">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseBinaryExpr (basic_string_view Kind, Prec Prec)</code></pre>
+                                <p>Defined at line 4694 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DCDD798DE7612F926A452DD3C6DA7E5E8A5B6EFD">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseIntegerLiteral (basic_string_view Lit)</code></pre>
+                                <p>Defined at line 4707 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="147B30B350CA6039D22DB5A22B73B963D106F127">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseExprPrimary ()</code></pre>
+                                <p>Defined at line 4799 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="97CA86BA52CC2E25700789EEAD61FC817739BFD2">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;class Float&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">Node * parseFloatingLiteral ()</code></pre>
+                                <p>Defined at line 5783 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9A5D31414BC984B843B228FB9759F61DEF6A45F4">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseFunctionParam ()</code></pre>
+                                <p>Defined at line 4734 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3B955F8118518CF7579C719375FD7899F6D9256A">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseConversionExpr ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> cv </p>
+                                        <p>&lt;type</p>
+                                        <p>&gt; </p>
+                                        <p>&lt;expression</p>
+                                        <p>&gt;                               # conversion with one argument</p>
+                                        <p> cv </p>
+                                        <p>&lt;type</p>
+                                        <p>&gt; _ </p>
+                                        <p>&lt;expression</p>
+                                        <p>&gt;* E                          # conversion with a different number of arguments</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4761 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2552482588DF7A83D09511B2933308C43225CB67">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseBracedExpr ()</code></pre>
+                                <p>Defined at line 4919 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="38210D2D0B79415135BC4BC47660D578E612B96F">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseFoldExpr ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> (not yet in the spec)</p>
+                                        <p>&lt;fold</p>
+                                        <p>-expr&gt; ::= fL </p>
+                                        <p>&lt;binary</p>
+                                        <p>-operator-name&gt; </p>
+                                        <p>&lt;expression</p>
+                                        <p>&gt; </p>
+                                        <p>&lt;expression</p>
+                                        <p>&gt;</p>
+                                        <p>             ::= fR </p>
+                                        <p>&lt;binary</p>
+                                        <p>-operator-name&gt; </p>
+                                        <p>&lt;expression</p>
+                                        <p>&gt; </p>
+                                        <p>&lt;expression</p>
+                                        <p>&gt;</p>
+                                        <p>             ::= fl </p>
+                                        <p>&lt;binary</p>
+                                        <p>-operator-name&gt; </p>
+                                        <p>&lt;expression</p>
+                                        <p>&gt;</p>
+                                        <p>             ::= fr </p>
+                                        <p>&lt;binary</p>
+                                        <p>-operator-name&gt; </p>
+                                        <p>&lt;expression</p>
+                                        <p>&gt;</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4966 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DBB3F978340F22CF2341D81F7ED54751EECCED2B">
+                                <pre><code class="language-cpp code-clang-doc">Node * parsePointerToMemberConversionExpr (Prec Prec)</code></pre>
+                                <p>Defined at line 5018 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="97EBBA47C1711383A2EC9EFEFD8A50A27E5AF966">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseSubobjectExpr ()</code></pre>
+                                <p>Defined at line 5038 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C945E2D8D8340505BEF2A2A91700BDCE5ED8E678">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseConstraintExpr ()</code></pre>
+                                <p>Defined at line 5061 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4058065E7F9F6AB324A15B774F4D347C046FCF77">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseRequiresExpr ()</code></pre>
+                                <p>Defined at line 5070 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="547AC37F1DB46C48A078C26FE841799DD2B2B2A6">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseType ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse the </p>
+                                        <p>&lt;type</p>
+                                        <p>&gt; production.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4202 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="005196816415B37E6F3181C9DDC9D7C25FF170A0">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseFunctionType ()</code></pre>
+                                <p>Defined at line 3943 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="10A69AF5934ADA4B8717A237F6D4D08A4069434E">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseVectorType ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> extension:</p>
+                                        <p>&lt;vector</p>
+                                        <p>-type&gt;           ::= Dv </p>
+                                        <p>&lt;positive</p>
+                                        <p> dimension number&gt; _ </p>
+                                        <p>&lt;extended</p>
+                                        <p> element type&gt;</p>
+                                        <p>                         ::= Dv [</p>
+                                        <p>&lt;dimension</p>
+                                        <p> expression&gt;] _ </p>
+                                        <p>&lt;element</p>
+                                        <p> type&gt;</p>
+                                        <p>&lt;extended</p>
+                                        <p> element type&gt; ::= </p>
+                                        <p>&lt;element</p>
+                                        <p> type&gt;</p>
+                                        <p>                         ::= p # AltiVec vector pixel</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4013 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF44B139387A0025156955184195FA75120AF7EA">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseDecltype ()</code></pre>
+                                <p>Defined at line 4050 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4821958DB5162A8E9AF1F750408454B55940FD4F">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseArrayType ()</code></pre>
+                                <p>Defined at line 4066 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3B152875368A8115106CC3870A01A11C3E0EF3CE">
+                                <pre><code class="language-cpp code-clang-doc">Node * parsePointerToMemberType ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p>&lt;pointer</p>
+                                        <p>-to-member-type&gt; ::= M </p>
+                                        <p>&lt;class</p>
+                                        <p> type&gt; </p>
+                                        <p>&lt;member</p>
+                                        <p> type&gt;</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4095 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E4BAB1FE3033E8D8ADD61C23DE3AF2E7D21B9779">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseClassEnumType ()</code></pre>
+                                <p>Defined at line 4112 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="51A8391DE087F65B232ECB905A718F7AA0A06D05">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseQualifiedType ()</code></pre>
+                                <p>Defined at line 4135 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F7739B36C43C0D3D85A9859BFD147BB0796A9F60">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseEncoding (bool ParseParams)</code></pre>
+                                <p>Defined at line 5651 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3FC84926F85039EA91626BFE9603C888303F84B2">
+                                <pre><code class="language-cpp code-clang-doc">bool parseCallOffset ()</code></pre>
+                                <p>Defined at line 5473 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EFF9B1413C2873156E15B7C9521F62DD1234756C">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseSpecialName ()</code></pre>
+                                <p>Defined at line 5506 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2DD1857061CA1679E97D53F4AA1C9B08A0305210">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseName (NameState * State)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse the </p>
+                                        <p>&lt;name</p>
+                                        <p>&gt; production&gt;</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3064 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D644608F15424123055EBBB01074F946587AAE43">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseLocalName (NameState * State)</code></pre>
+                                <p>Defined at line 3100 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D0F43C88665D734E5034A924BBFF42FF7E2D183D">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseOperatorName (NameState * State)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>&lt;operator</p>
+                                        <p>-name&gt; ::= See parseOperatorEncoding()</p>
+                                        <p>                   ::= li </p>
+                                        <p>&lt;source</p>
+                                        <p>-name&gt;  # operator &quot;&quot;</p>
+                                        <p>                   ::= v </p>
+                                        <p>&lt;digit</p>
+                                        <p>&gt; </p>
+                                        <p>&lt;source</p>
+                                        <p>-name&gt;  # vendor extended operator</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3483 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="43A0857EAD2D326B6AD0EDCF59E5653D9B0AAFC7">
+                                <pre><code class="language-cpp code-clang-doc">bool parseModuleNameOpt (ModuleName *&amp; Module)</code></pre>
+                                <p>Defined at line 3232 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="61A3C794830E0CA635DF9566FFA041D4F4094EED">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseUnqualifiedName (NameState * State, Node * Scope, ModuleName * Module)</code></pre>
+                                <p>Defined at line 3181 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D8CA440697DC355D1228558B7137B74957EB4A57">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseUnnamedTypeName (NameState * State)</code></pre>
+                                <p>Defined at line 3255 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E9DD16CAD902F152F88301DFD01E7D9D23614C6E">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseSourceName (NameState * State)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>&lt;source</p>
+                                        <p>-name&gt; ::= </p>
+                                        <p>&lt;positive</p>
+                                        <p> length number&gt; </p>
+                                        <p>&lt;identifier</p>
+                                        <p>&gt;</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3352 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FDBAA1CB401FB0D8E854A0162B8D72F785DA5F0C">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseUnscopedName (NameState * State, bool * isSubstName)</code></pre>
+                                <p>Defined at line 3140 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E2DB7D6A04712D2957018AFCFA78916B9F5CA040">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseNestedName (NameState * State)</code></pre>
+                                <p>Defined at line 3603 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1DCF37D60C4FA6DDC95EF94F144E1080D5500F09">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseCtorDtorName (Node *&amp; SoFar, NameState * State)</code></pre>
+                                <p>Defined at line 3546 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B7EADEF5B4D2647587C5E24FBC5C88F52019115">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseAbiTags (Node * N)</code></pre>
+                                <p>Defined at line 3885 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="178150060A51D74B741CAA012533762EFFDFEA81">
+                                <pre><code class="language-cpp code-clang-doc">const OperatorInfo * parseOperatorEncoding ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If the next 2 chars are an operator encoding, consume them and return their</p>
+                                        <p> OperatorInfo.  Otherwise return nullptr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3457 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="33D1AA9D680892A6D7A2A93B1476A5988F56832B">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseUnresolvedName (bool Global)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse the </p>
+                                        <p>&lt;unresolved</p>
+                                        <p>-name&gt; production.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3797 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CFBE254778C5323CC52154FDDA5F87C8E9F83B4A">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseSimpleId ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p>&lt;simple</p>
+                                        <p>-id&gt; ::= </p>
+                                        <p>&lt;source</p>
+                                        <p>-name&gt; [ </p>
+                                        <p>&lt;template</p>
+                                        <p>-args&gt; ]</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3706 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B021DEBDACDDF6E9C946F181BF458D6C5437C70">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseBaseUnresolvedName ()</code></pre>
+                                <p>Defined at line 3763 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EF9D49DCC1AF506F0DB808014B848BAA017A70F2">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseUnresolvedType ()</code></pre>
+                                <p>Defined at line 3737 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="307EBB9E3B2C8ED340752E1E80B38B262E1FA722">
+                                <pre><code class="language-cpp code-clang-doc">Node * parseDestructorName ()</code></pre>
+                                <p>Defined at line 3722 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1EE48B9F46DE9B165C94CD0D681EDE9D1977F7D5">
+                                <pre><code class="language-cpp code-clang-doc">Node * parse (bool ParseParams)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Top-level entry point into the parser.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 6160 of file llvm/include/llvm/Demangle/ItaniumDemangle.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

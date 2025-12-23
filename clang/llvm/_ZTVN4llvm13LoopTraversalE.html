@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LoopTraversal</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LoopTraversal</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4FEBFEDC53E564F91A4E251C3161EC3E1839FAA9">traverse</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BCD019B58C5E621DBFED2171D515E2EC386B1304">LoopTraversal</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LoopTraversal</h1>
+                        <p>Defined at line 65 of file llvm/include/llvm/CodeGen/LoopTraversal.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This class provides the basic blocks traversal order used by passes like</p>
+                                <p> ReachingDefAnalysis and ExecutionDomainFix.</p>
+                                <p> It identifies basic blocks that are part of loops and should to be visited</p>
+                                <p> twice and returns efficient traversal order for all the blocks.</p>
+                            </div>
+                            <div>
+                                <p> We want to visit every instruction in every basic block in order to update</p>
+                                <p> it&#39;s execution domain or collect clearance information. However, for the</p>
+                                <p> clearance calculation, we need to know clearances from all predecessors</p>
+                                <p> (including any backedges), therfore we need to visit some blocks twice.</p>
+                                <p> As an example, consider the following loop.</p>
+                            </div>
+                            <div>
+                                <p>    PH -&gt; A -&gt; B (xmm</p>
+                                <p>&lt;Undef</p>
+                                <p>&gt; -&gt; xmm</p>
+                                <p>&lt;Def</p>
+                                <p>&gt;) -&gt; C -&gt; D -&gt; EXIT</p>
+                                <p>          ^                                  |</p>
+                                <p>          +----------------------------------+</p>
+                            </div>
+                            <div>
+                                <p> The iteration order this pass will return is as follows:</p>
+                                <p> Optimized: PH A B C A&#39; B&#39; C&#39; D</p>
+                            </div>
+                            <div>
+                                <p> The basic block order is constructed as follows:</p>
+                                <p> Once we finish processing some block, we update the counters in MBBInfos</p>
+                                <p> and re-process any successors that are now &#39;done&#39;.</p>
+                                <p> We call a block that is ready for its final round of processing `done`</p>
+                                <p> (isBlockDone), e.g. when all predecessor information is known.</p>
+                            </div>
+                            <div>
+                                <p> Note that a naive traversal order would be to do two complete passes over</p>
+                                <p> all basic blocks/instructions, the first for recording clearances, the</p>
+                                <p> second for updating clearance based on backedges.</p>
+                                <p> However, for functions without backedges, or functions with a lot of</p>
+                                <p> straight-line code, and a small loop, that would be a lot of unnecessary</p>
+                                <p> work (since only the BBs that are part of the loop require two passes).</p>
+                            </div>
+                            <div>
+                                <p> E.g., the naive iteration order for the above exmple is as follows:</p>
+                                <p> Naive: PH A B C D A&#39; B&#39; C&#39; D&#39;</p>
+                            </div>
+                            <div>
+                                <p> In the optimized approach we avoid processing D twice, because we</p>
+                                <p> can entirely process the predecessors before getting to D.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="4FEBFEDC53E564F91A4E251C3161EC3E1839FAA9">
+                                <pre><code class="language-cpp code-clang-doc">TraversalOrder traverse (MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 24 of file llvm/lib/CodeGen/LoopTraversal.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BCD019B58C5E621DBFED2171D515E2EC386B1304">
+                                <pre><code class="language-cpp code-clang-doc">void LoopTraversal ()</code></pre>
+                                <p>Defined at line 101 of file llvm/include/llvm/CodeGen/LoopTraversal.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

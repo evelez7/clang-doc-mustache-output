@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SampleProfileReaderExtBinaryBase</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">sampleprof</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SampleProfileReaderExtBinaryBase</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0A86B938D86D9D90227B4E30BF497B695A100552">SampleProfileReaderExtBinaryBase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7C6D0636D50AE6AE00844319079609F76A4AA681">SampleProfileReaderExtBinaryBase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A4530095A0911DEBD7F3DC0D185185D64063C1B">getProfileSymbolList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E63461F3D74EE026ACD51197CF248EF09611631B">readImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5EA43A7D014BCD31AFCDEF8C14672A7B6B12AA7E">getSectionSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#75B4F3A5C157CCFABBB7D3F6C85FCC17533FB72C">getFileSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#96E10E9170D3589B3504E33F915C85E32AC348AF">dumpSectionInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#483730D25A0E58748B872CD929FD1E0EFCD10BB7">collectFuncsFromModule</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SampleProfileReaderExtBinaryBase</h1>
+                        <p>Defined at line 778 of file llvm/include/llvm/ProfileData/SampleProfReader.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> SampleProfileReaderExtBinaryBase/SampleProfileWriterExtBinaryBase defines</p>
+                                <p> the basic structure of the extensible binary format.</p>
+                                <p> The format is organized in sections except the magic and version number</p>
+                                <p> at the beginning. There is a section table before all the sections, and</p>
+                                <p> each entry in the table describes the entry type, start, size and</p>
+                                <p> attributes. The format in each section is defined by the section itself.</p>
+                            </div>
+                            <div>
+                                <p> It is easy to add a new section while maintaining the backward</p>
+                                <p> compatibility of the profile. Nothing extra needs to be done. If we want</p>
+                                <p> to extend an existing section, like add cache misses information in</p>
+                                <p> addition to the sample count in the profile body, we can add a new section</p>
+                                <p> with the extension and retire the existing section, and we could choose</p>
+                                <p> to keep the parser of the old section if we want the reader to be able</p>
+                                <p> to read both new and old format profile.</p>
+                            </div>
+                            <div>
+                                <p> SampleProfileReaderExtBinary/SampleProfileWriterExtBinary define the</p>
+                                <p> commonly used sections of a profile in extensible binary format. It is</p>
+                                <p> possible to define other types of profile inherited from</p>
+                                <p> SampleProfileReaderExtBinaryBase/SampleProfileWriterExtBinaryBase.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="0A86B938D86D9D90227B4E30BF497B695A100552">
+                                <pre><code class="language-cpp code-clang-doc">void SampleProfileReaderExtBinaryBase (unique_ptr B, LLVMContext &amp; C, SampleProfileFormat Format)</code></pre>
+                                <p>Defined at line 832 of file llvm/include/llvm/ProfileData/SampleProfReader.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7C6D0636D50AE6AE00844319079609F76A4AA681">
+                                <pre><code class="language-cpp code-clang-doc">void SampleProfileReaderExtBinaryBase (int B, LLVMContext &amp; C, SampleProfileFormat Format)</code></pre>
+                                <p>Defined at line 832 of file llvm/include/llvm/ProfileData/SampleProfReader.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A4530095A0911DEBD7F3DC0D185185D64063C1B">
+                                <pre><code class="language-cpp code-clang-doc">unique_ptr getProfileSymbolList ()</code></pre>
+                                <p>Defined at line 849 of file llvm/include/llvm/ProfileData/SampleProfReader.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E63461F3D74EE026ACD51197CF248EF09611631B">
+                                <pre><code class="language-cpp code-clang-doc">error_code readImpl ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read sample profiles in extensible format from the associated file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1175 of file llvm/lib/ProfileData/SampleProfReader.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5EA43A7D014BCD31AFCDEF8C14672A7B6B12AA7E">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSectionSize (SecType Type)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the total size of all </p>
+                                        <p> sections.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1530 of file llvm/lib/ProfileData/SampleProfReader.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="75B4F3A5C157CCFABBB7D3F6C85FCC17533FB72C">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getFileSize ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the total size of header and all sections.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1539 of file llvm/lib/ProfileData/SampleProfReader.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="96E10E9170D3589B3504E33F915C85E32AC348AF">
+                                <pre><code class="language-cpp code-clang-doc">bool dumpSectionInfo (raw_ostream &amp; OS)</code></pre>
+                                <p>Defined at line 1602 of file llvm/lib/ProfileData/SampleProfReader.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="483730D25A0E58748B872CD929FD1E0EFCD10BB7">
+                                <pre><code class="language-cpp code-clang-doc">bool collectFuncsFromModule ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Collect functions with definitions in Module M. Return true if</p>
+                                        <p> the reader has been given a module.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 970 of file llvm/lib/ProfileData/SampleProfReader.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

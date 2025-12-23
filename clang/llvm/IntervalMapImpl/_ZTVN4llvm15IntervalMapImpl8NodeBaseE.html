@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>NodeBase</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">IntervalMapImpl</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class NodeBase</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#first">first</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#second">second</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Capacity">Capacity</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5962B6D8774B7920698A43C12D904F0D80713575">copy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A59194D05501D675847D5D4858B5FC374D9A12B4">moveLeft</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5ED53FEE3976C1A187E40223B60C2DBFF5218891">moveRight</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#35000087779AD4396E2D8FE57B6D9F76DB4186E8">erase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4260865A06A61AE575BAE28A202337D9B55A6C7B">erase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B57EAB7739BFDD0A270A6EEE3F22C0BAA437F0C1">shift</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BC258C7DC0C321416D94A4FB31BF296154E5682B">transferToLeftSib</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7143ADC3495C8819CF6A458BF35BB0C4E00E1C45">transferToRightSib</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#75BCCC74F937DF5FEB5A709E03F0BD5CC72EA39E">adjustFromLeftSib</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename T1, typename T2, unsigned N&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class NodeBase</h1>
+                        <p>Defined at line 224 of file llvm/include/llvm/ADT/IntervalMap.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p>===----------------------------------------------------------------------===//</p>
+                                <p>---                    IntervalMapImpl::NodeBase                         ---//</p>
+                                <p>===----------------------------------------------------------------------===//</p>
+                            </div>
+                            <div>
+                                <p> Both leaf and branch nodes store vectors of pairs.</p>
+                                <p> Leaves store ((KeyT, KeyT), ValT) pairs, branches use (NodeRef, KeyT).</p>
+                            </div>
+                            <div>
+                                <p> Keys and values are stored in separate arrays to avoid padding caused by</p>
+                                <p> different object alignments. This also helps improve locality of reference</p>
+                                <p> when searching the keys.</p>
+                            </div>
+                            <div>
+                                <p> The nodes don&#39;t know how many elements they contain - that information is</p>
+                                <p> stored elsewhere. Omitting the size field prevents padding and allows a node</p>
+                                <p> to fill the allocated cache lines completely.</p>
+                            </div>
+                            <div>
+                                <p> These are typical key and value sizes, the node branching factor (N), and</p>
+                                <p> wasted space when nodes are sized to fit in three cache lines (192 bytes):</p>
+                            </div>
+                            <div>
+                                <p>   T1  T2   N Waste  Used by</p>
+                                <p>    4   4  24   0    Branch</p>
+                                <p>&lt;</p>
+                                <p>4&gt; (32-bit pointers)</p>
+                                <p>    8   4  16   0    Leaf</p>
+                                <p>&lt;</p>
+                                <p>4,4&gt;, Branch</p>
+                                <p>&lt;</p>
+                                <p>4&gt;</p>
+                                <p>    8   8  12   0    Leaf</p>
+                                <p>&lt;</p>
+                                <p>4,8&gt;, Branch</p>
+                                <p>&lt;</p>
+                                <p>8&gt;</p>
+                                <p>   16   4   9  12    Leaf</p>
+                                <p>&lt;</p>
+                                <p>8,4&gt;</p>
+                                <p>   16   8   8   0    Leaf</p>
+                                <p>&lt;</p>
+                                <p>8,8&gt;</p>
+                            </div>
+                            <div>
+                                <p>===----------------------------------------------------------------------===//</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="first" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >T1[N] first</code></pre>
+                        </div>
+                        <div id="second" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >T2[N] second</code></pre>
+                        </div>
+                        <div id="Capacity" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static const unsigned int Capacity</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="5962B6D8774B7920698A43C12D904F0D80713575">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;unsigned M&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void copy (const NodeBase&lt;T1, T2, M&gt; &amp; Other, unsigned int i, unsigned int j, unsigned int Count)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> copy - Copy elements from another node.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Other</b>   Node elements are copied from.
+                                    </div> 
+                                    <div>
+                                        <b>i</b>       Beginning of the source range in other.
+                                    </div> 
+                                    <div>
+                                        <b>j</b>       Beginning of the destination range in this.
+                                    </div> 
+                                    <div>
+                                        <b>Count</b>   Number of elements to copy.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 237 of file llvm/include/llvm/ADT/IntervalMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A59194D05501D675847D5D4858B5FC374D9A12B4">
+                                <pre><code class="language-cpp code-clang-doc">void moveLeft (unsigned int i, unsigned int j, unsigned int Count)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> moveLeft - Move elements to the left.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>i</b>       Beginning of the source range.
+                                    </div> 
+                                    <div>
+                                        <b>j</b>       Beginning of the destination range.
+                                    </div> 
+                                    <div>
+                                        <b>Count</b>   Number of elements to copy.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 251 of file llvm/include/llvm/ADT/IntervalMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5ED53FEE3976C1A187E40223B60C2DBFF5218891">
+                                <pre><code class="language-cpp code-clang-doc">void moveRight (unsigned int i, unsigned int j, unsigned int Count)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> moveRight - Move elements to the right.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>i</b>       Beginning of the source range.
+                                    </div> 
+                                    <div>
+                                        <b>j</b>       Beginning of the destination range.
+                                    </div> 
+                                    <div>
+                                        <b>Count</b>   Number of elements to copy.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 260 of file llvm/include/llvm/ADT/IntervalMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="35000087779AD4396E2D8FE57B6D9F76DB4186E8">
+                                <pre><code class="language-cpp code-clang-doc">void erase (unsigned int i, unsigned int j, unsigned int Size)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> erase - Erase elements [i;j).</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>i</b>      Beginning of the range to erase.
+                                    </div> 
+                                    <div>
+                                        <b>j</b>      End of the range. (Exclusive).
+                                    </div> 
+                                    <div>
+                                        <b>Size</b>   Number of elements in node.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 273 of file llvm/include/llvm/ADT/IntervalMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4260865A06A61AE575BAE28A202337D9B55A6C7B">
+                                <pre><code class="language-cpp code-clang-doc">void erase (unsigned int i, unsigned int Size)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> erase - Erase element at i.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>i</b>      Index of element to erase.
+                                    </div> 
+                                    <div>
+                                        <b>Size</b>   Number of elements in node.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 280 of file llvm/include/llvm/ADT/IntervalMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B57EAB7739BFDD0A270A6EEE3F22C0BAA437F0C1">
+                                <pre><code class="language-cpp code-clang-doc">void shift (unsigned int i, unsigned int Size)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> shift - Shift elements [i;size) 1 position to the right.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>i</b>      Beginning of the range to move.
+                                    </div> 
+                                    <div>
+                                        <b>Size</b>   Number of elements in node.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 287 of file llvm/include/llvm/ADT/IntervalMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BC258C7DC0C321416D94A4FB31BF296154E5682B">
+                                <pre><code class="language-cpp code-clang-doc">void transferToLeftSib (unsigned int Size, NodeBase&lt;T1, T2, N&gt; &amp; Sib, unsigned int SSize, unsigned int Count)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> transferToLeftSib - Transfer elements to a left sibling node.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Size</b>    Number of elements in this.
+                                    </div> 
+                                    <div>
+                                        <b>Sib</b>     Left sibling node.
+                                    </div> 
+                                    <div>
+                                        <b>SSize</b>   Number of elements in sib.
+                                    </div> 
+                                    <div>
+                                        <b>Count</b>   Number of elements to transfer.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 296 of file llvm/include/llvm/ADT/IntervalMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7143ADC3495C8819CF6A458BF35BB0C4E00E1C45">
+                                <pre><code class="language-cpp code-clang-doc">void transferToRightSib (unsigned int Size, NodeBase&lt;T1, T2, N&gt; &amp; Sib, unsigned int SSize, unsigned int Count)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> transferToRightSib - Transfer elements to a right sibling node.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Size</b>    Number of elements in this.
+                                    </div> 
+                                    <div>
+                                        <b>Sib</b>     Right sibling node.
+                                    </div> 
+                                    <div>
+                                        <b>SSize</b>   Number of elements in sib.
+                                    </div> 
+                                    <div>
+                                        <b>Count</b>   Number of elements to transfer.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 307 of file llvm/include/llvm/ADT/IntervalMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="75BCCC74F937DF5FEB5A709E03F0BD5CC72EA39E">
+                                <pre><code class="language-cpp code-clang-doc">int adjustFromLeftSib (unsigned int Size, NodeBase&lt;T1, T2, N&gt; &amp; Sib, unsigned int SSize, int Add)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> adjustFromLeftSib - Adjust the number if elements in this node by moving</p>
+                                        <p> elements to or from a left sibling node.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Size</b>    Number of elements in this.
+                                    </div> 
+                                    <div>
+                                        <b>Sib</b>     Right sibling node.
+                                    </div> 
+                                    <div>
+                                        <b>SSize</b>   Number of elements in sib.
+                                    </div> 
+                                    <div>
+                                        <b>Add</b>     The number of elements to add to this node, possibly &lt; 0.
+                                    </div> 
+                                    <h3>Returns</h3>
+                                    <p>      Number of elements added to this node, possibly negative.</p>
+                                </div>
+                                <p>Defined at line 320 of file llvm/include/llvm/ADT/IntervalMap.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>PluginInlineAdvisorAnalysis</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class PluginInlineAdvisorAnalysis</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Key">Key</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D79B7F85886E5DC66BD0302BC00B92BAF91BB4DD">PluginInlineAdvisorAnalysis</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#837E2DEA6C455174B68E5F47438144F1F79A21FA">run</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5A913F7022018003499E33028718B90F43FEEDB7">getResult</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class PluginInlineAdvisorAnalysis</h1>
+                        <p>Defined at line 281 of file llvm/include/llvm/Analysis/InlineAdvisor.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Used for dynamically registering InlineAdvisors as plugins</p>
+                            </div>
+                            <div>
+                                <p> An advisor plugin adds a new advisor at runtime by registering an instance</p>
+                                <p> of PluginInlineAdvisorAnalysis in the current ModuleAnalysisManager.</p>
+                                <p> For example, the following code dynamically registers a</p>
+                                <p> DefaultInlineAdvisor:</p>
+                            </div>
+                            <div>
+                                <p> namespace {</p>
+                            </div>
+                            <div>
+                                <p> InlineAdvisor *defaultAdvisorFactory(Module </p>
+                                <p>&amp;M</p>
+                                <p>,</p>
+                                <p>                                      FunctionAnalysisManager </p>
+                                <p>&amp;FAM</p>
+                                <p>,</p>
+                                <p>                                      InlineParams Params,</p>
+                                <p>                                      InlineContext IC) {</p>
+                                <p>   return new DefaultInlineAdvisor(M, FAM, Params, IC);</p>
+                                <p> }</p>
+                            </div>
+                            <div>
+                                <p> } // namespace</p>
+                            </div>
+                            <div>
+                                <p> extern &quot;C&quot; LLVM_ATTRIBUTE_WEAK ::llvm::PassPluginLibraryInfo</p>
+                                <p> llvmGetPassPluginInfo() {</p>
+                                <p>   return {LLVM_PLUGIN_API_VERSION, &quot;DynamicDefaultAdvisor&quot;,</p>
+                                <p>           LLVM_VERSION_STRING,</p>
+                                <p>           [](PassBuilder </p>
+                                <p>&amp;PB</p>
+                                <p>) {</p>
+                                <p>             PB.registerAnalysisRegistrationCallback(</p>
+                                <p>                 [](ModuleAnalysisManager </p>
+                                <p>&amp;MAM</p>
+                                <p>) {</p>
+                                <p>                   PluginInlineAdvisorAnalysis PA(defaultAdvisorFactory);</p>
+                                <p>                   MAM.registerPass([</p>
+                                <p>&amp;</p>
+                                <p>] { return PA; });</p>
+                                <p>                 });</p>
+                                <p>           }};</p>
+                                <p> }</p>
+                            </div>
+                            <div>
+                                <p> A plugin must implement an AdvisorFactory and register it with a</p>
+                                <p> PluginInlineAdvisorAnlysis to the provided ModuleAnalysisManager.</p>
+                            </div>
+                            <div>
+                                <p> If such a plugin has been registered</p>
+                                <p> InlineAdvisorAnalysis::Result::tryCreate will return the dynamically loaded</p>
+                                <p> advisor.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Key" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static AnalysisKey Key</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="D79B7F85886E5DC66BD0302BC00B92BAF91BB4DD">
+                                <pre><code class="language-cpp code-clang-doc">void PluginInlineAdvisorAnalysis (AdvisorFactory Factory)</code></pre>
+                                <p>Defined at line 291 of file llvm/include/llvm/Analysis/InlineAdvisor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="837E2DEA6C455174B68E5F47438144F1F79A21FA">
+                                <pre><code class="language-cpp code-clang-doc">Result run (Module &amp; M, ModuleAnalysisManager &amp; MAM)</code></pre>
+                                <p>Defined at line 300 of file llvm/include/llvm/Analysis/InlineAdvisor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5A913F7022018003499E33028718B90F43FEEDB7">
+                                <pre><code class="language-cpp code-clang-doc">Result getResult ()</code></pre>
+                                <p>Defined at line 301 of file llvm/include/llvm/Analysis/InlineAdvisor.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

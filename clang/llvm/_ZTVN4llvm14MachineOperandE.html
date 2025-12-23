@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MachineOperand</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MachineOperand</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9488A87A14A46CA69AC0E9BA8751BD018DD536E1">getOperandNo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0AC4C07C8534600B45A1C9CDF27021EF7439CB4A">isRenamable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E2639E1F6EBEAFF643AAE74131E9F25D8A2AFF0">setReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E8A4CB6B5B53313CF86DF54C3C12D8038FFACB7E">substVirtReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EBAE375AA3C1962DBCBCEFC07757A5682CA8CB69">substPhysReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A60714275DA3614487A9D792C981E86E01E6C63B">setIsDef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#37F2F8AF21AE80BA88A37BC190ADAC6E41EF188E">setIsRenamable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A39415D1CF525205D9EB4D0CC50946C424DB20C5">getType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9402139372B4D8AF8A59A73C0D0FD47335EC8707">getTargetFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#06273246EB4ABDBC89E70656A94C85EA31C7FD3A">setTargetFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7E7F5AFB3A5413B66F41F7B90B5749D5E5B5288C">addTargetFlag</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1C505CB6C4BB7004F49593E5EF7ECF047C36CF03">getParent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#73EEE94AA623B5297748F92EE7484370F723676D">getParent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#71EB09084819A6339188C8F1D2869DD4B5A4B403">clearParent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#73ED3E947084814BD1D3091AB0BF4608875922BD">isReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A367F15F57BA0502559C4CF724DAEBBE0793DBB9">isIdenticalTo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0AEFC52E79A20CF770E57DC55E0D1D0CDC1BEE68">ChangeToImmediate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B6FBC001EC857CE523951C06FD035C2833CDC8F4">ChangeToFPImmediate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CEB4A815B5A5B688209B0265EA319D13A2E613D1">ChangeToES</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#287EFCB5CE48A10427180E1C6C852D4C52A353D4">ChangeToGA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4DC6D6574E324E64731204E8A964FE0367DBDF6A">ChangeToBA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1906D728250380B3FD6842754660B5E15CAD29EF">ChangeToCPI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BAD041D20C1892B52B90596F225E336A668D3262">ChangeToMCSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#60F62A6A862B9F546A74A79327372AE74B1CF7CB">ChangeToFrameIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC4DBB6C7180C5D7BDFE6EB206FB339DE6932C0E">ChangeToTargetIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#19F21D144BF4266DED590B7B9F0D63567BF9132A">ChangeToDbgInstrRef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2CE9E69162116AEBA33D514C5DA50124FF76F46D">ChangeToRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1C60E2C3D0D7CFA1DAAC99A980298C9ACCB5B90B">isImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F272044CFC65048F5DAFB124C02EC8110857929A">isCImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D498BFB5356973E07ADF76EFB2EB3924990DF8CA">isFPImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#05A0248E2D72148E076E8D50CE33BC89E3CD283B">isMBB</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#31E68A92054556D17CDB81A182C9037E5E061EB7">isFI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#37A67400FBFE274F1B17B786FF3980CD788D23AB">isCPI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A3311B5DFFECBCAF5F1F036BD9F81A98B48E8619">isTargetIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAAB445A56BB89FCC27DC2199C344900136B4F49">isJTI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4D08EE76A2D27AFDD878AB767808D6CA1F3750B">isGlobal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FED1E2495A27F085D85ECC02EFACEA90B14C8779">isSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2125B8CBF96A1FEBBE7A2555A9BB1B664F4107C2">isBlockAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4398240BA98B8DFF3799BD67768C35946F1F6C22">isRegMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#150D91D0D4A5889EE3A872927E4C12C523A5B8F4">isRegLiveOut</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#64B74F05991544D8FAB9E30456231483BB66544C">isMetadata</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DB2C7AAD3D184DA18F9DCB72342C122AF554C1E1">isMCSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C4601EA1915B72D3CAAFA027137F2779065CF609">isDbgInstrRef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1BA0A367608919F98642C9747E1E0C494E2C7C38">isCFIIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#437C477E15296E2B52EB978563691EAFF5E6D6E4">isIntrinsicID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2D0194812ADCB65E81B9D5753E41F6D5AD6185AE">isPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#40AC16C935293BECC2468EB89F8DD0570D8DFE4C">isShuffleMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23BC4C712EA4C7F75311CE3DA470B270A4529E7A">isLaneMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#714FCD7EA84B468ECBED78FBCBA0F292E84A9B16">getReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4A6C48B7AF5190E2CF6A4C8074A35817FC4EA2B8">getSubReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED4DA4ADEA2B9D264D5626521946D95DFDCCEE65">isUse</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B11AEF00751B7AD9FDA62695414EE0F8183F8112">isDef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D5075E197EBB58BB4D78E3DCE31302593EC60EC3">isImplicit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A012C3D1B0D5FF5A83E289F6ABB7174D696C6154">isDead</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DEC2598E83212F3E4F78A2E01E972FB31411C027">isKill</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8BB0E2AA8295010308A06AE555556305CEC700BD">isUndef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2435B75458C8947D6536D56D6730F0A83755F88">isInternalRead</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B5360E797833A53331A6CE2F016D33FB9A29F532">isEarlyClobber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FCF3FCF2E7AD4D3EE26B575C6671B0FD6802BF0D">isTied</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A93BB2145C3C00008EA246D0EE9D37CBF4C81E06">isDebug</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BD45165A57BA6C3775EF49C8200C9C4AAC832225">readsReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1CCCE84BB3BD49E2C8F88ED658FF57ABFB4E0437">isValidExcessOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6F1D78C31781B28323BE4394730DAE8A239AA9D3">getTargetIndexName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#31A82CA279EA293721B0B7367922A0DB0243DE7D">setSubReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DC224F93EFF80A8B661C39538E6F3892F91C8EF9">setIsUse</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BD19FB8FEC29DEDD7924A76384602D2C17A555CF">setImplicit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#69FD3FB62581D553ADE6F5425E3C727F71E08579">setIsKill</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2347B17BECBF5B342F1C3D7394E69030A8930F58">setIsDead</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EDAC0395A2DF7A4ED4519998E6E69734BD4415AD">setIsUndef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C9E63F6B53948AFEAF5CEF1BB8D5A397BCF6C90">setIsInternalRead</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8535F05595D5F96C790E62EFFF43B48954162792">setIsEarlyClobber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A5DB2C4DA1377F9966ADD70C79ACF5B688B28CC4">setIsDebug</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5EA2AE4689A5A696E63BD0ADBBF75060F8737931">getImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#24650B3AEFA2696BC1C972FB9C2676B26800EB0D">getCImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2FF443307CCE3A0342805614F0236669D3A1EAA5">getFPImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C8787C5FEF24D2A55A53C72D48F2CB367E426BC6">getMBB</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7476A7383C91B42618439A8B9CFD0FF30766E5BC">getIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C662AFE7A9E367CBCBD21A9AA85326267B90F1BA">printSubRegIdx</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#313908492A0CD765BE5FBCC89D6D4378D9C46BEA">getGlobal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DE50832874EA2646A6BFB8BD0C45046C67B9507F">getBlockAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#24C72CC7041653D37AB9CE4F06F88EBAE0F6A274">printTargetFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8659BDBFED8BB390CC3C1856EBB1831A6F12F5E3">getMCSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1BA6594C4D8A6ECC4DE051CA073B77E44E1B0FA8">getInstrRefInstrIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E4A708C6A504AC7041E082DC357FD7A3EFDDA418">getInstrRefOpIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FE2C4F36A156960D983054C2F64FBF8E485BB3F7">getCFIIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#38A21C3E8CCA9F5BC85DC20DADE35317E1027044">getIntrinsicID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A35C102611ACB8763367CD3D953F022E9131DE51">getPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8AF5F26169359E39470CE19A7841D6B85B2A4A9D">getShuffleMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A7C089BBAA99E2BABDE83BAABF6F173733DE8EC7">getLaneMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FBF085C7EC3B6BD47B65B340F55F0D83A38A118D">getOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#86BC697CD99EE0B548CFDC0A3D1E85B60131AFF1">printSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B7766215A8371DADA8143450ACB1E8D0075E6063">getSymbolName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6D1C502865C081EA02AE1EAB5995CFAA54056A1">printStackObjectReference</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A6815E68F8FC81EDEC1EA0B93A29B852A210CBAD">clobbersPhysReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#90FE08665ED59EC2EDDBD7D8D9A5982FC91BB064">clobbersPhysReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D421140ACFD749B1A563FE6C1EDDCA92DB498251">printOperandOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B6B8D2ADB9172CA4C88B7A1DBE81CD10A2505B33">getRegMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1848F0FE63649E4BF79D6FE5A46C4F1BA15C77D6">printIRSlotNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F3A4F880527D77B79A50DBBB83521E47999A5DA">getRegMaskSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D8253F8832F68C077A90EB37C695F5E3BB8C087">getRegLiveOut</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7A8971AC5336324027E76DBCCEC33F7EB153C1E7">getMetadata</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C24EEEEE5169E96288A9449F51A9E371C60844BA">setImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2E387B5A67D896519F57B2FE844CEB132E4AD63">setCImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CEC1188452608659F2D70B36D9153C22DFC0AA95">setFPImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EA54B13CDE319A15267C0175ADA700C9C50DAEC0">setOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2C8B44766CA0D7F92D13D284869B175111B92DDE">setIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BFDFCA124173EF8E34AB0609CFBC8CBAD8A15BF">setMetadata</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6F2F1ED7F8A2BE144B7930A38FB20CCBC883FA40">setInstrRefInstrIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D7F820537BD8E33CD985C1FA5D6BB4D76B317B1E">setInstrRefOpIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2AEDDE8165766C8031D857ADE0FB1D211E8D804F">setMBB</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B64E382FA811A42BA4717C4F5F015B7631FFB80B">setRegMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F3764EBA9CB8CDE4E77C1EB21278DB3BE856ED85">setIntrinsicID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#513ED3D125467D45645A695C36139EAEBCAD8368">setPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B43F664E2A756500758775F52308A9B562F66AE1">print</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#00E150E8D18256B91D44BB93EA0E9E2AF949AFCD">print</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD196AFE695FFFA309288BB212979E1D71A3CD43">print</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C391DECA7FE494FC7409B02E76D7E73E7B2CD2BA">CreateImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2DB60FFC16CFC835E2774D0271B6A8A54749F07A">CreateCImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B4064AB6377837D091CE2D7880E80606CE77F1A">CreateFPImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5D047F4541C827843BFBC786F91398ABBBBEA01D">CreateReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F91D41CE75199B02135BF5B17D312B342616E139">CreateMBB</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#12D0B8F2E597B5E6B186D68950DCA9360862708B">CreateFI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9AF3D1CF0827507980E53A6783CCE780B823C2D1">CreateCPI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D34A86D7F88E105B7C4CC0F3C1CE3C7F67E5DDD3">CreateTargetIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B6AD3D89E781C23B6F4AC04C939926DD6EE8477">CreateJTI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#31A006BBAB818ADD295BFF586B6A1569A3692D54">CreateGA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0DB8D578AFFE53DD607B491ED8CE815876C4C734">CreateES</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3A29625193E5705AA2F3339AB497734E3798088">CreateBA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F65462C0B0DC2F436BB6042884E2F9A02C7D5A08">CreateRegMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1810AAD0FC368ACC4FDBB2A990FE34D7AAB37898">CreateRegLiveOut</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#81BEBB607832564E35E68EF5699E311F30EC5B85">CreateMetadata</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#959165D2BD55BD2AE080C253AF5A30628B372D68">CreateMCSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D176212EC6C548F954877F547FA17BDC275696B0">CreateDbgInstrRef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#009950E90728DB02970BF3F083590781247577F7">CreateCFIIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BE15AEBADE1E5E0464BCCA15497B2DBEE942DFC9">CreateIntrinsicID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EA5D134A9E7DD2D31478CD3EEBE396A47456B3C7">CreatePredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D30DEBB835745F0367C4E4896D6EA232C49C5353">CreateShuffleMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FF0E1F95BD4B2BB51941B0521595E7F062D4D12F">CreateLaneMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E8868B170EA82E55E9B06CA0A1937F68DA4AB95">dump</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MachineOperand</h1>
+                        <p>Defined at line 49 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> MachineOperand class - Representation of each machine instruction operand.</p>
+                            </div>
+                            <div>
+                                <p> This class isn&#39;t a POD type because it has a private constructor, but its</p>
+                                <p> destructor must be trivial. Functions like MachineInstr::addOperand(),</p>
+                                <p> MachineRegisterInfo::moveOperands(), and MF::DeleteMachineInstr() depend on</p>
+                                <p> not having to call the MachineOperand destructor.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="9488A87A14A46CA69AC0E9BA8751BD018DD536E1">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getOperandNo ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the index of this operand in the instruction that it belongs to.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 55 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0AC4C07C8534600B45A1C9CDF27021EF7439CB4A">
+                                <pre><code class="language-cpp code-clang-doc">bool isRenamable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isRenamable - Returns true if this register may be renamed, i.e. it does</p>
+                                        <p> not generate a value that is somehow read in a way that is not represented</p>
+                                        <p> by the Machine IR (e.g. to meet an ABI or ISA requirement).  This is only</p>
+                                        <p> valid on physical register operands.  Virtual registers are assumed to</p>
+                                        <p> always be renamable regardless of the value of this field.</p>
+                                    </div>
+                                    <div>
+                                        <p> Operands that are renamable can freely be changed to any other register</p>
+                                        <p> that is a member of the register class returned by</p>
+                                        <p> MI-&gt;getRegClassConstraint().</p>
+                                    </div>
+                                    <div>
+                                        <p> isRenamable can return false for several different reasons:</p>
+                                    </div>
+                                    <div>
+                                        <p> - ABI constraints (since liveness is not always precisely modeled).  We</p>
+                                        <p>   conservatively handle these cases by setting all physical register</p>
+                                        <p>   operands that didn’t start out as virtual regs to not be renamable.</p>
+                                        <p>   Also any physical register operands created after register allocation or</p>
+                                        <p>   whose register is changed after register allocation will not be</p>
+                                        <p>   renamable.  This state is tracked in the MachineOperand::IsRenamable</p>
+                                        <p>   bit.</p>
+                                    </div>
+                                    <div>
+                                        <p> - Opcode/target constraints: for opcodes that have complex register class</p>
+                                        <p>   requirements (e.g. that depend on other operands/instructions), we set</p>
+                                        <p>   hasExtraSrcRegAllocReq/hasExtraDstRegAllocReq in the machine opcode</p>
+                                        <p>   description.  Operands belonging to instructions with opcodes that are</p>
+                                        <p>   marked hasExtraSrcRegAllocReq/hasExtraDstRegAllocReq return false from</p>
+                                        <p>   isRenamable().  Additionally, the AllowRegisterRenaming target property</p>
+                                        <p>   prevents any operands from being marked renamable for targets that don&#39;t</p>
+                                        <p>   have detailed opcode hasExtraSrcRegAllocReq/hasExtraDstRegAllocReq</p>
+                                        <p>   values.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 123 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E2639E1F6EBEAFF643AAE74131E9F25D8A2AFF0">
+                                <pre><code class="language-cpp code-clang-doc">void setReg (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Change the register this operand corresponds to.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 60 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E8A4CB6B5B53313CF86DF54C3C12D8038FFACB7E">
+                                <pre><code class="language-cpp code-clang-doc">void substVirtReg (Register Reg, unsigned int SubIdx, const TargetRegisterInfo &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> substVirtReg - Substitute the current register with the virtual</p>
+                                        <p> subregister Reg:SubReg. Take any existing SubReg index into account,</p>
+                                        <p> using TargetRegisterInfo to compose the subreg indices if necessary.</p>
+                                        <p> Reg must be a virtual register, SubIdx can be 0.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 82 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EBAE375AA3C1962DBCBCEFC07757A5682CA8CB69">
+                                <pre><code class="language-cpp code-clang-doc">void substPhysReg (MCRegister Reg, const TargetRegisterInfo &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> substPhysReg - Substitute the current register with the physical register</p>
+                                        <p> Reg, taking any existing SubReg into account. For instance,</p>
+                                        <p> substPhysReg(%eax) will change %reg1024:sub_8bit to %al.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 92 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A60714275DA3614487A9D792C981E86E01E6C63B">
+                                <pre><code class="language-cpp code-clang-doc">void setIsDef (bool Val)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Change a def to a use, or a use to a def.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 106 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="37F2F8AF21AE80BA88A37BC190ADAC6E41EF188E">
+                                <pre><code class="language-cpp code-clang-doc">void setIsRenamable (bool Val)</code></pre>
+                                <p>Defined at line 141 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A39415D1CF525205D9EB4D0CC50946C424DB20C5">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperandType getType ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getType - Returns the MachineOperandType for this operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 227 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9402139372B4D8AF8A59A73C0D0FD47335EC8707">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getTargetFlags ()</code></pre>
+                                <p>Defined at line 229 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="06273246EB4ABDBC89E70656A94C85EA31C7FD3A">
+                                <pre><code class="language-cpp code-clang-doc">void setTargetFlags (unsigned int F)</code></pre>
+                                <p>Defined at line 232 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7E7F5AFB3A5413B66F41F7B90B5749D5E5B5288C">
+                                <pre><code class="language-cpp code-clang-doc">void addTargetFlag (unsigned int F)</code></pre>
+                                <p>Defined at line 237 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1C505CB6C4BB7004F49593E5EF7ECF047C36CF03">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * getParent ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getParent - Return the instruction that this operand belongs to.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 246 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="73EEE94AA623B5297748F92EE7484370F723676D">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstr * getParent ()</code></pre>
+                                <p>Defined at line 247 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="71EB09084819A6339188C8F1D2869DD4B5A4B403">
+                                <pre><code class="language-cpp code-clang-doc">void clearParent ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> clearParent - Reset the parent pointer.</p>
+                                    </div>
+                                    <div>
+                                        <p> The MachineOperand copy constructor also copies ParentMI, expecting the</p>
+                                        <p> original to be deleted. If a MachineOperand is ever stored outside a</p>
+                                        <p> MachineInstr, the parent pointer must be cleared.</p>
+                                    </div>
+                                    <div>
+                                        <p> Never call clearParent() on an operand in a MachineInstr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 257 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="73ED3E947084814BD1D3091AB0BF4608875922BD">
+                                <pre><code class="language-cpp code-clang-doc">bool isReg ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isReg - Tests if this is a MO_Register operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 331 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A367F15F57BA0502559C4CF724DAEBBE0793DBB9">
+                                <pre><code class="language-cpp code-clang-doc">bool isIdenticalTo (const MachineOperand &amp; Other)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if this operand is identical to the specified operand except</p>
+                                        <p> for liveness related flags (isKill, isUndef and isDead). Note that this</p>
+                                        <p> should stay in sync with the hash_value overload below.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 331 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0AEFC52E79A20CF770E57DC55E0D1D0CDC1BEE68">
+                                <pre><code class="language-cpp code-clang-doc">void ChangeToImmediate (int64_t ImmVal, unsigned int TargetFlags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ChangeToImmediate - Replace this operand with a new immediate operand of</p>
+                                        <p> the specified value.  If an operand is known to be an immediate already,</p>
+                                        <p> the setImm method should be used.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 161 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B6FBC001EC857CE523951C06FD035C2833CDC8F4">
+                                <pre><code class="language-cpp code-clang-doc">void ChangeToFPImmediate (const ConstantFP * FPImm, unsigned int TargetFlags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ChangeToFPImmediate - Replace this operand with a new FP immediate operand</p>
+                                        <p> of the specified value.  If an operand is known to be an FP immediate</p>
+                                        <p> already, the setFPImm method should be used.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 171 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CEB4A815B5A5B688209B0265EA319D13A2E613D1">
+                                <pre><code class="language-cpp code-clang-doc">void ChangeToES (const char * SymName, unsigned int TargetFlags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ChangeToES - Replace this operand with a new external symbol operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 182 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="287EFCB5CE48A10427180E1C6C852D4C52A353D4">
+                                <pre><code class="language-cpp code-clang-doc">void ChangeToGA (const GlobalValue * GV, int64_t Offset, unsigned int TargetFlags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ChangeToGA - Replace this operand with a new global address operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 195 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4DC6D6574E324E64731204E8A964FE0367DBDF6A">
+                                <pre><code class="language-cpp code-clang-doc">void ChangeToBA (const BlockAddress * BA, int64_t Offset, unsigned int TargetFlags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ChangeToBA - Replace this operand with a new block address operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 208 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1906D728250380B3FD6842754660B5E15CAD29EF">
+                                <pre><code class="language-cpp code-clang-doc">void ChangeToCPI (unsigned int Idx, int Offset, unsigned int TargetFlags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ChangeToCPI - Replace this operand with a new constant pool index operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 221 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BAD041D20C1892B52B90596F225E336A668D3262">
+                                <pre><code class="language-cpp code-clang-doc">void ChangeToMCSymbol (MCSymbol * Sym, unsigned int TargetFlags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ChangeToMCSymbol - Replace this operand with a new MC symbol operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 234 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="60F62A6A862B9F546A74A79327372AE74B1CF7CB">
+                                <pre><code class="language-cpp code-clang-doc">void ChangeToFrameIndex (int Idx, unsigned int TargetFlags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Replace this operand with a frame index.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 245 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC4DBB6C7180C5D7BDFE6EB206FB339DE6932C0E">
+                                <pre><code class="language-cpp code-clang-doc">void ChangeToTargetIndex (unsigned int Idx, int64_t Offset, unsigned int TargetFlags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Replace this operand with a target index.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 256 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="19F21D144BF4266DED590B7B9F0D63567BF9132A">
+                                <pre><code class="language-cpp code-clang-doc">void ChangeToDbgInstrRef (unsigned int InstrIdx, unsigned int OpIdx, unsigned int TargetFlags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Replace this operand with an Instruction Reference.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 269 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2CE9E69162116AEBA33D514C5DA50124FF76F46D">
+                                <pre><code class="language-cpp code-clang-doc">void ChangeToRegister (Register Reg, bool isDef, bool isImp, bool isKill, bool isDead, bool isUndef, bool isDebug)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ChangeToRegister - Replace this operand with a new register operand of</p>
+                                        <p> the specified value.  If an operand is known to be an register already,</p>
+                                        <p> the setReg method should be used.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 285 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1C60E2C3D0D7CFA1DAAC99A980298C9ACCB5B90B">
+                                <pre><code class="language-cpp code-clang-doc">bool isImm ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isImm - Tests if this is a MO_Immediate operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 333 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F272044CFC65048F5DAFB124C02EC8110857929A">
+                                <pre><code class="language-cpp code-clang-doc">bool isCImm ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isCImm - Test if this is a MO_CImmediate operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 335 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D498BFB5356973E07ADF76EFB2EB3924990DF8CA">
+                                <pre><code class="language-cpp code-clang-doc">bool isFPImm ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isFPImm - Tests if this is a MO_FPImmediate operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 337 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="05A0248E2D72148E076E8D50CE33BC89E3CD283B">
+                                <pre><code class="language-cpp code-clang-doc">bool isMBB ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isMBB - Tests if this is a MO_MachineBasicBlock operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 339 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="31E68A92054556D17CDB81A182C9037E5E061EB7">
+                                <pre><code class="language-cpp code-clang-doc">bool isFI ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isFI - Tests if this is a MO_FrameIndex operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 341 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="37A67400FBFE274F1B17B786FF3980CD788D23AB">
+                                <pre><code class="language-cpp code-clang-doc">bool isCPI ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isCPI - Tests if this is a MO_ConstantPoolIndex operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 343 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A3311B5DFFECBCAF5F1F036BD9F81A98B48E8619">
+                                <pre><code class="language-cpp code-clang-doc">bool isTargetIndex ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isTargetIndex - Tests if this is a MO_TargetIndex operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 345 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DAAB445A56BB89FCC27DC2199C344900136B4F49">
+                                <pre><code class="language-cpp code-clang-doc">bool isJTI ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isJTI - Tests if this is a MO_JumpTableIndex operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 347 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4D08EE76A2D27AFDD878AB767808D6CA1F3750B">
+                                <pre><code class="language-cpp code-clang-doc">bool isGlobal ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isGlobal - Tests if this is a MO_GlobalAddress operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 349 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FED1E2495A27F085D85ECC02EFACEA90B14C8779">
+                                <pre><code class="language-cpp code-clang-doc">bool isSymbol ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isSymbol - Tests if this is a MO_ExternalSymbol operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 351 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2125B8CBF96A1FEBBE7A2555A9BB1B664F4107C2">
+                                <pre><code class="language-cpp code-clang-doc">bool isBlockAddress ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isBlockAddress - Tests if this is a MO_BlockAddress operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 353 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4398240BA98B8DFF3799BD67768C35946F1F6C22">
+                                <pre><code class="language-cpp code-clang-doc">bool isRegMask ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isRegMask - Tests if this is a MO_RegisterMask operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 355 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="150D91D0D4A5889EE3A872927E4C12C523A5B8F4">
+                                <pre><code class="language-cpp code-clang-doc">bool isRegLiveOut ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isRegLiveOut - Tests if this is a MO_RegisterLiveOut operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 357 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="64B74F05991544D8FAB9E30456231483BB66544C">
+                                <pre><code class="language-cpp code-clang-doc">bool isMetadata ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isMetadata - Tests if this is a MO_Metadata operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 359 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DB2C7AAD3D184DA18F9DCB72342C122AF554C1E1">
+                                <pre><code class="language-cpp code-clang-doc">bool isMCSymbol ()</code></pre>
+                                <p>Defined at line 360 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C4601EA1915B72D3CAAFA027137F2779065CF609">
+                                <pre><code class="language-cpp code-clang-doc">bool isDbgInstrRef ()</code></pre>
+                                <p>Defined at line 361 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1BA0A367608919F98642C9747E1E0C494E2C7C38">
+                                <pre><code class="language-cpp code-clang-doc">bool isCFIIndex ()</code></pre>
+                                <p>Defined at line 362 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="437C477E15296E2B52EB978563691EAFF5E6D6E4">
+                                <pre><code class="language-cpp code-clang-doc">bool isIntrinsicID ()</code></pre>
+                                <p>Defined at line 363 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2D0194812ADCB65E81B9D5753E41F6D5AD6185AE">
+                                <pre><code class="language-cpp code-clang-doc">bool isPredicate ()</code></pre>
+                                <p>Defined at line 364 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="40AC16C935293BECC2468EB89F8DD0570D8DFE4C">
+                                <pre><code class="language-cpp code-clang-doc">bool isShuffleMask ()</code></pre>
+                                <p>Defined at line 365 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23BC4C712EA4C7F75311CE3DA470B270A4529E7A">
+                                <pre><code class="language-cpp code-clang-doc">bool isLaneMask ()</code></pre>
+                                <p>Defined at line 366 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="714FCD7EA84B468ECBED78FBCBA0F292E84A9B16">
+                                <pre><code class="language-cpp code-clang-doc">Register getReg ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getReg - Returns the register number.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 372 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4A6C48B7AF5190E2CF6A4C8074A35817FC4EA2B8">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSubReg ()</code></pre>
+                                <p>Defined at line 377 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED4DA4ADEA2B9D264D5626521946D95DFDCCEE65">
+                                <pre><code class="language-cpp code-clang-doc">bool isUse ()</code></pre>
+                                <p>Defined at line 382 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B11AEF00751B7AD9FDA62695414EE0F8183F8112">
+                                <pre><code class="language-cpp code-clang-doc">bool isDef ()</code></pre>
+                                <p>Defined at line 387 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D5075E197EBB58BB4D78E3DCE31302593EC60EC3">
+                                <pre><code class="language-cpp code-clang-doc">bool isImplicit ()</code></pre>
+                                <p>Defined at line 392 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A012C3D1B0D5FF5A83E289F6ABB7174D696C6154">
+                                <pre><code class="language-cpp code-clang-doc">bool isDead ()</code></pre>
+                                <p>Defined at line 397 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DEC2598E83212F3E4F78A2E01E972FB31411C027">
+                                <pre><code class="language-cpp code-clang-doc">bool isKill ()</code></pre>
+                                <p>Defined at line 402 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8BB0E2AA8295010308A06AE555556305CEC700BD">
+                                <pre><code class="language-cpp code-clang-doc">bool isUndef ()</code></pre>
+                                <p>Defined at line 407 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A2435B75458C8947D6536D56D6730F0A83755F88">
+                                <pre><code class="language-cpp code-clang-doc">bool isInternalRead ()</code></pre>
+                                <p>Defined at line 443 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B5360E797833A53331A6CE2F016D33FB9A29F532">
+                                <pre><code class="language-cpp code-clang-doc">bool isEarlyClobber ()</code></pre>
+                                <p>Defined at line 448 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FCF3FCF2E7AD4D3EE26B575C6671B0FD6802BF0D">
+                                <pre><code class="language-cpp code-clang-doc">bool isTied ()</code></pre>
+                                <p>Defined at line 453 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A93BB2145C3C00008EA246D0EE9D37CBF4C81E06">
+                                <pre><code class="language-cpp code-clang-doc">bool isDebug ()</code></pre>
+                                <p>Defined at line 458 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BD45165A57BA6C3775EF49C8200C9C4AAC832225">
+                                <pre><code class="language-cpp code-clang-doc">bool readsReg ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> readsReg - Returns true if this operand reads the previous value of its</p>
+                                        <p> register.  A use operand with the </p>
+                                        <p>&lt;undef</p>
+                                        <p>&gt; flag set doesn&#39;t read its</p>
+                                        <p> register.  A sub-register def implicitly reads the other parts of the</p>
+                                        <p> register being redefined unless the </p>
+                                        <p>&lt;undef</p>
+                                        <p>&gt; flag is set.</p>
+                                    </div>
+                                    <div>
+                                        <p> This refers to reading the register value from before the current</p>
+                                        <p> instruction or bundle. Internal bundle reads are not included.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 470 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1CCCE84BB3BD49E2C8F88ED658FF57ABFB4E0437">
+                                <pre><code class="language-cpp code-clang-doc">bool isValidExcessOperand ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this operand can validly be appended to an arbitrary</p>
+                                        <p> operand list. i.e. this behaves like an implicit operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 477 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6F1D78C31781B28323BE4394730DAE8A239AA9D3">
+                                <pre><code class="language-cpp code-clang-doc">const char * getTargetIndexName ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getTargetIndexName - If this MachineOperand is a TargetIndex that has a</p>
+                                        <p> name, attempt to get the name. Returns nullptr if the TargetIndex does not</p>
+                                        <p> have a name. Asserts if MO is not a TargetIndex.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 492 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="31A82CA279EA293721B0B7367922A0DB0243DE7D">
+                                <pre><code class="language-cpp code-clang-doc">void setSubReg (unsigned int subReg)</code></pre>
+                                <p>Defined at line 493 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DC224F93EFF80A8B661C39538E6F3892F91C8EF9">
+                                <pre><code class="language-cpp code-clang-doc">void setIsUse (bool Val)</code></pre>
+                                <p>Defined at line 513 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BD19FB8FEC29DEDD7924A76384602D2C17A555CF">
+                                <pre><code class="language-cpp code-clang-doc">void setImplicit (bool Val)</code></pre>
+                                <p>Defined at line 518 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="69FD3FB62581D553ADE6F5425E3C727F71E08579">
+                                <pre><code class="language-cpp code-clang-doc">void setIsKill (bool Val)</code></pre>
+                                <p>Defined at line 523 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2347B17BECBF5B342F1C3D7394E69030A8930F58">
+                                <pre><code class="language-cpp code-clang-doc">void setIsDead (bool Val)</code></pre>
+                                <p>Defined at line 529 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EDAC0395A2DF7A4ED4519998E6E69734BD4415AD">
+                                <pre><code class="language-cpp code-clang-doc">void setIsUndef (bool Val)</code></pre>
+                                <p>Defined at line 534 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C9E63F6B53948AFEAF5CEF1BB8D5A397BCF6C90">
+                                <pre><code class="language-cpp code-clang-doc">void setIsInternalRead (bool Val)</code></pre>
+                                <p>Defined at line 541 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8535F05595D5F96C790E62EFFF43B48954162792">
+                                <pre><code class="language-cpp code-clang-doc">void setIsEarlyClobber (bool Val)</code></pre>
+                                <p>Defined at line 546 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A5DB2C4DA1377F9966ADD70C79ACF5B688B28CC4">
+                                <pre><code class="language-cpp code-clang-doc">void setIsDebug (bool Val)</code></pre>
+                                <p>Defined at line 551 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5EA2AE4689A5A696E63BD0ADBBF75060F8737931">
+                                <pre><code class="language-cpp code-clang-doc">int64_t getImm ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===--------------------------------------------------------------------===//</p>
+                                        <p> Accessors for various operand types.</p>
+                                        <p>===--------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 560 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="24650B3AEFA2696BC1C972FB9C2676B26800EB0D">
+                                <pre><code class="language-cpp code-clang-doc">const ConstantInt * getCImm ()</code></pre>
+                                <p>Defined at line 565 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2FF443307CCE3A0342805614F0236669D3A1EAA5">
+                                <pre><code class="language-cpp code-clang-doc">const ConstantFP * getFPImm ()</code></pre>
+                                <p>Defined at line 570 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C8787C5FEF24D2A55A53C72D48F2CB367E426BC6">
+                                <pre><code class="language-cpp code-clang-doc">MachineBasicBlock * getMBB ()</code></pre>
+                                <p>Defined at line 575 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7476A7383C91B42618439A8B9CFD0FF30766E5BC">
+                                <pre><code class="language-cpp code-clang-doc">int getIndex ()</code></pre>
+                                <p>Defined at line 580 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C662AFE7A9E367CBCBD21A9AA85326267B90F1BA">
+                                <pre><code class="language-cpp code-clang-doc">void printSubRegIdx (raw_ostream &amp; OS, uint64_t Index, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print a subreg index operand.</p>
+                                        <p> MO_Immediate operands can also be subreg idices. If it&#39;s the case, the</p>
+                                        <p> subreg index name will be printed. MachineInstr::isOperandSubregIdx can be</p>
+                                        <p> called to check this.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 585 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="313908492A0CD765BE5FBCC89D6D4378D9C46BEA">
+                                <pre><code class="language-cpp code-clang-doc">const GlobalValue * getGlobal ()</code></pre>
+                                <p>Defined at line 586 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DE50832874EA2646A6BFB8BD0C45046C67B9507F">
+                                <pre><code class="language-cpp code-clang-doc">const BlockAddress * getBlockAddress ()</code></pre>
+                                <p>Defined at line 591 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="24C72CC7041653D37AB9CE4F06F88EBAE0F6A274">
+                                <pre><code class="language-cpp code-clang-doc">void printTargetFlags (raw_ostream &amp; OS, const MachineOperand &amp; Op)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print operand target flags.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 594 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8659BDBFED8BB390CC3C1856EBB1831A6F12F5E3">
+                                <pre><code class="language-cpp code-clang-doc">MCSymbol * getMCSymbol ()</code></pre>
+                                <p>Defined at line 596 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1BA6594C4D8A6ECC4DE051CA073B77E44E1B0FA8">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getInstrRefInstrIndex ()</code></pre>
+                                <p>Defined at line 601 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E4A708C6A504AC7041E082DC357FD7A3EFDDA418">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getInstrRefOpIndex ()</code></pre>
+                                <p>Defined at line 606 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FE2C4F36A156960D983054C2F64FBF8E485BB3F7">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getCFIIndex ()</code></pre>
+                                <p>Defined at line 611 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="38A21C3E8CCA9F5BC85DC20DADE35317E1027044">
+                                <pre><code class="language-cpp code-clang-doc">Intrinsic::ID getIntrinsicID ()</code></pre>
+                                <p>Defined at line 616 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A35C102611ACB8763367CD3D953F022E9131DE51">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getPredicate ()</code></pre>
+                                <p>Defined at line 621 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8AF5F26169359E39470CE19A7841D6B85B2A4A9D">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;int&gt; getShuffleMask ()</code></pre>
+                                <p>Defined at line 626 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A7C089BBAA99E2BABDE83BAABF6F173733DE8EC7">
+                                <pre><code class="language-cpp code-clang-doc">LaneBitmask getLaneMask ()</code></pre>
+                                <p>Defined at line 631 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FBF085C7EC3B6BD47B65B340F55F0D83A38A118D">
+                                <pre><code class="language-cpp code-clang-doc">int64_t getOffset ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the offset from the symbol in this operand. This always returns 0</p>
+                                        <p> for ExternalSymbol operands.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 638 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="86BC697CD99EE0B548CFDC0A3D1E85B60131AFF1">
+                                <pre><code class="language-cpp code-clang-doc">void printSymbol (raw_ostream &amp; OS, MCSymbol &amp; Sym)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print a MCSymbol as an operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 646 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B7766215A8371DADA8143450ACB1E8D0075E6063">
+                                <pre><code class="language-cpp code-clang-doc">const char * getSymbolName ()</code></pre>
+                                <p>Defined at line 646 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F6D1C502865C081EA02AE1EAB5995CFAA54056A1">
+                                <pre><code class="language-cpp code-clang-doc">void printStackObjectReference (raw_ostream &amp; OS, unsigned int FrameIndex, bool IsFixed, StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print a stack object reference.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 650 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A6815E68F8FC81EDEC1EA0B93A29B852A210CBAD">
+                                <pre><code class="language-cpp code-clang-doc">bool clobbersPhysReg (const uint32_t * RegMask, MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> clobbersPhysReg - Returns true if this RegMask clobbers PhysReg.</p>
+                                        <p> It is sometimes necessary to detach the register mask pointer from its</p>
+                                        <p> machine operand. This static method can be used for such detached bit</p>
+                                        <p> mask pointers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 655 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="90FE08665ED59EC2EDDBD7D8D9A5982FC91BB064">
+                                <pre><code class="language-cpp code-clang-doc">bool clobbersPhysReg (MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> clobbersPhysReg - Returns true if this RegMask operand clobbers PhysReg.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 663 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D421140ACFD749B1A563FE6C1EDDCA92DB498251">
+                                <pre><code class="language-cpp code-clang-doc">void printOperandOffset (raw_ostream &amp; OS, int64_t Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print the offset with explicit +/- signs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 663 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B6B8D2ADB9172CA4C88B7A1DBE81CD10A2505B33">
+                                <pre><code class="language-cpp code-clang-doc">const uint32_t * getRegMask ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getRegMask - Returns a bit mask of registers preserved by this RegMask</p>
+                                        <p> operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 669 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1848F0FE63649E4BF79D6FE5A46C4F1BA15C77D6">
+                                <pre><code class="language-cpp code-clang-doc">void printIRSlotNumber (raw_ostream &amp; OS, int Slot)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print an IRSlotNumber.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 673 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F3A4F880527D77B79A50DBBB83521E47999A5DA">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getRegMaskSize (unsigned int NumRegs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns number of elements needed for a regmask array.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 675 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D8253F8832F68C077A90EB37C695F5E3BB8C087">
+                                <pre><code class="language-cpp code-clang-doc">const uint32_t * getRegLiveOut ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getRegLiveOut - Returns a bit mask of live-out registers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 680 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7A8971AC5336324027E76DBCCEC33F7EB153C1E7">
+                                <pre><code class="language-cpp code-clang-doc">const MDNode * getMetadata ()</code></pre>
+                                <p>Defined at line 685 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C24EEEEE5169E96288A9449F51A9E371C60844BA">
+                                <pre><code class="language-cpp code-clang-doc">void setImm (int64_t immVal)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===--------------------------------------------------------------------===//</p>
+                                        <p> Mutators for various operand types.</p>
+                                        <p>===--------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 694 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2E387B5A67D896519F57B2FE844CEB132E4AD63">
+                                <pre><code class="language-cpp code-clang-doc">void setCImm (const ConstantInt * CI)</code></pre>
+                                <p>Defined at line 699 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CEC1188452608659F2D70B36D9153C22DFC0AA95">
+                                <pre><code class="language-cpp code-clang-doc">void setFPImm (const ConstantFP * CFP)</code></pre>
+                                <p>Defined at line 704 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EA54B13CDE319A15267C0175ADA700C9C50DAEC0">
+                                <pre><code class="language-cpp code-clang-doc">void setOffset (int64_t Offset)</code></pre>
+                                <p>Defined at line 709 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2C8B44766CA0D7F92D13D284869B175111B92DDE">
+                                <pre><code class="language-cpp code-clang-doc">void setIndex (int Idx)</code></pre>
+                                <p>Defined at line 717 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BFDFCA124173EF8E34AB0609CFBC8CBAD8A15BF">
+                                <pre><code class="language-cpp code-clang-doc">void setMetadata (const MDNode * MD)</code></pre>
+                                <p>Defined at line 723 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6F2F1ED7F8A2BE144B7930A38FB20CCBC883FA40">
+                                <pre><code class="language-cpp code-clang-doc">void setInstrRefInstrIndex (unsigned int InstrIdx)</code></pre>
+                                <p>Defined at line 728 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D7F820537BD8E33CD985C1FA5D6BB4D76B317B1E">
+                                <pre><code class="language-cpp code-clang-doc">void setInstrRefOpIndex (unsigned int OpIdx)</code></pre>
+                                <p>Defined at line 732 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2AEDDE8165766C8031D857ADE0FB1D211E8D804F">
+                                <pre><code class="language-cpp code-clang-doc">void setMBB (MachineBasicBlock * MBB)</code></pre>
+                                <p>Defined at line 737 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B64E382FA811A42BA4717C4F5F015B7631FFB80B">
+                                <pre><code class="language-cpp code-clang-doc">void setRegMask (const uint32_t * RegMaskPtr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Sets value of register mask operand referencing Mask.  The</p>
+                                        <p> operand does not take ownership of the memory referenced by Mask, it must</p>
+                                        <p> remain valid for the lifetime of the operand. See CreateRegMask().</p>
+                                        <p> Any physreg with a 0 bit in the mask is clobbered by the instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 746 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F3764EBA9CB8CDE4E77C1EB21278DB3BE856ED85">
+                                <pre><code class="language-cpp code-clang-doc">void setIntrinsicID (Intrinsic::ID IID)</code></pre>
+                                <p>Defined at line 751 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="513ED3D125467D45645A695C36139EAEBCAD8368">
+                                <pre><code class="language-cpp code-clang-doc">void setPredicate (unsigned int Predicate)</code></pre>
+                                <p>Defined at line 756 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B43F664E2A756500758775F52308A9B562F66AE1">
+                                <pre><code class="language-cpp code-clang-doc">void print (raw_ostream &amp; os, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print the MachineOperand to </p>
+                                        <p> Providing a valid </p>
+                                        <p> results in a more target-specific printing. If</p>
+                                        <p> is null, the function will try to pick it up from the parent.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 800 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="00E150E8D18256B91D44BB93EA0E9E2AF949AFCD">
+                                <pre><code class="language-cpp code-clang-doc">void print (raw_ostream &amp; os, ModuleSlotTracker &amp; MST, LLT TypeToPrint, std::optional&lt;unsigned int&gt; OpIdx, bool PrintDef, bool IsStandalone, bool ShouldPrintRegisterTies, unsigned int TiedOperandIdx, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> More complex way of printing a MachineOperand.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>TypeToPrint</b>   specifies the generic type to be printed on uses and defs. It can be determined using MachineInstr::getTypeToPrint.
+                                    </div> 
+                                    <div>
+                                        <b>OpIdx</b>   - specifies the index of the operand in machine instruction. This will be used by target dependent MIR formatter. Could be std::nullopt if the index is unknown, e.g. called by dump().
+                                    </div> 
+                                    <div>
+                                        <b>PrintDef</b>   - whether we want to print `def` on an operand which isDef. Sometimes, if the operand is printed before &#39;=&#39;, we don&#39;t print `def`.
+                                    </div> 
+                                    <div>
+                                        <b>IsStandalone</b>   - whether we want a verbose output of the MO. This prints extra information that can be easily inferred when printing the whole function, but not when printing only a fragment of it.
+                                    </div> 
+                                    <div>
+                                        <b>ShouldPrintRegisterTies</b>   - whether we want to print register ties. Sometimes they are easily determined by the instruction&#39;s descriptor (MachineInstr::hasComplexRegiterTies can determine if it&#39;s needed).
+                                    </div> 
+                                    <div>
+                                        <b>TiedOperandIdx</b>   - if we need to print register ties this needs to provide the index of the tied register. If not, it will be ignored.
+                                    </div> 
+                                    <div>
+                                        <b>TRI</b>   - provide more target-specific information to the printer. Unlike the previous function, this one will not try and get the information from it&#39;s parent.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 815 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD196AFE695FFFA309288BB212979E1D71A3CD43">
+                                <pre><code class="language-cpp code-clang-doc">void print (raw_ostream &amp; os, LLT TypeToPrint, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Same as print(os, TRI), but allows to specify the low-level type to be</p>
+                                        <p> printed the same way the full version of print(...) does it.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 805 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C391DECA7FE494FC7409B02E76D7E73E7B2CD2BA">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateImm (int64_t Val)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===--------------------------------------------------------------------===//</p>
+                                        <p> Construction methods.</p>
+                                        <p>===--------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 833 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2DB60FFC16CFC835E2774D0271B6A8A54749F07A">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateCImm (const ConstantInt * CI)</code></pre>
+                                <p>Defined at line 839 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3B4064AB6377837D091CE2D7880E80606CE77F1A">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateFPImm (const ConstantFP * CFP)</code></pre>
+                                <p>Defined at line 845 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5D047F4541C827843BFBC786F91398ABBBBEA01D">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateReg (Register Reg, bool isDef, bool isImp, bool isKill, bool isDead, bool isUndef, bool isEarlyClobber, unsigned int SubReg, bool isDebug, bool isInternalRead, bool isRenamable)</code></pre>
+                                <p>Defined at line 851 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F91D41CE75199B02135BF5B17D312B342616E139">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateMBB (MachineBasicBlock * MBB, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 876 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="12D0B8F2E597B5E6B186D68950DCA9360862708B">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateFI (int Idx)</code></pre>
+                                <p>Defined at line 883 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9AF3D1CF0827507980E53A6783CCE780B823C2D1">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateCPI (unsigned int Idx, int Offset, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 888 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D34A86D7F88E105B7C4CC0F3C1CE3C7F67E5DDD3">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateTargetIndex (unsigned int Idx, int64_t Offset, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 896 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B6AD3D89E781C23B6F4AC04C939926DD6EE8477">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateJTI (unsigned int Idx, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 904 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="31A006BBAB818ADD295BFF586B6A1569A3692D54">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateGA (const GlobalValue * GV, int64_t Offset, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 910 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0DB8D578AFFE53DD607B491ED8CE815876C4C734">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateES (const char * SymName, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 918 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C3A29625193E5705AA2F3339AB497734E3798088">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateBA (const BlockAddress * BA, int64_t Offset, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 926 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F65462C0B0DC2F436BB6042884E2F9A02C7D5A08">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateRegMask (const uint32_t * Mask)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> CreateRegMask - Creates a register mask operand referencing Mask.  The</p>
+                                        <p> operand does not take ownership of the memory referenced by Mask, it</p>
+                                        <p> must remain valid for the lifetime of the operand.</p>
+                                    </div>
+                                    <div>
+                                        <p> A RegMask operand represents a set of non-clobbered physical registers</p>
+                                        <p> on an instruction that clobbers many registers, typically a call.  The</p>
+                                        <p> bit mask has a bit set for each physreg that is preserved by this</p>
+                                        <p> instruction, as described in the documentation for</p>
+                                        <p> TargetRegisterInfo::getCallPreservedMask().</p>
+                                    </div>
+                                    <div>
+                                        <p> Any physreg with a 0 bit in the mask is clobbered by the instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 946 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1810AAD0FC368ACC4FDBB2A990FE34D7AAB37898">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateRegLiveOut (const uint32_t * Mask)</code></pre>
+                                <p>Defined at line 952 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="81BEBB607832564E35E68EF5699E311F30EC5B85">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateMetadata (const MDNode * Meta)</code></pre>
+                                <p>Defined at line 958 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="959165D2BD55BD2AE080C253AF5A30628B372D68">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateMCSymbol (MCSymbol * Sym, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 964 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D176212EC6C548F954877F547FA17BDC275696B0">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateDbgInstrRef (unsigned int InstrIdx, unsigned int OpIdx)</code></pre>
+                                <p>Defined at line 973 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="009950E90728DB02970BF3F083590781247577F7">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateCFIIndex (unsigned int CFIIndex)</code></pre>
+                                <p>Defined at line 980 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BE15AEBADE1E5E0464BCCA15497B2DBEE942DFC9">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateIntrinsicID (Intrinsic::ID ID)</code></pre>
+                                <p>Defined at line 986 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EA5D134A9E7DD2D31478CD3EEBE396A47456B3C7">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreatePredicate (unsigned int Pred)</code></pre>
+                                <p>Defined at line 992 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D30DEBB835745F0367C4E4896D6EA232C49C5353">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateShuffleMask (ArrayRef&lt;int&gt; Mask)</code></pre>
+                                <p>Defined at line 998 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF0E1F95BD4B2BB51941B0521595E7F062D4D12F">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand CreateLaneMask (LaneBitmask LaneMask)</code></pre>
+                                <p>Defined at line 1004 of file llvm/include/llvm/CodeGen/MachineOperand.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E8868B170EA82E55E9B06CA0A1937F68DA4AB95">
+                                <pre><code class="language-cpp code-clang-doc">void dump ()</code></pre>
+                                <p>Defined at line 1057 of file llvm/lib/CodeGen/MachineOperand.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LoopSafetyInfo</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LoopSafetyInfo</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D4F0A80E6EEFAD9D901A688DF64635EFF40A245">LoopSafetyInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#89376AC41909B6A340DF64FD3F9F581421845DAB">getBlockColors</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8DBFC576C7A17B04831296F7DDB5239EFFD1839C">copyColors</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E3CF5155C6888C0C9EB818A17753D91BB3A7025">blockMayThrow</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#78D201550FADD4726295C8A4E609A8B9D0C72B2B">anyBlockMayThrow</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E2CAD2460DC15FAB347D35C05D6523B6DE78B8ED">allLoopPathsLeadToBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#77CC2F1F53ED91E9755F06AD156FEF12475650D1">computeLoopSafetyInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#98AB93D5026A63ADE65C40556BC1B8193BF7256F">isGuaranteedToExecute</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4F4B543BFEA646A920D6914ABADD6020986D079">~LoopSafetyInfo</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LoopSafetyInfo</h1>
+                        <p>Defined at line 60 of file llvm/include/llvm/Analysis/MustExecute.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Captures loop safety information.</p>
+                                <p> It keep information for loop blocks may throw exception or otherwise</p>
+                                <p> exit abnormally on any iteration of the loop which might actually execute</p>
+                                <p> at runtime.  The primary way to consume this information is via</p>
+                                <p> isGuaranteedToExecute below, but some callers bailout or fallback to</p>
+                                <p> alternate reasoning if a loop contains any implicit control flow.</p>
+                                <p> NOTE: LoopSafetyInfo contains cached information regarding loops and their</p>
+                                <p> particular blocks. This information is only dropped on invocation of</p>
+                                <p> computeLoopSafetyInfo. If the loop or any of its block is deleted, or if</p>
+                                <p> any thrower instructions have been added or removed from them, or if the</p>
+                                <p> control flow has changed, or in case of other meaningful modifications, the</p>
+                                <p> LoopSafetyInfo needs to be recomputed. If a meaningful modifications to the</p>
+                                <p> loop were made and the info wasn&#39;t recomputed properly, the behavior of all</p>
+                                <p> methods except for computeLoopSafetyInfo is undefined.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="3D4F0A80E6EEFAD9D901A688DF64635EFF40A245">
+                                <pre><code class="language-cpp code-clang-doc">void LoopSafetyInfo ()</code></pre>
+                                <p>Defined at line 102 of file llvm/include/llvm/Analysis/MustExecute.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="89376AC41909B6A340DF64FD3F9F581421845DAB">
+                                <pre><code class="language-cpp code-clang-doc">const DenseMap&lt;BasicBlock *, ColorVector&gt; &amp; getBlockColors ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns block colors map that is used to update funclet operand bundles.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 29 of file llvm/lib/Analysis/MustExecute.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8DBFC576C7A17B04831296F7DDB5239EFFD1839C">
+                                <pre><code class="language-cpp code-clang-doc">void copyColors (BasicBlock * New, BasicBlock * Old)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Copy colors of block </p>
+                                        <p> into the block </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 34 of file llvm/lib/Analysis/MustExecute.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E3CF5155C6888C0C9EB818A17753D91BB3A7025">
+                                <pre><code class="language-cpp code-clang-doc">bool blockMayThrow (const BasicBlock * BB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true iff the block </p>
+                                        <p> potentially may throw exception. It can</p>
+                                        <p> be false-positive in cases when we want to avoid complex analysis.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="78D201550FADD4726295C8A4E609A8B9D0C72B2B">
+                                <pre><code class="language-cpp code-clang-doc">bool anyBlockMayThrow ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true iff any block of the loop for which this info is contains an</p>
+                                        <p> instruction that may throw or otherwise exit abnormally.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E2CAD2460DC15FAB347D35C05D6523B6DE78B8ED">
+                                <pre><code class="language-cpp code-clang-doc">bool allLoopPathsLeadToBlock (const Loop * CurLoop, const BasicBlock * BB, const DominatorTree * DT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if we must reach the block </p>
+                                        <p> under assumption that the</p>
+                                        <p> loop </p>
+                                        <p> is entered.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 198 of file llvm/lib/Analysis/MustExecute.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="77CC2F1F53ED91E9755F06AD156FEF12475650D1">
+                                <pre><code class="language-cpp code-clang-doc">void computeLoopSafetyInfo (const Loop * CurLoop)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Computes safety information for a loop checks loop body </p>
+                                        <p>&amp;</p>
+                                        <p> header for</p>
+                                        <p> the possibility of may throw exception, it takes LoopSafetyInfo and loop</p>
+                                        <p> as argument. Updates safety information in LoopSafetyInfo argument.</p>
+                                        <p> Note: This is defined to clear and reinitialize an already initialized</p>
+                                        <p> LoopSafetyInfo.  Some callers rely on this fact.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="98AB93D5026A63ADE65C40556BC1B8193BF7256F">
+                                <pre><code class="language-cpp code-clang-doc">bool isGuaranteedToExecute (const Instruction &amp; Inst, const DominatorTree * DT, const Loop * CurLoop)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the instruction in a loop is guaranteed to execute at</p>
+                                        <p> least once (under the assumption that the loop is entered).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4F4B543BFEA646A920D6914ABADD6020986D079">
+                                <pre><code class="language-cpp code-clang-doc">void ~LoopSafetyInfo ()</code></pre>
+                                <p>Defined at line 104 of file llvm/include/llvm/Analysis/MustExecute.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

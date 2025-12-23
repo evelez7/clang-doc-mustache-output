@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Annotations</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class Annotations</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DFF338ECBDCDD24CFA8CF0FABB12062FB9B08662">Annotations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#96E170058F808335FE6742D9935E27AEE4C9C4A6">code</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D1EC58B3211757D558EE6504E111062DFF29BE9D">point</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE2D65C30E3AF9332141D0139694B1C3570C6983">pointWithPayload</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F3F3244FC8B2579B0089FCCFA87DA56F47DBE8E1">points</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5BEDDBE15C06AF8D9129A25CB06779F7C9F3EF73">pointsWithPayload</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D12EB290FF30D36722D5EB367C7B8A9100424DD4">all_points</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#69FEFD14242A001D7C1BB85DD122E3AA79D87F6B">range</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#901A808923FFCA543C3DBD126A7952B0D03E8945">rangeWithPayload</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#43FAEFA66422C1200DDF8990453BA62337C8C931">ranges</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#679471F99B796924AF67C4B38722465A4BD28A48">rangesWithPayload</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F2BAB1EBF00DECE1AFE35C620847EC28B3462DD">all_ranges</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class Annotations</h1>
+                        <p>Defined at line 53 of file llvm/include/llvm/Testing/Annotations/Annotations.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Annotations lets you mark points and ranges inside source code, for tests:</p>
+                            </div>
+                            <div>
+                                <p>    Annotations Example(R&quot;cpp(</p>
+                                <p>       int complete() { x.pri^ }         // ^ indicates a point</p>
+                                <p>       void err() { [[&quot;hello&quot; == 42]]; } // [[this is a range]]</p>
+                                <p>       $definition^class Foo{};          // points can be named: &quot;definition&quot;</p>
+                                <p>       $(foo)^class Foo{};               // ...or have a payload: &quot;foo&quot;</p>
+                                <p>       $definition(foo)^class Foo{};     // ...or both</p>
+                                <p>       $fail(runtime)[[assert(false)]]   // ranges can have names/payloads too</p>
+                                <p>    )cpp&quot;);</p>
+                            </div>
+                            <div>
+                                <p>    StringRef Code = Example.code();             // annotations stripped.</p>
+                                <p>    std::vector</p>
+                                <p>&lt;size</p>
+                                <p>_t&gt; PP = Example.points();   // all unnamed points</p>
+                                <p>    size_t P = Example.point();                  // there must be exactly one</p>
+                                <p>    llvm::Range R = Example.range(&quot;fail&quot;);       // find named ranges</p>
+                            </div>
+                            <div>
+                                <p> Points/ranges are coordinated into `code()` which is stripped of</p>
+                                <p> annotations.</p>
+                            </div>
+                            <div>
+                                <p> Names consist of only alphanumeric characters or &#39;_&#39;.</p>
+                                <p> Payloads can contain any character expect &#39;(&#39; and &#39;)&#39;.</p>
+                            </div>
+                            <div>
+                                <p> Ranges may be nested (and points can be inside ranges), but there&#39;s no way</p>
+                                <p> to define general overlapping ranges.</p>
+                            </div>
+                            <div>
+                                <p> FIXME: the choice of the marking syntax makes it impossible to represent</p>
+                                <p>        some of the C++ and Objective C constructs (including common ones</p>
+                                <p>        like C++ attributes). We can fix this by:</p>
+                                <p>          1. introducing an escaping mechanism for the special characters,</p>
+                                <p>          2. making characters for marking points and ranges configurable,</p>
+                                <p>          3. changing the syntax to something less commonly used,</p>
+                                <p>          4. ...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="DFF338ECBDCDD24CFA8CF0FABB12062FB9B08662">
+                                <pre><code class="language-cpp code-clang-doc">void Annotations (StringRef Text)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parses the annotations from Text. Crashes if it&#39;s malformed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 26 of file llvm/lib/Testing/Annotations/Annotations.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="96E170058F808335FE6742D9935E27AEE4C9C4A6">
+                                <pre><code class="language-cpp code-clang-doc">StringRef code ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The input text with all annotations stripped.</p>
+                                        <p> All points and ranges are relative to this stripped text.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 72 of file llvm/include/llvm/Testing/Annotations/Annotations.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D1EC58B3211757D558EE6504E111062DFF29BE9D">
+                                <pre><code class="language-cpp code-clang-doc">size_t point (StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the position of the point marked by ^ (or $name^) in the text.</p>
+                                        <p> Crashes if there isn&#39;t exactly one.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 83 of file llvm/lib/Testing/Annotations/Annotations.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE2D65C30E3AF9332141D0139694B1C3570C6983">
+                                <pre><code class="language-cpp code-clang-doc">pair pointWithPayload (StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the position of the point with </p>
+                                        <p> and its payload (if any).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 87 of file llvm/lib/Testing/Annotations/Annotations.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F3F3244FC8B2579B0089FCCFA87DA56F47DBE8E1">
+                                <pre><code class="language-cpp code-clang-doc">vector points (StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the position of all points marked by ^ (or $name^) in the text.</p>
+                                        <p> Order matches the order within the text.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 96 of file llvm/lib/Testing/Annotations/Annotations.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5BEDDBE15C06AF8D9129A25CB06779F7C9F3EF73">
+                                <pre><code class="language-cpp code-clang-doc">vector pointsWithPayload (StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the positions and payloads (if any) of all points named </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 105 of file llvm/lib/Testing/Annotations/Annotations.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D12EB290FF30D36722D5EB367C7B8A9100424DD4">
+                                <pre><code class="language-cpp code-clang-doc">StringMap all_points ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the mapping of all names of points marked in the text to their</p>
+                                        <p> position. Unnamed points are mapped to the empty string. The positions are</p>
+                                        <p> sorted.</p>
+                                        <p> FIXME Remove this and expose `All` directly (currently used out-of-tree)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 119 of file llvm/lib/Testing/Annotations/Annotations.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="69FEFD14242A001D7C1BB85DD122E3AA79D87F6B">
+                                <pre><code class="language-cpp code-clang-doc">Range range (StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the location of the range marked by [[ ]] (or $name[[ ]]).</p>
+                                        <p> Crashes if there isn&#39;t exactly one.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 128 of file llvm/lib/Testing/Annotations/Annotations.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="901A808923FFCA543C3DBD126A7952B0D03E8945">
+                                <pre><code class="language-cpp code-clang-doc">pair rangeWithPayload (StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the location and payload of the range marked by [[ ]]</p>
+                                        <p> (or $name(payload)[[ ]]). Crashes if there isn&#39;t exactly one.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 132 of file llvm/lib/Testing/Annotations/Annotations.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="43FAEFA66422C1200DDF8990453BA62337C8C931">
+                                <pre><code class="language-cpp code-clang-doc">vector ranges (StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the location of all ranges marked by [[ ]] (or $name[[ ]]).</p>
+                                        <p> They are ordered by start position within the text.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 141 of file llvm/lib/Testing/Annotations/Annotations.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="679471F99B796924AF67C4B38722465A4BD28A48">
+                                <pre><code class="language-cpp code-clang-doc">std::vector&lt;std::pair&lt;Range, llvm::StringRef&gt;&gt; rangesWithPayload (StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the location of all ranges marked by [[ ]]</p>
+                                        <p> (or $name(payload)[[ ]]).</p>
+                                        <p> They are ordered by start position within the text.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 150 of file llvm/lib/Testing/Annotations/Annotations.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F2BAB1EBF00DECE1AFE35C620847EC28B3462DD">
+                                <pre><code class="language-cpp code-clang-doc">StringMap all_ranges ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the mapping of all names of ranges marked in the text to their</p>
+                                        <p> location. Unnamed ranges are mapped to the empty string. The ranges are</p>
+                                        <p> sorted by their start position.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 165 of file llvm/lib/Testing/Annotations/Annotations.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

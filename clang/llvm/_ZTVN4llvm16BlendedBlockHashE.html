@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>BlendedBlockHash</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct BlendedBlockHash</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#14B341FA503EAE38249142E70818AAD9EF031144">BlendedBlockHash</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2CED4ADA0036C3C257B2B0FB69BACDAC3BE58806">BlendedBlockHash</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CBB295878ABC39545D21169D67966980B58C80C2">combine</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#259F85ADA1721A1E25562E51CCFF0C47460B7A3B">distance</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD2E961C04248835C0D1A7730D7C9DB2DBA262B8">getOpcodeHash</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct BlendedBlockHash</h1>
+                        <p>Defined at line 23 of file llvm/include/llvm/CodeGen/MachineBlockHashInfo.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> An object wrapping several components of a basic block hash. The combined</p>
+                                <p> (blended) hash is represented and stored as one uint64_t, while individual</p>
+                                <p> components are of smaller size (e.g., uint16_t or uint8_t).</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="14B341FA503EAE38249142E70818AAD9EF031144">
+                                <pre><code class="language-cpp code-clang-doc">void BlendedBlockHash (uint16_t Offset, uint16_t OpcodeHash, uint16_t InstrHash, uint16_t NeighborHash)</code></pre>
+                                <p>Defined at line 25 of file llvm/include/llvm/CodeGen/MachineBlockHashInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2CED4ADA0036C3C257B2B0FB69BACDAC3BE58806">
+                                <pre><code class="language-cpp code-clang-doc">void BlendedBlockHash (uint64_t CombinedHash)</code></pre>
+                                <p>Defined at line 30 of file llvm/include/llvm/CodeGen/MachineBlockHashInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CBB295878ABC39545D21169D67966980B58C80C2">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t combine ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Combine the blended hash into uint64_t.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 41 of file llvm/include/llvm/CodeGen/MachineBlockHashInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="259F85ADA1721A1E25562E51CCFF0C47460B7A3B">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t distance (const BlendedBlockHash &amp; BBH)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compute a distance between two given blended hashes. The smaller the</p>
+                                        <p> distance, the more similar two blocks are. For identical basic blocks,</p>
+                                        <p> the distance is zero.</p>
+                                        <p> Since OpcodeHash is highly stable, we consider a match good only if</p>
+                                        <p> the OpcodeHashes are identical. Mismatched OpcodeHashes lead to low</p>
+                                        <p> matching accuracy, and poor matches undermine the quality of final</p>
+                                        <p> inference. Notably, during inference, we also consider the matching</p>
+                                        <p> ratio of basic blocks. For MachineFunctions with a low matching</p>
+                                        <p> ratio, we directly skip optimization to reduce the impact of</p>
+                                        <p> mismatches. This ensures even very poor profiles won’t cause negative</p>
+                                        <p> optimization.</p>
+                                        <p> In the context of matching, we consider NeighborHash to be more</p>
+                                        <p> important. This is especially true when accounting for inlining</p>
+                                        <p> scenarios, where the position of a basic block in the control</p>
+                                        <p> flow graph is more critical.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 68 of file llvm/include/llvm/CodeGen/MachineBlockHashInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD2E961C04248835C0D1A7730D7C9DB2DBA262B8">
+                                <pre><code class="language-cpp code-clang-doc">uint16_t getOpcodeHash ()</code></pre>
+                                <p>Defined at line 83 of file llvm/include/llvm/CodeGen/MachineBlockHashInfo.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

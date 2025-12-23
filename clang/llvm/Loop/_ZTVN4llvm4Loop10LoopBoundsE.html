@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LoopBounds</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../_ZTVN4llvm4LoopE.html">Loop</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct LoopBounds</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4E6AEC24E8545192D76A0A4CEAB3579D8CAC3203">getInitialIVValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#68F22DC5A072ACE7729E9CA3E06FF8E7096EF151">getStepInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3A262EE5051382E9A7F800767414DAB8C6B5B2FD">getStepValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9BB9FA3332484D8EC590829B5CAEF8610398EE2B">getFinalIVValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7BD327B17A71F545D03B7378C7EB4EF9EE9E3324">getBounds</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4D291EB8893DA007DBBC82360E67B0DA4DA6589F">getCanonicalPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#579ECF030FA77A40A65AA95F860D914F0B986771">getDirection</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct LoopBounds</h1>
+                        <p>Defined at line 153 of file llvm/include/llvm/Analysis/LoopInfo.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Below are some utilities to get the loop guard, loop bounds and induction</p>
+                                <p> variable, and to check if a given phinode is an auxiliary induction</p>
+                                <p> variable, if the loop is guarded, and if the loop is canonical.</p>
+                            </div>
+                            <div>
+                                <p> Here is an example:</p>
+                            </div>
+                            <div>
+                                <p> - getBounds</p>
+                                <p>   - getInitialIVValue      --&gt; lb</p>
+                                <p>   - getStepInst            --&gt; i_2 = i_1 + step</p>
+                                <p>   - getStepValue           --&gt; step</p>
+                                <p>   - getFinalIVValue        --&gt; ub</p>
+                                <p>   - getCanonicalPredicate  --&gt; &#39;</p>
+                                <p>&lt;</p>
+                                <p>&#39;</p>
+                                <p>   - getDirection           --&gt; Increasing</p>
+                            </div>
+                            <div>
+                                <p> - getInductionVariable            --&gt; i_1</p>
+                                <p> - isAuxiliaryInductionVariable(x) --&gt; true if x == i_1</p>
+                                <p> - getLoopGuardBranch()</p>
+                                <p>                 --&gt; `if (guardcmp) goto preheader; else goto afterloop`</p>
+                                <p> - isGuarded()                     --&gt; true</p>
+                                <p> - isCanonical                     --&gt; false</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                         for (int i = lb; i &lt; ub; i+=step)
+                                           &lt;loop body&gt;
+                                         --- pseudo LLVMIR ---
+                                         beforeloop:
+                                           guardcmp = (lb &lt; ub)
+                                           if (guardcmp) goto preheader; else goto afterloop
+                                         preheader:
+                                         loop:
+                                           i_1 = phi[{lb, preheader}, {i_2, latch}]
+                                           &lt;loop body&gt;
+                                           i_2 = i_1 + step
+                                         latch:
+                                           cmp = (i_2 &lt; ub)
+                                           if (cmp) goto loop
+                                         exit:
+                                         afterloop:
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="4E6AEC24E8545192D76A0A4CEAB3579D8CAC3203">
+                                <pre><code class="language-cpp code-clang-doc">Value &amp; getInitialIVValue ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the initial value of the loop induction variable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 165 of file llvm/include/llvm/Analysis/LoopInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="68F22DC5A072ACE7729E9CA3E06FF8E7096EF151">
+                                <pre><code class="language-cpp code-clang-doc">Instruction &amp; getStepInst ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the instruction that updates the loop induction variable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 168 of file llvm/include/llvm/Analysis/LoopInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3A262EE5051382E9A7F800767414DAB8C6B5B2FD">
+                                <pre><code class="language-cpp code-clang-doc">Value * getStepValue ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the step that the loop induction variable gets updated by in each</p>
+                                        <p> loop iteration. Return nullptr if not found.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 172 of file llvm/include/llvm/Analysis/LoopInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9BB9FA3332484D8EC590829B5CAEF8610398EE2B">
+                                <pre><code class="language-cpp code-clang-doc">Value &amp; getFinalIVValue ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the final value of the loop induction variable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 175 of file llvm/include/llvm/Analysis/LoopInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7BD327B17A71F545D03B7378C7EB4EF9EE9E3324">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Loop::LoopBounds&gt; getBounds (const Loop &amp; L, PHINode &amp; IndVar, ScalarEvolution &amp; SE)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the LoopBounds object if</p>
+                                        <p> - the given </p>
+                                        <p> is an induction variable</p>
+                                        <p> - the initial value of the induction variable can be found</p>
+                                        <p> - the step instruction of the induction variable can be found</p>
+                                        <p> - the final value of the induction variable can be found</p>
+                                    </div>
+                                    <div>
+                                        <p> Else std::nullopt.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 202 of file llvm/lib/Analysis/LoopInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4D291EB8893DA007DBBC82360E67B0DA4DA6589F">
+                                <pre><code class="language-cpp code-clang-doc">Predicate getCanonicalPredicate ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the canonical predicate for the latch compare instruction, if</p>
+                                        <p> able to be calcuated. Else BAD_ICMP_PREDICATE.</p>
+                                    </div>
+                                    <div>
+                                        <p> A predicate is considered as canonical if requirements below are all</p>
+                                        <p> satisfied:</p>
+                                        <p> 1. The first successor of the latch branch is the loop header</p>
+                                        <p>    If not, inverse the predicate.</p>
+                                        <p> 2. One of the operands of the latch comparison is StepInst</p>
+                                        <p>    If not, and</p>
+                                        <p>    - if the current calcuated predicate is not ne or eq, flip the</p>
+                                        <p>      predicate.</p>
+                                        <p>    - else if the loop is increasing, return slt</p>
+                                        <p>      (notice that it is safe to change from ne or eq to sign compare)</p>
+                                        <p>    - else if the loop is decreasing, return sgt</p>
+                                        <p>      (notice that it is safe to change from ne or eq to sign compare)</p>
+                                    </div>
+                                    <div>
+                                        <p> Here is an example when both (1) and (2) are not satisfied:</p>
+                                    </div>
+                                    <div>
+                                        <p> - The second successor of the latch branch is the loop header instead</p>
+                                        <p>   of the first successor (slt -&gt; sge)</p>
+                                        <p> - The first operand of the latch comparison (%cmp) is the IndVar (%iv)</p>
+                                        <p>   instead of the StepInst (%inc) (sge -&gt; sgt)</p>
+                                    </div>
+                                    <div>
+                                        <p> The predicate would be sgt if both (1) and (2) are satisfied.</p>
+                                        <p> getCanonicalPredicate() returns sgt for this example.</p>
+                                        <p> Note: The IR is not changed.</p>
+                                    </div>
+                                    <h3>Code</h3> 
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                 loop.header:
+                                                  %iv = phi [%initialiv, %loop.preheader], [%inc, %loop.header]
+                                                  %inc = add %iv, %step
+                                                  %cmp = slt %iv, %finaliv
+                                                  br %cmp, %loop.exit, %loop.header
+                                                 loop.exit:
+                                            </code>
+                                        </pre>
+                                    </div>
+                                </div>
+                                <p>Defined at line 233 of file llvm/lib/Analysis/LoopInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="579ECF030FA77A40A65AA95F860D914F0B986771">
+                                <pre><code class="language-cpp code-clang-doc">Direction getDirection ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the direction of the loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 275 of file llvm/lib/Analysis/LoopInfo.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

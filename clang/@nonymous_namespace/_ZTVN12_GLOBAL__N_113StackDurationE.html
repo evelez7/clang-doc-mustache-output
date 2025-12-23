@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>StackDuration</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct StackDuration</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TerminalDurations">TerminalDurations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#IntermediateDurations">IntermediateDurations</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct StackDuration</h1>
+                        <p>Defined at line 257 of file llvm/tools/llvm-xray/xray-stacks.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> The stack command will take a set of XRay traces as arguments, and collects</p>
+                                <p> information about the stacks of instrumented functions that appear in the</p>
+                                <p> traces. We track the following pieces of information:</p>
+                            </div>
+                            <div>
+                                <p>   - Total time: amount of time/cycles accounted for in the traces.</p>
+                                <p>   - Stack count: number of times a specific stack appears in the</p>
+                                <p>     traces. Only instrumented functions show up in stacks.</p>
+                                <p>   - Cumulative stack time: amount of time spent in a stack accumulated</p>
+                                <p>     across the invocations in the traces.</p>
+                                <p>   - Cumulative local time: amount of time spent in each instrumented</p>
+                                <p>     function showing up in a specific stack, accumulated across the traces.</p>
+                            </div>
+                            <div>
+                                <p> Example output for the kind of data we&#39;d like to provide looks like the</p>
+                                <p> following:</p>
+                            </div>
+                            <div>
+                                <p>   Total time: 3.33234 s</p>
+                                <p>   Stack ID: ...</p>
+                                <p>   Stack Count: 2093</p>
+                                <p>   #     Function                  Local Time     (%)      Stack Time     (%)</p>
+                                <p>   0     main                         2.34 ms   0.07%      3.33234  s    100%</p>
+                                <p>   1     foo()                     3.30000  s  99.02%         3.33  s  99.92%</p>
+                                <p>   2     bar()                          30 ms   0.90%           30 ms   0.90%</p>
+                            </div>
+                            <div>
+                                <p> We can also show distributions of the function call durations with</p>
+                                <p> statistics at each level of the stack. This works by doing the following</p>
+                                <p> algorithm:</p>
+                            </div>
+                            <div>
+                                <p>   1. When unwinding, record the duration of each unwound function associated</p>
+                                <p>   with the path up to which the unwinding stops. For example:</p>
+                            </div>
+                            <div>
+                                <p>        Step                         Duration (? means has start time)</p>
+                            </div>
+                            <div>
+                                <p>        push a </p>
+                                <p>&lt;start</p>
+                                <p> time&gt;           a = ?</p>
+                                <p>        push b </p>
+                                <p>&lt;start</p>
+                                <p> time&gt;           a = ?, a-&gt;b = ?</p>
+                                <p>        push c </p>
+                                <p>&lt;start</p>
+                                <p> time&gt;           a = ?, a-&gt;b = ?, a-&gt;b-&gt;c = ?</p>
+                                <p>        pop  c </p>
+                                <p>&lt;end</p>
+                                <p> time&gt;             a = ?, a-&gt;b = ?, emit duration(a-&gt;b-&gt;c)</p>
+                                <p>        pop  b </p>
+                                <p>&lt;end</p>
+                                <p> time&gt;             a = ?, emit duration(a-&gt;b)</p>
+                                <p>        push c </p>
+                                <p>&lt;start</p>
+                                <p> time&gt;           a = ?, a-&gt;c = ?</p>
+                                <p>        pop  c </p>
+                                <p>&lt;end</p>
+                                <p> time&gt;             a = ?, emit duration(a-&gt;c)</p>
+                                <p>        pop  a </p>
+                                <p>&lt;end</p>
+                                <p> time&gt;             emit duration(a)</p>
+                            </div>
+                            <div>
+                                <p>   2. We then account for the various stacks we&#39;ve collected, and for each of</p>
+                                <p>      them will have measurements that look like the following (continuing</p>
+                                <p>      with the above simple example):</p>
+                            </div>
+                            <div>
+                                <p>        c : [</p>
+                                <p>&lt;id</p>
+                                <p>(&quot;a-&gt;b-&gt;c&quot;), [durations]&gt;, </p>
+                                <p>&lt;id</p>
+                                <p>(&quot;a-&gt;c&quot;), [durations]&gt;]</p>
+                                <p>        b : [</p>
+                                <p>&lt;id</p>
+                                <p>(&quot;a-&gt;b&quot;), [durations]&gt;]</p>
+                                <p>        a : [</p>
+                                <p>&lt;id</p>
+                                <p>(&quot;a&quot;), [durations]&gt;]</p>
+                            </div>
+                            <div>
+                                <p>      This allows us to compute, for each stack id, and each function that</p>
+                                <p>      shows up in the stack,  some important statistics like:</p>
+                            </div>
+                            <div>
+                                <p>        - median</p>
+                                <p>        - 99th percentile</p>
+                                <p>        - mean + stddev</p>
+                                <p>        - count</p>
+                            </div>
+                            <div>
+                                <p>   3. For cases where we don&#39;t have durations for some of the higher levels</p>
+                                <p>   of the stack (perhaps instrumentation wasn&#39;t activated when the stack was</p>
+                                <p>   entered), we can mark them appropriately.</p>
+                            </div>
+                            <div>
+                                <p>  Computing this data also allows us to implement lookup by call stack nodes,</p>
+                                <p>  so that we can find functions that show up in multiple stack traces and</p>
+                                <p>  show the statistical properties of that function in various contexts. We</p>
+                                <p>  can compute information similar to the following:</p>
+                            </div>
+                            <div>
+                                <p>    Function: &#39;c&#39;</p>
+                                <p>    Stacks: 2 / 2</p>
+                                <p>    Stack ID: ...</p>
+                                <p>    Stack Count: ...</p>
+                                <p>    #     Function  ...</p>
+                                <p>    0     a         ...</p>
+                                <p>    1     b         ...</p>
+                                <p>    2     c         ...</p>
+                            </div>
+                            <div>
+                                <p>    Stack ID: ...</p>
+                                <p>    Stack Count: ...</p>
+                                <p>    #     Function  ...</p>
+                                <p>    0     a         ...</p>
+                                <p>    1     c         ...</p>
+                                <p>    ----------------...</p>
+                            </div>
+                            <div>
+                                <p>    Function: &#39;b&#39;</p>
+                                <p>    Stacks:  1 / 2</p>
+                                <p>    Stack ID: ...</p>
+                                <p>    Stack Count: ...</p>
+                                <p>    #     Function  ...</p>
+                                <p>    0     a         ...</p>
+                                <p>    1     b         ...</p>
+                                <p>    2     c         ...</p>
+                            </div>
+                            <div>
+                                <p> To do this we require a Trie data structure that will allow us to represent</p>
+                                <p> all the call stacks of instrumented functions in an easily traversible</p>
+                                <p> manner when we do the aggregations and lookups. For instrumented call</p>
+                                <p> sequences like the following:</p>
+                            </div>
+                            <div>
+                                <p>   a()</p>
+                                <p>    b()</p>
+                                <p>     c()</p>
+                                <p>     d()</p>
+                                <p>    c()</p>
+                            </div>
+                            <div>
+                                <p> We will have a representation like so:</p>
+                            </div>
+                            <div>
+                                <p>   a -&gt; b -&gt; c</p>
+                                <p>   |    |</p>
+                                <p>   |    +--&gt; d</p>
+                                <p>   |</p>
+                                <p>   +--&gt; c</p>
+                            </div>
+                            <div>
+                                <p> We maintain a sequence of durations on the leaves and in the internal nodes</p>
+                                <p> as we go through and process every record from the XRay trace. We also</p>
+                                <p> maintain an index of unique functions, and provide a means of iterating</p>
+                                <p> through all the instrumented call stacks which we know about.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="TerminalDurations" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector TerminalDurations</code></pre>
+                        </div>
+                        <div id="IntermediateDurations" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector IntermediateDurations</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

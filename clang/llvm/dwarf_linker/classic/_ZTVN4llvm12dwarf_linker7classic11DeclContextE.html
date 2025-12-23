@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DeclContext</title>
+        <link rel="stylesheet" type="text/css" href="../../../clang-doc-mustache.css"/>
+        <script src="../../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">dwarf_linker</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">classic</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class DeclContext</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B196C9DA363427CA5E906AFD669DDC239AAEEF1C">setLastSeenDIE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B825ACE026FC337E76E2EDB3494FA94406E99B27">DeclContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#60DC1064F80FCBFFB1B129EC17F375B7903D1F68">DeclContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B0DBB1F493919D5445CFED90B3276D8831F9511E">getQualifiedNameHash</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5FE9E5C9B75C9711253E858F1CDDAAA01ABB06D0">setHasCanonicalDIE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#06FE1F1BFC28974E5B2090A83C52106761CBEC3E">hasCanonicalDIE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD3842A09B3A35960DAB09FF146D477507C5C4B8">getCanonicalDIEOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#59FAAD5B2981ECAFCE3ABB38313DA7C4BFEA4F2F">setCanonicalDIEOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4CA8989370970222C1914A602F80BFD8D2E655EC">getCanonicalName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BAE2DF43C0B61FCA562FD729BDEAFEA9B0570D6D">isDefinedInClangModule</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#89895C3882DE91224247CDAB51F3108E2D1C074C">setDefinedInClangModule</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BFDA8AA9DC21B95EEA437DA9B0625C64D3D34809">getTag</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class DeclContext</h1>
+                        <p>Defined at line 80 of file llvm/include/llvm/DWARFLinker/Classic/DWARFLinkerDeclContext.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A DeclContext is a named program scope that is used for ODR uniquing of</p>
+                                <p> types.</p>
+                            </div>
+                            <div>
+                                <p> The set of DeclContext for the ODR-subject parts of a Dwarf link is</p>
+                                <p> expanded (and uniqued) with each new object file processed. We need to</p>
+                                <p> determine the context of each DIE in an linked object file to see if the</p>
+                                <p> corresponding type has already been emitted.</p>
+                            </div>
+                            <div>
+                                <p> The contexts are conceptually organized as a tree (eg. a function scope is</p>
+                                <p> contained in a namespace scope that contains other scopes), but</p>
+                                <p> storing/accessing them in an actual tree is too inefficient: we need to be</p>
+                                <p> able to very quickly query a context for a given child context by name.</p>
+                                <p> Storing a StringMap in each DeclContext would be too space inefficient.</p>
+                            </div>
+                            <div>
+                                <p> The solution here is to give each DeclContext a link to its parent (this</p>
+                                <p> allows to walk up the tree), but to query the existence of a specific</p>
+                                <p> DeclContext using a separate DenseMap keyed on the hash of the fully</p>
+                                <p> qualified name of the context.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="B196C9DA363427CA5E906AFD669DDC239AAEEF1C">
+                                <pre><code class="language-cpp code-clang-doc">bool setLastSeenDIE (CompileUnit &amp; U, const DWARFDie &amp; Die)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the last DIE/CU a context was seen in and, possibly invalidate the</p>
+                                        <p> context if it is ambiguous.</p>
+                                    </div>
+                                    <div>
+                                        <p> In the current implementation, we don&#39;t handle overloaded functions well,</p>
+                                        <p> because the argument types are not taken into account when computing the</p>
+                                        <p> DeclContext tree.</p>
+                                    </div>
+                                    <div>
+                                        <p> Some of this is mitigated byt using mangled names that do contain the</p>
+                                        <p> arguments types, but sometimes (e.g. with function templates) we don&#39;t have</p>
+                                        <p> that. In that case, just do not unique anything that refers to the contexts</p>
+                                        <p> we are not able to distinguish.</p>
+                                    </div>
+                                    <div>
+                                        <p> If a context that is not a namespace appears twice in the same CU, we know</p>
+                                        <p> it is ambiguous. Make it invalid.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 34 of file llvm/lib/DWARFLinker/Classic/DWARFLinkerDeclContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B825ACE026FC337E76E2EDB3494FA94406E99B27">
+                                <pre><code class="language-cpp code-clang-doc">void DeclContext ()</code></pre>
+                                <p>Defined at line 84 of file llvm/include/llvm/DWARFLinker/Classic/DWARFLinkerDeclContext.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="60DC1064F80FCBFFB1B129EC17F375B7903D1F68">
+                                <pre><code class="language-cpp code-clang-doc">void DeclContext (unsigned int Hash, uint32_t Line, uint32_t ByteSize, uint16_t Tag, StringRef Name, StringRef NameForUniquing, StringRef File, const DeclContext &amp; Parent, DWARFDie LastSeenDIE, unsigned int CUId)</code></pre>
+                                <p>Defined at line 86 of file llvm/include/llvm/DWARFLinker/Classic/DWARFLinkerDeclContext.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B0DBB1F493919D5445CFED90B3276D8831F9511E">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getQualifiedNameHash ()</code></pre>
+                                <p>Defined at line 95 of file llvm/include/llvm/DWARFLinker/Classic/DWARFLinkerDeclContext.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5FE9E5C9B75C9711253E858F1CDDAAA01ABB06D0">
+                                <pre><code class="language-cpp code-clang-doc">void setHasCanonicalDIE ()</code></pre>
+                                <p>Defined at line 99 of file llvm/include/llvm/DWARFLinker/Classic/DWARFLinkerDeclContext.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="06FE1F1BFC28974E5B2090A83C52106761CBEC3E">
+                                <pre><code class="language-cpp code-clang-doc">bool hasCanonicalDIE ()</code></pre>
+                                <p>Defined at line 101 of file llvm/include/llvm/DWARFLinker/Classic/DWARFLinkerDeclContext.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD3842A09B3A35960DAB09FF146D477507C5C4B8">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getCanonicalDIEOffset ()</code></pre>
+                                <p>Defined at line 103 of file llvm/include/llvm/DWARFLinker/Classic/DWARFLinkerDeclContext.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="59FAAD5B2981ECAFCE3ABB38313DA7C4BFEA4F2F">
+                                <pre><code class="language-cpp code-clang-doc">void setCanonicalDIEOffset (uint32_t Offset)</code></pre>
+                                <p>Defined at line 104 of file llvm/include/llvm/DWARFLinker/Classic/DWARFLinkerDeclContext.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4CA8989370970222C1914A602F80BFD8D2E655EC">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getCanonicalName ()</code></pre>
+                                <p>Defined at line 105 of file llvm/include/llvm/DWARFLinker/Classic/DWARFLinkerDeclContext.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BAE2DF43C0B61FCA562FD729BDEAFEA9B0570D6D">
+                                <pre><code class="language-cpp code-clang-doc">bool isDefinedInClangModule ()</code></pre>
+                                <p>Defined at line 107 of file llvm/include/llvm/DWARFLinker/Classic/DWARFLinkerDeclContext.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="89895C3882DE91224247CDAB51F3108E2D1C074C">
+                                <pre><code class="language-cpp code-clang-doc">void setDefinedInClangModule (bool Val)</code></pre>
+                                <p>Defined at line 108 of file llvm/include/llvm/DWARFLinker/Classic/DWARFLinkerDeclContext.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BFDA8AA9DC21B95EEA437DA9B0625C64D3D34809">
+                                <pre><code class="language-cpp code-clang-doc">uint16_t getTag ()</code></pre>
+                                <p>Defined at line 110 of file llvm/include/llvm/DWARFLinker/Classic/DWARFLinkerDeclContext.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

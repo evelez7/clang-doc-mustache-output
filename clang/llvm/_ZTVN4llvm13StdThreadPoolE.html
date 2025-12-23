@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>StdThreadPool</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class StdThreadPool</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C032A53805DA58699D757D696A8F07FD5C4650A">StdThreadPool</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C02123226FD45257CC755FE9B0F5FF77C1FD8394">getMaxConcurrency</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C18D514C42E6D4FCCF39A2D016161F4643676B4">~StdThreadPool</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A49ECDE1A07BE1B8980C65FC3B0377E8817C54D3">wait</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9380942F61AD6A0A2A40ECCA285582BF39C31A53">wait</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6BA99A3E1CFE738A69AE3C9AFCA9D97CCD4732C">isWorkerThread</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class StdThreadPool</h1>
+                        <p>Defined at line 126 of file llvm/include/llvm/Support/ThreadPool.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A ThreadPool implementation using std::threads.</p>
+                            </div>
+                            <div>
+                                <p> The pool keeps a vector of threads alive, waiting on a condition variable</p>
+                                <p> for some work to become available.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="8C032A53805DA58699D757D696A8F07FD5C4650A">
+                                <pre><code class="language-cpp code-clang-doc">void StdThreadPool (ThreadPoolStrategy S)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Construct a pool using the hardware strategy </p>
+                                        <p> for mapping hardware</p>
+                                        <p> execution resources (threads, cores, CPUs)</p>
+                                        <p> Defaults to using the maximum execution resources in the system, but</p>
+                                        <p> accounting for the affinity mask.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 38 of file llvm/lib/Support/ThreadPool.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C02123226FD45257CC755FE9B0F5FF77C1FD8394">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getMaxConcurrency ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the maximum number of worker threads in the pool, not the current</p>
+                                        <p> number of threads!</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 151 of file llvm/include/llvm/Support/ThreadPool.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C18D514C42E6D4FCCF39A2D016161F4643676B4">
+                                <pre><code class="language-cpp code-clang-doc">void ~StdThreadPool ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Blocking destructor: the pool will wait for all the threads to complete.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 287 of file llvm/lib/Support/ThreadPool.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A49ECDE1A07BE1B8980C65FC3B0377E8817C54D3">
+                                <pre><code class="language-cpp code-clang-doc">void wait ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Blocking wait for all the threads to complete and the queue to be empty.</p>
+                                        <p> It is an error to try to add new tasks while blocking on this call.</p>
+                                        <p> Calling wait() from a task would deadlock waiting for itself.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 252 of file llvm/lib/Support/ThreadPool.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9380942F61AD6A0A2A40ECCA285582BF39C31A53">
+                                <pre><code class="language-cpp code-clang-doc">void wait (ThreadPoolTaskGroup &amp; Group)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Blocking wait for only all the threads in the given group to complete.</p>
+                                        <p> It is possible to wait even inside a task, but waiting (directly or</p>
+                                        <p> indirectly) on itself will deadlock. If called from a task running on a</p>
+                                        <p> worker thread, the call may process pending tasks while waiting in order</p>
+                                        <p> not to waste the thread.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 260 of file llvm/lib/Support/ThreadPool.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F6BA99A3E1CFE738A69AE3C9AFCA9D97CCD4732C">
+                                <pre><code class="language-cpp code-clang-doc">bool isWorkerThread ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the current thread is a worker thread of this thread pool.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 277 of file llvm/lib/Support/ThreadPool.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

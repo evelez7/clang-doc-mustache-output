@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>InlineInfo</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">gsym</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct InlineInfo</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Name">Name</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CallFile">CallFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CallLine">CallLine</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Ranges">Ranges</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Children">Children</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ADFF45E94A271CFBA6F3F60429AD1FEECC3CEA73">getInlineStack</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#840EBBE72B7EA3EE1294FB3DC041F9FC5DB9E20D">InlineInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#489017E6F32CCC0E9ECBA4569F739C5D94AC742C">clear</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07C0603D19481BDA45726940D8EA4ACE436849F3">isValid</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#70A0376D4E5B135D130C4B569B64D130811AF390">lookup</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52422E4F401801ED198D92AA5079285483E3B80F">decode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8E9E2EE6B4DCBCF28CC59913B3B3D5377D986F7A">encode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79D3DC4432A00201C98742A40A97C25E1DF0BA48">operator&lt;</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct InlineInfo</h1>
+                        <p>Defined at line 60 of file llvm/include/llvm/DebugInfo/GSYM/InlineInfo.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Inline information stores the name of the inline function along with</p>
+                                <p> an array of address ranges. It also stores the call file and call line</p>
+                                <p> that called this inline function. This allows us to unwind inline call</p>
+                                <p> stacks back to the inline or concrete function that called this</p>
+                                <p> function. Inlined functions contained in this function are stored in the</p>
+                                <p> &quot;Children&quot; variable. All address ranges must be sorted and all address</p>
+                                <p> ranges of all children must be contained in the ranges of this function.</p>
+                                <p> Any clients that encode information will need to ensure the ranges are</p>
+                                <p> all contined correctly or lookups could fail. Add ranges in these objects</p>
+                                <p> must be contained in the top level FunctionInfo address ranges as well.</p>
+                            </div>
+                            <div>
+                                <p> ENCODING</p>
+                            </div>
+                            <div>
+                                <p> When saved to disk, the inline info encodes all ranges to be relative to</p>
+                                <p> a parent address range. This will be the FunctionInfo&#39;s start address if</p>
+                                <p> the InlineInfo is directly contained in a FunctionInfo, or a the start</p>
+                                <p> address of the containing parent InlineInfo&#39;s first &quot;Ranges&quot; member. This</p>
+                                <p> allows address ranges to be efficiently encoded using ULEB128 encodings as</p>
+                                <p> we encode the offset and size of each range instead of full addresses. This</p>
+                                <p> also makes any encoded addresses easy to relocate as we just need to</p>
+                                <p> relocate the FunctionInfo&#39;s start address.</p>
+                            </div>
+                            <div>
+                                <p> - The AddressRanges member &quot;Ranges&quot; is encoded using an appropriate base</p>
+                                <p>   address as described above.</p>
+                                <p> - UINT8 boolean value that specifies if the InlineInfo object has children.</p>
+                                <p> - UINT32 string table offset that points to the name of the inline</p>
+                                <p>   function.</p>
+                                <p> - ULEB128 integer that specifies the file of the call site that called</p>
+                                <p>   this function.</p>
+                                <p> - ULEB128 integer that specifies the source line of the call site that</p>
+                                <p>   called this function.</p>
+                                <p> - if this object has children, enocode each child InlineInfo using the</p>
+                                <p>   the first address range&#39;s start address as the base address.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Name" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint32_t Name</code></pre>
+                        </div>
+                        <div id="CallFile" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint32_t CallFile</code></pre>
+                        </div>
+                        <div id="CallLine" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint32_t CallLine</code></pre>
+                        </div>
+                        <div id="Ranges" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >AddressRanges Ranges</code></pre>
+                        </div>
+                        <div id="Children" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >vector Children</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="ADFF45E94A271CFBA6F3F60429AD1FEECC3CEA73">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;InlineArray&gt; getInlineStack (uint64_t Addr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lookup an address in the InlineInfo object</p>
+                                    </div>
+                                    <div>
+                                        <p> This function is used to symbolicate an inline call stack and can</p>
+                                        <p> turn one address in the program into one or more inline call stacks</p>
+                                        <p> and have the stack trace show the original call site from</p>
+                                        <p> non-inlined code.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Addr</b>   the address to lookup
+                                    </div> 
+                                </div>
+                                <p>Defined at line 55 of file llvm/lib/DebugInfo/GSYM/InlineInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="840EBBE72B7EA3EE1294FB3DC041F9FC5DB9E20D">
+                                <pre><code class="language-cpp code-clang-doc">void InlineInfo ()</code></pre>
+                                <p>Defined at line 67 of file llvm/include/llvm/DebugInfo/GSYM/InlineInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="489017E6F32CCC0E9ECBA4569F739C5D94AC742C">
+                                <pre><code class="language-cpp code-clang-doc">void clear ()</code></pre>
+                                <p>Defined at line 68 of file llvm/include/llvm/DebugInfo/GSYM/InlineInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07C0603D19481BDA45726940D8EA4ACE436849F3">
+                                <pre><code class="language-cpp code-clang-doc">bool isValid ()</code></pre>
+                                <p>Defined at line 75 of file llvm/include/llvm/DebugInfo/GSYM/InlineInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="70A0376D4E5B135D130C4B569B64D130811AF390">
+                                <pre><code class="language-cpp code-clang-doc">Error lookup (const GsymReader &amp; GR, DataExtractor &amp; Data, uint64_t BaseAddr, uint64_t Addr, SourceLocations &amp; SrcLocs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lookup a single address within the inline info data.</p>
+                                    </div>
+                                    <div>
+                                        <p> Clients have the option to decode an entire InlineInfo object (using</p>
+                                        <p> InlineInfo::decode() ) or just find the matching inline info using this</p>
+                                        <p> function. The benefit of using this function is that only the information</p>
+                                        <p> needed for the lookup will be extracted, other info can be skipped and</p>
+                                        <p> parsing can stop as soon as the deepest match is found. This allows</p>
+                                        <p> symbolication tools to be fast and efficient and avoid allocation costs</p>
+                                        <p> when doing lookups.</p>
+                                    </div>
+                                    <div>
+                                        <p> This function will augment the SourceLocations array </p>
+                                        <p> with any</p>
+                                        <p> inline information that pertains to </p>
+                                        <p> If no inline information</p>
+                                        <p> exists for </p>
+                                        <p> then </p>
+                                        <p> will be left untouched. If there is</p>
+                                        <p> inline information for </p>
+                                        <p> then </p>
+                                        <p> will be modifiied to</p>
+                                        <p> contain the deepest most inline function&#39;s SourceLocation at index zero</p>
+                                        <p> in the array and proceed up the concrete function source file and</p>
+                                        <p> line at the end of the array.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>GR</b>   The GSYM reader that contains the string and file table that will be used to fill in the source locations.
+                                    </div> 
+                                    <div>
+                                        <b>Data</b>   The binary stream to read the data from. This object must have the data for the LineTable object starting at offset zero. The data can contain more data than needed.
+                                    </div> 
+                                    <div>
+                                        <b>BaseAddr</b>   The base address to use when decoding the line table. This will be the FunctionInfo&#39;s start address and will be used to decode the correct addresses for the inline information.
+                                    </div> 
+                                    <div>
+                                        <b>Addr</b>   The address to lookup.
+                                    </div> 
+                                    <div>
+                                        <b>SrcLocs</b>   The inline source locations that matches  This                array must be initialized with the matching line entry                from the line table upon entry. The name of the concrete                function must be supplied since it will get pushed to                the last SourceLocation entry and the inline information                will fill in the source file and line from the inline                information.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 159 of file llvm/lib/DebugInfo/GSYM/InlineInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="52422E4F401801ED198D92AA5079285483E3B80F">
+                                <pre><code class="language-cpp code-clang-doc">llvm::Expected&lt;InlineInfo&gt; decode (DataExtractor &amp; Data, uint64_t BaseAddr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Decode an InlineInfo object from a binary data stream.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Data</b>   The binary stream to read the data from. This object must have the data for the InlineInfo object starting at offset zero. The data can contain more data than needed.
+                                    </div> 
+                                    <div>
+                                        <b>BaseAddr</b>   The base address to use when decoding all address ranges. This will be the FunctionInfo&#39;s start address if this object is directly contained in a FunctionInfo object, or the start address of the first address range in an InlineInfo object of this object is a child of another InlineInfo object.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 222 of file llvm/lib/DebugInfo/GSYM/InlineInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8E9E2EE6B4DCBCF28CC59913B3B3D5377D986F7A">
+                                <pre><code class="language-cpp code-clang-doc">Error encode (FileWriter &amp; O, uint64_t BaseAddr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Encode this InlineInfo object into FileWriter stream.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>O</b>   The binary stream to write the data to at the current file position.
+                                    </div> 
+                                    <div>
+                                        <b>BaseAddr</b>   The base address to use when encoding all address ranges. This will be the FunctionInfo&#39;s start address if this object is directly contained in a FunctionInfo object, or the start address of the first address range in an InlineInfo object of this object is a child of another InlineInfo object.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 228 of file llvm/lib/DebugInfo/GSYM/InlineInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79D3DC4432A00201C98742A40A97C25E1DF0BA48">
+                                <pre><code class="language-cpp code-clang-doc">bool operator&lt; (const InlineInfo &amp; RHS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compare InlineInfo objects.</p>
+                                    </div>
+                                    <div>
+                                        <p> When comparing InlineInfo objects the item with the most inline functions</p>
+                                        <p> wins. If we have two FunctionInfo objects that both have the same address</p>
+                                        <p> range and both have valid InlineInfo objects, we want the one with the</p>
+                                        <p> most inline functions to win so we save the most information possible</p>
+                                        <p> to the GSYM file. We have seen cases where LTO messes up the inline</p>
+                                        <p> function information for the same address range, so this helps ensure we</p>
+                                        <p> get the most descriptive information we can for an address range.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 274 of file llvm/lib/DebugInfo/GSYM/InlineInfo.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

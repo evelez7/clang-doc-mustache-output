@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LVLogicalVisitor</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">logicalview</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LVLogicalVisitor</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CurrentElement">CurrentElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CurrentScope">CurrentScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CurrentSymbol">CurrentSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CurrentType">CurrentType</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#873128626EAEE395F2BB10B5FE7C584CE4002C6A">setInput</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B71BA02EB8966ED9DCE815CFAFE4633D7A99C61">setInput</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#03237BA735A88066D74345348F5D716E8A18DFFC">addInlineeInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E8B7B781FE576A0F04955F326FA0A71D2C392F94">pushScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D5317564377908EDA6E57A3DDA62B93C583BEA21">popScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9509BB630DD645F39456D8E9843C49886EB74679">closeScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0EA03867B7E4B491934C9F151052A245F569165D">setRoot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8301F7AD21D9582A5C40397E727FAA3A6F0372B1">getCompileUnitName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B1AE4F94352ABBC9D62E61010ADCCC46B49E92FC">setCompileUnitName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4E44E556D61E1EB82CDDC36E577781C532E28FD4">getShared</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#39CF3A77A304EB853CE57F601059BF09F55D3311">getReaderScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FA8139792A5BB89F29BFDB3918B26B03C0EA8CF4">startProcessArgumentList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1ADDFEBF46F17189A277050543FE7FF59973BF6C">stopProcessArgumentList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ACCA7D751A6D1310B4858DE3E1E499B989FD51E7">visitKnownMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#54F695CF1F7A153DF3838FD7A00511BB4193AC91">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F00DA76A2383993CB36B6DA74459FB62E9BD7BDF">LVLogicalVisitor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9B5F29965B6C8F63FB4C2105385FE0E356188E4D">printTypeIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1546A60907423EA064B0AED91A4BE2D82F4BC978">printMemberAttributes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#065F1CAAA419CC7DC699924ED826C03E8584440C">printMemberAttributes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2D0C84F9F2C1F59DED779FE1B78A0F63ED57DD58">createElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#16B2CC051B2314F3D9264F844B02157F45F75149">createElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AA7FB059703CD51BC140D530569CDF12CB2D15DC">createElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D19F8A9B80726CBBE830AA00B021889F23538E39">inlineSiteAnnotation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#60543DED73F54CCF50CF8FEAA60E7F00E28EF530">addElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#95C4BFD1AD7339C7934FAB9BCED3D46CCE24E76C">addElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6950187CC8C1D8A8A5A09AB430C28FD9EC2E79CA">addElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#81717B04B3406A449BF5A4AED35042980D4F2EE2">getElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#14E8DB59E2C87595AE383741265ECB71726D887F">printTypeBegin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#380941C53D5C7AB7A4A3055C206DB9B3A278473A">printTypeEnd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#456F5978FED2CB0F160693225885725B43A29478">printMemberBegin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1875B8670FF6014A02F80A21F317D376F87F34C2">printMemberEnd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FEFB0C02D80233C6A233D4C89ABFB82ADDF34775">processFiles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#48CE5DBEFB3F1D5C69E4FA1CD5D66C7A3D9FEB6C">processLines</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#403D945AFF39158DDB0EEF76B4B6A14F6D8E31B7">processNamespaces</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6F15E15F1CDBF92815A660BD98CD0BC4005E2FBA">printRecords</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#414759191302A561924F5E5F0F218969F788C74C">visitUnknownType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#16CAFA10380256FA82C8F06ACB7A3CD917FC0931">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#35EBD635840C6B91C138E30257944246C044C3B4">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5EDF27E4A2F66C2C6C7174A10B119DEE3DE6EDFF">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#32652E4ABFDF44221893AD06F188CA5CC92C4038">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2777FDC70DE4A2D6A143D188AEA9A8759140FA89">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CBB7EDAB16C8B374352DE83041323FCCDD929BC2">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8ADC12AFDAF92A35CD7778C4A499654A4754390F">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#17E5BF3ED24665DB769AC20E6DDC1312B2F1F5F1">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#06B16635480FFDDA907AD869450C087D2EE90144">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF033CDCB44F21406198CD33EBA365F2DE020C58">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4CEFA8316612CE8C48227288EAD71A85B8CE80C6">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#436CC97CC742E942B5194B508441845DC918C413">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7C3DEBC183E9B75E67F5A4F8ECB26CE78B57469D">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED28070686B3E236DB5F0C8CDE75292EB3FF4FE0">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2FD064FE62A45367CB99726F46CFB72A5D71CAD">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#309A2BBAEE193448813184F98C2ABE518D900952">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BDEEA3150F7E84097802AC8FA7D2C5B6E3B7879">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0DA0293F404B4E86946D43568F0FA5732EA110C4">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DBE20AF89FE929700404AFE9AB08EDCD7BF65B31">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#45C3B952B3878CF48EA442F4BA11BC336DDB9850">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C0DDBEC66386FC194A5C99B38D9F73BCD8E8DA3">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#32D0F5F80984CF04C93C8EC9381EBFA7AEA9CDA0">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A9FEB31A378D8BEE7EB58A65D8F9BDB81E69B4C0">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52971B2E1BD7B3F3CC487695AD13422E523436B1">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#034EA1272DE2D78B563CEEDB9D307BFB53FBF88F">visitKnownRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CE99CDDE73CBE18C8E83AD27DFA64DA40C2988C1">visitUnknownMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DDFFF873ECC23C2FB28045A1F0B086082B602C13">visitKnownMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#379D0390D60A7EA7C2561A4215EFA453BEB938AE">visitKnownMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D8226664003C3FE9A805EC520483A4CB1EB320D">visitKnownMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6796A5F451DE4F4384BE0A0A93A773ABD610AEBD">visitKnownMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1654903804180DAC107E5E9BDFADAD8485659FA2">visitKnownMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#82B704658EDE3DFFF0677287C3BAEACC5BB0574A">visitKnownMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#186A1DA9FBF6BB49A5DDBFEA01731E2A65CF5DAF">visitKnownMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9D23735050892DC4768D3360EAED3DF499FE85AA">visitKnownMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#81F203B6AD0C175C0D2CA56E27C003481D86AEE0">visitKnownMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C03A0F5922895FC9671BA0A2A92FB6BCF8D29875">visitKnownMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EA9E3E94A635C40E77FE19C15FAF2D0F7F1C1A05">visitMemberRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3DA28B8E433F3FC4E3080B0907CE4C4E547BE1D4">finishVisitation</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LVLogicalVisitor</h1>
+                        <p>Defined at line 232 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Visitor for CodeView types and symbols to populate elements.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="CurrentElement" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LVElement * CurrentElement</code></pre>
+                        </div>
+                        <div id="CurrentScope" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LVScope * CurrentScope</code></pre>
+                        </div>
+                        <div id="CurrentSymbol" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LVSymbol * CurrentSymbol</code></pre>
+                        </div>
+                        <div id="CurrentType" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LVType * CurrentType</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="873128626EAEE395F2BB10B5FE7C584CE4002C6A">
+                                <pre><code class="language-cpp code-clang-doc">void setInput (shared_ptr TypeServer)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Input source in the case of type server or precompiled header.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 295 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3B71BA02EB8966ED9DCE815CFAFE4633D7A99C61">
+                                <pre><code class="language-cpp code-clang-doc">void setInput (shared_ptr PrecompHeader)</code></pre>
+                                <p>Defined at line 298 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="03237BA735A88066D74345348F5D716E8A18DFFC">
+                                <pre><code class="language-cpp code-clang-doc">void addInlineeInfo (TypeIndex TI, uint32_t LineNumber, StringRef Filename)</code></pre>
+                                <p>Defined at line 302 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E8B7B781FE576A0F04955F326FA0A71D2C392F94">
+                                <pre><code class="language-cpp code-clang-doc">void pushScope (LVScope * Scope)</code></pre>
+                                <p>Defined at line 321 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D5317564377908EDA6E57A3DDA62B93C583BEA21">
+                                <pre><code class="language-cpp code-clang-doc">void popScope ()</code></pre>
+                                <p>Defined at line 326 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9509BB630DD645F39456D8E9843C49886EB74679">
+                                <pre><code class="language-cpp code-clang-doc">void closeScope ()</code></pre>
+                                <p>Defined at line 331 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0EA03867B7E4B491934C9F151052A245F569165D">
+                                <pre><code class="language-cpp code-clang-doc">void setRoot (LVScope * Root)</code></pre>
+                                <p>Defined at line 337 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8301F7AD21D9582A5C40397E727FAA3A6F0372B1">
+                                <pre><code class="language-cpp code-clang-doc">basic_string getCompileUnitName ()</code></pre>
+                                <p>Defined at line 343 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B1AE4F94352ABBC9D62E61010ADCCC46B49E92FC">
+                                <pre><code class="language-cpp code-clang-doc">void setCompileUnitName (basic_string Name)</code></pre>
+                                <p>Defined at line 344 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4E44E556D61E1EB82CDDC36E577781C532E28FD4">
+                                <pre><code class="language-cpp code-clang-doc">LVShared * getShared ()</code></pre>
+                                <p>Defined at line 350 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="39CF3A77A304EB853CE57F601059BF09F55D3311">
+                                <pre><code class="language-cpp code-clang-doc">LVScope * getReaderScope ()</code></pre>
+                                <p>Defined at line 352 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FA8139792A5BB89F29BFDB3918B26B03C0EA8CF4">
+                                <pre><code class="language-cpp code-clang-doc">void startProcessArgumentList ()</code></pre>
+                                <p>Defined at line 361 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1ADDFEBF46F17189A277050543FE7FF59973BF6C">
+                                <pre><code class="language-cpp code-clang-doc">void stopProcessArgumentList ()</code></pre>
+                                <p>Defined at line 362 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ACCA7D751A6D1310B4858DE3E1E499B989FD51E7">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownMember (CVMemberRecord &amp; Record, TypeVisitorCallbacks &amp; Callbacks, TypeIndex TI, LVElement * Element)</code></pre>
+                                <p>Defined at line 445 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54F695CF1F7A153DF3838FD7A00511BB4193AC91">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, TypeIndex TI, LVElement * Element)</code></pre>
+                                <p>Defined at line 458 of file llvm/include/llvm/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F00DA76A2383993CB36B6DA74459FB62E9BD7BDF">
+                                <pre><code class="language-cpp code-clang-doc">void LVLogicalVisitor (LVCodeViewReader * Reader, ScopedPrinter &amp; W, llvm::pdb::InputFile &amp; Input)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                        <p> Logical visitor.</p>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1729 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9B5F29965B6C8F63FB4C2105385FE0E356188E4D">
+                                <pre><code class="language-cpp code-clang-doc">void printTypeIndex (StringRef FieldName, TypeIndex TI, uint32_t StreamIdx)</code></pre>
+                                <p>Defined at line 1737 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1546A60907423EA064B0AED91A4BE2D82F4BC978">
+                                <pre><code class="language-cpp code-clang-doc">void printMemberAttributes (MemberAttributes Attrs)</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="065F1CAAA419CC7DC699924ED826C03E8584440C">
+                                <pre><code class="language-cpp code-clang-doc">void printMemberAttributes (MemberAccess Access, MethodKind Kind, MethodOptions Options)</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2D0C84F9F2C1F59DED779FE1B78A0F63ED57DD58">
+                                <pre><code class="language-cpp code-clang-doc">LVElement * createElement (TypeLeafKind Kind)</code></pre>
+                                <p>Defined at line 2977 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="16B2CC051B2314F3D9264F844B02157F45F75149">
+                                <pre><code class="language-cpp code-clang-doc">LVElement * createElement (SymbolKind Kind)</code></pre>
+                                <p>Defined at line 3062 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AA7FB059703CD51BC140D530569CDF12CB2D15DC">
+                                <pre><code class="language-cpp code-clang-doc">LVElement * createElement (TypeIndex TI, TypeLeafKind Kind)</code></pre>
+                                <p>Defined at line 3129 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D19F8A9B80726CBBE830AA00B021889F23538E39">
+                                <pre><code class="language-cpp code-clang-doc">Error inlineSiteAnnotation (LVScope * AbstractFunction, LVScope * InlinedFunction, InlineSiteSym &amp; InlineSite)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Break down the annotation byte code and calculate code and line offsets.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3422 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="60543DED73F54CCF50CF8FEAA60E7F00E28EF530">
+                                <pre><code class="language-cpp code-clang-doc">void addElement (LVScope * Scope, bool IsCompileUnit)</code></pre>
+                                <p>Defined at line 2954 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95C4BFD1AD7339C7934FAB9BCED3D46CCE24E76C">
+                                <pre><code class="language-cpp code-clang-doc">void addElement (LVSymbol * Symbol)</code></pre>
+                                <p>Defined at line 2969 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6950187CC8C1D8A8A5A09AB430C28FD9EC2E79CA">
+                                <pre><code class="language-cpp code-clang-doc">void addElement (LVType * Type)</code></pre>
+                                <p>Defined at line 2973 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="81717B04B3406A449BF5A4AED35042980D4F2EE2">
+                                <pre><code class="language-cpp code-clang-doc">LVElement * getElement (uint32_t StreamIdx, TypeIndex TI, LVScope * Parent)</code></pre>
+                                <p>Defined at line 3315 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="14E8DB59E2C87595AE383741265ECB71726D887F">
+                                <pre><code class="language-cpp code-clang-doc">void printTypeBegin (CVType &amp; Record, TypeIndex TI, LVElement * Element, uint32_t StreamIdx)</code></pre>
+                                <p>Defined at line 1743 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="380941C53D5C7AB7A4A3055C206DB9B3A278473A">
+                                <pre><code class="language-cpp code-clang-doc">void printTypeEnd (CVType &amp; Record)</code></pre>
+                                <p>Defined at line 1756 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="456F5978FED2CB0F160693225885725B43A29478">
+                                <pre><code class="language-cpp code-clang-doc">void printMemberBegin (CVMemberRecord &amp; Record, TypeIndex TI, LVElement * Element, uint32_t StreamIdx)</code></pre>
+                                <p>Defined at line 1761 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1875B8670FF6014A02F80A21F317D376F87F34C2">
+                                <pre><code class="language-cpp code-clang-doc">void printMemberEnd (CVMemberRecord &amp; Record)</code></pre>
+                                <p>Defined at line 1775 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FEFB0C02D80233C6A233D4C89ABFB82ADDF34775">
+                                <pre><code class="language-cpp code-clang-doc">void processFiles ()</code></pre>
+                                <p>Defined at line 3390 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="48CE5DBEFB3F1D5C69E4FA1CD5D66C7A3D9FEB6C">
+                                <pre><code class="language-cpp code-clang-doc">void processLines ()</code></pre>
+                                <p>Defined at line 3356 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="403D945AFF39158DDB0EEF76B4B6A14F6D8E31B7">
+                                <pre><code class="language-cpp code-clang-doc">void processNamespaces ()</code></pre>
+                                <p>Defined at line 3385 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6F15E15F1CDBF92815A660BD98CD0BC4005E2FBA">
+                                <pre><code class="language-cpp code-clang-doc">void printRecords (raw_ostream &amp; OS)</code></pre>
+                                <p>Defined at line 3392 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="414759191302A561924F5E5F0F218969F788C74C">
+                                <pre><code class="language-cpp code-clang-doc">Error visitUnknownType (CVType &amp; Record, TypeIndex TI)</code></pre>
+                                <p>Defined at line 1780 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="16CAFA10380256FA82C8F06ACB7A3CD917FC0931">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, ArgListRecord &amp; Args, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_ARGLIST (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1789 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="35EBD635840C6B91C138E30257944246C044C3B4">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, ArrayRecord &amp; AT, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_ARRAY (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1812 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5EDF27E4A2F66C2C6C7174A10B119DEE3DE6EDFF">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, BitFieldRecord &amp; BF, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_BITFIELD (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1930 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="32652E4ABFDF44221893AD06F188CA5CC92C4038">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, BuildInfoRecord &amp; BI, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_BUILDINFO (TPI)/(IPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1946 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2777FDC70DE4A2D6A143D188AEA9A8759140FA89">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, ClassRecord &amp; Class, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_CLASS, LF_STRUCTURE, LF_INTERFACE (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1970 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CBB7EDAB16C8B374352DE83041323FCCDD929BC2">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, EnumRecord &amp; Enum, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_ENUM (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2041 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8ADC12AFDAF92A35CD7778C4A499654A4754390F">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, FieldListRecord &amp; FieldList, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_FIELDLIST (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2098 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="17E5BF3ED24665DB769AC20E6DDC1312B2F1F5F1">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, FuncIdRecord &amp; Func, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_FUNC_ID (TPI)/(IPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2113 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="06B16635480FFDDA907AD869450C087D2EE90144">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, LabelRecord &amp; LR, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_LABEL (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2158 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EF033CDCB44F21406198CD33EBA365F2DE020C58">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, ModifierRecord &amp; Mod, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_MODIFIER (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2266 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4CEFA8316612CE8C48227288EAD71A85B8CE80C6">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, MemberFuncIdRecord &amp; Id, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_MFUNC_ID (TPI)/(IPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2168 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="436CC97CC742E942B5194B508441845DC918C413">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, MemberFunctionRecord &amp; MF, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_MFUNCTION (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2199 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7C3DEBC183E9B75E67F5A4F8ECB26CE78B57469D">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, MethodOverloadListRecord &amp; Overloads, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_METHODLIST (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2246 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED28070686B3E236DB5F0C8CDE75292EB3FF4FE0">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, PointerRecord &amp; Ptr, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_POINTER (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2327 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2FD064FE62A45367CB99726F46CFB72A5D71CAD">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, ProcedureRecord &amp; Proc, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_PROCEDURE (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2410 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="309A2BBAEE193448813184F98C2ABE518D900952">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, UnionRecord &amp; Union, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_UNION (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2441 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BDEEA3150F7E84097802AC8FA7D2C5B6E3B7879">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, TypeServer2Record &amp; TS, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_TYPESERVER2 (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2489 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0DA0293F404B4E86946D43568F0FA5732EA110C4">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, VFTableRecord &amp; VFT, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_VFTABLE (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2502 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DBE20AF89FE929700404AFE9AB08EDCD7BF65B31">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, VFTableShapeRecord &amp; Shape, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_VTSHAPE (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2518 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="45C3B952B3878CF48EA442F4BA11BC336DDB9850">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, StringListRecord &amp; Strings, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_SUBSTR_LIST (TPI)/(IPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2530 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C0DDBEC66386FC194A5C99B38D9F73BCD8E8DA3">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, StringIdRecord &amp; String, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_STRING_ID (TPI)/(IPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2548 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="32D0F5F80984CF04C93C8EC9381EBFA7AEA9CDA0">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, UdtSourceLineRecord &amp; SourceLine, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_UDT_SRC_LINE (TPI)/(IPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2570 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A9FEB31A378D8BEE7EB58A65D8F9BDB81E69B4C0">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, UdtModSourceLineRecord &amp; ModSourceLine, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_UDT_MOD_SRC_LINE (TPI)/(IPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2584 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="52971B2E1BD7B3F3CC487695AD13422E523436B1">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, PrecompRecord &amp; Precomp, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_PRECOMP (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2601 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="034EA1272DE2D78B563CEEDB9D307BFB53FBF88F">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownRecord (CVType &amp; Record, EndPrecompRecord &amp; EndPrecomp, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_ENDPRECOMP (TPI)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2615 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CE99CDDE73CBE18C8E83AD27DFA64DA40C2988C1">
+                                <pre><code class="language-cpp code-clang-doc">Error visitUnknownMember (CVMemberRecord &amp; Record, TypeIndex TI)</code></pre>
+                                <p>Defined at line 2626 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DDFFF873ECC23C2FB28045A1F0B086082B602C13">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownMember (CVMemberRecord &amp; Record, BaseClassRecord &amp; Base, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_BCLASS, LF_BINTERFACE</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2633 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="379D0390D60A7EA7C2561A4215EFA453BEB938AE">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownMember (CVMemberRecord &amp; Record, DataMemberRecord &amp; Field, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_MEMBER</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2656 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D8226664003C3FE9A805EC520483A4CB1EB320D">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownMember (CVMemberRecord &amp; Record, EnumeratorRecord &amp; Enum, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_ENUMERATE</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2674 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6796A5F451DE4F4384BE0A0A93A773ABD610AEBD">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownMember (CVMemberRecord &amp; Record, ListContinuationRecord &amp; Cont, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_INDEX</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2697 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1654903804180DAC107E5E9BDFADAD8485659FA2">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownMember (CVMemberRecord &amp; Record, NestedTypeRecord &amp; Nested, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_NESTTYPE</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2709 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="82B704658EDE3DFFF0677287C3BAEACC5BB0574A">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownMember (CVMemberRecord &amp; Record, OneMethodRecord &amp; Method, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_ONEMETHOD</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2754 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="186A1DA9FBF6BB49A5DDBFEA01731E2A65CF5DAF">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownMember (CVMemberRecord &amp; Record, OverloadedMethodRecord &amp; Method, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_METHOD</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2800 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9D23735050892DC4768D3360EAED3DF499FE85AA">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownMember (CVMemberRecord &amp; Record, StaticDataMemberRecord &amp; Field, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_STMEMBER</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2823 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="81F203B6AD0C175C0D2CA56E27C003481D86AEE0">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownMember (CVMemberRecord &amp; Record, VFPtrRecord &amp; VFTable, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_VFUNCTAB</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2840 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C03A0F5922895FC9671BA0A2A92FB6BCF8D29875">
+                                <pre><code class="language-cpp code-clang-doc">Error visitKnownMember (CVMemberRecord &amp; Record, VirtualBaseClassRecord &amp; Base, TypeIndex TI, LVElement * Element)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LF_VBCLASS, LF_IVBCLASS</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2852 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EA9E3E94A635C40E77FE19C15FAF2D0F7F1C1A05">
+                                <pre><code class="language-cpp code-clang-doc">Error visitMemberRecord (CVMemberRecord &amp; Record, TypeVisitorCallbacks &amp; Callbacks, TypeIndex TI, LVElement * Element)</code></pre>
+                                <p>Defined at line 2877 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3DA28B8E433F3FC4E3080B0907CE4C4E547BE1D4">
+                                <pre><code class="language-cpp code-clang-doc">Error finishVisitation (CVType &amp; Record, TypeIndex TI, LVElement * Element)</code></pre>
+                                <p>Defined at line 2908 of file llvm/lib/DebugInfo/LogicalView/Readers/LVCodeViewVisitor.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>AbstractState</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct AbstractState</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F105DFBCF6A3F5AD1B0E1332E69270F1093D514E">isValidState</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CF1FA2FA71FF4606B571FF9B449B06D20F978DB6">isAtFixpoint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FCF538C3A65E0985360F2D6351A5BEA3DC90236A">indicateOptimisticFixpoint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A46120F3F6E202AFB7EC2B44EA2500659E14AAD1">indicatePessimisticFixpoint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#87DD6C9CC2FE53D88BDF31DFFD8EF2711578AA23">~AbstractState</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct AbstractState</h1>
+                        <p>Defined at line 2642 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> An interface to query the internal state of an abstract attribute.</p>
+                            </div>
+                            <div>
+                                <p> The abstract state is a minimal interface that allows the Attributor to</p>
+                                <p> communicate with the abstract attributes about their internal state without</p>
+                                <p> enforcing or exposing implementation details, e.g., the (existence of an)</p>
+                                <p> underlying lattice.</p>
+                            </div>
+                            <div>
+                                <p> It is sufficient to be able to query if a state is (1) valid or invalid, (2)</p>
+                                <p> at a fixpoint, and to indicate to the state that (3) an optimistic fixpoint</p>
+                                <p> was reached or (4) a pessimistic fixpoint was enforced.</p>
+                            </div>
+                            <div>
+                                <p> All methods need to be implemented by the subclass. For the common use case,</p>
+                                <p> a single boolean state or a bit-encoded state, the BooleanState and</p>
+                                <p> {Inc,Dec,Bit}IntegerState classes are already provided. An abstract</p>
+                                <p> attribute can inherit from them to get the abstract state interface and</p>
+                                <p> additional methods to directly modify the state based if needed. See the</p>
+                                <p> class comments for help.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="F105DFBCF6A3F5AD1B0E1332E69270F1093D514E">
+                                <pre><code class="language-cpp code-clang-doc">bool isValidState ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return if this abstract state is in a valid state. If false, no</p>
+                                        <p> information provided should be used.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CF1FA2FA71FF4606B571FF9B449B06D20F978DB6">
+                                <pre><code class="language-cpp code-clang-doc">bool isAtFixpoint ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return if this abstract state is fixed, thus does not need to be updated</p>
+                                        <p> if information changes as it cannot change itself.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FCF538C3A65E0985360F2D6351A5BEA3DC90236A">
+                                <pre><code class="language-cpp code-clang-doc">ChangeStatus indicateOptimisticFixpoint ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Indicate that the abstract state should converge to the optimistic state.</p>
+                                    </div>
+                                    <div>
+                                        <p> This will usually make the optimistically assumed state the known to be</p>
+                                        <p> true state.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A46120F3F6E202AFB7EC2B44EA2500659E14AAD1">
+                                <pre><code class="language-cpp code-clang-doc">ChangeStatus indicatePessimisticFixpoint ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Indicate that the abstract state should converge to the pessimistic state.</p>
+                                    </div>
+                                    <div>
+                                        <p> This will usually revert the optimistically assumed state to the known to</p>
+                                        <p> be true state.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="87DD6C9CC2FE53D88BDF31DFFD8EF2711578AA23">
+                                <pre><code class="language-cpp code-clang-doc">void ~AbstractState ()</code></pre>
+                                <p>Defined at line 2643 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

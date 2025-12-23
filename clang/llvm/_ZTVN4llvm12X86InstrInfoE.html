@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>X86InstrInfo</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class X86InstrInfo</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6ECB8CD14522AB582D1401E1EEB2198FC4A4BA16">getRegisterInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5A871C23E3DD3FA1DF26CCA8C9AFCCD4D0BE9E2F">getFrameAdjustment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D0D3CAC585B4FD7EAE7A658560C08F73348645F0">setFrameAdjustment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#950491A90BC80496014E778DF837841F0116E901">isSubregFoldable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#37342F2FC42D92A23A6042A5D6928BCD1F07468C">useMachineCombiner</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D32E863AD96EB6F52F6B871059762B0A6D026311">hasLockPrefix</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9A25DB657D2D50D0C492BEA6ECA81124D731E0AF">X86InstrInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C034C27515DD78644AAF8C1870F47ABCDA04091">getRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#639FFA925E5510EE251B1348B40BE365305138C7">getSPAdjust</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#64B3DEFFD3D3710AC393C6BF9F3B21DBB59B7D57">isCoalescableExtInstr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7FDE4D5C8526C91901AA53B2E02787D9CE24C9E6">isDataInvariant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E6FDD7DE799F8AEDF8BE0A0A9062B31D1C27DEAE">isDataInvariantLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#81E5BDBD3DAA7C970BF70D5B94E52224830B2A36">isLoadFromStackSlot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3BBAD8E361544DA488412D273F1DE9D826C2761A">isLoadFromStackSlot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C991940B0BBAAF5A17564E5B3A8547C0A4BDD15B">isLoadFromStackSlotPostFE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EA46A3C92762E903400CF27E656E83AC10A3C017">isStoreToStackSlot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8BE361C10BD7E4D56C0A57AEEA66C98DA59FECBB">isStoreToStackSlot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F2056CE3210A9F372BC7B6D7A580112DC0475F73">isStoreToStackSlotPostFE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#64A575B6F7E5DDD341CD7A569CED09B26723CCE9">isReMaterializableImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#584928FD6CC9D0D406E9E77B827BA2DACDA18554">reMaterialize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#763E9D28DE0B0B601489C74E38C3D5B472A4DC2A">classifyLEAReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#048CE8E6670D7A3FD83BB1787F5A21CAB3D1C789">convertToThreeAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1DD3D2C1633AA39A086D3C9B80EB59B54DDB2203">findCommutedOpIndices</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A6955331F928BFE388020561A6E2E7EFB2A4ABF9">hasCommutePreference</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D510F25B37F9CA4F95FD1E0F8EDAEA7AD8F8AD14">getFMA3OpcodeToCommuteOperands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#54717E43A6B2ED7A58FE54EF4D5A648D71E31935">isUnconditionalTailCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F3A0681840C69A331E4F2BE4F7C475A71C98832">canMakeTailCallConditional</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAAF82F9D73EF2C543350570E18EDED262F655F7">replaceBranchWithTailCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2180A63FDB21468F2036D9E5BEFD3CA1D9C0C78">analyzeBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EFD6179D93E7124A399C0E6C7437BF513112CD74">getJumpTableIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DEA56029B87531CBBFC64F27745ED72164D672C2">hasLiveCondCodeDef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8EF9F2ADAAF18A2009C5B3AAB8E0E4136B1D2056">analyzeBranchPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0A579CE2387B88D3187BC94CE3FEC3D75F061950">getAddrModeFromMemoryOp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D3DD87D6F8E92E9F810885F8AC5F10A7C36A072A">getConstValDefinedInReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7E17E95E27A74C51B0F06A252C39CD7F22604B3F">preservesZeroValueInReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5EBDB13B20674A258C82140DE0952087EAD954F">getMemOperandsWithOffsetWidth</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#722128178DD7BDAB58DED468EE00F8362ABE2ED7">analyzeBranchPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0DF84D057912E9AB106613A8EE184CD871749DC3">removeBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B7FC513CD665EE9BB39D654C39063B7E1FB0E6C0">insertBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B1ECAFB7EE4B397BC1C7419F146EE857B1382257">canInsertSelect</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#22944531BAAD4011535B20F9C9C0570716CA7995">insertSelect</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#29930142C72EDD3B3FE03CD2A55EB6A108C34D15">copyPhysReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAFF7E87BFB0C91512ADBF6B9F78B4032EDE37AD">storeRegToStackSlot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23A286919A91351686A03F038F6B124AB6EA5619">loadRegFromStackSlot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DB9DA7AC0D2A8EC5E5AE2FC5063BF64366DDD931">loadStoreTileReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B62B72E9353CC9290AEC01D6E522D319290956A0">expandPostRAPseudo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#22DDF808FA4FBE3AC62B3014661080159AB4ACE4">foldMemoryOperandImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C459E455D9E1488C0D1057D35F0866AF35703793">foldMemoryOperandImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0C335EDC7C903A6CFC86FE1258D97C2A350D99F9">unfoldMemoryOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CCE25A2884207C9EDD1CA6C4ED70BCBF2B837B64">unfoldMemoryOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CBA38C3DD325E58D974AD0B8A1AF9AE58B6EF0D4">getOpcodeAfterMemoryUnfold</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E3B4A8420033F91AE16A07252E24065AB170061">areLoadsFromSameBasePtr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE46D80C2FD984A95835B966E17FA6C2203911FC">isSchedulingBoundary</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0640FDF30546F3407EC82C79411C317FF7934360">shouldScheduleLoadsNear</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#061200BFD8BDCA5AF86A1C5E975D5374830E8791">insertNoop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#87767950D72B2497F0DDD252119D5596A4E2D381">getNop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1F11B5D4E8D2A6D9F8857CF93876C07BBBC3BFD7">reverseBranchCondition</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A1B4A3425CC3DC4EAD47C73017DEF4D5C1CDA537">isSafeToMoveRegClassDefs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#75BEC648D2D6610FECEF610AD8F0F5199B97446A">getGlobalBaseReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BCC5BED4F5BD53ABE39E5688A684AF3A535A7B4B">getExecutionDomain</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F377C3A9D45ABAAD608D397D9F482C21ECED146E">getExecutionDomainCustom</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E0BB45E9719EFBF28D926B1BD744CBC239D65128">setExecutionDomain</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D95AF0A1E04F5AAFC13FFB065DF52E008977602A">setExecutionDomainCustom</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#955835DC0EF798C651E9E053080B008D37E57480">getPartialRegUpdateClearance</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A7CC5C81E55F4B8B8A4C677A806C0B505D4C5745">getUndefRegClearance</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9973989FD584489BDAAAD6A20DAFDB05C6DC1520">breakPartialRegDependency</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A753DE30E19DF84CF2D4FD448F37D0DC5EA723EB">foldMemoryOperandImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB6C8D62F087A4E0DF07D5514423393FD31430A7">isHighLatencyDef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7BD59D9FB338D3F6460F8431D3921A455438123D">hasHighOperandLatency</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5315DB40FBEB33D4F3B4061445395F52F322357E">isAssociativeAndCommutative</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB68A1B3B69D2558963E35BF393C50AC1E5D990F">hasReassociableOperands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED91320FA1C2A396113DDDF3317E9517CC9ABF96">setSpecialOperandAttr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#94357F0F6FF8C20B95570038856E19B26F573525">analyzeCompare</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4677ED66796C283D46A875C25083DAAD7971390A">optimizeCompareInstr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2DE54C8384D334A03CD0FFAB8B2548596A1BFD8">foldImmediate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4D4F7F776462C53B1AE03C64524E5E202A83D53D">decomposeMachineOperandsTargetFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E7B3E3C15101D74B61FA636D2F2E6121C9ECB3B">getSerializableDirectMachineOperandTargetFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F35D1E96DD0AEB5343CAE7DFA86F5268E33D24B7">getOutliningCandidateInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3DD1711D84C804E95903D5B53B78F00D6C991350">isFunctionSafeToOutlineFrom</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B90C5B7B6BAF6436EC19C799F1F41BC83E94DAD">getOutliningTypeImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F61044F7A32BEF228BD6BA3656267450435C3E57">buildOutlinedFrame</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1DF7E241E7F2E36782F2671EC071E63D0D4AAB3">insertOutlinedCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2E68F833041E643876FCE94C63F1945242F622BD">buildClearRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DF0239EA97473FDDB39A88ABEFC57F71DDE245A4">verifyInstruction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C12F60075F1F90AC3E6091EC0C3B09C6EC9EAB8D">describeLoadedValue</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class X86InstrInfo</h1>
+                        <p>Defined at line 224 of file llvm/lib/Target/X86/X86InstrInfo.h</p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="6ECB8CD14522AB582D1401E1EEB2198FC4A4BA16">
+                                <pre><code class="language-cpp code-clang-doc">const X86RegisterInfo &amp; getRegisterInfo ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getRegisterInfo - TargetInstrInfo is a superset of MRegister info.  As</p>
+                                        <p> such, whenever a client has an instance of instruction info, it should</p>
+                                        <p> always be able to get register info as well (through this method).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 256 of file llvm/lib/Target/X86/X86InstrInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5A871C23E3DD3FA1DF26CCA8C9AFCCD4D0BE9E2F">
+                                <pre><code class="language-cpp code-clang-doc">int64_t getFrameAdjustment (const MachineInstr &amp; I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the stack pointer adjustment that happens inside the frame</p>
+                                        <p> setup..destroy sequence (e.g. by pushes, or inside the callee).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 260 of file llvm/lib/Target/X86/X86InstrInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D0D3CAC585B4FD7EAE7A658560C08F73348645F0">
+                                <pre><code class="language-cpp code-clang-doc">void setFrameAdjustment (MachineInstr &amp; I, int64_t V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Sets the stack pointer adjustment made inside the frame made up by this</p>
+                                        <p> instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 269 of file llvm/lib/Target/X86/X86InstrInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="950491A90BC80496014E778DF837841F0116E901">
+                                <pre><code class="language-cpp code-clang-doc">bool isSubregFoldable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check whether the target can fold a load that feeds a subreg operand</p>
+                                        <p> (or a subreg operand that feeds a store).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 488 of file llvm/lib/Target/X86/X86InstrInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="37342F2FC42D92A23A6042A5D6928BCD1F07468C">
+                                <pre><code class="language-cpp code-clang-doc">bool useMachineCombiner ()</code></pre>
+                                <p>Defined at line 595 of file llvm/lib/Target/X86/X86InstrInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D32E863AD96EB6F52F6B871059762B0A6D026311">
+                                <pre><code class="language-cpp code-clang-doc">bool hasLockPrefix (const MachineInstr &amp; MI)</code></pre>
+                                <p>Defined at line 657 of file llvm/lib/Target/X86/X86InstrInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9A25DB657D2D50D0C492BEA6ECA81124D731E0AF">
+                                <pre><code class="language-cpp code-clang-doc">void X86InstrInfo (const X86Subtarget &amp; STI)</code></pre>
+                                <p>Defined at line 87 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C034C27515DD78644AAF8C1870F47ABCDA04091">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getRegClass (const MCInstrDesc &amp; MCID, unsigned int OpNum)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a machine instruction descriptor, returns the register</p>
+                                        <p> class constraint for OpNum, or NULL. Returned register class</p>
+                                        <p> may be different from the definition in the TD file, e.g.</p>
+                                        <p> GR*RegClass (definition in TD file)</p>
+                                        <p> -&gt;</p>
+                                        <p> GR*_NOREX2RegClass (Returned register class)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 96 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="639FFA925E5510EE251B1348B40BE365305138C7">
+                                <pre><code class="language-cpp code-clang-doc">int getSPAdjust (const MachineInstr &amp; MI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getSPAdjust - This returns the stack pointer adjustment made by</p>
+                                        <p> this instruction. For x86, we need to handle more complex call</p>
+                                        <p> sequences involving PUSHes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 411 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="64B3DEFFD3D3710AC393C6BF9F3B21DBB59B7D57">
+                                <pre><code class="language-cpp code-clang-doc">bool isCoalescableExtInstr (const MachineInstr &amp; MI, Register &amp; SrcReg, Register &amp; DstReg, unsigned int &amp; SubIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isCoalescableExtInstr - Return true if the instruction is a &quot;coalescable&quot;</p>
+                                        <p> extension instruction. That is, it&#39;s like a copy where it&#39;s legal for the</p>
+                                        <p> source to overlap the destination. e.g. X86::MOVSX64rr32. If this returns</p>
+                                        <p> true, then it&#39;s expected the pre-extension value is available as a subreg</p>
+                                        <p> of the result register. This also returns the sub-register index in</p>
+                                        <p> SubIdx.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 111 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7FDE4D5C8526C91901AA53B2E02787D9CE24C9E6">
+                                <pre><code class="language-cpp code-clang-doc">bool isDataInvariant (MachineInstr &amp; MI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the instruction has no behavior (specified or otherwise)</p>
+                                        <p> that is based on the value of any of its register operands</p>
+                                    </div>
+                                    <div>
+                                        <p> Instructions are considered data invariant even if they set EFLAGS.</p>
+                                    </div>
+                                    <div>
+                                        <p> A classical example of something that is inherently not data invariant is</p>
+                                        <p> an indirect jump -- the destination is loaded into icache based on the</p>
+                                        <p> bits set in the jump destination register.</p>
+                                    </div>
+                                    <div>
+                                        <p> FIXME: This should become part of our instruction tables.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 161 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E6FDD7DE799F8AEDF8BE0A0A9062B31D1C27DEAE">
+                                <pre><code class="language-cpp code-clang-doc">bool isDataInvariantLoad (MachineInstr &amp; MI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the instruction has no behavior (specified or otherwise)</p>
+                                        <p> that is based on the value loaded from memory or the value of any</p>
+                                        <p> non-address register operands.</p>
+                                    </div>
+                                    <div>
+                                        <p> For example, if the latency of the instruction is dependent on the</p>
+                                        <p> particular bits set in any of the registers *or* any of the bits loaded</p>
+                                        <p> from memory.</p>
+                                    </div>
+                                    <div>
+                                        <p> Instructions are considered data invariant even if they set EFLAGS.</p>
+                                    </div>
+                                    <div>
+                                        <p> A classical example of something that is inherently not data invariant is</p>
+                                        <p> an indirect jump -- the destination is loaded into icache based on the</p>
+                                        <p> bits set in the jump destination register.</p>
+                                    </div>
+                                    <div>
+                                        <p> FIXME: This should become part of our instruction tables.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 228 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="81E5BDBD3DAA7C970BF70D5B94E52224830B2A36">
+                                <pre><code class="language-cpp code-clang-doc">Register isLoadFromStackSlot (const MachineInstr &amp; MI, int &amp; FrameIndex)</code></pre>
+                                <p>Defined at line 676 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3BBAD8E361544DA488412D273F1DE9D826C2761A">
+                                <pre><code class="language-cpp code-clang-doc">Register isLoadFromStackSlot (const MachineInstr &amp; MI, int &amp; FrameIndex, TypeSize &amp; MemBytes)</code></pre>
+                                <p>Defined at line 682 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C991940B0BBAAF5A17564E5B3A8547C0A4BDD15B">
+                                <pre><code class="language-cpp code-clang-doc">Register isLoadFromStackSlotPostFE (const MachineInstr &amp; MI, int &amp; FrameIndex)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isLoadFromStackSlotPostFE - Check for post-frame ptr elimination</p>
+                                        <p> stack locations as well.  This uses a heuristic so it isn&#39;t</p>
+                                        <p> reliable for correctness.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 691 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EA46A3C92762E903400CF27E656E83AC10A3C017">
+                                <pre><code class="language-cpp code-clang-doc">Register isStoreToStackSlot (const MachineInstr &amp; MI, int &amp; FrameIndex)</code></pre>
+                                <p>Defined at line 709 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8BE361C10BD7E4D56C0A57AEEA66C98DA59FECBB">
+                                <pre><code class="language-cpp code-clang-doc">Register isStoreToStackSlot (const MachineInstr &amp; MI, int &amp; FrameIndex, TypeSize &amp; MemBytes)</code></pre>
+                                <p>Defined at line 715 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F2056CE3210A9F372BC7B6D7A580112DC0475F73">
+                                <pre><code class="language-cpp code-clang-doc">Register isStoreToStackSlotPostFE (const MachineInstr &amp; MI, int &amp; FrameIndex)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isStoreToStackSlotPostFE - Check for post-frame ptr elimination</p>
+                                        <p> stack locations as well.  This uses a heuristic so it isn&#39;t</p>
+                                        <p> reliable for correctness.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 725 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="64A575B6F7E5DDD341CD7A569CED09B26723CCE9">
+                                <pre><code class="language-cpp code-clang-doc">bool isReMaterializableImpl (const MachineInstr &amp; MI)</code></pre>
+                                <p>Defined at line 758 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="584928FD6CC9D0D406E9E77B827BA2DACDA18554">
+                                <pre><code class="language-cpp code-clang-doc">void reMaterialize (MachineBasicBlock &amp; MBB, int MI, Register DestReg, unsigned int SubIdx, const MachineInstr &amp; Orig)</code></pre>
+                                <p>Defined at line 961 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="763E9D28DE0B0B601489C74E38C3D5B472A4DC2A">
+                                <pre><code class="language-cpp code-clang-doc">bool classifyLEAReg (MachineInstr &amp; MI, const MachineOperand &amp; Src, unsigned int LEAOpcode, bool AllowSP, Register &amp; NewSrc, unsigned int &amp; NewSrcSubReg, bool &amp; isKill, MachineOperand &amp; ImplicitOp, LiveVariables * LV, LiveIntervals * LIS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given an operand within a MachineInstr, insert preceding code to put it</p>
+                                        <p> into the right format for a particular kind of LEA instruction. This may</p>
+                                        <p> involve using an appropriate super-register instead (with an implicit use</p>
+                                        <p> of the original) or creating a new virtual register and inserting COPY</p>
+                                        <p> instructions to get the data into the right class.</p>
+                                    </div>
+                                    <div>
+                                        <p> Reference parameters are set to indicate how caller should add this</p>
+                                        <p> operand to the LEA instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1148 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="048CE8E6670D7A3FD83BB1787F5A21CAB3D1C789">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * convertToThreeAddress (MachineInstr &amp; MI, LiveVariables * LV, LiveIntervals * LIS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method must be implemented by targets that</p>
+                                        <p> set the M_CONVERTIBLE_TO_3_ADDR flag.  When this flag is set, the target</p>
+                                        <p> may be able to convert a two-address instruction into a true</p>
+                                        <p> three-address instruction on demand.  This allows the X86 target (for</p>
+                                        <p> example) to convert ADD and SHL instructions into LEA instructions if they</p>
+                                        <p> would require register copies due to two-addressness.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method returns a null pointer if the transformation cannot be</p>
+                                        <p> performed, otherwise it returns the new instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1409 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1DD3D2C1633AA39A086D3C9B80EB59B54DDB2203">
+                                <pre><code class="language-cpp code-clang-doc">bool findCommutedOpIndices (const MachineInstr &amp; MI, unsigned int &amp; SrcOpIdx1, unsigned int &amp; SrcOpIdx2)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true iff the routine could find two commutable operands in the</p>
+                                        <p> given machine instruction.</p>
+                                        <p> The &#39;SrcOpIdx1&#39; and &#39;SrcOpIdx2&#39; are INPUT and OUTPUT arguments. Their</p>
+                                        <p> input values can be re-defined in this method only if the input values</p>
+                                        <p> are not pre-defined, which is designated by the special value</p>
+                                        <p> &#39;CommuteAnyOperandIndex&#39; assigned to it.</p>
+                                        <p> If both of indices are pre-defined and refer to some operands, then the</p>
+                                        <p> method simply returns true if the corresponding operands are commutable</p>
+                                        <p> and returns false otherwise.</p>
+                                    </div>
+                                    <div>
+                                        <p> For example, calling this method this way:</p>
+                                        <p>     unsigned Op1 = 1, Op2 = CommuteAnyOperandIndex;</p>
+                                        <p>     findCommutedOpIndices(MI, Op1, Op2);</p>
+                                        <p> can be interpreted as a query asking to find an operand that would be</p>
+                                        <p> commutable with the operand#1.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2807 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A6955331F928BFE388020561A6E2E7EFB2A4ABF9">
+                                <pre><code class="language-cpp code-clang-doc">bool hasCommutePreference (MachineInstr &amp; MI, bool &amp; Commute)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if we have preference on the operands order in MI, the</p>
+                                        <p> commute decision is returned in Commute.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3135 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D510F25B37F9CA4F95FD1E0F8EDAEA7AD8F8AD14">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getFMA3OpcodeToCommuteOperands (const MachineInstr &amp; MI, unsigned int SrcOpIdx1, unsigned int SrcOpIdx2, const X86InstrFMA3Group &amp; FMA3Group)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns an adjusted FMA opcode that must be used in FMA instruction that</p>
+                                        <p> performs the same computations as the given </p>
+                                        <p> but which has the</p>
+                                        <p> operands </p>
+                                        <p> and </p>
+                                        <p> commuted.</p>
+                                        <p> It may return 0 if it is unsafe to commute the operands.</p>
+                                        <p> Note that a machine instruction (instead of its opcode) is passed as the</p>
+                                        <p> first parameter to make it possible to analyze the instruction&#39;s uses and</p>
+                                        <p> commute the first operand of FMA even when it seems unsafe when you look</p>
+                                        <p> at the opcode. For example, it is Ok to commute the first operand of</p>
+                                        <p> VFMADD*SD_Int, if ONLY the lowest 64-bit element of the result is used.</p>
+                                    </div>
+                                    <div>
+                                        <p> The returned FMA opcode may differ from the opcode in the given </p>
+                                        <p> For example, commuting the operands #1 and #3 in the following FMA</p>
+                                        <p>     FMA213 #1, #2, #3</p>
+                                        <p> results into instruction with adjusted opcode:</p>
+                                        <p>     FMA231 #3, #2, #1</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2085 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54717E43A6B2ED7A58FE54EF4D5A648D71E31935">
+                                <pre><code class="language-cpp code-clang-doc">bool isUnconditionalTailCall (const MachineInstr &amp; MI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Branch analysis.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3696 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F3A0681840C69A331E4F2BE4F7C475A71C98832">
+                                <pre><code class="language-cpp code-clang-doc">bool canMakeTailCallConditional (SmallVectorImpl&lt;MachineOperand&gt; &amp; Cond, const MachineInstr &amp; TailCall)</code></pre>
+                                <p>Defined at line 3711 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DAAF82F9D73EF2C543350570E18EDED262F655F7">
+                                <pre><code class="language-cpp code-clang-doc">void replaceBranchWithTailCall (MachineBasicBlock &amp; MBB, SmallVectorImpl&lt;MachineOperand&gt; &amp; Cond, const MachineInstr &amp; TailCall)</code></pre>
+                                <p>Defined at line 3755 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2180A63FDB21468F2036D9E5BEFD3CA1D9C0C78">
+                                <pre><code class="language-cpp code-clang-doc">bool analyzeBranch (MachineBasicBlock &amp; MBB, MachineBasicBlock *&amp; TBB, MachineBasicBlock *&amp; FBB, SmallVectorImpl&lt;MachineOperand&gt; &amp; Cond, bool AllowModify)</code></pre>
+                                <p>Defined at line 3947 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EFD6179D93E7124A399C0E6C7437BF513112CD74">
+                                <pre><code class="language-cpp code-clang-doc">int getJumpTableIndex (const MachineInstr &amp; MI)</code></pre>
+                                <p>Defined at line 3982 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DEA56029B87531CBBFC64F27745ED72164D672C2">
+                                <pre><code class="language-cpp code-clang-doc">bool hasLiveCondCodeDef (MachineInstr &amp; MI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> True if MI has a condition code def, e.g. EFLAGS, that is</p>
+                                        <p> not marked dead.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 999 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8EF9F2ADAAF18A2009C5B3AAB8E0E4136B1D2056">
+                                <pre><code class="language-cpp code-clang-doc">bool analyzeBranchPredicate (MachineBasicBlock &amp; MBB, int &amp; MBP, bool AllowModify)</code></pre>
+                                <p>Defined at line 4015 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0A579CE2387B88D3187BC94CE3FEC3D75F061950">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;ExtAddrMode&gt; getAddrModeFromMemoryOp (const MachineInstr &amp; MemI, const TargetRegisterInfo * TRI)</code></pre>
+                                <p>Defined at line 4554 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D3DD87D6F8E92E9F810885F8AC5F10A7C36A072A">
+                                <pre><code class="language-cpp code-clang-doc">bool getConstValDefinedInReg (const MachineInstr &amp; MI, Register Reg, int64_t &amp; ImmVal)</code></pre>
+                                <p>Defined at line 4610 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7E17E95E27A74C51B0F06A252C39CD7F22604B3F">
+                                <pre><code class="language-cpp code-clang-doc">bool preservesZeroValueInReg (const MachineInstr * MI, Register NullValueReg, const TargetRegisterInfo * TRI)</code></pre>
+                                <p>Defined at line 4652 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5EBDB13B20674A258C82140DE0952087EAD954F">
+                                <pre><code class="language-cpp code-clang-doc">bool getMemOperandsWithOffsetWidth (const MachineInstr &amp; LdSt, SmallVectorImpl&lt;const MachineOperand *&gt; &amp; BaseOps, int64_t &amp; Offset, bool &amp; OffsetIsScalable, LocationSize &amp; Width, const TargetRegisterInfo * TRI)</code></pre>
+                                <p>Defined at line 4680 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="722128178DD7BDAB58DED468EE00F8362ABE2ED7">
+                                <pre><code class="language-cpp code-clang-doc">bool analyzeBranchPredicate (MachineBasicBlock &amp; MBB, TargetInstrInfo::MachineBranchPredicate &amp; MBP, bool AllowModify)</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0DF84D057912E9AB106613A8EE184CD871749DC3">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int removeBranch (MachineBasicBlock &amp; MBB, int * BytesRemoved)</code></pre>
+                                <p>Defined at line 4084 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B7FC513CD665EE9BB39D654C39063B7E1FB0E6C0">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int insertBranch (MachineBasicBlock &amp; MBB, MachineBasicBlock * TBB, MachineBasicBlock * FBB, ArrayRef&lt;MachineOperand&gt; Cond, const DebugLoc &amp; DL, int * BytesAdded)</code></pre>
+                                <p>Defined at line 4107 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B1ECAFB7EE4B397BC1C7419F146EE857B1382257">
+                                <pre><code class="language-cpp code-clang-doc">bool canInsertSelect (const MachineBasicBlock &amp; , ArrayRef&lt;MachineOperand&gt; Cond, Register , Register , Register , int &amp; , int &amp; , int &amp; )</code></pre>
+                                <p>Defined at line 4165 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="22944531BAAD4011535B20F9C9C0570716CA7995">
+                                <pre><code class="language-cpp code-clang-doc">void insertSelect (MachineBasicBlock &amp; MBB, int MI, const DebugLoc &amp; DL, Register DstReg, ArrayRef&lt;MachineOperand&gt; Cond, Register TrueReg, Register FalseReg)</code></pre>
+                                <p>Defined at line 4202 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="29930142C72EDD3B3FE03CD2A55EB6A108C34D15">
+                                <pre><code class="language-cpp code-clang-doc">void copyPhysReg (MachineBasicBlock &amp; MBB, int MI, const DebugLoc &amp; DL, Register DestReg, Register SrcReg, bool KillSrc, bool RenamableDest, bool RenamableSrc)</code></pre>
+                                <p>Defined at line 4307 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DAFF7E87BFB0C91512ADBF6B9F78B4032EDE37AD">
+                                <pre><code class="language-cpp code-clang-doc">void storeRegToStackSlot (MachineBasicBlock &amp; MBB, int MI, Register SrcReg, bool isKill, int FrameIndex, const TargetRegisterClass * RC, Register VReg, MIFlag Flags)</code></pre>
+                                <p>Defined at line 4786 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23A286919A91351686A03F038F6B124AB6EA5619">
+                                <pre><code class="language-cpp code-clang-doc">void loadRegFromStackSlot (MachineBasicBlock &amp; MBB, int MI, Register DestReg, int FrameIndex, const TargetRegisterClass * RC, Register VReg, MIFlag Flags)</code></pre>
+                                <p>Defined at line 4810 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DB9DA7AC0D2A8EC5E5AE2FC5063BF64366DDD931">
+                                <pre><code class="language-cpp code-clang-doc">void loadStoreTileReg (MachineBasicBlock &amp; MBB, int MI, unsigned int Opc, Register Reg, int FrameIdx, bool isKill)</code></pre>
+                                <p>Defined at line 4749 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B62B72E9353CC9290AEC01D6E522D319290956A0">
+                                <pre><code class="language-cpp code-clang-doc">bool expandPostRAPseudo (MachineInstr &amp; MI)</code></pre>
+                                <p>Defined at line 6166 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="22DDF808FA4FBE3AC62B3014661080159AB4ACE4">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * foldMemoryOperandImpl (MachineFunction &amp; MF, MachineInstr &amp; MI, ArrayRef Ops, int InsertPt, int FrameIndex, LiveIntervals * LIS, VirtRegMap * VRM)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Fold a load or store of the specified stack slot into the specified</p>
+                                        <p> machine instruction for the specified operand(s). If folding happens, it</p>
+                                        <p> is likely that the referenced instruction has been changed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 7618 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C459E455D9E1488C0D1057D35F0866AF35703793">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * foldMemoryOperandImpl (MachineFunction &amp; MF, MachineInstr &amp; MI, ArrayRef Ops, int InsertPt, MachineInstr &amp; LoadMI, LiveIntervals * LIS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Same as the previous version except it allows folding of any load and</p>
+                                        <p> store from / to any address, not just from a specific stack slot.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 8133 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0C335EDC7C903A6CFC86FE1258D97C2A350D99F9">
+                                <pre><code class="language-cpp code-clang-doc">bool unfoldMemoryOperand (MachineFunction &amp; MF, MachineInstr &amp; MI, Register Reg, bool UnfoldLoad, bool UnfoldStore, SmallVectorImpl&lt;MachineInstr *&gt; &amp; NewMIs)</code></pre>
+                                <p>Defined at line 8545 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CCE25A2884207C9EDD1CA6C4ED70BCBF2B837B64">
+                                <pre><code class="language-cpp code-clang-doc">bool unfoldMemoryOperand (SelectionDAG &amp; DAG, SDNode * N, SmallVectorImpl&lt;SDNode *&gt; &amp; NewNodes)</code></pre>
+                                <p>Defined at line 8692 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CBA38C3DD325E58D974AD0B8A1AF9AE58B6EF0D4">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getOpcodeAfterMemoryUnfold (unsigned int Opc, bool UnfoldLoad, bool UnfoldStore, unsigned int * LoadRegIndex)</code></pre>
+                                <p>Defined at line 8826 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E3B4A8420033F91AE16A07252E24065AB170061">
+                                <pre><code class="language-cpp code-clang-doc">bool areLoadsFromSameBasePtr (SDNode * Load1, SDNode * Load2, int64_t &amp; Offset1, int64_t &amp; Offset2)</code></pre>
+                                <p>Defined at line 8844 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE46D80C2FD984A95835B966E17FA6C2203911FC">
+                                <pre><code class="language-cpp code-clang-doc">bool isSchedulingBoundary (const MachineInstr &amp; MI, const MachineBasicBlock * MBB, const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Overrides the isSchedulingBoundary from Codegen/TargetInstrInfo.cpp to</p>
+                                        <p> make it capable of identifying ENDBR intructions and prevent it from being</p>
+                                        <p> re-scheduled.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 9019 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0640FDF30546F3407EC82C79411C317FF7934360">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldScheduleLoadsNear (SDNode * Load1, SDNode * Load2, int64_t Offset1, int64_t Offset2, unsigned int NumLoads)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This is a used by the pre-regalloc scheduler to determine (in conjunction</p>
+                                        <p> with areLoadsFromSameBasePtr) if two loads should be scheduled togther. On</p>
+                                        <p> some targets if two loads are loading from addresses in the same cache</p>
+                                        <p> line, it&#39;s better if they are scheduled together. This function takes two</p>
+                                        <p> integers that represent the load offsets from the common base address. It</p>
+                                        <p> returns true if it decides it&#39;s desirable to schedule the two loads</p>
+                                        <p> together. &quot;NumLoads&quot; is the number of loads that have already been</p>
+                                        <p> scheduled after Load1.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 8970 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="061200BFD8BDCA5AF86A1C5E975D5374830E8791">
+                                <pre><code class="language-cpp code-clang-doc">void insertNoop (MachineBasicBlock &amp; MBB, int MI)</code></pre>
+                                <p>Defined at line 9483 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="87767950D72B2497F0DDD252119D5596A4E2D381">
+                                <pre><code class="language-cpp code-clang-doc">MCInst getNop ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the noop instruction to use for a noop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 9490 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1F11B5D4E8D2A6D9F8857CF93876C07BBBC3BFD7">
+                                <pre><code class="language-cpp code-clang-doc">bool reverseBranchCondition (SmallVectorImpl&lt;MachineOperand&gt; &amp; Cond)</code></pre>
+                                <p>Defined at line 9037 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A1B4A3425CC3DC4EAD47C73017DEF4D5C1CDA537">
+                                <pre><code class="language-cpp code-clang-doc">bool isSafeToMoveRegClassDefs (const TargetRegisterClass * RC)</code></pre>
+                                <p>Defined at line 9045 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="75BEC648D2D6610FECEF610AD8F0F5199B97446A">
+                                <pre><code class="language-cpp code-clang-doc">Register getGlobalBaseReg (MachineFunction * MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a virtual register initialized with the</p>
+                                        <p> the global base register value. Output instructions required to</p>
+                                        <p> initialize the register in the function entry block, if necessary.</p>
+                                    </div>
+                                    <div>
+                                        <p> TODO: Eliminate this and move the code to X86MachineFunctionInfo.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 9060 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BCC5BED4F5BD53ABE39E5688A684AF3A535A7B4B">
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;uint16_t, uint16_t&gt; getExecutionDomain (const MachineInstr &amp; MI)</code></pre>
+                                <p>Defined at line 9392 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F377C3A9D45ABAAD608D397D9F482C21ECED146E">
+                                <pre><code class="language-cpp code-clang-doc">uint16_t getExecutionDomainCustom (const MachineInstr &amp; MI)</code></pre>
+                                <p>Defined at line 9127 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E0BB45E9719EFBF28D926B1BD744CBC239D65128">
+                                <pre><code class="language-cpp code-clang-doc">void setExecutionDomain (MachineInstr &amp; MI, unsigned int Domain)</code></pre>
+                                <p>Defined at line 9433 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D95AF0A1E04F5AAFC13FFB065DF52E008977602A">
+                                <pre><code class="language-cpp code-clang-doc">bool setExecutionDomainCustom (MachineInstr &amp; MI, unsigned int Domain)</code></pre>
+                                <p>Defined at line 9242 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="955835DC0EF798C651E9E053080B008D37E57480">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getPartialRegUpdateClearance (const MachineInstr &amp; MI, unsigned int OpNum, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Inform the BreakFalseDeps pass how many idle</p>
+                                        <p> instructions we would like before a partial register update.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 6771 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A7CC5C81E55F4B8B8A4C677A806C0B505D4C5745">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getUndefRegClearance (const MachineInstr &amp; MI, unsigned int OpNum, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Inform the BreakFalseDeps pass how many idle instructions we would like</p>
+                                        <p> before certain undef register reads.</p>
+                                    </div>
+                                    <div>
+                                        <p> This catches the VCVTSI2SD family of instructions:</p>
+                                    </div>
+                                    <div>
+                                        <p> vcvtsi2sdq %rax, undef %xmm0, %xmm14</p>
+                                    </div>
+                                    <div>
+                                        <p> We should to be careful *not* to catch VXOR idioms which are presumably</p>
+                                        <p> handled specially in the pipeline:</p>
+                                    </div>
+                                    <div>
+                                        <p> vxorps undef %xmm1, undef %xmm1, %xmm1</p>
+                                    </div>
+                                    <div>
+                                        <p> Like getPartialRegUpdateClearance, this makes a strong assumption that the</p>
+                                        <p> high bits that are passed-through are not live.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 7158 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9973989FD584489BDAAAD6A20DAFDB05C6DC1520">
+                                <pre><code class="language-cpp code-clang-doc">void breakPartialRegDependency (MachineInstr &amp; MI, unsigned int OpNum, const TargetRegisterInfo * TRI)</code></pre>
+                                <p>Defined at line 7168 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A753DE30E19DF84CF2D4FD448F37D0DC5EA723EB">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * foldMemoryOperandImpl (MachineFunction &amp; MF, MachineInstr &amp; MI, unsigned int OpNum, ArrayRef&lt;MachineOperand&gt; MOs, int InsertPt, unsigned int Size, Align Alignment, bool AllowCommute)</code></pre>
+                                <p>Defined at line 7488 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB6C8D62F087A4E0DF07D5514423393FD31430A7">
+                                <pre><code class="language-cpp code-clang-doc">bool isHighLatencyDef (int opc)</code></pre>
+                                <p>Defined at line 9496 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7BD59D9FB338D3F6460F8431D3921A455438123D">
+                                <pre><code class="language-cpp code-clang-doc">bool hasHighOperandLatency (const TargetSchedModel &amp; SchedModel, const MachineRegisterInfo * MRI, const MachineInstr &amp; DefMI, unsigned int DefIdx, const MachineInstr &amp; UseMI, unsigned int UseIdx)</code></pre>
+                                <p>Defined at line 9807 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5315DB40FBEB33D4F3B4061445395F52F322357E">
+                                <pre><code class="language-cpp code-clang-doc">bool isAssociativeAndCommutative (const MachineInstr &amp; Inst, bool Invert)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> TODO: There are many more machine instruction opcodes to match:</p>
+                                        <p>       1. Other data types (integer, vectors)</p>
+                                        <p>       2. Other math / logic operations (xor, or)</p>
+                                        <p>       3. Other forms of the same operation (intrinsics and other variants)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 9840 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB68A1B3B69D2558963E35BF393C50AC1E5D990F">
+                                <pre><code class="language-cpp code-clang-doc">bool hasReassociableOperands (const MachineInstr &amp; Inst, const MachineBasicBlock * MBB)</code></pre>
+                                <p>Defined at line 9816 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED91320FA1C2A396113DDDF3317E9517CC9ABF96">
+                                <pre><code class="language-cpp code-clang-doc">void setSpecialOperandAttr (MachineInstr &amp; OldMI1, MachineInstr &amp; OldMI2, MachineInstr &amp; NewMI1, MachineInstr &amp; NewMI2)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This is an architecture-specific helper function of reassociateOps.</p>
+                                        <p> Set special operand attributes for new instructions after reassociation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 10345 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="94357F0F6FF8C20B95570038856E19B26F573525">
+                                <pre><code class="language-cpp code-clang-doc">bool analyzeCompare (const MachineInstr &amp; MI, Register &amp; SrcReg, Register &amp; SrcReg2, int64_t &amp; CmpMask, int64_t &amp; CmpValue)</code></pre>
+                                <p>Defined at line 4833 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4677ED66796C283D46A875C25083DAAD7971390A">
+                                <pre><code class="language-cpp code-clang-doc">bool optimizeCompareInstr (MachineInstr &amp; CmpInstr, Register SrcReg, Register SrcReg2, int64_t CmpMask, int64_t CmpValue, const MachineRegisterInfo * MRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if there exists an earlier instruction that</p>
+                                        <p> operates on the same source operands and sets flags in the same way as</p>
+                                        <p> Compare; remove Compare if possible.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5286 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A2DE54C8384D334A03CD0FFAB8B2548596A1BFD8">
+                                <pre><code class="language-cpp code-clang-doc">bool foldImmediate (MachineInstr &amp; UseMI, MachineInstr &amp; DefMI, Register Reg, MachineRegisterInfo * MRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> foldImmediate - &#39;Reg&#39; is known to be defined by a move immediate</p>
+                                        <p> instruction, try to fold the immediate into the use instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5929 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4D4F7F776462C53B1AE03C64524E5E202A83D53D">
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;unsigned int, unsigned int&gt; decomposeMachineOperandsTargetFlags (unsigned int TF)</code></pre>
+                                <p>Defined at line 10380 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E7B3E3C15101D74B61FA636D2F2E6121C9ECB3B">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;std::pair&lt;unsigned int, const char *&gt;&gt; getSerializableDirectMachineOperandTargetFlags ()</code></pre>
+                                <p>Defined at line 10385 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F35D1E96DD0AEB5343CAE7DFA86F5268E33D24B7">
+                                <pre><code class="language-cpp code-clang-doc">int getOutliningCandidateInfo (const MachineModuleInfo &amp; MMI, int &amp; RepeatedSequenceLocs, unsigned int MinRepeats)</code></pre>
+                                <p>Defined at line 10662 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3DD1711D84C804E95903D5B53B78F00D6C991350">
+                                <pre><code class="language-cpp code-clang-doc">bool isFunctionSafeToOutlineFrom (MachineFunction &amp; MF, bool OutlineFromLinkOnceODRs)</code></pre>
+                                <p>Defined at line 10720 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B90C5B7B6BAF6436EC19C799F1F41BC83E94DAD">
+                                <pre><code class="language-cpp code-clang-doc">InstrType getOutliningTypeImpl (const MachineModuleInfo &amp; MMI, int &amp; MIT, unsigned int Flags)</code></pre>
+                                <p>Defined at line 10742 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F61044F7A32BEF228BD6BA3656267450435C3E57">
+                                <pre><code class="language-cpp code-clang-doc">void buildOutlinedFrame (MachineBasicBlock &amp; MBB, MachineFunction &amp; MF, const outliner::OutlinedFunction &amp; OF)</code></pre>
+                                <p>Defined at line 10781 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1DF7E241E7F2E36782F2671EC071E63D0D4AAB3">
+                                <pre><code class="language-cpp code-clang-doc">int insertOutlinedCall (Module &amp; M, MachineBasicBlock &amp; MBB, int &amp; It, MachineFunction &amp; MF, outliner::Candidate &amp; C)</code></pre>
+                                <p>Defined at line 10794 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2E68F833041E643876FCE94C63F1945242F622BD">
+                                <pre><code class="language-cpp code-clang-doc">void buildClearRegister (Register Reg, MachineBasicBlock &amp; MBB, int Iter, DebugLoc &amp; DL, bool AllowSideEffects)</code></pre>
+                                <p>Defined at line 10811 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DF0239EA97473FDDB39A88ABEFC57F71DDE245A4">
+                                <pre><code class="language-cpp code-clang-doc">bool verifyInstruction (const MachineInstr &amp; MI, StringRef &amp; ErrInfo)</code></pre>
+                                <p>Defined at line 4581 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C12F60075F1F90AC3E6091EC0C3B09C6EC9EAB8D">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;ParamLoadedValue&gt; describeLoadedValue (const MachineInstr &amp; MI, Register Reg)</code></pre>
+                                <p>Defined at line 10201 of file llvm/lib/Target/X86/X86InstrInfo.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

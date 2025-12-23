@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>BinaryRef</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">yaml</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class BinaryRef</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C38E9E76FC3D143A5084160CE4F6074C9D448EA1">writeAsBinary</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F13FC0F8AE6563C53C4F58A7634C159109350240">writeAsHex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#538B6B1336E0DAF572124D510CA2310A1CEE7307">BinaryRef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2FFBE56321AF749A28CD583F0FC18AE7CC1EAE67">BinaryRef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D5DB22566743A5A004A14D2F89DA9BDBAFE053BA">BinaryRef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5B01541044D01887FBFC577127D3983F2146B818">binary_size</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class BinaryRef</h1>
+                        <p>Defined at line 64 of file llvm/include/llvm/ObjectYAML/YAML.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Specialized YAMLIO scalar type for representing a binary blob.</p>
+                            </div>
+                            <div>
+                                <p> A typical use case would be to represent the content of a section in a</p>
+                                <p> binary file.</p>
+                                <p> This class has custom YAMLIO traits for convenient reading and writing.</p>
+                                <p> It renders as a string of hex digits in a YAML file.</p>
+                                <p> For example, it might render as `DEADBEEFCAFEBABE` (YAML does not</p>
+                                <p> require the quotation marks, so for simplicity when outputting they are</p>
+                                <p> omitted).</p>
+                                <p> When reading, any string whose content is an even number of hex digits</p>
+                                <p> will be accepted.</p>
+                                <p> For example, all of the following are acceptable:</p>
+                                <p> `DEADBEEF`, `&quot;DeADbEeF&quot;`, `&quot;\x44EADBEEF&quot;` (Note: &#39;</p>
+                                <p>&#39; == &#39;D&#39;)</p>
+                            </div>
+                            <div>
+                                <p> A significant advantage of using this class is that it never allocates</p>
+                                <p> temporary strings or buffers for any of its functionality.</p>
+                            </div>
+                            <div>
+                                <p> Example:</p>
+                            </div>
+                            <div>
+                                <p> The YAML mapping:</p>
+                            </div>
+                            <div>
+                                <p> Could be modeled in YAMLIO by the struct:</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                         Foo: DEADBEEFCAFEBABE
+                                    </code>
+                                </pre>
+                            </div>
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                         struct FooHolder {
+                                           BinaryRef Foo;
+                                         };
+                                         namespace llvm {
+                                         namespace yaml {
+                                         template &lt;&gt;
+                                         struct MappingTraits&lt;FooHolder&gt; {
+                                           static void mapping(IO &amp;IO, FooHolder &amp;FH) {
+                                             IO.mapRequired(&quot;Foo&quot;, FH.Foo);
+                                           }
+                                         };
+                                         } // end namespace yaml
+                                         } // end namespace llvm
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="C38E9E76FC3D143A5084160CE4F6074C9D448EA1">
+                                <pre><code class="language-cpp code-clang-doc">void writeAsBinary (raw_ostream &amp; OS, uint64_t N)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Write the contents (regardless of whether it is binary or a</p>
+                                        <p> hex string) as binary to the given raw_ostream.</p>
+                                        <p> N can be used to specify the maximum number of bytes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 39 of file llvm/lib/ObjectYAML/YAML.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F13FC0F8AE6563C53C4F58A7634C159109350240">
+                                <pre><code class="language-cpp code-clang-doc">void writeAsHex (raw_ostream &amp; OS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Write the contents (regardless of whether it is binary or a</p>
+                                        <p> hex string) as hex to the given raw_ostream.</p>
+                                    </div>
+                                    <div>
+                                        <p> For example, a possible output could be `DEADBEEFCAFEBABE`.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 54 of file llvm/lib/ObjectYAML/YAML.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="538B6B1336E0DAF572124D510CA2310A1CEE7307">
+                                <pre><code class="language-cpp code-clang-doc">void BinaryRef ()</code></pre>
+                                <p>Defined at line 75 of file llvm/include/llvm/ObjectYAML/YAML.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2FFBE56321AF749A28CD583F0FC18AE7CC1EAE67">
+                                <pre><code class="language-cpp code-clang-doc">void BinaryRef (ArrayRef Data)</code></pre>
+                                <p>Defined at line 76 of file llvm/include/llvm/ObjectYAML/YAML.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D5DB22566743A5A004A14D2F89DA9BDBAFE053BA">
+                                <pre><code class="language-cpp code-clang-doc">void BinaryRef (StringRef Data)</code></pre>
+                                <p>Defined at line 77 of file llvm/include/llvm/ObjectYAML/YAML.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5B01541044D01887FBFC577127D3983F2146B818">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;uint8_t&gt;::size_type binary_size ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The number of bytes that are represented by this BinaryRef.</p>
+                                        <p> This is the number of bytes that writeAsBinary() will write.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 81 of file llvm/include/llvm/ObjectYAML/YAML.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

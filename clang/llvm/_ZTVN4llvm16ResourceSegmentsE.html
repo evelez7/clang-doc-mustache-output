@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ResourceSegments</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ResourceSegments</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F83477BDE309830708C2172E8D98C45C26A804F">getResourceIntervalBottom</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ECEAD0B8FA7925475C82431CDB4353B31DF57CB4">getResourceIntervalTop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D73F890E43FA4F766C6BD7634BD1EC405FF33495">getFirstAvailableAtFromBottom</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A28400F44055BB63D6A1D0BFFF525F55B627C537">getFirstAvailableAtFromTop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#714874E15AF8F1D298A1A79BD56C33FFC9F64751">ResourceSegments</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B58A21CEFA184A8A7559C25C071E0794B3D18E10">empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4C0DE2343DB22C14FAC32E8BB5DE6A67B4338736">ResourceSegments</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4671D7E2143AA4335294FCACACED124BEA245F40">add</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0A2446C4CE3B8E8546E78687E15AD42BB6073014">intersects</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ResourceSegments</h1>
+                        <p>Defined at line 651 of file llvm/include/llvm/CodeGen/MachineScheduler.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> ResourceSegments are a collection of intervals closed on the</p>
+                                <p> left and opened on the right:</p>
+                            </div>
+                            <div>
+                                <p>     list{ [a1, b1), [a2, b2), ..., [a_N, b_N) }</p>
+                            </div>
+                            <div>
+                                <p> The collection has the following properties:</p>
+                            </div>
+                            <div>
+                                <p> 1. The list is ordered: a_i </p>
+                                <p>&lt;</p>
+                                <p> b_i and b_i </p>
+                                <p>&lt;</p>
+                                <p> a_(i+1)</p>
+                            </div>
+                            <div>
+                                <p> 2. The intervals in the collection do not intersect each other.</p>
+                            </div>
+                            <div>
+                                <p> A </p>
+                                <p> instance represents the cycle</p>
+                                <p> reservation history of the instance of and individual resource.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="9F83477BDE309830708C2172E8D98C45C26A804F">
+                                <pre><code class="language-cpp code-clang-doc">IntervalTy getResourceIntervalBottom (unsigned int C, unsigned int AcquireAtCycle, unsigned int ReleaseAtCycle)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> These function return the interval used by a resource in bottom and top</p>
+                                        <p> scheduling.</p>
+                                    </div>
+                                    <div>
+                                        <p> Consider an instruction that uses resources X0, X1 and X2 as follows:</p>
+                                    </div>
+                                    <div>
+                                        <p> X0 X1 X1 X2    +--------+-------------+--------------+</p>
+                                        <p>                |Resource|AcquireAtCycle|ReleaseAtCycle|</p>
+                                        <p>                +--------+-------------+--------------+</p>
+                                        <p>                |   X0   |     0       |       1      |</p>
+                                        <p>                +--------+-------------+--------------+</p>
+                                        <p>                |   X1   |     1       |       3      |</p>
+                                        <p>                +--------+-------------+--------------+</p>
+                                        <p>                |   X2   |     3       |       4      |</p>
+                                        <p>                +--------+-------------+--------------+</p>
+                                    </div>
+                                    <div>
+                                        <p> If we can schedule the instruction at cycle C, we need to</p>
+                                        <p> compute the interval of the resource as follows:</p>
+                                    </div>
+                                    <div>
+                                        <p> # TOP DOWN SCHEDULING</p>
+                                    </div>
+                                    <div>
+                                        <p> Cycles scheduling flows to the _right_, in the same direction</p>
+                                        <p> of time.</p>
+                                    </div>
+                                    <div>
+                                        <p>       C      1      2      3      4      5  ...</p>
+                                        <p> ------|------|------|------|------|------|-----&gt;</p>
+                                        <p>       X0     X1     X1     X2   ---&gt; direction of time</p>
+                                        <p> X0    [C, C+1)</p>
+                                        <p> X1           [C+1,      C+3)</p>
+                                        <p> X2                         [C+3, C+4)</p>
+                                    </div>
+                                    <div>
+                                        <p> Therefore, the formula to compute the interval for a resource</p>
+                                        <p> of an instruction that can be scheduled at cycle C in top-down</p>
+                                        <p> scheduling is:</p>
+                                    </div>
+                                    <div>
+                                        <p>       [C+AcquireAtCycle, C+ReleaseAtCycle)</p>
+                                    </div>
+                                    <div>
+                                        <p> # BOTTOM UP SCHEDULING</p>
+                                    </div>
+                                    <div>
+                                        <p> Cycles scheduling flows to the _left_, in opposite direction</p>
+                                        <p> of time.</p>
+                                    </div>
+                                    <div>
+                                        <p> In bottom up scheduling, the scheduling happens in opposite</p>
+                                        <p> direction to the execution of the cycles of the</p>
+                                        <p> instruction. When the instruction is scheduled at cycle `C`,</p>
+                                        <p> the resources are allocated in the past relative to `C`:</p>
+                                    </div>
+                                    <div>
+                                        <p>       2      1      C     -1     -2     -3     -4     -5  ...</p>
+                                        <p>&lt;</p>
+                                        <p>-----|------|------|------|------|------|------|------|---</p>
+                                        <p>                     X0     X1     X1     X2   ---&gt; direction of time</p>
+                                        <p> X0           (C+1, C]</p>
+                                        <p> X1                  (C,        C-2]</p>
+                                        <p> X2                              (C-2, C-3]</p>
+                                    </div>
+                                    <div>
+                                        <p> Therefore, the formula to compute the interval for a resource</p>
+                                        <p> of an instruction that can be scheduled at cycle C in bottom-up</p>
+                                        <p> scheduling is:</p>
+                                    </div>
+                                    <div>
+                                        <p>       [C-ReleaseAtCycle+1, C-AcquireAtCycle+1)</p>
+                                    </div>
+                                    <div>
+                                        <p> NOTE: In both cases, the number of cycles booked by a</p>
+                                        <p> resources is the value (ReleaseAtCycle - AcquireAtCycle).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 741 of file llvm/include/llvm/CodeGen/MachineScheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ECEAD0B8FA7925475C82431CDB4353B31DF57CB4">
+                                <pre><code class="language-cpp code-clang-doc">IntervalTy getResourceIntervalTop (unsigned int C, unsigned int AcquireAtCycle, unsigned int ReleaseAtCycle)</code></pre>
+                                <p>Defined at line 746 of file llvm/include/llvm/CodeGen/MachineScheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D73F890E43FA4F766C6BD7634BD1EC405FF33495">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getFirstAvailableAtFromBottom (unsigned int CurrCycle, unsigned int AcquireAtCycle, unsigned int ReleaseAtCycle)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getFirstAvailableAtFromBottom and getFirstAvailableAtFromTop</p>
+                                        <p> should be merged in a single function in which a function that</p>
+                                        <p> creates the `NewInterval` is passed as a parameter.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 808 of file llvm/include/llvm/CodeGen/MachineScheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A28400F44055BB63D6A1D0BFFF525F55B627C537">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getFirstAvailableAtFromTop (unsigned int CurrCycle, unsigned int AcquireAtCycle, unsigned int ReleaseAtCycle)</code></pre>
+                                <p>Defined at line 814 of file llvm/include/llvm/CodeGen/MachineScheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="714874E15AF8F1D298A1A79BD56C33FFC9F64751">
+                                <pre><code class="language-cpp code-clang-doc">void ResourceSegments ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> constructor for empty set</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 832 of file llvm/include/llvm/CodeGen/MachineScheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B58A21CEFA184A8A7559C25C071E0794B3D18E10">
+                                <pre><code class="language-cpp code-clang-doc">bool empty ()</code></pre>
+                                <p>Defined at line 833 of file llvm/include/llvm/CodeGen/MachineScheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4C0DE2343DB22C14FAC32E8BB5DE6A67B4338736">
+                                <pre><code class="language-cpp code-clang-doc">void ResourceSegments (const int &amp; Intervals)</code></pre>
+                                <p>Defined at line 834 of file llvm/include/llvm/CodeGen/MachineScheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4671D7E2143AA4335294FCACACED124BEA245F40">
+                                <pre><code class="language-cpp code-clang-doc">void add (IntervalTy A, const unsigned int CutOff)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Adds an interval [a, b) to the collection of the instance.</p>
+                                    </div>
+                                    <div>
+                                        <p> When adding [a, b[ to the collection, the operation merges the</p>
+                                        <p> adjacent intervals. For example</p>
+                                    </div>
+                                    <div>
+                                        <p>       0  1  2  3  4  5  6  7  8  9  10</p>
+                                        <p>       [-----)  [--)     [--)</p>
+                                        <p>     +       [--)</p>
+                                        <p>     = [-----------)     [--)</p>
+                                    </div>
+                                    <div>
+                                        <p> To be able to debug duplicate resource usage, the function has</p>
+                                        <p> assertion that checks that no interval should be added if it</p>
+                                        <p> overlaps any of the intervals in the collection. We can</p>
+                                        <p> require this because by definition a </p>
+                                        <p> is</p>
+                                        <p> attached only to an individual resource instance.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4920 of file llvm/lib/CodeGen/MachineScheduler.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0A2446C4CE3B8E8546E78687E15AD42BB6073014">
+                                <pre><code class="language-cpp code-clang-doc">bool intersects (IntervalTy A, IntervalTy B)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Checks whether intervals intersect.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4947 of file llvm/lib/CodeGen/MachineScheduler.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

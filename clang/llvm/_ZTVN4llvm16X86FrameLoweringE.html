@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>X86FrameLowering</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class X86FrameLowering</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#STI">STI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TII">TII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TRI">TRI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SlotSize">SlotSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Is64Bit">Is64Bit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#IsLP64">IsLP64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Uses64BitFramePtr">Uses64BitFramePtr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#StackPtr">StackPtr</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BE0B0DB8798AD9739363A5A3849AF0078DA04022">X86FrameLowering</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CCA15444423108C456EB51755F19FFC52ECA7CDB">emitStackProbe</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#412244645C9E2585B30C70E8F463DEC9A3A417B7">stackProbeFunctionModifiesSP</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#31B4483DF963FB33162D6E7A79D908D900217B8D">inlineStackProbe</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5BACDFA6189BBDF953CA093E477C684937524799">emitCalleeSavedFrameMovesFullCFA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6127019613720CF3E3148F737F9DB17766AF7DDD">emitCalleeSavedFrameMoves</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B6CBBAFA9D99886BD7FD8CAAD21DB72449BCBAB">emitPrologue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0BE68B24986663487C164AF122126F94007023C5">emitEpilogue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4DED3E65218D40F1C13760A073B0CB03541FDD2D">adjustForSegmentedStacks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AD5B64333071E52506769E75EBB3A7A394658D15">adjustForHiPEPrologue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1E91578EFEBCB5A0A99758DD4B75851D8B192DEF">determineCalleeSaves</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1D0B5DFE8CA4F585971D0DEC15C64DA1EB5A571A">assignCalleeSavedSpillSlots</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#598E9ADDEE13221D3D22B3436BF054466B328538">spillCalleeSavedRegisters</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2949AD8FB374E8708B49ADBC46DFD24C3E4C5C2B">restoreCalleeSavedRegisters</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BEF8DA31B345EA256B3A1323718DD6EB63FBF593">spillFPBP</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5474E82BA487C21F9667B938EA96A02CC1FDC867">hasReservedCallFrame</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D85B1FEC2C0BE752E93BCF7E9EF7BFBF91171CEE">canSimplifyCallFramePseudos</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C853A880C3FEC3B789888B4F24B7231456ED5799">needsFrameIndexResolution</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5289D5D8A7DAA2CE607C5C5868134DE17213FF7">getFrameIndexReference</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#622B63078136959E6B5FDA7403E1DC846824661B">getWin64EHFrameIndexRef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9ABE79EB30CC75896A02C8E00FC643B2E1302293">getFrameIndexReferenceSP</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EB70AC018B28BDB0A3F1F75D39DB59EB4184025C">getFrameIndexReferencePreferSP</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#05911D085F7123B65BADFD4A10C76F8BAF759855">eliminateCallFramePseudoInstr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#402F52DFE86EEF16F6D25FE70FCA0FA28B2ECE00">getWinEHParentFrameOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4E76025F22BE55B07E5ADDE1598810F0C54FA583">processFunctionBeforeFrameFinalized</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#590DFC70E2D7062B622B4AC420A41E161C47FC9D">processFunctionBeforeFrameIndicesReplaced</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79FC71413A1256187CF173FE4097EDFE096E9D2E">mergeSPAdd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8E2D1AE5FFDA782876B17A2885836FBD6424FB99">emitSPUpdate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E16FE0CE8DD4E78415FFE9758298FA08A03C9CB6">canUseLEAForSPInEpilogue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#70FB7E1F57F2C429AF12F2A85678C9875B69D730">canUseAsPrologue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D22A77C620DACB5E73FE9A917FEC5F740B6B9813">canUseAsEpilogue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#62C560A048172EEF8FC3C8EFC545240B45336883">enableShrinkWrapping</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8F4E50837CB745B814331AF1C34B0E7642A8F3C5">orderFrameObjects</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79C7C4752B30AC60758406A0DFE1B218A6FC1D58">BuildCFI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2B534505299FBD143C11BE499F73438719C8A578">restoreWin32EHStackPointers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#32F79996C9C0F68B9B263F82EE94BB035224A582">restoreWinEHStackPointersInParent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0DA84EEBF8E6D9F90F893CB172B6594D6D23AC51">getInitialCFAOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6FA8AA9E7743F6177B03E7399AA5EAFC12F1F5EA">getInitialCFARegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B32D1D9F3110604EB0C3C466B4E88CF1291F36F6">getDwarfFrameBase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#498CE71634025EC0848612FC3FBAA1D7D2298E24">has128ByteRedZone</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class X86FrameLowering</h1>
+                        <p>Defined at line 28 of file llvm/lib/Target/X86/X86FrameLowering.h</p>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="STI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const X86Subtarget &amp; STI</code></pre>
+                        </div>
+                        <div id="TII" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const X86InstrInfo &amp; TII</code></pre>
+                        </div>
+                        <div id="TRI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const X86RegisterInfo * TRI</code></pre>
+                        </div>
+                        <div id="SlotSize" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int SlotSize</code></pre>
+                        </div>
+                        <div id="Is64Bit" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool Is64Bit</code></pre>
+                        </div>
+                        <div id="IsLP64" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool IsLP64</code></pre>
+                        </div>
+                        <div id="Uses64BitFramePtr" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool Uses64BitFramePtr</code></pre>
+                        </div>
+                        <div id="StackPtr" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Register StackPtr</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="BE0B0DB8798AD9739363A5A3849AF0078DA04022">
+                                <pre><code class="language-cpp code-clang-doc">void X86FrameLowering (const X86Subtarget &amp; STI, MaybeAlign StackAlignOverride)</code></pre>
+                                <p>Defined at line 49 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CCA15444423108C456EB51755F19FFC52ECA7CDB">
+                                <pre><code class="language-cpp code-clang-doc">void emitStackProbe (MachineFunction &amp; MF, MachineBasicBlock &amp; MBB, int MBBI, const DebugLoc &amp; DL, bool InProlog, std::optional&lt;MachineFunction::DebugInstrOperandPair&gt; InstrNum)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit target stack probe code. This is required for all</p>
+                                        <p> large stack allocations on Windows. The caller is required to materialize</p>
+                                        <p> the number of bytes to probe in RAX/EAX.</p>
+                                        <p> optionally contains a debug-info instruction number for the</p>
+                                        <p>    new stack pointer.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 638 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="412244645C9E2585B30C70E8F463DEC9A3A417B7">
+                                <pre><code class="language-cpp code-clang-doc">bool stackProbeFunctionModifiesSP ()</code></pre>
+                                <p>Defined at line 655 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="31B4483DF963FB33162D6E7A79D908D900217B8D">
+                                <pre><code class="language-cpp code-clang-doc">void inlineStackProbe (MachineFunction &amp; MF, MachineBasicBlock &amp; PrologMBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Replace a StackProbe inline-stub with the actual probe code inline.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 659 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5BACDFA6189BBDF953CA093E477C684937524799">
+                                <pre><code class="language-cpp code-clang-doc">void emitCalleeSavedFrameMovesFullCFA (MachineBasicBlock &amp; MBB, int MBBI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emits Dwarf Info specifying offsets of callee saved registers and</p>
+                                        <p> frame pointer. This is called only when basic block sections are enabled.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 497 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6127019613720CF3E3148F737F9DB17766AF7DDD">
+                                <pre><code class="language-cpp code-clang-doc">void emitCalleeSavedFrameMoves (MachineBasicBlock &amp; MBB, int MBBI, const DebugLoc &amp; DL, bool IsPrologue)</code></pre>
+                                <p>Defined at line 517 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B6CBBAFA9D99886BD7FD8CAAD21DB72449BCBAB">
+                                <pre><code class="language-cpp code-clang-doc">void emitPrologue (MachineFunction &amp; MF, MachineBasicBlock &amp; MBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>  Here&#39;s a gist of what gets emitted:</p>
+                                    </div>
+                                    <div>
+                                        <p>  ; Establish frame pointer, if needed</p>
+                                        <p>  [if needs FP]</p>
+                                        <p>      push  %rbp</p>
+                                        <p>      .cfi_def_cfa_offset 16</p>
+                                        <p>      .cfi_offset %rbp, -16</p>
+                                        <p>      .seh_pushreg %rpb</p>
+                                        <p>      mov  %rsp, %rbp</p>
+                                        <p>      .cfi_def_cfa_register %rbp</p>
+                                    </div>
+                                    <div>
+                                        <p>  ; Spill general-purpose registers</p>
+                                        <p>  [for all callee-saved GPRs]</p>
+                                        <p>      pushq %</p>
+                                        <p>&lt;reg</p>
+                                        <p>&gt;</p>
+                                        <p>      [if not needs FP]</p>
+                                        <p>         .cfi_def_cfa_offset (offset from RETADDR)</p>
+                                        <p>      .seh_pushreg %</p>
+                                        <p>&lt;reg</p>
+                                        <p>&gt;</p>
+                                    </div>
+                                    <div>
+                                        <p>  ; If the required stack alignment &gt; default stack alignment</p>
+                                        <p>  ; rsp needs to be re-aligned.  This creates a &quot;re-alignment gap&quot;</p>
+                                        <p>  ; of unknown size in the stack frame.</p>
+                                        <p>  [if stack needs re-alignment]</p>
+                                        <p>      and  $MASK, %rsp</p>
+                                    </div>
+                                    <div>
+                                        <p>  ; Allocate space for locals</p>
+                                        <p>  [if target is Windows and allocated space &gt; 4096 bytes]</p>
+                                        <p>      ; Windows needs special care for allocations larger</p>
+                                        <p>      ; than one page.</p>
+                                        <p>      mov $NNN, %rax</p>
+                                        <p>      call ___chkstk_ms/___chkstk</p>
+                                        <p>      sub  %rax, %rsp</p>
+                                        <p>  [else]</p>
+                                        <p>      sub  $NNN, %rsp</p>
+                                    </div>
+                                    <div>
+                                        <p>  [if needs FP]</p>
+                                        <p>      .seh_stackalloc (size of XMM spill slots)</p>
+                                        <p>      .seh_setframe %rbp, SEHFrameOffset ; = size of all spill slots</p>
+                                        <p>  [else]</p>
+                                        <p>      .seh_stackalloc NNN</p>
+                                    </div>
+                                    <div>
+                                        <p>  ; Spill XMMs</p>
+                                        <p>  ; Note, that while only Windows 64 ABI specifies XMMs as callee-preserved,</p>
+                                        <p>  ; they may get spilled on any platform, if the current function</p>
+                                        <p>  ; calls </p>
+                                        <p>.eh.unwind.init</p>
+                                        <p>  [if needs FP]</p>
+                                        <p>      [for all callee-saved XMM registers]</p>
+                                        <p>          movaps  %</p>
+                                        <p>&lt;xmm</p>
+                                        <p> reg&gt;, -MMM(%rbp)</p>
+                                        <p>      [for all callee-saved XMM registers]</p>
+                                        <p>          .seh_savexmm %</p>
+                                        <p>&lt;xmm</p>
+                                        <p> reg&gt;, (-MMM + SEHFrameOffset)</p>
+                                        <p>              ; i.e. the offset relative to (%rbp - SEHFrameOffset)</p>
+                                        <p>  [else]</p>
+                                        <p>      [for all callee-saved XMM registers]</p>
+                                        <p>          movaps  %</p>
+                                        <p>&lt;xmm</p>
+                                        <p> reg&gt;, KKK(%rsp)</p>
+                                        <p>      [for all callee-saved XMM registers]</p>
+                                        <p>          .seh_savexmm %</p>
+                                        <p>&lt;xmm</p>
+                                        <p> reg&gt;, KKK</p>
+                                    </div>
+                                    <div>
+                                        <p>  .seh_endprologue</p>
+                                    </div>
+                                    <div>
+                                        <p>  [if needs base pointer]</p>
+                                        <p>      mov  %rsp, %rbx</p>
+                                        <p>      [if needs to restore base pointer]</p>
+                                        <p>          mov %rsp, -MMM(%rbp)</p>
+                                    </div>
+                                    <div>
+                                        <p>  ; Emit CFI info</p>
+                                        <p>  [if needs FP]</p>
+                                        <p>      [for all callee-saved registers]</p>
+                                        <p>          .cfi_offset %</p>
+                                        <p>&lt;reg</p>
+                                        <p>&gt;, (offset from %rbp)</p>
+                                        <p>  [else]</p>
+                                        <p>       .cfi_def_cfa_offset (offset from RETADDR)</p>
+                                        <p>      [for all callee-saved registers]</p>
+                                        <p>          .cfi_offset %</p>
+                                        <p>&lt;reg</p>
+                                        <p>&gt;, (offset from %rsp)</p>
+                                    </div>
+                                    <div>
+                                        <p>  Notes:</p>
+                                        <p>  - .seh directives are emitted only for Windows 64 ABI</p>
+                                        <p>  - .cv_fpo directives are emitted on win32 when emitting CodeView</p>
+                                        <p>  - .cfi directives are emitted for all other ABIs</p>
+                                        <p>  - for 32-bit code, substitute %e?? registers for %r??</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1587 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0BE68B24986663487C164AF122126F94007023C5">
+                                <pre><code class="language-cpp code-clang-doc">void emitEpilogue (MachineFunction &amp; MF, MachineBasicBlock &amp; MBB)</code></pre>
+                                <p>Defined at line 2407 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4DED3E65218D40F1C13760A073B0CB03541FDD2D">
+                                <pre><code class="language-cpp code-clang-doc">void adjustForSegmentedStacks (MachineFunction &amp; MF, MachineBasicBlock &amp; PrologueMBB)</code></pre>
+                                <p>Defined at line 3268 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AD5B64333071E52506769E75EBB3A7A394658D15">
+                                <pre><code class="language-cpp code-clang-doc">void adjustForHiPEPrologue (MachineFunction &amp; MF, MachineBasicBlock &amp; PrologueMBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Erlang programs may need a special prologue to handle the stack size they</p>
+                                        <p> might need at runtime. That is because Erlang/OTP does not implement a C</p>
+                                        <p> stack but uses a custom implementation of hybrid stack/heap architecture.</p>
+                                        <p> (for more information see Eric Stenman&#39;s Ph.D. thesis:</p>
+                                        <p> http://publications.uu.se/uu/fulltext/nbn_se_uu_diva-2688.pdf)</p>
+                                    </div>
+                                    <div>
+                                        <p> CheckStack:</p>
+                                        <p>       temp0 = sp - MaxStack</p>
+                                        <p>       if( temp0 </p>
+                                        <p>&lt;</p>
+                                        <p> SP_LIMIT(P) ) goto IncStack else goto OldStart</p>
+                                        <p> OldStart:</p>
+                                        <p>       ...</p>
+                                        <p> IncStack:</p>
+                                        <p>       call inc_stack   # doubles the stack space</p>
+                                        <p>       temp0 = sp - MaxStack</p>
+                                        <p>       if( temp0 </p>
+                                        <p>&lt;</p>
+                                        <p> SP_LIMIT(P) ) goto IncStack else goto OldStart</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3576 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1E91578EFEBCB5A0A99758DD4B75851D8B192DEF">
+                                <pre><code class="language-cpp code-clang-doc">void determineCalleeSaves (MachineFunction &amp; MF, BitVector &amp; SavedRegs, RegScavenger * RS)</code></pre>
+                                <p>Defined at line 3202 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1D0B5DFE8CA4F585971D0DEC15C64DA1EB5A571A">
+                                <pre><code class="language-cpp code-clang-doc">bool assignCalleeSavedSpillSlots (MachineFunction &amp; MF, const TargetRegisterInfo * TRI, int &amp; CSI)</code></pre>
+                                <p>Defined at line 2853 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="598E9ADDEE13221D3D22B3436BF054466B328538">
+                                <pre><code class="language-cpp code-clang-doc">bool spillCalleeSavedRegisters (MachineBasicBlock &amp; MBB, int MI, ArrayRef&lt;CalleeSavedInfo&gt; CSI, const TargetRegisterInfo * TRI)</code></pre>
+                                <p>Defined at line 3012 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2949AD8FB374E8708B49ADBC46DFD24C3E4C5C2B">
+                                <pre><code class="language-cpp code-clang-doc">bool restoreCalleeSavedRegisters (MachineBasicBlock &amp; MBB, int MI, MutableArrayRef&lt;CalleeSavedInfo&gt; CSI, const TargetRegisterInfo * TRI)</code></pre>
+                                <p>Defined at line 3133 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BEF8DA31B345EA256B3A1323718DD6EB63FBF593">
+                                <pre><code class="language-cpp code-clang-doc">void spillFPBP (MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If a function uses base pointer and the base pointer is clobbered by inline</p>
+                                        <p> asm, RA doesn&#39;t detect this case, and after the inline asm, the base pointer</p>
+                                        <p> contains garbage value.</p>
+                                        <p> For example if a 32b x86 function uses base pointer esi, and esi is</p>
+                                        <p> clobbered by following inline asm</p>
+                                        <p>     asm(&quot;rep movsb&quot; : &quot;+D&quot;(ptr), &quot;+S&quot;(x), &quot;+c&quot;(c)::&quot;memory&quot;);</p>
+                                        <p> We need to save esi before the asm and restore it after the asm.</p>
+                                    </div>
+                                    <div>
+                                        <p> The problem can also occur to frame pointer if there is a function call, and</p>
+                                        <p> the callee uses a different calling convention and clobbers the fp.</p>
+                                    </div>
+                                    <div>
+                                        <p> Because normal frame objects (spill slots) are accessed through fp/bp</p>
+                                        <p> register, so we can&#39;t spill fp/bp to normal spill slots.</p>
+                                    </div>
+                                    <div>
+                                        <p> FIXME: There are 2 possible enhancements:</p>
+                                        <p> 1. In many cases there are different physical registers not clobbered by</p>
+                                        <p> inline asm, we can use one of them as base pointer. Or use a virtual</p>
+                                        <p> register as base pointer and let RA allocate a physical register to it.</p>
+                                        <p> 2. If there is no other instructions access stack with fp/bp from the</p>
+                                        <p> inline asm to the epilog, and no cfi requirement for a correct fp, we can</p>
+                                        <p> skip the save and restore operations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4561 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5474E82BA487C21F9667B938EA96A02CC1FDC867">
+                                <pre><code class="language-cpp code-clang-doc">bool hasReservedCallFrame (const MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 64 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D85B1FEC2C0BE752E93BCF7E9EF7BFBF91171CEE">
+                                <pre><code class="language-cpp code-clang-doc">bool canSimplifyCallFramePseudos (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> canSimplifyCallFramePseudos - If there is a reserved call frame, the</p>
+                                        <p> call frame pseudos can be simplified.  Having a FP, as in the default</p>
+                                        <p> implementation, is not sufficient here since we can&#39;t always use it.</p>
+                                        <p> Use a more nuanced condition.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 74 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C853A880C3FEC3B789888B4F24B7231456ED5799">
+                                <pre><code class="language-cpp code-clang-doc">bool needsFrameIndexResolution (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> needsFrameIndexResolution - Do we need to perform FI resolution for</p>
+                                        <p> this function. Normally, this is required only when the function</p>
+                                        <p> has any stack objects. However, FI resolution actually has another job,</p>
+                                        <p> not apparent from the title - it resolves callframesetup/destroy</p>
+                                        <p> that were not simplified earlier.</p>
+                                        <p> So, this is required for x86 functions that have push sequences even</p>
+                                        <p> when there are no stack objects.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 89 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5289D5D8A7DAA2CE607C5C5868134DE17213FF7">
+                                <pre><code class="language-cpp code-clang-doc">StackOffset getFrameIndexReference (const MachineFunction &amp; MF, int FI, Register &amp; FrameReg)</code></pre>
+                                <p>Defined at line 2662 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="622B63078136959E6B5FDA7403E1DC846824661B">
+                                <pre><code class="language-cpp code-clang-doc">int getWin64EHFrameIndexRef (const MachineFunction &amp; MF, int FI, Register &amp; SPReg)</code></pre>
+                                <p>Defined at line 2745 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9ABE79EB30CC75896A02C8E00FC643B2E1302293">
+                                <pre><code class="language-cpp code-clang-doc">StackOffset getFrameIndexReferenceSP (const MachineFunction &amp; MF, int FI, Register &amp; SPReg, int Adjustment)</code></pre>
+                                <p>Defined at line 2760 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EB70AC018B28BDB0A3F1F75D39DB59EB4184025C">
+                                <pre><code class="language-cpp code-clang-doc">StackOffset getFrameIndexReferencePreferSP (const MachineFunction &amp; MF, int FI, Register &amp; FrameReg, bool IgnoreSPUpdates)</code></pre>
+                                <p>Defined at line 2770 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="05911D085F7123B65BADFD4A10C76F8BAF759855">
+                                <pre><code class="language-cpp code-clang-doc">int eliminateCallFramePseudoInstr (MachineFunction &amp; MF, MachineBasicBlock &amp; MBB, int MI)</code></pre>
+                                <p>Defined at line 3789 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="402F52DFE86EEF16F6D25FE70FCA0FA28B2ECE00">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getWinEHParentFrameOffset (const MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 4196 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4E76025F22BE55B07E5ADDE1598810F0C54FA583">
+                                <pre><code class="language-cpp code-clang-doc">void processFunctionBeforeFrameFinalized (MachineFunction &amp; MF, RegScavenger * RS)</code></pre>
+                                <p>Defined at line 4209 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="590DFC70E2D7062B622B4AC420A41E161C47FC9D">
+                                <pre><code class="language-cpp code-clang-doc">void processFunctionBeforeFrameIndicesReplaced (MachineFunction &amp; MF, RegScavenger * RS)</code></pre>
+                                <p>Defined at line 4282 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79FC71413A1256187CF173FE4097EDFE096E9D2E">
+                                <pre><code class="language-cpp code-clang-doc">int64_t mergeSPAdd (MachineBasicBlock &amp; MBB, int &amp; MBBI, int64_t AddOffset, bool doMergeWithPrevious)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Equivalent to:</p>
+                                        <p>   mergeSPUpdates(MBB, MBBI,</p>
+                                        <p>                  [AddOffset](int64_t Offset) {</p>
+                                        <p>                    return AddOffset + Offset;</p>
+                                        <p>                  },</p>
+                                        <p>                  doMergeWithPrevious);</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 470 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8E2D1AE5FFDA782876B17A2885836FBD6424FB99">
+                                <pre><code class="language-cpp code-clang-doc">void emitSPUpdate (MachineBasicBlock &amp; MBB, int &amp; MBBI, const DebugLoc &amp; DL, int64_t NumBytes, bool InEpilogue)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit a series of instructions to increment / decrement the stack</p>
+                                        <p> pointer by a constant value.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 232 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E16FE0CE8DD4E78415FFE9758298FA08A03C9CB6">
+                                <pre><code class="language-cpp code-clang-doc">bool canUseLEAForSPInEpilogue (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check that LEA can be used on SP in an epilogue sequence for </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2322 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="70FB7E1F57F2C429AF12F2A85678C9875B69D730">
+                                <pre><code class="language-cpp code-clang-doc">bool canUseAsPrologue (const MachineBasicBlock &amp; MBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check whether or not the given </p>
+                                        <p> can be used as a prologue</p>
+                                        <p> for the target.</p>
+                                        <p> The prologue will be inserted first in this basic block.</p>
+                                        <p> This method is used by the shrink-wrapping pass to decide if</p>
+                                        <p> will be correctly handled by the target.</p>
+                                        <p> As soon as the target enable shrink-wrapping without overriding</p>
+                                        <p> this method, we assume that each basic block is a valid</p>
+                                        <p> prologue.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3907 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D22A77C620DACB5E73FE9A917FEC5F740B6B9813">
+                                <pre><code class="language-cpp code-clang-doc">bool canUseAsEpilogue (const MachineBasicBlock &amp; MBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check whether or not the given </p>
+                                        <p> can be used as a epilogue</p>
+                                        <p> for the target.</p>
+                                        <p> The epilogue will be inserted before the first terminator of that block.</p>
+                                        <p> This method is used by the shrink-wrapping pass to decide if</p>
+                                        <p> will be correctly handled by the target.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3924 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="62C560A048172EEF8FC3C8EFC545240B45336883">
+                                <pre><code class="language-cpp code-clang-doc">bool enableShrinkWrapping (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target will correctly handle shrink wrapping.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3950 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8F4E50837CB745B814331AF1C34B0E7642A8F3C5">
+                                <pre><code class="language-cpp code-clang-doc">void orderFrameObjects (const MachineFunction &amp; MF, SmallVectorImpl&lt;int&gt; &amp; ObjectsToAllocate)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Order the symbols in the local stack.</p>
+                                        <p> We want to place the local stack objects in some sort of sensible order.</p>
+                                        <p> The heuristic we use is to try and pack them according to static number</p>
+                                        <p> of uses and size in order to minimize code size.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4125 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79C7C4752B30AC60758406A0DFE1B218A6FC1D58">
+                                <pre><code class="language-cpp code-clang-doc">void BuildCFI (MachineBasicBlock &amp; MBB, int MBBI, const DebugLoc &amp; DL, const MCCFIInstruction &amp; CFIInst, MIFlag Flag)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Wraps up getting a CFI index and building a MachineInstr for it.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 479 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2B534505299FBD143C11BE499F73438719C8A578">
+                                <pre><code class="language-cpp code-clang-doc">int restoreWin32EHStackPointers (MachineBasicBlock &amp; MBB, int MBBI, const DebugLoc &amp; DL, bool RestoreSP)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Sets up EBP and optionally ESI based on the incoming EBP value.  Only</p>
+                                        <p> needed for 32-bit. Used in funclet prologues and at catchret destinations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3966 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="32F79996C9C0F68B9B263F82EE94BB035224A582">
+                                <pre><code class="language-cpp code-clang-doc">void restoreWinEHStackPointersInParent (MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 4296 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0DA84EEBF8E6D9F90F893CB172B6594D6D23AC51">
+                                <pre><code class="language-cpp code-clang-doc">int getInitialCFAOffset (const MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 4029 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6FA8AA9E7743F6177B03E7399AA5EAFC12F1F5EA">
+                                <pre><code class="language-cpp code-clang-doc">Register getInitialCFARegister (const MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 4033 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B32D1D9F3110604EB0C3C466B4E88CF1291F36F6">
+                                <pre><code class="language-cpp code-clang-doc">DwarfFrameBase getDwarfFrameBase (const MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 4038 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="498CE71634025EC0848612FC3FBAA1D7D2298E24">
+                                <pre><code class="language-cpp code-clang-doc">bool has128ByteRedZone (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the function has a redzone (accessible bytes past the</p>
+                                        <p> frame of the top of stack function) as part of it&#39;s ABI.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1453 of file llvm/lib/Target/X86/X86FrameLowering.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

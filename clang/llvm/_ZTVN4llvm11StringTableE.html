@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>StringTable</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class StringTable</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E884EA4B61CC337029423C0338C0351F0B86A8C2">StringTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6FF7858FF719067C1FF7A64F8F342013589B0BB4">getCString</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#63586D82144AC77A59A46D09839B28B9456910FC">operator[]</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9904721AA436195C9695CCB568D8FE1BD9915057">size</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9B2F3CF7A286CDA7F67C8AC274150C862EEE1879">begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#43CC7CE04703BBA6E73EA2EFF98527C7D7F829B8">end</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class StringTable</h1>
+                        <p>Defined at line 34 of file llvm/include/llvm/ADT/StringTable.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A table of densely packed, null-terminated strings indexed by offset.</p>
+                            </div>
+                            <div>
+                                <p> This table abstracts a densely concatenated list of null-terminated strings,</p>
+                                <p> each of which can be referenced using an offset into the table.</p>
+                            </div>
+                            <div>
+                                <p> This requires and ensures that the string at offset 0 is also the empty</p>
+                                <p> string. This helps allow zero-initialized offsets form empty strings and</p>
+                                <p> avoids non-zero initialization when using a string literal pointer would</p>
+                                <p> allow a null pointer.</p>
+                            </div>
+                            <div>
+                                <p> The primary use case is having a single global string literal for the table</p>
+                                <p> contents, and offsets into it in other global data structures to avoid</p>
+                                <p> dynamic relocations of individual string literal pointers in those global</p>
+                                <p> data structures.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="E884EA4B61CC337029423C0338C0351F0B86A8C2">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;size_t N&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void StringTable (const char (&amp;)[N] RawTable)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> We directly handle string literals with a templated converting constructor</p>
+                                        <p> because we *don&#39;t* want to do `strlen` on them -- we fully expect null</p>
+                                        <p> bytes in this input. This is somewhat the opposite of how `StringLiteral`</p>
+                                        <p> works.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 73 of file llvm/include/llvm/ADT/StringTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6FF7858FF719067C1FF7A64F8F342013589B0BB4">
+                                <pre><code class="language-cpp code-clang-doc">const char * getCString (Offset O)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the raw C string from the table starting with the provided offset.</p>
+                                        <p> The returned string is null terminated.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 91 of file llvm/include/llvm/ADT/StringTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="63586D82144AC77A59A46D09839B28B9456910FC">
+                                <pre><code class="language-cpp code-clang-doc">StringRef operator[] (Offset O)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get a string from the table starting with the provided offset. The returned</p>
+                                        <p> `StringRef` is in fact null terminated, and so can be converted safely to a</p>
+                                        <p> C-string if necessary for a system API.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 99 of file llvm/include/llvm/ADT/StringTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9904721AA436195C9695CCB568D8FE1BD9915057">
+                                <pre><code class="language-cpp code-clang-doc">size_t size ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the byte size of the table.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 102 of file llvm/include/llvm/ADT/StringTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9B2F3CF7A286CDA7F67C8AC274150C862EEE1879">
+                                <pre><code class="language-cpp code-clang-doc">Iterator begin ()</code></pre>
+                                <p>Defined at line 143 of file llvm/include/llvm/ADT/StringTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="43CC7CE04703BBA6E73EA2EFF98527C7D7F829B8">
+                                <pre><code class="language-cpp code-clang-doc">Iterator end ()</code></pre>
+                                <p>Defined at line 144 of file llvm/include/llvm/ADT/StringTable.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

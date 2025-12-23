@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>PhiAnalyzer</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class PhiAnalyzer</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B1AC8EC4DD8FB6A283C1D32A0054442167C757F">PhiAnalyzer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E79ED48D378738E10FCA4CB3DE156988422466E">calculateIterationsToPeel</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class PhiAnalyzer</h1>
+                        <p>Defined at line 195 of file llvm/lib/Transforms/Utils/LoopPeel.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> As a loop is peeled, it may be the case that Phi nodes become</p>
+                                <p> loop-invariant (ie, known because there is only one choice).</p>
+                                <p> For example, consider the following function:</p>
+                                <p>   void g(int);</p>
+                                <p>   void binary() {</p>
+                                <p>     int x = 0;</p>
+                                <p>     int y = 0;</p>
+                                <p>     int a = 0;</p>
+                                <p>     for(int i = 0; i </p>
+                                <p>&lt;</p>
+                                <p>100000; ++i) {</p>
+                                <p>       g(x);</p>
+                                <p>       x = y;</p>
+                                <p>       g(a);</p>
+                                <p>       y = a + 1;</p>
+                                <p>       a = 5;</p>
+                                <p>     }</p>
+                                <p>   }</p>
+                                <p> Peeling 3 iterations is beneficial because the values for x, y and a</p>
+                                <p> become known.  The IR for this loop looks something like the following:</p>
+                            </div>
+                            <div>
+                                <p>   %i = phi i32 [ 0, %entry ], [ %inc, %if.end ]</p>
+                                <p>   %a = phi i32 [ 0, %entry ], [ 5, %if.end ]</p>
+                                <p>   %y = phi i32 [ 0, %entry ], [ %add, %if.end ]</p>
+                                <p>   %x = phi i32 [ 0, %entry ], [ %y, %if.end ]</p>
+                                <p>   ...</p>
+                                <p>   tail call void </p>
+                                <p>@</p>
+                                <p>_Z1gi(i32 signext %x)</p>
+                                <p>   tail call void </p>
+                                <p>@</p>
+                                <p>_Z1gi(i32 signext %a)</p>
+                                <p>   %add = add nuw nsw i32 %a, 1</p>
+                                <p>   %inc = add nuw nsw i32 %i, 1</p>
+                                <p>   %exitcond = icmp eq i32 %inc, 100000</p>
+                                <p>   br i1 %exitcond, label %for.cond.cleanup, label %for.body</p>
+                            </div>
+                            <div>
+                                <p> The arguments for the calls to g will become known after 3 iterations</p>
+                                <p> of the loop, because the phi nodes values become known after 3 iterations</p>
+                                <p> of the loop (ie, they are known on the 4th iteration, so peel 3 iterations).</p>
+                                <p> The first iteration has g(0), g(0); the second has g(0), g(5); the</p>
+                                <p> third has g(1), g(5) and the fourth (and all subsequent) have g(6), g(5).</p>
+                                <p> Now consider the phi nodes:</p>
+                                <p>   %a is a phi with constants so it is determined after iteration 1.</p>
+                                <p>   %y is a phi based on a constant and %a so it is determined on</p>
+                                <p>     the iteration after %a is determined, so iteration 2.</p>
+                                <p>   %x is a phi based on a constant and %y so it is determined on</p>
+                                <p>     the iteration after %y, so iteration 3.</p>
+                                <p>   %i is based on itself (and is an induction variable) so it is</p>
+                                <p>     never determined.</p>
+                                <p> This means that peeling off 3 iterations will result in being able to</p>
+                                <p> remove the phi nodes for %a, %y, and %x.  The arguments for the</p>
+                                <p> corresponding calls to g are determined and the code for computing</p>
+                                <p> x, y, and a can be removed.</p>
+                            </div>
+                            <div>
+                                <p> Similarly, there are cases where peeling makes Phi nodes loop-inductions</p>
+                                <p> (i.e., the value is increased or decreased by a fixed amount on every</p>
+                                <p> iteration). For example, consider the following function.</p>
+                            </div>
+                            <div>
+                                <p>   #define N 100</p>
+                                <p>   void f(int a[], int b[]) {</p>
+                                <p>     int im = N - 1;</p>
+                                <p>     for (int i = 0; i </p>
+                                <p>&lt;</p>
+                                <p> N; i++) {</p>
+                                <p>       a[i] = b[i] + b[im];</p>
+                                <p>       im = i;</p>
+                                <p>     }</p>
+                                <p>   }</p>
+                            </div>
+                            <div>
+                                <p> The IR of the loop will look something like the following.</p>
+                            </div>
+                            <div>
+                                <p>   %i = phi i32 [ 0, %entry ], [ %i.next, %for.body ]</p>
+                                <p>   %im = phi i32 [ 99, %entry ], [ %i, %for.body ]</p>
+                                <p>   ...</p>
+                                <p>   %i.next = add nuw nsw i32 %i, 1</p>
+                                <p>   ...</p>
+                            </div>
+                            <div>
+                                <p> In this case, %im becomes a loop-induction variable by peeling 1 iteration,</p>
+                                <p> because %i is a loop-induction one. The peeling count can be determined by</p>
+                                <p> the same algorithm with loop-invariant case. Such peeling is profitable for</p>
+                                <p> loop-vectorization.</p>
+                            </div>
+                            <div>
+                                <p> The PhiAnalyzer class calculates how many times a loop should be</p>
+                                <p> peeled based on the above analysis of the phi nodes in the loop while</p>
+                                <p> respecting the maximum specified.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="3B1AC8EC4DD8FB6A283C1D32A0054442167C757F">
+                                <pre><code class="language-cpp code-clang-doc">void PhiAnalyzer (const Loop &amp; L, unsigned int MaxIterations, bool PeelForIV)</code></pre>
+                                <p>Defined at line 248 of file llvm/lib/Transforms/Utils/LoopPeel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E79ED48D378738E10FCA4CB3DE156988422466E">
+                                <pre><code class="language-cpp code-clang-doc">optional calculateIterationsToPeel ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Calculate the sufficient minimum number of iterations of the loop to peel</p>
+                                        <p> such that phi instructions become determined (subject to allowable limits)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 400 of file llvm/lib/Transforms/Utils/LoopPeel.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

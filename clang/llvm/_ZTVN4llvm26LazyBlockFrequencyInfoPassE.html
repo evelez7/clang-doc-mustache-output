@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LazyBlockFrequencyInfoPass</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LazyBlockFrequencyInfoPass</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ID">ID</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E976609EAB9BA6A0F34D11CCDB46FE7A91CB002B">LazyBlockFrequencyInfoPass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8A649CE85CFADF54C5F9E46ECF23EB6803C8AA18">getAnalysisUsage</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26B5A5BE4EFECB72933E6C6FA0568BE4636E57BC">getLazyBFIAnalysisUsage</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AA4AAA7B4BFBB62D5AB77AA5A0A2758F54DC6955">runOnFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8EDF061FC92E9488AB0FD96FBF70D75DFE6041C6">releaseMemory</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A00CC9EA32695C55DF60DCB70F5F202498855AB7">print</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#43BE406D895588FBC3C1037B0A5AC62561792878">getBFI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BFE3D1F7813EC259B4191BEA059A0167513468ED">getBFI</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LazyBlockFrequencyInfoPass</h1>
+                        <p>Defined at line 97 of file llvm/include/llvm/Analysis/LazyBlockFrequencyInfo.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This is an alternative analysis pass to</p>
+                                <p> BlockFrequencyInfoWrapperPass.  The difference is that with this pass the</p>
+                                <p> block frequencies are not computed when the analysis pass is executed but</p>
+                                <p> rather when the BFI result is explicitly requested by the analysis client.</p>
+                            </div>
+                            <div>
+                                <p> There are some additional requirements for any client pass that wants to use</p>
+                                <p> the analysis:</p>
+                            </div>
+                            <div>
+                                <p> 1. The pass needs to initialize dependent passes with:</p>
+                            </div>
+                            <div>
+                                <p>   INITIALIZE_PASS_DEPENDENCY(LazyBFIPass)</p>
+                            </div>
+                            <div>
+                                <p> 2. Similarly, getAnalysisUsage should call:</p>
+                            </div>
+                            <div>
+                                <p>   LazyBlockFrequencyInfoPass::getLazyBFIAnalysisUsage(AU)</p>
+                            </div>
+                            <div>
+                                <p> 3. The computed BFI should be requested with</p>
+                                <p>    getAnalysis</p>
+                                <p>&lt;LazyBlockFrequencyInfoPass</p>
+                                <p>&gt;().getBFI() before either LoopInfo</p>
+                                <p>    or BPI could be invalidated for example by changing the CFG.</p>
+                            </div>
+                            <div>
+                                <p> Note that it is expected that we wouldn&#39;t need this functionality for the</p>
+                                <p> new PM since with the new PM, analyses are executed on demand.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="ID" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static char ID</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="E976609EAB9BA6A0F34D11CCDB46FE7A91CB002B">
+                                <pre><code class="language-cpp code-clang-doc">void LazyBlockFrequencyInfoPass ()</code></pre>
+                                <p>Defined at line 35 of file llvm/lib/Analysis/LazyBlockFrequencyInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8A649CE85CFADF54C5F9E46ECF23EB6803C8AA18">
+                                <pre><code class="language-cpp code-clang-doc">void getAnalysisUsage (AnalysisUsage &amp; AU)</code></pre>
+                                <p>Defined at line 41 of file llvm/lib/Analysis/LazyBlockFrequencyInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="26B5A5BE4EFECB72933E6C6FA0568BE4636E57BC">
+                                <pre><code class="language-cpp code-clang-doc">void getLazyBFIAnalysisUsage (AnalysisUsage &amp; AU)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Helper for client passes to set up the analysis usage on behalf of this</p>
+                                        <p> pass.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 60 of file llvm/lib/Analysis/LazyBlockFrequencyInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AA4AAA7B4BFBB62D5AB77AA5A0A2758F54DC6955">
+                                <pre><code class="language-cpp code-clang-doc">bool runOnFunction (Function &amp; F)</code></pre>
+                                <p>Defined at line 53 of file llvm/lib/Analysis/LazyBlockFrequencyInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8EDF061FC92E9488AB0FD96FBF70D75DFE6041C6">
+                                <pre><code class="language-cpp code-clang-doc">void releaseMemory ()</code></pre>
+                                <p>Defined at line 51 of file llvm/lib/Analysis/LazyBlockFrequencyInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A00CC9EA32695C55DF60DCB70F5F202498855AB7">
+                                <pre><code class="language-cpp code-clang-doc">void print (raw_ostream &amp; OS, const Module * M)</code></pre>
+                                <p>Defined at line 37 of file llvm/lib/Analysis/LazyBlockFrequencyInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="43BE406D895588FBC3C1037B0A5AC62561792878">
+                                <pre><code class="language-cpp code-clang-doc">BlockFrequencyInfo &amp; getBFI ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compute and return the block frequencies.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 109 of file llvm/include/llvm/Analysis/LazyBlockFrequencyInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BFE3D1F7813EC259B4191BEA059A0167513468ED">
+                                <pre><code class="language-cpp code-clang-doc">const BlockFrequencyInfo &amp; getBFI ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compute and return the block frequencies.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 112 of file llvm/include/llvm/Analysis/LazyBlockFrequencyInfo.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

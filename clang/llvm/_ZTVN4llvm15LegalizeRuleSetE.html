@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LegalizeRuleSet</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LegalizeRuleSet</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9250FFD697A1C13627E2CB39F19015317C5BB441">verifyTypeIdxsCoverage</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E00DB59898192D657E669C8E04C381B3A619BA1E">verifyImmIdxsCoverage</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0EFF3B7A645D4C427164710548ED8B96466A5545">apply</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9CD673E5E4C394A839CBD3B8A1EBAB719E946CA9">LegalizeRuleSet</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7EE31BA03DD2C9DCF47BB40BCBB51F6D60B8CEE5">isAliasedByAnother</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC0704593D2A69BFD11737A16FA1D523D99C44D4">setIsAliasedByAnother</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1012858BE652FE9EAA9918AFB497DBF063773B7F">aliasTo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C81B3F8BE6CCE58192785ABF7AB335FED4E99481">getAlias</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C71284AA0BD49786C7561F05A5E0D012A4F42F9">immIdx</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#80DB288C874326FB576584280BA5F42186003E95">legalIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7353200064E43F9659843B2DBE686D7612B753E9">legalFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2430C687B1DA65B8AAB3978D2213D5BCA2FCB1BA">legalFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CD7F5B6DA6F7C87DA1D23349809193BE423DE1E9">legalFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8266A0BA33183AAE99AE50E7410F565336B2B44D">legalFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AE3AEE31CC148EB84A2D994D274185D0D1D0D05B">legalFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6F38713B07AA7E059AD052B608D851921B521901">legalForTypeWithAnyImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#30DD8C9F1415B675F6368C652491BA87D02040B1">legalForTypeWithAnyImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1120E15AE88E27953D672B2F32A8AE1F27A0FA2B">legalForTypesWithMemDesc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BD5476CD75A59410EAB8E34357A2235FB8B52C7F">legalForCartesianProduct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E06FCF78B9B39DDD7FFAD143BD5A43F9CB48F1D">legalForCartesianProduct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CC84C610DE1393C59B23EE9310F6E3043BCF6514">legalForCartesianProduct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#80BE7CB46DEDC3A4D7CBDC773C9545FF40C1C689">alwaysLegal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4D05E1D73555BB18351A4388830DDC9F764F8B5">bitcastIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4A02B7EE7A70C0C9CA80CF512516BDA2B277D623">lower</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED0301BA667FD24873824C2B8F60786F639C98A8">lowerIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C2AC1D0ACCB17D4EBFCAB2215516BFA74C31822">lowerIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B4F3510E3CFB076D696B136B22FDCEDF19E55AB7">lowerFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#41253B9779F77E569A6BD19E83493FB2DC1A096B">lowerFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#728ED31B33CF0F2F77768C30D55749A0E8C24405">lowerFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#33921082951C585CCCFBCC13C8916FF654197499">lowerFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A7879CCE889969C94C1C52E0CF77EF5AF3A63FC0">lowerForCartesianProduct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#513F0967AFD0DF07488952D8F709AE66C56DCF1B">lowerForCartesianProduct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4BC9370AAD60770C97DC100D70A2083238D979D4">libcall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#742CC8BD72F2D1C27BD87B2A7A24790CC4DA0A24">libcallIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C9F75076FAA39A31C33946CB8E2C85FC026591EA">libcallFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3F0BEB93588E5FEB84B1D58AA11556C220CDE328">libcallFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B1BD73D88D012F9B3DAAC5C6280AD1FBFAB2EFDD">libcallFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6B358DA4EDA6454531FD7712B0CF6970A63C0B84">libcallFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDF3C35E61A1BC258E5FDF419F758814CB19B4BA">libcallForCartesianProduct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0DF2264751EED45072C412AD54032B0CA7FEAC5B">libcallForCartesianProduct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8CE6C001D37E5BBF1ED672D358C4F257C29CF6DE">widenScalarIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#22DAA54EEAAE128E21036B09AA0AA5B0F0D9B6C5">narrowScalarIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AABA3FD646AECFAE0B85D60A723934129DD98451">narrowScalarFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B906107D7DE267B22435A6336C20D13A422B7E55">moreElementsIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#62BBF1C06D2FC3135BF2BC418E833CB39AF28869">fewerElementsIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DB85ABE95F175D794C1177DCD1C3BA29EC2BC09C">unsupported</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FF1B369EE57F39A0BDF13A9DFFD1DD49A6A225AC">unsupportedIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9326C1E037482D00E936B4F4D97C4832FAFC951D">unsupportedFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2461DBDC48CF3448B6EA9238CAD061C63A492598">unsupportedIfMemSizeNotPow2</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F8FD6041DCF6773A6807CE3EE1B29D0B040405F2">lowerIfMemSizeNotPow2</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E44D97A45EA359FE78F22C8938C03F4F267874C">lowerIfMemSizeNotByteSizePow2</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1E687AC61FF01CF7A465CA2667E2992F49D37C14">customIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#303A60C0031B8DFCA4B34F236ADC5D372FEE953E">customFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3E866AB39A1DD9D8047E007D3719039F76D8A2A6">customFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#208B495A71309DCD2DC5433EC11AB1C718001FA9">customFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#34A4923A8AAB9CD0C129C7B0A64A175B6FF5FD05">customFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A0FF149C86468E7178C4BB998B159D182A2BACD9">customForCartesianProduct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CBFC1D6C095279EDD44A879E71C41E09B692AEC2">customForCartesianProduct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F2B353724977A9CB05697087739FCD16C160B96A">customForCartesianProduct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E0CCEC5A732E6289527433CC2C510067C84B05C">customForCartesianProduct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#447818239B86D53B1F38A14DC7BDE616DA0A841B">custom</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A45BFF49EE8FCEF9D296A6714FE5743457C5894A">widenScalarToNextPow2</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC4C2A81FACD03C6B8E65758A5F51B7D85190694">widenScalarToNextMultipleOf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0A86DCEDE7925481337F6845A0093A0E133A65FA">widenScalarOrEltToNextPow2</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CA3761064B5AA5B424204A3D6D588DDDC1CCA6AC">widenScalarOrEltToNextPow2OrMinSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0561A0DE3E15A7D1796ADC9F34336ED5C517ACC9">narrowScalar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D992B6044225908C5FFFEAE63A503A48A85353B6">scalarize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8CF3C5CC3D35A64144E4F2ADD678595A74BBD16D">scalarizeIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#920D44DC5A35B207326E9E4C67651A09C2E6EC3E">minScalarOrElt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F0E0DC38DBD28E3B8628DD1FADBB901D0B947E56">minScalarOrEltIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E107138EC0B2340FD10A1486EA33758E1618C94F">widenVectorEltsToVectorMinSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F05E727B8C4FFDAC7D04F66AA0D548F32042B37D">minScalar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2A5A3B57B0DB5D886CEF0E320D3DA250EC6D17D">minScalar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5C0420CCF1E00637B00207FFD4B3BC9EF4220175">minScalarIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BE05EC7CF31BB0375F0E9F11AF2C521FD93A4773">maxScalarOrElt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#57EE86E123ACA014308BA52078BA3BFF2B5BF2B3">maxScalar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DE1EEA8F4664CB18F3E30F9A237001A7035F3E19">maxScalarIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5F8E47838557192F8A61F66E1D7EA42BBFB547C4">clampScalar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28B0FD4FDB509164E0BED4C5D2C35ED2039B83C2">clampScalar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0AE209C00A3070D81B5AF34A97EED50D03B63D3F">clampScalarOrElt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B292CD57A32149B684DDB5439BDA04C97F37F79B">minScalarSameAs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1A94ED4675C604853DA4CAF45C7A535969CED0A">maxScalarSameAs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07B4BE844C57D4521C4F3639132DD1262AAE6228">scalarSameSizeAs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F37B4BE35CBE2A23D7F2AE0E9EE8A5A4011CA209">minScalarEltSameAsIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7472DA4F27539BE38E89FB271B452939DB23DFDB">maxScalarEltSameAsIf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9218DF899719BFFBC744F6F68689DC94CD4B7171">moreElementsToNextPow2</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B6F0B06C960E78ECF373A403EB3B669D0036CE55">clampMinNumElements</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AF8CB4DD7DCBBA640E546D5D417BF3F77B4481D7">alignNumElementsTo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#70963C06B22559FCE3C3963C77F535BD3976C772">clampMaxNumElements</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52EEBDB6963526AD0567CECEA844F36FF10C7980">clampNumElements</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E700D2ABFEEE353243F4D180EFF563618DA47158">clampMaxNumElementsStrict</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2B69C0EF9C0C65873C886B0147E88A65177287B6">fallback</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LegalizeRuleSet</h1>
+                        <p>Defined at line 452 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="9250FFD697A1C13627E2CB39F19015317C5BB441">
+                                <pre><code class="language-cpp code-clang-doc">bool verifyTypeIdxsCoverage (unsigned int NumTypeIdxs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if there is no type index which is obviously not handled by the</p>
+                                        <p> LegalizeRuleSet in any way at all.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 217 of file llvm/lib/CodeGen/GlobalISel/LegalizerInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E00DB59898192D657E669C8E04C381B3A619BA1E">
+                                <pre><code class="language-cpp code-clang-doc">bool verifyImmIdxsCoverage (unsigned int NumImmIdxs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if there is no imm index which is obviously not handled by the</p>
+                                        <p> LegalizeRuleSet in any way at all.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 248 of file llvm/lib/CodeGen/GlobalISel/LegalizerInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0EFF3B7A645D4C427164710548ED8B96466A5545">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeActionStep apply (const LegalityQuery &amp; Query)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Apply the ruleset to the given LegalityQuery.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 193 of file llvm/lib/CodeGen/GlobalISel/LegalizerInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9CD673E5E4C394A839CBD3B8A1EBAB719E946CA9">
+                                <pre><code class="language-cpp code-clang-doc">void LegalizeRuleSet ()</code></pre>
+                                <p>Defined at line 606 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7EE31BA03DD2C9DCF47BB40BCBB51F6D60B8CEE5">
+                                <pre><code class="language-cpp code-clang-doc">bool isAliasedByAnother ()</code></pre>
+                                <p>Defined at line 608 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EC0704593D2A69BFD11737A16FA1D523D99C44D4">
+                                <pre><code class="language-cpp code-clang-doc">void setIsAliasedByAnother ()</code></pre>
+                                <p>Defined at line 609 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1012858BE652FE9EAA9918AFB497DBF063773B7F">
+                                <pre><code class="language-cpp code-clang-doc">void aliasTo (unsigned int Opcode)</code></pre>
+                                <p>Defined at line 610 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C81B3F8BE6CCE58192785ABF7AB335FED4E99481">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getAlias ()</code></pre>
+                                <p>Defined at line 616 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C71284AA0BD49786C7561F05A5E0D012A4F42F9">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int immIdx (unsigned int ImmIdx)</code></pre>
+                                <p>Defined at line 618 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="80DB288C874326FB576584280BA5F42186003E95">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; legalIf (LegalityPredicate Predicate)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is legal if predicate is true.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 629 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7353200064E43F9659843B2DBE686D7612B753E9">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; legalFor (std::initializer_list&lt;LLT&gt; Types)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is legal when type index 0 is any type in the given list.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 636 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2430C687B1DA65B8AAB3978D2213D5BCA2FCB1BA">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; legalFor (bool Pred, std::initializer_list&lt;LLT&gt; Types)</code></pre>
+                                <p>Defined at line 639 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CD7F5B6DA6F7C87DA1D23349809193BE423DE1E9">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; legalFor (std::initializer_list&lt;std::pair&lt;LLT, LLT&gt;&gt; Types)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is legal when type indexes 0 and 1 is any type pair in the</p>
+                                        <p> given list.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 646 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8266A0BA33183AAE99AE50E7410F565336B2B44D">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; legalFor (bool Pred, std::initializer_list&lt;std::pair&lt;LLT, LLT&gt;&gt; Types)</code></pre>
+                                <p>Defined at line 649 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AE3AEE31CC148EB84A2D994D274185D0D1D0D05B">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; legalFor (bool Pred, std::initializer_list&lt;std::tuple&lt;LLT, LLT, LLT&gt;&gt; Types)</code></pre>
+                                <p>Defined at line 655 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6F38713B07AA7E059AD052B608D851921B521901">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; legalForTypeWithAnyImm (std::initializer_list&lt;LLT&gt; Types)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is legal when type index 0 is any type in the given list</p>
+                                        <p> and imm index 0 is anything.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 663 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="30DD8C9F1415B675F6368C652491BA87D02040B1">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; legalForTypeWithAnyImm (std::initializer_list&lt;std::pair&lt;LLT, LLT&gt;&gt; Types)</code></pre>
+                                <p>Defined at line 668 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1120E15AE88E27953D672B2F32A8AE1F27A0FA2B">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; legalForTypesWithMemDesc (std::initializer_list&lt;LegalityPredicates::TypePairAndMemDesc&gt; TypesAndMemDesc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is legal when type indexes 0 and 1 along with the memory</p>
+                                        <p> size and minimum alignment is any type and size tuple in the given list.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 676 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BD5476CD75A59410EAB8E34357A2235FB8B52C7F">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; legalForCartesianProduct (std::initializer_list&lt;LLT&gt; Types)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is legal when type indexes 0 and 1 are both in the given</p>
+                                        <p> list. That is, the type pair is in the cartesian product of the list.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 685 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E06FCF78B9B39DDD7FFAD143BD5A43F9CB48F1D">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; legalForCartesianProduct (std::initializer_list&lt;LLT&gt; Types0, std::initializer_list&lt;LLT&gt; Types1)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is legal when type indexes 0 and 1 are both their</p>
+                                        <p> respective lists.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 690 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CC84C610DE1393C59B23EE9310F6E3043BCF6514">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; legalForCartesianProduct (std::initializer_list&lt;LLT&gt; Types0, std::initializer_list&lt;LLT&gt; Types1, std::initializer_list&lt;LLT&gt; Types2)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is legal when type indexes 0, 1, and 2 are both their</p>
+                                        <p> respective lists.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 696 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="80BE7CB46DEDC3A4D7CBDC773C9545FF40C1C689">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; alwaysLegal ()</code></pre>
+                                <p>Defined at line 703 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4D05E1D73555BB18351A4388830DDC9F764F8B5">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; bitcastIf (LegalityPredicate Predicate, LegalizeMutation Mutation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The specified type index is coerced if predicate is true.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 710 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4A02B7EE7A70C0C9CA80CF512516BDA2B277D623">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; lower ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is lowered.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 719 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED0301BA667FD24873824C2B8F60786F639C98A8">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; lowerIf (LegalityPredicate Predicate)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is lowered if predicate is true. Keep type index 0 as the</p>
+                                        <p> same type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 728 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C2AC1D0ACCB17D4EBFCAB2215516BFA74C31822">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; lowerIf (LegalityPredicate Predicate, LegalizeMutation Mutation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is lowered if predicate is true.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 736 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B4F3510E3CFB076D696B136B22FDCEDF19E55AB7">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; lowerFor (std::initializer_list&lt;LLT&gt; Types)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is lowered when type index 0 is any type in the given</p>
+                                        <p> list. Keep type index 0 as the same type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 745 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="41253B9779F77E569A6BD19E83493FB2DC1A096B">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; lowerFor (std::initializer_list&lt;LLT&gt; Types, LegalizeMutation Mutation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is lowered when type index 0 is any type in the given</p>
+                                        <p> list.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 750 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="728ED31B33CF0F2F77768C30D55749A0E8C24405">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; lowerFor (std::initializer_list&lt;std::pair&lt;LLT, LLT&gt;&gt; Types)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is lowered when type indexes 0 and 1 is any type pair in</p>
+                                        <p> the given list. Keep type index 0 as the same type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 756 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="33921082951C585CCCFBCC13C8916FF654197499">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; lowerFor (std::initializer_list&lt;std::pair&lt;LLT, LLT&gt;&gt; Types, LegalizeMutation Mutation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is lowered when type indexes 0 and 1 is any type pair in</p>
+                                        <p> the given list.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 761 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A7879CCE889969C94C1C52E0CF77EF5AF3A63FC0">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; lowerForCartesianProduct (std::initializer_list&lt;LLT&gt; Types0, std::initializer_list&lt;LLT&gt; Types1)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is lowered when type indexes 0 and 1 are both in their</p>
+                                        <p> respective lists.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 767 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="513F0967AFD0DF07488952D8F709AE66C56DCF1B">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; lowerForCartesianProduct (std::initializer_list&lt;LLT&gt; Types0, std::initializer_list&lt;LLT&gt; Types1, std::initializer_list&lt;LLT&gt; Types2)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is lowered when type indexes 0, 1, and 2 are all in</p>
+                                        <p> their respective lists.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 774 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4BC9370AAD60770C97DC100D70A2083238D979D4">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; libcall ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is emitted as a library call.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 783 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="742CC8BD72F2D1C27BD87B2A7A24790CC4DA0A24">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; libcallIf (LegalityPredicate Predicate)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Like legalIf, but for the Libcall action.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 792 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C9F75076FAA39A31C33946CB8E2C85FC026591EA">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; libcallFor (std::initializer_list&lt;LLT&gt; Types)</code></pre>
+                                <p>Defined at line 798 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3F0BEB93588E5FEB84B1D58AA11556C220CDE328">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; libcallFor (bool Pred, std::initializer_list&lt;LLT&gt; Types)</code></pre>
+                                <p>Defined at line 801 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B1BD73D88D012F9B3DAAC5C6280AD1FBFAB2EFDD">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; libcallFor (std::initializer_list&lt;std::pair&lt;LLT, LLT&gt;&gt; Types)</code></pre>
+                                <p>Defined at line 806 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6B358DA4EDA6454531FD7712B0CF6970A63C0B84">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; libcallFor (bool Pred, std::initializer_list&lt;std::pair&lt;LLT, LLT&gt;&gt; Types)</code></pre>
+                                <p>Defined at line 810 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FDF3C35E61A1BC258E5FDF419F758814CB19B4BA">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; libcallForCartesianProduct (std::initializer_list&lt;LLT&gt; Types)</code></pre>
+                                <p>Defined at line 816 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0DF2264751EED45072C412AD54032B0CA7FEAC5B">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; libcallForCartesianProduct (std::initializer_list&lt;LLT&gt; Types0, std::initializer_list&lt;LLT&gt; Types1)</code></pre>
+                                <p>Defined at line 820 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8CE6C001D37E5BBF1ED672D358C4F257C29CF6DE">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; widenScalarIf (LegalityPredicate Predicate, LegalizeMutation Mutation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Widen the scalar to the one selected by the mutation if the predicate is</p>
+                                        <p> true.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 828 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="22DAA54EEAAE128E21036B09AA0AA5B0F0D9B6C5">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; narrowScalarIf (LegalityPredicate Predicate, LegalizeMutation Mutation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Narrow the scalar to the one selected by the mutation if the predicate is</p>
+                                        <p> true.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 837 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AABA3FD646AECFAE0B85D60A723934129DD98451">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; narrowScalarFor (std::initializer_list&lt;std::pair&lt;LLT, LLT&gt;&gt; Types, LegalizeMutation Mutation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Narrow the scalar, specified in mutation, when type indexes 0 and 1 is any</p>
+                                        <p> type pair in the given list.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 846 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B906107D7DE267B22435A6336C20D13A422B7E55">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; moreElementsIf (LegalityPredicate Predicate, LegalizeMutation Mutation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add more elements to reach the type selected by the mutation if the</p>
+                                        <p> predicate is true.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 854 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="62BBF1C06D2FC3135BF2BC418E833CB39AF28869">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; fewerElementsIf (LegalityPredicate Predicate, LegalizeMutation Mutation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Remove elements to reach the type selected by the mutation if the</p>
+                                        <p> predicate is true.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 863 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DB85ABE95F175D794C1177DCD1C3BA29EC2BC09C">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; unsupported ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is unsupported.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 872 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF1B369EE57F39A0BDF13A9DFFD1DD49A6A225AC">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; unsupportedIf (LegalityPredicate Predicate)</code></pre>
+                                <p>Defined at line 876 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9326C1E037482D00E936B4F4D97C4832FAFC951D">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; unsupportedFor (std::initializer_list&lt;LLT&gt; Types)</code></pre>
+                                <p>Defined at line 880 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2461DBDC48CF3448B6EA9238CAD061C63A492598">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; unsupportedIfMemSizeNotPow2 ()</code></pre>
+                                <p>Defined at line 884 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F8FD6041DCF6773A6807CE3EE1B29D0B040405F2">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; lowerIfMemSizeNotPow2 ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lower a memory operation if the memory size, rounded to bytes, is not a</p>
+                                        <p> power of 2. For example, this will not trigger for s1 or s7, but will for</p>
+                                        <p> s24.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 892 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E44D97A45EA359FE78F22C8938C03F4F267874C">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; lowerIfMemSizeNotByteSizePow2 ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lower a memory operation if the memory access size is not a round power of</p>
+                                        <p> 2 byte size. This is stricter than lowerIfMemSizeNotPow2, and more likely</p>
+                                        <p> what you want (e.g. this will lower s1, s7 and s24).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 900 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1E687AC61FF01CF7A465CA2667E2992F49D37C14">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; customIf (LegalityPredicate Predicate)</code></pre>
+                                <p>Defined at line 905 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="303A60C0031B8DFCA4B34F236ADC5D372FEE953E">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; customFor (std::initializer_list&lt;LLT&gt; Types)</code></pre>
+                                <p>Defined at line 911 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3E866AB39A1DD9D8047E007D3719039F76D8A2A6">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; customFor (bool Pred, std::initializer_list&lt;LLT&gt; Types)</code></pre>
+                                <p>Defined at line 914 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="208B495A71309DCD2DC5433EC11AB1C718001FA9">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; customFor (std::initializer_list&lt;std::pair&lt;LLT, LLT&gt;&gt; Types)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is custom when type indexes 0 and 1 is any type pair in</p>
+                                        <p> the given list.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 922 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="34A4923A8AAB9CD0C129C7B0A64A175B6FF5FD05">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; customFor (bool Pred, std::initializer_list&lt;std::pair&lt;LLT, LLT&gt;&gt; Types)</code></pre>
+                                <p>Defined at line 925 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A0FF149C86468E7178C4BB998B159D182A2BACD9">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; customForCartesianProduct (std::initializer_list&lt;LLT&gt; Types)</code></pre>
+                                <p>Defined at line 932 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CBFC1D6C095279EDD44A879E71C41E09B692AEC2">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; customForCartesianProduct (std::initializer_list&lt;LLT&gt; Types0, std::initializer_list&lt;LLT&gt; Types1)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is custom when type indexes 0 and 1 are both in their</p>
+                                        <p> respective lists.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 937 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F2B353724977A9CB05697087739FCD16C160B96A">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; customForCartesianProduct (std::initializer_list&lt;LLT&gt; Types0, std::initializer_list&lt;LLT&gt; Types1, std::initializer_list&lt;LLT&gt; Types2)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is custom when type indexes 0, 1, and 2 are all in</p>
+                                        <p> their respective lists.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 944 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E0CCEC5A732E6289527433CC2C510067C84B05C">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; customForCartesianProduct (bool Pred, std::initializer_list&lt;LLT&gt; Types0, std::initializer_list&lt;LLT&gt; Types1)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The instruction is custom when the predicate is true and type indexes 0</p>
+                                        <p> and 1 are all in their respective lists.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 954 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="447818239B86D53B1F38A14DC7BDE616DA0A841B">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; custom ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Unconditionally custom lower.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 963 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A45BFF49EE8FCEF9D296A6714FE5743457C5894A">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; widenScalarToNextPow2 (unsigned int TypeIdx, unsigned int MinSize)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Widen the scalar to the next power of two that is at least MinSize.</p>
+                                        <p> No effect if the type is a power of two, except if the type is smaller</p>
+                                        <p> than MinSize, or if the type is a vector type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 970 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC4C2A81FACD03C6B8E65758A5F51B7D85190694">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; widenScalarToNextMultipleOf (unsigned int TypeIdx, unsigned int Size)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Widen the scalar to the next multiple of Size. No effect if the</p>
+                                        <p> type is not a scalar or is a multiple of Size.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 980 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0A86DCEDE7925481337F6845A0093A0E133A65FA">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; widenScalarOrEltToNextPow2 (unsigned int TypeIdx, unsigned int MinSize)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Widen the scalar or vector element type to the next power of two that is</p>
+                                        <p> at least MinSize.  No effect if the scalar size is a power of two.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 990 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CA3761064B5AA5B424204A3D6D588DDDC1CCA6AC">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; widenScalarOrEltToNextPow2OrMinSize (unsigned int TypeIdx, unsigned int MinSize)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Widen the scalar or vector element type to the next power of two that is</p>
+                                        <p> at least MinSize.  No effect if the scalar size is a power of two.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1000 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0561A0DE3E15A7D1796ADC9F34336ED5C517ACC9">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; narrowScalar (unsigned int TypeIdx, LegalizeMutation Mutation)</code></pre>
+                                <p>Defined at line 1010 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D992B6044225908C5FFFEAE63A503A48A85353B6">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; scalarize (unsigned int TypeIdx)</code></pre>
+                                <p>Defined at line 1016 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8CF3C5CC3D35A64144E4F2ADD678595A74BBD16D">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; scalarizeIf (LegalityPredicate Predicate, unsigned int TypeIdx)</code></pre>
+                                <p>Defined at line 1022 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="920D44DC5A35B207326E9E4C67651A09C2E6EC3E">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; minScalarOrElt (unsigned int TypeIdx, LLT Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Ensure the scalar or element is at least as wide as Ty.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1030 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F0E0DC38DBD28E3B8628DD1FADBB901D0B947E56">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; minScalarOrEltIf (LegalityPredicate Predicate, unsigned int TypeIdx, LLT Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Ensure the scalar or element is at least as wide as Ty.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1039 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E107138EC0B2340FD10A1486EA33758E1618C94F">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; widenVectorEltsToVectorMinSize (unsigned int TypeIdx, unsigned int VectorSize)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Ensure the vector size is at least as wide as VectorSize by promoting the</p>
+                                        <p> element.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1051 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F05E727B8C4FFDAC7D04F66AA0D548F32042B37D">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; minScalar (unsigned int TypeIdx, LLT Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Ensure the scalar is at least as wide as Ty.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1071 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2A5A3B57B0DB5D886CEF0E320D3DA250EC6D17D">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; minScalar (bool Pred, unsigned int TypeIdx, LLT Ty)</code></pre>
+                                <p>Defined at line 1078 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5C0420CCF1E00637B00207FFD4B3BC9EF4220175">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; minScalarIf (LegalityPredicate Predicate, unsigned int TypeIdx, LLT Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Ensure the scalar is at least as wide as Ty if condition is met.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1085 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BE05EC7CF31BB0375F0E9F11AF2C521FD93A4773">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; maxScalarOrElt (unsigned int TypeIdx, LLT Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Ensure the scalar is at most as wide as Ty.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1101 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="57EE86E123ACA014308BA52078BA3BFF2B5BF2B3">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; maxScalar (unsigned int TypeIdx, LLT Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Ensure the scalar is at most as wide as Ty.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1110 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DE1EEA8F4664CB18F3E30F9A237001A7035F3E19">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; maxScalarIf (LegalityPredicate Predicate, unsigned int TypeIdx, LLT Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Conditionally limit the maximum size of the scalar.</p>
+                                        <p> For example, when the maximum size of one type depends on the size of</p>
+                                        <p> another such as extracting N bits from an M bit container.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1121 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F8E47838557192F8A61F66E1D7EA42BBFB547C4">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; clampScalar (unsigned int TypeIdx, LLT MinTy, LLT MaxTy)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Limit the range of scalar sizes to MinTy and MaxTy.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1137 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="28B0FD4FDB509164E0BED4C5D2C35ED2039B83C2">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; clampScalar (bool Pred, unsigned int TypeIdx, LLT MinTy, LLT MaxTy)</code></pre>
+                                <p>Defined at line 1143 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0AE209C00A3070D81B5AF34A97EED50D03B63D3F">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; clampScalarOrElt (unsigned int TypeIdx, LLT MinTy, LLT MaxTy)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Limit the range of scalar sizes to MinTy and MaxTy.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1151 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B292CD57A32149B684DDB5439BDA04C97F37F79B">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; minScalarSameAs (unsigned int TypeIdx, unsigned int LargeTypeIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Widen the scalar to match the size of another.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1157 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1A94ED4675C604853DA4CAF45C7A535969CED0A">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; maxScalarSameAs (unsigned int TypeIdx, unsigned int NarrowTypeIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Narrow the scalar to match the size of another.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1169 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07B4BE844C57D4521C4F3639132DD1262AAE6228">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; scalarSameSizeAs (unsigned int TypeIdx, unsigned int SameSizeIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Change the type </p>
+                                        <p> to have the same scalar size as type </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1182 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F37B4BE35CBE2A23D7F2AE0E9EE8A5A4011CA209">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; minScalarEltSameAsIf (LegalityPredicate Predicate, unsigned int TypeIdx, unsigned int LargeTypeIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Conditionally widen the scalar or elt to match the size of another.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1188 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7472DA4F27539BE38E89FB271B452939DB23DFDB">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; maxScalarEltSameAsIf (LegalityPredicate Predicate, unsigned int TypeIdx, unsigned int SmallTypeIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Conditionally narrow the scalar or elt to match the size of another.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1206 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9218DF899719BFFBC744F6F68689DC94CD4B7171">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; moreElementsToNextPow2 (unsigned int TypeIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add more elements to the vector to reach the next power of two.</p>
+                                        <p> No effect if the type is not a vector or the element count is a power of</p>
+                                        <p> two.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1225 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B6F0B06C960E78ECF373A403EB3B669D0036CE55">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; clampMinNumElements (unsigned int TypeIdx, LLT EltTy, unsigned int MinElements)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Limit the number of elements in EltTy vectors to at least MinElements.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1233 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AF8CB4DD7DCBBA640E546D5D417BF3F77B4481D7">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; alignNumElementsTo (unsigned int TypeIdx, LLT EltTy, unsigned int NumElts)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set number of elements to nearest larger multiple of NumElts.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1252 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="70963C06B22559FCE3C3963C77F535BD3976C772">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; clampMaxNumElements (unsigned int TypeIdx, LLT EltTy, unsigned int MaxElements)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Limit the number of elements in EltTy vectors to at most MaxElements.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1271 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="52EEBDB6963526AD0567CECEA844F36FF10C7980">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; clampNumElements (unsigned int TypeIdx, LLT MinTy, LLT MaxTy)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Limit the number of elements for the given vectors to at least MinTy&#39;s</p>
+                                        <p> number of elements and at most MaxTy&#39;s number of elements.</p>
+                                    </div>
+                                    <div>
+                                        <p> No effect if the type is not a vector or does not have the same element</p>
+                                        <p> type as the constraints.</p>
+                                        <p> The element type of MinTy and MaxTy must match.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1295 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E700D2ABFEEE353243F4D180EFF563618DA47158">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; clampMaxNumElementsStrict (unsigned int TypeIdx, LLT EltTy, unsigned int NumElts)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Express </p>
+                                        <p> vectors strictly using vectors with </p>
+                                        <p> elements</p>
+                                        <p> (or scalars when </p>
+                                        <p> equals 1).</p>
+                                        <p> First pad with undef elements to nearest larger multiple of </p>
+                                        <p> Then perform split with all sub-instructions having the same type.</p>
+                                        <p> Using clampMaxNumElements (non-strict) can result in leftover instruction</p>
+                                        <p> with different type (fewer elements then </p>
+                                        <p> or scalar).</p>
+                                        <p> No effect if the type is not a vector.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1315 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2B69C0EF9C0C65873C886B0147E88A65177287B6">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeRuleSet &amp; fallback ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Fallback on the previous implementation. This should only be used while</p>
+                                        <p> porting a rule.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1323 of file llvm/include/llvm/CodeGen/GlobalISel/LegalizerInfo.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

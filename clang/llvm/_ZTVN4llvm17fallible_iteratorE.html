@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>fallible_iterator</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class fallible_iterator</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F9CE278CF9929153F092ADDF7B0E4930214A1F93">itr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#823AC81E49C430AF9D7C9D587A3296591558643E">end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2653040C04FD15BBA6757D6E6B9CDBE80A3F1FFE">operator*</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E99211293815D7DD7ECDF44CB598CB5AD518776D">operator*</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#192B6F2270E0CEE39A27689247615E45547846EB">operator-&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AE2CC6A9C0FAFA8BDC3390096AEA09EA6C61B29C">operator-&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#198CAF63CD462C9BC5DD9FFEC47D0AD111976DE0">operator-&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B7AFF600ED33F60C0F84C2071117C23D80C1C91">operator-&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#58AAF7D2F0E2A0840AB83CF8F22BFEDB5912497E">operator-&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B52A760DEF7A42A3E8EA980342CD004D07F94EE1">operator-&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#526DDC1527ECD0C6FE6762DCC5E2184D376F89FA">operator++</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B692E640D765F8C8874A9799279B506DD59C661F">operator--</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9A38654151A6DA9F3C806CC4B6041ACB305F607E">fallible_iterator&lt;Underlying&gt;</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Underlying&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class fallible_iterator</h1>
+                        <p>Defined at line 68 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A wrapper class for fallible iterators.</p>
+                            </div>
+                            <div>
+                                <p>   The fallible_iterator template wraps an underlying iterator-like class</p>
+                                <p> whose increment and decrement operations are replaced with fallible versions</p>
+                                <p> like:</p>
+                            </div>
+                            <div>
+                                <p>   It produces an interface that is (mostly) compatible with a traditional</p>
+                                <p> c++ iterator, including ++ and -- operators that do not fail.</p>
+                            </div>
+                            <div>
+                                <p>   Instances of the wrapper are constructed with an instance of the</p>
+                                <p> underlying iterator and (for non-end iterators) a reference to an Error</p>
+                                <p> instance. If the underlying increment/decrement operations fail, the Error</p>
+                                <p> is returned via this reference, and the resulting iterator value set to an</p>
+                                <p> end-of-range sentinel value. This enables the following loop idiom:</p>
+                            </div>
+                            <div>
+                                <p>   The wrapper marks the referenced Error as unchecked after each increment</p>
+                                <p> and/or decrement operation, and clears the unchecked flag when a non-end</p>
+                                <p> value is compared against end (since, by the increment invariant, not being</p>
+                                <p> an end value proves that there was no error, and is equivalent to checking</p>
+                                <p> that the Error is success). This allows early exits from the loop body</p>
+                                <p> without requiring redundant error checks.</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                        {.cpp}
+                                           Error inc();
+                                           Error dec();
+                                    </code>
+                                </pre>
+                            </div>
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                        {.cpp}
+                                           class Archive { // E.g. Potentially malformed on-disk archive
+                                           public:
+                                             fallible_iterator&lt;ArchiveChildItr&gt; children_begin(Error &amp;Err);
+                                             fallible_iterator&lt;ArchiveChildItr&gt; children_end();
+                                             iterator_range&lt;fallible_iterator&lt;ArchiveChildItr&gt;&gt;
+                                             children(Error &amp;Err) {
+                                               return make_range(children_begin(Err), children_end());
+                                             //...
+                                           };
+                                        
+                                           void walk(Archive &amp;A) {
+                                             Error Err = Error::success();
+                                             for (auto &amp;C : A.children(Err)) {
+                                               // Loop body only entered when increment succeeds.
+                                             }
+                                             if (Err) {
+                                               // handle error.
+                                             }
+                                           }
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="F9CE278CF9929153F092ADDF7B0E4930214A1F93">
+                                <pre><code class="language-cpp code-clang-doc">fallible_iterator itr (Underlying I, Error &amp; Err)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Construct a fallible iterator that *cannot* be used as an end-of-range</p>
+                                        <p> value.</p>
+                                    </div>
+                                    <div>
+                                        <p> A value created by this method can be dereferenced, incremented,</p>
+                                        <p> decremented and compared, providing the underlying type supports it.</p>
+                                    </div>
+                                    <div>
+                                        <p> The error that is passed in will be initially marked as checked, so if the</p>
+                                        <p> iterator is not used at all the Error need not be checked.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 83 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="823AC81E49C430AF9D7C9D587A3296591558643E">
+                                <pre><code class="language-cpp code-clang-doc">fallible_iterator end (Underlying I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Construct a fallible iterator that can be used as an end-of-range value.</p>
+                                    </div>
+                                    <div>
+                                        <p> A value created by this method can be dereferenced (if the underlying</p>
+                                        <p> value points at a valid value) and compared, but not incremented or</p>
+                                        <p> decremented.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 93 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2653040C04FD15BBA6757D6E6B9CDBE80A3F1FFE">
+                                <pre><code class="language-cpp code-clang-doc">decltype(auto) operator* ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Forward dereference to the underlying iterator.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 98 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E99211293815D7DD7ECDF44CB598CB5AD518776D">
+                                <pre><code class="language-cpp code-clang-doc">decltype(auto) operator* ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Forward const dereference to the underlying iterator.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 101 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="192B6F2270E0CEE39A27689247615E45547846EB">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T = Underlying&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">int operator-&gt; ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Forward structure dereference to the underlying iterator (if the</p>
+                                        <p> underlying iterator supports it).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 106 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AE2CC6A9C0FAFA8BDC3390096AEA09EA6C61B29C">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T = Underlying&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">enable_if_struct_deref_supported&lt;T&gt; operator-&gt; ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Forward structure dereference to the underlying iterator (if the</p>
+                                        <p> underlying iterator supports it).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 106 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="198CAF63CD462C9BC5DD9FFEC47D0AD111976DE0">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T = Underlying&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">enable_if_struct_deref_supported&lt;T&gt; operator-&gt; ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Forward structure dereference to the underlying iterator (if the</p>
+                                        <p> underlying iterator supports it).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 106 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B7AFF600ED33F60C0F84C2071117C23D80C1C91">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T = Underlying&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">enable_if_struct_deref_supported&lt;const T&gt; operator-&gt; ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Forward const structure dereference to the underlying iterator (if the</p>
+                                        <p> underlying iterator supports it).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 113 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="58AAF7D2F0E2A0840AB83CF8F22BFEDB5912497E">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T = Underlying&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">enable_if_struct_deref_supported&lt;const T&gt; operator-&gt; ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Forward const structure dereference to the underlying iterator (if the</p>
+                                        <p> underlying iterator supports it).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 113 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B52A760DEF7A42A3E8EA980342CD004D07F94EE1">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T = Underlying&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">int operator-&gt; ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Forward const structure dereference to the underlying iterator (if the</p>
+                                        <p> underlying iterator supports it).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 113 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="526DDC1527ECD0C6FE6762DCC5E2184D376F89FA">
+                                <pre><code class="language-cpp code-clang-doc">fallible_iterator&lt;Underlying&gt; &amp; operator++ ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Increment the fallible iterator.</p>
+                                    </div>
+                                    <div>
+                                        <p> If the underlying &#39;inc&#39; operation fails, this will set the Error value</p>
+                                        <p> and update this iterator value to point to end-of-range.</p>
+                                    </div>
+                                    <div>
+                                        <p> The Error value is marked as needing checking, regardless of whether the</p>
+                                        <p> &#39;inc&#39; operation succeeds or fails.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 124 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B692E640D765F8C8874A9799279B506DD59C661F">
+                                <pre><code class="language-cpp code-clang-doc">fallible_iterator&lt;Underlying&gt; &amp; operator-- ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Decrement the fallible iterator.</p>
+                                    </div>
+                                    <div>
+                                        <p> If the underlying &#39;dec&#39; operation fails, this will set the Error value</p>
+                                        <p> and update this iterator value to point to end-of-range.</p>
+                                    </div>
+                                    <div>
+                                        <p> The Error value is marked as needing checking, regardless of whether the</p>
+                                        <p> &#39;dec&#39; operation succeeds or fails.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 140 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9A38654151A6DA9F3C806CC4B6041ACB305F607E">
+                                <pre><code class="language-cpp code-clang-doc">void fallible_iterator&lt;Underlying&gt; (Underlying I, Error * Err)</code></pre>
+                                <p>Defined at line 194 of file llvm/include/llvm/ADT/fallible_iterator.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

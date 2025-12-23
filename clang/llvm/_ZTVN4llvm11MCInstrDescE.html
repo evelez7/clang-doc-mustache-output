@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MCInstrDesc</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MCInstrDesc</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Opcode">Opcode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumOperands">NumOperands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumDefs">NumDefs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Size">Size</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SchedClass">SchedClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumImplicitUses">NumImplicitUses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumImplicitDefs">NumImplicitDefs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#OpInfoOffset">OpInfoOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ImplicitOffset">ImplicitOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Flags">Flags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TSFlags">TSFlags</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#896FF294A084C6D62AA10528E6283982E568BDEB">mayAffectControlFlow</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#68823143093B405080C7A989BEF9238ED7D863AB">hasImplicitDefOfPhysReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#014776114A092DBBE97C7BC17AC35D5E41F06DB9">hasDefOfPhysReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DA69E86450CF5906495BA9BDC21A64E54B6E1694">getOperandConstraint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2B2D8DDA7877623D6572D394CB8E4E8F87B3AC8C">getOpcode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#336E4CACD5BDD2D4F22573E158E19E02F203528E">getNumOperands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8EE4FC0A096A5474D3E5F94506F64935C6D1CE0C">operands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B8E365F7F894739611BC11C4F868B7164D6259B3">getNumDefs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#434CE27C7700ECBFE53A53606C730B48D585E90D">getFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D84950376ED2460283E88930AE59B35E2FC1C6AA">isPreISelOpcode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8787179175B2856E2CB58048B1475E6AE9839C75">isVariadic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3786FC3CDFADA2E3C27690D711D5FD5670F2BB6B">hasOptionalDef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07B33EA95B8041348CD4199F9C8BBEE2ED80D596">isPseudo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#53F33D313A906C206CE14AA495E269166C55FA86">isMetaInstruction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4A202BCE3204E81864D99EDD57DAE1DB3B94ADBB">isReturn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B088AAAA2A8DD6DB7BE529F792AE9FB8018A908E">isAdd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F1AC0D62DC8DE29D29F5DA6E8B425EC748383037">isTrap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#88C52E32EC2A35192F524A8F9BAE0212DC931EA5">isMoveReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0772ABD0E55AEBA108FC92FC5D661111AA635DBA">isCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F2E26D13F45B89A583481E9BF1BCAF9FC0F2638C">isBarrier</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B114E2F4588B8F240A92B3AE025A6F9C1C7DF41D">isTerminator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#287065FD4039D49578176BD3D17F3EF16513E648">isBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#38DDE3BAEFE3E8C2B524BB5D2026D6DC6CE76522">isIndirectBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5F379E5CF5C13BC0184EFBA71E22DAE405AF1204">isConditionalBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#223953FF9A631A896AF6B48B3B7B19622A7B24C2">isUnconditionalBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C726AE2FB4BB242125182840CE296F1FB7B77D34">isPredicable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#958A81B0FB095D179A5E0E3A516D7B4AF426B17A">isCompare</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#42FFA70337BE955E7857206609CA7D3D224FE1D3">isMoveImmediate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B65A80C6B99A6B9680909B9369505EB03619DFA3">isBitcast</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#68BC5409DBF2C9EBB0690D53F9E14545D5E5717A">isSelect</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E13318844201C1582F038CCCAE1F1CD3AA3AB38D">isNotDuplicable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2197032E35FAA7EAF56408E34110AC65190098AB">hasDelaySlot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B0E01B6FDDC244189E53F70FF794488D6D7DE10">canFoldAsLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0137578010DA625D588343A14E029B6F299FD8D9">isRegSequenceLike</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#39FD1887B59D55A9CC70610A5B2C0A94DD20E4CC">isExtractSubregLike</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7328441E54662EA65AF2BE593F08937DE65A5061">isInsertSubregLike</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#094EBB0776CB3B6671604158AB2D373307A5B559">isConvergent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ABB063FA1635DF1694B8A3D499FADC7AC85A7D62">variadicOpsAreDefs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#63D0C4B1E876D663F711A138BBBCA5CBAA57551E">isAuthenticated</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#58A57024EC2759213EC8690420EA14CEC1E505B9">mayLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2F17E00017CAFFAC4C011DFC7E9408EA62C7ABC6">mayStore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#92E9CED966DF86DC54B81A2394C6A9DC552C73F0">mayRaiseFPException</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E68B395664B07431B854C3189A25B8936549D7A">hasUnmodeledSideEffects</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7DDE2D8123F7A992EF1248C273D045703651456B">isCommutable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C45C942CB309A202C24E0B7DE878D047D60A6D4">isConvertibleTo3Addr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#919BF5274EA13180A603DB8B193988E7A402BD9A">usesCustomInsertionHook</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#211221C949EBF31CDD764E54A2F1B800F0C189BD">hasPostISelHook</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#721341C8B995BAC204EBCE7BDC9FF6931E316515">isRematerializable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#502273D08D3FE9AA093D02CD8A03180C39FF0383">isAsCheapAsAMove</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D97EBFDB609F2D2878B72CF4B661FF46C4C22AC6">hasExtraSrcRegAllocReq</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#885223D2C1EB3D872C8A22BC3CDBA43138B4FD67">hasExtraDefRegAllocReq</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6F9ABA8584CF06F2ADA1BECC051630D0EB54F76A">implicit_uses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#369A38BBED2092B4B451AA4B1ED9C407110B3F5D">implicit_defs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#210C79728F9C140748EB7AD576875DE5E3788EFE">hasImplicitUseOfPhysReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C6D290F4DBEEB58773C4156AF133536266636C6">getSchedClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6207BE57538DFFCDAF717E0EAB271BA090B1A2A1">getSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6BCFADBD7D5296C74F782BFA3C8F94D5736F4BD3">findFirstPredOperandIdx</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MCInstrDesc</h1>
+                        <p>Defined at line 199 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Describe properties that are true of each instruction in the target</p>
+                                <p> description file.  This captures information about side effects, register</p>
+                                <p> use and many other things.  There is one instance of this struct for each</p>
+                                <p> target instruction class, and the MachineInstr class points to this struct</p>
+                                <p> directly to describe itself.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Opcode" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned short Opcode</code></pre>
+                        </div>
+                        <div id="NumOperands" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned short NumOperands</code></pre>
+                        </div>
+                        <div id="NumDefs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned char NumDefs</code></pre>
+                        </div>
+                        <div id="Size" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned char Size</code></pre>
+                        </div>
+                        <div id="SchedClass" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned short SchedClass</code></pre>
+                        </div>
+                        <div id="NumImplicitUses" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned char NumImplicitUses</code></pre>
+                        </div>
+                        <div id="NumImplicitDefs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned char NumImplicitDefs</code></pre>
+                        </div>
+                        <div id="OpInfoOffset" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned short OpInfoOffset</code></pre>
+                        </div>
+                        <div id="ImplicitOffset" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned short ImplicitOffset</code></pre>
+                        </div>
+                        <div id="Flags" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint64_t Flags</code></pre>
+                        </div>
+                        <div id="TSFlags" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint64_t TSFlags</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="896FF294A084C6D62AA10528E6283982E568BDEB">
+                                <pre><code class="language-cpp code-clang-doc">bool mayAffectControlFlow (const MCInst &amp; MI, const MCRegisterInfo &amp; RI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this is a branch or an instruction which directly</p>
+                                        <p> writes to the program counter. Considered &#39;may&#39; affect rather than</p>
+                                        <p> &#39;does&#39; affect as things like predication are not taken into account.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 20 of file llvm/lib/MC/MCInstrDesc.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="68823143093B405080C7A989BEF9238ED7D863AB">
+                                <pre><code class="language-cpp code-clang-doc">bool hasImplicitDefOfPhysReg (MCRegister Reg, const MCRegisterInfo * MRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction implicitly</p>
+                                        <p> defines the specified physical register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 32 of file llvm/lib/MC/MCInstrDesc.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="014776114A092DBBE97C7BC17AC35D5E41F06DB9">
+                                <pre><code class="language-cpp code-clang-doc">bool hasDefOfPhysReg (const MCInst &amp; MI, MCRegister Reg, const MCRegisterInfo &amp; RI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction defines the specified physical</p>
+                                        <p> register, either explicitly or implicitly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 40 of file llvm/lib/MC/MCInstrDesc.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DA69E86450CF5906495BA9BDC21A64E54B6E1694">
+                                <pre><code class="language-cpp code-clang-doc">int getOperandConstraint (unsigned int OpNum, OperandConstraint Constraint)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the value of the specified operand constraint if</p>
+                                        <p> it is present. Returns -1 if it is not present.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 220 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2B2D8DDA7877623D6572D394CB8E4E8F87B3AC8C">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getOpcode ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the opcode number for this descriptor.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 231 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="336E4CACD5BDD2D4F22573E158E19E02F203528E">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumOperands ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the number of declared MachineOperands for this</p>
+                                        <p> MachineInstruction.  Note that variadic (isVariadic() returns true)</p>
+                                        <p> instructions may have additional operands at the end of the list, and note</p>
+                                        <p> that the machine instruction may include implicit register def/uses as</p>
+                                        <p> well.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 238 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8EE4FC0A096A5474D3E5F94506F64935C6D1CE0C">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;MCOperandInfo&gt; operands ()</code></pre>
+                                <p>Defined at line 240 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B8E365F7F894739611BC11C4F868B7164D6259B3">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumDefs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the number of MachineOperands that are register</p>
+                                        <p> definitions.  Register definitions always occur at the start of the</p>
+                                        <p> machine operand list.  This is the number of &quot;outs&quot; in the .td file,</p>
+                                        <p> and does not include implicit defs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 249 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="434CE27C7700ECBFE53A53606C730B48D585E90D">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getFlags ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return flags of this instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 252 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D84950376ED2460283E88930AE59B35E2FC1C6AA">
+                                <pre><code class="language-cpp code-clang-doc">bool isPreISelOpcode ()</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 256 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8787179175B2856E2CB58048B1475E6AE9839C75">
+                                <pre><code class="language-cpp code-clang-doc">bool isVariadic ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction can have a variable number of</p>
+                                        <p> operands.  In this case, the variable operands will be after the normal</p>
+                                        <p> operands but before the implicit definitions and uses (if any are</p>
+                                        <p> present).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 262 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3786FC3CDFADA2E3C27690D711D5FD5670F2BB6B">
+                                <pre><code class="language-cpp code-clang-doc">bool hasOptionalDef ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set if this instruction has an optional definition, e.g.</p>
+                                        <p> ARM instructions which can set condition code if &#39;s&#39; bit is set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 266 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07B33EA95B8041348CD4199F9C8BBEE2ED80D596">
+                                <pre><code class="language-cpp code-clang-doc">bool isPseudo ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this is a pseudo instruction that doesn&#39;t</p>
+                                        <p> correspond to a real machine instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 270 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="53F33D313A906C206CE14AA495E269166C55FA86">
+                                <pre><code class="language-cpp code-clang-doc">bool isMetaInstruction ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this is a meta instruction that doesn&#39;t</p>
+                                        <p> produce any output in the form of executable instructions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 274 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4A202BCE3204E81864D99EDD57DAE1DB3B94ADBB">
+                                <pre><code class="language-cpp code-clang-doc">bool isReturn ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the instruction is a return.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 277 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B088AAAA2A8DD6DB7BE529F792AE9FB8018A908E">
+                                <pre><code class="language-cpp code-clang-doc">bool isAdd ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the instruction is an add instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 280 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F1AC0D62DC8DE29D29F5DA6E8B425EC748383037">
+                                <pre><code class="language-cpp code-clang-doc">bool isTrap ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction is a trap.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 283 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="88C52E32EC2A35192F524A8F9BAE0212DC931EA5">
+                                <pre><code class="language-cpp code-clang-doc">bool isMoveReg ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the instruction is a register to register move.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 286 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0772ABD0E55AEBA108FC92FC5D661111AA635DBA">
+                                <pre><code class="language-cpp code-clang-doc">bool isCall ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p>  Return true if the instruction is a call.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 289 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F2E26D13F45B89A583481E9BF1BCAF9FC0F2638C">
+                                <pre><code class="language-cpp code-clang-doc">bool isBarrier ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the specified instruction stops control flow</p>
+                                        <p> from executing the instruction immediately following it.  Examples include</p>
+                                        <p> unconditional branches and return instructions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 294 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B114E2F4588B8F240A92B3AE025A6F9C1C7DF41D">
+                                <pre><code class="language-cpp code-clang-doc">bool isTerminator ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if this instruction part of the terminator for</p>
+                                        <p> a basic block.  Typically this is things like return and branch</p>
+                                        <p> instructions.</p>
+                                    </div>
+                                    <div>
+                                        <p> Various passes use this to insert code into the bottom of a basic block,</p>
+                                        <p> but before control flow occurs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 302 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="287065FD4039D49578176BD3D17F3EF16513E648">
+                                <pre><code class="language-cpp code-clang-doc">bool isBranch ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if this is a conditional, unconditional, or</p>
+                                        <p> indirect branch.  Predicates below can be used to discriminate between</p>
+                                        <p> these cases, and the TargetInstrInfo::analyzeBranch method can be used to</p>
+                                        <p> get more information.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 308 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="38DDE3BAEFE3E8C2B524BB5D2026D6DC6CE76522">
+                                <pre><code class="language-cpp code-clang-doc">bool isIndirectBranch ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this is an indirect branch, such as a</p>
+                                        <p> branch through a register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 312 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F379E5CF5C13BC0184EFBA71E22DAE405AF1204">
+                                <pre><code class="language-cpp code-clang-doc">bool isConditionalBranch ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this is a branch which may fall</p>
+                                        <p> through to the next instruction or may transfer control flow to some other</p>
+                                        <p> block.  The TargetInstrInfo::analyzeBranch method can be used to get more</p>
+                                        <p> information about this branch.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 318 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="223953FF9A631A896AF6B48B3B7B19622A7B24C2">
+                                <pre><code class="language-cpp code-clang-doc">bool isUnconditionalBranch ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this is a branch which always</p>
+                                        <p> transfers control flow to some other block.  The</p>
+                                        <p> TargetInstrInfo::analyzeBranch method can be used to get more information</p>
+                                        <p> about this branch.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 326 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C726AE2FB4BB242125182840CE296F1FB7B77D34">
+                                <pre><code class="language-cpp code-clang-doc">bool isPredicable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction has a predicate operand</p>
+                                        <p> that controls execution. It may be set to &#39;always&#39;, or may be set to other</p>
+                                        <p> values. There are various methods in TargetInstrInfo that can be used to</p>
+                                        <p> control and modify the predicate in this instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 340 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="958A81B0FB095D179A5E0E3A516D7B4AF426B17A">
+                                <pre><code class="language-cpp code-clang-doc">bool isCompare ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction is a comparison.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 343 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="42FFA70337BE955E7857206609CA7D3D224FE1D3">
+                                <pre><code class="language-cpp code-clang-doc">bool isMoveImmediate ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction is a move immediate</p>
+                                        <p> (including conditional moves) instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 347 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B65A80C6B99A6B9680909B9369505EB03619DFA3">
+                                <pre><code class="language-cpp code-clang-doc">bool isBitcast ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction is a bitcast instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 350 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="68BC5409DBF2C9EBB0690D53F9E14545D5E5717A">
+                                <pre><code class="language-cpp code-clang-doc">bool isSelect ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this is a select instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 353 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E13318844201C1582F038CCCAE1F1CD3AA3AB38D">
+                                <pre><code class="language-cpp code-clang-doc">bool isNotDuplicable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction cannot be safely</p>
+                                        <p> duplicated.  For example, if the instruction has a unique labels attached</p>
+                                        <p> to it, duplicating it would cause multiple definition errors.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 358 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2197032E35FAA7EAF56408E34110AC65190098AB">
+                                <pre><code class="language-cpp code-clang-doc">bool hasDelaySlot ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the specified instruction has a delay slot which</p>
+                                        <p> must be filled by the code generator.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 362 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B0E01B6FDDC244189E53F70FF794488D6D7DE10">
+                                <pre><code class="language-cpp code-clang-doc">bool canFoldAsLoad ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true for instructions that can be folded as memory operands</p>
+                                        <p> in other instructions. The most common use for this is instructions that</p>
+                                        <p> are simple loads from memory that don&#39;t modify the loaded value in any</p>
+                                        <p> way, but it can also be used for instructions that can be expressed as</p>
+                                        <p> constant-pool loads, such as V_SETALLONES on x86, to allow them to be</p>
+                                        <p> folded when it is beneficial.  This should only be set on instructions</p>
+                                        <p> that return a value in their only virtual register definition.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 371 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0137578010DA625D588343A14E029B6F299FD8D9">
+                                <pre><code class="language-cpp code-clang-doc">bool isRegSequenceLike ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction behaves</p>
+                                        <p> the same way as the generic REG_SEQUENCE instructions.</p>
+                                        <p> E.g., on ARM,</p>
+                                        <p> dX VMOVDRR rY, rZ</p>
+                                        <p> is equivalent to</p>
+                                        <p> dX = REG_SEQUENCE rY, ssub_0, rZ, ssub_1.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that for the optimizers to be able to take advantage of</p>
+                                        <p> this property, TargetInstrInfo::getRegSequenceLikeInputs has to be</p>
+                                        <p> override accordingly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 383 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="39FD1887B59D55A9CC70610A5B2C0A94DD20E4CC">
+                                <pre><code class="language-cpp code-clang-doc">bool isExtractSubregLike ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction behaves</p>
+                                        <p> the same way as the generic EXTRACT_SUBREG instructions.</p>
+                                        <p> E.g., on ARM,</p>
+                                        <p> rX, rY VMOVRRD dZ</p>
+                                        <p> is equivalent to two EXTRACT_SUBREG:</p>
+                                        <p> rX = EXTRACT_SUBREG dZ, ssub_0</p>
+                                        <p> rY = EXTRACT_SUBREG dZ, ssub_1</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that for the optimizers to be able to take advantage of</p>
+                                        <p> this property, TargetInstrInfo::getExtractSubregLikeInputs has to be</p>
+                                        <p> override accordingly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 396 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7328441E54662EA65AF2BE593F08937DE65A5061">
+                                <pre><code class="language-cpp code-clang-doc">bool isInsertSubregLike ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction behaves</p>
+                                        <p> the same way as the generic INSERT_SUBREG instructions.</p>
+                                        <p> E.g., on ARM,</p>
+                                        <p> dX = VSETLNi32 dY, rZ, Imm</p>
+                                        <p> is equivalent to a INSERT_SUBREG:</p>
+                                        <p> dX = INSERT_SUBREG dY, rZ, translateImmToSubIdx(Imm)</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that for the optimizers to be able to take advantage of</p>
+                                        <p> this property, TargetInstrInfo::getInsertSubregLikeInputs has to be</p>
+                                        <p> override accordingly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 410 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="094EBB0776CB3B6671604158AB2D373307A5B559">
+                                <pre><code class="language-cpp code-clang-doc">bool isConvergent ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction is convergent.</p>
+                                    </div>
+                                    <div>
+                                        <p> Convergent instructions may not be made control-dependent on any</p>
+                                        <p> additional values.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 417 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ABB063FA1635DF1694B8A3D499FADC7AC85A7D62">
+                                <pre><code class="language-cpp code-clang-doc">bool variadicOpsAreDefs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if variadic operands of this instruction are definitions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 420 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="63D0C4B1E876D663F711A138BBBCA5CBAA57551E">
+                                <pre><code class="language-cpp code-clang-doc">bool isAuthenticated ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction authenticates a pointer (e.g. LDRAx/BRAx</p>
+                                        <p> from ARMv8.3, which perform loads/branches with authentication).</p>
+                                    </div>
+                                    <div>
+                                        <p> An authenticated instruction may fail in an ABI-defined manner when</p>
+                                        <p> operating on an invalid signed pointer.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 429 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="58A57024EC2759213EC8690420EA14CEC1E505B9">
+                                <pre><code class="language-cpp code-clang-doc">bool mayLoad ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction could possibly read memory.</p>
+                                        <p> Instructions with this flag set are not necessarily simple load</p>
+                                        <p> instructions, they may load a value and modify it, for example.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 440 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2F17E00017CAFFAC4C011DFC7E9408EA62C7ABC6">
+                                <pre><code class="language-cpp code-clang-doc">bool mayStore ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction could possibly modify memory.</p>
+                                        <p> Instructions with this flag set are not necessarily simple store</p>
+                                        <p> instructions, they may store a modified value based on their operands, or</p>
+                                        <p> may not actually modify anything, for example.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 446 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="92E9CED966DF86DC54B81A2394C6A9DC552C73F0">
+                                <pre><code class="language-cpp code-clang-doc">bool mayRaiseFPException ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction may raise a floating-point exception.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 449 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E68B395664B07431B854C3189A25B8936549D7A">
+                                <pre><code class="language-cpp code-clang-doc">bool hasUnmodeledSideEffects ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction has side</p>
+                                        <p> effects that are not modeled by other flags.  This does not return true</p>
+                                        <p> for instructions whose effects are captured by:</p>
+                                    </div>
+                                    <div>
+                                        <p>  1. Their operand list and implicit definition/use list.  Register use/def</p>
+                                        <p>     info is explicit for instructions.</p>
+                                        <p>  2. Memory accesses.  Use mayLoad/mayStore.</p>
+                                        <p>  3. Calling, branching, returning: use isCall/isReturn/isBranch.</p>
+                                    </div>
+                                    <div>
+                                        <p> Examples of side effects would be modifying &#39;invisible&#39; machine state like</p>
+                                        <p> a control register, flushing a cache, modifying a register invisible to</p>
+                                        <p> LLVM, etc.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 465 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7DDE2D8123F7A992EF1248C273D045703651456B">
+                                <pre><code class="language-cpp code-clang-doc">bool isCommutable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this may be a 2- or 3-address instruction (of the</p>
+                                        <p> form &quot;X = op Y, Z, ...&quot;), which produces the same result if Y and Z are</p>
+                                        <p> exchanged.  If this flag is set, then the</p>
+                                        <p> TargetInstrInfo::commuteInstruction method may be used to hack on the</p>
+                                        <p> instruction.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that this flag may be set on instructions that are only commutable</p>
+                                        <p> sometimes.  In these cases, the call to commuteInstruction will fail.</p>
+                                        <p> Also note that some instructions require non-trivial modification to</p>
+                                        <p> commute them.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 483 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C45C942CB309A202C24E0B7DE878D047D60A6D4">
+                                <pre><code class="language-cpp code-clang-doc">bool isConvertibleTo3Addr ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this is a 2-address instruction which can be changed</p>
+                                        <p> into a 3-address instruction if needed.  Doing this transformation can be</p>
+                                        <p> profitable in the register allocator, because it means that the</p>
+                                        <p> instruction can use a 2-address form if possible, but degrade into a less</p>
+                                        <p> efficient form if the source and dest register cannot be assigned to the</p>
+                                        <p> same register.  For example, this allows the x86 backend to turn a &quot;shl</p>
+                                        <p> reg, 3&quot; instruction into an LEA instruction, which is the same speed as</p>
+                                        <p> the shift but has bigger code size.</p>
+                                    </div>
+                                    <div>
+                                        <p> If this returns true, then the target must implement the</p>
+                                        <p> TargetInstrInfo::convertToThreeAddress method for this instruction, which</p>
+                                        <p> is allowed to fail if the transformation isn&#39;t valid for this specific</p>
+                                        <p> instruction (e.g. shl reg, 4 on x86).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 499 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="919BF5274EA13180A603DB8B193988E7A402BD9A">
+                                <pre><code class="language-cpp code-clang-doc">bool usesCustomInsertionHook ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction requires custom insertion support</p>
+                                        <p> when the DAG scheduler is inserting it into a machine basic block.  If</p>
+                                        <p> this is true for the instruction, it basically means that it is a pseudo</p>
+                                        <p> instruction used at SelectionDAG time that is expanded out into magic code</p>
+                                        <p> by the target when MachineInstrs are formed.</p>
+                                    </div>
+                                    <div>
+                                        <p> If this is true, the TargetLoweringInfo::InsertAtEndOfBasicBlock method</p>
+                                        <p> is used to insert this into the MachineBasicBlock.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 511 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="211221C949EBF31CDD764E54A2F1B800F0C189BD">
+                                <pre><code class="language-cpp code-clang-doc">bool hasPostISelHook ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction requires *adjustment* after</p>
+                                        <p> instruction selection by calling a target hook. For example, this can be</p>
+                                        <p> used to fill in ARM &#39;s&#39; optional operand depending on whether the</p>
+                                        <p> conditional flag register is used.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 519 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="721341C8B995BAC204EBCE7BDC9FF6931E316515">
+                                <pre><code class="language-cpp code-clang-doc">bool isRematerializable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if this instruction is a candidate for remat. This</p>
+                                        <p> flag is only used in TargetInstrInfo method isTriviallyRematerializable.</p>
+                                    </div>
+                                    <div>
+                                        <p> If this flag is set, the isReMaterializableImpl() method is</p>
+                                        <p> called to verify the instruction is really rematerializable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 526 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="502273D08D3FE9AA093D02CD8A03180C39FF0383">
+                                <pre><code class="language-cpp code-clang-doc">bool isAsCheapAsAMove ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if this instruction has the same cost (or less) than a</p>
+                                        <p> move instruction. This is useful during certain types of optimizations</p>
+                                        <p> (e.g., remat during two-address conversion or machine licm) where we would</p>
+                                        <p> like to remat or hoist the instruction, but not if it costs more than</p>
+                                        <p> moving the instruction into the appropriate register. Note, we are not</p>
+                                        <p> marking copies from and to the same register class with this flag.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method could be called by interface TargetInstrInfo::isAsCheapAsAMove</p>
+                                        <p> for different subtargets.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 539 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D97EBFDB609F2D2878B72CF4B661FF46C4C22AC6">
+                                <pre><code class="language-cpp code-clang-doc">bool hasExtraSrcRegAllocReq ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if this instruction source operands have special</p>
+                                        <p> register allocation requirements that are not captured by the operand</p>
+                                        <p> register classes. e.g. ARM::STRD&#39;s two source registers must be an even /</p>
+                                        <p> odd pair, ARM::STM registers have to be in ascending order.  Post-register</p>
+                                        <p> allocation passes should not attempt to change allocations for sources of</p>
+                                        <p> instructions with this flag.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 547 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="885223D2C1EB3D872C8A22BC3CDBA43138B4FD67">
+                                <pre><code class="language-cpp code-clang-doc">bool hasExtraDefRegAllocReq ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if this instruction def operands have special register</p>
+                                        <p> allocation requirements that are not captured by the operand register</p>
+                                        <p> classes. e.g. ARM::LDRD&#39;s two def registers must be an even / odd pair,</p>
+                                        <p> ARM::LDM registers have to be in ascending order.  Post-register</p>
+                                        <p> allocation passes should not attempt to change allocations for definitions</p>
+                                        <p> of instructions with this flag.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 557 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6F9ABA8584CF06F2ADA1BECC051630D0EB54F76A">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;MCPhysReg&gt; implicit_uses ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a list of registers that are potentially read by any</p>
+                                        <p> instance of this machine instruction.  For example, on X86, the &quot;adc&quot;</p>
+                                        <p> instruction adds two register operands and adds the carry bit in from the</p>
+                                        <p> flags register.  In this case, the instruction is marked as implicitly</p>
+                                        <p> reading the flags.  Likewise, the variable shift instruction on X86 is</p>
+                                        <p> marked as implicitly reading the &#39;CL&#39; register, which it always does.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 567 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="369A38BBED2092B4B451AA4B1ED9C407110B3F5D">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;MCPhysReg&gt; implicit_defs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a list of registers that are potentially written by any</p>
+                                        <p> instance of this machine instruction.  For example, on X86, many</p>
+                                        <p> instructions implicitly set the flags register.  In this case, they are</p>
+                                        <p> marked as setting the FLAGS.  Likewise, many instructions always deposit</p>
+                                        <p> their result in a physical register.  For example, the X86 divide</p>
+                                        <p> instruction always deposits the quotient and remainder in the EAX/EDX</p>
+                                        <p> registers.  For that instruction, this will return a list containing the</p>
+                                        <p> EAX/EDX/EFLAGS registers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 581 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="210C79728F9C140748EB7AD576875DE5E3788EFE">
+                                <pre><code class="language-cpp code-clang-doc">bool hasImplicitUseOfPhysReg (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this instruction implicitly</p>
+                                        <p> uses the specified physical register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 589 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C6D290F4DBEEB58773C4156AF133536266636C6">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSchedClass ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the scheduling class for this instruction.  The</p>
+                                        <p> scheduling class is an index into the InstrItineraryData table.  This</p>
+                                        <p> returns zero if there is no known scheduling information for the</p>
+                                        <p> instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 603 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6207BE57538DFFCDAF717E0EAB271BA090B1A2A1">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSize ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the number of bytes in the encoding of this instruction,</p>
+                                        <p> or zero if the encoding size cannot be known from the opcode.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 607 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6BCFADBD7D5296C74F782BFA3C8F94D5736F4BD3">
+                                <pre><code class="language-cpp code-clang-doc">int findFirstPredOperandIdx ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Find the index of the first operand in the</p>
+                                        <p> operand list that is used to represent the predicate. It returns -1 if</p>
+                                        <p> none is found.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 612 of file llvm/include/llvm/MC/MCInstrDesc.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

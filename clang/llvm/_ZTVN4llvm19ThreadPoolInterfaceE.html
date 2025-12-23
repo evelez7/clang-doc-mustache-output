@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ThreadPoolInterface</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ThreadPoolInterface</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#92B773315341A7C5FF9A1BCE0F7DFB5B4558FBE7">async</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#780E3A0AB8228CFD97399FC15C44A0A679152294">~ThreadPoolInterface</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BC2BD5B658E046D1E3A82380F91D5B031048DFB2">async</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D85F75E229884A2A567821C8CE011DD0F672E04E">async</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#49D7A73C8A90DBB46F8F79864369AF74466CBB37">async</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E81F231E8B82B1CBD5A78C0F40BC39F855B87388">wait</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DBFB2401B58269CF76753E8BFC4DD560B90E7C90">wait</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#27AF9BF083F55E57270DAE14F61BB94DAF9176CC">getMaxConcurrency</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ThreadPoolInterface</h1>
+                        <p>Defined at line 51 of file llvm/include/llvm/Support/ThreadPool.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This defines the abstract base interface for a ThreadPool allowing</p>
+                                <p> asynchronous parallel execution on a defined number of threads.</p>
+                            </div>
+                            <div>
+                                <p> It is possible to reuse one thread pool for different groups of tasks</p>
+                                <p> by grouping tasks using ThreadPoolTaskGroup. All tasks are processed using</p>
+                                <p> the same queue, but it is possible to wait only for a specific group of</p>
+                                <p> tasks to finish.</p>
+                            </div>
+                            <div>
+                                <p> It is also possible for worker threads to submit new tasks and wait for</p>
+                                <p> them. Note that this may result in a deadlock in cases such as when a task</p>
+                                <p> (directly or indirectly) tries to wait for its own completion, or when all</p>
+                                <p> available threads are used up by tasks waiting for a task that has no thread</p>
+                                <p> left to run on (this includes waiting on the returned future). It should be</p>
+                                <p> generally safe to wait() for a group as long as groups do not form a cycle.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="92B773315341A7C5FF9A1BCE0F7DFB5B4558FBE7">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename Function, typename... Args&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">auto async (Function &amp;&amp; F, Args &amp;&amp;... ArgList)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Asynchronous submission of a task to the pool. The returned future can be</p>
+                                        <p> used to wait for the task to finish and is *non-blocking* on destruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 80 of file llvm/include/llvm/Support/ThreadPool.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="780E3A0AB8228CFD97399FC15C44A0A679152294">
+                                <pre><code class="language-cpp code-clang-doc">void ~ThreadPoolInterface ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Destroying the pool will drain the pending tasks and wait. The current</p>
+                                        <p> thread may participate in the execution of the pending tasks.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 26 of file llvm/lib/Support/ThreadPool.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BC2BD5B658E046D1E3A82380F91D5B031048DFB2">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename Function, typename... Args&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">auto async (ThreadPoolTaskGroup &amp; Group, Function &amp;&amp; F, Args &amp;&amp;... ArgList)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Overload, task will be in the given task group.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 88 of file llvm/include/llvm/Support/ThreadPool.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D85F75E229884A2A567821C8CE011DD0F672E04E">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename Func&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">std::shared_future&lt;decltype(F())&gt; async (Func &amp;&amp; F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Asynchronous submission of a task to the pool. The returned future can be</p>
+                                        <p> used to wait for the task to finish and is *non-blocking* on destruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 97 of file llvm/include/llvm/Support/ThreadPool.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="49D7A73C8A90DBB46F8F79864369AF74466CBB37">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename Func&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">std::shared_future&lt;decltype(F())&gt; async (ThreadPoolTaskGroup &amp; Group, Func &amp;&amp; F)</code></pre>
+                                <p>Defined at line 103 of file llvm/include/llvm/Support/ThreadPool.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E81F231E8B82B1CBD5A78C0F40BC39F855B87388">
+                                <pre><code class="language-cpp code-clang-doc">void wait ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Blocking wait for all the threads to complete and the queue to be empty.</p>
+                                        <p> It is an error to try to add new tasks while blocking on this call.</p>
+                                        <p> Calling wait() from a task would deadlock waiting for itself.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DBFB2401B58269CF76753E8BFC4DD560B90E7C90">
+                                <pre><code class="language-cpp code-clang-doc">void wait (ThreadPoolTaskGroup &amp; Group)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Blocking wait for only all the threads in the given group to complete.</p>
+                                        <p> It is possible to wait even inside a task, but waiting (directly or</p>
+                                        <p> indirectly) on itself will deadlock. If called from a task running on a</p>
+                                        <p> worker thread, the call may process pending tasks while waiting in order</p>
+                                        <p> not to waste the thread.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="27AF9BF083F55E57270DAE14F61BB94DAF9176CC">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getMaxConcurrency ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the maximum number of worker this pool can eventually grow to.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>InstCombiner</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class InstCombiner</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MaxArraySizeForCombine">MaxArraySizeForCombine</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Builder">Builder</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A6BB0B75C1EAD3C76895707A984F7F4854BEEEC0">InstCombiner</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BBA38C85A967870A15A9283C6844CD2D0A23516E">InstCombiner</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#82F008ECBEEF715A2F677FEB2A801F3AED80C2C1">~InstCombiner</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F85F60DB400E9953CD159C106B9A73F9E59AFD87">peekThroughBitcast</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6DA9ECBBD89D8EBA66A915C14DD04813066B45B0">getComplexity</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#89AE3068033E57D1A331C14D3F269F04D9CEE52B">targetInstCombineIntrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A2E6027DB0B9EA6F34662AD4503496BEB05AC47">isCanonicalPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DE3900A98E2381F2B7978303FA1F7B086199AA56">targetSimplifyDemandedUseBitsIntrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0745347A89780F779A6D9583614FC42A0862EA64">AddOne</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EFA55302DB12B3EADD6EC8F06333E50B30A1527B">targetSimplifyDemandedVectorEltsIntrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3325DDE109CAAE5AB25D56F13399B646362F8A22">SubOne</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CD9E427FE310DE975AB3D548D76E6DA0E0809302">shouldAvoidAbsorbingNotIntoSelect</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#572DAA85D320CD40154150B6CACB51B8C76A35F1">isValidAddrSpaceCast</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0CD2B978903D53B5B50CA389A6379D19EAFDAEEA">getFreelyInverted</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72FCA83AADABD1DB45B8FA8F9E5FB3AD096B82C2">getFreelyInverted</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8923533FBD8FD282E1D0C07F2B62550F1EEEC2E4">isFreeToInvert</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#246A011630AFCD60C331C1CB22B6F875DE900B92">isFreeToInvert</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E1644F18B44A8B94440D849183EB27F438D1916A">canFreelyInvertAllUsersOf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CEF2157DC656AF880CDC9AD9900C4DC18942A4CB">getSafeVectorConstantForBinop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D704966D64CE87FD147904D9CA2761D27DB21611">addToWorklist</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F3850A0875BB82EDCE12DECF952BB43654A8454B">getAssumptionCache</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#154DC1603A61D7B3B243A2135E99375B23F04E57">getTargetLibraryInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#217F041BA458BB5922E9D2418F6E162357C5B1CB">getDominatorTree</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2593325EA733693EBC2BB77A8DEFDFB5DB16325">getDataLayout</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#405E6ED416D45F49E2A5635FF9ECA1E3F74CA0AB">getSimplifyQuery</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4D9220B09C37D24C9E6EBBC967961CE4E46E7C22">getOptimizationRemarkEmitter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#61E32C6DFFE7872CAA3F04D778CD59AB5DB30E7D">getBlockFrequencyInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1C78784ED934C13963A46C8763DA75073F62F367">getProfileSummaryInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B3462AAE273E718D2645D2688DFC432D8B44A59A">isBackEdge</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0AB93F88C3CB49015D47641F3A10AD83A96EF128">InsertNewInstBefore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8FFF3E651F1B8D394A44D6C7B1100AA47B2F311F">InsertNewInstBefore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8ECFD3036E38ECB9FFE211A8427B685899D5024B">InsertNewInstWith</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#14D86D00B34C3DF7E949B6EE96DD1A401737F6B2">InsertNewInstWith</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FC9830CC691FF9566F710774147B12DE9830766A">replaceInstUsesWith</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55B2461C8F3C055A8D51F27B4E041288E0667A60">replaceOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8E84538DDD7655F5238F1D7F7EC73E6DF7C4016D">replaceUse</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B310ABEEA964B3851C71068BFDEEBE683A3C74D8">computeKnownBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BED4E90D5EE65B98E50B83C77ABBC26FF79705FE">computeKnownBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#68530929CEB4CFB72F5E2521ABF44BEC567D995A">isKnownToBeAPowerOfTwo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D796924835F42DE4BC6B169921BD9F115991D3F4">MaskedValueIsZero</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8F036DC3953D6A3A1EFD8742BFA1F0A5A26C7834">ComputeNumSignBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5096F4A3E429BB308714349A6CB73E2AE3008281">ComputeMaxSignificantBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2B3A7F33AD07ACC9C560EBCEFC899020274C930C">SimplifyDemandedBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3ECA2E220B2246DAA8933CF7DA4EC49D6021AAC2">SimplifyDemandedVectorElts</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#131F63B4C96D7908AA7C36CA578FB3D45C00369D">computeOverflowForUnsignedMul</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9604C251041739C90515D6451A400A864D05BB6A">computeOverflowForSignedMul</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5FFEA4FD4C1A37DDB00201B3BC1128AE613CDFE5">computeOverflowForUnsignedAdd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2B4600B5FB1CE20C422447461091663F2FC4454B">computeOverflowForSignedAdd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#332A45F740FA34362D70401153AA1EFDAA287C43">computeOverflowForUnsignedSub</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AFD7DFEDDB1D263DD1118C59922036826839351D">computeOverflowForSignedSub</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#418E7507EC057A597E609867A127F1C367C54E9F">SimplifyDemandedBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#41EEDED48A175DEB66A6678231C3B4332942DAA5">getFreelyInvertedImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#15266A9093DB02DE3E50DED5CB960C578921C784">computeBackEdges</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D8764FD3062B0E8E02CEB2C0A12893890B7F9B95">eraseInstFromFunction</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class InstCombiner</h1>
+                        <p>Defined at line 48 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> The core instruction combiner logic.</p>
+                            </div>
+                            <div>
+                                <p> This class provides both the logic to recursively visit instructions and</p>
+                                <p> combine them.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="MaxArraySizeForCombine" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint64_t MaxArraySizeForCombine</code></pre>
+                        </div>
+                        <div id="Builder" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >BuilderTy &amp; Builder</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="A6BB0B75C1EAD3C76895707A984F7F4854BEEEC0">
+                                <pre><code class="language-cpp code-clang-doc">void InstCombiner (InstructionWorklist &amp; Worklist, BuilderTy &amp; Builder, Function &amp; F, AAResults * AA, AssumptionCache &amp; AC, TargetLibraryInfo &amp; TLI, TargetTransformInfo &amp; TTI, DominatorTree &amp; DT, OptimizationRemarkEmitter &amp; ORE, BlockFrequencyInfo * BFI, BranchProbabilityInfo * BPI, ProfileSummaryInfo * PSI, const DataLayout &amp; DL, ReversePostOrderTraversal&lt;BasicBlock *&gt; &amp; RPOT)</code></pre>
+                                <p>Defined at line 103 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BBA38C85A967870A15A9283C6844CD2D0A23516E">
+                                <pre><code class="language-cpp code-clang-doc">void InstCombiner (InstructionWorklist &amp; Worklist, BuilderTy &amp; Builder, Function &amp; F, AAResults * AA, AssumptionCache &amp; AC, TargetLibraryInfo &amp; TLI, TargetTransformInfo &amp; TTI, DominatorTree &amp; DT, OptimizationRemarkEmitter &amp; ORE, BlockFrequencyInfo * BFI, BranchProbabilityInfo * BPI, ProfileSummaryInfo * PSI, const DataLayout &amp; DL, int &amp; RPOT)</code></pre>
+                                <p>Defined at line 103 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="82F008ECBEEF715A2F677FEB2A801F3AED80C2C1">
+                                <pre><code class="language-cpp code-clang-doc">void ~InstCombiner ()</code></pre>
+                                <p>Defined at line 116 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F85F60DB400E9953CD159C106B9A73F9E59AFD87">
+                                <pre><code class="language-cpp code-clang-doc">Value * peekThroughBitcast (Value * V, bool OneUseOnly)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the source operand of a potentially bitcasted value while</p>
+                                        <p> optionally checking if it has one use. If there is no bitcast or the one</p>
+                                        <p> use check is not met, return the input value itself.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 121 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6DA9ECBBD89D8EBA66A915C14DD04813066B45B0">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getComplexity (Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Assign a complexity or rank value to LLVM Values. This is used to reduce</p>
+                                        <p> the amount of pattern matching needed for compares and commutative</p>
+                                        <p> instructions. For example, if we have:</p>
+                                        <p>   icmp ugt X, Constant</p>
+                                        <p> or</p>
+                                        <p>   xor (add X, Constant), cast Z</p>
+                                    </div>
+                                    <div>
+                                        <p> We do not have to consider the commuted variants of these patterns because</p>
+                                        <p> canonicalization based on complexity guarantees the above ordering.</p>
+                                    </div>
+                                    <div>
+                                        <p> This routine maps IR values to various complexity ranks:</p>
+                                        <p>   0 -&gt; undef</p>
+                                        <p>   1 -&gt; Constants</p>
+                                        <p>   2 -&gt; Cast and (f)neg/not instructions</p>
+                                        <p>   3 -&gt; Other instructions and arguments</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 145 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="89AE3068033E57D1A331C14D3F269F04D9CEE52B">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Instruction *&gt; targetInstCombineIntrinsic (IntrinsicInst &amp; II)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Call target specific combiners</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 161 of file llvm/lib/Transforms/InstCombine/InstructionCombining.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A2E6027DB0B9EA6F34662AD4503496BEB05AC47">
+                                <pre><code class="language-cpp code-clang-doc">bool isCanonicalPredicate (CmpPredicate Pred)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Predicate canonicalization reduces the number of patterns that need to be</p>
+                                        <p> matched by other transforms. For example, we may swap the operands of a</p>
+                                        <p> conditional branch or select to create a compare with a canonical</p>
+                                        <p> (inverted) predicate which is then more likely to be matched with other</p>
+                                        <p> values.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 162 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DE3900A98E2381F2B7978303FA1F7B086199AA56">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Value *&gt; targetSimplifyDemandedUseBitsIntrinsic (IntrinsicInst &amp; II, APInt DemandedMask, KnownBits &amp; Known, bool &amp; KnownBitsComputed)</code></pre>
+                                <p>Defined at line 170 of file llvm/lib/Transforms/InstCombine/InstructionCombining.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0745347A89780F779A6D9583614FC42A0862EA64">
+                                <pre><code class="language-cpp code-clang-doc">Constant * AddOne (Constant * C)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add one to a Constant</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 180 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EFA55302DB12B3EADD6EC8F06333E50B30A1527B">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Value *&gt; targetSimplifyDemandedVectorEltsIntrinsic (IntrinsicInst &amp; II, APInt DemandedElts, APInt &amp; UndefElts, APInt &amp; UndefElts2, APInt &amp; UndefElts3, std::function&lt;void (Instruction *, unsigned int, APInt, APInt &amp;)&gt; SimplifyAndSetOp)</code></pre>
+                                <p>Defined at line 181 of file llvm/lib/Transforms/InstCombine/InstructionCombining.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3325DDE109CAAE5AB25D56F13399B646362F8A22">
+                                <pre><code class="language-cpp code-clang-doc">Constant * SubOne (Constant * C)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Subtract one from a Constant</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 185 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CD9E427FE310DE975AB3D548D76E6DA0E0809302">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldAvoidAbsorbingNotIntoSelect (const SelectInst &amp; SI)</code></pre>
+                                <p>Defined at line 189 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="572DAA85D320CD40154150B6CACB51B8C76A35F1">
+                                <pre><code class="language-cpp code-clang-doc">bool isValidAddrSpaceCast (unsigned int FromAS, unsigned int ToAS)</code></pre>
+                                <p>Defined at line 195 of file llvm/lib/Transforms/InstCombine/InstructionCombining.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0CD2B978903D53B5B50CA389A6379D19EAFDAEEA">
+                                <pre><code class="language-cpp code-clang-doc">Value * getFreelyInverted (Value * V, bool WillInvertAllUses, BuilderTy * Builder, bool &amp; DoesConsume)</code></pre>
+                                <p>Defined at line 211 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72FCA83AADABD1DB45B8FA8F9E5FB3AD096B82C2">
+                                <pre><code class="language-cpp code-clang-doc">Value * getFreelyInverted (Value * V, bool WillInvertAllUses, BuilderTy * Builder)</code></pre>
+                                <p>Defined at line 218 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8923533FBD8FD282E1D0C07F2B62550F1EEEC2E4">
+                                <pre><code class="language-cpp code-clang-doc">bool isFreeToInvert (Value * V, bool WillInvertAllUses, bool &amp; DoesConsume)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the specified value is free to invert (apply ~ to).</p>
+                                        <p> This happens in cases where the ~ can be eliminated.  If WillInvertAllUses</p>
+                                        <p> is true, work under the assumption that the caller intends to remove all</p>
+                                        <p> uses of V and only keep uses of ~V.</p>
+                                    </div>
+                                    <div>
+                                        <p> See also: canFreelyInvertAllUsersOf()</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 230 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="246A011630AFCD60C331C1CB22B6F875DE900B92">
+                                <pre><code class="language-cpp code-clang-doc">bool isFreeToInvert (Value * V, bool WillInvertAllUses)</code></pre>
+                                <p>Defined at line 236 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E1644F18B44A8B94440D849183EB27F438D1916A">
+                                <pre><code class="language-cpp code-clang-doc">bool canFreelyInvertAllUsersOf (Instruction * V, Value * IgnoredUser)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given i1 V, can every user of V be freely adapted if V is changed to !V ?</p>
+                                        <p> InstCombine&#39;s freelyInvertAllUsersOf() must be kept in sync with this fn.</p>
+                                        <p> NOTE: for Instructions only!</p>
+                                    </div>
+                                    <div>
+                                        <p> See also: isFreeToInvert()</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 246 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CEF2157DC656AF880CDC9AD9900C4DC18942A4CB">
+                                <pre><code class="language-cpp code-clang-doc">Constant * getSafeVectorConstantForBinop (BinaryOps Opcode, Constant * In, bool IsRHSConstant)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Some binary operators require special handling to avoid poison and</p>
+                                        <p> undefined behavior. If a constant vector has undef elements, replace those</p>
+                                        <p> undefs with identity constants if possible because those are always safe</p>
+                                        <p> to execute. If no identity constant exists, replace undef with some other</p>
+                                        <p> safe constant.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 281 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D704966D64CE87FD147904D9CA2761D27DB21611">
+                                <pre><code class="language-cpp code-clang-doc">void addToWorklist (Instruction * I)</code></pre>
+                                <p>Defined at line 334 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F3850A0875BB82EDCE12DECF952BB43654A8454B">
+                                <pre><code class="language-cpp code-clang-doc">AssumptionCache &amp; getAssumptionCache ()</code></pre>
+                                <p>Defined at line 336 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="154DC1603A61D7B3B243A2135E99375B23F04E57">
+                                <pre><code class="language-cpp code-clang-doc">TargetLibraryInfo &amp; getTargetLibraryInfo ()</code></pre>
+                                <p>Defined at line 337 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="217F041BA458BB5922E9D2418F6E162357C5B1CB">
+                                <pre><code class="language-cpp code-clang-doc">DominatorTree &amp; getDominatorTree ()</code></pre>
+                                <p>Defined at line 338 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2593325EA733693EBC2BB77A8DEFDFB5DB16325">
+                                <pre><code class="language-cpp code-clang-doc">const DataLayout &amp; getDataLayout ()</code></pre>
+                                <p>Defined at line 339 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="405E6ED416D45F49E2A5635FF9ECA1E3F74CA0AB">
+                                <pre><code class="language-cpp code-clang-doc">const SimplifyQuery &amp; getSimplifyQuery ()</code></pre>
+                                <p>Defined at line 340 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4D9220B09C37D24C9E6EBBC967961CE4E46E7C22">
+                                <pre><code class="language-cpp code-clang-doc">OptimizationRemarkEmitter &amp; getOptimizationRemarkEmitter ()</code></pre>
+                                <p>Defined at line 341 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="61E32C6DFFE7872CAA3F04D778CD59AB5DB30E7D">
+                                <pre><code class="language-cpp code-clang-doc">BlockFrequencyInfo * getBlockFrequencyInfo ()</code></pre>
+                                <p>Defined at line 344 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1C78784ED934C13963A46C8763DA75073F62F367">
+                                <pre><code class="language-cpp code-clang-doc">ProfileSummaryInfo * getProfileSummaryInfo ()</code></pre>
+                                <p>Defined at line 345 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B3462AAE273E718D2645D2688DFC432D8B44A59A">
+                                <pre><code class="language-cpp code-clang-doc">bool isBackEdge (const BasicBlock * From, const BasicBlock * To)</code></pre>
+                                <p>Defined at line 360 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0AB93F88C3CB49015D47641F3A10AD83A96EF128">
+                                <pre><code class="language-cpp code-clang-doc">Instruction * InsertNewInstBefore (Instruction * New, int Old)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Inserts an instruction </p>
+                                        <p> before instruction </p>
+                                    </div>
+                                    <div>
+                                        <p> Also adds the new instruction to the worklist and returns </p>
+                                        <p> so that</p>
+                                        <p> it is suitable for use as the return from the visitation patterns.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 370 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8FFF3E651F1B8D394A44D6C7B1100AA47B2F311F">
+                                <pre><code class="language-cpp code-clang-doc">Instruction * InsertNewInstBefore (Instruction * New, ilist_iterator_w_bits Old)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Inserts an instruction </p>
+                                        <p> before instruction </p>
+                                    </div>
+                                    <div>
+                                        <p> Also adds the new instruction to the worklist and returns </p>
+                                        <p> so that</p>
+                                        <p> it is suitable for use as the return from the visitation patterns.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 370 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8ECFD3036E38ECB9FFE211A8427B685899D5024B">
+                                <pre><code class="language-cpp code-clang-doc">Instruction * InsertNewInstWith (Instruction * New, int Old)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Same as InsertNewInstBefore, but also sets the debug loc.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 379 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="14D86D00B34C3DF7E949B6EE96DD1A401737F6B2">
+                                <pre><code class="language-cpp code-clang-doc">Instruction * InsertNewInstWith (Instruction * New, ilist_iterator_w_bits Old)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Same as InsertNewInstBefore, but also sets the debug loc.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 379 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FC9830CC691FF9566F710774147B12DE9830766A">
+                                <pre><code class="language-cpp code-clang-doc">Instruction * replaceInstUsesWith (Instruction &amp; I, Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> A combiner-aware RAUW-like routine.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method is to be used when an instruction is found to be dead,</p>
+                                        <p> replaceable with another preexisting expression. Here we add all uses of</p>
+                                        <p> I to the worklist, replace all uses of I with the new value, then return</p>
+                                        <p> I, so that the inst combiner will know that I was modified.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 390 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="55B2461C8F3C055A8D51F27B4E041288E0667A60">
+                                <pre><code class="language-cpp code-clang-doc">Instruction * replaceOperand (Instruction &amp; I, unsigned int OpNum, Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Replace operand of instruction and add old operand to the worklist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 414 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8E84538DDD7655F5238F1D7F7EC73E6DF7C4016D">
+                                <pre><code class="language-cpp code-clang-doc">void replaceUse (Use &amp; U, Value * NewValue)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Replace use and add the previously used value to the worklist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 422 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B310ABEEA964B3851C71068BFDEEBE683A3C74D8">
+                                <pre><code class="language-cpp code-clang-doc">void computeKnownBits (const Value * V, KnownBits &amp; Known, const Instruction * CxtI, unsigned int Depth)</code></pre>
+                                <p>Defined at line 435 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BED4E90D5EE65B98E50B83C77ABBC26FF79705FE">
+                                <pre><code class="language-cpp code-clang-doc">KnownBits computeKnownBits (const Value * V, const Instruction * CxtI, unsigned int Depth)</code></pre>
+                                <p>Defined at line 440 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="68530929CEB4CFB72F5E2521ABF44BEC567D995A">
+                                <pre><code class="language-cpp code-clang-doc">bool isKnownToBeAPowerOfTwo (const Value * V, bool OrZero, const Instruction * CxtI, unsigned int Depth)</code></pre>
+                                <p>Defined at line 445 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D796924835F42DE4BC6B169921BD9F115991D3F4">
+                                <pre><code class="language-cpp code-clang-doc">bool MaskedValueIsZero (const Value * V, const APInt &amp; Mask, const Instruction * CxtI, unsigned int Depth)</code></pre>
+                                <p>Defined at line 452 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8F036DC3953D6A3A1EFD8742BFA1F0A5A26C7834">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int ComputeNumSignBits (const Value * Op, const Instruction * CxtI, unsigned int Depth)</code></pre>
+                                <p>Defined at line 458 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5096F4A3E429BB308714349A6CB73E2AE3008281">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int ComputeMaxSignificantBits (const Value * Op, const Instruction * CxtI, unsigned int Depth)</code></pre>
+                                <p>Defined at line 464 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2B3A7F33AD07ACC9C560EBCEFC899020274C930C">
+                                <pre><code class="language-cpp code-clang-doc">bool SimplifyDemandedBits (Instruction * I, unsigned int OpNo, const APInt &amp; DemandedMask, KnownBits &amp; Known, const SimplifyQuery &amp; Q, unsigned int Depth)</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3ECA2E220B2246DAA8933CF7DA4EC49D6021AAC2">
+                                <pre><code class="language-cpp code-clang-doc">Value * SimplifyDemandedVectorElts (Value * V, APInt DemandedElts, APInt &amp; UndefElts, unsigned int Depth, bool AllowMultipleUsers)</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="131F63B4C96D7908AA7C36CA578FB3D45C00369D">
+                                <pre><code class="language-cpp code-clang-doc">OverflowResult computeOverflowForUnsignedMul (const Value * LHS, const Value * RHS, const Instruction * CxtI, bool IsNSW)</code></pre>
+                                <p>Defined at line 470 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9604C251041739C90515D6451A400A864D05BB6A">
+                                <pre><code class="language-cpp code-clang-doc">OverflowResult computeOverflowForSignedMul (const Value * LHS, const Value * RHS, const Instruction * CxtI)</code></pre>
+                                <p>Defined at line 478 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5FFEA4FD4C1A37DDB00201B3BC1128AE613CDFE5">
+                                <pre><code class="language-cpp code-clang-doc">OverflowResult computeOverflowForUnsignedAdd (const WithCache&lt;const Value *&gt; &amp; LHS, const WithCache&lt;const Value *&gt; &amp; RHS, const Instruction * CxtI)</code></pre>
+                                <p>Defined at line 484 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2B4600B5FB1CE20C422447461091663F2FC4454B">
+                                <pre><code class="language-cpp code-clang-doc">OverflowResult computeOverflowForSignedAdd (const WithCache&lt;const Value *&gt; &amp; LHS, const WithCache&lt;const Value *&gt; &amp; RHS, const Instruction * CxtI)</code></pre>
+                                <p>Defined at line 492 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="332A45F740FA34362D70401153AA1EFDAA287C43">
+                                <pre><code class="language-cpp code-clang-doc">OverflowResult computeOverflowForUnsignedSub (const Value * LHS, const Value * RHS, const Instruction * CxtI)</code></pre>
+                                <p>Defined at line 500 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AFD7DFEDDB1D263DD1118C59922036826839351D">
+                                <pre><code class="language-cpp code-clang-doc">OverflowResult computeOverflowForSignedSub (const Value * LHS, const Value * RHS, const Instruction * CxtI)</code></pre>
+                                <p>Defined at line 507 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="418E7507EC057A597E609867A127F1C367C54E9F">
+                                <pre><code class="language-cpp code-clang-doc">bool SimplifyDemandedBits (Instruction * I, unsigned int OpNo, const APInt &amp; DemandedMask, KnownBits &amp; Known)</code></pre>
+                                <p>Defined at line 518 of file llvm/include/llvm/Transforms/InstCombine/InstCombiner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="41EEDED48A175DEB66A6678231C3B4332942DAA5">
+                                <pre><code class="language-cpp code-clang-doc">Value * getFreelyInvertedImpl (Value * V, bool WillInvertAllUses, BuilderTy * Builder, bool &amp; DoesConsume, unsigned int Depth)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return nonnull value if V is free to invert under the condition of</p>
+                                        <p> WillInvertAllUses.</p>
+                                        <p> If Builder is nonnull, it will return a simplified ~V.</p>
+                                        <p> If Builder is null, it will return an arbitrary nonnull value (not</p>
+                                        <p> dereferenceable).</p>
+                                        <p> If the inversion will consume instructions, `DoesConsume` will be set to</p>
+                                        <p> true. Otherwise it will be false.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2852 of file llvm/lib/Transforms/InstCombine/InstructionCombining.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="15266A9093DB02DE3E50DED5CB960C578921C784">
+                                <pre><code class="language-cpp code-clang-doc">void computeBackEdges ()</code></pre>
+                                <p>Defined at line 5968 of file llvm/lib/Transforms/InstCombine/InstructionCombining.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D8764FD3062B0E8E02CEB2C0A12893890B7F9B95">
+                                <pre><code class="language-cpp code-clang-doc">Instruction * eraseInstFromFunction (Instruction &amp; I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Combiner aware instruction erasure.</p>
+                                    </div>
+                                    <div>
+                                        <p> When dealing with an instruction that has side effects or produces a void</p>
+                                        <p> value, we can&#39;t rely on DCE to delete the instruction. Instead, visit</p>
+                                        <p> methods should return the value returned by this function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

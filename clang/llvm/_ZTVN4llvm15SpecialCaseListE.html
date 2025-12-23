@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SpecialCaseList</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SpecialCaseList</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NotFound">NotFound</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C59BB93B93AEC17B32B03B0DCAE2E09657C64676">create</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#825879DDB23906AA49A1DF7718F3A13E9D031FC5">create</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2C25ECF9B52D2EEF5E066133EDB52A64F5E5EEE7">create</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#63BCC973FF6815501F4D9327DBC6EA7A10275D51">createOrDie</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4E2F9758973594F0E37553FECC31A91320ACA011">createOrDie</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#08A663D2FC356D5B07440F74EB385A6F42DE7DD0">~SpecialCaseList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CA0CDD46D3B9E3A6CB10D16B53DDEB69E32EC8EC">inSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1035FA4DB77116D8DA97D021F27C7404A7E3C5E">inSectionBlame</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SpecialCaseList</h1>
+                        <p>Defined at line 69 of file llvm/include/llvm/Support/SpecialCaseList.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This is a utility class used to parse user-provided text files with</p>
+                                <p> &quot;special case lists&quot; for code sanitizers. Such files are used to</p>
+                                <p> define an &quot;ABI list&quot; for DataFlowSanitizer and allow/exclusion lists for</p>
+                                <p> sanitizers like AddressSanitizer or UndefinedBehaviorSanitizer.</p>
+                            </div>
+                            <div>
+                                <p> Empty lines and lines starting with &quot;#&quot; are ignored. Sections are defined</p>
+                                <p> using a &#39;[section_name]&#39; header and can be used to specify sanitizers the</p>
+                                <p> entries below it apply to. Section names are globs, and</p>
+                                <p> entries without a section header match all sections (e.g. an &#39;[*]&#39; header</p>
+                                <p> is assumed.)</p>
+                                <p> The remaining lines should have the form:</p>
+                                <p>   prefix:glob_pattern[=category]</p>
+                                <p> If category is not specified, it is assumed to be empty string.</p>
+                                <p> Definitions of &quot;prefix&quot; and &quot;category&quot; are sanitizer-specific. For example,</p>
+                                <p> sanitizer exclusion support prefixes &quot;src&quot;, &quot;mainfile&quot;, &quot;fun&quot; and &quot;global&quot;.</p>
+                                <p> &quot;glob_pattern&quot; defines source files, main files, functions or globals which</p>
+                                <p> shouldn&#39;t be instrumented.</p>
+                                <p> Examples of categories:</p>
+                                <p>   &quot;functional&quot;: used in DFSan to list functions with pure functional</p>
+                                <p>                 semantics.</p>
+                                <p>   &quot;init&quot;: used in ASan exclusion list to disable initialization-order bugs</p>
+                                <p>           detection for certain globals or source files.</p>
+                                <p> Full special case list file example:</p>
+                                <p> ---</p>
+                                <p> [address]</p>
+                                <p> # Excluded items:</p>
+                                <p> fun:*_ZN4base6subtle*</p>
+                                <p> global:*global_with_bad_access_or_initialization*</p>
+                                <p> global:*global_with_initialization_issues*=init</p>
+                                <p> type:*Namespace::ClassName*=init</p>
+                                <p> src:file_with_tricky_code.cc</p>
+                                <p> src:ignore-global-initializers-issues.cc=init</p>
+                                <p> mainfile:main_file.cc</p>
+                            </div>
+                            <div>
+                                <p> [dataflow]</p>
+                                <p> # Functions with pure functional semantics:</p>
+                                <p> fun:cos=functional</p>
+                                <p> fun:sin=functional</p>
+                                <p> ---</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="NotFound" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static pair NotFound</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="C59BB93B93AEC17B32B03B0DCAE2E09657C64676">
+                                <pre><code class="language-cpp code-clang-doc">unique_ptr create (const std::vector&lt;std::string&gt; &amp; Paths, llvm::vfs::FileSystem &amp; FS, std::string &amp; Error)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parses the special case list entries from files. On failure, returns</p>
+                                        <p> 0 and writes an error message to string.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 254 of file llvm/lib/Support/SpecialCaseList.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="825879DDB23906AA49A1DF7718F3A13E9D031FC5">
+                                <pre><code class="language-cpp code-clang-doc">int create (const int &amp; Paths, llvm::vfs::FileSystem &amp; FS, std::string &amp; Error)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parses the special case list entries from files. On failure, returns</p>
+                                        <p> 0 and writes an error message to string.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2C25ECF9B52D2EEF5E066133EDB52A64F5E5EEE7">
+                                <pre><code class="language-cpp code-clang-doc">unique_ptr create (const MemoryBuffer * MB, std::string &amp; Error)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parses the special case list from a memory buffer. On failure, returns</p>
+                                        <p> 0 and writes an error message to string.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 263 of file llvm/lib/Support/SpecialCaseList.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="63BCC973FF6815501F4D9327DBC6EA7A10275D51">
+                                <pre><code class="language-cpp code-clang-doc">unique_ptr createOrDie (const std::vector&lt;std::string&gt; &amp; Paths, llvm::vfs::FileSystem &amp; FS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parses the special case list entries from files. On failure, reports a</p>
+                                        <p> fatal error.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 271 of file llvm/lib/Support/SpecialCaseList.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4E2F9758973594F0E37553FECC31A91320ACA011">
+                                <pre><code class="language-cpp code-clang-doc">int createOrDie (const int &amp; Paths, llvm::vfs::FileSystem &amp; FS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parses the special case list entries from files. On failure, reports a</p>
+                                        <p> fatal error.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="08A663D2FC356D5B07440F74EB385A6F42DE7DD0">
+                                <pre><code class="language-cpp code-clang-doc">void ~SpecialCaseList ()</code></pre>
+                                <p>Defined at line 402 of file llvm/lib/Support/SpecialCaseList.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CA0CDD46D3B9E3A6CB10D16B53DDEB69E32EC8EC">
+                                <pre><code class="language-cpp code-clang-doc">bool inSection (StringRef Section, StringRef Prefix, StringRef Query, StringRef Category)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true, if special case list contains a line</p>
+                                    </div>
+                                    <div>
+                                        <p> where </p>
+                                        <p> satisfies the glob </p>
+                                        <p>&lt;E</p>
+                                        <p>&gt; in a given </p>
+                                    </div>
+                                    <h3>Code</h3> 
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                   @Prefix:&lt;E&gt;=@Category
+                                            </code>
+                                        </pre>
+                                    </div>
+                                </div>
+                                <p>Defined at line 404 of file llvm/lib/Support/SpecialCaseList.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1035FA4DB77116D8DA97D021F27C7404A7E3C5E">
+                                <pre><code class="language-cpp code-clang-doc">pair inSectionBlame (StringRef Section, StringRef Prefix, StringRef Query, StringRef Category)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the file index and the line number </p>
+                                        <p>&lt;FileIdx</p>
+                                        <p>, LineNo&gt; corresponding</p>
+                                        <p> to the special case list entry if the special case list contains a line</p>
+                                    </div>
+                                    <div>
+                                        <p> where </p>
+                                        <p> satisfies the glob </p>
+                                        <p>&lt;E</p>
+                                        <p>&gt; in a given </p>
+                                    </div>
+                                    <div>
+                                        <p> Returns (zero, zero) if there is no exclusion entry corresponding to this</p>
+                                        <p> expression.</p>
+                                    </div>
+                                    <h3>Code</h3> 
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                   @Prefix:&lt;E&gt;=@Category
+                                            </code>
+                                        </pre>
+                                    </div>
+                                </div>
+                                <p>Defined at line 410 of file llvm/lib/Support/SpecialCaseList.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>TargetRegisterInfo</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class TargetRegisterInfo</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D83FD8525C826981EC6B34D25B1B54CD619EEE25">~TargetRegisterInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#267B1D08FF7E94F04C1F4F5DA1012D31014AACEA">getMinimalPhysRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8A78AEA9DDD9C3EDA6D2E2171404EE246035D0B4">getCommonMinimalPhysRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A9760C310F968D4550E0AB882B42024C8A907082">getMinimalPhysRegClassLLT</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3F46A0E915C984FC4FBC61D8787C0A23A82BC173">getCommonMinimalPhysRegClassLLT</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52643CCE603330374F3C40759FE8CC9F1BFA89D9">getAllocatableClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#60DA4AB8CA0A8FD693848D47563FB1590EA904B8">getAllocatableSet</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FA52CA143C7DC264DE9F05E2A1C86EC7DBA7D722">getCoveringLanes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CBCCDCFC4C8729209B7B3B38B92CE3B2D24AFE98">getIPRACSRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4B6B1BFB41610B417AB2A0826C9F6BCDD4774823">getCallPreservedMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D4D33F9CA0ABC3D1DE2FC5FEB85C493117DD4FBF">getCustomEHPadPreservedMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28BD7B4D12160E74BE8F21EFB0FAD5FA0DC8490D">getNoPreservedMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E351F19DA2A07FA4F1829750B329C7688421BED8">getIntraCallClobberedRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#75D0AACD4B9ADE705744799641CDCB0E288D284C">explainReservedReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8ADB3982B59F3EF5F5D77EA1E4C0945F4D7178BF">getSubRegIdxSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#750EB8573FDDBC082B2177B5651F879B8AE38715">getSubRegIdxOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C26D1869A9BC0812C3C72E5421AC102FC8268B3C">getCoveringSubRegIndexes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DB5F2FA1A2E8499897FBE77A1467ACA2CA9A082A">lookThruCopyLike</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB798E8C3617A4F5CB770F08733A41146A3F223A">lookThruSingleUseCopyChain</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B5213CAC2FFA888E4EFC137F6703C5B5102DEB16">getCalleeSavedRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D1C2AA50EFB4EB5C6B74795C7096C072157EECEA">regmaskSubsetEqual</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#58DDFDC70DD4D01A3EA331B40B9CBF2A7C53D805">getRegMasks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E6DCE16DB39EF585EF83912CE5F0DCE84A1E322B">getRegMaskNames</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#914C962F4CD4573044E5CAE7F0BBB156C390BC6B">getReservedRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B800925DD6BC28CEF7474BE0866CE46AC911C9A5">isCalleeSavedPhysReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BEE3F930E92E804559FBE8E34A3ECA8020B30317">getMatchingSuperRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0D9271A0402086EA68B2A5E05CD0318D8A9477B5">findCommonRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#96C89510D93F44DD8590B423D90321CDAC84326D">adjustStackMapLiveOutMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2C562F26AC29BAB37E993F094CA183AA928ED62">getMatchingSuperReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A195F902E026D2236246A6F597768196FCBE5D0B">dumpReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB38A4073A35833AF257895192B0CEB38E452E77">getCommonSuperRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE7840CBAA9E9707CC4B863CFC099776F9D2C1C7">getCommonSubClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8D816692AA93F369093CAEE64A70C33E001579E8">getRegClassWeight</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D29F58C5446232ADF7129910EB50A99CFD899DF">getRegSizeInBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9328333EE627891C04BBE1DC59F38DD2284F0FE5">composeSubRegIndices</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55AF7834005BFE52FDB4A220F50C49EC8FD377F2">composeSubRegIndexLaneMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#80FCB11FCF2F71534141CB3FD357120D6F81D0FC">getRegUnitWeight</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F23AD3B21F4960CE24D7A29E5A141E6CBB3C1F4C">getNumRegPressureSets</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#73F514CF1C4E6CD878D63A3B61ED01FCB2571621">eliminateFrameIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1CCDD8F0979AB6F9D93CEEDB019F60729F30DBAB">shouldRegionSplitForVirtReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5620DE5C04A82226DD9D335DFC7D6897F888ED37">getFrameRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CDA7C4DE1C156766DCEB9699891E0607ABEE0424">markSuperRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79B9E357C3C7FCB083CD7B8FA67E0DD1CF9E26B2">checkAllSuperRegsMarked</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3AAF8125B64D20D011C7051D5AE8A724FD86DB37">getNumSupportedRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B6BDAD16485BD0E35E8355950F81282FA5B689DB">getRegSizeInBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2CDCBF4C484DC0630BE1340C2C8AE43F23BC55B3">getSpillSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C8EB4C67A7C396492EF002B3AE16F14C0BAEA076">getSpillAlign</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#198802B9658D455BE0C2ACC3360ACF620CA41466">isTypeLegalForClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EA3B26B4E310AEF32984BB08575679610C6AC950">isTypeLegalForClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EB520BE3C572AD7C137639CCD9BF09062CB782A1">legalclasstypes_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1DEBFDFEC56958442C3FD066D1246E69AE9BBF88">legalclasstypes_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C9D7D198E51F1D41A7BB0EC776E1290954118AD">getRegisterCosts</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E0EED69498498E0AF6FC1AC0846FD096C2778D6">isInAllocatableClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#57B512E72E4CF9E5E82A0040D9B35257CD4825B9">getSubRegIndexName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#242366346B31CDAF25F2B1ACA50786D37D54F3FA">getSubRegIndexLaneMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#13ED86AFFA21C305100EC205834505F6A8B3CACD">getSpillWeightScaleFactor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F56324F295A682E3FED4C28D2333F278DC787DE">getRegAllocationHints</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDE2C29D4EEA2628BACAFD67E4EE494B336FC25D">regsOverlap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2E753450FEE0C07912056D76C437DAEAA37E91A">hasRegUnit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#862343AD5B3A61DAB17B94F2A2C5C50D8E625816">canRealignStack</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6BB56008D22F2CFEE9A4E6014E2EF4702D41D92">shouldRealignStack</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6D472794D8588A0F9CE4C4F355DB9B2802729030">isAsmClobberable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#332FB8C18EA435CF0D70E77F25332016DC1207BD">isInlineAsmReadOnlyReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F361C6EA5BD69FD71DBDF217AE0D8CF139577D5">isConstantPhysReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#998073DA5E3AE0DC5040C99A8B0078C3AF238395">isDivergentRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AEFEA972B06FF690C5ED1A752F02E8AB09A69393">isUniformReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED868C6F4BB68B9F5DD47984439676E4D2A3D713">shouldAnalyzePhysregInMachineLoopInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ABBA440038CF566F9913099B2F2019F8F360C754">isCallerPreservedPhysReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#48C6EB490C92B0E8529A701F80FDB52DCFDA139D">isArgumentRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C6C756F1A8CE5AC31CABAE87DFD040FD96E21547">isFixedRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#96CA07431FF84B90950A761FF97C4F47107FBB99">isGeneralPurposeRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1476488456B9EBC19A14434FD319FDD217F433A0">isGeneralPurposeRegisterClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6236E25BF97BED7C770AD697E6D80C0E1CD2D395">getOffsetOpcodes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#83B8AC426921FDF76F9EFA5F3C8BB96ED5219060">prependOffsetExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#88932226318F3B099250E314CA982624DEA1DBEB">shouldRewriteCopySrc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B679B009FFA9CBF7F0BD526AFFF258ECE3D0108C">getSubClassWithSubReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#13EEBE3BA1B3F82D3949F1427C78F1E37DCA17FF">getSubRegisterClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9710FA9A0086224A5D86F4B57449E6F7AF3996F7">reverseComposeSubRegIndices</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CF46954E438A403B96E49F65F391B0E52F1297A4">reverseComposeSubRegIndexLaneMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BBE30F3647AA57152B3E06989E3BD80F06014CD3">getPhysRegBaseClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#437006A83E4D00930C6051C4352F35264A4CB15E">getRegPressureSetName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0CF4EFED8AFA658791DB8D3ECE9DF31B822FC8D0">getRegPressureSetLimit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6AD7B5B8C5C164378F743A2068FAA33699FEAF42">getRegClassPressureSets</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CD3CCB098FD6F57337E226EAAC0DFD611953397A">getRegUnitPressureSets</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B0F0ABDAC9A2A19137858E064C87718B27AB6A50">regclass_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D0942CEB51A215F3ECF54C608E3A7BBED85EC847">regclass_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#61CA0167D894B2E1BC4A5B948CE016C09FA58BB8">regclasses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DB3F6B7EF28E95FB2C2D459729A787720B2600E7">getNumRegClasses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F8178B80D409C40FD27E47FF80B2A36C1075A1B0">getRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52BF555D18069878C945572A80827C4C0BE9975F">getRegClassName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#069575AD068A861014F558BF4001EADCF90293A2">getPointerRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4EA93558EE9C3ADD596A8AF89704B2AA2DA5552">getCrossCopyRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0373E5BC20673588C376EB3C28A95BFF47DF7D30">getLargestLegalSuperClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2375FDB8568D8615B384762CF311E99D9A83E1E0">getRegPressureLimit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#005358B7A46301E4DE31ACC84172BD5165FD8957">getRegPressureSetScore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#38DC0BE6BE503B0B9D1FF6669E43C07FEC691A5A">updateRegAllocHint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#987539AABE5F32718BEC7FAF3FB80A41CB4B3B03">reverseLocalAssignment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5A1781F185DEDFCB34D13CF2545D9C291EDCC2F0">getCSRFirstUseCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#726909236CA460DE786365445E7CD48830E69DAB">requiresRegisterScavenging</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7CCCF0FAAB5F3CFCA2E64375BB62B69CF612DB0C">useFPForScavengingIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#67F6DF7FFE45A6D9F6B39ADCEA3A1050851C18E1">requiresFrameIndexScavenging</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#31B7E540C52C436890019FC33C0B76FD3FBC8B60">requiresFrameIndexReplacementScavenging</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F15D6AD3079B2BA9D9051155B5A7D7FAF8F04026">requiresVirtualBaseRegisters</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FE289781A2693F2D6479FD6E15FAED9BFBE4AF3">hasReservedSpillSlot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED67DBD8971F6410C2D0EDD1CCD07DE53055BE9C">trackLivenessAfterRegAlloc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB2C646BDEA74F209037A8C873E0CF766056A50D">hasStackRealignment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8B51B717D118AA7634689A2C0C8088DC5ECF062E">getFrameIndexInstrOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26C2C8D965E5F14B5B524547FCBA250DBA265EBF">needsFrameBaseReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7FE19D6A0AC6EA2A0DB170CE2D4FC21A08FD9BE3">materializeFrameBaseRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#15ADC4F38091F64FA8260643D5BDE6C2042F2C04">resolveFrameIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7231DED9C5727EF5DA4A96F5B23FB8C133970861">isFrameOffsetLegal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5386118264F8C50414E8D23EC2201E28CBBA04D7">getDwarfRegNumForVirtReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#594950C1F8D081B6990729A70A57BA5FCA51A508">saveScavengerRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#87E0BBB9884EEBFA43AA097404D0C10A414F1D1A">eliminateFrameIndicesBackwards</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#678FBC92E3375B3065EE32256B1B3AE306F0DF67">getRegAsmName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E7188EFA6657ABB68242AC1CDD043EAF6B2C3C3F">shouldCoalesce</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B4CB8C285DE6D022231545D87A20CD17B9C6A4EC">shouldUseLastChanceRecoloringForVirtReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#467DA3B38E10355FA22C5776561D077139866931">regClassPriorityTrumpsGlobalness</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#02EB960F8CD7C9C4C8C142AF6810C9AD8EE864D2">getConstrainedRegClassForOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5931429EECC60D93090FE7B35E444F9ECC977134">isNonallocatableRegisterCalleeSave</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BCABC76D663EEA9E3426A15F31235AB9EDBB5463">isVirtualFrameRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D1D64E412C70AD8D197ECA25DA56D3CEE86286A">getVRegFlagValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F124C4A1AE698A6541060A1B6B83BCF7E0755A21">getVRegFlagsOfReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#000652E9739878B11A04558A8590F2ACE630BA13">isIgnoredCVReg</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class TargetRegisterInfo</h1>
+                        <p>Defined at line 242 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> TargetRegisterInfo base class - We assume that the target defines a static</p>
+                                <p> array of TargetRegisterDesc objects that represent all of the machine</p>
+                                <p> registers that the target has.  As such, we simply have to track a pointer</p>
+                                <p> to this array so that we can turn register number into a register</p>
+                                <p> descriptor.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="D83FD8525C826981EC6B34D25B1B54CD619EEE25">
+                                <pre><code class="language-cpp code-clang-doc">void ~TargetRegisterInfo ()</code></pre>
+                                <p>Defined at line 63 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="267B1D08FF7E94F04C1F4F5DA1012D31014AACEA">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getMinimalPhysRegClass (MCRegister Reg, MVT VT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the Register Class of a physical register of the given type,</p>
+                                        <p> picking the most sub register class of the right type that contains this</p>
+                                        <p> physreg.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 259 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8A78AEA9DDD9C3EDA6D2E2171404EE246035D0B4">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getCommonMinimalPhysRegClass (MCRegister Reg1, MCRegister Reg2, MVT VT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the common Register Class of two physical registers of the given</p>
+                                        <p> type, picking the most sub register class of the right type that contains</p>
+                                        <p> these two physregs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 264 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A9760C310F968D4550E0AB882B42024C8A907082">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getMinimalPhysRegClassLLT (MCRegister Reg, LLT Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the Register Class of a physical register of the given type,</p>
+                                        <p> picking the most sub register class of the right type that contains this</p>
+                                        <p> physreg. If there is no register class compatible with the given type,</p>
+                                        <p> returns nullptr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 269 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3F46A0E915C984FC4FBC61D8787C0A23A82BC173">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getCommonMinimalPhysRegClassLLT (MCRegister Reg1, MCRegister Reg2, LLT Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the common Register Class of two physical registers of the given</p>
+                                        <p> type, picking the most sub register class of the right type that contains</p>
+                                        <p> these two physregs. If there is no register class compatible with the</p>
+                                        <p> given type, returns nullptr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 274 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="52643CCE603330374F3C40759FE8CC9F1BFA89D9">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getAllocatableClass (const TargetRegisterClass * RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the maximal subclass of the given register class that is</p>
+                                        <p> allocatable or NULL.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 188 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="60DA4AB8CA0A8FD693848D47563FB1590EA904B8">
+                                <pre><code class="language-cpp code-clang-doc">BitVector getAllocatableSet (const MachineFunction &amp; MF, const TargetRegisterClass * RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a bitset indexed by register number indicating if a register is</p>
+                                        <p> allocatable or not. If a register class is specified, returns the subset</p>
+                                        <p> for the class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 289 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FA52CA143C7DC264DE9F05E2A1C86EC7DBA7D722">
+                                <pre><code class="language-cpp code-clang-doc">LaneBitmask getCoveringLanes ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The lane masks returned by getSubRegIndexLaneMask() above can only be</p>
+                                        <p> used to determine if sub-registers overlap - they can&#39;t be used to</p>
+                                        <p> determine if a set of sub-registers completely cover another</p>
+                                        <p> sub-register.</p>
+                                    </div>
+                                    <div>
+                                        <p> The X86 general purpose registers have two lanes corresponding to the</p>
+                                        <p> sub_8bit and sub_8bit_hi sub-registers. Both sub_32bit and sub_16bit have</p>
+                                        <p> lane masks &#39;3&#39;, but the sub_16bit sub-register doesn&#39;t fully cover the</p>
+                                        <p> sub_32bit sub-register.</p>
+                                    </div>
+                                    <div>
+                                        <p> On the other hand, the ARM NEON lanes fully cover their registers: The</p>
+                                        <p> dsub_0 sub-register is completely covered by the ssub_0 and ssub_1 lanes.</p>
+                                        <p> This is related to the CoveredBySubRegs property on register definitions.</p>
+                                    </div>
+                                    <div>
+                                        <p> This function returns a bit mask of lanes that completely cover their</p>
+                                        <p> sub-registers. More precisely, given:</p>
+                                    </div>
+                                    <div>
+                                        <p>   Covering = getCoveringLanes();</p>
+                                        <p>   MaskA = getSubRegIndexLaneMask(SubA);</p>
+                                        <p>   MaskB = getSubRegIndexLaneMask(SubB);</p>
+                                    </div>
+                                    <div>
+                                        <p> If (MaskA </p>
+                                        <p>&amp;</p>
+                                        <p> ~(MaskB </p>
+                                        <p>&amp;</p>
+                                        <p> Covering)) == 0, then SubA is completely covered by</p>
+                                        <p> SubB.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 464 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CBCCDCFC4C8729209B7B3B38B92CE3B2D24AFE98">
+                                <pre><code class="language-cpp code-clang-doc">const MCPhysReg * getIPRACSRegs (const MachineFunction * MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a null-terminated list of all of the callee-saved registers on</p>
+                                        <p> this target when IPRA is on. The list should include any non-allocatable</p>
+                                        <p> registers that the backend uses and assumes will be saved by all calling</p>
+                                        <p> conventions. This is typically the ISA-standard frame pointer, but could</p>
+                                        <p> include the thread pointer, TOC pointer, or base pointer for different</p>
+                                        <p> targets.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 514 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4B6B1BFB41610B417AB2A0826C9F6BCDD4774823">
+                                <pre><code class="language-cpp code-clang-doc">const uint32_t * getCallPreservedMask (const MachineFunction &amp; MF, CallingConv::ID )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a mask of call-preserved registers for the given calling convention</p>
+                                        <p> on the current function. The mask should include all call-preserved</p>
+                                        <p> aliases. This is used by the register allocator to determine which</p>
+                                        <p> registers can be live across a call.</p>
+                                    </div>
+                                    <div>
+                                        <p> The mask is an array containing (TRI::getNumRegs()+31)/32 entries.</p>
+                                        <p> A set bit indicates that all bits of the corresponding register are</p>
+                                        <p> preserved across the function call.  The bit mask is expected to be</p>
+                                        <p> sub-register complete, i.e. if A is preserved, so are all its</p>
+                                        <p> sub-registers.</p>
+                                    </div>
+                                    <div>
+                                        <p> Bits are numbered from the LSB, so the bit for physical register Reg can</p>
+                                        <p> be found as (Mask[Reg / 32] &gt;&gt; Reg % 32) </p>
+                                        <p>&amp;</p>
+                                        <p> 1.</p>
+                                    </div>
+                                    <div>
+                                        <p> A NULL pointer means that no register mask will be used, and call</p>
+                                        <p> instructions should use implicit-def operands to indicate call clobbered</p>
+                                        <p> registers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 536 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D4D33F9CA0ABC3D1DE2FC5FEB85C493117DD4FBF">
+                                <pre><code class="language-cpp code-clang-doc">const uint32_t * getCustomEHPadPreservedMask (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a register mask for the registers preserved by the unwinder,</p>
+                                        <p> or nullptr if no custom mask is needed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 544 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="28BD7B4D12160E74BE8F21EFB0FAD5FA0DC8490D">
+                                <pre><code class="language-cpp code-clang-doc">const uint32_t * getNoPreservedMask ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a register mask that clobbers everything.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 550 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E351F19DA2A07FA4F1829750B329C7688421BED8">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;MCPhysReg&gt; getIntraCallClobberedRegs (const MachineFunction * MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a list of all of the registers which are clobbered &quot;inside&quot; a call</p>
+                                        <p> to the given function. For example, these might be needed for PLT</p>
+                                        <p> sequences of long-branch veneers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 557 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="75D0AACD4B9ADE705744799641CDCB0E288D284C">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;std::string&gt; explainReservedReg (const MachineFunction &amp; MF, MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns either a string explaining why the given register is reserved for</p>
+                                        <p> this function, or an empty optional if no explanation has been written.</p>
+                                        <p> The absence of an explanation does not mean that the register is not</p>
+                                        <p> reserved (meaning, you should check that PhysReg is in fact reserved</p>
+                                        <p> before calling this).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 587 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8ADB3982B59F3EF5F5D77EA1E4C0945F4D7178BF">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSubRegIdxSize (unsigned int Idx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the size of the bit range covered by a sub-register index.</p>
+                                        <p> If the index isn&#39;t continuous, return the sum of the sizes of its parts.</p>
+                                        <p> If the index is used to access subregisters of different sizes, return -1.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 624 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="750EB8573FDDBC082B2177B5651F879B8AE38715">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSubRegIdxOffset (unsigned int Idx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the offset of the bit range covered by a sub-register index.</p>
+                                        <p> If an Offset doesn&#39;t make sense (the index isn&#39;t continuous, or is used to</p>
+                                        <p> access sub-registers at different offsets), return -1.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 630 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C26D1869A9BC0812C3C72E5421AC102FC8268B3C">
+                                <pre><code class="language-cpp code-clang-doc">bool getCoveringSubRegIndexes (const TargetRegisterClass * RC, LaneBitmask LaneMask, SmallVectorImpl&lt;unsigned int&gt; &amp; Indexes)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Try to find one or more subregister indexes to cover </p>
+                                    </div>
+                                    <div>
+                                        <p> If this is possible, returns true and appends the best matching set of</p>
+                                        <p> indexes to </p>
+                                        <p> If this is not possible, returns false.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 549 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DB5F2FA1A2E8499897FBE77A1467ACA2CA9A082A">
+                                <pre><code class="language-cpp code-clang-doc">Register lookThruCopyLike (Register SrcReg, const MachineRegisterInfo * MRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the original SrcReg unless it is the target of a copy-like</p>
+                                        <p> operation, in which case we chain backwards through all such operations</p>
+                                        <p> to the ultimate source register.  If a physical register is encountered,</p>
+                                        <p> we stop the search.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 636 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB798E8C3617A4F5CB770F08733A41146A3F223A">
+                                <pre><code class="language-cpp code-clang-doc">Register lookThruSingleUseCopyChain (Register SrcReg, const MachineRegisterInfo * MRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Find the original SrcReg unless it is the target of a copy-like operation,</p>
+                                        <p> in which case we chain backwards through all such operations to the</p>
+                                        <p> ultimate source register. If a physical register is encountered, we stop</p>
+                                        <p> the search.</p>
+                                        <p> Return the original SrcReg if all the definitions in the chain only have</p>
+                                        <p> one user and not a physical register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 659 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B5213CAC2FFA888E4EFC137F6703C5B5102DEB16">
+                                <pre><code class="language-cpp code-clang-doc">const MCPhysReg * getCalleeSavedRegs (const MachineFunction * MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a null-terminated list of all of the callee-saved registers on</p>
+                                        <p> this target. The register should be in the order of desired callee-save</p>
+                                        <p> stack frame offset. The first register is closest to the incoming stack</p>
+                                        <p> pointer if stack grows down, and vice versa.</p>
+                                        <p> Notice: This function does not take into account disabled CSRs.</p>
+                                        <p>         In most cases you will want to use instead the function</p>
+                                        <p>         getCalleeSavedRegs that is implemented in MachineRegisterInfo.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D1C2AA50EFB4EB5C6B74795C7096C072157EECEA">
+                                <pre><code class="language-cpp code-clang-doc">bool regmaskSubsetEqual (const uint32_t * mask0, const uint32_t * mask1)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if all bits that are set in mask </p>
+                                        <p> are also set in</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 518 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="58DDFDC70DD4D01A3EA331B40B9CBF2A7C53D805">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;const uint32_t *&gt; getRegMasks ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return all the call-preserved register masks defined for this target.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E6DCE16DB39EF585EF83912CE5F0DCE84A1E322B">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;const char *&gt; getRegMaskNames ()</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="914C962F4CD4573044E5CAE7F0BBB156C390BC6B">
+                                <pre><code class="language-cpp code-clang-doc">BitVector getReservedRegs (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a bitset indexed by physical register number indicating if a</p>
+                                        <p> register is a special register that has particular uses and should be</p>
+                                        <p> considered unavailable at all times, e.g. stack pointer, return address.</p>
+                                        <p> A reserved register:</p>
+                                        <p> - is not allocatable</p>
+                                        <p> - is considered always live</p>
+                                        <p> - is ignored by liveness tracking</p>
+                                        <p> It is often necessary to reserve the super registers of a reserved</p>
+                                        <p> register as well, to avoid them getting allocated indirectly. You may use</p>
+                                        <p> markSuperRegs() and checkAllSuperRegsMarked() in this case.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B800925DD6BC28CEF7474BE0866CE46AC911C9A5">
+                                <pre><code class="language-cpp code-clang-doc">bool isCalleeSavedPhysReg (MCRegister PhysReg, const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This is a wrapper around getCallPreservedMask().</p>
+                                        <p> Return true if the register is preserved after the call.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 497 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BEE3F930E92E804559FBE8E34A3ECA8020B30317">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getMatchingSuperRegClass (const TargetRegisterClass * A, const TargetRegisterClass * B, unsigned int Idx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a subclass of the specified register</p>
+                                        <p> class A so that each register in it has a sub-register of the</p>
+                                        <p> specified sub-register index which is in the specified register class B.</p>
+                                    </div>
+                                    <div>
+                                        <p> TableGen will synthesize missing A sub-classes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 335 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0D9271A0402086EA68B2A5E05CD0318D8A9477B5">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * findCommonRegClass (const TargetRegisterClass * DefRC, unsigned int DefSubReg, const TargetRegisterClass * SrcRC, unsigned int SrcSubReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Find a common register class that can accomodate both the source and</p>
+                                        <p> destination operands of a copy-like instruction:</p>
+                                    </div>
+                                    <div>
+                                        <p> DefRC:DefSubReg = COPY SrcRC:SrcSubReg</p>
+                                    </div>
+                                    <div>
+                                        <p> This is a generalized form of getMatchingSuperRegClass,</p>
+                                        <p> getCommonSuperRegClass, and getCommonSubClass which handles 0, 1, or 2</p>
+                                        <p> subregister indexes. Those utilities should be preferred if the number of</p>
+                                        <p> non-0 subregister indexes is known.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 413 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="96C89510D93F44DD8590B423D90321CDAC84326D">
+                                <pre><code class="language-cpp code-clang-doc">void adjustStackMapLiveOutMask (uint32_t * Mask)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Prior to adding the live-out mask to a stackmap or patchpoint</p>
+                                        <p> instruction, provide the target the opportunity to adjust it (mainly to</p>
+                                        <p> remove pseudo-registers that should be ignored).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 668 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A2C562F26AC29BAB37E993F094CA183AA928ED62">
+                                <pre><code class="language-cpp code-clang-doc">MCRegister getMatchingSuperReg (MCRegister Reg, unsigned int SubIdx, const TargetRegisterClass * RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a super-register of the specified register</p>
+                                        <p> Reg so its sub-register of index SubIdx is Reg.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 672 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A195F902E026D2236246A6F597768196FCBE5D0B">
+                                <pre><code class="language-cpp code-clang-doc">void dumpReg (Register Reg, unsigned int SubRegIndex, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Debugging helper: dump register in human readable form to dbgs() stream.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 710 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB38A4073A35833AF257895192B0CEB38E452E77">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getCommonSuperRegClass (const TargetRegisterClass * RCA, unsigned int SubA, const TargetRegisterClass * RCB, unsigned int SubB, unsigned int &amp; PreA, unsigned int &amp; PreB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Find a common super-register class if it exists.</p>
+                                    </div>
+                                    <div>
+                                        <p> Find a register class, SuperRC and two sub-register indices, PreA and</p>
+                                        <p> PreB, such that:</p>
+                                    </div>
+                                    <div>
+                                        <p>   1. PreA + SubA == PreB + SubB  (using composeSubRegIndices()), and</p>
+                                    </div>
+                                    <div>
+                                        <p>   2. For all Reg in SuperRC: Reg:PreA in RCA and Reg:PreB in RCB, and</p>
+                                    </div>
+                                    <div>
+                                        <p>   3. SuperRC-&gt;getSize() &gt;= max(RCA-&gt;getSize(), RCB-&gt;getSize()).</p>
+                                    </div>
+                                    <div>
+                                        <p> SuperRC will be chosen such that no super-class of SuperRC satisfies the</p>
+                                        <p> requirements, and there is no register class with a smaller spill size</p>
+                                        <p> that satisfies the requirements.</p>
+                                    </div>
+                                    <div>
+                                        <p> SubA and SubB must not be 0. Use getMatchingSuperRegClass() instead.</p>
+                                    </div>
+                                    <div>
+                                        <p> Either of the PreA and PreB sub-register indices may be returned as 0. In</p>
+                                        <p> that case, the returned register class will be a sub-class of the</p>
+                                        <p> corresponding argument register class.</p>
+                                    </div>
+                                    <div>
+                                        <p> The function returns NULL if no register class can be found.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 351 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE7840CBAA9E9707CC4B863CFC099776F9D2C1C7">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getCommonSubClass (const TargetRegisterClass * A, const TargetRegisterClass * B)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Find the largest common subclass of A and B.</p>
+                                        <p> Return NULL if there is no common subclass.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 321 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8D816692AA93F369093CAEE64A70C33E001579E8">
+                                <pre><code class="language-cpp code-clang-doc">const RegClassWeight &amp; getRegClassWeight (const TargetRegisterClass * RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the weight in units of pressure for this register class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D29F58C5446232ADF7129910EB50A99CFD899DF">
+                                <pre><code class="language-cpp code-clang-doc">TypeSize getRegSizeInBits (Register Reg, const MachineRegisterInfo &amp; MRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns size in bits of a phys/virtual/generic register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 527 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9328333EE627891C04BBE1DC59F38DD2284F0FE5">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int composeSubRegIndices (unsigned int a, unsigned int b)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the subregister index you get from composing</p>
+                                        <p> two subregister indices.</p>
+                                    </div>
+                                    <div>
+                                        <p> The special null sub-register index composes as the identity.</p>
+                                    </div>
+                                    <div>
+                                        <p> If R:a:b is the same register as R:c, then composeSubRegIndices(a, b)</p>
+                                        <p> returns c. Note that composeSubRegIndices does not tell you about illegal</p>
+                                        <p> compositions. If R does not have a subreg a, or R:a does not have a subreg</p>
+                                        <p> b, composeSubRegIndices doesn&#39;t tell you.</p>
+                                    </div>
+                                    <div>
+                                        <p> The ARM register Q0 has two D subregs dsub_0:D0 and dsub_1:D1. It also has</p>
+                                        <p> ssub_0:S0 - ssub_3:S3 subregs.</p>
+                                        <p> If you compose subreg indices dsub_1, ssub_0 you get ssub_2.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 751 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="55AF7834005BFE52FDB4A220F50C49EC8FD377F2">
+                                <pre><code class="language-cpp code-clang-doc">LaneBitmask composeSubRegIndexLaneMask (unsigned int IdxA, LaneBitmask Mask)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Transforms a LaneMask computed for one subregister to the lanemask that</p>
+                                        <p> would have been computed when composing the subsubregisters with IdxA</p>
+                                        <p> first. </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 776 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="80FCB11FCF2F71534141CB3FD357120D6F81D0FC">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getRegUnitWeight (MCRegUnit RegUnit)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the weight in units of pressure for this register unit.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F23AD3B21F4960CE24D7A29E5A141E6CBB3C1F4C">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumRegPressureSets ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the number of dimensions of register pressure.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="73F514CF1C4E6CD878D63A3B61ED01FCB2571621">
+                                <pre><code class="language-cpp code-clang-doc">bool eliminateFrameIndex (int MI, int SPAdj, unsigned int FIOperandNum, RegScavenger * RS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method must be overriden to eliminate abstract frame indices from</p>
+                                        <p> instructions which may use them. The instruction referenced by the</p>
+                                        <p> iterator contains an MO_FrameIndex operand which must be eliminated by</p>
+                                        <p> this method. This method may modify or replace the specified instruction,</p>
+                                        <p> as long as it keeps the iterator pointing at the finished product.</p>
+                                        <p> SPAdj is the SP adjustment due to call frame setup instruction.</p>
+                                        <p> FIOperandNum is the FI operand number.</p>
+                                        <p> Returns true if the current instruction was removed and the iterator</p>
+                                        <p> is not longer valid</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1CCDD8F0979AB6F9D93CEEDB019F60729F30DBAB">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldRegionSplitForVirtReg (const MachineFunction &amp; MF, const LiveInterval &amp; VirtReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Region split has a high compile time cost especially for large live range.</p>
+                                        <p> This method is used to decide whether or not </p>
+                                        <p> should</p>
+                                        <p> go through this expensive splitting heuristic.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 65 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5620DE5C04A82226DD9D335DFC7D6897F888ED37">
+                                <pre><code class="language-cpp code-clang-doc">Register getFrameRegister (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getFrameRegister - This method should return the register used as a base</p>
+                                        <p> for values allocated in the current stack frame.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CDA7C4DE1C156766DCEB9699891E0607ABEE0424">
+                                <pre><code class="language-cpp code-clang-doc">void markSuperRegs (BitVector &amp; RegisterSet, MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Mark a register and all its aliases as reserved in the given set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 76 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79B9E357C3C7FCB083CD7B8FA67E0DD1CF9E26B2">
+                                <pre><code class="language-cpp code-clang-doc">bool checkAllSuperRegsMarked (const BitVector &amp; RegisterSet, ArrayRef&lt;MCPhysReg&gt; Exceptions)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if for every register in the set all super registers are part</p>
+                                        <p> of the set as well.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 82 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3AAF8125B64D20D011C7051D5AE8A724FD86DB37">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumSupportedRegs (const MachineFunction &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the number of registers for the function. (may overestimate)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 286 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B6BDAD16485BD0E35E8355950F81282FA5B689DB">
+                                <pre><code class="language-cpp code-clang-doc">TypeSize getRegSizeInBits (const TargetRegisterClass &amp; RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the size in bits of a register from class RC.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 302 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2CDCBF4C484DC0630BE1340C2C8AE43F23BC55B3">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSpillSize (const TargetRegisterClass &amp; RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the size in bytes of the stack slot allocated to hold a spilled</p>
+                                        <p> copy of a register from class RC.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 308 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C8EB4C67A7C396492EF002B3AE16F14C0BAEA076">
+                                <pre><code class="language-cpp code-clang-doc">Align getSpillAlign (const TargetRegisterClass &amp; RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the minimum required alignment in bytes for a spill slot for</p>
+                                        <p> a register of this class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 314 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="198802B9658D455BE0C2ACC3360ACF620CA41466">
+                                <pre><code class="language-cpp code-clang-doc">bool isTypeLegalForClass (const TargetRegisterClass &amp; RC, MVT T)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the given TargetRegisterClass has the ValueType T.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 319 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EA3B26B4E310AEF32984BB08575679610C6AC950">
+                                <pre><code class="language-cpp code-clang-doc">bool isTypeLegalForClass (const TargetRegisterClass &amp; RC, LLT T)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the given TargetRegisterClass is compatible with LLT T.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 327 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EB520BE3C572AD7C137639CCD9BF09062CB782A1">
+                                <pre><code class="language-cpp code-clang-doc">vt_iterator legalclasstypes_begin (const TargetRegisterClass &amp; RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Loop over all of the value types that can be represented by values</p>
+                                        <p> in the given register class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 341 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1DEBFDFEC56958442C3FD066D1246E69AE9BBF88">
+                                <pre><code class="language-cpp code-clang-doc">vt_iterator legalclasstypes_end (const TargetRegisterClass &amp; RC)</code></pre>
+                                <p>Defined at line 345 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C9D7D198E51F1D41A7BB0EC776E1290954118AD">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;uint8_t&gt; getRegisterCosts (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get a list of cost values for all registers that correspond to the index</p>
+                                        <p> returned by RegisterCostTableIndex.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 393 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E0EED69498498E0AF6FC1AC0846FD096C2778D6">
+                                <pre><code class="language-cpp code-clang-doc">bool isInAllocatableClass (MCRegister RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the register is in the allocation of any register class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 402 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="57B512E72E4CF9E5E82A0040D9B35257CD4825B9">
+                                <pre><code class="language-cpp code-clang-doc">const char * getSubRegIndexName (unsigned int SubIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the human-readable symbolic target-specific</p>
+                                        <p> name for the specified SubRegIndex.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 408 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="242366346B31CDAF25F2B1ACA50786D37D54F3FA">
+                                <pre><code class="language-cpp code-clang-doc">LaneBitmask getSubRegIndexLaneMask (unsigned int SubIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a bitmask representing the parts of a register that are covered by</p>
+                                        <p> SubIdx </p>
+                                    </div>
+                                    <div>
+                                        <p> SubIdx == 0 is allowed, it has the lane mask ~0u.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 428 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="13ED86AFFA21C305100EC205834505F6A8B3CACD">
+                                <pre><code class="language-cpp code-clang-doc">float getSpillWeightScaleFactor (const TargetRegisterClass * RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the scale factor of spill weight for this register class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 445 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F56324F295A682E3FED4C28D2333F278DC787DE">
+                                <pre><code class="language-cpp code-clang-doc">bool getRegAllocationHints (Register VirtReg, ArrayRef&lt;MCPhysReg&gt; Order, SmallVectorImpl&lt;MCPhysReg&gt; &amp; Hints, const MachineFunction &amp; MF, const VirtRegMap * VRM, const LiveRegMatrix * Matrix)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compute target-independent register allocator hints to help eliminate copies.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 451 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FDE2C29D4EEA2628BACAFD67E4EE494B336FC25D">
+                                <pre><code class="language-cpp code-clang-doc">bool regsOverlap (Register RegA, Register RegB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the two registers are equal or alias each other.</p>
+                                        <p> The registers may be virtual registers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 468 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2E753450FEE0C07912056D76C437DAEAA37E91A">
+                                <pre><code class="language-cpp code-clang-doc">bool hasRegUnit (MCRegister Reg, MCRegUnit RegUnit)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if Reg contains RegUnit.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 477 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="862343AD5B3A61DAB17B94F2A2C5C50D8E625816">
+                                <pre><code class="language-cpp code-clang-doc">bool canRealignStack (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> True if the stack can be realigned for the target.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 510 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F6BB56008D22F2CFEE9A4E6014E2EF4702D41D92">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldRealignStack (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> True if storage within the function requires the stack pointer to be</p>
+                                        <p> aligned more than the normal calling convention calls for.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 514 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6D472794D8588A0F9CE4C4F355DB9B2802729030">
+                                <pre><code class="language-cpp code-clang-doc">bool isAsmClobberable (const MachineFunction &amp; MF, MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns false if we can&#39;t guarantee that Physreg, specified as an IR asm</p>
+                                        <p> clobber constraint, will be preserved across the statement.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 594 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="332FB8C18EA435CF0D70E77F25332016DC1207BD">
+                                <pre><code class="language-cpp code-clang-doc">bool isInlineAsmReadOnlyReg (const MachineFunction &amp; MF, MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if PhysReg cannot be written to in inline asm statements.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 600 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F361C6EA5BD69FD71DBDF217AE0D8CF139577D5">
+                                <pre><code class="language-cpp code-clang-doc">bool isConstantPhysReg (MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if PhysReg is unallocatable and constant throughout the</p>
+                                        <p> function.  Used by MachineRegisterInfo::isConstantPhysReg().</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 607 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="998073DA5E3AE0DC5040C99A8B0078C3AF238395">
+                                <pre><code class="language-cpp code-clang-doc">bool isDivergentRegClass (const TargetRegisterClass * RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the register class is considered divergent.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 610 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AEFEA972B06FF690C5ED1A752F02E8AB09A69393">
+                                <pre><code class="language-cpp code-clang-doc">bool isUniformReg (const MachineRegisterInfo &amp; MRI, const RegisterBankInfo &amp; RBI, Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the register is considered uniform.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 615 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED868C6F4BB68B9F5DD47984439676E4D2A3D713">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldAnalyzePhysregInMachineLoopInfo (MCRegister R)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if MachineLoopInfo should analyze the given physreg</p>
+                                        <p> for loop invariance.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 622 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ABBA440038CF566F9913099B2F2019F8F360C754">
+                                <pre><code class="language-cpp code-clang-doc">bool isCallerPreservedPhysReg (MCRegister PhysReg, const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Physical registers that may be modified within a function but are</p>
+                                        <p> guaranteed to be restored before any uses. This is useful for targets that</p>
+                                        <p> have call sequences where a GOT register may be updated by the caller</p>
+                                        <p> prior to a call and is guaranteed to be restored (also by the caller)</p>
+                                        <p> after the call.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 631 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="48C6EB490C92B0E8529A701F80FDB52DCFDA139D">
+                                <pre><code class="language-cpp code-clang-doc">bool isArgumentRegister (const MachineFunction &amp; MF, MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if PhysReg can be used as an argument to a function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 642 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C6C756F1A8CE5AC31CABAE87DFD040FD96E21547">
+                                <pre><code class="language-cpp code-clang-doc">bool isFixedRegister (const MachineFunction &amp; MF, MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if PhysReg is a fixed register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 648 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="96CA07431FF84B90950A761FF97C4F47107FBB99">
+                                <pre><code class="language-cpp code-clang-doc">bool isGeneralPurposeRegister (const MachineFunction &amp; MF, MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if PhysReg is a general purpose register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 654 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1476488456B9EBC19A14434FD319FDD217F433A0">
+                                <pre><code class="language-cpp code-clang-doc">bool isGeneralPurposeRegisterClass (const TargetRegisterClass * RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if RC is a class/subclass of general purpose register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 660 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6236E25BF97BED7C770AD697E6D80C0E1CD2D395">
+                                <pre><code class="language-cpp code-clang-doc">void getOffsetOpcodes (const StackOffset &amp; Offset, SmallVectorImpl&lt;uint64_t&gt; &amp; Ops)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Gets the DWARF expression opcodes for </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 684 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="83B8AC426921FDF76F9EFA5F3C8BB96ED5219060">
+                                <pre><code class="language-cpp code-clang-doc">DIExpression * prependOffsetExpression (const DIExpression * Expr, unsigned int PrependFlags, const StackOffset &amp; Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Prepends a DWARF expression for </p>
+                                        <p> to DIExpression </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 690 of file llvm/lib/CodeGen/TargetRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="88932226318F3B099250E314CA982624DEA1DBEB">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldRewriteCopySrc (const TargetRegisterClass * DefRC, unsigned int DefSubReg, const TargetRegisterClass * SrcRC, unsigned int SrcSubReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For a copy-like instruction that defines a register of class DefRC with</p>
+                                        <p> subreg index DefSubReg, reading from another source with class SrcRC and</p>
+                                        <p> subregister SrcSubReg return true if this is a preferable copy</p>
+                                        <p> instruction or an earlier use should be used.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 704 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B679B009FFA9CBF7F0BD526AFFF258ECE3D0108C">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getSubClassWithSubReg (const TargetRegisterClass * RC, unsigned int Idx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the largest legal sub-class of RC that</p>
+                                        <p> supports the sub-register index Idx.</p>
+                                        <p> If no such sub-class exists, return NULL.</p>
+                                        <p> If all registers in RC already have an Idx sub-register, return RC.</p>
+                                    </div>
+                                    <div>
+                                        <p> TableGen generates a version of this function that is good enough in most</p>
+                                        <p> cases.  Targets can override if they have constraints that TableGen</p>
+                                        <p> doesn&#39;t understand.  For example, the x86 sub_8bit sub-register index is</p>
+                                        <p> supported by the full GR32 register class in 64-bit mode, but only by the</p>
+                                        <p> GR32_ABCD regiister class in 32-bit mode.</p>
+                                    </div>
+                                    <div>
+                                        <p> TableGen will synthesize missing RC sub-classes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 724 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="13EEBE3BA1B3F82D3949F1427C78F1E37DCA17FF">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getSubRegisterClass (const TargetRegisterClass * SuperRC, unsigned int SubRegIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a register class that can be used for a subregister copy from/into</p>
+                                        <p> at </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 732 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9710FA9A0086224A5D86F4B57449E6F7AF3996F7">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int reverseComposeSubRegIndices (unsigned int a, unsigned int b)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a subregister index that will compose to give you the subregister</p>
+                                        <p> index.</p>
+                                    </div>
+                                    <div>
+                                        <p> Finds a subregister index x such that composeSubRegIndices(a, x) ==</p>
+                                        <p> b. Note that this relationship does not hold if</p>
+                                        <p> reverseComposeSubRegIndices returns the null subregister.</p>
+                                    </div>
+                                    <div>
+                                        <p> The special null sub-register index composes as the identity.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 765 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CF46954E438A403B96E49F65F391B0E52F1297A4">
+                                <pre><code class="language-cpp code-clang-doc">LaneBitmask reverseComposeSubRegIndexLaneMask (unsigned int IdxA, LaneBitmask LaneMask)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Transform a lanemask given for a virtual register to the corresponding</p>
+                                        <p> lanemask before using subregister with index </p>
+                                        <p> This is the reverse of composeSubRegIndexLaneMask(), assuming Mask is a</p>
+                                        <p> valie lane mask (no invalid bits set) the following holds:</p>
+                                        <p> X0 = composeSubRegIndexLaneMask(Idx, Mask)</p>
+                                        <p> X1 = reverseComposeSubRegIndexLaneMask(Idx, X0)</p>
+                                        <p> =&gt; X1 == Mask</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 790 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BBE30F3647AA57152B3E06989E3BD80F06014CD3">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getPhysRegBaseClass (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return target defined base register class for a physical register.</p>
+                                        <p> This is the register class with the lowest BaseClassOrder containing the</p>
+                                        <p> register.</p>
+                                        <p> Will be nullptr if the register is not in any base register class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 805 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="437006A83E4D00930C6051C4352F35264A4CB15E">
+                                <pre><code class="language-cpp code-clang-doc">const char * getRegPressureSetName (unsigned int Idx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the name of this register unit pressure set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0CF4EFED8AFA658791DB8D3ECE9DF31B822FC8D0">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getRegPressureSetLimit (const MachineFunction &amp; MF, unsigned int Idx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the register unit pressure limit for this dimension.</p>
+                                        <p> This limit must be adjusted dynamically for reserved registers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6AD7B5B8C5C164378F743A2068FAA33699FEAF42">
+                                <pre><code class="language-cpp code-clang-doc">const int * getRegClassPressureSets (const TargetRegisterClass * RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the dimensions of register pressure impacted by this register class.</p>
+                                        <p> Returns a -1 terminated array of pressure set IDs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CD3CCB098FD6F57337E226EAAC0DFD611953397A">
+                                <pre><code class="language-cpp code-clang-doc">const int * getRegUnitPressureSets (MCRegUnit RegUnit)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the dimensions of register pressure impacted by this register unit.</p>
+                                        <p> Returns a -1 terminated array of pressure set IDs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B0F0ABDAC9A2A19137858E064C87718B27AB6A50">
+                                <pre><code class="language-cpp code-clang-doc">regclass_iterator regclass_begin ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Register class iterators</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 876 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D0942CEB51A215F3ECF54C608E3A7BBED85EC847">
+                                <pre><code class="language-cpp code-clang-doc">regclass_iterator regclass_end ()</code></pre>
+                                <p>Defined at line 877 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="61CA0167D894B2E1BC4A5B948CE016C09FA58BB8">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;regclass_iterator&gt; regclasses ()</code></pre>
+                                <p>Defined at line 878 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DB3F6B7EF28E95FB2C2D459729A787720B2600E7">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumRegClasses ()</code></pre>
+                                <p>Defined at line 882 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F8178B80D409C40FD27E47FF80B2A36C1075A1B0">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getRegClass (unsigned int i)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the register class associated with the enumeration value.</p>
+                                        <p> See class MCOperandInfo.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 888 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="52BF555D18069878C945572A80827C4C0BE9975F">
+                                <pre><code class="language-cpp code-clang-doc">const char * getRegClassName (const TargetRegisterClass * Class)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the name of the register class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 894 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="069575AD068A861014F558BF4001EADCF90293A2">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getPointerRegClass (unsigned int Kind)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a TargetRegisterClass used for pointer values.</p>
+                                        <p> If a target supports multiple different pointer register classes,</p>
+                                        <p> kind specifies which one is indicated.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 907 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4EA93558EE9C3ADD596A8AF89704B2AA2DA5552">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getCrossCopyRegClass (const TargetRegisterClass * RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a legal register class to copy a register in the specified class</p>
+                                        <p> to or from. If it is possible to copy the register directly without using</p>
+                                        <p> a cross register class copy, return the specified RC. Returns NULL if it</p>
+                                        <p> is not possible to copy between two registers of the specified class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 916 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0373E5BC20673588C376EB3C28A95BFF47DF7D30">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getLargestLegalSuperClass (const TargetRegisterClass * RC, const MachineFunction &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the largest super class of RC that is legal to use in the current</p>
+                                        <p> sub-target and has the same spill size.</p>
+                                        <p> The returned register class can be used to create virtual registers which</p>
+                                        <p> means that all its registers can be copied and spilled.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 925 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2375FDB8568D8615B384762CF311E99D9A83E1E0">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getRegPressureLimit (const TargetRegisterClass * RC, MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the register pressure &quot;high water mark&quot; for the specific register</p>
+                                        <p> class. The scheduler is in high register pressure mode (for the specific</p>
+                                        <p> register class) if it goes over the limit.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note: this is the old register pressure model that relies on a manually</p>
+                                        <p> specified representative register class per value type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 939 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="005358B7A46301E4DE31ACC84172BD5165FD8957">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getRegPressureSetScore (const MachineFunction &amp; MF, unsigned int PSetID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a heuristic for the machine scheduler to compare the profitability</p>
+                                        <p> of increasing one register pressure set versus another.  The scheduler</p>
+                                        <p> will prefer increasing the register pressure of the set which returns</p>
+                                        <p> the largest value for this function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 948 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="38DC0BE6BE503B0B9D1FF6669E43C07FEC691A5A">
+                                <pre><code class="language-cpp code-clang-doc">void updateRegAllocHint (Register Reg, Register NewReg, MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> A callback to allow target a chance to update register allocation hints</p>
+                                        <p> when a register is &quot;changed&quot; (e.g. coalesced) to another register.</p>
+                                        <p> e.g. On ARM, some virtual registers should target register pairs,</p>
+                                        <p> if one of pair is coalesced to another register, the allocation hint of</p>
+                                        <p> the other half of the pair should be changed to point to the new register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1012 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="987539AABE5F32718BEC7FAF3FB80A41CB4B3B03">
+                                <pre><code class="language-cpp code-clang-doc">bool reverseLocalAssignment ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Allow the target to reverse allocation order of local live ranges. This</p>
+                                        <p> will generally allocate shorter local live ranges first. For targets with</p>
+                                        <p> many registers, this could reduce regalloc compile time by a large</p>
+                                        <p> factor. It is disabled by default for three reasons:</p>
+                                        <p> (1) Top-down allocation is simpler and easier to debug for targets that</p>
+                                        <p> don&#39;t benefit from reversing the order.</p>
+                                        <p> (2) Bottom-up allocation could result in poor evicition decisions on some</p>
+                                        <p> targets affecting the performance of compiled code.</p>
+                                        <p> (3) Bottom-up allocation is no longer guaranteed to optimally color.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1026 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5A1781F185DEDFCB34D13CF2545D9C291EDCC2F0">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getCSRFirstUseCost ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Allow the target to override the cost of using a callee-saved register for</p>
+                                        <p> the first time. Default value of 0 means we will use a callee-saved</p>
+                                        <p> register if it is available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1031 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="726909236CA460DE786365445E7CD48830E69DAB">
+                                <pre><code class="language-cpp code-clang-doc">bool requiresRegisterScavenging (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target requires (and can make use of) the register</p>
+                                        <p> scavenger.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1035 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7CCCF0FAAB5F3CFCA2E64375BB62B69CF612DB0C">
+                                <pre><code class="language-cpp code-clang-doc">bool useFPForScavengingIndex (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target wants to use frame pointer based accesses to</p>
+                                        <p> spill to the scavenger emergency spill slot.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1041 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="67F6DF7FFE45A6D9F6B39ADCEA3A1050851C18E1">
+                                <pre><code class="language-cpp code-clang-doc">bool requiresFrameIndexScavenging (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target requires post PEI scavenging of registers for</p>
+                                        <p> materializing frame index constants.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1047 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="31B7E540C52C436890019FC33C0B76FD3FBC8B60">
+                                <pre><code class="language-cpp code-clang-doc">bool requiresFrameIndexReplacementScavenging (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target requires using the RegScavenger directly for</p>
+                                        <p> frame elimination despite using requiresFrameIndexScavenging.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1053 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F15D6AD3079B2BA9D9051155B5A7D7FAF8F04026">
+                                <pre><code class="language-cpp code-clang-doc">bool requiresVirtualBaseRegisters (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target wants the LocalStackAllocation pass to be run</p>
+                                        <p> and virtual base registers used for more efficient stack access.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1060 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9FE289781A2693F2D6479FD6E15FAED9BFBE4AF3">
+                                <pre><code class="language-cpp code-clang-doc">bool hasReservedSpillSlot (const MachineFunction &amp; MF, Register Reg, int &amp; FrameIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if target has reserved a spill slot in the stack frame of</p>
+                                        <p> the given function for the specified register. e.g. On x86, if the frame</p>
+                                        <p> register is required, the first fixed stack object is reserved as its</p>
+                                        <p> spill slot. This tells PEI not to create a new stack frame</p>
+                                        <p> object for the given register. It should be called only after</p>
+                                        <p> determineCalleeSaves().</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1070 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED67DBD8971F6410C2D0EDD1CCD07DE53055BE9C">
+                                <pre><code class="language-cpp code-clang-doc">bool trackLivenessAfterRegAlloc (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the live-ins should be tracked after register allocation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1076 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB2C646BDEA74F209037A8C873E0CF766056A50D">
+                                <pre><code class="language-cpp code-clang-doc">bool hasStackRealignment (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> True if stack realignment is required and still possible.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1088 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8B51B717D118AA7634689A2C0C8088DC5ECF062E">
+                                <pre><code class="language-cpp code-clang-doc">int64_t getFrameIndexInstrOffset (const MachineInstr * MI, int Idx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the offset from the referenced frame index in the instruction,</p>
+                                        <p> if there is one.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1094 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="26C2C8D965E5F14B5B524547FCBA250DBA265EBF">
+                                <pre><code class="language-cpp code-clang-doc">bool needsFrameBaseReg (MachineInstr * MI, int64_t Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the instruction&#39;s frame index reference would be better</p>
+                                        <p> served by a base register other than FP or SP.</p>
+                                        <p> Used by LocalStackFrameAllocation to determine which frame index</p>
+                                        <p> references it should create new base registers for.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1103 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7FE19D6A0AC6EA2A0DB170CE2D4FC21A08FD9BE3">
+                                <pre><code class="language-cpp code-clang-doc">Register materializeFrameBaseRegister (MachineBasicBlock * MBB, int FrameIdx, int64_t Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Insert defining instruction(s) for a pointer to FrameIdx before</p>
+                                        <p> insertion point I. Return materialized frame pointer.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1109 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="15ADC4F38091F64FA8260643D5BDE6C2042F2C04">
+                                <pre><code class="language-cpp code-clang-doc">void resolveFrameIndex (MachineInstr &amp; MI, Register BaseReg, int64_t Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Resolve a frame index operand of an instruction</p>
+                                        <p> to reference the indicated base register plus offset instead.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1118 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7231DED9C5727EF5DA4A96F5B23FB8C133970861">
+                                <pre><code class="language-cpp code-clang-doc">bool isFrameOffsetLegal (const MachineInstr * MI, Register BaseReg, int64_t Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determine whether a given base register plus offset immediate is</p>
+                                        <p> encodable to resolve a frame index.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1125 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5386118264F8C50414E8D23EC2201E28CBBA04D7">
+                                <pre><code class="language-cpp code-clang-doc">int64_t getDwarfRegNumForVirtReg (Register RegNum, bool isEH)</code></pre>
+                                <p>Defined at line 1139 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="594950C1F8D081B6990729A70A57BA5FCA51A508">
+                                <pre><code class="language-cpp code-clang-doc">bool saveScavengerRegister (MachineBasicBlock &amp; MBB, int I, int &amp; UseMI, const TargetRegisterClass * RC, Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Spill the register so it can be used by the register scavenger.</p>
+                                        <p> Return true if the register was spilled, false otherwise.</p>
+                                        <p> If this function does not spill the register, the scavenger</p>
+                                        <p> will instead spill it to the emergency spill slot.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1147 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="87E0BBB9884EEBFA43AA097404D0C10A414F1D1A">
+                                <pre><code class="language-cpp code-clang-doc">bool eliminateFrameIndicesBackwards ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Process frame indices in reverse block order. This changes the behavior of</p>
+                                        <p> the RegScavenger passed to eliminateFrameIndex. If this is true targets</p>
+                                        <p> should scavengeRegisterBackwards in eliminateFrameIndex. New targets</p>
+                                        <p> should prefer reverse scavenging behavior.</p>
+                                        <p> TODO: Remove this when all targets return true.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1160 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="678FBC92E3375B3065EE32256B1B3AE306F0DF67">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getRegAsmName (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the assembly name for </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1176 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E7188EFA6657ABB68242AC1CDD043EAF6B2C3C3F">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldCoalesce (MachineInstr * MI, const TargetRegisterClass * SrcRC, unsigned int SubReg, const TargetRegisterClass * DstRC, unsigned int DstSubReg, const TargetRegisterClass * NewRC, LiveIntervals &amp; LIS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> SrcRC and DstRC will be morphed into NewRC if this returns true.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1190 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B4CB8C285DE6D022231545D87A20CD17B9C6A4EC">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldUseLastChanceRecoloringForVirtReg (const MachineFunction &amp; MF, const LiveInterval &amp; VirtReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Last chance recoloring has a high compile time cost especially for</p>
+                                        <p> targets with a lot of registers.</p>
+                                        <p> This method is used to decide whether or not </p>
+                                        <p> should</p>
+                                        <p> go through this expensive heuristic.</p>
+                                        <p> When this target hook is hit, by returning false, there is a high</p>
+                                        <p> chance that the register allocation will fail altogether (usually with</p>
+                                        <p> &quot;ran out of registers&quot;).</p>
+                                        <p> That said, this error usually points to another problem in the</p>
+                                        <p> optimization pipeline.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1214 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="467DA3B38E10355FA22C5776561D077139866931">
+                                <pre><code class="language-cpp code-clang-doc">bool regClassPriorityTrumpsGlobalness (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> When prioritizing live ranges in register allocation, if this hook returns</p>
+                                        <p> true then the AllocationPriority of the register class will be treated as</p>
+                                        <p> more important than whether the range is local to a basic block or global.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1223 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="02EB960F8CD7C9C4C8C142AF6810C9AD8EE864D2">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getConstrainedRegClassForOperand (const MachineOperand &amp; MO, const MachineRegisterInfo &amp; MRI)</code></pre>
+                                <p>Defined at line 1243 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5931429EECC60D93090FE7B35E444F9ECC977134">
+                                <pre><code class="language-cpp code-clang-doc">bool isNonallocatableRegisterCalleeSave (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Some targets have non-allocatable registers that aren&#39;t technically part</p>
+                                        <p> of the explicit callee saved register list, but should be handled as such</p>
+                                        <p> in certain cases.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1252 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BCABC76D663EEA9E3426A15F31235AB9EDBB5463">
+                                <pre><code class="language-cpp code-clang-doc">bool isVirtualFrameRegister (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Some targets delay assigning the frame until late and use a placeholder</p>
+                                        <p> to represent it earlier. This method can be used to identify the frame</p>
+                                        <p> register placeholder.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1259 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3D1D64E412C70AD8D197ECA25DA56D3CEE86286A">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;uint8_t&gt; getVRegFlagValue (StringRef Name)</code></pre>
+                                <p>Defined at line 1261 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F124C4A1AE698A6541060A1B6B83BCF7E0755A21">
+                                <pre><code class="language-cpp code-clang-doc">int getVRegFlagsOfReg (Register Reg, const MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 1265 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="000652E9739878B11A04558A8590F2ACE630BA13">
+                                <pre><code class="language-cpp code-clang-doc">bool isIgnoredCVReg (MCRegister LLVMReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Whether this register should be ignored when generating CodeView debug</p>
+                                        <p> info, because it&#39;s a known there is no mapping available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1272 of file llvm/include/llvm/CodeGen/TargetRegisterInfo.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

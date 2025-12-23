@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MachOObjectFile</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">object</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MachOObjectFile</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#48BCADB608545FEE563262518F9A871B9F6E800C">external_relocations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2E03914F69B2C0F48CFAAEE851916180A66050A1">getFeatures</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FF42228F6D3606C207F6BB539B303EAD604EF5C1">BindEntryCheckSegAndOffsets</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5D5752D03FD13B572D4E6D03A0685C8F471EE13">RebaseEntryCheckSegAndOffsets</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E8AC160CDED51BF006BF48E640280AD3F4AD0967">BindRebaseSegmentName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DF4318DCF588B12E16B78E3DD56F8E27D98F48DB">BindRebaseSectionName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F1987574B785C126387E7305C607DDC7DD0B3200">BindRebaseAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EB92206BA4DA030BBD51CDAF260732DCD5D95B69">hasPageZeroSegment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7952260512A1B1D95BAA3D839DEB7A293F2136A0">getMachOFilesetEntryOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#78238A34D6081CF3A2E70EAF869966BE3A5558B5">classof</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#919CA74BD3D6B3408E7BBBEA28FB7551853A9B92">getVersionMinMajor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7FE3A4967AF7286ECD743BF56CE335015546D9F3">getVersionMinMinor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC993BF92622F0D01669B06B06D5916BA54D889F">getVersionMinUpdate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7E3478E099EC7C7076D266FE69ADD6267AEFD518">getBuildPlatform</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CC84381372F4A3E5F84DD1F1E823C7FBB7412736">getBuildTool</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#95BCA472ECA2D9B8FD2DE282C0E5F24DD6B675AB">getVersionString</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8EF7FAAAD920FD08C965C08773200140FD067BEC">create</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EDD936CF52C812A357EBCE2828DA6E8DE06B5001">isMachOPairedReloc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#53A21E39C274C9D5A3CABDD180F944E2CEDDF9C9">moveSymbolNext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FE281DF5B5E646379A57E486F526F7A4182203C">getNValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D6244B9BE6E4C32397B73B1F28185E3ECDD9DFBF">getSymbolName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E571AD06EF8A9419D6E0398FFA98421D40E71574">checkSymbolTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C45E3AD963D69387C01904935E8FC4D2CA284A64">getIndirectName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E8273A767F8910C3962E2728C99D2F9F647013FE">getSectionType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8646FA20DEF077C54328E48FF39DFFE0789FA66C">getSymbolAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A59A6C15CA05EC108B0F8AFE481C8E3848129512">getSymbolAlignment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#42F7359B41BD4942D454435EFE7F63316BA21064">getCommonSymbolSizeImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EB519E1C4383E8D804CB68EA562AC2A9FEC9A59C">getSymbolType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2144AE230BD3015F88B1276433ABA086AB8C8C1">getSymbolFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F4514FE7286D05CC5A61C8955EA3F475CE57588">getSymbolSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7E49BCFB2ED17CBABC7EC8948D92EB1E13DB7DBA">getSymbolSectionID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A9A45420FD7D328822624A42BC2C5D16279F872">getSectionID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8838617F6CB9851976B1C015937D071BCF5E657A">moveSectionNext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E7224901F1511474529415C68B53B366545A8B7E">getSectionName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3506D45C3E9B158F31508465C3CDB9A23D5112F0">getSectionAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2D7DF7D5560DCB1C81E47F1588D12189B278797A">getSectionIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C8F231FB247F82AA280EC0213CA66D1B29AC96D">getSectionSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4433DE065CDFB0B4489C32BD4976C99F33C7CAD9">getSectionContents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8E6AF8287129D82444AFBA584679A2732A413F37">getSectionContents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1795E55E5E6D518D1D3C5AE9860EC027F350827E">getSectionAlignment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#08C601AEDEC2A540F8E1120C904EF7FAB928CE39">getSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#076F84A61ABBBB92F22C833990909CB44CEAAC62">getSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#33A25A15D5C538285CF24C0E2B61CC0609C82B8C">isSectionCompressed</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#19466ECA04CD8A3ABFC4F2E24D00D9D9D1E36B45">isSectionText</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FE87A49B1784EA0C85D463EBBEAED1ADF50231C">isSectionData</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAA946C1C5C75CD09355D9FD2D83F52256DB08A9">isSectionBSS</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#54157EACB4DFBBAA8A86A1C1717169C1366CDB92">isSectionVirtual</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4EFF4CF78D09FAE1EA709EBFF1148B8DDF574BE0">isSectionBitcode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2839D86E29CB43E22022B39AA2990110B181BFFD">isDebugSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2E7089B0003B08DB0CFD9CAD580306570F34629C">getSegmentContents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8A80088E5061FE851781C4C55415825675A8C784">getSegmentContents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2DB509C854DAE907C537B070A7AD5FF73D5C78D4">isSectionStripped</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF101C7D09E534BDA730A80CDB76FED83FF152CA">section_rel_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8714AEBFD5CA514661D6F9B51A3631CF9B4A9D71">section_rel_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AEC98E150C86128B43CEAD0360B6D92D033B6485">extrel_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#06A0FB7DB630995B4855E22F4478B8989802450A">extrel_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A5ED8B5222B1987F87A2224DAB07462D59EB7660">locrel_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EBB84C725A789A928EAA077ADC624F11ABA8339D">locrel_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C35992A3619BBBBC90EEF9491E5791EDB1697433">moveRelocationNext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AE69E9108C156616038262DDFDA38EA59CF5857D">getRelocationOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9A3B49A01D95ED7CD6720F6F54DDE53A05BAB37E">getRelocationSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B2B3E5E61F0FF2ED92F1D5FD1E671A269AB4DB13">getRelocationSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4234D9A4585009160BD3058F8659CC0463F44C28">getRelocationType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ACE5005D8A287023107CFF73784852E4D8E65536">getRelocationTypeName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A1FB17931AF7BB8A81C8FAB5F84D24D37231FF9F">getRelocationLength</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#645F61A9ADB4B03B93A6CEA6B90A9FB670453208">getLibraryShortNameByIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#17636ED5D2A806B6DA97E6A92ABC0CA0AE631C2B">getLibraryCount</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A7BF28912A80D3096D4109C2B92CDA5410D2C77B">getRelocationRelocatedSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7294E9314195215139C5E972F644D323DBA2BF8A">symbol_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B31963C5F9F7D01C2155ACF646BEB21E8E048A5A">symbol_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#376FBDE8A9ADA44EDFF7308712E4656EDAE3578F">is64Bit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A3C83C6DCE9F55DF0C9C1CEFDF3DA08A892DCDB9">getSymbolByIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52961CE2EBE71494982FD7F0DAF3C4C96FBAAAD6">getSymbolIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#84436C4E656388AC0FC21885BD1A169013295877">section_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1725E338B1BDB6DB176BF072A49DC8E1497F4CA2">section_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#01247C06EDC8B0DC36818B82037860DEC8C002AE">getBytesInAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D7750A7F4FC1F0F03B72C3AF4297FE2E0EA77D77">getFileFormatName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#31DC70670A32D3926DE165EA157C3F8D6AF78B4A">getArch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C2215D2084633410C8D2679CCAAFE227615780D">getArchTriple</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CF312F60CF96D1C9FAA477C87E6ED879C5A4EDB4">section_rel_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#486C9AC4EB31BBF8EBFFEBBC19BDCB415DE1D3F0">section_rel_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AD03B058959097CE9E06602141823FB6C5C445FC">begin_dices</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D2D87FF3FA12741969C8A81568C268041DAC1842">end_dices</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DA39A98E23AF10FE867EFF77E37600CFBA8FAD67">begin_load_commands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#82689A0B87F3A8B8C5A0329EBE5172564E3C6DA7">end_load_commands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1C16575F1439EC7AD57D8314E4D2906711C55B4B">load_commands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E7E0CA8C09129F0355226936BD296862733A91D9">exports</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0D2F1DBD4585A0F521453B21E7ADCD1FEB804BC3">exports</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1527126D7C7EAE5782E5BE53DE08C528393040BC">rebaseTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0FEEA913DB34EA256E726EBE5670093DB2D82DE8">rebaseTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0DA7E33D52628A9AF905CD43FB324741571FCF8E">bindTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DA1CD2750F3E2453ABA553A8523167CA7B930826">fixupTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B0B7AAD2105A117FC7EC508A71F08AC620BD58D0">lazyBindTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28E303BF65CEE8BE478CB3720F356B8D767C89D0">weakBindTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F804F9F4E5EA3CA7621C13D98127E555F660ADB4">bindTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1B33FCF6682106E143924DF80FB6B7119C90F55">getSectionFinalSegmentName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28D7942AD297662F98354A6A56343FAA5C453D01">getSectionRawName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#54A7DE5D146FF4B90F3C8DD8AF8509B8823AC991">getSectionRawFinalSegmentName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#19AAB039DE10F1A3D31520EAB68DCBC6DF3B074D">isRelocationScattered</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EEE34963057828CE16899822B83A7DFA8B9F9E1E">getPlainRelocationSymbolNum</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#89505244CEEEB3DD7D75B5B439AC3BACE8F7E39A">getPlainRelocationExternal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#29A95811204553E00DBF44829F77F7F24B29491F">getScatteredRelocationScattered</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3F511B20D7F014BBF17D95D9642C38D3AF618CF8">getScatteredRelocationValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#031D3F14A9436C8B1C9FFF9780D6FC1D12C0F59B">getScatteredRelocationType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F52E837EF62F02EF12AA0DB252E9233098F9B5DD">getAnyRelocationAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9A7FCD1DF7F86CB74E39C491E844E90FDAC26F96">getAnyRelocationPCRel</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0163A34164D676DBA3175046D8D0A2C47C3D3F7F">getAnyRelocationLength</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BDE929605B75A18B72BEF4DBBA47E23F65A368C0">getAnyRelocationType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4FABD85F70FE7E7DA8E4967F49ACC94EF4E2FF2">getAnyRelocationSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#088E8DD07B2F3B1C71ADE85A83BCEC085F40EBE4">getSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E8BCBF1A156802EF333B155C3684ABB752247547">getSection64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A52908680BB2BDD0065CEF348663823EF698CA0">getSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#62F11023C0B71BD52E63302504CDFA5FBD460D9F">getSection64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A64B54E1EB8E79F3838679132915621D20031FA2">getSymbolTableEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E6909DC3BA8D8BE6A36E0C27644DF2B9CDDD6C95">getSymbol64TableEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6EB3EFBE42943D948F822CA616CAA83C29F70E47">getLinkeditDataLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC3B1C319AD7FB6FBEB20A21DB2F8687C0220921">getSegmentLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#629E868FACA168CA0F66E2A6DC44772997BDF234">getSegment64LoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CAA2D0FC8CE020D5D0D35ECB0333A347BEEB81E1">getLinkerOptionLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FF47610853916D8019CC955285BEABE83BF82343">getVersionMinLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#92F6D6F385C5B6D6FEB01BB48B1893C22C68BB2A">getNoteLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F252ACBFB300039F3E4C165D7B65FDE3E586511B">getBuildVersionLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A165F9BF2B87DCDBF27DDDC678B3988C12B09A00">getBuildToolVersion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE8CCC4ACD5B1020B5B22B041CFEB82BEF221574">getDylibIDLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C0DAEABC6C1C0D635E26F4751C87D116EBB71283">getDyldInfoLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC9AE7E40DF05E630241D9C245E35BFBAB14C6F6">getDylinkerCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#87A4AA26BC07C9B3420C9FCD9DCA68A5B3A7F45C">getUuidCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#65C2E6B9871A56DAE97D0D58E869E7CA57B125F0">getRpathCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9D822EDC7647A76EF20C437FE4E21EA45649B0A5">getSourceVersionCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2AE311036126CB75149DF4A831F7E17A13772EC9">getEntryPointCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A1FC3B68C6C9C8AFFD1ED7FFAFAB86C8E6EC2982">getEncryptionInfoCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#341124C63469D62795DEAFC487D0E7F931A0F283">getEncryptionInfoCommand64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#634EA84B5492FB833662DEB30AA5E00C7E3224C2">getSubFrameworkCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6B8EE0A53C9ECBCA72978C17A19CDD5740E316C2">getSubUmbrellaCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8A549F37532159D048817E797E4D31437F6B1F07">getSubLibraryCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B13A9859B839DA500E0781406E9DF575A640FFB1">getSubClientCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#31EEF4F5EDD666B155841AD63B11FF45C21FCA96">getRoutinesCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DC1C175AF8B78E0273A4877885AB5BB1DCB5E6F7">getRoutinesCommand64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A5616CFFAA584DC8D0474CB4AD8BEF5F0A46AF65">getThreadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B0B4F6C9BB5F1D602A12FEE4DEBD871454824724">getFilesetEntryLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#697991058A5FEF91FCCFF349F03B0624C847E5D0">getRelocation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3A1D97ED498787C6CBAEF2274A532B1C92E28D84">getDice</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E52EEE46CDD9F88AC0BB309DFED0C8C2CF8B0F05">getHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8995535B399BCF16F090A6A2D9939D903C91D330">getHeader64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CC6C1BD36AC5A0C9765EDE74BC6D21C18577127F">getIndirectSymbolTableEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC0C37C134BC4E75F568F6CCC96CA16398AC8768">getDataInCodeTableEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#520AF9B3D6C424D35BB83FE9752092DACDFAE35C">getSymtabLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#76532D84788A3D6FAB58A24C86CA930B414E30ED">getDysymtabLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7ED1D67D0D423A51231B57D947962BCCA714880B">getDataInCodeLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C368926766AB00311EFD1C1F7CD845C029A3D492">getLinkOptHintsLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D53A64720BDC83A694E528C9523FAE01E6AB438">getDyldInfoRebaseOpcodes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#04ACA9E631C9ED14721AE836292BA817AB055309">getDyldInfoBindOpcodes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D42E3D9E1CE3AB6B34A68DC47D047F650F491FF5">getDyldInfoWeakBindOpcodes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D852AF61D2DE628E282615CE13B69D43E02940A0">getDyldInfoLazyBindOpcodes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#92E23C1A76CDFE618809AE564420749D2EF8B83C">getDyldInfoExportsTrie</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1F261A782173D14501087DB2A85540129B4B89A">getChainedFixupsHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55CE144573561376B6D02EFB6BC70BBAEAE087B6">getDyldChainedFixupTargets</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#37971D3CC08242B5ABB3D5DE4D90ED4A29DC639A">getChainedFixupsLoadCommand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#50590748DBC417B19C75BF8573E37A52CC0528D8">getChainedFixupsSegments</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A29CBDF8FA6DB2F9264A18E441AF2FF25E2D2F66">getDyldExportsTrie</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AD44F49167584A201ED73103FEC11E8AD1A766CD">getFunctionStarts</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED20E91CD815DD943B343708891B228FD0D2B40A">getUuid</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E6338D411DDAAEF6E9F12C5D94952E26357B38B">getStringTableData</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6D787C863445983E64B3655C4CAEB8A67906F631">ReadULEB128s</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B5E69CC4F4C79522BE0A38B1CA18C8213419210">guessLibraryShortName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D90AB0EF2621045A3796D20C5255626F44F84DA6">getArch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#403CAD854DD5F4C947895AAA57708E64141461EB">getArchTriple</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5E742E12D3F29FEAEC7F0AEAE24EB7D6DB1CA892">isValidArch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A93AA234EE0FFDBCCF2B26523E08F54A1BF8A138">getValidArchs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3E53015CE92218BA6406CD8BBB17EDC2FBF1817C">getHostArch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#61C642F46E1CD9F11BD88A3DD8C57A6777DA359C">isRelocatableObject</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1873C612E714B68FC06E563651DC166590D966EF">mapDebugSectionName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1C30C11720C6FE98F3551A771CC0C4F926C1F595">mapReflectionSectionNameToEnumValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C38E5B96CBE6A046D1BE85763157F7B3CD5F0F4">findDsymObjectMembers</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MachOObjectFile</h1>
+                        <p>Defined at line 409 of file llvm/include/llvm/Object/MachO.h</p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="48BCADB608545FEE563262518F9A871B9F6E800C">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range external_relocations ()</code></pre>
+                                <p>Defined at line 482 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2E03914F69B2C0F48CFAAEE851916180A66050A1">
+                                <pre><code class="language-cpp code-clang-doc">Expected getFeatures ()</code></pre>
+                                <p>Defined at line 523 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF42228F6D3606C207F6BB539B303EAD604EF5C1">
+                                <pre><code class="language-cpp code-clang-doc">const char * BindEntryCheckSegAndOffsets (int32_t SegIndex, uint64_t SegOffset, uint8_t PointerSize, uint64_t Count, uint64_t Skip)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a SegIndex, SegOffset, and PointerSize, verify a valid section exists</p>
+                                        <p> that fully contains a pointer at that location. Multiple fixups in a bind</p>
+                                        <p> (such as with the BIND_OPCODE_DO_BIND_ULEB_TIMES_SKIPPING_ULEB opcode) can</p>
+                                        <p> be tested via the Count and Skip parameters.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is used by MachOBindEntry::moveNext() to validate a MachOBindEntry.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 581 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5D5752D03FD13B572D4E6D03A0685C8F471EE13">
+                                <pre><code class="language-cpp code-clang-doc">const char * RebaseEntryCheckSegAndOffsets (int32_t SegIndex, uint64_t SegOffset, uint8_t PointerSize, uint64_t Count, uint64_t Skip)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a SegIndex, SegOffset, and PointerSize, verify a valid section exists</p>
+                                        <p> that fully contains a pointer at that location. Multiple fixups in a rebase</p>
+                                        <p> (such as with the REBASE_OPCODE_DO_*_TIMES* opcodes) can be tested via the</p>
+                                        <p> Count and Skip parameters.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is used by MachORebaseEntry::moveNext() to validate a MachORebaseEntry</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 595 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E8AC160CDED51BF006BF48E640280AD3F4AD0967">
+                                <pre><code class="language-cpp code-clang-doc">StringRef BindRebaseSegmentName (int32_t SegIndex)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For use with the SegIndex of a checked Mach-O Bind or Rebase entry to</p>
+                                        <p> get the segment name.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 606 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DF4318DCF588B12E16B78E3DD56F8E27D98F48DB">
+                                <pre><code class="language-cpp code-clang-doc">StringRef BindRebaseSectionName (uint32_t SegIndex, uint64_t SegOffset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For use with a SegIndex,SegOffset pair from a checked Mach-O Bind or</p>
+                                        <p> Rebase entry to get the section name.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 612 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F1987574B785C126387E7305C607DDC7DD0B3200">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t BindRebaseAddress (uint32_t SegIndex, uint64_t SegOffset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For use with a SegIndex,SegOffset pair from a checked Mach-O Bind or</p>
+                                        <p> Rebase entry to get the address.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 618 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EB92206BA4DA030BBD51CDAF260732DCD5D95B69">
+                                <pre><code class="language-cpp code-clang-doc">bool hasPageZeroSegment ()</code></pre>
+                                <p>Defined at line 768 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7952260512A1B1D95BAA3D839DEB7A293F2136A0">
+                                <pre><code class="language-cpp code-clang-doc">size_t getMachOFilesetEntryOffset ()</code></pre>
+                                <p>Defined at line 770 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="78238A34D6081CF3A2E70EAF869966BE3A5558B5">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const Binary * v)</code></pre>
+                                <p>Defined at line 772 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="919CA74BD3D6B3408E7BBBEA28FB7551853A9B92">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getVersionMinMajor (MachO::version_min_command &amp; C, bool SDK)</code></pre>
+                                <p>Defined at line 776 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7FE3A4967AF7286ECD743BF56CE335015546D9F3">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getVersionMinMinor (MachO::version_min_command &amp; C, bool SDK)</code></pre>
+                                <p>Defined at line 782 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC993BF92622F0D01669B06B06D5916BA54D889F">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getVersionMinUpdate (MachO::version_min_command &amp; C, bool SDK)</code></pre>
+                                <p>Defined at line 788 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7E3478E099EC7C7076D266FE69ADD6267AEFD518">
+                                <pre><code class="language-cpp code-clang-doc">basic_string getBuildPlatform (uint32_t platform)</code></pre>
+                                <p>Defined at line 794 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CC84381372F4A3E5F84DD1F1E823C7FBB7412736">
+                                <pre><code class="language-cpp code-clang-doc">basic_string getBuildTool (uint32_t tools)</code></pre>
+                                <p>Defined at line 809 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95BCA472ECA2D9B8FD2DE282C0E5F24DD6B675AB">
+                                <pre><code class="language-cpp code-clang-doc">basic_string getVersionString (uint32_t version)</code></pre>
+                                <p>Defined at line 824 of file llvm/include/llvm/Object/MachO.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8EF7FAAAD920FD08C965C08773200140FD067BEC">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;std::unique_ptr&lt;MachOObjectFile&gt;&gt; create (MemoryBufferRef Object, bool IsLittleEndian, bool Is64Bits, uint32_t UniversalCputype, uint32_t UniversalIndex, size_t MachOFilesetEntryOffset)</code></pre>
+                                <p>Defined at line 1253 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EDD936CF52C812A357EBCE2828DA6E8DE06B5001">
+                                <pre><code class="language-cpp code-clang-doc">bool isMachOPairedReloc (uint64_t RelocType, uint64_t Arch)</code></pre>
+                                <p>Defined at line 5423 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="53A21E39C274C9D5A3CABDD180F944E2CEDDF9C9">
+                                <pre><code class="language-cpp code-clang-doc">void moveSymbolNext (DataRefImpl &amp; Symb)</code></pre>
+                                <p>Defined at line 1768 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9FE281DF5B5E646379A57E486F526F7A4182203C">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getNValue (DataRefImpl Sym)</code></pre>
+                                <p>Defined at line 1796 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D6244B9BE6E4C32397B73B1F28185E3ECDD9DFBF">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolName (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 1775 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E571AD06EF8A9419D6E0398FFA98421D40E71574">
+                                <pre><code class="language-cpp code-clang-doc">Error checkSymbolTable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> MachO specific.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1701 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C45E3AD963D69387C01904935E8FC4D2CA284A64">
+                                <pre><code class="language-cpp code-clang-doc">error_code getIndirectName (DataRefImpl Symb, StringRef &amp; Res)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getIndirectName() returns the name of the alias&#39;ed symbol who&#39;s string table</p>
+                                        <p> index is in the n_value field.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1807 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E8273A767F8910C3962E2728C99D2F9F647013FE">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSectionType (SectionRef Sec)</code></pre>
+                                <p>Defined at line 1790 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8646FA20DEF077C54328E48FF39DFFE0789FA66C">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolAddress (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 1825 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A59A6C15CA05EC108B0F8AFE481C8E3848129512">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getSymbolAlignment (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 1829 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="42F7359B41BD4942D454435EFE7F63316BA21064">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getCommonSymbolSizeImpl (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 1838 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EB519E1C4383E8D804CB68EA562AC2A9FEC9A59C">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolType (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 1842 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2144AE230BD3015F88B1276433ABA086AB8C8C1">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolFlags (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 1868 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F4514FE7286D05CC5A61C8955EA3F475CE57588">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolSection (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 1911 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7E49BCFB2ED17CBABC7EC8948D92EB1E13DB7DBA">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSymbolSectionID (SymbolRef Symb)</code></pre>
+                                <p>Defined at line 1927 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A9A45420FD7D328822624A42BC2C5D16279F872">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSectionID (SectionRef Sec)</code></pre>
+                                <p>Defined at line 2173 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8838617F6CB9851976B1C015937D071BCF5E657A">
+                                <pre><code class="language-cpp code-clang-doc">void moveSectionNext (DataRefImpl &amp; Sec)</code></pre>
+                                <p>Defined at line 1933 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E7224901F1511474529415C68B53B366545A8B7E">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSectionName (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 1937 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3506D45C3E9B158F31508465C3CDB9A23D5112F0">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSectionAddress (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 1942 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2D7DF7D5560DCB1C81E47F1588D12189B278797A">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSectionIndex (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 1948 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C8F231FB247F82AA280EC0213CA66D1B29AC96D">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSectionSize (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 1952 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4433DE065CDFB0B4489C32BD4976C99F33C7CAD9">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getSectionContents (uint64_t Offset, uint64_t Size)</code></pre>
+                                <p>Defined at line 1981 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8E6AF8287129D82444AFBA584679A2732A413F37">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSectionContents (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 1986 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1795E55E5E6D518D1D3C5AE9860EC027F350827E">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSectionAlignment (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 2026 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="08C601AEDEC2A540F8E1120C904EF7FAB928CE39">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;SectionRef&gt; getSection (unsigned int SectionIndex)</code></pre>
+                                <p>Defined at line 2039 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="076F84A61ABBBB92F22C833990909CB44CEAAC62">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;SectionRef&gt; getSection (StringRef SectionName)</code></pre>
+                                <p>Defined at line 2048 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="33A25A15D5C538285CF24C0E2B61CC0609C82B8C">
+                                <pre><code class="language-cpp code-clang-doc">bool isSectionCompressed (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 2059 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="19466ECA04CD8A3ABFC4F2E24D00D9D9D1E36B45">
+                                <pre><code class="language-cpp code-clang-doc">bool isSectionText (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 2063 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9FE87A49B1784EA0C85D463EBBEAED1ADF50231C">
+                                <pre><code class="language-cpp code-clang-doc">bool isSectionData (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 2068 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DAA946C1C5C75CD09355D9FD2D83F52256DB08A9">
+                                <pre><code class="language-cpp code-clang-doc">bool isSectionBSS (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 2076 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54157EACB4DFBBAA8A86A1C1717169C1366CDB92">
+                                <pre><code class="language-cpp code-clang-doc">bool isSectionVirtual (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 2177 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4EFF4CF78D09FAE1EA709EBFF1148B8DDF574BE0">
+                                <pre><code class="language-cpp code-clang-doc">bool isSectionBitcode (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 2184 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2839D86E29CB43E22022B39AA2990110B181BFFD">
+                                <pre><code class="language-cpp code-clang-doc">bool isDebugSection (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 2084 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2E7089B0003B08DB0CFD9CAD580306570F34629C">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getSegmentContents (StringRef SegmentName)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the raw contents of an entire segment.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2129 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8A80088E5061FE851781C4C55415825675A8C784">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getSegmentContents (size_t SegmentIndex)</code></pre>
+                                <p>Defined at line 2151 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2DB509C854DAE907C537B070A7AD5FF73D5C78D4">
+                                <pre><code class="language-cpp code-clang-doc">bool isSectionStripped (DataRefImpl Sec)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> When dsymutil generates the companion file, it strips all unnecessary</p>
+                                        <p> sections (e.g. everything in the _TEXT segment) by omitting their body</p>
+                                        <p> and setting the offset in their corresponding load command to zero.</p>
+                                    </div>
+                                    <div>
+                                        <p> While the load command itself is valid, reading the section corresponds</p>
+                                        <p> to reading the number of bytes specified in the load command, starting</p>
+                                        <p> from offset 0 (i.e. the Mach-O header at the beginning of the file).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2191 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EF101C7D09E534BDA730A80CDB76FED83FF152CA">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator section_rel_begin (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 2197 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8714AEBFD5CA514661D6F9B51A3631CF9B4A9D71">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator section_rel_end (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 2204 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AEC98E150C86128B43CEAD0360B6D92D033B6485">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator extrel_begin ()</code></pre>
+                                <p>Defined at line 2221 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="06A0FB7DB630995B4855E22F4478B8989802450A">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator extrel_end ()</code></pre>
+                                <p>Defined at line 2229 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A5ED8B5222B1987F87A2224DAB07462D59EB7660">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator locrel_begin ()</code></pre>
+                                <p>Defined at line 2238 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EBB84C725A789A928EAA077ADC624F11ABA8339D">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator locrel_end ()</code></pre>
+                                <p>Defined at line 2246 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C35992A3619BBBBC90EEF9491E5791EDB1697433">
+                                <pre><code class="language-cpp code-clang-doc">void moveRelocationNext (DataRefImpl &amp; Rel)</code></pre>
+                                <p>Defined at line 2255 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AE69E9108C156616038262DDFDA38EA59CF5857D">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getRelocationOffset (DataRefImpl Rel)</code></pre>
+                                <p>Defined at line 2259 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9A3B49A01D95ED7CD6720F6F54DDE53A05BAB37E">
+                                <pre><code class="language-cpp code-clang-doc">symbol_iterator getRelocationSymbol (DataRefImpl Rel)</code></pre>
+                                <p>Defined at line 2267 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B2B3E5E61F0FF2ED92F1D5FD1E671A269AB4DB13">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator getRelocationSection (DataRefImpl Rel)</code></pre>
+                                <p>Defined at line 2288 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4234D9A4585009160BD3058F8659CC0463F44C28">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getRelocationType (DataRefImpl Rel)</code></pre>
+                                <p>Defined at line 2293 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ACE5005D8A287023107CFF73784852E4D8E65536">
+                                <pre><code class="language-cpp code-clang-doc">void getRelocationTypeName (DataRefImpl Rel, SmallVectorImpl&lt;char&gt; &amp; Result)</code></pre>
+                                <p>Defined at line 2298 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A1FB17931AF7BB8A81C8FAB5F84D24D37231FF9F">
+                                <pre><code class="language-cpp code-clang-doc">uint8_t getRelocationLength (DataRefImpl Rel)</code></pre>
+                                <p>Defined at line 2408 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="645F61A9ADB4B03B93A6CEA6B90A9FB670453208">
+                                <pre><code class="language-cpp code-clang-doc">error_code getLibraryShortNameByIndex (unsigned int Index, StringRef &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> MachO specific.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2573 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="17636ED5D2A806B6DA97E6A92ABC0CA0AE631C2B">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getLibraryCount ()</code></pre>
+                                <p>Defined at line 2607 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A7BF28912A80D3096D4109C2B92CDA5410D2C77B">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator getRelocationRelocatedSection (content_iterator Rel)</code></pre>
+                                <p>Defined at line 2611 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7294E9314195215139C5E972F644D323DBA2BF8A">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator symbol_begin ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> TODO: Would be useful to have an iterator based version</p>
+                                        <p> of the load command interface too.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2618 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B31963C5F9F7D01C2155ACF646BEB21E8E048A5A">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator symbol_end ()</code></pre>
+                                <p>Defined at line 2627 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="376FBDE8A9ADA44EDFF7308712E4656EDAE3578F">
+                                <pre><code class="language-cpp code-clang-doc">bool is64Bit ()</code></pre>
+                                <p>Defined at line 5314 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A3C83C6DCE9F55DF0C9C1CEFDF3DA08A892DCDB9">
+                                <pre><code class="language-cpp code-clang-doc">symbol_iterator getSymbolByIndex (unsigned int Index)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> MachO specific.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2642 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="52961CE2EBE71494982FD7F0DAF3C4C96FBAAAD6">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSymbolIndex (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 2654 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="84436C4E656388AC0FC21885BD1A169013295877">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator section_begin ()</code></pre>
+                                <p>Defined at line 2666 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1725E338B1BDB6DB176BF072A49DC8E1497F4CA2">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator section_end ()</code></pre>
+                                <p>Defined at line 2671 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="01247C06EDC8B0DC36818B82037860DEC8C002AE">
+                                <pre><code class="language-cpp code-clang-doc">uint8_t getBytesInAddress ()</code></pre>
+                                <p>Defined at line 2677 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D7750A7F4FC1F0F03B72C3AF4297FE2E0EA77D77">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getFileFormatName ()</code></pre>
+                                <p>Defined at line 2681 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="31DC70670A32D3926DE165EA157C3F8D6AF78B4A">
+                                <pre><code class="language-cpp code-clang-doc">ArchType getArch ()</code></pre>
+                                <p>Defined at line 2902 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C2215D2084633410C8D2679CCAAFE227615780D">
+                                <pre><code class="language-cpp code-clang-doc">Triple getArchTriple (const char ** McpuDefault)</code></pre>
+                                <p>Defined at line 2906 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CF312F60CF96D1C9FAA477C87E6ED879C5A4EDB4">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator section_rel_begin (unsigned int Index)</code></pre>
+                                <p>Defined at line 2910 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="486C9AC4EB31BBF8EBFFEBBC19BDCB415DE1D3F0">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator section_rel_end (unsigned int Index)</code></pre>
+                                <p>Defined at line 2916 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AD03B058959097CE9E06602141823FB6C5C445FC">
+                                <pre><code class="language-cpp code-clang-doc">dice_iterator begin_dices ()</code></pre>
+                                <p>Defined at line 2922 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D2D87FF3FA12741969C8A81568C268041DAC1842">
+                                <pre><code class="language-cpp code-clang-doc">dice_iterator end_dices ()</code></pre>
+                                <p>Defined at line 2932 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DA39A98E23AF10FE867EFF77E37600CFBA8FAD67">
+                                <pre><code class="language-cpp code-clang-doc">load_command_iterator begin_load_commands ()</code></pre>
+                                <p>Defined at line 4526 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="82689A0B87F3A8B8C5A0329EBE5172564E3C6DA7">
+                                <pre><code class="language-cpp code-clang-doc">load_command_iterator end_load_commands ()</code></pre>
+                                <p>Defined at line 4531 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1C16575F1439EC7AD57D8314E4D2906711C55B4B">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range load_commands ()</code></pre>
+                                <p>Defined at line 4536 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E7E0CA8C09129F0355226936BD296862733A91D9">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;export_iterator&gt; exports (Error &amp; Err)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For use iterating over all exported symbols.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3263 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0D2F1DBD4585A0F521453B21E7ADCD1FEB804BC3">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;export_iterator&gt; exports (Error &amp; Err, ArrayRef Trie, const MachOObjectFile * O)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For use examining a trie not in a MachOObjectFile.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3248 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1527126D7C7EAE5782E5BE53DE08C528393040BC">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;rebase_iterator&gt; rebaseTable (Error &amp; Err)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For use iterating over all rebase table entries.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3836 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0FEEA913DB34EA256E726EBE5670093DB2D82DE8">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;rebase_iterator&gt; rebaseTable (Error &amp; Err, MachOObjectFile * O, ArrayRef Opcodes, bool is64)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For use examining rebase opcodes in a MachOObjectFile.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3822 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0DA7E33D52628A9AF905CD43FB324741571FCF8E">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;bind_iterator&gt; bindTable (Error &amp; Err)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For use iterating over all bind table entries.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4498 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DA1CD2750F3E2453ABA553A8523167CA7B930826">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;fixup_iterator&gt; fixupTable (Error &amp; Err)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For iterating over all chained fixups.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4513 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B0B7AAD2105A117FC7EC508A71F08AC620BD58D0">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;bind_iterator&gt; lazyBindTable (Error &amp; Err)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For use iterating over all lazy bind table entries.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4503 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="28E303BF65CEE8BE478CB3720F356B8D767C89D0">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;bind_iterator&gt; weakBindTable (Error &amp; Err)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For use iterating over all weak bind table entries.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4508 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F804F9F4E5EA3CA7621C13D98127E555F660ADB4">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;bind_iterator&gt; bindTable (Error &amp; Err, MachOObjectFile * O, ArrayRef Opcodes, bool is64, Kind )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For use examining bind opcodes in a MachOObjectFile.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4483 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1B33FCF6682106E143924DF80FB6B7119C90F55">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getSectionFinalSegmentName (DataRefImpl Sec)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> In a MachO file, sections have a segment name. This is used in the .o</p>
+                                        <p> files. They have a single segment, but this field specifies which segment</p>
+                                        <p> a section should be put in the final object.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4541 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="28D7942AD297662F98354A6A56343FAA5C453D01">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getSectionRawName (DataRefImpl Sec)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Names are stored as 16 bytes. These returns the raw 16 bytes without</p>
+                                        <p> interpreting them as a C string.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4547 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54A7DE5D146FF4B90F3C8DD8AF8509B8823AC991">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getSectionRawFinalSegmentName (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 4555 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="19AAB039DE10F1A3D31520EAB68DCBC6DF3B074D">
+                                <pre><code class="language-cpp code-clang-doc">bool isRelocationScattered (const MachO::any_relocation_info &amp; RE)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> MachO specific Info about relocations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4563 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EEE34963057828CE16899822B83A7DFA8B9F9E1E">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getPlainRelocationSymbolNum (const MachO::any_relocation_info &amp; RE)</code></pre>
+                                <p>Defined at line 4571 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="89505244CEEEB3DD7D75B5B439AC3BACE8F7E39A">
+                                <pre><code class="language-cpp code-clang-doc">bool getPlainRelocationExternal (const MachO::any_relocation_info &amp; RE)</code></pre>
+                                <p>Defined at line 4578 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="29A95811204553E00DBF44829F77F7F24B29491F">
+                                <pre><code class="language-cpp code-clang-doc">bool getScatteredRelocationScattered (const MachO::any_relocation_info &amp; RE)</code></pre>
+                                <p>Defined at line 4585 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3F511B20D7F014BBF17D95D9642C38D3AF618CF8">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getScatteredRelocationValue (const MachO::any_relocation_info &amp; RE)</code></pre>
+                                <p>Defined at line 4590 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="031D3F14A9436C8B1C9FFF9780D6FC1D12C0F59B">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getScatteredRelocationType (const MachO::any_relocation_info &amp; RE)</code></pre>
+                                <p>Defined at line 4595 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F52E837EF62F02EF12AA0DB252E9233098F9B5DD">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getAnyRelocationAddress (const MachO::any_relocation_info &amp; RE)</code></pre>
+                                <p>Defined at line 4600 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9A7FCD1DF7F86CB74E39C491E844E90FDAC26F96">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getAnyRelocationPCRel (const MachO::any_relocation_info &amp; RE)</code></pre>
+                                <p>Defined at line 4607 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0163A34164D676DBA3175046D8D0A2C47C3D3F7F">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getAnyRelocationLength (const MachO::any_relocation_info &amp; RE)</code></pre>
+                                <p>Defined at line 4614 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BDE929605B75A18B72BEF4DBBA47E23F65A368C0">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getAnyRelocationType (const MachO::any_relocation_info &amp; RE)</code></pre>
+                                <p>Defined at line 4621 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4FABD85F70FE7E7DA8E4967F49ACC94EF4E2FF2">
+                                <pre><code class="language-cpp code-clang-doc">SectionRef getAnyRelocationSection (const MachO::any_relocation_info &amp; RE)</code></pre>
+                                <p>Defined at line 4629 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="088E8DD07B2F3B1C71ADE85A83BCEC085F40EBE4">
+                                <pre><code class="language-cpp code-clang-doc">section getSection (DataRefImpl DRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> MachO specific structures.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4642 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E8BCBF1A156802EF333B155C3684ABB752247547">
+                                <pre><code class="language-cpp code-clang-doc">section_64 getSection64 (DataRefImpl DRI)</code></pre>
+                                <p>Defined at line 4647 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A52908680BB2BDD0065CEF348663823EF698CA0">
+                                <pre><code class="language-cpp code-clang-doc">section getSection (const LoadCommandInfo &amp; L, unsigned int Index)</code></pre>
+                                <p>Defined at line 4652 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="62F11023C0B71BD52E63302504CDFA5FBD460D9F">
+                                <pre><code class="language-cpp code-clang-doc">section_64 getSection64 (const LoadCommandInfo &amp; L, unsigned int Index)</code></pre>
+                                <p>Defined at line 4658 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A64B54E1EB8E79F3838679132915621D20031FA2">
+                                <pre><code class="language-cpp code-clang-doc">nlist getSymbolTableEntry (DataRefImpl DRI)</code></pre>
+                                <p>Defined at line 4664 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E6909DC3BA8D8BE6A36E0C27644DF2B9CDDD6C95">
+                                <pre><code class="language-cpp code-clang-doc">nlist_64 getSymbol64TableEntry (DataRefImpl DRI)</code></pre>
+                                <p>Defined at line 4670 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6EB3EFBE42943D948F822CA616CAA83C29F70E47">
+                                <pre><code class="language-cpp code-clang-doc">linkedit_data_command getLinkeditDataLoadCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4676 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC3B1C319AD7FB6FBEB20A21DB2F8687C0220921">
+                                <pre><code class="language-cpp code-clang-doc">segment_command getSegmentLoadCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4681 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="629E868FACA168CA0F66E2A6DC44772997BDF234">
+                                <pre><code class="language-cpp code-clang-doc">segment_command_64 getSegment64LoadCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4686 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CAA2D0FC8CE020D5D0D35ECB0333A347BEEB81E1">
+                                <pre><code class="language-cpp code-clang-doc">linker_option_command getLinkerOptionLoadCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4691 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF47610853916D8019CC955285BEABE83BF82343">
+                                <pre><code class="language-cpp code-clang-doc">version_min_command getVersionMinLoadCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4696 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="92F6D6F385C5B6D6FEB01BB48B1893C22C68BB2A">
+                                <pre><code class="language-cpp code-clang-doc">note_command getNoteLoadCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4701 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F252ACBFB300039F3E4C165D7B65FDE3E586511B">
+                                <pre><code class="language-cpp code-clang-doc">build_version_command getBuildVersionLoadCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4706 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A165F9BF2B87DCDBF27DDDC678B3988C12B09A00">
+                                <pre><code class="language-cpp code-clang-doc">build_tool_version getBuildToolVersion (unsigned int index)</code></pre>
+                                <p>Defined at line 4711 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE8CCC4ACD5B1020B5B22B041CFEB82BEF221574">
+                                <pre><code class="language-cpp code-clang-doc">dylib_command getDylibIDLoadCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4716 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C0DAEABC6C1C0D635E26F4751C87D116EBB71283">
+                                <pre><code class="language-cpp code-clang-doc">dyld_info_command getDyldInfoLoadCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4721 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EC9AE7E40DF05E630241D9C245E35BFBAB14C6F6">
+                                <pre><code class="language-cpp code-clang-doc">dylinker_command getDylinkerCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4726 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="87A4AA26BC07C9B3420C9FCD9DCA68A5B3A7F45C">
+                                <pre><code class="language-cpp code-clang-doc">uuid_command getUuidCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4731 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="65C2E6B9871A56DAE97D0D58E869E7CA57B125F0">
+                                <pre><code class="language-cpp code-clang-doc">rpath_command getRpathCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4736 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9D822EDC7647A76EF20C437FE4E21EA45649B0A5">
+                                <pre><code class="language-cpp code-clang-doc">source_version_command getSourceVersionCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4741 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2AE311036126CB75149DF4A831F7E17A13772EC9">
+                                <pre><code class="language-cpp code-clang-doc">entry_point_command getEntryPointCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4746 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A1FC3B68C6C9C8AFFD1ED7FFAFAB86C8E6EC2982">
+                                <pre><code class="language-cpp code-clang-doc">encryption_info_command getEncryptionInfoCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4751 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="341124C63469D62795DEAFC487D0E7F931A0F283">
+                                <pre><code class="language-cpp code-clang-doc">encryption_info_command_64 getEncryptionInfoCommand64 (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4756 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="634EA84B5492FB833662DEB30AA5E00C7E3224C2">
+                                <pre><code class="language-cpp code-clang-doc">sub_framework_command getSubFrameworkCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4761 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6B8EE0A53C9ECBCA72978C17A19CDD5740E316C2">
+                                <pre><code class="language-cpp code-clang-doc">sub_umbrella_command getSubUmbrellaCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4766 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8A549F37532159D048817E797E4D31437F6B1F07">
+                                <pre><code class="language-cpp code-clang-doc">sub_library_command getSubLibraryCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4771 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B13A9859B839DA500E0781406E9DF575A640FFB1">
+                                <pre><code class="language-cpp code-clang-doc">sub_client_command getSubClientCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4776 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="31EEF4F5EDD666B155841AD63B11FF45C21FCA96">
+                                <pre><code class="language-cpp code-clang-doc">routines_command getRoutinesCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4781 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DC1C175AF8B78E0273A4877885AB5BB1DCB5E6F7">
+                                <pre><code class="language-cpp code-clang-doc">routines_command_64 getRoutinesCommand64 (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4786 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A5616CFFAA584DC8D0474CB4AD8BEF5F0A46AF65">
+                                <pre><code class="language-cpp code-clang-doc">thread_command getThreadCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4791 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B0B4F6C9BB5F1D602A12FEE4DEBD871454824724">
+                                <pre><code class="language-cpp code-clang-doc">fileset_entry_command getFilesetEntryLoadCommand (const LoadCommandInfo &amp; L)</code></pre>
+                                <p>Defined at line 4796 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="697991058A5FEF91FCCFF349F03B0624C847E5D0">
+                                <pre><code class="language-cpp code-clang-doc">any_relocation_info getRelocation (DataRefImpl Rel)</code></pre>
+                                <p>Defined at line 4801 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3A1D97ED498787C6CBAEF2274A532B1C92E28D84">
+                                <pre><code class="language-cpp code-clang-doc">data_in_code_entry getDice (DataRefImpl Rel)</code></pre>
+                                <p>Defined at line 4828 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E52EEE46CDD9F88AC0BB309DFED0C8C2CF8B0F05">
+                                <pre><code class="language-cpp code-clang-doc">const MachO::mach_header &amp; getHeader ()</code></pre>
+                                <p>Defined at line 4834 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8995535B399BCF16F090A6A2D9939D903C91D330">
+                                <pre><code class="language-cpp code-clang-doc">const MachO::mach_header_64 &amp; getHeader64 ()</code></pre>
+                                <p>Defined at line 4838 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CC6C1BD36AC5A0C9765EDE74BC6D21C18577127F">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getIndirectSymbolTableEntry (const MachO::dysymtab_command &amp; DLC, unsigned int Index)</code></pre>
+                                <p>Defined at line 4843 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC0C37C134BC4E75F568F6CCC96CA16398AC8768">
+                                <pre><code class="language-cpp code-clang-doc">data_in_code_entry getDataInCodeTableEntry (uint32_t DataOffset, unsigned int Index)</code></pre>
+                                <p>Defined at line 4850 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="520AF9B3D6C424D35BB83FE9752092DACDFAE35C">
+                                <pre><code class="language-cpp code-clang-doc">symtab_command getSymtabLoadCommand ()</code></pre>
+                                <p>Defined at line 4857 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="76532D84788A3D6FAB58A24C86CA930B414E30ED">
+                                <pre><code class="language-cpp code-clang-doc">dysymtab_command getDysymtabLoadCommand ()</code></pre>
+                                <p>Defined at line 4872 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7ED1D67D0D423A51231B57D947962BCCA714880B">
+                                <pre><code class="language-cpp code-clang-doc">linkedit_data_command getDataInCodeLoadCommand ()</code></pre>
+                                <p>Defined at line 4901 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C368926766AB00311EFD1C1F7CD845C029A3D492">
+                                <pre><code class="language-cpp code-clang-doc">linkedit_data_command getLinkOptHintsLoadCommand ()</code></pre>
+                                <p>Defined at line 4915 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D53A64720BDC83A694E528C9523FAE01E6AB438">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getDyldInfoRebaseOpcodes ()</code></pre>
+                                <p>Defined at line 4930 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="04ACA9E631C9ED14721AE836292BA817AB055309">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getDyldInfoBindOpcodes ()</code></pre>
+                                <p>Defined at line 4944 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D42E3D9E1CE3AB6B34A68DC47D047F650F491FF5">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getDyldInfoWeakBindOpcodes ()</code></pre>
+                                <p>Defined at line 4958 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D852AF61D2DE628E282615CE13B69D43E02940A0">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getDyldInfoLazyBindOpcodes ()</code></pre>
+                                <p>Defined at line 4972 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="92E23C1A76CDFE618809AE564420749D2EF8B83C">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getDyldInfoExportsTrie ()</code></pre>
+                                <p>Defined at line 4986 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1F261A782173D14501087DB2A85540129B4B89A">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;std::optional&lt;MachO::dyld_chained_fixups_header&gt;&gt; getChainedFixupsHeader ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If the optional is std::nullopt, no header was found, but the object was</p>
+                                        <p> well-formed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5019 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="55CE144573561376B6D02EFB6BC70BBAEAE087B6">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;std::vector&lt;ChainedFixupTarget&gt;&gt; getDyldChainedFixupTargets ()</code></pre>
+                                <p>Defined at line 5179 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="37971D3CC08242B5ABB3D5DE4D90ED4A29DC639A">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;std::optional&lt;MachO::linkedit_data_command&gt;&gt; getChainedFixupsLoadCommand ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Note: This is a limited, temporary API, which will be removed when Apple</p>
+                                        <p> upstreams their implementation. Please do not rely on this.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5000 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="50590748DBC417B19C75BF8573E37A52CC0528D8">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;std::pair&lt;size_t, std::vector&lt;ChainedFixupsSegment&gt;&gt;&gt; getChainedFixupsSegments ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the number of sections listed in dyld_chained_starts_in_image, and</p>
+                                        <p> a ChainedFixupsSegment for each segment that has fixups.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5070 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A29CBDF8FA6DB2F9264A18E441AF2FF25E2D2F66">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getDyldExportsTrie ()</code></pre>
+                                <p>Defined at line 5272 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AD44F49167584A201ED73103FEC11E8AD1A766CD">
+                                <pre><code class="language-cpp code-clang-doc">SmallVector&lt;uint64_t&gt; getFunctionStarts ()</code></pre>
+                                <p>Defined at line 5286 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED20E91CD815DD943B343708891B228FD0D2B40A">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getUuid ()</code></pre>
+                                <p>Defined at line 5301 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E6338D411DDAAEF6E9F12C5D94952E26357B38B">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getStringTableData ()</code></pre>
+                                <p>Defined at line 5309 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6D787C863445983E64B3655C4CAEB8A67906F631">
+                                <pre><code class="language-cpp code-clang-doc">void ReadULEB128s (uint64_t Index, SmallVectorImpl&lt;uint64_t&gt; &amp; Out)</code></pre>
+                                <p>Defined at line 5319 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B5E69CC4F4C79522BE0A38B1CA18C8213419210">
+                                <pre><code class="language-cpp code-clang-doc">StringRef guessLibraryShortName (StringRef Name, bool &amp; isFramework, StringRef &amp; Suffix)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> guessLibraryShortName() is passed a name of a dynamic library and returns a</p>
+                                        <p> guess on what the short name is.  Then name is returned as a substring of the</p>
+                                        <p> StringRef Name passed in.  The name of the dynamic library is recognized as</p>
+                                        <p> a framework if it has one of the two following forms:</p>
+                                        <p>      Foo.framework/Versions/A/Foo</p>
+                                        <p>      Foo.framework/Foo</p>
+                                        <p> Where A and Foo can be any string.  And may contain a trailing suffix</p>
+                                        <p> starting with an underbar.  If the Name is recognized as a framework then</p>
+                                        <p> isFramework is set to true else it is set to false.  If the Name has a</p>
+                                        <p> suffix then Suffix is set to the substring in Name that contains the suffix</p>
+                                        <p> else it is set to a NULL StringRef.</p>
+                                    </div>
+                                    <div>
+                                        <p> The Name of the dynamic library is recognized as a library name if it has</p>
+                                        <p> one of the two following forms:</p>
+                                        <p>      libFoo.A.dylib</p>
+                                        <p>      libFoo.dylib</p>
+                                    </div>
+                                    <div>
+                                        <p> The library may have a suffix trailing the name Foo of the form:</p>
+                                        <p>      libFoo_profile.A.dylib</p>
+                                        <p>      libFoo_profile.dylib</p>
+                                        <p> These dyld image suffixes are separated from the short name by a &#39;_&#39;</p>
+                                        <p> character. Because the &#39;_&#39; character is commonly used to separate words in</p>
+                                        <p> filenames guessLibraryShortName() cannot reliably separate a dylib&#39;s short</p>
+                                        <p> name from an arbitrary image suffix; imagine if both the short name and the</p>
+                                        <p> suffix contains an &#39;_&#39; character! To better deal with this ambiguity,</p>
+                                        <p> guessLibraryShortName() will recognize only &quot;_debug&quot; and &quot;_profile&quot; as valid</p>
+                                        <p> Suffix values. Calling code needs to be tolerant of guessLibraryShortName()</p>
+                                        <p> guessing incorrectly.</p>
+                                    </div>
+                                    <div>
+                                        <p> The Name of the dynamic library is also recognized as a library name if it</p>
+                                        <p> has the following form:</p>
+                                        <p>      Foo.qtx</p>
+                                    </div>
+                                    <div>
+                                        <p> If the Name of the dynamic library is none of the forms above then a NULL</p>
+                                        <p> StringRef is returned.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2449 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D90AB0EF2621045A3796D20C5255626F44F84DA6">
+                                <pre><code class="language-cpp code-clang-doc">ArchType getArch (uint32_t CPUType, uint32_t CPUSubType)</code></pre>
+                                <p>Defined at line 2710 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="403CAD854DD5F4C947895AAA57708E64141461EB">
+                                <pre><code class="language-cpp code-clang-doc">Triple getArchTriple (uint32_t CPUType, uint32_t CPUSubType, const char ** McpuDefault, const char ** ArchFlag)</code></pre>
+                                <p>Defined at line 2731 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5E742E12D3F29FEAEC7F0AEAE24EB7D6DB1CA892">
+                                <pre><code class="language-cpp code-clang-doc">bool isValidArch (StringRef ArchFlag)</code></pre>
+                                <p>Defined at line 2872 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A93AA234EE0FFDBCCF2B26523E08F54A1BF8A138">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getValidArchs ()</code></pre>
+                                <p>Defined at line 2877 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3E53015CE92218BA6406CD8BBB17EDC2FBF1817C">
+                                <pre><code class="language-cpp code-clang-doc">Triple getHostArch ()</code></pre>
+                                <p>Defined at line 2868 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="61C642F46E1CD9F11BD88A3DD8C57A6777DA359C">
+                                <pre><code class="language-cpp code-clang-doc">bool isRelocatableObject ()</code></pre>
+                                <p>Defined at line 5331 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1873C612E714B68FC06E563651DC166590D966EF">
+                                <pre><code class="language-cpp code-clang-doc">StringRef mapDebugSectionName (StringRef Name)</code></pre>
+                                <p>Defined at line 5362 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1C30C11720C6FE98F3551A771CC0C4F926C1F595">
+                                <pre><code class="language-cpp code-clang-doc">Swift5ReflectionSectionKind mapReflectionSectionNameToEnumValue (StringRef SectionName)</code></pre>
+                                <p>Defined at line 5411 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C38E5B96CBE6A046D1BE85763157F7B3CD5F0F4">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;std::vector&lt;std::string&gt;&gt; findDsymObjectMembers (StringRef Path)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If the input path is a .dSYM bundle (as created by the dsymutil tool),</p>
+                                        <p> return the paths to the object files found in the bundle, otherwise return</p>
+                                        <p> an empty vector. If the path appears to be a .dSYM bundle but no objects</p>
+                                        <p> were found or there was a filesystem error, then return an error.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5368 of file llvm/lib/Object/MachOObjectFile.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

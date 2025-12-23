@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>OnDiskChainedHashTable</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class OnDiskChainedHashTable</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BD5DD9A29B56D216B6863FF764E9E5DF8CD54939">OnDiskChainedHashTable&lt;Info&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D79F3CAC4EE08940F5E3C19DC18F435F275CC64">readNumBucketsAndEntries</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#00773525EFF0C58D9C59368E8EC9CBB6771C45D2">getNumBuckets</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#03A0008AA1EF2029DA306A7B716D2DF7A91B7474">getNumEntries</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#64B235F4A925CB4F92BC1072B21709D689EAD71F">getBase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4BA22C77D430FDE4C6A7175F1E1DB9800E674C7E">getBuckets</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#27F492ADA6726E0C3FCAD1A7B4238352B2DB3EC9">isEmpty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C8B4315EB0ABE486D45E2DF777626EC1D8AA4B64">find</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C2328299A1FD8C6803028CE2AF7724F27BEE122">find_hashed</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C225547A8951A4401FAC737861650B49D4F50F6C">end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#77220118D43977E16D0CF62E5452A7CF16014CE8">getInfoObj</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#184B5840E2368BCC8B1B9E7E218AF580D600DABE">Create</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Info&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class OnDiskChainedHashTable</h1>
+                        <p>Defined at line 273 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Provides lookup on an on disk hash table.</p>
+                            </div>
+                            <div>
+                                <p> This needs an </p>
+                                <p> that handles reading values from the hash table&#39;s</p>
+                                <p> payload and computes the hash for a given key. This should provide the</p>
+                                <p> following interface:</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                         class ExampleLookupInfo {
+                                         public:
+                                           typedef ExampleData data_type;
+                                           typedef ExampleInternalKey internal_key_type; // The stored key type.
+                                           typedef ExampleKey external_key_type; // The type to pass to find().
+                                           typedef uint32_t hash_value_type; // The type the hash function returns.
+                                           typedef uint32_t offset_type; // The type for offsets into the table.
+                                        
+                                           /// Compare two keys for equality.
+                                           static bool EqualKey(internal_key_type &amp;Key1, internal_key_type &amp;Key2);
+                                           /// Calculate the hash for the given key.
+                                           static hash_value_type ComputeHash(internal_key_type &amp;IKey);
+                                           /// Translate from the semantic type of a key in the hash table to the
+                                           /// type that is actually stored and used for hashing and comparisons.
+                                           /// The internal and external types are often the same, in which case this
+                                           /// can simply return the passed in value.
+                                           static const internal_key_type &amp;GetInternalKey(external_key_type &amp;EKey);
+                                           /// Read the key and data length from Buffer, leaving it pointing at the
+                                           /// following byte.
+                                           static std::pair&lt;offset_type, offset_type&gt;
+                                           ReadKeyDataLength(const unsigned char *&amp;Buffer);
+                                           /// Read the key from Buffer, given the KeyLen as reported from
+                                           /// ReadKeyDataLength.
+                                           const internal_key_type &amp;ReadKey(const unsigned char *Buffer,
+                                                                            offset_type KeyLen);
+                                           /// Read the data for Key from Buffer, given the DataLen as reported from
+                                           /// ReadKeyDataLength.
+                                           data_type ReadData(StringRef Key, const unsigned char *Buffer,
+                                                              offset_type DataLen);
+                                         };
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="BD5DD9A29B56D216B6863FF764E9E5DF8CD54939">
+                                <pre><code class="language-cpp code-clang-doc">void OnDiskChainedHashTable&lt;Info&gt; (offset_type NumBuckets, offset_type NumEntries, const unsigned char * Buckets, const unsigned char * Base, const Info &amp; InfoObj)</code></pre>
+                                <p>Defined at line 288 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3D79F3CAC4EE08940F5E3C19DC18F435F275CC64">
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;offset_type, offset_type&gt; readNumBucketsAndEntries (const unsigned char *&amp; Buckets)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the number of buckets and the number of entries from a hash table</p>
+                                        <p> produced by OnDiskHashTableGenerator::Emit, and advance the Buckets</p>
+                                        <p> pointer past them.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 301 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="00773525EFF0C58D9C59368E8EC9CBB6771C45D2">
+                                <pre><code class="language-cpp code-clang-doc">offset_type getNumBuckets ()</code></pre>
+                                <p>Defined at line 315 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="03A0008AA1EF2029DA306A7B716D2DF7A91B7474">
+                                <pre><code class="language-cpp code-clang-doc">offset_type getNumEntries ()</code></pre>
+                                <p>Defined at line 316 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="64B235F4A925CB4F92BC1072B21709D689EAD71F">
+                                <pre><code class="language-cpp code-clang-doc">const unsigned char * getBase ()</code></pre>
+                                <p>Defined at line 317 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4BA22C77D430FDE4C6A7175F1E1DB9800E674C7E">
+                                <pre><code class="language-cpp code-clang-doc">const unsigned char * getBuckets ()</code></pre>
+                                <p>Defined at line 318 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="27F492ADA6726E0C3FCAD1A7B4238352B2DB3EC9">
+                                <pre><code class="language-cpp code-clang-doc">bool isEmpty ()</code></pre>
+                                <p>Defined at line 320 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C8B4315EB0ABE486D45E2DF777626EC1D8AA4B64">
+                                <pre><code class="language-cpp code-clang-doc">iterator find (const external_key_type &amp; EKey, Info * InfoPtr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Look up the stored data for a particular key.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 344 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C2328299A1FD8C6803028CE2AF7724F27BEE122">
+                                <pre><code class="language-cpp code-clang-doc">iterator find_hashed (const internal_key_type &amp; IKey, hash_value_type KeyHash, Info * InfoPtr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Look up the stored data for a particular key with a known hash.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 351 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C225547A8951A4401FAC737861650B49D4F50F6C">
+                                <pre><code class="language-cpp code-clang-doc">iterator end ()</code></pre>
+                                <p>Defined at line 406 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="77220118D43977E16D0CF62E5452A7CF16014CE8">
+                                <pre><code class="language-cpp code-clang-doc">Info &amp; getInfoObj ()</code></pre>
+                                <p>Defined at line 408 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="184B5840E2368BCC8B1B9E7E218AF580D600DABE">
+                                <pre><code class="language-cpp code-clang-doc">OnDiskChainedHashTable&lt;Info&gt; * Create (const unsigned char * Buckets, const unsigned char *const Base, const Info &amp; InfoObj)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create the hash table.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Buckets</b>   is the beginning of the hash table itself, which follows the payload of entire structure. This is the value returned by OnDiskHashTableGenerator::Emit.
+                                    </div> 
+                                    <div>
+                                        <b>Base</b>   is the point from which all offsets into the structure are based. This is offset 0 in the stream that was used when Emitting the table.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 419 of file llvm/include/llvm/Support/OnDiskHashTable.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

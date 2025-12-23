@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>PredicateExpander</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class PredicateExpander</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#33882CFF57DDDF16ED2C8AECFF99AC8F1FB448EE">expandTrue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B33252DDE43FEB82749F2B4B558AB2510D339403">expandFalse</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E062F566DEBD21C8D1B43FFE3B1DAF0FD0F1D54">expandCheckImmOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F8E6A640B661C1C104A765AF9D84FE663C5DF6FA">expandCheckImmOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23D52F64A326E69AEBFC016061629C9A3793DBE0">PredicateExpander</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#786D96855D8C72F053440289E0B1AC3D8A0722BD">isByRef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6EE033F9A6ADCF3554526D78B1C5EE2176AEC7D4">shouldNegate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#21DF0ADA56A3D362DC1FF69872D6472AC3DF0D01">shouldExpandForMC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#99B6BE414C7916A12E622FCE0D2C7B65B998B81F">getIndent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C336BBF0DF8F08E414AFD5326F975FBCCD8CE1EC">getTargetName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0431CE317315229C1C01E2605050A4BAD4A33D34">setByRef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7AB89545ACA3FC6A6ABD1337B21B27A1F9375FAE">flipNegatePredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#361322B57DAC70BCDC6D9AE9663CE9B2A2614610">expandCheckImmOperandSimple</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BF30667BC62D54CE574233DCB33B6561707CC50B">setNegatePredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5F4A61B8BA692210799E820F49AA08091E576D6">setExpandForMC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CB0AEC6AE163567D7DC18CC451A91BD2709BF99F">expandCheckImmOperandLT</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E49A4D09D49E5ADB21D3548EC451BBB861735926">expandCheckImmOperandGT</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#76EF7948CDB337BD9075522912E1E2BEB3E98158">expandCheckRegOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EA12606A365A23AD0CF651B9D88A392D7876568D">expandCheckRegOperandSimple</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AAF802A29BDF738CE0313407BF71EA8EB00193D4">expandCheckSameRegOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C76EED4B960627206C7121A514F0ABF428DBDF6">expandCheckNumOperands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#597EB1EA47833D978B9EF5597697E160A5997FAC">expandCheckOpcode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4A186B8FAF643AAE83DE035A495D84BC6BD43E41">expandCheckPseudo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6641C3D764CEDAE7BE80429B63118236B35D7D22">expandCheckOpcode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B0DC205AB06A147E039C55F5FCE2F34C25C1089">expandPredicateSequence</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#34E0F13F9471DF4194318E86F08F63149F7629BC">expandTIIFunctionCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#29DF43FEAC32B0920AAE5564F221F18EEA0BB664">expandCheckIsRegOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF86D07C1AB9C4782691B978AF220D9C5F758875">expandCheckIsVRegOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D5CB930CA54A3F99652F4F63A7791BAB88F0A3D1">expandCheckIsImmOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9A2845A7042321EC7D51197DAA0F848FD53268AD">expandCheckInvalidRegOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FF711FC83DE88FE8E3312CD684574192B327B9B6">expandCheckFunctionPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E313D7F62E8A6967B4F58505BBC713D37BE16E41">expandCheckFunctionPredicateWithTII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BF59DE5EA6E949C5B68FD256DF6757A2AF70A582">expandCheckNonPortable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3BA7C1C1A65068DD6BA66BCD62FBDBBCC1B35A5">expandPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#46B8E6D40399A313C37375B0ACC5AD3BBF863F88">expandReturnStatement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D9141079F040F22A28A6A07448544FE1A70150A1">expandOpcodeSwitchCase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#77230E2A70B5BEB818D3901E19446EB391F4C631">expandOpcodeSwitchStatement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#05025CB32A3F341FDB668A6E033A6E3CF379BF10">expandStatement</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class PredicateExpander</h1>
+                        <p>Defined at line 27 of file llvm/utils/TableGen/Common/PredicateExpander.h</p>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="33882CFF57DDDF16ED2C8AECFF99AC8F1FB448EE">
+                                <pre><code class="language-cpp code-clang-doc">void expandTrue (raw_ostream &amp; OS)</code></pre>
+                                <p>Defined at line 19 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B33252DDE43FEB82749F2B4B558AB2510D339403">
+                                <pre><code class="language-cpp code-clang-doc">void expandFalse (raw_ostream &amp; OS)</code></pre>
+                                <p>Defined at line 20 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E062F566DEBD21C8D1B43FFE3B1DAF0FD0F1D54">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckImmOperand (raw_ostream &amp; OS, int OpIndex, int ImmVal, StringRef FunctionMapper)</code></pre>
+                                <p>Defined at line 22 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F8E6A640B661C1C104A765AF9D84FE663C5DF6FA">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckImmOperand (raw_ostream &amp; OS, int OpIndex, StringRef ImmVal, StringRef FunctionMapperer)</code></pre>
+                                <p>Defined at line 34 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23D52F64A326E69AEBFC016061629C9A3793DBE0">
+                                <pre><code class="language-cpp code-clang-doc">void PredicateExpander (StringRef Target, unsigned int Indent)</code></pre>
+                                <p>Defined at line 40 of file llvm/utils/TableGen/Common/PredicateExpander.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="786D96855D8C72F053440289E0B1AC3D8A0722BD">
+                                <pre><code class="language-cpp code-clang-doc">bool isByRef ()</code></pre>
+                                <p>Defined at line 42 of file llvm/utils/TableGen/Common/PredicateExpander.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6EE033F9A6ADCF3554526D78B1C5EE2176AEC7D4">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldNegate ()</code></pre>
+                                <p>Defined at line 43 of file llvm/utils/TableGen/Common/PredicateExpander.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="21DF0ADA56A3D362DC1FF69872D6472AC3DF0D01">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldExpandForMC ()</code></pre>
+                                <p>Defined at line 44 of file llvm/utils/TableGen/Common/PredicateExpander.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="99B6BE414C7916A12E622FCE0D2C7B65B998B81F">
+                                <pre><code class="language-cpp code-clang-doc">indent &amp; getIndent ()</code></pre>
+                                <p>Defined at line 45 of file llvm/utils/TableGen/Common/PredicateExpander.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C336BBF0DF8F08E414AFD5326F975FBCCD8CE1EC">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getTargetName ()</code></pre>
+                                <p>Defined at line 46 of file llvm/utils/TableGen/Common/PredicateExpander.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0431CE317315229C1C01E2605050A4BAD4A33D34">
+                                <pre><code class="language-cpp code-clang-doc">void setByRef (bool Value)</code></pre>
+                                <p>Defined at line 48 of file llvm/utils/TableGen/Common/PredicateExpander.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7AB89545ACA3FC6A6ABD1337B21B27A1F9375FAE">
+                                <pre><code class="language-cpp code-clang-doc">void flipNegatePredicate ()</code></pre>
+                                <p>Defined at line 49 of file llvm/utils/TableGen/Common/PredicateExpander.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="361322B57DAC70BCDC6D9AE9663CE9B2A2614610">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckImmOperandSimple (raw_ostream &amp; OS, int OpIndex, StringRef FunctionMapper)</code></pre>
+                                <p>Defined at line 49 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BF30667BC62D54CE574233DCB33B6561707CC50B">
+                                <pre><code class="language-cpp code-clang-doc">void setNegatePredicate (bool Value)</code></pre>
+                                <p>Defined at line 50 of file llvm/utils/TableGen/Common/PredicateExpander.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5F4A61B8BA692210799E820F49AA08091E576D6">
+                                <pre><code class="language-cpp code-clang-doc">void setExpandForMC (bool Value)</code></pre>
+                                <p>Defined at line 51 of file llvm/utils/TableGen/Common/PredicateExpander.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CB0AEC6AE163567D7DC18CC451A91BD2709BF99F">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckImmOperandLT (raw_ostream &amp; OS, int OpIndex, int ImmVal, StringRef FunctionMapper)</code></pre>
+                                <p>Defined at line 62 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E49A4D09D49E5ADB21D3548EC451BBB861735926">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckImmOperandGT (raw_ostream &amp; OS, int OpIndex, int ImmVal, StringRef FunctionMapper)</code></pre>
+                                <p>Defined at line 74 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="76EF7948CDB337BD9075522912E1E2BEB3E98158">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckRegOperand (raw_ostream &amp; OS, int OpIndex, const Record * Reg, StringRef FunctionMapper)</code></pre>
+                                <p>Defined at line 86 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EA12606A365A23AD0CF651B9D88A392D7876568D">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckRegOperandSimple (raw_ostream &amp; OS, int OpIndex, StringRef FunctionMapper)</code></pre>
+                                <p>Defined at line 104 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AAF802A29BDF738CE0313407BF71EA8EB00193D4">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckSameRegOperand (raw_ostream &amp; OS, int First, int Second)</code></pre>
+                                <p>Defined at line 125 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C76EED4B960627206C7121A514F0ABF428DBDF6">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckNumOperands (raw_ostream &amp; OS, int NumOps)</code></pre>
+                                <p>Defined at line 132 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="597EB1EA47833D978B9EF5597697E160A5997FAC">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckOpcode (raw_ostream &amp; OS, const Record * Inst)</code></pre>
+                                <p>Defined at line 137 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4A186B8FAF643AAE83DE035A495D84BC6BD43E41">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckPseudo (raw_ostream &amp; OS, ArrayRef Opcodes)</code></pre>
+                                <p>Defined at line 165 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6641C3D764CEDAE7BE80429B63118236B35D7D22">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckOpcode (raw_ostream &amp; OS, ArrayRef Opcodes)</code></pre>
+                                <p>Defined at line 143 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B0DC205AB06A147E039C55F5FCE2F34C25C1089">
+                                <pre><code class="language-cpp code-clang-doc">void expandPredicateSequence (raw_ostream &amp; OS, ArrayRef Sequence, bool IsCheckAll)</code></pre>
+                                <p>Defined at line 173 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="34E0F13F9471DF4194318E86F08F63149F7629BC">
+                                <pre><code class="language-cpp code-clang-doc">void expandTIIFunctionCall (raw_ostream &amp; OS, StringRef MethodName)</code></pre>
+                                <p>Defined at line 198 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="29DF43FEAC32B0920AAE5564F221F18EEA0BB664">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckIsRegOperand (raw_ostream &amp; OS, int OpIndex)</code></pre>
+                                <p>Defined at line 205 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EF86D07C1AB9C4782691B978AF220D9C5F758875">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckIsVRegOperand (raw_ostream &amp; OS, int OpIndex)</code></pre>
+                                <p>Defined at line 210 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D5CB930CA54A3F99652F4F63A7791BAB88F0A3D1">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckIsImmOperand (raw_ostream &amp; OS, int OpIndex)</code></pre>
+                                <p>Defined at line 215 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9A2845A7042321EC7D51197DAA0F848FD53268AD">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckInvalidRegOperand (raw_ostream &amp; OS, int OpIndex)</code></pre>
+                                <p>Defined at line 117 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF711FC83DE88FE8E3312CD684574192B327B9B6">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckFunctionPredicate (raw_ostream &amp; OS, StringRef MCInstFn, StringRef MachineInstrFn)</code></pre>
+                                <p>Defined at line 232 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E313D7F62E8A6967B4F58505BBC713D37BE16E41">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckFunctionPredicateWithTII (raw_ostream &amp; OS, StringRef MCInstFn, StringRef MachineInstrFn, StringRef TIIPtr)</code></pre>
+                                <p>Defined at line 220 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BF59DE5EA6E949C5B68FD256DF6757A2AF70A582">
+                                <pre><code class="language-cpp code-clang-doc">void expandCheckNonPortable (raw_ostream &amp; OS, StringRef CodeBlock)</code></pre>
+                                <p>Defined at line 239 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C3BA7C1C1A65068DD6BA66BCD62FBDBBCC1B35A5">
+                                <pre><code class="language-cpp code-clang-doc">void expandPredicate (raw_ostream &amp; OS, const Record * Rec)</code></pre>
+                                <p>Defined at line 308 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="46B8E6D40399A313C37375B0ACC5AD3BBF863F88">
+                                <pre><code class="language-cpp code-clang-doc">void expandReturnStatement (raw_ostream &amp; OS, const Record * Rec)</code></pre>
+                                <p>Defined at line 247 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D9141079F040F22A28A6A07448544FE1A70150A1">
+                                <pre><code class="language-cpp code-clang-doc">void expandOpcodeSwitchCase (raw_ostream &amp; OS, const Record * Rec)</code></pre>
+                                <p>Defined at line 258 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="77230E2A70B5BEB818D3901E19446EB391F4C631">
+                                <pre><code class="language-cpp code-clang-doc">void expandOpcodeSwitchStatement (raw_ostream &amp; OS, ArrayRef Cases, const Record * Default)</code></pre>
+                                <p>Defined at line 271 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="05025CB32A3F341FDB668A6E033A6E3CF379BF10">
+                                <pre><code class="language-cpp code-clang-doc">void expandStatement (raw_ostream &amp; OS, const Record * Rec)</code></pre>
+                                <p>Defined at line 292 of file llvm/utils/TableGen/Common/PredicateExpander.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

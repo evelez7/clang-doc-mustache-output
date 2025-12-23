@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CallStackRadixTreeBuilder</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">memprof</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class CallStackRadixTreeBuilder</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DA08C4508805E3DFF3A93E7196FA96FA96DF07E9">build</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4E8B39FC14057B03B72C68D41C7EB63363674B9D">CallStackRadixTreeBuilder&lt;FrameIdTy&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F1C7107FC7636ABF8A70EB004DB8F3D4D81F1403">getRadixArray</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A3A23EFA731E3AFAFB98D17E7E7604054EDAB2CB">takeCallStackPos</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename FrameIdTy&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class CallStackRadixTreeBuilder</h1>
+                        <p>Defined at line 308 of file llvm/include/llvm/ProfileData/MemProfRadixTree.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Construct a radix tree of call stacks.</p>
+                            </div>
+                            <div>
+                                <p> A set of call stacks might look like:</p>
+                            </div>
+                            <div>
+                                <p> CallStackId 1:  f1 -&gt; f2 -&gt; f3</p>
+                                <p> CallStackId 2:  f1 -&gt; f2 -&gt; f4 -&gt; f5</p>
+                                <p> CallStackId 3:  f1 -&gt; f2 -&gt; f4 -&gt; f6</p>
+                                <p> CallStackId 4:  f7 -&gt; f8 -&gt; f9</p>
+                            </div>
+                            <div>
+                                <p> where each fn refers to a stack frame.</p>
+                            </div>
+                            <div>
+                                <p> Since we expect a lot of common prefixes, we can compress the call stacks</p>
+                                <p> into a radix tree like:</p>
+                            </div>
+                            <div>
+                                <p> CallStackId 1:  f1 -&gt; f2 -&gt; f3</p>
+                                <p>                       |</p>
+                                <p> CallStackId 2:        +---&gt; f4 -&gt; f5</p>
+                                <p>                             |</p>
+                                <p> CallStackId 3:              +---&gt; f6</p>
+                            </div>
+                            <div>
+                                <p> CallStackId 4:  f7 -&gt; f8 -&gt; f9</p>
+                            </div>
+                            <div>
+                                <p> Now, we are interested in retrieving call stacks for a given CallStackId, so</p>
+                                <p> we just need a pointer from a given call stack to its parent.  For example,</p>
+                                <p> CallStackId 2 would point to CallStackId 1 as a parent.</p>
+                            </div>
+                            <div>
+                                <p> We serialize the radix tree above into a single array along with the length</p>
+                                <p> of each call stack and pointers to the parent call stacks.</p>
+                            </div>
+                            <div>
+                                <p> Index:              0  1  2  3  4  5  6  7  8  9 10 11 12 13 14</p>
+                                <p> Array:             L3 f9 f8 f7 L4 f6 J3 L4 f5 f4 J3 L3 f3 f2 f1</p>
+                                <p>                     ^           ^        ^           ^</p>
+                                <p>                     |           |        |           |</p>
+                                <p> CallStackId 4:  0 --+           |        |           |</p>
+                                <p> CallStackId 3:  4 --------------+        |           |</p>
+                                <p> CallStackId 2:  7 -----------------------+           |</p>
+                                <p> CallStackId 1: 11 -----------------------------------+</p>
+                            </div>
+                            <div>
+                                <p> - LN indicates the length of a call stack, encoded as ordinary integer N.</p>
+                            </div>
+                            <div>
+                                <p> - JN indicates a pointer to the parent, encoded as -N.</p>
+                            </div>
+                            <div>
+                                <p> The radix tree allows us to reconstruct call stacks in the leaf-to-root</p>
+                                <p> order as we scan the array from left ro right while following pointers to</p>
+                                <p> parents along the way.</p>
+                            </div>
+                            <div>
+                                <p> For example, if we are decoding CallStackId 2, we start a forward traversal</p>
+                                <p> at Index 7, noting the call stack length of 4 and obtaining f5 and f4.  When</p>
+                                <p> we see J3 at Index 10, we resume a forward traversal at Index 13 = 10 + 3,</p>
+                                <p> picking up f2 and f1.  We are done after collecting 4 frames as indicated at</p>
+                                <p> the beginning of the traversal.</p>
+                            </div>
+                            <div>
+                                <p> On-disk IndexedMemProfRecord will refer to call stacks by their indexes into</p>
+                                <p> the radix tree array, so we do not explicitly encode mappings like:</p>
+                                <p> &quot;CallStackId 1 -&gt; 11&quot;.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="DA08C4508805E3DFF3A93E7196FA96FA96DF07E9">
+                                <pre><code class="language-cpp code-clang-doc">void build (llvm::MapVector&lt;CallStackId, llvm::SmallVector&lt;FrameIdTy&gt;&gt; &amp;&amp; MemProfCallStackData, const llvm::DenseMap&lt;FrameIdTy, LinearFrameId&gt; * MemProfFrameIndexes, llvm::DenseMap&lt;FrameIdTy, FrameStat&gt; &amp; FrameHistogram)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Build a radix tree array.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 92 of file llvm/lib/ProfileData/MemProfRadixTree.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4E8B39FC14057B03B72C68D41C7EB63363674B9D">
+                                <pre><code class="language-cpp code-clang-doc">void CallStackRadixTreeBuilder&lt;FrameIdTy&gt; ()</code></pre>
+                                <p>Defined at line 345 of file llvm/include/llvm/ProfileData/MemProfRadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F1C7107FC7636ABF8A70EB004DB8F3D4D81F1403">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getRadixArray ()</code></pre>
+                                <p>Defined at line 354 of file llvm/include/llvm/ProfileData/MemProfRadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A3A23EFA731E3AFAFB98D17E7E7604054EDAB2CB">
+                                <pre><code class="language-cpp code-clang-doc">DenseMap takeCallStackPos ()</code></pre>
+                                <p>Defined at line 356 of file llvm/include/llvm/ProfileData/MemProfRadixTree.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

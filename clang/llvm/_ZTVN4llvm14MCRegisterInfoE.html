@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MCRegisterInfo</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MCRegisterInfo</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FFAC08E8BEEB4BDD87CE846497EA4CD2C080EC7D">~MCRegisterInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5146E44CC27BB8CC28FEF4B390E72EA6F9B00281">InitMCRegisterInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7FD1F407B68CD8F9A41F1D7375544F1F2C630641">mapLLVMRegsToDwarfRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E63ADC3BF2669DFBCE6455C41C9A89604906D642">mapDwarfRegsToLLVMRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3DAD8A20F6D10A6811BD9FAA9D6378DFA68FDDE5">mapLLVMRegToSEHReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9946543568AC332750824FB4CCE4B50A48D9DA24">mapLLVMRegToCVReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#71ABFC26052D37D9F59354DED1CA565C81F905BD">getRARegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1DEF1765770B16C29AB57B3C988D932625BB2FDE">getProgramCounter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C4588D9384DA5E61CD0DF1EA2EB4CCC61F28E75A">operator[]</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6340B50487226F42FBEDC5140C7E2F13C10C3095">get</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9E027495C3F1E08068DA2BBE87F8D04F0BCA8273">getName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AD994F071D46FD5A14E9FBB27ADAEC457BCD6EF0">isConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8506EA54AFE1D6A6C0CA27AA8D387C4851AD5770">isArtificial</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AD47BFF077D8E7F22359EBDAAA859ABC3A3DA7B9">getNumRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B0A336552CC5C748047C95DD0553337523F5EDD7">getNumSubRegIndices</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#143EAA5E5A86AC736991D0669A68B9818DB99A45">getNumRegUnits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1134C04144494D9ECE15D065A3BDC34596A85EE">regclass_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ADB49858DD21D4DF5772DF74E8712F679F23020F">regclass_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#245A9A6141C576B7E265A57452EB1C8308832775">regclasses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#84E93CB40D5C52322BB4E0907FD50D9E27715B48">getNumRegClasses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#828081CD14B3CA1E8BCE1EF7ED1701D2C678B81D">getRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B87F2F7B6ACA52CF329198E4EBF8A71A2C671234">getRegClassName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5284AFE4BA5DE8D349906900D410CD285F48653A">getEncodingValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D54BF56CD8DDCC7F846E934116EBC129D41798E9">isSubRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F80DB74BF38DF051DBB6E5A555BBB9CAF7C6CF39">isSubRegisterEq</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BBAE6978A3B389F0F90CB3992334A8E318C8FF51">isSuperRegisterEq</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7A5CFF150CD85311BBE5B99A9569D4974A70568">isSuperOrSubRegisterEq</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5E48FFA403F7B1A9F5E433400C63580B3E1F569B">subregs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8CBA4FB806FB788A6A7DE5729E947C8AA32F71BE">subregs_inclusive</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#86D1207C26D9A4C401126BF8554299E1BD907492">superregs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9EA534611BD42E26DFFCE7D576FD1E2E44A91A05">superregs_inclusive</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B95C5EE93DCC814828F08EBB1745B01F97EC83B5">sub_and_superregs_inclusive</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F9014FE3E1DF027B6BB2D12A71D1ACDDFDD97DDF">regunits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D08E41BAE479AD0B2FD37E7B94069CA3F80D376C">regunits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DBFFFD009BD930D67C8578BFC1FBF84D8A849ACD">getSubReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FB6CC361B0896AA47F12A7BE43C579B43302EF6D">getMatchingSuperReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDFFCC79F03BF5FD129D7E930987036300346B6A">getSubRegIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FA26484BED1145B4264A9D29548A926D62D6501B">isArtificialRegUnit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#60E1F23935F4CADC6F3A7DC5E88118EAA70D89B9">getDwarfRegNum</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BC3C8725EA46B8EB70B4EF59069E987A85D684AB">getLLVMRegNum</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BA11D9ED22340AB42F8F9CCF0DBDE782F42B2CDA">getDwarfRegNumFromDwarfEHRegNum</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FEC3714D62414608A433D0576B353B19BABC7D15">getSEHRegNum</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A311B2F5B1A37724B9B9333A5E9E2F91DB370320">getCodeViewRegNum</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4ABFB1536BE0A97F47CD7391CF57C5B0BCE3410">isSuperRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#187209047CB43673786F86C513C25883D5B7114B">regsOverlap</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MCRegisterInfo</h1>
+                        <p>Defined at line 151 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> MCRegisterInfo base class - We assume that the target defines a static</p>
+                                <p> array of MCRegisterDesc objects that represent all of the machine</p>
+                                <p> registers that the target has.  As such, we simply have to track a pointer</p>
+                                <p> to this array so that we can turn register number into a register</p>
+                                <p> descriptor.</p>
+                            </div>
+                            <div>
+                                <p> Note this class is designed to be a base class of TargetRegisterInfo, which</p>
+                                <p> is the interface used by codegen. However, specific targets *should never*</p>
+                                <p> specialize this class. MCRegisterInfo should only contain getters to access</p>
+                                <p> TableGen generated physical register data. It must not be extended with</p>
+                                <p> virtual methods.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="FFAC08E8BEEB4BDD87CE846497EA4CD2C080EC7D">
+                                <pre><code class="language-cpp code-clang-doc">void ~MCRegisterInfo ()</code></pre>
+                                <p>Defined at line 279 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5146E44CC27BB8CC28FEF4B390E72EA6F9B00281">
+                                <pre><code class="language-cpp code-clang-doc">void InitMCRegisterInfo (const MCRegisterDesc * D, unsigned int NR, unsigned int RA, unsigned int PC, const MCRegisterClass * C, unsigned int NC, const MCPhysReg (*)[2] RURoots, unsigned int NRU, const int16_t * DL, const LaneBitmask * RUMS, const char * Strings, const char * ClassStrings, const uint16_t * SubIndices, unsigned int NumIndices, const uint16_t * RET)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Initialize MCRegisterInfo, called by TableGen</p>
+                                        <p> auto-generated routines. *DO NOT USE*.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 283 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7FD1F407B68CD8F9A41F1D7375544F1F2C630641">
+                                <pre><code class="language-cpp code-clang-doc">void mapLLVMRegsToDwarfRegs (const DwarfLLVMRegPair * Map, unsigned int Size, bool isEH)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Used to initialize LLVM register to Dwarf</p>
+                                        <p> register number mapping. Called by TableGen auto-generated routines.</p>
+                                        <p> *DO NOT USE*.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 322 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E63ADC3BF2669DFBCE6455C41C9A89604906D642">
+                                <pre><code class="language-cpp code-clang-doc">void mapDwarfRegsToLLVMRegs (const DwarfLLVMRegPair * Map, unsigned int Size, bool isEH)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Used to initialize Dwarf register to LLVM</p>
+                                        <p> register number mapping. Called by TableGen auto-generated routines.</p>
+                                        <p> *DO NOT USE*.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 336 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3DAD8A20F6D10A6811BD9FAA9D6378DFA68FDDE5">
+                                <pre><code class="language-cpp code-clang-doc">void mapLLVMRegToSEHReg (MCRegister LLVMReg, int SEHReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> mapLLVMRegToSEHReg - Used to initialize LLVM register to SEH register</p>
+                                        <p> number mapping. By default the SEH register number is just the same</p>
+                                        <p> as the LLVM register number.</p>
+                                        <p> FIXME: TableGen these numbers. Currently this requires target specific</p>
+                                        <p> initialization code.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 352 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9946543568AC332750824FB4CCE4B50A48D9DA24">
+                                <pre><code class="language-cpp code-clang-doc">void mapLLVMRegToCVReg (MCRegister LLVMReg, int CVReg)</code></pre>
+                                <p>Defined at line 356 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="71ABFC26052D37D9F59354DED1CA565C81F905BD">
+                                <pre><code class="language-cpp code-clang-doc">MCRegister getRARegister ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method should return the register where the return</p>
+                                        <p> address can be found.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 362 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1DEF1765770B16C29AB57B3C988D932625BB2FDE">
+                                <pre><code class="language-cpp code-clang-doc">MCRegister getProgramCounter ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the register which is the program counter.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 367 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C4588D9384DA5E61CD0DF1EA2EB4CCC61F28E75A">
+                                <pre><code class="language-cpp code-clang-doc">const MCRegisterDesc &amp; operator[] (MCRegister Reg)</code></pre>
+                                <p>Defined at line 371 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6340B50487226F42FBEDC5140C7E2F13C10C3095">
+                                <pre><code class="language-cpp code-clang-doc">const MCRegisterDesc &amp; get (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Provide a get method, equivalent to [], but more useful with a</p>
+                                        <p> pointer to this object.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 379 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9E027495C3F1E08068DA2BBE87F8D04F0BCA8273">
+                                <pre><code class="language-cpp code-clang-doc">const char * getName (MCRegister RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the human-readable symbolic target-specific name for the</p>
+                                        <p> specified physical register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 400 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AD994F071D46FD5A14E9FBB27ADAEC457BCD6EF0">
+                                <pre><code class="language-cpp code-clang-doc">bool isConstant (MCRegister RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the given register is constant.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 405 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8506EA54AFE1D6A6C0CA27AA8D387C4851AD5770">
+                                <pre><code class="language-cpp code-clang-doc">bool isArtificial (MCRegister RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the given register is artificial, which means it</p>
+                                        <p> represents a regunit that is not separately addressable but still needs to</p>
+                                        <p> be modelled, such as the top 16-bits of a 32-bit GPR.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 410 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AD47BFF077D8E7F22359EBDAAA859ABC3A3DA7B9">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumRegs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the number of registers this target has (useful for</p>
+                                        <p> sizing arrays holding per register information)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 419 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B0A336552CC5C748047C95DD0553337523F5EDD7">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumSubRegIndices ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the number of sub-register indices</p>
+                                        <p> understood by the target. Index 0 is reserved for the no-op sub-register,</p>
+                                        <p> while 1 to getNumSubRegIndices() - 1 represent real sub-registers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 426 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="143EAA5E5A86AC736991D0669A68B9818DB99A45">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumRegUnits ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the number of (native) register units in the</p>
+                                        <p> target. Register units are numbered from 0 to getNumRegUnits() - 1. They</p>
+                                        <p> can be accessed through MCRegUnitIterator defined below.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 433 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1134C04144494D9ECE15D065A3BDC34596A85EE">
+                                <pre><code class="language-cpp code-clang-doc">regclass_iterator regclass_begin ()</code></pre>
+                                <p>Defined at line 459 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ADB49858DD21D4DF5772DF74E8712F679F23020F">
+                                <pre><code class="language-cpp code-clang-doc">regclass_iterator regclass_end ()</code></pre>
+                                <p>Defined at line 460 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="245A9A6141C576B7E265A57452EB1C8308832775">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;regclass_iterator&gt; regclasses ()</code></pre>
+                                <p>Defined at line 461 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="84E93CB40D5C52322BB4E0907FD50D9E27715B48">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumRegClasses ()</code></pre>
+                                <p>Defined at line 465 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="828081CD14B3CA1E8BCE1EF7ED1701D2C678B81D">
+                                <pre><code class="language-cpp code-clang-doc">const MCRegisterClass &amp; getRegClass (unsigned int i)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the register class associated with the enumeration</p>
+                                        <p> value.  See class MCOperandInfo.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 471 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B87F2F7B6ACA52CF329198E4EBF8A71A2C671234">
+                                <pre><code class="language-cpp code-clang-doc">const char * getRegClassName (const MCRegisterClass * Class)</code></pre>
+                                <p>Defined at line 476 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5284AFE4BA5DE8D349906900D410CD285F48653A">
+                                <pre><code class="language-cpp code-clang-doc">uint16_t getEncodingValue (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the encoding for Reg</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 481 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D54BF56CD8DDCC7F846E934116EBC129D41798E9">
+                                <pre><code class="language-cpp code-clang-doc">bool isSubRegister (MCRegister RegA, MCRegister RegB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if RegB is a sub-register of RegA.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 488 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F80DB74BF38DF051DBB6E5A555BBB9CAF7C6CF39">
+                                <pre><code class="language-cpp code-clang-doc">bool isSubRegisterEq (MCRegister RegA, MCRegister RegB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if RegB is a sub-register of RegA or if RegB == RegA.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 496 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BBAE6978A3B389F0F90CB3992334A8E318C8FF51">
+                                <pre><code class="language-cpp code-clang-doc">bool isSuperRegisterEq (MCRegister RegA, MCRegister RegB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if RegB is a super-register of RegA or if</p>
+                                        <p> RegB == RegA.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 502 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F7A5CFF150CD85311BBE5B99A9569D4974A70568">
+                                <pre><code class="language-cpp code-clang-doc">bool isSuperOrSubRegisterEq (MCRegister RegA, MCRegister RegB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if RegB is a super-register or sub-register of RegA</p>
+                                        <p> or if RegB == RegA.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 508 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5E48FFA403F7B1A9F5E433400C63580B3E1F569B">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;MCSubRegIterator&gt; subregs (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return an iterator range over all sub-registers of </p>
+                                        <p> excluding </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 780 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8CBA4FB806FB788A6A7DE5729E947C8AA32F71BE">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;MCSubRegIterator&gt; subregs_inclusive (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return an iterator range over all sub-registers of </p>
+                                        <p> including </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 785 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="86D1207C26D9A4C401126BF8554299E1BD907492">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;MCSuperRegIterator&gt; superregs (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return an iterator range over all super-registers of </p>
+                                        <p> excluding </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 790 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9EA534611BD42E26DFFCE7D576FD1E2E44A91A05">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;MCSuperRegIterator&gt; superregs_inclusive (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return an iterator range over all super-registers of </p>
+                                        <p> including </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 795 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B95C5EE93DCC814828F08EBB1745B01F97EC83B5">
+                                <pre><code class="language-cpp code-clang-doc">detail::concat_range&lt;const MCPhysReg, iterator_range&lt;MCSubRegIterator&gt;, iterator_range&lt;MCSuperRegIterator&gt;&gt; sub_and_superregs_inclusive (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return an iterator range over all sub- and super-registers of </p>
+                                        <p> including </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 800 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F9014FE3E1DF027B6BB2D12A71D1ACDDFDD97DDF">
+                                <pre><code class="language-cpp code-clang-doc">iota_range&lt;MCRegUnit&gt; regunits ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns an iterator range over all regunits.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 806 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D08E41BAE479AD0B2FD37E7B94069CA3F80D376C">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;MCRegUnitIterator&gt; regunits (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns an iterator range over all regunits for </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 812 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DBFFFD009BD930D67C8578BFC1FBF84D8A849ACD">
+                                <pre><code class="language-cpp code-clang-doc">MCRegister getSubReg (MCRegister Reg, unsigned int Idx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the physical register number of sub-register &quot;Index&quot;</p>
+                                        <p> for physical register RegNo. Return zero if the sub-register does not</p>
+                                        <p> exist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 116 of file llvm/lib/MC/MCRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FB6CC361B0896AA47F12A7BE43C579B43302EF6D">
+                                <pre><code class="language-cpp code-clang-doc">MCRegister getMatchingSuperReg (MCRegister Reg, unsigned int SubIdx, const MCRegisterClass * RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a super-register of the specified register</p>
+                                        <p> Reg so its sub-register of index SubIdx is Reg.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 107 of file llvm/lib/MC/MCRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FDFFCC79F03BF5FD129D7E930987036300346B6A">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSubRegIndex (MCRegister RegNo, MCRegister SubRegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For a given register pair, return the sub-register index</p>
+                                        <p> if the second register is a sub-register of the first. Return zero</p>
+                                        <p> otherwise.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 130 of file llvm/lib/MC/MCRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FA26484BED1145B4264A9D29548A926D62D6501B">
+                                <pre><code class="language-cpp code-clang-doc">bool isArtificialRegUnit (MCRegUnit Unit)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true when the given register unit is considered artificial.</p>
+                                        <p> Register units are considered artificial when at least one of the</p>
+                                        <p> root registers is artificial.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 225 of file llvm/lib/MC/MCRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="60E1F23935F4CADC6F3A7DC5E88118EAA70D89B9">
+                                <pre><code class="language-cpp code-clang-doc">int64_t getDwarfRegNum (MCRegister Reg, bool isEH)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Map a target register to an equivalent dwarf register</p>
+                                        <p> number.  Returns -1 if there is no equivalent value.  The second</p>
+                                        <p> parameter allows targets to use different numberings for EH info and</p>
+                                        <p> debugging info.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 144 of file llvm/lib/MC/MCRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BC3C8725EA46B8EB70B4EF59069E987A85D684AB">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;MCRegister&gt; getLLVMRegNum (uint64_t RegNum, bool isEH)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Map a dwarf register back to a target register. Returns std::nullopt if</p>
+                                        <p> there is no mapping.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 161 of file llvm/lib/MC/MCRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BA11D9ED22340AB42F8F9CCF0DBDE782F42B2CDA">
+                                <pre><code class="language-cpp code-clang-doc">int64_t getDwarfRegNumFromDwarfEHRegNum (uint64_t RegNum)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Map a target EH register number to an equivalent DWARF register</p>
+                                        <p> number.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 175 of file llvm/lib/MC/MCRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FEC3714D62414608A433D0576B353B19BABC7D15">
+                                <pre><code class="language-cpp code-clang-doc">int getSEHRegNum (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Map a target register to an equivalent SEH register</p>
+                                        <p> number.  Returns LLVM register number if there is no equivalent value.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 194 of file llvm/lib/MC/MCRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A311B2F5B1A37724B9B9333A5E9E2F91DB370320">
+                                <pre><code class="language-cpp code-clang-doc">int getCodeViewRegNum (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Map a target register to an equivalent CodeView register</p>
+                                        <p> number.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 201 of file llvm/lib/MC/MCRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4ABFB1536BE0A97F47CD7391CF57C5B0BCE3410">
+                                <pre><code class="language-cpp code-clang-doc">bool isSuperRegister (MCRegister RegA, MCRegister RegB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Definition for isSuperRegister. Put it down here since it needs the</p>
+                                        <p> iterator defined above in addition to the MCRegisterInfo class itself.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 630 of file llvm/include/llvm/MC/MCRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="187209047CB43673786F86C513C25883D5B7114B">
+                                <pre><code class="language-cpp code-clang-doc">bool regsOverlap (MCRegister RegA, MCRegister RegB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the two registers are equal or alias each other.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 212 of file llvm/lib/MC/MCRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

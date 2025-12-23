@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SDDbgInfo</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SDDbgInfo</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9D564F24EF67C545D9DEDD8E1E21AAC1D359B842">SDDbgInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#543BF30655BF30C10208C7295912A1828F83F102">SDDbgInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B33F7F851A1084A9BEC84B5C8AFEA8A272011AB">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D642F01185B85F685A6E842561885CF382409D28">add</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BAA628999E21817012F635FC7BECB4DD524B8A5C">clear</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E19FB1DFC678253F29B7498794D28E18EFE4AA78">getAlloc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5C28A3E2F40A3B376A2EF276CC0A78403C7EA351">empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8E14A60F89390EA312452B0EAEA217FB45677498">getSDDbgValues</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2DFF2E6C74D7E4F3D5B35AD149AE00712813482">DbgBegin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C5825C1908ABB7932A88F1D09D9A56BFDF1839A1">DbgEnd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#075C6F071D2DEEF31BCC512912026F4AE40A5FDE">ByvalParmDbgBegin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8AA1C174083021B70081AB272A894ACA406F02B3">ByvalParmDbgEnd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4295DD6C5C2F5F56238764C2101EAFFAD5942854">DbgLabelBegin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B34720F00937FFF7B62B47DE41532AE721BA123C">DbgLabelEnd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#77F25AF7426E91DACB70DDEE51469EDC91B38935">add</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB21BF4607910EB7FCA8F5EBFB633F9077FD4908">erase</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SDDbgInfo</h1>
+                        <p>Defined at line 163 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Keeps track of dbg_value information through SDISel.  We do</p>
+                                <p> not build SDNodes for these so as not to perturb the generated code;</p>
+                                <p> instead the info is kept off to the side in this structure. Each SDNode may</p>
+                                <p> have one or more associated dbg_value entries. This information is kept in</p>
+                                <p> DbgValMap.</p>
+                                <p> Byval parameters are handled separately because they don&#39;t use alloca&#39;s,</p>
+                                <p> which busts the normal mechanism.  There is good reason for handling all</p>
+                                <p> parameters separately:  they may not have code generated for them, they</p>
+                                <p> should always go at the beginning of the function regardless of other code</p>
+                                <p> motion, and debug info for them is potentially useful even if the parameter</p>
+                                <p> is unused.  Right now only byval parameters are handled separately.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="9D564F24EF67C545D9DEDD8E1E21AAC1D359B842">
+                                <pre><code class="language-cpp code-clang-doc">void SDDbgInfo ()</code></pre>
+                                <p>Defined at line 172 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="543BF30655BF30C10208C7295912A1828F83F102">
+                                <pre><code class="language-cpp code-clang-doc">void SDDbgInfo (const SDDbgInfo &amp; )</code></pre>
+                                <p>Defined at line 173 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3B33F7F851A1084A9BEC84B5C8AFEA8A272011AB">
+                                <pre><code class="language-cpp code-clang-doc">SDDbgInfo &amp; operator= (const SDDbgInfo &amp; )</code></pre>
+                                <p>Defined at line 174 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D642F01185B85F685A6E842561885CF382409D28">
+                                <pre><code class="language-cpp code-clang-doc">void add (SDDbgLabel * L)</code></pre>
+                                <p>Defined at line 178 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BAA628999E21817012F635FC7BECB4DD524B8A5C">
+                                <pre><code class="language-cpp code-clang-doc">void clear ()</code></pre>
+                                <p>Defined at line 184 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E19FB1DFC678253F29B7498794D28E18EFE4AA78">
+                                <pre><code class="language-cpp code-clang-doc">int &amp; getAlloc ()</code></pre>
+                                <p>Defined at line 192 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5C28A3E2F40A3B376A2EF276CC0A78403C7EA351">
+                                <pre><code class="language-cpp code-clang-doc">bool empty ()</code></pre>
+                                <p>Defined at line 194 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8E14A60F89390EA312452B0EAEA217FB45677498">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;SDDbgValue *&gt; getSDDbgValues (const SDNode * Node)</code></pre>
+                                <p>Defined at line 198 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2DFF2E6C74D7E4F3D5B35AD149AE00712813482">
+                                <pre><code class="language-cpp code-clang-doc">int DbgBegin ()</code></pre>
+                                <p>Defined at line 208 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C5825C1908ABB7932A88F1D09D9A56BFDF1839A1">
+                                <pre><code class="language-cpp code-clang-doc">int DbgEnd ()</code></pre>
+                                <p>Defined at line 209 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="075C6F071D2DEEF31BCC512912026F4AE40A5FDE">
+                                <pre><code class="language-cpp code-clang-doc">int ByvalParmDbgBegin ()</code></pre>
+                                <p>Defined at line 210 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8AA1C174083021B70081AB272A894ACA406F02B3">
+                                <pre><code class="language-cpp code-clang-doc">int ByvalParmDbgEnd ()</code></pre>
+                                <p>Defined at line 211 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4295DD6C5C2F5F56238764C2101EAFFAD5942854">
+                                <pre><code class="language-cpp code-clang-doc">int DbgLabelBegin ()</code></pre>
+                                <p>Defined at line 212 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B34720F00937FFF7B62B47DE41532AE721BA123C">
+                                <pre><code class="language-cpp code-clang-doc">int DbgLabelEnd ()</code></pre>
+                                <p>Defined at line 213 of file llvm/include/llvm/CodeGen/SelectionDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="77F25AF7426E91DACB70DDEE51469EDC91B38935">
+                                <pre><code class="language-cpp code-clang-doc">void add (SDDbgValue * V, bool isParameter)</code></pre>
+                                <p>Defined at line 1107 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAG.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB21BF4607910EB7FCA8F5EBFB633F9077FD4908">
+                                <pre><code class="language-cpp code-clang-doc">void erase (const SDNode * Node)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Invalidate all DbgValues attached to the node and remove</p>
+                                        <p> it from the Node-to-DbgValues map.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1118 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAG.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

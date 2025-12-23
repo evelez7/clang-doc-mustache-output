@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MCTargetStreamer</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MCTargetStreamer</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#49D84ABD48DE46D6AC0DC337C535EA65F453FD45">MCTargetStreamer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B19DC2FDDAECBA106EF49A1B954FD9D2D62A216C">~MCTargetStreamer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A0CB53DB5229FA5C08E68C402315150151BF69E7">getStreamer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#471E1CDA30D4C1B3317C50C042DFCF9675A75DF6">getContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#21CAE6B6043EB8AD9AF36539F9DAFA1B4EA1CD51">emitLabel</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E383A3A6F487CA8E2BAC8893A299414D4F8D27BA">emitAssignment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#69DAA0623A651456D18C783754F2C1A5AA4D6137">prettyPrintAsm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C6F25C58DD8DF81DBF59ACD28A22EECE222FD9AD">emitDwarfFileDirective</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9417F1069338FDB4D3D4B1A584818A9E9EA69CAA">changeSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD21B6069D72B55ECEB77E952C4265CFA3DA8CCA">emitValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#86B29ECCE0788B154D97599CF3F2414A166BF6E8">emitRawBytes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E1F871FBA6F14C22AA666EE8A4BD3805BD0E37FD">emitConstantPools</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F1A5391313301694853CD7695DA18B606DF7C0A7">finish</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MCTargetStreamer</h1>
+                        <p>Defined at line 93 of file llvm/include/llvm/MC/MCStreamer.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Target specific streamer interface. This is used so that targets can</p>
+                                <p> implement support for target specific assembly directives.</p>
+                            </div>
+                            <div>
+                                <p> If target foo wants to use this, it should implement 3 classes:</p>
+                                <p> * FooTargetStreamer : public MCTargetStreamer</p>
+                                <p> * FooTargetAsmStreamer : public FooTargetStreamer</p>
+                                <p> * FooTargetELFStreamer : public FooTargetStreamer</p>
+                            </div>
+                            <div>
+                                <p> FooTargetStreamer should have a pure virtual method for each directive. For</p>
+                                <p> example, for a &quot;.bar symbol_name&quot; directive, it should have</p>
+                                <p> virtual emitBar(const MCSymbol </p>
+                                <p>&amp;Symbol</p>
+                                <p>) = 0;</p>
+                            </div>
+                            <div>
+                                <p> The FooTargetAsmStreamer and FooTargetELFStreamer classes implement the</p>
+                                <p> method. The assembly streamer just prints &quot;.bar symbol_name&quot;. The object</p>
+                                <p> streamer does whatever is needed to implement .bar in the object file.</p>
+                            </div>
+                            <div>
+                                <p> In the assembly printer and parser the target streamer can be used by</p>
+                                <p> calling getTargetStreamer and casting it to FooTargetStreamer:</p>
+                            </div>
+                            <div>
+                                <p> MCTargetStreamer </p>
+                                <p>&amp;TS</p>
+                                <p> = OutStreamer.getTargetStreamer();</p>
+                                <p> FooTargetStreamer </p>
+                                <p>&amp;ATS</p>
+                                <p> = static_cast</p>
+                                <p>&lt;FooTargetStreamer</p>
+                                <p>&amp;</p>
+                                <p>&gt;(TS);</p>
+                            </div>
+                            <div>
+                                <p> The base classes FooTargetAsmStreamer and FooTargetELFStreamer should</p>
+                                <p> *never* be treated differently. Callers should always talk to a</p>
+                                <p> FooTargetStreamer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="49D84ABD48DE46D6AC0DC337C535EA65F453FD45">
+                                <pre><code class="language-cpp code-clang-doc">void MCTargetStreamer (MCStreamer &amp; S)</code></pre>
+                                <p>Defined at line 46 of file llvm/lib/MC/MCStreamer.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B19DC2FDDAECBA106EF49A1B954FD9D2D62A216C">
+                                <pre><code class="language-cpp code-clang-doc">void ~MCTargetStreamer ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Pin the vtables to this file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 51 of file llvm/lib/MC/MCStreamer.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A0CB53DB5229FA5C08E68C402315150151BF69E7">
+                                <pre><code class="language-cpp code-clang-doc">MCStreamer &amp; getStreamer ()</code></pre>
+                                <p>Defined at line 101 of file llvm/include/llvm/MC/MCStreamer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="471E1CDA30D4C1B3317C50C042DFCF9675A75DF6">
+                                <pre><code class="language-cpp code-clang-doc">MCContext &amp; getContext ()</code></pre>
+                                <p>Defined at line 1117 of file llvm/include/llvm/MC/MCStreamer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="21CAE6B6043EB8AD9AF36539F9DAFA1B4EA1CD51">
+                                <pre><code class="language-cpp code-clang-doc">void emitLabel (MCSymbol * Symbol)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Allow a target to add behavior to the EmitLabel of MCStreamer.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 53 of file llvm/lib/MC/MCStreamer.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E383A3A6F487CA8E2BAC8893A299414D4F8D27BA">
+                                <pre><code class="language-cpp code-clang-doc">void emitAssignment (MCSymbol * Symbol, const MCExpr * Value)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Allow a target to add behavior to the emitAssignment of MCStreamer.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 90 of file llvm/lib/MC/MCStreamer.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="69DAA0623A651456D18C783754F2C1A5AA4D6137">
+                                <pre><code class="language-cpp code-clang-doc">void prettyPrintAsm (MCInstPrinter &amp; InstPrinter, uint64_t Address, const MCInst &amp; Inst, const MCSubtargetInfo &amp; STI, raw_ostream &amp; OS)</code></pre>
+                                <p>Defined at line 1155 of file llvm/lib/MC/MCStreamer.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C6F25C58DD8DF81DBF59ACD28A22EECE222FD9AD">
+                                <pre><code class="language-cpp code-clang-doc">void emitDwarfFileDirective (StringRef Directive)</code></pre>
+                                <p>Defined at line 66 of file llvm/lib/MC/MCStreamer.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9417F1069338FDB4D3D4B1A584818A9E9EA69CAA">
+                                <pre><code class="language-cpp code-clang-doc">void changeSection (const MCSection * CurSection, MCSection * Section, uint32_t SubSection, raw_ostream &amp; OS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Update streamer for a new active section.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is called by popSection and switchSection, if the current</p>
+                                        <p> section changes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 59 of file llvm/lib/MC/MCStreamer.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD21B6069D72B55ECEB77E952C4265CFA3DA8CCA">
+                                <pre><code class="language-cpp code-clang-doc">void emitValue (const MCExpr * Value)</code></pre>
+                                <p>Defined at line 70 of file llvm/lib/MC/MCStreamer.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="86B29ECCE0788B154D97599CF3F2414A166BF6E8">
+                                <pre><code class="language-cpp code-clang-doc">void emitRawBytes (StringRef Data)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit the bytes in </p>
+                                        <p> into the output.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is used to emit bytes in </p>
+                                        <p> as sequence of .byte directives.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 78 of file llvm/lib/MC/MCStreamer.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E1F871FBA6F14C22AA666EE8A4BD3805BD0E37FD">
+                                <pre><code class="language-cpp code-clang-doc">void emitConstantPools ()</code></pre>
+                                <p>Defined at line 57 of file llvm/lib/MC/MCStreamer.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F1A5391313301694853CD7695DA18B606DF7C0A7">
+                                <pre><code class="language-cpp code-clang-doc">void finish ()</code></pre>
+                                <p>Defined at line 55 of file llvm/lib/MC/MCStreamer.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

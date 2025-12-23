@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>XCOFFObjectFile</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">object</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class XCOFFObjectFile</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#InvalidRelocOffset">InvalidRelocOffset</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B4954CE3825D5F7E1C792DFB4223D960D747D28F">moveSymbolNext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CC4285C8C29B0A9B61E38B35737EDD4632F80C63">getSymbolFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0ACDA56D2167DDFB09F4CEDF9279537351FD9AC6">symbol_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B97E795291A786823E3F443581CB24932040EE2E">symbol_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#29959C3D969647A836006B019BAA9774DE5CFC8A">symbols</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#113C745BB82E603459B2DF5115437789169F4438">is64Bit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#757E42755D7742690B13CC43E779CD181EF632AA">getSymbolName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B29B71BC17DBFA5D104C5E55F80D623F86D45842">getSymbolAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5E49CFC68C8FB925B2A3923ADFBAA02D24547B72">getSymbolValueImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C65E0B715D0550745365B283633F315A69D5D3DC">getSymbolAlignment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9D0AA83C2876EF944CC8BB44E5D757AD559A6560">getCommonSymbolSizeImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E75E130BF7EA0CEBBCCA383302EC727F30C7F99E">getSymbolType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#95BEE7C51D59A0EFAB9C7B84E6FBEA75822468E2">getSymbolSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5095FC1EABBC06CD62B237A9F055976802529B8">moveSectionNext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9CED527176A507B66FFD511D62341646F5CEBC60">getSectionName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5277A5B7224A0F4CFC6EEAC36E563F93B890D44F">getSectionAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3C2AEB6771A855A4D66756E5C2FA596E29048C37">getSectionIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#107BF2221FC6C34473A9C776ADBC1EB41C362A3A">getSectionSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#51D2C3A8CF80CE8C1560ABCBD69E7084E1E5C3E9">getSectionContents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4D3DF545DB6F5AAAA06F6B4E48E34C4089B69A8E">getSectionAlignment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6FCB53AB365BF806D1ADCF16B3C6C81B9AFD2374">isSectionCompressed</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3DFB9D0513A7AD3B9738DE5C784265220AB54DDD">isSectionText</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4FF0E3C42836423E7B1F2359B6507C4414ADBDB0">isSectionData</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A273CB6A178DD8DA066C1FD0A5F8C25D26DE32EB">isSectionBSS</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#799C80ED3A8278EDCB9F249988A35CD01804072F">isDebugSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#136BC72B6A57DC2CC918C46CC664E50A53FD9EAC">isSectionVirtual</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D01B97C1569AC9099A2141540849C976F41521E6">section_rel_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9B742CE90BA8B38D4E7E2FAB3AFBA7B6DCB9B46F">section_rel_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#93460DC7D81C2A484946AFB03863355101D8D636">moveRelocationNext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FF2B141765BB14765F2B485FC74907AA2FE6E19F">getRelocationOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#83F7A6D208B6DCA7B33720CD354BC2B2BEBC93E2">getRelocationSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC2910381E61FA415722CC90C9FA1D65863AB03B">getRelocationType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B28D278AB3D8ABD404B639ABC4D775404A28960">getRelocationTypeName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#78BCA4F5F080FBCD788534F85F1A774552C1F07C">getPointerToSymbolTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23D33BA83D60F557C1E132701A9DBC8ABAAAFB6D">getSymbolByIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#618A66B302B43B57CC4EF509999C90DF19BEF83C">section_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1ED2A8EFA63D632BE64DCBA47E58AABB6606CEDC">section_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EA9BD393165E8DB59C09DB3BFD68653E9531560D">getBytesInAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#94D2E58562465CD196DED15849B21F0CD7B9BCD6">getFileFormatName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CC171D63D410774DBD88A72FC3B2C7797AF1ED1F">getArch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4930DF23724724E7955225783E9067C23D25432">getFeatures</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#14E44CB1B7CDEAA6EDF123DAC7AA1214E093BD52">getStartAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B94CFCD397733C3621216B1F7AEFCD799257151">mapDebugSectionName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE2DA925E20038903009AB4F4399A9CDCD20B78F">isRelocatableObject</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EFE5837349E54F6AD9A3AB88ED97E420F59F880D">getRawData</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D3247C43647853F7D63A1AA173CF017F9992CAD">auxiliaryHeader32</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#46951AF94A86715122C4563B636A3B0883B6B875">auxiliaryHeader64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#04B69DF9918D388B960194C919F6506001C24357">getSymbolSectionName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C85F941F331AAABCED33597273A2970C4B9EDB23">getSymbolSectionID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#783C534C681B00AD0795E4D375D24908DBED1846">toSymbolRef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#894FC91CA3A07475930BC67E37B24576567865EB">fileHeader32</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3EE7B85642537B101BC2FB19BFCF58D8428D6CE2">fileHeader64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5499C013BF2AAE06D388734B89FD1AB091901F7D">classof</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#636FA730C88430DBF61806A52AF75CE420903C7B">getMagic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#397F4A4CED8AC3A827976E51C2B05E512066EB9B">getNumberOfSections</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2B2FF12F01F1EC0850675B1CF08D590298053E5">getTimeStamp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F2DAC7006427E06DC60F8B7E7A3B6AB2E20C8384">getSymbolTableOffset32</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDAC2B3274983FE91D8D6B53BA81B1234759B2A4">getSymbolTableOffset64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC9777528CCD5FA396FBD80826D5CAB4B30E4831">getRawNumberOfSymbolTableEntries32</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FE73DC0665E9C0EAA501F85659A6659C252F7C56">getLogicalNumberOfSymbolTableEntries32</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ACBD80ACC5F2974ED8D16CFBFC13F8BD32830E3E">getNumberOfSymbolTableEntries64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#349572EAFA922251A720179AD5E8C4585D06A4B1">getNumberOfSymbolTableEntries</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1C233C73E6654B41B9BF9BB30E5D24EA2D67C452">getSymbolIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F56BE6F89727D4B28CF2E19C4082A6CC54C0103C">getSymbolSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9EE045E4DF3BDAB63DE0247D53D6EBCA0D1B9579">getSymbolEntryAddressByIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0BAD250F4F645F25E4C48BE3823BC45C018E8950">getSymbolNameByIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E9764FDE6C24458265EF0F8F9EB97877EA7CFBB0">getCFileName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CF5B38CD62006ADC33DBE84C922E1D50778E7784">getOptionalHeaderSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E83876D5695950331CC10B4CB1A9F335D4F09108">getFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8DFBE787089045BE96444226AFCE2449EF3A982E">sections32</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AFE815E7D1649D83F85CB3DB0BE24EDF08F8DCD4">sections64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#609284F6F29D8BF0FCF88D8FAC2D6D0852AF5B84">getSectionFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FC102AAA24F51B4875C5A4A79354B93C480136F7">getSectionByNum</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D7050B03418CC143EBE37616E24CD7D505755B9C">getSectionFileOffsetToRawData</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1BAD583FA24EFFAE6C9613BF178E72ECE9BB7BD9">checkSymbolEntryPointer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#890B5DF1EEE682C76F9F64ED152F770930E45066">getNumberOfRelocationEntries</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C5AAE40A479998CD46BF2C6821045CC8367A5EF9">relocations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#150C469569A62BCD8AA784DC189FF7668F31A400">getImportFileTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6565641C1F6068DA75AC2F321F9C555107E7D6EF">getExceptionEntries</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D4EC98313C70DDD28BBDCAFD02391DA5145A52CB">getStringTableEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AD427CF93DDE4EA61225972B209851A8BBB4CEA8">getStringTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7458C48D2461BAC22FE2327FBC70648426F40A5D">getSymbolAuxType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#80C01961C561A86930E84BDE82C60363EE6B3307">getAdvancedSymbolEntryAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#350030EBF34F7539D75213CDE1AF4AAC008E363F">tryGetCPUName</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class XCOFFObjectFile</h1>
+                        <p>Defined at line 538 of file llvm/include/llvm/Object/XCOFFObjectFile.h</p>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="InvalidRelocOffset" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static const uint64_t InvalidRelocOffset</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="B4954CE3825D5F7E1C792DFB4223D960D747D28F">
+                                <pre><code class="language-cpp code-clang-doc">void moveSymbolNext (DataRefImpl &amp; Symb)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Interface inherited from base classes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 216 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CC4285C8C29B0A9B61E38B35737EDD4632F80C63">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolFlags (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 654 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0ACDA56D2167DDFB09F4CEDF9279537351FD9AC6">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator symbol_begin ()</code></pre>
+                                <p>Defined at line 694 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B97E795291A786823E3F443581CB24932040EE2E">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator symbol_end ()</code></pre>
+                                <p>Defined at line 700 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="29959C3D969647A836006B019BAA9774DE5CFC8A">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range symbols ()</code></pre>
+                                <p>Defined at line 707 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="113C745BB82E603459B2DF5115437789169F4438">
+                                <pre><code class="language-cpp code-clang-doc">bool is64Bit ()</code></pre>
+                                <p>Defined at line 777 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="757E42755D7742690B13CC43E779CD181EF632AA">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolName (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 260 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B29B71BC17DBFA5D104C5E55F80D623F86D45842">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolAddress (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 264 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5E49CFC68C8FB925B2A3923ADFBAA02D24547B72">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSymbolValueImpl (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 268 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C65E0B715D0550745365B283633F315A69D5D3DC">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getSymbolAlignment (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 272 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9D0AA83C2876EF944CC8BB44E5D757AD559A6560">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getCommonSymbolSizeImpl (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 287 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E75E130BF7EA0CEBBCCA383302EC727F30C7F99E">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolType (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 305 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95BEE7C51D59A0EFAB9C7B84E6FBEA75822468E2">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolSection (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 358 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5095FC1EABBC06CD62B237A9F055976802529B8">
+                                <pre><code class="language-cpp code-clang-doc">void moveSectionNext (DataRefImpl &amp; Sec)</code></pre>
+                                <p>Defined at line 372 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9CED527176A507B66FFD511D62341646F5CEBC60">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSectionName (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 377 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5277A5B7224A0F4CFC6EEAC36E563F93B890D44F">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSectionAddress (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 381 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3C2AEB6771A855A4D66756E5C2FA596E29048C37">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSectionIndex (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 390 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="107BF2221FC6C34473A9C776ADBC1EB41C362A3A">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSectionSize (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 399 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="51D2C3A8CF80CE8C1560ABCBD69E7084E1E5C3E9">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSectionContents (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 408 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4D3DF545DB6F5AAAA06F6B4E48E34C4089B69A8E">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSectionAlignment (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 431 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6FCB53AB365BF806D1ADCF16B3C6C81B9AFD2374">
+                                <pre><code class="language-cpp code-clang-doc">bool isSectionCompressed (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 495 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3DFB9D0513A7AD3B9738DE5C784265220AB54DDD">
+                                <pre><code class="language-cpp code-clang-doc">bool isSectionText (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 499 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4FF0E3C42836423E7B1F2359B6507C4414ADBDB0">
+                                <pre><code class="language-cpp code-clang-doc">bool isSectionData (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 503 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A273CB6A178DD8DA066C1FD0A5F8C25D26DE32EB">
+                                <pre><code class="language-cpp code-clang-doc">bool isSectionBSS (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 508 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="799C80ED3A8278EDCB9F249988A35CD01804072F">
+                                <pre><code class="language-cpp code-clang-doc">bool isDebugSection (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 513 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="136BC72B6A57DC2CC918C46CC664E50A53FD9EAC">
+                                <pre><code class="language-cpp code-clang-doc">bool isSectionVirtual (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 518 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D01B97C1569AC9099A2141540849C976F41521E6">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator section_rel_begin (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 523 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9B742CE90BA8B38D4E7E2FAB3AFBA7B6DCB9B46F">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator section_rel_end (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 549 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="93460DC7D81C2A484946AFB03863355101D8D636">
+                                <pre><code class="language-cpp code-clang-doc">void moveRelocationNext (DataRefImpl &amp; Rel)</code></pre>
+                                <p>Defined at line 575 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF2B141765BB14765F2B485FC74907AA2FE6E19F">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getRelocationOffset (DataRefImpl Rel)</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 582 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="83F7A6D208B6DCA7B33720CD354BC2B2BEBC93E2">
+                                <pre><code class="language-cpp code-clang-doc">symbol_iterator getRelocationSymbol (DataRefImpl Rel)</code></pre>
+                                <p>Defined at line 615 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EC2910381E61FA415722CC90C9FA1D65863AB03B">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getRelocationType (DataRefImpl Rel)</code></pre>
+                                <p>Defined at line 635 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B28D278AB3D8ABD404B639ABC4D775404A28960">
+                                <pre><code class="language-cpp code-clang-doc">void getRelocationTypeName (DataRefImpl Rel, SmallVectorImpl&lt;char&gt; &amp; Result)</code></pre>
+                                <p>Defined at line 641 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="78BCA4F5F080FBCD788534F85F1A774552C1F07C">
+                                <pre><code class="language-cpp code-clang-doc">const void * getPointerToSymbolTable ()</code></pre>
+                                <p>Defined at line 656 of file llvm/include/llvm/Object/XCOFFObjectFile.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23D33BA83D60F557C1E132701A9DBC8ABAAAFB6D">
+                                <pre><code class="language-cpp code-clang-doc">uintptr_t getSymbolByIndex (uint32_t Idx)</code></pre>
+                                <p>Defined at line 689 of file llvm/include/llvm/Object/XCOFFObjectFile.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="618A66B302B43B57CC4EF509999C90DF19BEF83C">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator section_begin ()</code></pre>
+                                <p>Defined at line 711 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1ED2A8EFA63D632BE64DCBA47E58AABB6606CEDC">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator section_end ()</code></pre>
+                                <p>Defined at line 717 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EA9BD393165E8DB59C09DB3BFD68653E9531560D">
+                                <pre><code class="language-cpp code-clang-doc">uint8_t getBytesInAddress ()</code></pre>
+                                <p>Defined at line 724 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="94D2E58562465CD196DED15849B21F0CD7B9BCD6">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getFileFormatName ()</code></pre>
+                                <p>Defined at line 726 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CC171D63D410774DBD88A72FC3B2C7797AF1ED1F">
+                                <pre><code class="language-cpp code-clang-doc">ArchType getArch ()</code></pre>
+                                <p>Defined at line 730 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4930DF23724724E7955225783E9067C23D25432">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;SubtargetFeatures&gt; getFeatures ()</code></pre>
+                                <p>Defined at line 734 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="14E44CB1B7CDEAA6EDF123DAC7AA1214E093BD52">
+                                <pre><code class="language-cpp code-clang-doc">Expected getStartAddress ()</code></pre>
+                                <p>Defined at line 744 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B94CFCD397733C3621216B1F7AEFCD799257151">
+                                <pre><code class="language-cpp code-clang-doc">StringRef mapDebugSectionName (StringRef Name)</code></pre>
+                                <p>Defined at line 752 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE2DA925E20038903009AB4F4399A9CDCD20B78F">
+                                <pre><code class="language-cpp code-clang-doc">bool isRelocatableObject ()</code></pre>
+                                <p>Defined at line 738 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EFE5837349E54F6AD9A3AB88ED97E420F59F880D">
+                                <pre><code class="language-cpp code-clang-doc">Expected getRawData (const char * Start, uint64_t Size, StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Below here is the non-inherited interface.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 781 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3D3247C43647853F7D63A1AA173CF017F9992CAD">
+                                <pre><code class="language-cpp code-clang-doc">const XCOFFAuxiliaryHeader32 * auxiliaryHeader32 ()</code></pre>
+                                <p>Defined at line 190 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="46951AF94A86715122C4563B636A3B0883B6B875">
+                                <pre><code class="language-cpp code-clang-doc">const XCOFFAuxiliaryHeader64 * auxiliaryHeader64 ()</code></pre>
+                                <p>Defined at line 195 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="04B69DF9918D388B960194C919F6506001C24357">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolSectionName (XCOFFSymbolRef Ref)</code></pre>
+                                <p>Defined at line 826 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C85F941F331AAABCED33597273A2970C4B9EDB23">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSymbolSectionID (SymbolRef Sym)</code></pre>
+                                <p>Defined at line 846 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="783C534C681B00AD0795E4D375D24908DBED1846">
+                                <pre><code class="language-cpp code-clang-doc">XCOFFSymbolRef toSymbolRef (DataRefImpl Ref)</code></pre>
+                                <p>Defined at line 172 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="894FC91CA3A07475930BC67E37B24576567865EB">
+                                <pre><code class="language-cpp code-clang-doc">const XCOFFFileHeader32 * fileHeader32 ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> File header related interfaces.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 180 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3EE7B85642537B101BC2FB19BFCF58D8428D6CE2">
+                                <pre><code class="language-cpp code-clang-doc">const XCOFFFileHeader64 * fileHeader64 ()</code></pre>
+                                <p>Defined at line 185 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5499C013BF2AAE06D388734B89FD1AB091901F7D">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const Binary * B)</code></pre>
+                                <p>Defined at line 738 of file llvm/include/llvm/Object/XCOFFObjectFile.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="636FA730C88430DBF61806A52AF75CE420903C7B">
+                                <pre><code class="language-cpp code-clang-doc">uint16_t getMagic ()</code></pre>
+                                <p>Defined at line 794 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="397F4A4CED8AC3A827976E51C2B05E512066EB9B">
+                                <pre><code class="language-cpp code-clang-doc">uint16_t getNumberOfSections ()</code></pre>
+                                <p>Defined at line 855 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A2B2FF12F01F1EC0850675B1CF08D590298053E5">
+                                <pre><code class="language-cpp code-clang-doc">int32_t getTimeStamp ()</code></pre>
+                                <p>Defined at line 860 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F2DAC7006427E06DC60F8B7E7A3B6AB2E20C8384">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getSymbolTableOffset32 ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Symbol table offset and entry count are handled differently between</p>
+                                        <p> XCOFF32 and XCOFF64.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 869 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FDAC2B3274983FE91D8D6B53BA81B1234759B2A4">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSymbolTableOffset64 ()</code></pre>
+                                <p>Defined at line 886 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EC9777528CCD5FA396FBD80826D5CAB4B30E4831">
+                                <pre><code class="language-cpp code-clang-doc">int32_t getRawNumberOfSymbolTableEntries32 ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Note that this value is signed and might return a negative value. Negative</p>
+                                        <p> values are reserved for future use.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 873 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FE73DC0665E9C0EAA501F85659A6659C252F7C56">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getLogicalNumberOfSymbolTableEntries32 ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The sanitized value appropriate to use as an index into the symbol table.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 880 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ACBD80ACC5F2974ED8D16CFBFC13F8BD32830E3E">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getNumberOfSymbolTableEntries64 ()</code></pre>
+                                <p>Defined at line 890 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="349572EAFA922251A720179AD5E8C4585D06A4B1">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getNumberOfSymbolTableEntries ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return getLogicalNumberOfSymbolTableEntries32 or</p>
+                                        <p> getNumberOfSymbolTableEntries64 depending on the object mode.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 894 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1C233C73E6654B41B9BF9BB30E5D24EA2D67C452">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getSymbolIndex (uintptr_t SymEntPtr)</code></pre>
+                                <p>Defined at line 920 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F56BE6F89727D4B28CF2E19C4082A6CC54C0103C">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSymbolSize (DataRefImpl Symb)</code></pre>
+                                <p>Defined at line 926 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9EE045E4DF3BDAB63DE0247D53D6EBCA0D1B9579">
+                                <pre><code class="language-cpp code-clang-doc">uintptr_t getSymbolEntryAddressByIndex (uint32_t SymbolTableIndex)</code></pre>
+                                <p>Defined at line 945 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0BAD250F4F645F25E4C48BE3823BC45C018E8950">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolNameByIndex (uint32_t SymbolTableIndex)</code></pre>
+                                <p>Defined at line 950 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E9764FDE6C24458265EF0F8F9EB97877EA7CFBB0">
+                                <pre><code class="language-cpp code-clang-doc">Expected getCFileName (const XCOFFFileAuxEnt * CFileEntPtr)</code></pre>
+                                <p>Defined at line 253 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CF5B38CD62006ADC33DBE84C922E1D50778E7784">
+                                <pre><code class="language-cpp code-clang-doc">uint16_t getOptionalHeaderSize ()</code></pre>
+                                <p>Defined at line 864 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E83876D5695950331CC10B4CB1A9F335D4F09108">
+                                <pre><code class="language-cpp code-clang-doc">uint16_t getFlags ()</code></pre>
+                                <p>Defined at line 964 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8DFBE787089045BE96444226AFCE2449EF3A982E">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef sections32 ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Section header table related interfaces.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 992 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AFE815E7D1649D83F85CB3DB0BE24EDF08F8DCD4">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;XCOFFSectionHeader64&gt; sections64 ()</code></pre>
+                                <p>Defined at line 985 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="609284F6F29D8BF0FCF88D8FAC2D6D0852AF5B84">
+                                <pre><code class="language-cpp code-clang-doc">int32_t getSectionFlags (DataRefImpl Sec)</code></pre>
+                                <p>Defined at line 976 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FC102AAA24F51B4875C5A4A79354B93C480136F7">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;DataRefImpl&gt; getSectionByNum (int16_t Num)</code></pre>
+                                <p>Defined at line 798 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D7050B03418CC143EBE37616E24CD7D505755B9C">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSectionFileOffsetToRawData (SectionTypeFlags SectType)</code></pre>
+                                <p>Defined at line 448 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1BAD583FA24EFFAE6C9613BF178E72ECE9BB7BD9">
+                                <pre><code class="language-cpp code-clang-doc">void checkSymbolEntryPointer (uintptr_t SymbolEntPtr)</code></pre>
+                                <p>Defined at line 905 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="890B5DF1EEE682C76F9F64ED152F770930E45066">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">Expected getNumberOfRelocationEntries (const XCOFFSectionHeader&lt;T&gt; &amp; Sec)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> In an XCOFF32 file, when the field value is 65535, then an STYP_OVRFLO</p>
+                                        <p> section header contains the actual count of relocation entries in the s_paddr</p>
+                                        <p> field. STYP_OVRFLO headers contain the section index of their corresponding</p>
+                                        <p> sections as their raw &quot;NumberOfRelocations&quot; field value.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1004 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C5AAE40A479998CD46BF2C6821045CC8367A5EF9">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename Shdr, typename Reloc&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;ArrayRef&lt;Reloc&gt;&gt; relocations (const Shdr &amp; Sec)</code></pre>
+                                <p>Defined at line 1022 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="150C469569A62BCD8AA784DC189FF7668F31A400">
+                                <pre><code class="language-cpp code-clang-doc">Expected getImportFileTable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Loader section related interfaces.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1109 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6565641C1F6068DA75AC2F321F9C555107E7D6EF">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename ExceptEnt&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;ArrayRef&lt;ExceptEnt&gt;&gt; getExceptionEntries ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Exception-related interface.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1049 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D4EC98313C70DDD28BBDCAFD02391DA5145A52CB">
+                                <pre><code class="language-cpp code-clang-doc">Expected getStringTableEntry (uint32_t Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This function returns string table entry.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 228 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AD427CF93DDE4EA61225972B209851A8BBB4CEA8">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getStringTable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This function returns the string table.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 246 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7458C48D2461BAC22FE2327FBC70648426F40A5D">
+                                <pre><code class="language-cpp code-clang-doc">const XCOFF::SymbolAuxType * getSymbolAuxType (uintptr_t AuxEntryAddress)</code></pre>
+                                <p>Defined at line 133 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="80C01961C561A86930E84BDE82C60363EE6B3307">
+                                <pre><code class="language-cpp code-clang-doc">uintptr_t getAdvancedSymbolEntryAddress (uintptr_t CurrentAddress, uint32_t Distance)</code></pre>
+                                <p>Defined at line 127 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="350030EBF34F7539D75213CDE1AF4AAC008E363F">
+                                <pre><code class="language-cpp code-clang-doc">optional tryGetCPUName ()</code></pre>
+                                <p>Defined at line 1241 of file llvm/lib/Object/XCOFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

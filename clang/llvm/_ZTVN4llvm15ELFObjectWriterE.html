@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ELFObjectWriter</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ELFObjectWriter</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TargetObjectWriter">TargetObjectWriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#OS">OS</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DwoOS">DwoOS</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Relocations">Relocations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Renames">Renames</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Weakrefs">Weakrefs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#IsLittleEndian">IsLittleEndian</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SeenGnuAbi">SeenGnuAbi</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#OverrideABIVersion">OverrideABIVersion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Symvers">Symvers</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#907C1710DE5B956A5AA89C544117EF6E6EF91FF2">ELFObjectWriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4691F1E818CBFD9053073A2A711448812DAB6579">ELFObjectWriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FB47142D106B72D9E2D5D03648F4458409B1249B">ELFObjectWriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7DB643FD94435BE803299264590EAE3FFF0AA457">getELFHeaderEFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EB948CEBF734BDCF19A7C4347DF17F3F634339B1">setELFHeaderEFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B5F49E6851E777323D14831DCFD2A0DFAAC3DACE">markGnuAbi</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5359738C0C6AAF3164983E4B182641ABC4DCE8EC">seenGnuAbi</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2D0F7776BA6071A8C8CE3D2CFE0FE582C961E63">setOverrideABIVersion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AE5545931AA84400C6ED13683E2BAA9DAE49D42E">ELFObjectWriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E264F926D7D6E883115F6C695FC5FB9B0CB1C41D">reset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#16E330BFA353FC649D0B47DFDB774E2786FFD78B">setAssembler</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#09E6CBA97076914CEB5C5867784B39A8EEE824E5">executePostLayoutBinding</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C3420DBDA462F8FFB489CC2C0B89B4949869789">recordRelocation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E67C40E6E954E8235BDE30FA7DC767C33BBB7076">isSymbolRefDifferenceFullyResolvedImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#30BAD5E114F1CB535485C509DD5F7693B68AE9A3">writeObject</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#66F9FF42E8E9B479DC472F26A77A2BE10BECC300">hasRelocationAddend</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AFEE9330F678B68F3015866D7596CB8B658E1CF3">usesRela</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#75CF3FF86BE8FD74634DE11C41118EA6BD8EF7E3">useSectionSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#381FAC29F751677B70C9FDA206B094A7BF1D1D4F">checkRelocation</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ELFObjectWriter</h1>
+                        <p>Defined at line 142 of file llvm/include/llvm/MC/MCELFObjectWriter.h</p>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="TargetObjectWriter" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int TargetObjectWriter</code></pre>
+                        </div>
+                        <div id="OS" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >raw_pwrite_stream &amp; OS</code></pre>
+                        </div>
+                        <div id="DwoOS" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >raw_pwrite_stream * DwoOS</code></pre>
+                        </div>
+                        <div id="Relocations" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int Relocations</code></pre>
+                        </div>
+                        <div id="Renames" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int Renames</code></pre>
+                        </div>
+                        <div id="Weakrefs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector&lt;const MCSymbolELF *, 0&gt; Weakrefs</code></pre>
+                        </div>
+                        <div id="IsLittleEndian" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool IsLittleEndian</code></pre>
+                        </div>
+                        <div id="SeenGnuAbi" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool SeenGnuAbi</code></pre>
+                        </div>
+                        <div id="OverrideABIVersion" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >std::optional&lt;uint8_t&gt; OverrideABIVersion</code></pre>
+                        </div>
+                        <div id="Symvers" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector&lt;Symver, 0&gt; Symvers</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="907C1710DE5B956A5AA89C544117EF6E6EF91FF2">
+                                <pre><code class="language-cpp code-clang-doc">void ELFObjectWriter (int MOTW, raw_pwrite_stream &amp; OS, bool IsLittleEndian)</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4691F1E818CBFD9053073A2A711448812DAB6579">
+                                <pre><code class="language-cpp code-clang-doc">void ELFObjectWriter (unique_ptr MOTW, raw_pwrite_stream &amp; OS, bool IsLittleEndian)</code></pre>
+                                <p>Defined at line 1141 of file llvm/lib/MC/ELFObjectWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FB47142D106B72D9E2D5D03648F4458409B1249B">
+                                <pre><code class="language-cpp code-clang-doc">void ELFObjectWriter (int MOTW, raw_pwrite_stream &amp; OS, raw_pwrite_stream &amp; DwoOS, bool IsLittleEndian)</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7DB643FD94435BE803299264590EAE3FFF0AA457">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getELFHeaderEFlags ()</code></pre>
+                                <p>Defined at line 192 of file llvm/include/llvm/MC/MCELFObjectWriter.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EB948CEBF734BDCF19A7C4347DF17F3F634339B1">
+                                <pre><code class="language-cpp code-clang-doc">void setELFHeaderEFlags (unsigned int Flags)</code></pre>
+                                <p>Defined at line 193 of file llvm/include/llvm/MC/MCELFObjectWriter.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B5F49E6851E777323D14831DCFD2A0DFAAC3DACE">
+                                <pre><code class="language-cpp code-clang-doc">void markGnuAbi ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Mark that we have seen GNU ABI usage (e.g. SHF_GNU_RETAIN, STB_GNU_UNIQUE).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 196 of file llvm/include/llvm/MC/MCELFObjectWriter.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5359738C0C6AAF3164983E4B182641ABC4DCE8EC">
+                                <pre><code class="language-cpp code-clang-doc">bool seenGnuAbi ()</code></pre>
+                                <p>Defined at line 197 of file llvm/include/llvm/MC/MCELFObjectWriter.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A2D0F7776BA6071A8C8CE3D2CFE0FE582C961E63">
+                                <pre><code class="language-cpp code-clang-doc">void setOverrideABIVersion (uint8_t V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Override the default e_ident[EI_ABIVERSION] in the ELF header.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 200 of file llvm/include/llvm/MC/MCELFObjectWriter.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AE5545931AA84400C6ED13683E2BAA9DAE49D42E">
+                                <pre><code class="language-cpp code-clang-doc">void ELFObjectWriter (unique_ptr MOTW, raw_pwrite_stream &amp; OS, raw_pwrite_stream &amp; DwoOS, bool IsLittleEndian)</code></pre>
+                                <p>Defined at line 1145 of file llvm/lib/MC/ELFObjectWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E264F926D7D6E883115F6C695FC5FB9B0CB1C41D">
+                                <pre><code class="language-cpp code-clang-doc">void reset ()</code></pre>
+                                <p>Defined at line 1151 of file llvm/lib/MC/ELFObjectWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="16E330BFA353FC649D0B47DFDB774E2786FFD78B">
+                                <pre><code class="language-cpp code-clang-doc">void setAssembler (MCAssembler * Asm)</code></pre>
+                                <p>Defined at line 1163 of file llvm/lib/MC/ELFObjectWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="09E6CBA97076914CEB5C5867784B39A8EEE824E5">
+                                <pre><code class="language-cpp code-clang-doc">void executePostLayoutBinding ()</code></pre>
+                                <p>Defined at line 1172 of file llvm/lib/MC/ELFObjectWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C3420DBDA462F8FFB489CC2C0B89B4949869789">
+                                <pre><code class="language-cpp code-clang-doc">void recordRelocation (const MCFragment &amp; F, const MCFixup &amp; Fixup, MCValue Target, uint64_t &amp; FixedValue)</code></pre>
+                                <p>Defined at line 1313 of file llvm/lib/MC/ELFObjectWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E67C40E6E954E8235BDE30FA7DC767C33BBB7076">
+                                <pre><code class="language-cpp code-clang-doc">bool isSymbolRefDifferenceFullyResolvedImpl (const MCSymbol &amp; SymA, const MCFragment &amp; FB, bool InSet, bool IsPCRel)</code></pre>
+                                <p>Defined at line 1384 of file llvm/lib/MC/ELFObjectWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="30BAD5E114F1CB535485C509DD5F7693B68AE9A3">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t writeObject ()</code></pre>
+                                <p>Defined at line 1396 of file llvm/lib/MC/ELFObjectWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="66F9FF42E8E9B479DC472F26A77A2BE10BECC300">
+                                <pre><code class="language-cpp code-clang-doc">bool hasRelocationAddend ()</code></pre>
+                                <p>Defined at line 1168 of file llvm/lib/MC/ELFObjectWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AFEE9330F678B68F3015866D7596CB8B658E1CF3">
+                                <pre><code class="language-cpp code-clang-doc">bool usesRela (const MCTargetOptions * TO, const MCSectionELF &amp; Sec)</code></pre>
+                                <p>Defined at line 1377 of file llvm/lib/MC/ELFObjectWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="75CF3FF86BE8FD74634DE11C41118EA6BD8EF7E3">
+                                <pre><code class="language-cpp code-clang-doc">bool useSectionSymbol (const MCValue &amp; Val, const MCSymbolELF * Sym, uint64_t C, unsigned int Type)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> It is always valid to create a relocation with a symbol. It is preferable</p>
+                                        <p> to use a relocation with a section if that is possible. Using the section</p>
+                                        <p> allows us to omit some local symbols from the symbol table.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1247 of file llvm/lib/MC/ELFObjectWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="381FAC29F751677B70C9FDA206B094A7BF1D1D4F">
+                                <pre><code class="language-cpp code-clang-doc">bool checkRelocation (SMLoc Loc, const MCSectionELF * From, const MCSectionELF * To)</code></pre>
+                                <p>Defined at line 1299 of file llvm/lib/MC/ELFObjectWriter.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

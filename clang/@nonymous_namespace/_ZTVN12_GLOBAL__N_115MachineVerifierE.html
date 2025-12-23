@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MachineVerifier</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct MachineVerifier</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MFAM">MFAM</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#PASS">PASS</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#OS">OS</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Banner">Banner</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MF">MF</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TM">TM</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TII">TII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TRI">TRI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MRI">MRI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#RBI">RBI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isFunctionRegBankSelected">isFunctionRegBankSelected</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isFunctionSelected">isFunctionSelected</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isFunctionTracksDebugUserValues">isFunctionTracksDebugUserValues</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FirstNonPHI">FirstNonPHI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FirstTerminator">FirstTerminator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FunctionBlocks">FunctionBlocks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#regsReserved">regsReserved</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#regsLive">regsLive</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#regsDefined">regsDefined</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#regsDead">regsDead</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#regsKilled">regsKilled</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#regMasks">regMasks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#lastIndex">lastIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MBBInfoMap">MBBInfoMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LiveVars">LiveVars</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LiveInts">LiveInts</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LiveStks">LiveStks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Indexes">Indexes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ReportedErrs">ReportedErrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DT">DT</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#574508A61FAB76FE46FFFC2B86A2EB13EE522D3F">MachineVerifier</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8D6626CA8893673D780614D2657A0761975DC818">MachineVerifier</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A39248590182D5DE0FC6698E8E984F5622982437">MachineVerifier</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3AFD687C5545626D86A6C46A11A4CE246885609A">addRegWithSubRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#06CF25ECA611E54F28B7F89C495085BE90B890C5">isReserved</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#87D734405EA8678988112C1674192A600C8E8606">isAllocatable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#00A1C189F85ECA4501379C855789A0B9D79D3473">verify</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6479515FFFC93676478D1972019B30B640507673">visitMachineFunctionBefore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E4133E88FCC9E709947B9B6264BB54F6F356F45">visitMachineBasicBlockBefore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#307B2DB393AFE150A7F275A5A00B069E58A433CE">visitMachineBundleBefore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B8C890F9B5B00199ECD6C0C56CF745418159122E">verifyAllRegOpsScalar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0CA08A4C88F3B370175B135BAB406995FF316763">verifyVectorElementMatch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AF0AB9F7FD1156577611A05812D7DAB352EE35BC">verifyGIntrinsicSideEffects</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3792A588BED301BF0F2A4F713B1946A55D643A0">verifyGIntrinsicConvergence</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4A3519EB181661D556E3D30BC046988D15A1F6C3">verifyPreISelGenericInstruction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5DA56F29C02787D371F4D2232561F61043CEA5FE">visitMachineInstrBefore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#95451800DE55EE6189303E39ACB710C6EE42002C">visitMachineOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BC6F1A906D476C12EA746C64760ADF014B17A804">visitMachineBundleAfter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#732EB9421FB1260F9DE560CF35B286BBE341133F">visitMachineBasicBlockAfter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5D1F02E02DC39A8D358917BB89FE9F1E5E77EF8B">visitMachineFunctionAfter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4BED0ECFCE8F95F6442CF8C36F6A2DC0B889F87E">report</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#857BD13411552522C35DEEBDC394765171365EC1">report</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2178C50010AAA1C1F70A1A0ABB2638FCBF790EC3">report</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#42DCBAF6D2ECFC12EFCA61FA657E983402DBAE61">report</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#636ACD3F161DEC4272E68C7E6D4C01414A332E23">report</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E359CE023642104A92BE85E9C142A95C0352D2F">report_context</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F8EDDB72F72E87A9E2A77FE319717543350463D6">report_context</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E36168BF0807D5E51ED12CF9778455F97D6F714">report_context</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D7E1EBFDDDB391A5736B659B15EC6AE59C3196D">report_context</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A2E7DFFB0FD24E510E52F873E62705CF1ECCCFA">report_context</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C53F5BA19BFC8D9637EA15F2A49E9798FCBEB983">report_context</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72E67F2921807DCE55CE721A180A96CBF86CF418">report_context_liverange</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AFB73937308FEC2A674E41D44BDBFC25C977DCE8">report_context_lanemask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#958ADF6561B9A708994A8D55BAE23698DBB25F2F">report_context_vreg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B586D8EA68C52B65C148C3169E80CBF7DFE9362D">report_context_vreg_regunit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23BEAD218353952FCBF37A5724049F3A93AB664C">verifyInlineAsm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F3171B28E943B6C348E19DA5EEB22675D2CC8AC6">checkLiveness</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BC0422F5D6865D90A842C4732E8F1C05731AFF63">checkLivenessAtUse</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#37EEC9051A2A1722584E13925F8BD9AC799FF97C">checkLivenessAtDef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7942B06FBEAFE615EA0A6C85B49F36BAB8F851F8">markReachable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3EA16C6322A22404F882F85C202A894E26C6F126">calcRegsPassed</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#374AD8DB385ED97A3AD349B72C7A2FC7639E98C3">checkPHIOps</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7DACBA4E03D61DCFACA722ABE2C40CA4A89B79AC">calcRegsRequired</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB98A5CD8AC7FE194A7F286C346C9418549A0CBE">verifyLiveVariables</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#30919D3167A14CA0F315FC976274184E3F1244EF">verifyLiveIntervals</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0D7E8C4CE5B73EE959D4C8A8706C3A88D6A122DA">verifyLiveInterval</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44A3F281FB9AD07878BC0796DE5BBD10CFFFCCF0">verifyLiveRangeValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FBAEE2E4591685A209B5055477F57025C2E20E63">verifyLiveRangeSegment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#39CCF7228500B6B0BED3293C5E3876B8C50FD138">verifyLiveRange</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FBE4691693749A16B320B04B01E7C8E1B9650B4D">verifyStackFrame</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDC302ED9B2AF274F127E9D75ED136040CACB2AB">verifyStackProtector</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDBA2F0DE14177EF49937BB4742889A25A466212">verifySlotIndexes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1FE991FB1C3D479C076C1D188F00F9EEF6EBA4C3">verifyProperties</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct MachineVerifier</h1>
+                        <p>Defined at line 102 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="MFAM" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >MachineFunctionAnalysisManager * MFAM</code></pre>
+                        </div>
+                        <div id="PASS" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Pass *const PASS</code></pre>
+                        </div>
+                        <div id="OS" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >raw_ostream &amp; OS</code></pre>
+                        </div>
+                        <div id="Banner" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const char * Banner</code></pre>
+                        </div>
+                        <div id="MF" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const MachineFunction * MF</code></pre>
+                        </div>
+                        <div id="TM" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetMachine * TM</code></pre>
+                        </div>
+                        <div id="TII" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetInstrInfo * TII</code></pre>
+                        </div>
+                        <div id="TRI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetRegisterInfo * TRI</code></pre>
+                        </div>
+                        <div id="MRI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const MachineRegisterInfo * MRI</code></pre>
+                        </div>
+                        <div id="RBI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const RegisterBankInfo * RBI</code></pre>
+                        </div>
+                        <div id="isFunctionRegBankSelected" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isFunctionRegBankSelected</code></pre>
+                        </div>
+                        <div id="isFunctionSelected" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isFunctionSelected</code></pre>
+                        </div>
+                        <div id="isFunctionTracksDebugUserValues" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isFunctionTracksDebugUserValues</code></pre>
+                        </div>
+                        <div id="FirstNonPHI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const MachineInstr * FirstNonPHI</code></pre>
+                        </div>
+                        <div id="FirstTerminator" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const MachineInstr * FirstTerminator</code></pre>
+                        </div>
+                        <div id="FunctionBlocks" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >BlockSet FunctionBlocks</code></pre>
+                        </div>
+                        <div id="regsReserved" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >BitVector regsReserved</code></pre>
+                        </div>
+                        <div id="regsLive" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int regsLive</code></pre>
+                        </div>
+                        <div id="regsDefined" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >RegVector regsDefined</code></pre>
+                        </div>
+                        <div id="regsDead" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >RegVector regsDead</code></pre>
+                        </div>
+                        <div id="regsKilled" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >RegVector regsKilled</code></pre>
+                        </div>
+                        <div id="regMasks" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >RegMaskVector regMasks</code></pre>
+                        </div>
+                        <div id="lastIndex" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SlotIndex lastIndex</code></pre>
+                        </div>
+                        <div id="MBBInfoMap" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int MBBInfoMap</code></pre>
+                        </div>
+                        <div id="LiveVars" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LiveVariables * LiveVars</code></pre>
+                        </div>
+                        <div id="LiveInts" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LiveIntervals * LiveInts</code></pre>
+                        </div>
+                        <div id="LiveStks" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LiveStacks * LiveStks</code></pre>
+                        </div>
+                        <div id="Indexes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SlotIndexes * Indexes</code></pre>
+                        </div>
+                        <div id="ReportedErrs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >ReportedErrors ReportedErrs</code></pre>
+                        </div>
+                        <div id="DT" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >MachineDominatorTree DT</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="574508A61FAB76FE46FFFC2B86A2EB13EE522D3F">
+                                <pre><code class="language-cpp code-clang-doc">void MachineVerifier (MachineFunctionAnalysisManager &amp; MFAM, const char * b, raw_ostream * OS, bool AbortOnError)</code></pre>
+                                <p>Defined at line 103 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8D6626CA8893673D780614D2657A0761975DC818">
+                                <pre><code class="language-cpp code-clang-doc">void MachineVerifier (Pass * pass, const char * b, raw_ostream * OS, bool AbortOnError)</code></pre>
+                                <p>Defined at line 108 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A39248590182D5DE0FC6698E8E984F5622982437">
+                                <pre><code class="language-cpp code-clang-doc">void MachineVerifier (const char * b, LiveVariables * LiveVars, LiveIntervals * LiveInts, LiveStacks * LiveStks, SlotIndexes * Indexes, raw_ostream * OS, bool AbortOnError)</code></pre>
+                                <p>Defined at line 113 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3AFD687C5545626D86A6C46A11A4CE246885609A">
+                                <pre><code class="language-cpp code-clang-doc">void addRegWithSubRegs (RegVector &amp; RV, Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add Reg and any sub-registers to RV</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 158 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="06CF25ECA611E54F28B7F89C495085BE90B890C5">
+                                <pre><code class="language-cpp code-clang-doc">bool isReserved (Register Reg)</code></pre>
+                                <p>Defined at line 229 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="87D734405EA8678988112C1674192A600C8E8606">
+                                <pre><code class="language-cpp code-clang-doc">bool isAllocatable (Register Reg)</code></pre>
+                                <p>Defined at line 233 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="00A1C189F85ECA4501379C855789A0B9D79D3473">
+                                <pre><code class="language-cpp code-clang-doc">bool verify (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 467 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6479515FFFC93676478D1972019B30B640507673">
+                                <pre><code class="language-cpp code-clang-doc">void visitMachineFunctionBefore ()</code></pre>
+                                <p>Defined at line 690 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E4133E88FCC9E709947B9B6264BB54F6F356F45">
+                                <pre><code class="language-cpp code-clang-doc">void visitMachineBasicBlockBefore (const MachineBasicBlock * MBB)</code></pre>
+                                <p>Defined at line 722 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="307B2DB393AFE150A7F275A5A00B069E58A433CE">
+                                <pre><code class="language-cpp code-clang-doc">void visitMachineBundleBefore (const MachineInstr * MI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This function gets called for all bundle headers, including normal</p>
+                                        <p> stand-alone unbundled instructions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 920 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B8C890F9B5B00199ECD6C0C56CF745418159122E">
+                                <pre><code class="language-cpp code-clang-doc">bool verifyAllRegOpsScalar (const MachineInstr &amp; MI, const MachineRegisterInfo &amp; MRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Verify that all of </p>
+                                        <p> virtual register operands are scalars.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1018 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0CA08A4C88F3B370175B135BAB406995FF316763">
+                                <pre><code class="language-cpp code-clang-doc">bool verifyVectorElementMatch (LLT Ty0, LLT Ty1, const MachineInstr * MI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check that types are consistent when two operands need to have the same</p>
+                                        <p> number of vector elements.</p>
+                                    </div>
+                                    <h3>Returns</h3>
+                                    <p> true if the types are valid.</p>
+                                </div>
+                                <p>Defined at line 1036 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AF0AB9F7FD1156577611A05812D7DAB352EE35BC">
+                                <pre><code class="language-cpp code-clang-doc">bool verifyGIntrinsicSideEffects (const MachineInstr * MI)</code></pre>
+                                <p>Defined at line 1056 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C3792A588BED301BF0F2A4F713B1946A55D643A0">
+                                <pre><code class="language-cpp code-clang-doc">bool verifyGIntrinsicConvergence (const MachineInstr * MI)</code></pre>
+                                <p>Defined at line 1080 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4A3519EB181661D556E3D30BC046988D15A1F6C3">
+                                <pre><code class="language-cpp code-clang-doc">void verifyPreISelGenericInstruction (const MachineInstr * MI)</code></pre>
+                                <p>Defined at line 1105 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5DA56F29C02787D371F4D2232561F61043CEA5FE">
+                                <pre><code class="language-cpp code-clang-doc">void visitMachineInstrBefore (const MachineInstr * MI)</code></pre>
+                                <p>Defined at line 2294 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95451800DE55EE6189303E39ACB710C6EE42002C">
+                                <pre><code class="language-cpp code-clang-doc">void visitMachineOperand (const MachineOperand * MO, unsigned int MONum)</code></pre>
+                                <p>Defined at line 2571 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BC6F1A906D476C12EA746C64760ADF014B17A804">
+                                <pre><code class="language-cpp code-clang-doc">void visitMachineBundleAfter (const MachineInstr * MI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This function gets called after visiting all instructions in a bundle. The</p>
+                                        <p> argument points to the bundle header.</p>
+                                        <p> Normal stand-alone instructions are also considered &#39;bundles&#39;, and this</p>
+                                        <p> function is called for all of them.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3189 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="732EB9421FB1260F9DE560CF35B286BBE341133F">
+                                <pre><code class="language-cpp code-clang-doc">void visitMachineBasicBlockAfter (const MachineBasicBlock * MBB)</code></pre>
+                                <p>Defined at line 3205 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5D1F02E02DC39A8D358917BB89FE9F1E5E77EF8B">
+                                <pre><code class="language-cpp code-clang-doc">void visitMachineFunctionAfter ()</code></pre>
+                                <p>Defined at line 3487 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4BED0ECFCE8F95F6442CF8C36F6A2DC0B889F87E">
+                                <pre><code class="language-cpp code-clang-doc">void report (const char * msg, const MachineFunction * MF)</code></pre>
+                                <p>Defined at line 580 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="857BD13411552522C35DEEBDC394765171365EC1">
+                                <pre><code class="language-cpp code-clang-doc">void report (const char * msg, const MachineBasicBlock * MBB)</code></pre>
+                                <p>Defined at line 597 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2178C50010AAA1C1F70A1A0ABB2638FCBF790EC3">
+                                <pre><code class="language-cpp code-clang-doc">void report (const char * msg, const MachineInstr * MI)</code></pre>
+                                <p>Defined at line 608 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="42DCBAF6D2ECFC12EFCA61FA657E983402DBAE61">
+                                <pre><code class="language-cpp code-clang-doc">void report (const char * msg, const MachineOperand * MO, unsigned int MONum, LLT MOVRegType)</code></pre>
+                                <p>Defined at line 617 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="636ACD3F161DEC4272E68C7E6D4C01414A332E23">
+                                <pre><code class="language-cpp code-clang-doc">void report (const Twine &amp; Msg, const MachineInstr * MI)</code></pre>
+                                <p>Defined at line 626 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E359CE023642104A92BE85E9C142A95C0352D2F">
+                                <pre><code class="language-cpp code-clang-doc">void report_context (const LiveInterval &amp; LI)</code></pre>
+                                <p>Defined at line 634 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F8EDDB72F72E87A9E2A77FE319717543350463D6">
+                                <pre><code class="language-cpp code-clang-doc">void report_context (const LiveRange &amp; LR, VirtRegOrUnit VRegOrUnit, LaneBitmask LaneMask)</code></pre>
+                                <p>Defined at line 638 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E36168BF0807D5E51ED12CF9778455F97D6F714">
+                                <pre><code class="language-cpp code-clang-doc">void report_context (const LiveRange::Segment &amp; S)</code></pre>
+                                <p>Defined at line 647 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D7E1EBFDDDB391A5736B659B15EC6AE59C3196D">
+                                <pre><code class="language-cpp code-clang-doc">void report_context (const VNInfo &amp; VNI)</code></pre>
+                                <p>Defined at line 651 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A2E7DFFB0FD24E510E52F873E62705CF1ECCCFA">
+                                <pre><code class="language-cpp code-clang-doc">void report_context (SlotIndex Pos)</code></pre>
+                                <p>Defined at line 630 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C53F5BA19BFC8D9637EA15F2A49E9798FCBEB983">
+                                <pre><code class="language-cpp code-clang-doc">void report_context (MCPhysReg PhysReg)</code></pre>
+                                <p>Defined at line 659 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72E67F2921807DCE55CE721A180A96CBF86CF418">
+                                <pre><code class="language-cpp code-clang-doc">void report_context_liverange (const LiveRange &amp; LR)</code></pre>
+                                <p>Defined at line 655 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AFB73937308FEC2A674E41D44BDBFC25C977DCE8">
+                                <pre><code class="language-cpp code-clang-doc">void report_context_lanemask (LaneBitmask LaneMask)</code></pre>
+                                <p>Defined at line 677 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="958ADF6561B9A708994A8D55BAE23698DBB25F2F">
+                                <pre><code class="language-cpp code-clang-doc">void report_context_vreg (Register VReg)</code></pre>
+                                <p>Defined at line 663 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B586D8EA68C52B65C148C3169E80CBF7DFE9362D">
+                                <pre><code class="language-cpp code-clang-doc">void report_context_vreg_regunit (VirtRegOrUnit VRegOrUnit)</code></pre>
+                                <p>Defined at line 667 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23BEAD218353952FCBF37A5724049F3A93AB664C">
+                                <pre><code class="language-cpp code-clang-doc">void verifyInlineAsm (const MachineInstr * MI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The operands on an INLINEASM instruction must follow a template.</p>
+                                        <p> Verify that the flag operands make sense.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 946 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F3171B28E943B6C348E19DA5EEB22675D2CC8AC6">
+                                <pre><code class="language-cpp code-clang-doc">void checkLiveness (const MachineOperand * MO, unsigned int MONum)</code></pre>
+                                <p>Defined at line 3010 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BC0422F5D6865D90A842C4732E8F1C05731AFF63">
+                                <pre><code class="language-cpp code-clang-doc">void checkLivenessAtUse (const MachineOperand * MO, unsigned int MONum, SlotIndex UseIdx, const LiveRange &amp; LR, VirtRegOrUnit VRegOrUnit, LaneBitmask LaneMask)</code></pre>
+                                <p>Defined at line 2910 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="37EEC9051A2A1722584E13925F8BD9AC799FF97C">
+                                <pre><code class="language-cpp code-clang-doc">void checkLivenessAtDef (const MachineOperand * MO, unsigned int MONum, SlotIndex DefIdx, const LiveRange &amp; LR, VirtRegOrUnit VRegOrUnit, bool SubRangeCheck, LaneBitmask LaneMask)</code></pre>
+                                <p>Defined at line 2945 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7942B06FBEAFE615EA0A6C85B49F36BAB8F851F8">
+                                <pre><code class="language-cpp code-clang-doc">void markReachable (const MachineBasicBlock * MBB)</code></pre>
+                                <p>Defined at line 681 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3EA16C6322A22404F882F85C202A894E26C6F126">
+                                <pre><code class="language-cpp code-clang-doc">void calcRegsPassed ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Calculate the largest possible vregsPassed sets. These are the registers that</p>
+                                        <p> can pass through an MBB live, but may not be live every time. It is assumed</p>
+                                        <p> that all vregsPassed sets are empty before the call.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3327 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="374AD8DB385ED97A3AD349B72C7A2FC7639E98C3">
+                                <pre><code class="language-cpp code-clang-doc">void checkPHIOps (const MachineBasicBlock &amp; MBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check PHI instructions at the beginning of MBB. It is assumed that</p>
+                                        <p> calcRegsPassed has been run so BBInfo::isLiveOut is valid.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3403 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7DACBA4E03D61DCFACA722ABE2C40CA4A89B79AC">
+                                <pre><code class="language-cpp code-clang-doc">void calcRegsRequired ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Calculate the set of virtual registers that must be passed through each basic</p>
+                                        <p> block in order to satisfy the requirements of successor blocks. This is very</p>
+                                        <p> similar to calcRegsPassed, only backwards.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3356 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB98A5CD8AC7FE194A7F286C346C9418549A0CBE">
+                                <pre><code class="language-cpp code-clang-doc">void verifyLiveVariables ()</code></pre>
+                                <p>Defined at line 3570 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="30919D3167A14CA0F315FC976274184E3F1244EF">
+                                <pre><code class="language-cpp code-clang-doc">void verifyLiveIntervals ()</code></pre>
+                                <p>Defined at line 3596 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0D7E8C4CE5B73EE959D4C8A8706C3A88D6A122DA">
+                                <pre><code class="language-cpp code-clang-doc">void verifyLiveInterval (const LiveInterval &amp; )</code></pre>
+                                <p>Defined at line 3949 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44A3F281FB9AD07878BC0796DE5BBD10CFFFCCF0">
+                                <pre><code class="language-cpp code-clang-doc">void verifyLiveRangeValue (const LiveRange &amp; , const VNInfo * , VirtRegOrUnit , LaneBitmask )</code></pre>
+                                <p>Defined at line 3622 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FBAEE2E4591685A209B5055477F57025C2E20E63">
+                                <pre><code class="language-cpp code-clang-doc">void verifyLiveRangeSegment (const LiveRange &amp; , const int I, VirtRegOrUnit , LaneBitmask )</code></pre>
+                                <p>Defined at line 3713 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="39CCF7228500B6B0BED3293C5E3876B8C50FD138">
+                                <pre><code class="language-cpp code-clang-doc">void verifyLiveRange (const LiveRange &amp; , VirtRegOrUnit , LaneBitmask LaneMask)</code></pre>
+                                <p>Defined at line 3939 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FBE4691693749A16B320B04B01E7C8E1B9650B4D">
+                                <pre><code class="language-cpp code-clang-doc">void verifyStackFrame ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Make sure on every path through the CFG, a FrameSetup </p>
+                                        <p>&lt;n</p>
+                                        <p>&gt; is always followed</p>
+                                        <p> by a FrameDestroy </p>
+                                        <p>&lt;n</p>
+                                        <p>&gt;, stack adjustments are identical on all</p>
+                                        <p> CFG edges to a merge point, and frame is destroyed at end of a return block.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4019 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FDC302ED9B2AF274F127E9D75ED136040CACB2AB">
+                                <pre><code class="language-cpp code-clang-doc">void verifyStackProtector ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check that the stack protector is the top-most object in the stack.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4129 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FDBA2F0DE14177EF49937BB4742889A25A466212">
+                                <pre><code class="language-cpp code-clang-doc">void verifySlotIndexes ()</code></pre>
+                                <p>Defined at line 446 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1FE991FB1C3D479C076C1D188F00F9EEF6EBA4C3">
+                                <pre><code class="language-cpp code-clang-doc">void verifyProperties (const MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 459 of file llvm/lib/CodeGen/MachineVerifier.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

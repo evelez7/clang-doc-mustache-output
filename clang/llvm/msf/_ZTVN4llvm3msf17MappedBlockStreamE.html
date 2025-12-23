@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MappedBlockStream</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">msf</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MappedBlockStream</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CA3FA4A7CAD3A3DA4E5398E893912EA54E1075B2">createStream</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#64E2FF46885F59EAEDA887BC742A8F83E62F52F0">createIndexedStream</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4CAF1FD9CE01FE8EAE724644C8626055352276E">getEndian</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6DE635051C9391EDAE10AB490DD99C6BF6D0635">createFpmStream</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#704A192945CF526BC47E8799FBAC65E4AF57F66B">createDirectoryStream</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#454FB1503BD3424ED5DF705CD6C40B4ED44C2278">getAllocator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E14392563CD8980D13738D56305FC10879FD225">getBlockSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#78F6DE93E899AD23BB6FD964F088233C036857C9">getNumBlocks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F2CBEE998D5C90886AA254722B5EE3D963C92533">getStreamLength</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#565876694A5851FB0A66495ABC133551BFCA785E">readBytes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#279665E2783A9212DD661E6EA57ECD525C7A632B">readLongestContiguousChunk</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79500068CE4C40B012FDF050674A7029984BC415">getLength</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F0A345170762578515C0D2B4C693EE979D4A240A">invalidateCache</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MappedBlockStream</h1>
+                        <p>Defined at line 38 of file llvm/include/llvm/DebugInfo/MSF/MappedBlockStream.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> MappedBlockStream represents data stored in an MSF file into chunks of a</p>
+                                <p> particular size (called the Block Size), and whose chunks may not be</p>
+                                <p> necessarily contiguous.  The arrangement of these chunks MSF the file</p>
+                                <p> is described by some other metadata contained within the MSF file.  In</p>
+                                <p> the case of a standard MSF Stream, the layout of the stream&#39;s blocks</p>
+                                <p> is described by the MSF &quot;directory&quot;, but in the case of the directory</p>
+                                <p> itself, the layout is described by an array at a fixed location within</p>
+                                <p> the MSF.  MappedBlockStream provides methods for reading from and writing</p>
+                                <p> to one of these streams transparently, as if it were a contiguous sequence</p>
+                                <p> of bytes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="CA3FA4A7CAD3A3DA4E5398E893912EA54E1075B2">
+                                <pre><code class="language-cpp code-clang-doc">unique_ptr createStream (uint32_t BlockSize, const MSFStreamLayout &amp; Layout, BinaryStreamRef MsfData, BumpPtrAllocator &amp; Allocator)</code></pre>
+                                <p>Defined at line 50 of file llvm/lib/DebugInfo/MSF/MappedBlockStream.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="64E2FF46885F59EAEDA887BC742A8F83E62F52F0">
+                                <pre><code class="language-cpp code-clang-doc">unique_ptr createIndexedStream (const MSFLayout &amp; Layout, BinaryStreamRef MsfData, uint32_t StreamIndex, BumpPtrAllocator &amp; Allocator)</code></pre>
+                                <p>Defined at line 57 of file llvm/lib/DebugInfo/MSF/MappedBlockStream.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4CAF1FD9CE01FE8EAE724644C8626055352276E">
+                                <pre><code class="language-cpp code-clang-doc">endianness getEndian ()</code></pre>
+                                <p>Defined at line 58 of file llvm/include/llvm/DebugInfo/MSF/MappedBlockStream.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F6DE635051C9391EDAE10AB490DD99C6BF6D0635">
+                                <pre><code class="language-cpp code-clang-doc">unique_ptr createFpmStream (const MSFLayout &amp; Layout, BinaryStreamRef MsfData, BumpPtrAllocator &amp; Allocator)</code></pre>
+                                <p>Defined at line 78 of file llvm/lib/DebugInfo/MSF/MappedBlockStream.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="704A192945CF526BC47E8799FBAC65E4AF57F66B">
+                                <pre><code class="language-cpp code-clang-doc">unique_ptr createDirectoryStream (const MSFLayout &amp; Layout, BinaryStreamRef MsfData, BumpPtrAllocator &amp; Allocator)</code></pre>
+                                <p>Defined at line 68 of file llvm/lib/DebugInfo/MSF/MappedBlockStream.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="454FB1503BD3424ED5DF705CD6C40B4ED44C2278">
+                                <pre><code class="language-cpp code-clang-doc">BumpPtrAllocator &amp; getAllocator ()</code></pre>
+                                <p>Defined at line 69 of file llvm/include/llvm/DebugInfo/MSF/MappedBlockStream.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E14392563CD8980D13738D56305FC10879FD225">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getBlockSize ()</code></pre>
+                                <p>Defined at line 73 of file llvm/include/llvm/DebugInfo/MSF/MappedBlockStream.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="78F6DE93E899AD23BB6FD964F088233C036857C9">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getNumBlocks ()</code></pre>
+                                <p>Defined at line 74 of file llvm/include/llvm/DebugInfo/MSF/MappedBlockStream.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F2CBEE998D5C90886AA254722B5EE3D963C92533">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getStreamLength ()</code></pre>
+                                <p>Defined at line 75 of file llvm/include/llvm/DebugInfo/MSF/MappedBlockStream.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="565876694A5851FB0A66495ABC133551BFCA785E">
+                                <pre><code class="language-cpp code-clang-doc">Error readBytes (uint64_t Offset, uint64_t Size, ArrayRef&lt;uint8_t&gt; &amp; Buffer)</code></pre>
+                                <p>Defined at line 86 of file llvm/lib/DebugInfo/MSF/MappedBlockStream.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="279665E2783A9212DD661E6EA57ECD525C7A632B">
+                                <pre><code class="language-cpp code-clang-doc">Error readLongestContiguousChunk (uint64_t Offset, ArrayRef&lt;uint8_t&gt; &amp; Buffer)</code></pre>
+                                <p>Defined at line 164 of file llvm/lib/DebugInfo/MSF/MappedBlockStream.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79500068CE4C40B012FDF050674A7029984BC415">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getLength ()</code></pre>
+                                <p>Defined at line 194 of file llvm/lib/DebugInfo/MSF/MappedBlockStream.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F0A345170762578515C0D2B4C693EE979D4A240A">
+                                <pre><code class="language-cpp code-clang-doc">void invalidateCache ()</code></pre>
+                                <p>Defined at line 270 of file llvm/lib/DebugInfo/MSF/MappedBlockStream.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

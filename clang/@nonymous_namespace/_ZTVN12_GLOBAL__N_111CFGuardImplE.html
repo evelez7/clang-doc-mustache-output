@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CFGuardImpl</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class CFGuardImpl</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3712AE47A4F7EE0AB4539A226DB48A9A4C5FAA94">CFGuardImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#742A8FD4BCB9D85670C827F07EBEA1170C03D3E7">insertCFGuardCheck</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1511B8B33D0A31C859886B640A69EEBA83B431C7">insertCFGuardDispatch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#969DBD0401465C397E48E9EE2B5D31A2B5DC7356">doInitialization</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CB7A7791F750DAAE8A63F6291A0E0FD46C56B8BB">runOnFunction</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class CFGuardImpl</h1>
+                        <p>Defined at line 43 of file llvm/lib/Transforms/CFGuard/CFGuard.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Adds Control Flow Guard (CFG) checks on indirect function calls/invokes.</p>
+                                <p> These checks ensure that the target address corresponds to the start of an</p>
+                                <p> address-taken function. X86_64 targets use the Mechanism::Dispatch</p>
+                                <p> mechanism. X86, ARM, and AArch64 targets use the Mechanism::Check machanism.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="3712AE47A4F7EE0AB4539A226DB48A9A4C5FAA94">
+                                <pre><code class="language-cpp code-clang-doc">void CFGuardImpl (Mechanism M)</code></pre>
+                                <p>Defined at line 47 of file llvm/lib/Transforms/CFGuard/CFGuard.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="742A8FD4BCB9D85670C827F07EBEA1170C03D3E7">
+                                <pre><code class="language-cpp code-clang-doc">void insertCFGuardCheck (CallBase * CB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Inserts a Control Flow Guard (CFG) check on an indirect call using the CFG</p>
+                                        <p> check mechanism. When the image is loaded, the loader puts the appropriate</p>
+                                        <p> guard check function pointer in the __guard_check_icall_fptr global</p>
+                                        <p> symbol. This checks that the target address is a valid address-taken</p>
+                                        <p> function. The address of the target function is passed to the guard check</p>
+                                        <p> function in an architecture-specific register (e.g. ECX on 32-bit X86,</p>
+                                        <p> X15 on Aarch64, and R0 on ARM). The guard check function has no return</p>
+                                        <p> value (if the target is invalid, the guard check funtion will raise an</p>
+                                        <p> error).</p>
+                                    </div>
+                                    <div>
+                                        <p> For example, the following LLVM IR:</p>
+                                    </div>
+                                    <div>
+                                        <p> is transformed to:</p>
+                                    </div>
+                                    <div>
+                                        <p> For example, the following X86 assembly code:</p>
+                                    </div>
+                                    <div>
+                                        <p> is transformed to:</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>CB</b>   indirect call to instrument.
+                                    </div> 
+                                    <h3>Code</h3> 
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                   %func_ptr = alloca i32 ()*, align 8
+                                                   store i32 ()* @target_func, i32 ()** %func_ptr, align 8
+                                                   %0 = load i32 ()*, i32 ()** %func_ptr, align 8
+                                                   %1 = call i32 %0()
+                                            </code>
+                                        </pre>
+                                    </div>
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                   %func_ptr = alloca i32 ()*, align 8
+                                                   store i32 ()* @target_func, i32 ()** %func_ptr, align 8
+                                                   %0 = load i32 ()*, i32 ()** %func_ptr, align 8
+                                                   %1 = load void (i8*)*, void (i8*)** @__guard_check_icall_fptr
+                                                   %2 = bitcast i32 ()* %0 to i8*
+                                                   call cfguard_checkcc void %1(i8* %2)
+                                                   %3 = call i32 %0()
+                                            </code>
+                                        </pre>
+                                    </div>
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                   movl  $_target_func, %eax
+                                                   calll *%eax
+                                            </code>
+                                        </pre>
+                                    </div>
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                 	movl	$_target_func, %ecx
+                                                 	calll	*___guard_check_icall_fptr
+                                                 	calll	*%ecx
+                                            </code>
+                                        </pre>
+                                    </div>
+                                </div>
+                                <p>Defined at line 173 of file llvm/lib/Transforms/CFGuard/CFGuard.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1511B8B33D0A31C859886B640A69EEBA83B431C7">
+                                <pre><code class="language-cpp code-clang-doc">void insertCFGuardDispatch (CallBase * CB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Inserts a Control Flow Guard (CFG) check on an indirect call using the CFG</p>
+                                        <p> dispatch mechanism. When the image is loaded, the loader puts the</p>
+                                        <p> appropriate guard check function pointer in the</p>
+                                        <p> __guard_dispatch_icall_fptr global symbol. This checks that the target</p>
+                                        <p> address is a valid address-taken function and, if so, tail calls the</p>
+                                        <p> target. The target address is passed in an architecture-specific register</p>
+                                        <p> (e.g. RAX on X86_64), with all other arguments for the target function</p>
+                                        <p> passed as usual.</p>
+                                    </div>
+                                    <div>
+                                        <p> For example, the following LLVM IR:</p>
+                                    </div>
+                                    <div>
+                                        <p> is transformed to:</p>
+                                    </div>
+                                    <div>
+                                        <p> For example, the following X86_64 assembly code:</p>
+                                    </div>
+                                    <div>
+                                        <p> is transformed to:</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>CB</b>   indirect call to instrument.
+                                    </div> 
+                                    <h3>Code</h3> 
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                   %func_ptr = alloca i32 ()*, align 8
+                                                   store i32 ()* @target_func, i32 ()** %func_ptr, align 8
+                                                   %0 = load i32 ()*, i32 ()** %func_ptr, align 8
+                                                   %1 = call i32 %0()
+                                            </code>
+                                        </pre>
+                                    </div>
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                   %func_ptr = alloca i32 ()*, align 8
+                                                   store i32 ()* @target_func, i32 ()** %func_ptr, align 8
+                                                   %0 = load i32 ()*, i32 ()** %func_ptr, align 8
+                                                   %1 = load i32 ()*, i32 ()** @__guard_dispatch_icall_fptr
+                                                   %2 = call i32 %1() [ &quot;cfguardtarget&quot;(i32 ()* %0) ]
+                                            </code>
+                                        </pre>
+                                    </div>
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                   leaq   target_func(%rip), %rax
+                                                	  callq  *%rax
+                                            </code>
+                                        </pre>
+                                    </div>
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                   leaq   target_func(%rip), %rax
+                                                   callq  *__guard_dispatch_icall_fptr(%rip)
+                                            </code>
+                                        </pre>
+                                    </div>
+                                </div>
+                                <p>Defined at line 201 of file llvm/lib/Transforms/CFGuard/CFGuard.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="969DBD0401465C397E48E9EE2B5D31A2B5DC7356">
+                                <pre><code class="language-cpp code-clang-doc">bool doInitialization (Module &amp; M)</code></pre>
+                                <p>Defined at line 234 of file llvm/lib/Transforms/CFGuard/CFGuard.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CB7A7791F750DAAE8A63F6291A0E0FD46C56B8BB">
+                                <pre><code class="language-cpp code-clang-doc">bool runOnFunction (Function &amp; F)</code></pre>
+                                <p>Defined at line 261 of file llvm/lib/Transforms/CFGuard/CFGuard.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

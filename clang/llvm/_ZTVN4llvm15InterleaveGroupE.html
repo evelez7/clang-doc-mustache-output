@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>InterleaveGroup</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class InterleaveGroup</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AA5072A251C69322B29C3AA2FF25C511A8EC9267">InterleaveGroup&lt;InstTy&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#808AE1A090013E46948AB67EA652C51D8623C315">InterleaveGroup&lt;InstTy&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E90D7732BEED6A1C38B02CECF17B816EDE018D19">isReverse</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5B860E794B67C7106130550A2A8A398658747F2D">getFactor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#86D54AF19EA9DFC5CC3DB2FA962C627E8939876C">getAlign</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#878FA80B621E6C3DD46F962248F2537EA7EC2DAB">getNumMembers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A83F8445EEE44F0C78002195FB68CC995FB61998">insertMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4CDB9F0690A85A5097F6F09E2D28493410EF6F2B">getMember</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E49CFA78C350F323C53373871415C31C55FFCBE3">getIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#10C371080E63E7A60753405379A701215078A2EB">getInsertPos</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A1CF64275D451A4E1140F3A87F5CD812D46664C7">setInsertPos</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1161AC3B1F974471F6AA1AE7B33738D01BFCDE25">requiresScalarEpilogue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E60A3B054482CF7C2457AC339F150ACFC8EFF078">isFull</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#789740270FD6904A8F6A190F0551DA48624AACA9">addMetadata</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename InstTy&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class InterleaveGroup</h1>
+                        <p>Defined at line 524 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> The group of interleaved loads/stores sharing the same stride and</p>
+                                <p> close to each other.</p>
+                            </div>
+                            <div>
+                                <p> Each member in this group has an index starting from 0, and the largest</p>
+                                <p> index should be less than interleaved factor, which is equal to the absolute</p>
+                                <p> value of the access&#39;s stride.</p>
+                            </div>
+                            <div>
+                                <p> E.g. An interleaved load group of factor 4:</p>
+                                <p>        for (unsigned i = 0; i </p>
+                                <p>&lt;</p>
+                                <p> 1024; i+=4) {</p>
+                                <p>          a = A[i];                           // Member of index 0</p>
+                                <p>          b = A[i+1];                         // Member of index 1</p>
+                                <p>          d = A[i+3];                         // Member of index 3</p>
+                                <p>          ...</p>
+                                <p>        }</p>
+                            </div>
+                            <div>
+                                <p>      An interleaved store group of factor 4:</p>
+                                <p>        for (unsigned i = 0; i </p>
+                                <p>&lt;</p>
+                                <p> 1024; i+=4) {</p>
+                                <p>          ...</p>
+                                <p>          A[i]   = a;                         // Member of index 0</p>
+                                <p>          A[i+1] = b;                         // Member of index 1</p>
+                                <p>          A[i+2] = c;                         // Member of index 2</p>
+                                <p>          A[i+3] = d;                         // Member of index 3</p>
+                                <p>        }</p>
+                            </div>
+                            <div>
+                                <p> Note: the interleaved load group could have gaps (missing members), but</p>
+                                <p> the interleaved store group doesn&#39;t allow gaps.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="AA5072A251C69322B29C3AA2FF25C511A8EC9267">
+                                <pre><code class="language-cpp code-clang-doc">void InterleaveGroup&lt;InstTy&gt; (uint32_t Factor, bool Reverse, Align Alignment)</code></pre>
+                                <p>Defined at line 526 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="808AE1A090013E46948AB67EA652C51D8623C315">
+                                <pre><code class="language-cpp code-clang-doc">void InterleaveGroup&lt;InstTy&gt; (InstTy * Instr, int32_t Stride, Align Alignment)</code></pre>
+                                <p>Defined at line 530 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E90D7732BEED6A1C38B02CECF17B816EDE018D19">
+                                <pre><code class="language-cpp code-clang-doc">bool isReverse ()</code></pre>
+                                <p>Defined at line 539 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5B860E794B67C7106130550A2A8A398658747F2D">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getFactor ()</code></pre>
+                                <p>Defined at line 540 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="86D54AF19EA9DFC5CC3DB2FA962C627E8939876C">
+                                <pre><code class="language-cpp code-clang-doc">Align getAlign ()</code></pre>
+                                <p>Defined at line 541 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="878FA80B621E6C3DD46F962248F2537EA7EC2DAB">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getNumMembers ()</code></pre>
+                                <p>Defined at line 542 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A83F8445EEE44F0C78002195FB68CC995FB61998">
+                                <pre><code class="language-cpp code-clang-doc">bool insertMember (InstTy * Instr, int32_t Index, Align NewAlign)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Try to insert a new member </p>
+                                        <p> with index </p>
+                                        <p> and</p>
+                                        <p> alignment </p>
+                                        <p> The index is related to the leader and it could be</p>
+                                        <p> negative if it is the new leader.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 549 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4CDB9F0690A85A5097F6F09E2D28493410EF6F2B">
+                                <pre><code class="language-cpp code-clang-doc">InstTy * getMember (uint32_t Index)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the member with the given index </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 594 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E49CFA78C350F323C53373871415C31C55FFCBE3">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getIndex (const InstTy * Instr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the index for the given member. Unlike the key in the member</p>
+                                        <p> map, the index starts from 0.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 601 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="10C371080E63E7A60753405379A701215078A2EB">
+                                <pre><code class="language-cpp code-clang-doc">InstTy * getInsertPos ()</code></pre>
+                                <p>Defined at line 610 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A1CF64275D451A4E1140F3A87F5CD812D46664C7">
+                                <pre><code class="language-cpp code-clang-doc">void setInsertPos (InstTy * Inst)</code></pre>
+                                <p>Defined at line 611 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1161AC3B1F974471F6AA1AE7B33738D01BFCDE25">
+                                <pre><code class="language-cpp code-clang-doc">bool requiresScalarEpilogue ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if this Group requires a scalar iteration to handle gaps.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 622 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E60A3B054482CF7C2457AC339F150ACFC8EFF078">
+                                <pre><code class="language-cpp code-clang-doc">bool isFull ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this group is full, i.e. it has no gaps.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 637 of file llvm/include/llvm/Analysis/VectorUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="789740270FD6904A8F6A190F0551DA48624AACA9">
+                                <pre><code class="language-cpp code-clang-doc">void addMetadata (InstTy * NewInst)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add metadata (e.g. alias info) from the instructions in this group to </p>
+                                    </div>
+                                    <div>
+                                        <p> FIXME: this function currently does not add noalias metadata a&#39;la</p>
+                                        <p> addNewMedata.  To do that we need to compute the intersection of the</p>
+                                        <p> noalias info from all members.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1769 of file llvm/lib/Analysis/VectorUtils.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

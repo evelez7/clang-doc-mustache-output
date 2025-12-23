@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>RadixTree</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class RadixTree</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AA6D5C3A7D6F092F5AB0930A0BB904C5DA3B651F">RadixTree&lt;KeyType, T&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1E3F1C0924BE5C78D81538F25462D4C51604A746">RadixTree&lt;KeyType, T&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F2969FCA0F2DB08CA43442705CCE33DE15F51EAB">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0050A408F31686734AA5DD0D52CA0E757D47DA4B">empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C9FEF0C41F0C7415E52371C7E4864000B8092705">size</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4ACED169E4AE65DF6C6A0F103BABAC56F1F047CE">countNodes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7172D68A76EB27E9A7049AC9A0D3D2C9237C2E69">begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F704EF5AB3F4FD3204560F027E0CC7FF3CE552C">begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E6569BDB50196BA577A0FE063378F9DDB9751D4F">end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#882004944F162CAFB72D53A607BD670C3093E18C">end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28448E2157DEDB2E98775FFCB1AABB50E8BA2748">emplace</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F44F260906997ED625BA16ECC9DFA81DDA066C53">find_prefixes</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename KeyType, typename T&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class RadixTree</h1>
+                        <p>Defined at line 71 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A Radix Tree implementation.</p>
+                            </div>
+                            <div>
+                                <p> A Radix Tree (also known as a compact prefix tree or radix trie) is a</p>
+                                <p> data structure that stores a dynamic set or associative array where keys</p>
+                                <p> are strings and values are associated with these keys. Unlike a regular</p>
+                                <p> trie, the edges of a radix tree can be labeled with sequences of characters</p>
+                                <p> as well as single characters. This makes radix trees more efficient for</p>
+                                <p> storing sparse data sets, where many nodes in a regular trie would have</p>
+                                <p> only one child.</p>
+                            </div>
+                            <div>
+                                <p> This implementation supports arbitrary key types that can be iterated over</p>
+                                <p> (e.g., `std::string`, `std::vector</p>
+                                <p>&lt;char</p>
+                                <p>&gt;`, `ArrayRef</p>
+                                <p>&lt;char</p>
+                                <p>&gt;`). The key type</p>
+                                <p> must provide `begin()` and `end()` for iteration.</p>
+                            </div>
+                            <div>
+                                <p> The tree stores `std::pair</p>
+                                <p>&lt;const</p>
+                                <p> KeyType, T&gt;` as its value type.</p>
+                            </div>
+                            <div>
+                                <p> Example usage:</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                           llvm::RadixTree&lt;StringRef, int&gt; Tree;
+                                           Tree.emplace(&quot;apple&quot;, 1);
+                                           Tree.emplace(&quot;grapefruit&quot;, 2);
+                                           Tree.emplace(&quot;grape&quot;, 3);
+                                        
+                                           // Find prefixes
+                                           for (const auto &amp;[Key, Value] : Tree.find_prefixes(&quot;grapefruit juice&quot;)) {
+                                             // pair will be {&quot;grape&quot;, 3}
+                                             // pair will be {&quot;grapefruit&quot;, 2}
+                                             llvm::outs() &lt;&lt; Key &lt;&lt; &quot;: &quot; &lt;&lt; Value &lt;&lt; &quot;\n&quot;;
+                                           }
+                                        
+                                           // Iterate over all elements
+                                           for (const auto &amp;[Key, Value] : Tree)
+                                             llvm::outs() &lt;&lt; Key &lt;&lt; &quot;: &quot; &lt;&lt; Value &lt;&lt; &quot;\n&quot;;
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="AA6D5C3A7D6F092F5AB0930A0BB904C5DA3B651F">
+                                <pre><code class="language-cpp code-clang-doc">void RadixTree&lt;KeyType, T&gt; ()</code></pre>
+                                <p>Defined at line 267 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1E3F1C0924BE5C78D81538F25462D4C51604A746">
+                                <pre><code class="language-cpp code-clang-doc">void RadixTree&lt;KeyType, T&gt; (RadixTree&lt;KeyType, T&gt; &amp;&amp; )</code></pre>
+                                <p>Defined at line 268 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F2969FCA0F2DB08CA43442705CCE33DE15F51EAB">
+                                <pre><code class="language-cpp code-clang-doc">RadixTree&lt;KeyType, T&gt; &amp; operator= (RadixTree&lt;KeyType, T&gt; &amp;&amp; )</code></pre>
+                                <p>Defined at line 269 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0050A408F31686734AA5DD0D52CA0E757D47DA4B">
+                                <pre><code class="language-cpp code-clang-doc">bool empty ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the tree is empty.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 278 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C9FEF0C41F0C7415E52371C7E4864000B8092705">
+                                <pre><code class="language-cpp code-clang-doc">size_t size ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the number of elements in the tree.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 281 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4ACED169E4AE65DF6C6A0F103BABAC56F1F047CE">
+                                <pre><code class="language-cpp code-clang-doc">size_t countNodes ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the number of nodes in the tree.</p>
+                                    </div>
+                                    <div>
+                                        <p> This function counts all internal nodes in the tree. It can be useful for</p>
+                                        <p> understanding the memory footprint or complexity of the tree structure.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 287 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7172D68A76EB27E9A7049AC9A0D3D2C9237C2E69">
+                                <pre><code class="language-cpp code-clang-doc">iterator begin ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns an iterator to the first element.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 290 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F704EF5AB3F4FD3204560F027E0CC7FF3CE552C">
+                                <pre><code class="language-cpp code-clang-doc">const_iterator begin ()</code></pre>
+                                <p>Defined at line 291 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E6569BDB50196BA577A0FE063378F9DDB9751D4F">
+                                <pre><code class="language-cpp code-clang-doc">iterator end ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns an iterator to the end of the tree.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 294 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="882004944F162CAFB72D53A607BD670C3093E18C">
+                                <pre><code class="language-cpp code-clang-doc">const_iterator end ()</code></pre>
+                                <p>Defined at line 295 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="28448E2157DEDB2E98775FFCB1AABB50E8BA2748">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename... Ts&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;iterator, bool&gt; emplace (key_type &amp;&amp; Key, Ts &amp;&amp;... Args)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Constructs and inserts a new element into the tree.</p>
+                                    </div>
+                                    <div>
+                                        <p> This function constructs an element in place within the tree. If an</p>
+                                        <p> element with the same key already exists, the insertion fails and the</p>
+                                        <p> function returns an iterator to the existing element along with `false`.</p>
+                                        <p> Otherwise, the new element is inserted and the function returns an</p>
+                                        <p> iterator to the new element along with `true`.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Key</b>   The key of the element to construct.
+                                    </div> 
+                                    <div>
+                                        <b>Args</b>   Arguments to forward to the constructor of the mapped_type.
+                                    </div> 
+                                    <h3>Returns</h3>
+                                    <p> A pair consisting of an iterator to the inserted element (or to</p>
+                                    <p>         the element that prevented insertion) and a boolean value</p>
+                                    <p>         indicating whether the insertion took place.</p>
+                                </div>
+                                <p>Defined at line 311 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F44F260906997ED625BA16ECC9DFA81DDA066C53">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;const_prefix_iterator&gt; find_prefixes (const key_type &amp; Key)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Finds all elements whose keys are prefixes of the given `Key`.</p>
+                                    </div>
+                                    <div>
+                                        <p> This function returns an iterator range over all elements in the tree</p>
+                                        <p> whose keys are prefixes of the provided `Key`. For example, if the tree</p>
+                                        <p> contains &quot;abcde&quot;, &quot;abc&quot;, &quot;abcdefgh&quot;, and `Key` is &quot;abcde&quot;, this function</p>
+                                        <p> would return iterators to &quot;abcde&quot; and &quot;abc&quot;.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Key</b>   The key to search for prefixes of.
+                                    </div> 
+                                    <h3>Returns</h3>
+                                    <p> An `iterator_range` of `const_prefix_iterator`s, allowing</p>
+                                    <p>         iteration over the found prefix elements.</p>
+                                </div>
+                                <p>Defined at line 341 of file llvm/include/llvm/ADT/RadixTree.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

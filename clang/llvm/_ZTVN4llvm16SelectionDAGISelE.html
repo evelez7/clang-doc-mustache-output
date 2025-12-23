@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SelectionDAGISel</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SelectionDAGISel</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TM">TM</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LibInfo">LibInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#RuntimeLibCallInfo">RuntimeLibCallInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FuncInfo">FuncInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SwiftError">SwiftError</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MF">MF</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MMI">MMI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#RegInfo">RegInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CurDAG">CurDAG</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SDB">SDB</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BatchAA">BatchAA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC">AC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#GFI">GFI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SP">SP</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TTI">TTI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#OptLevel">OptLevel</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TII">TII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TLI">TLI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FastISelFailed">FastISelFailed</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ElidedArgCopyInstrs">ElidedArgCopyInstrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ORE">ORE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MatchFilterFuncName">MatchFilterFuncName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FuncName">FuncName</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4DF3BC5681364D9596B8675B4036642BCF3FEA9B">getBatchAA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C6EB7228C8E965EC67643E696A68838DF564634E">getTargetLowering</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AD4548A2C35D44A053195356870C37A13C533767">emitFunctionEntryCode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2979D898AE6B3A1AAD69C50BD3006CEEAD2B7699">PreprocessISelDAG</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8F50B78E2A15381553180C6FFC042AC6CB5AF30F">PostprocessISelDAG</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#96330E2D6A9CB06C30012697AC74450011942C5E">SelectInlineAsmMemoryOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B463F3DFB89956A6D156205A25CD8005AF793C5F">getNumFixedFromVariadicInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1FE853A43B1164C6CA973F169BBB7DA37489E669">SelectionDAGISel</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55DD88DF74C997962B518F462419EDDD202A8B7F">~SelectionDAGISel</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#17FE1423686EDC500E3AA9B9ABF789AE962AEEC5">CheckPatternPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#36A31E1C657FEA62D3864F9DA2ACDFB3B7256AD4">CheckNodePredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#63F226E59C4C29446BA11D2244841D276A9C376D">CheckNodePredicateWithOperands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#88EAE6D04DAE61518770746A6CEDCD7D680D887E">CheckComplexPattern</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0F5755081D2339E1C2AAE9EDFE5F48946E73165F">RunSDNodeXForm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#27840FA178B123FA2A7DF7E2DD3FBB4759B26C86">ComplexPatternFuncMutatesDAG</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#120369BE315EBA0FF3E8858E1504F8FC79095CC6">initializeAnalysisResults</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CCDE5C6EBFACC48BB3F904ADFC63D627DCFFFA5E">initializeAnalysisResults</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D8B36B31FB82328F2DD5FA89A80CF408561AA40A">runOnMachineFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#95B3D4BEBA1AED94C71D4D64AB67E7442D4A8F30">Select</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1A9BD1CD8FDB55B628CB579251DACF5116769030">IsProfitableToFold</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#93DA7971DB0BC0C662D4FAB801B9216B61D7C118">IsLegalToFold</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B7A91BD6D17052D1EECB4F3EDF2730301728142B">InvalidateNodeId</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6BCCFAB26679FA8AF14BE0F3AE807193E08D54CE">getUninvalidatedNodeId</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6540B0FAA4E307E2D50D61B0A8AC1CB0F69B345E">EnforceNodeIdInvariant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D308B2A0E7AB249E7EE31803981F35C555C59014">CheckAndMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5AF75D6921CEAABD7B7F45896DAF4683190B325C">CheckOrMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#85B0194D700FB2691A37B0BE28F37148FD710073">SelectCodeCommon</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#09DEA0A75157A6F43AE6D9E1B70AC4D8EEE0F579">mayRaiseFPException</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#523F21769861BBBFBA51AE0D8DF46B22DF2326A9">isOrEquivalentToAdd</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SelectionDAGISel</h1>
+                        <p>Defined at line 45 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> SelectionDAGISel - This is the common base class used for SelectionDAG-based</p>
+                                <p> pattern-matching instruction selectors.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="TM" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >TargetMachine &amp; TM</code></pre>
+                        </div>
+                        <div id="LibInfo" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetLibraryInfo * LibInfo</code></pre>
+                        </div>
+                        <div id="RuntimeLibCallInfo" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const RTLIB::RuntimeLibcallsInfo * RuntimeLibCallInfo</code></pre>
+                        </div>
+                        <div id="FuncInfo" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int FuncInfo</code></pre>
+                        </div>
+                        <div id="SwiftError" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int SwiftError</code></pre>
+                        </div>
+                        <div id="MF" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >MachineFunction * MF</code></pre>
+                        </div>
+                        <div id="MMI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >MachineModuleInfo * MMI</code></pre>
+                        </div>
+                        <div id="RegInfo" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >MachineRegisterInfo * RegInfo</code></pre>
+                        </div>
+                        <div id="CurDAG" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SelectionDAG * CurDAG</code></pre>
+                        </div>
+                        <div id="SDB" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int SDB</code></pre>
+                        </div>
+                        <div id="BatchAA" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >std::optional&lt;BatchAAResults&gt; BatchAA</code></pre>
+                        </div>
+                        <div id="AC" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >AssumptionCache * AC</code></pre>
+                        </div>
+                        <div id="GFI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >GCFunctionInfo * GFI</code></pre>
+                        </div>
+                        <div id="SP" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SSPLayoutInfo * SP</code></pre>
+                        </div>
+                        <div id="TTI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetTransformInfo * TTI</code></pre>
+                        </div>
+                        <div id="OptLevel" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >CodeGenOptLevel OptLevel</code></pre>
+                        </div>
+                        <div id="TII" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetInstrInfo * TII</code></pre>
+                        </div>
+                        <div id="TLI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetLowering * TLI</code></pre>
+                        </div>
+                        <div id="FastISelFailed" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool FastISelFailed</code></pre>
+                        </div>
+                        <div id="ElidedArgCopyInstrs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallPtrSet&lt;const Instruction *, 4&gt; ElidedArgCopyInstrs</code></pre>
+                        </div>
+                        <div id="ORE" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int ORE</code></pre>
+                        </div>
+                        <div id="MatchFilterFuncName" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool MatchFilterFuncName</code></pre>
+                        </div>
+                        <div id="FuncName" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >StringRef FuncName</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="4DF3BC5681364D9596B8675B4036642BCF3FEA9B">
+                                <pre><code class="language-cpp code-clang-doc">BatchAAResults * getBatchAA ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a (possibly null) pointer to the current BatchAAResults.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 85 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C6EB7228C8E965EC67643E696A68838DF564634E">
+                                <pre><code class="language-cpp code-clang-doc">const TargetLowering * getTargetLowering ()</code></pre>
+                                <p>Defined at line 91 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AD4548A2C35D44A053195356870C37A13C533767">
+                                <pre><code class="language-cpp code-clang-doc">void emitFunctionEntryCode ()</code></pre>
+                                <p>Defined at line 98 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2979D898AE6B3A1AAD69C50BD3006CEEAD2B7699">
+                                <pre><code class="language-cpp code-clang-doc">void PreprocessISelDAG ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> PreprocessISelDAG - This hook allows targets to hack on the graph before</p>
+                                        <p> instruction selection starts.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 102 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8F50B78E2A15381553180C6FFC042AC6CB5AF30F">
+                                <pre><code class="language-cpp code-clang-doc">void PostprocessISelDAG ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> PostprocessISelDAG() - This hook allows the target to hack on the graph</p>
+                                        <p> right after selection.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 106 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="96330E2D6A9CB06C30012697AC74450011942C5E">
+                                <pre><code class="language-cpp code-clang-doc">bool SelectInlineAsmMemoryOperand (const SDValue &amp; Op, ConstraintCode ConstraintID, int &amp; OutOps)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> SelectInlineAsmMemoryOperand - Select the specified address as a target</p>
+                                        <p> addressing mode, according to the specified constraint.  If this does</p>
+                                        <p> not match or is not implemented, return true.  The resultant operands</p>
+                                        <p> (which will appear in the machine instruction) should be added to the</p>
+                                        <p> OutOps vector.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 116 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B463F3DFB89956A6D156205A25CD8005AF793C5F">
+                                <pre><code class="language-cpp code-clang-doc">int getNumFixedFromVariadicInfo (unsigned int Flags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getNumFixedFromVariadicInfo - Transform an EmitNode flags word into the</p>
+                                        <p> number of fixed arity values that should be skipped when copying from the</p>
+                                        <p> root.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 351 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1FE853A43B1164C6CA973F169BBB7DA37489E669">
+                                <pre><code class="language-cpp code-clang-doc">void SelectionDAGISel (TargetMachine &amp; tm, CodeGenOptLevel OL)</code></pre>
+                                <p>Defined at line 393 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="55DD88DF74C997962B518F462419EDDD202A8B7F">
+                                <pre><code class="language-cpp code-clang-doc">void ~SelectionDAGISel ()</code></pre>
+                                <p>Defined at line 407 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="17FE1423686EDC500E3AA9B9ABF789AE962AEEC5">
+                                <pre><code class="language-cpp code-clang-doc">bool CheckPatternPredicate (unsigned int PredNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> CheckPatternPredicate - This function is generated by tblgen in the</p>
+                                        <p> target.  It runs the specified pattern predicate and returns true if it</p>
+                                        <p> succeeds or false if it fails.  The number is a private implementation</p>
+                                        <p> detail to the code tblgen produces.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 421 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="36A31E1C657FEA62D3864F9DA2ACDFB3B7256AD4">
+                                <pre><code class="language-cpp code-clang-doc">bool CheckNodePredicate (SDValue Op, unsigned int PredNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> CheckNodePredicate - This function is generated by tblgen in the target.</p>
+                                        <p> It runs node predicate number PredNo and returns true if it succeeds or</p>
+                                        <p> false if it fails.  The number is a private implementation</p>
+                                        <p> detail to the code tblgen produces.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 429 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="63F226E59C4C29446BA11D2244841D276A9C376D">
+                                <pre><code class="language-cpp code-clang-doc">bool CheckNodePredicateWithOperands (SDValue Op, unsigned int PredNo, ArrayRef&lt;SDValue&gt; Operands)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> CheckNodePredicateWithOperands - This function is generated by tblgen in</p>
+                                        <p> the target.</p>
+                                        <p> It runs node predicate number PredNo and returns true if it succeeds or</p>
+                                        <p> false if it fails.  The number is a private implementation detail to the</p>
+                                        <p> code tblgen produces.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 438 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="88EAE6D04DAE61518770746A6CEDCD7D680D887E">
+                                <pre><code class="language-cpp code-clang-doc">bool CheckComplexPattern (SDNode * Root, SDNode * Parent, SDValue N, unsigned int PatternNo, SmallVectorImpl&lt;std::pair&lt;SDValue, SDNode *&gt;&gt; &amp; Result)</code></pre>
+                                <p>Defined at line 444 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0F5755081D2339E1C2AAE9EDFE5F48946E73165F">
+                                <pre><code class="language-cpp code-clang-doc">SDValue RunSDNodeXForm (SDValue V, unsigned int XFormNo)</code></pre>
+                                <p>Defined at line 450 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="27840FA178B123FA2A7DF7E2DD3FBB4759B26C86">
+                                <pre><code class="language-cpp code-clang-doc">bool ComplexPatternFuncMutatesDAG ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if complex patterns for this target can mutate the</p>
+                                        <p> DAG.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 459 of file llvm/include/llvm/CodeGen/SelectionDAGISel.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="120369BE315EBA0FF3E8858E1504F8FC79095CC6">
+                                <pre><code class="language-cpp code-clang-doc">void initializeAnalysisResults (MachineFunctionAnalysisManager &amp; MFAM)</code></pre>
+                                <p>Defined at line 468 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CCDE5C6EBFACC48BB3F904ADFC63D627DCFFFA5E">
+                                <pre><code class="language-cpp code-clang-doc">void initializeAnalysisResults (MachineFunctionPass &amp; MFP)</code></pre>
+                                <p>Defined at line 525 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D8B36B31FB82328F2DD5FA89A80CF408561AA40A">
+                                <pre><code class="language-cpp code-clang-doc">bool runOnMachineFunction (MachineFunction &amp; mf)</code></pre>
+                                <p>Defined at line 582 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95B3D4BEBA1AED94C71D4D64AB67E7442D4A8F30">
+                                <pre><code class="language-cpp code-clang-doc">void Select (SDNode * N)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Main hook for targets to transform nodes into machine nodes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1A9BD1CD8FDB55B628CB579251DACF5116769030">
+                                <pre><code class="language-cpp code-clang-doc">bool IsProfitableToFold (SDValue N, SDNode * U, SDNode * Root)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> IsProfitableToFold - Returns true if it&#39;s profitable to fold the specific</p>
+                                        <p> operand node N of U during instruction selection that starts at Root.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2397 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="93DA7971DB0BC0C662D4FAB801B9216B61D7C118">
+                                <pre><code class="language-cpp code-clang-doc">bool IsLegalToFold (SDValue N, SDNode * U, SDNode * Root, CodeGenOptLevel OptLevel, bool IgnoreChains)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> IsLegalToFold - Returns true if the specific operand node N of</p>
+                                        <p> U can be folded during instruction selection that starts at Root.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2406 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B7A91BD6D17052D1EECB4F3EDF2730301728142B">
+                                <pre><code class="language-cpp code-clang-doc">void InvalidateNodeId (SDNode * N)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> InvalidateNodeId - As explained in EnforceNodeIdInvariant, mark a</p>
+                                        <p> NodeId with the equivalent node id which is invalid for topological</p>
+                                        <p> pruning.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1252 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6BCCFAB26679FA8AF14BE0F3AE807193E08D54CE">
+                                <pre><code class="language-cpp code-clang-doc">int getUninvalidatedNodeId (SDNode * N)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getUninvalidatedNodeId - get original uninvalidated node id.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1258 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6540B0FAA4E307E2D50D61B0A8AC1CB0F69B345E">
+                                <pre><code class="language-cpp code-clang-doc">void EnforceNodeIdInvariant (SDNode * N)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> However, when we fuse multiple nodes into a single node during the</p>
+                                        <p> selection we may induce a predecessor relationship between inputs and</p>
+                                        <p> outputs of distinct nodes being merged, violating the topological property.</p>
+                                        <p> Should a fused node have a successor which has yet to be selected,</p>
+                                        <p> our legality checks would be incorrect. To avoid this we mark all unselected</p>
+                                        <p> successor nodes, i.e. id != -1, as invalid for pruning by bit-negating (x =&gt;</p>
+                                        <p> (-(x+1))) the ids and modify our pruning check to ignore negative Ids of M.</p>
+                                        <p> We use bit-negation to more clearly enforce that node id -1 can only be</p>
+                                        <p> achieved by selected nodes. As the conversion is reversable to the original</p>
+                                        <p> Id, topological pruning can still be leveraged when looking for unselected</p>
+                                        <p> nodes. This method is called internally in all ISel replacement related</p>
+                                        <p> functions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1233 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D308B2A0E7AB249E7EE31803981F35C555C59014">
+                                <pre><code class="language-cpp code-clang-doc">bool CheckAndMask (SDValue LHS, ConstantSDNode * RHS, int64_t DesiredMaskS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Calls to these predicates are generated by tblgen.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2223 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5AF75D6921CEAABD7B7F45896DAF4683190B325C">
+                                <pre><code class="language-cpp code-clang-doc">bool CheckOrMask (SDValue LHS, ConstantSDNode * RHS, int64_t DesiredMaskS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> CheckOrMask - The isel is trying to match something like (or X, 255).  If</p>
+                                        <p> the dag combiner simplified the 255, we still want to match.  RHS is the</p>
+                                        <p> actual value in the DAG on the RHS of an OR, and DesiredMaskS is the value</p>
+                                        <p> specified in the .td file (e.g. 255).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2255 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="85B0194D700FB2691A37B0BE28F37148FD710073">
+                                <pre><code class="language-cpp code-clang-doc">void SelectCodeCommon (SDNode * NodeToMatch, const unsigned char * MatcherTable, unsigned int TableSize)</code></pre>
+                                <p>Defined at line 3288 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="09DEA0A75157A6F43AE6D9E1B70AC4D8EEE0F579">
+                                <pre><code class="language-cpp code-clang-doc">bool mayRaiseFPException (SDNode * Node)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return whether the node may raise an FP exception.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4452 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="523F21769861BBBFBA51AE0D8DF46B22DF2326A9">
+                                <pre><code class="language-cpp code-clang-doc">bool isOrEquivalentToAdd (const SDNode * N)</code></pre>
+                                <p>Defined at line 4468 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGISel.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

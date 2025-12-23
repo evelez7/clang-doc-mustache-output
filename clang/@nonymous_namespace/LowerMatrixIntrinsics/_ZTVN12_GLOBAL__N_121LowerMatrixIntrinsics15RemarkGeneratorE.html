@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>RemarkGenerator</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">@nonymous_namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../_ZTVN12_GLOBAL__N_121LowerMatrixIntrinsicsE.html">LowerMatrixIntrinsics</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct RemarkGenerator</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Inst2Matrix">Inst2Matrix</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ORE">ORE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Func">Func</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DL">DL</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E5614904ECA8CFEAFEF3BA79F676ACCB1F18201">RemarkGenerator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6480B0DB0089F9AC6E3B5402827CC427A6ECB7FE">getExpressionLeaves</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#14CF8BADF4B68E77FE9C7E9B97CC1A59F193E197">collectSharedInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D407FB4FF6C1A75A12F77302A199897250E320EC">sumOpInfos</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#38936CD7CE0138E9A9690D9BEA4F0D086B41C0D1">emitRemarks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8164B52A4C96DF882B598C107C4BAB2989086A23">linearize</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct RemarkGenerator</h1>
+                        <p>Defined at line 2722 of file llvm/lib/Transforms/Scalar/LowerMatrixIntrinsics.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Generate remarks for matrix operations in a function. To generate remarks</p>
+                                <p> for matrix expressions, the following approach is used:</p>
+                                <p> 1. Use the inlined-at debug information to group matrix operations to the</p>
+                                <p>    DISubprograms they are contained in.</p>
+                                <p> 2. Collect leaves of matrix expressions (done in</p>
+                                <p>    RemarkGenerator::getExpressionLeaves) for each subprogram - expression</p>
+                                <p>     mapping.  Leaves are lowered matrix instructions without other matrix</p>
+                                <p>     users (like stores) in the current subprogram.</p>
+                                <p> 3. For each leaf, create a remark containing a linearizied version of the</p>
+                                <p>    matrix expression. The expression is linearized by a recursive</p>
+                                <p>    bottom-up traversal of the matrix operands, starting at a leaf. Note</p>
+                                <p>    that multiple leaves can share sub-expressions. Shared subexpressions</p>
+                                <p>    are explicitly marked as shared().</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Inst2Matrix" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const MapVector&lt;Value *, MatrixTy&gt; &amp; Inst2Matrix</code></pre>
+                        </div>
+                        <div id="ORE" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >OptimizationRemarkEmitter &amp; ORE</code></pre>
+                        </div>
+                        <div id="Func" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Function &amp; Func</code></pre>
+                        </div>
+                        <div id="DL" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const DataLayout &amp; DL</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="6E5614904ECA8CFEAFEF3BA79F676ACCB1F18201">
+                                <pre><code class="language-cpp code-clang-doc">void RemarkGenerator (const MapVector&lt;Value *, MatrixTy&gt; &amp; Inst2Matrix, OptimizationRemarkEmitter &amp; ORE, Function &amp; Func)</code></pre>
+                                <p>Defined at line 2728 of file llvm/lib/Transforms/Scalar/LowerMatrixIntrinsics.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6480B0DB0089F9AC6E3B5402827CC427A6ECB7FE">
+                                <pre><code class="language-cpp code-clang-doc">SmallVector getExpressionLeaves (const SmallSetVector&lt;Value *, 32&gt; &amp; ExprsInSubprogram)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return all leaves of the expressions in </p>
+                                        <p> Those are</p>
+                                        <p> instructions in Inst2Matrix returning void or without any users in</p>
+                                        <p> Currently that should only include stores.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2736 of file llvm/lib/Transforms/Scalar/LowerMatrixIntrinsics.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="14CF8BADF4B68E77FE9C7E9B97CC1A59F193E197">
+                                <pre><code class="language-cpp code-clang-doc">void collectSharedInfo (Value * Leaf, Value * V, const SmallSetVector&lt;Value *, 32&gt; &amp; ExprsInSubprogram, DenseMap&lt;Value *, SmallPtrSet&lt;Value *, 2&gt;&gt; &amp; Shared)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Recursively traverse expression </p>
+                                        <p> starting at </p>
+                                        <p> and add </p>
+                                        <p> to all visited expressions in </p>
+                                        <p> Limit the matrix operations to</p>
+                                        <p> the ones in </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2751 of file llvm/lib/Transforms/Scalar/LowerMatrixIntrinsics.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D407FB4FF6C1A75A12F77302A199897250E320EC">
+                                <pre><code class="language-cpp code-clang-doc">pair sumOpInfos (Value * Root, SmallPtrSetImpl&lt;Value *&gt; &amp; ReusedExprs, const SmallSetVector&lt;Value *, 32&gt; &amp; ExprsInSubprogram, DenseMap&lt;Value *, SmallPtrSet&lt;Value *, 2&gt;&gt; &amp; Shared)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Calculate the number of exclusive and shared op counts for expression</p>
+                                        <p> starting at </p>
+                                        <p> Expressions used multiple times are counted once.</p>
+                                        <p> Limit the matrix operations to the ones in </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2767 of file llvm/lib/Transforms/Scalar/LowerMatrixIntrinsics.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="38936CD7CE0138E9A9690D9BEA4F0D086B41C0D1">
+                                <pre><code class="language-cpp code-clang-doc">void emitRemarks ()</code></pre>
+                                <p>Defined at line 2796 of file llvm/lib/Transforms/Scalar/LowerMatrixIntrinsics.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8164B52A4C96DF882B598C107C4BAB2989086A23">
+                                <pre><code class="language-cpp code-clang-doc">basic_string linearize (Value * L, const DenseMap&lt;Value *, SmallPtrSet&lt;Value *, 2&gt;&gt; &amp; Shared, const SmallSetVector&lt;Value *, 32&gt; &amp; ExprsInSubprogram, const DataLayout &amp; DL)</code></pre>
+                                <p>Defined at line 2871 of file llvm/lib/Transforms/Scalar/LowerMatrixIntrinsics.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

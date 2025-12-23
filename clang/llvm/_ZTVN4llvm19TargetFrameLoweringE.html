@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>TargetFrameLowering</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class TargetFrameLowering</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D1C7FC00902D8EEF7AEF90BBCC8BC27ED75F99A6">~TargetFrameLowering</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3A9A0392AECF0B754C36BE9875CF896AB3D3A1DD">enableCalleeSaveSkip</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E086DBC55FD2B5CE5F00C661E0C1A3FDC64E147">TargetFrameLowering</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#217A5EB3CAC35B5DC589766A310445DAC8CC6470">alignSPAdjust</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE45F85E7D6D70F8AE014A2232747305992678E4">allocateScavengingFrameIndexesNearIncomingSP</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#601393699DE99E803295D25E81064C197AEF0F3F">assignCalleeSavedSpillSlots</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AAF94B593CB72FBB497F697E6D5B8445748609D5">emitPrologue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1CB73605AD109B38967508795B10C1686C450322">emitEpilogue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#836C524AFC353E4B2EE3C5FF36E94023EA639FCD">enableCFIFixup</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9E9871DD6A5254190F1471A6D89D06FDAEFB0B65">getStackGrowthDirection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E452637302F04FF318F0ECFBD6FE340DF57A525A">getStackAlignment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8FE469E135F1710B56B31F961BC07447B53A0342">getStackAlign</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F408EDC4DF59B8DA4D78351F57454C4B441E0019">getStackThreshold</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE0A9E273796E0F489E0E8234F9EAF02BEC24A99">getTransientStackAlign</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#93DAB37F0A689606B477B950D2F681B925B09C1A">isStackRealignable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5FF999F0EAC1343F39864B806FBF8E6FFC7DCB24">isStackIdSafeForLocalArea</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7A988356ABB134C22163A0A47CD0B8D20B26EE4">getOffsetOfLocalArea</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1C72F202A8DEE963E699C4D2E550BD0FC8D52FEE">getCalleeSavedSpillSlots</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#70CC4DACF7CD6D44D7262ECEFBDE2B1EE2E58E67">targetHandlesStackFrameRounding</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#95AED502A992B481AD0A5F01D6166971B53CB809">spillCalleeSavedRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4802911A69EAF130BBD5F0A27EDF53EBFFD8BD71">getFrameIndexReference</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E1320F4695969980C4C8A4C67BE34B24CD89FF31">getFrameIndexReferenceFromSP</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B9E8ED7EDD368C6B6A8D41AA9AEB18550E1FB8D2">getCalleeSaves</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#708082EF24C3167D512DF004CC69169619A28D11">determineCalleeSaves</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9EC10CD0BEA75B4321951D7A361636838F316043">isSafeForNoCSROpt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79F86F3F90E89ACEE479EC938E58BBAD5A0A27FE">getInitialCFAOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6709E72A1936C131082702C6C7EB15FFBA7E9431">getInitialCFARegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E91A5E9C642E0A9E3D1D00619A56EC628D9A5CD1">getDwarfFrameBase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#817FF8959F3BE14116C5058EEEEB101E8943D579">enableShrinkWrapping</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9B12A85642B64A966B78E860106E07857F174C23">enableStackSlotScavenging</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D17A64F44EE90DD119A51FFFAEB4C99248AC0639">restoreCalleeSavedRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DB4A9C9CE946E8C4CB1F1BC9DA151642C71924F7">needsFrameIndexResolution</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F96A1C0772F537FDE2C84C51C27888F4FCCFA4AC">emitZeroCallUsedRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0CBB975D82B74011032D2D3A76ACBFA2A5FA51DB">emitCalleeSavedFrameMovesFullCFA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6CDC088BD9ED1F3CBDA89B6F5DFC57757FEE5D1E">enableFullCFIFixup</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#03BE809A5F8440E5927D23E8975AF9BDE93995FC">adjustForSegmentedStacks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E0647ED4816E33867F30A26D56E94C4653254258">adjustForHiPEPrologue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#56314C5F48722406CD1B35F12CD9E94D848A7781">hasFP</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07488449FE61D33715E98A81BF9AB1D476E3D89E">canSimplifyCallFramePseudos</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#48C786691333E5B2965C9D113DD04C6A650F4A64">getFrameIndexReferencePreferSP</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#298E6BBF1A7BB43A07211EA6A85204D6D5496F03">getNonLocalFrameIndexReference</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4C4262953ADD60541915610635E723BB22064A1E">getWinEHParentFrameOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E2D995F6792DCDED5C857B37424732D10316B53A">eliminateCallFramePseudoInstr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#46DC8230E004CC276D17B10CBDA2387FAEAF0E39">canUseAsPrologue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E9E296407450A1CD561E3362512E1FD642FAD278">canUseAsEpilogue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#590C11884B8CE4D84F35085535B9B8DCEBBCE41D">getStackIDForScalableVectors</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#68E41B92E71EFB38ECD935B679FAD0B01F73ED09">emitRemarks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#89CBC9EAC2298732F1123A5F0E05528118E93889">resetCFIToInitialState</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#12EA97142AD2A3A14FA2EE1FA3057444AEF1004E">inlineStackProbe</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#21CAC8F1EBE351C1CF839FFDB24C5F78809DAD5D">stackProbeFunctionModifiesSP</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F392C6C0A4CDC2C31A164872D9FD7094127DCE52">spillCalleeSavedRegisters</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#602ABC65E4A2269D9449C5599B344DDA82A0E454">restoreCalleeSavedRegisters</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#404A8C80DFAD7CC5903A820BB6C9CFD3F2715E6D">hasReservedCallFrame</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FE5794D8E8C2BD5C6951A2B76D8FA5F83A1FAF3A">processFunctionBeforeFrameFinalized</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E92978EF1D4818C4D46F250BFCAEDDE0090F7BC">processFunctionBeforeFrameIndicesReplaced</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D1581FB3F72EB7F1F740B1146F22D34C7CDDD9C4">orderFrameObjects</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2B70ADAE1529FC2758EEDF4B84B6E1C0743095C2">isSupportedStackID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C8F4720E20E66C6ED525F3267EE854D8EBC418F0">isProfitableForNoCSROpt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#770B1D497B81A1748A031D9E73EB8ABE3FE948E9">spillFPBP</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class TargetFrameLowering</h1>
+                        <p>Defined at line 47 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Information about stack frame layout on the target.  It holds the direction</p>
+                                <p> of stack growth, the known stack alignment on entry to each function, and</p>
+                                <p> the offset to the locals area.</p>
+                            </div>
+                            <div>
+                                <p> The offset to the local area is the offset from the stack pointer on</p>
+                                <p> function entry to the first location where function data (local variables,</p>
+                                <p> spill locations) can be stored.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="D1C7FC00902D8EEF7AEF90BBCC8BC27ED75F99A6">
+                                <pre><code class="language-cpp code-clang-doc">void ~TargetFrameLowering ()</code></pre>
+                                <p>Defined at line 30 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3A9A0392AECF0B754C36BE9875CF896AB3D3A1DD">
+                                <pre><code class="language-cpp code-clang-doc">bool enableCalleeSaveSkip (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target can safely skip saving callee-saved registers</p>
+                                        <p> for noreturn nounwind functions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 32 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E086DBC55FD2B5CE5F00C661E0C1A3FDC64E147">
+                                <pre><code class="language-cpp code-clang-doc">void TargetFrameLowering (StackDirection D, Align StackAl, int LAO, Align TransAl, bool StackReal)</code></pre>
+                                <p>Defined at line 84 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="217A5EB3CAC35B5DC589766A310445DAC8CC6470">
+                                <pre><code class="language-cpp code-clang-doc">int alignSPAdjust (int SPAdj)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> alignSPAdjust - This method aligns the stack adjustment to the correct</p>
+                                        <p> alignment.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 116 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE45F85E7D6D70F8AE014A2232747305992678E4">
+                                <pre><code class="language-cpp code-clang-doc">bool allocateScavengingFrameIndexesNearIncomingSP (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Control the placement of special register scavenging spill slots when</p>
+                                        <p> allocating a stack frame.</p>
+                                    </div>
+                                    <div>
+                                        <p> If this returns true, the frame indexes used by the RegScavenger will be</p>
+                                        <p> allocated closest to the incoming stack pointer.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 150 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="601393699DE99E803295D25E81064C197AEF0F3F">
+                                <pre><code class="language-cpp code-clang-doc">bool assignCalleeSavedSpillSlots (MachineFunction &amp; MF, const TargetRegisterInfo * TRI, int &amp; CSI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> assignCalleeSavedSpillSlots - Allows target to override spill slot</p>
+                                        <p> assignment logic.  If implemented, assignCalleeSavedSpillSlots() should</p>
+                                        <p> assign frame slots to all CSI entries and return true.  If this method</p>
+                                        <p> returns false, spill slots will be assigned using generic implementation.</p>
+                                        <p> assignCalleeSavedSpillSlots() may add, delete or rearrange elements of</p>
+                                        <p> CSI.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 162 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AAF94B593CB72FBB497F697E6D5B8445748609D5">
+                                <pre><code class="language-cpp code-clang-doc">void emitPrologue (MachineFunction &amp; MF, MachineBasicBlock &amp; MBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> emitProlog/emitEpilog - These methods insert prolog and epilog code into</p>
+                                        <p> the function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1CB73605AD109B38967508795B10C1686C450322">
+                                <pre><code class="language-cpp code-clang-doc">void emitEpilogue (MachineFunction &amp; MF, MachineBasicBlock &amp; MBB)</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="836C524AFC353E4B2EE3C5FF36E94023EA639FCD">
+                                <pre><code class="language-cpp code-clang-doc">bool enableCFIFixup (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if we may need to fix the unwind information for the</p>
+                                        <p> function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 39 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9E9871DD6A5254190F1471A6D89D06FDAEFB0B65">
+                                <pre><code class="language-cpp code-clang-doc">StackDirection getStackGrowthDirection ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getStackGrowthDirection - Return the direction the stack grows</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 96 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E452637302F04FF318F0ECFBD6FE340DF57A525A">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getStackAlignment ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getStackAlignment - This method returns the number of bytes to which the</p>
+                                        <p> stack pointer must be aligned on entry to a function.  Typically, this</p>
+                                        <p> is the largest alignment for any data object in the target.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 102 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8FE469E135F1710B56B31F961BC07447B53A0342">
+                                <pre><code class="language-cpp code-clang-doc">Align getStackAlign ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getStackAlignment - This method returns the number of bytes to which the</p>
+                                        <p> stack pointer must be aligned on entry to a function.  Typically, this</p>
+                                        <p> is the largest alignment for any data object in the target.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 107 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F408EDC4DF59B8DA4D78351F57454C4B441E0019">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getStackThreshold ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getStackThreshold - Return the maximum stack size</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 111 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE0A9E273796E0F489E0E8234F9EAF02BEC24A99">
+                                <pre><code class="language-cpp code-clang-doc">Align getTransientStackAlign ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getTransientStackAlignment - This method returns the number of bytes to</p>
+                                        <p> which the stack pointer must be aligned at all times, even between</p>
+                                        <p> calls.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 129 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="93DAB37F0A689606B477B950D2F681B925B09C1A">
+                                <pre><code class="language-cpp code-clang-doc">bool isStackRealignable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isStackRealignable - This method returns whether the stack can be</p>
+                                        <p> realigned.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 133 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5FF999F0EAC1343F39864B806FBF8E6FFC7DCB24">
+                                <pre><code class="language-cpp code-clang-doc">bool isStackIdSafeForLocalArea (unsigned int StackId)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method returns whether or not it is safe for an object with the</p>
+                                        <p> given stack id to be bundled into the local area.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 139 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F7A988356ABB134C22163A0A47CD0B8D20B26EE4">
+                                <pre><code class="language-cpp code-clang-doc">int getOffsetOfLocalArea ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getOffsetOfLocalArea - This method returns the offset of the local area</p>
+                                        <p> from the stack pointer on entrance to a function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 146 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1C72F202A8DEE963E699C4D2E550BD0FC8D52FEE">
+                                <pre><code class="language-cpp code-clang-doc">const SpillSlot * getCalleeSavedSpillSlots (unsigned int &amp; NumEntries)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getCalleeSavedSpillSlots - This method returns a pointer to an array of</p>
+                                        <p> pairs, that contains an entry for each callee saved register that must be</p>
+                                        <p> spilled to a particular stack location if it is spilled.</p>
+                                    </div>
+                                    <div>
+                                        <p> Each entry in this array contains a </p>
+                                        <p>&lt;register</p>
+                                        <p>,offset&gt; pair, indicating the</p>
+                                        <p> fixed offset from the incoming stack pointer that each register should be</p>
+                                        <p> spilled at. If a register is not listed here, the code generator is</p>
+                                        <p> allowed to spill it anywhere it chooses.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 178 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="70CC4DACF7CD6D44D7262ECEFBDE2B1EE2E58E67">
+                                <pre><code class="language-cpp code-clang-doc">bool targetHandlesStackFrameRounding ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> targetHandlesStackFrameRounding - Returns true if the target is</p>
+                                        <p> responsible for rounding up the stack frame (probably at emitPrologue</p>
+                                        <p> time).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 187 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95AED502A992B481AD0A5F01D6166971B53CB809">
+                                <pre><code class="language-cpp code-clang-doc">void spillCalleeSavedRegister (MachineBasicBlock &amp; SaveBlock, int MI, const CalleeSavedInfo &amp; CS, const TargetInstrInfo * TII, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> spillCalleeSavedRegister - Default implementation for spilling a single</p>
+                                        <p> callee saved register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 187 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4802911A69EAF130BBD5F0A27EDF53EBFFD8BD71">
+                                <pre><code class="language-cpp code-clang-doc">StackOffset getFrameIndexReference (const MachineFunction &amp; MF, int FI, Register &amp; FrameReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the displacement from the frame register to the stack</p>
+                                        <p> frame of the specified index, along with the frame register used</p>
+                                        <p> (in output arg FrameReg). This is the default implementation which</p>
+                                        <p> is overridden for some targets.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 48 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E1320F4695969980C4C8A4C67BE34B24CD89FF31">
+                                <pre><code class="language-cpp code-clang-doc">StackOffset getFrameIndexReferenceFromSP (const MachineFunction &amp; MF, int FI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the offset from the stack pointer to the slot of the specified</p>
+                                        <p> index. This function serves to provide a comparable offset from a single</p>
+                                        <p> reference point (the value of the stack-pointer at function entry) that can</p>
+                                        <p> be used for analysis. This is the default implementation using</p>
+                                        <p> MachineFrameInfo offsets.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 69 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B9E8ED7EDD368C6B6A8D41AA9AEB18550E1FB8D2">
+                                <pre><code class="language-cpp code-clang-doc">void getCalleeSaves (const MachineFunction &amp; MF, BitVector &amp; SavedRegs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the callee-saved registers as computed by determineCalleeSaves</p>
+                                        <p> in the BitVector </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 83 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="708082EF24C3167D512DF004CC69169619A28D11">
+                                <pre><code class="language-cpp code-clang-doc">void determineCalleeSaves (MachineFunction &amp; MF, BitVector &amp; SavedRegs, RegScavenger * RS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method determines which of the registers reported by</p>
+                                        <p> TargetRegisterInfo::getCalleeSavedRegs() should actually get saved.</p>
+                                        <p> The default implementation checks populates the </p>
+                                        <p> bitset with</p>
+                                        <p> all registers which are modified in the function, targets may override</p>
+                                        <p> this function to save additional registers.</p>
+                                        <p> This method also sets up the register scavenger ensuring there is a free</p>
+                                        <p> register or a frameindex available.</p>
+                                        <p> This method should not be called by any passes outside of PEI, because</p>
+                                        <p> it may change state passed in by </p>
+                                        <p> and </p>
+                                        <p> The preferred</p>
+                                        <p> interface outside PEI is getCalleeSaves.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 96 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9EC10CD0BEA75B4321951D7A361636838F316043">
+                                <pre><code class="language-cpp code-clang-doc">bool isSafeForNoCSROpt (const Function &amp; F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if given function is safe for not having callee saved registers.</p>
+                                        <p> This is used when interprocedural register allocation is enabled.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 160 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79F86F3F90E89ACEE479EC938E58BBAD5A0A27FE">
+                                <pre><code class="language-cpp code-clang-doc">int getInitialCFAOffset (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return initial CFA offset value i.e. the one valid at the beginning of the</p>
+                                        <p> function (before any stack operations).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 172 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6709E72A1936C131082702C6C7EB15FFBA7E9431">
+                                <pre><code class="language-cpp code-clang-doc">Register getInitialCFARegister (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return initial CFA register value i.e. the one valid at the beginning of</p>
+                                        <p> the function (before any stack operations).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 176 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E91A5E9C642E0A9E3D1D00619A56EC628D9A5CD1">
+                                <pre><code class="language-cpp code-clang-doc">DwarfFrameBase getDwarfFrameBase (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the frame base information to be encoded in the DWARF subprogram</p>
+                                        <p> debug info.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 181 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="817FF8959F3BE14116C5058EEEEB101E8943D579">
+                                <pre><code class="language-cpp code-clang-doc">bool enableShrinkWrapping (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target will correctly handle shrink wrapping.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 192 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9B12A85642B64A966B78E860106E07857F174C23">
+                                <pre><code class="language-cpp code-clang-doc">bool enableStackSlotScavenging (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the stack slot holes in the fixed and callee-save stack</p>
+                                        <p> area should be used when allocating other stack locations to reduce stack</p>
+                                        <p> size.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 199 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D17A64F44EE90DD119A51FFFAEB4C99248AC0639">
+                                <pre><code class="language-cpp code-clang-doc">void restoreCalleeSavedRegister (MachineBasicBlock &amp; MBB, int MI, const CalleeSavedInfo &amp; CS, const TargetInstrInfo * TII, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> restoreCalleeSavedRegister - Default implementation for restoring a single</p>
+                                        <p> callee saved register. Should be called in reverse order. Can insert</p>
+                                        <p> multiple instructions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 205 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DB4A9C9CE946E8C4CB1F1BC9DA151642C71924F7">
+                                <pre><code class="language-cpp code-clang-doc">bool needsFrameIndexResolution (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> needsFrameIndexResolution - Do we need to perform FI resolution for</p>
+                                        <p> this function. Normally, this is required only when the function</p>
+                                        <p> has any stack objects. However, targets may want to override this.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 78 of file llvm/lib/CodeGen/TargetFrameLoweringImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F96A1C0772F537FDE2C84C51C27888F4FCCFA4AC">
+                                <pre><code class="language-cpp code-clang-doc">void emitZeroCallUsedRegs (BitVector RegsToZero, MachineBasicBlock &amp; MBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> emitZeroCallUsedRegs - Zeros out call used registers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 215 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0CBB975D82B74011032D2D3A76ACBFA2A5FA51DB">
+                                <pre><code class="language-cpp code-clang-doc">void emitCalleeSavedFrameMovesFullCFA (MachineBasicBlock &amp; MBB, int MBBI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> With basic block sections, emit callee saved frame moves for basic blocks</p>
+                                        <p> that are in a different section.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 220 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6CDC088BD9ED1F3CBDA89B6F5DFC57757FEE5D1E">
+                                <pre><code class="language-cpp code-clang-doc">bool enableFullCFIFixup (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> enableFullCFIFixup - Returns true if we may need to fix the unwind</p>
+                                        <p> information such that it is accurate for *every* instruction in the</p>
+                                        <p> function (e.g. if the function has an async unwind table).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 231 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="03BE809A5F8440E5927D23E8975AF9BDE93995FC">
+                                <pre><code class="language-cpp code-clang-doc">void adjustForSegmentedStacks (MachineFunction &amp; MF, MachineBasicBlock &amp; PrologueMBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Adjust the prologue to have the function use segmented stacks. This works</p>
+                                        <p> by adding a check even before the &quot;normal&quot; function prologue.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 248 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E0647ED4816E33867F30A26D56E94C4653254258">
+                                <pre><code class="language-cpp code-clang-doc">void adjustForHiPEPrologue (MachineFunction &amp; MF, MachineBasicBlock &amp; PrologueMBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Adjust the prologue to add Erlang Run-Time System (ERTS) specific code in</p>
+                                        <p> the assembly prologue to explicitly handle the stack.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 253 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="56314C5F48722406CD1B35F12CD9E94D848A7781">
+                                <pre><code class="language-cpp code-clang-doc">bool hasFP (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> hasFP - Return true if the specified function should have a dedicated</p>
+                                        <p> frame pointer register. For most targets this is true only if the function</p>
+                                        <p> has variable sized allocas or if frame pointer elimination is disabled.</p>
+                                        <p> For all targets, this is false if the function has the naked attribute</p>
+                                        <p> since there is no prologue to set up the frame pointer.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 303 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07488449FE61D33715E98A81BF9AB1D476E3D89E">
+                                <pre><code class="language-cpp code-clang-doc">bool canSimplifyCallFramePseudos (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> canSimplifyCallFramePseudos - When possible, it&#39;s best to simplify the</p>
+                                        <p> call frame pseudo ops before doing frame index elimination. This is</p>
+                                        <p> possible only when frame index references between the pseudos won&#39;t</p>
+                                        <p> need adjusting for the call frame adjustments. Normally, that&#39;s true</p>
+                                        <p> if the function has a reserved call frame or a frame pointer. Some</p>
+                                        <p> targets (Thumb2, for example) may have more complicated criteria,</p>
+                                        <p> however, and can override this behavior.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 323 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="48C786691333E5B2965C9D113DD04C6A650F4A64">
+                                <pre><code class="language-cpp code-clang-doc">StackOffset getFrameIndexReferencePreferSP (const MachineFunction &amp; MF, int FI, Register &amp; FrameReg, bool IgnoreSPUpdates)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Same as </p>
+                                        <p> except that the stack pointer (as</p>
+                                        <p> opposed to the frame pointer) will be the preferred value for </p>
+                                        <p> This is generally used for emitting statepoint or EH tables that</p>
+                                        <p> use offsets from RSP.  If </p>
+                                        <p> is true, the returned</p>
+                                        <p> offset is only guaranteed to be valid with respect to the value of SP at</p>
+                                        <p> the end of the prologue.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 344 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="298E6BBF1A7BB43A07211EA6A85204D6D5496F03">
+                                <pre><code class="language-cpp code-clang-doc">StackOffset getNonLocalFrameIndexReference (const MachineFunction &amp; MF, int FI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getNonLocalFrameIndexReference - This method returns the offset used to</p>
+                                        <p> reference a frame index location. The offset can be from either FP/BP/SP</p>
+                                        <p> based on which base register is returned by llvm.localaddress.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 355 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4C4262953ADD60541915610635E723BB22064A1E">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getWinEHParentFrameOffset (const MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 404 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E2D995F6792DCDED5C857B37424732D10316B53A">
+                                <pre><code class="language-cpp code-clang-doc">int eliminateCallFramePseudoInstr (MachineFunction &amp; MF, MachineBasicBlock &amp; MBB, int MI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method is called during prolog/epilog code insertion to eliminate</p>
+                                        <p> call frame setup and destroy pseudo instructions (but only if the Target</p>
+                                        <p> is using them).  It is responsible for eliminating these instructions,</p>
+                                        <p> replacing them with concrete instructions.  This method need only be</p>
+                                        <p> implemented if using call frame setup/destroy pseudo instructions.</p>
+                                        <p> Returns an iterator pointing to the instruction after the replaced one.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 414 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="46DC8230E004CC276D17B10CBDA2387FAEAF0E39">
+                                <pre><code class="language-cpp code-clang-doc">bool canUseAsPrologue (const MachineBasicBlock &amp; MBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check whether or not the given </p>
+                                        <p> can be used as a prologue</p>
+                                        <p> for the target.</p>
+                                        <p> The prologue will be inserted first in this basic block.</p>
+                                        <p> This method is used by the shrink-wrapping pass to decide if</p>
+                                        <p> will be correctly handled by the target.</p>
+                                        <p> As soon as the target enable shrink-wrapping without overriding</p>
+                                        <p> this method, we assume that each basic block is a valid</p>
+                                        <p> prologue.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 442 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E9E296407450A1CD561E3362512E1FD642FAD278">
+                                <pre><code class="language-cpp code-clang-doc">bool canUseAsEpilogue (const MachineBasicBlock &amp; MBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check whether or not the given </p>
+                                        <p> can be used as a epilogue</p>
+                                        <p> for the target.</p>
+                                        <p> The epilogue will be inserted before the first terminator of that block.</p>
+                                        <p> This method is used by the shrink-wrapping pass to decide if</p>
+                                        <p> will be correctly handled by the target.</p>
+                                        <p> As soon as the target enable shrink-wrapping without overriding</p>
+                                        <p> this method, we assume that each basic block is a valid</p>
+                                        <p> epilogue.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 454 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="590C11884B8CE4D84F35085535B9B8DCEBBCE41D">
+                                <pre><code class="language-cpp code-clang-doc">Value getStackIDForScalableVectors ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the StackID that scalable vectors should be associated with.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 459 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="68E41B92E71EFB38ECD935B679FAD0B01F73ED09">
+                                <pre><code class="language-cpp code-clang-doc">void emitRemarks (const MachineFunction &amp; MF, MachineOptimizationRemarkEmitter * ORE)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method is called at the end of prolog/epilog code insertion, so</p>
+                                        <p> targets can emit remarks based on the final frame layout.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 500 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="89CBC9EAC2298732F1123A5F0E05528118E93889">
+                                <pre><code class="language-cpp code-clang-doc">void resetCFIToInitialState (MachineBasicBlock &amp; MBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit CFI instructions that recreate the state of the unwind information</p>
+                                        <p> upon function entry.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 237 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="12EA97142AD2A3A14FA2EE1FA3057444AEF1004E">
+                                <pre><code class="language-cpp code-clang-doc">void inlineStackProbe (MachineFunction &amp; MF, MachineBasicBlock &amp; PrologueMBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Replace a StackProbe stub (if any) with the actual probe code inline</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 240 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="21CAC8F1EBE351C1CF839FFDB24C5F78809DAD5D">
+                                <pre><code class="language-cpp code-clang-doc">bool stackProbeFunctionModifiesSP ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Does the stack probe function call return with a modified stack pointer?</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 244 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F392C6C0A4CDC2C31A164872D9FD7094127DCE52">
+                                <pre><code class="language-cpp code-clang-doc">bool spillCalleeSavedRegisters (MachineBasicBlock &amp; MBB, int MI, ArrayRef&lt;CalleeSavedInfo&gt; CSI, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> spillCalleeSavedRegisters - Issues instruction(s) to spill all callee</p>
+                                        <p> saved registers and returns true if it isn&#39;t possible / profitable to do</p>
+                                        <p> so by issuing a series of store instructions via</p>
+                                        <p> storeRegToStackSlot(). Returns false otherwise.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 260 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="602ABC65E4A2269D9449C5599B344DDA82A0E454">
+                                <pre><code class="language-cpp code-clang-doc">bool restoreCalleeSavedRegisters (MachineBasicBlock &amp; MBB, int MI, MutableArrayRef&lt;CalleeSavedInfo&gt; CSI, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> restoreCalleeSavedRegisters - Issues instruction(s) to restore all callee</p>
+                                        <p> saved registers and returns true if it isn&#39;t possible / profitable to do</p>
+                                        <p> so by issuing a series of load instructions via loadRegToStackSlot().</p>
+                                        <p> If it returns true, and any of the registers in CSI is not restored,</p>
+                                        <p> it sets the corresponding Restored flag in CSI to false.</p>
+                                        <p> Returns false otherwise.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 281 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="404A8C80DFAD7CC5903A820BB6C9CFD3F2715E6D">
+                                <pre><code class="language-cpp code-clang-doc">bool hasReservedCallFrame (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> hasReservedCallFrame - Under normal circumstances, when a frame pointer is</p>
+                                        <p> not required, we reserve argument space for call sites in the function</p>
+                                        <p> immediately on entry to the current function. This eliminates the need for</p>
+                                        <p> add/sub sp brackets around call sites. Returns true if the call frame is</p>
+                                        <p> included as part of the stack frame.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 312 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FE5794D8E8C2BD5C6951A2B76D8FA5F83A1FAF3A">
+                                <pre><code class="language-cpp code-clang-doc">void processFunctionBeforeFrameFinalized (MachineFunction &amp; MF, RegScavenger * RS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> processFunctionBeforeFrameFinalized - This method is called immediately</p>
+                                        <p> before the specified function&#39;s frame layout (MF.getFrameInfo()) is</p>
+                                        <p> finalized.  Once the frame is finalized, MO_FrameIndex operands are</p>
+                                        <p> replaced with direct constants.  This method is optional.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 393 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E92978EF1D4818C4D46F250BFCAEDDE0090F7BC">
+                                <pre><code class="language-cpp code-clang-doc">void processFunctionBeforeFrameIndicesReplaced (MachineFunction &amp; MF, RegScavenger * RS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> processFunctionBeforeFrameIndicesReplaced - This method is called</p>
+                                        <p> immediately before MO_FrameIndex operands are eliminated, but after the</p>
+                                        <p> frame is finalized. This method is optional.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 400 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D1581FB3F72EB7F1F740B1146F22D34C7CDDD9C4">
+                                <pre><code class="language-cpp code-clang-doc">void orderFrameObjects (const MachineFunction &amp; MF, SmallVectorImpl&lt;int&gt; &amp; objectsToAllocate)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Order the symbols in the local stack frame.</p>
+                                        <p> The list of objects that we want to order is in </p>
+                                        <p> as</p>
+                                        <p> indices into the MachineFrameInfo. The array can be reordered in any way</p>
+                                        <p> upon return. The contents of the array, however, may not be modified (i.e.</p>
+                                        <p> only their order may be changed).</p>
+                                        <p> By default, just maintain the original order.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 429 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2B70ADAE1529FC2758EEDF4B84B6E1C0743095C2">
+                                <pre><code class="language-cpp code-clang-doc">bool isSupportedStackID (Value ID)</code></pre>
+                                <p>Defined at line 463 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C8F4720E20E66C6ED525F3267EE854D8EBC418F0">
+                                <pre><code class="language-cpp code-clang-doc">bool isProfitableForNoCSROpt (const Function &amp; F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if the no-CSR optimisation is profitable for the given function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 478 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="770B1D497B81A1748A031D9E73EB8ABE3FE948E9">
+                                <pre><code class="language-cpp code-clang-doc">void spillFPBP (MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If frame pointer or base pointer is clobbered by an instruction, we should</p>
+                                        <p> spill/restore it around that instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 496 of file llvm/include/llvm/CodeGen/TargetFrameLowering.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

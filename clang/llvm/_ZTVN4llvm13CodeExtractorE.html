@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CodeExtractor</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class CodeExtractor</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#08A4DD0DEC359DBA9CCE910274FE27AB2EAFC36A">CodeExtractor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CE2057222CE767780B3D325810F6F07E22E8EE7B">extractCodeRegion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DEF9B4C1142C05AA4DB2A333E2BB04A4EEA24D1A">extractCodeRegion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#54135528161EBBAD41892E3B0C32896FFED913C4">extractCodeRegion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DA2811BFF233EE2A981F6D3BFE7A9D641E1E5136">verifyAssumptionCache</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#21A06A7A6038ED1D79A1E807F318C1490F19E3C7">isEligible</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#040FFCF97AA273DD01BC3C14BF268356C8D124AD">findInputsOutputs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#54C099CE04ADA4F13ED112FA399B428E35E2024B">findInputsOutputs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#39E3FF298CE6BBD89CCD37E8D15883DCCFEB315D">isLegalToShrinkwrapLifetimeMarkers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#56255D596604C0082B905A3B509F3ABBBF1A0D90">findAllocas</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C21F9054B7337ECE9A9C3DB8413A47EB88DAB2B2">findAllocas</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A81123C9E3CF7AAE10A7706E80E0EBEDDAD0082B">findOrCreateBlockForHoisting</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#09D6DE96FB0441A7E18E754F1040EB089374D82A">excludeArgFromAggregate</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class CodeExtractor</h1>
+                        <p>Defined at line 87 of file llvm/include/llvm/Transforms/Utils/CodeExtractor.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Utility class for extracting code into a new function.</p>
+                            </div>
+                            <div>
+                                <p> This utility provides a simple interface for extracting some sequence of</p>
+                                <p> code into its own function, replacing it with a call to that function. It</p>
+                                <p> also provides various methods to query about the nature and result of</p>
+                                <p> such a transformation.</p>
+                            </div>
+                            <div>
+                                <p> The rough algorithm used is:</p>
+                                <p> 1) Find both the inputs and outputs for the extracted region.</p>
+                                <p> 2) Pass the inputs as arguments, remapping them within the extracted</p>
+                                <p>    function to arguments.</p>
+                                <p> 3) Add allocas for any scalar outputs, adding all of the outputs&#39; allocas</p>
+                                <p>    as arguments, and inserting stores to the arguments for any scalars.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="08A4DD0DEC359DBA9CCE910274FE27AB2EAFC36A">
+                                <pre><code class="language-cpp code-clang-doc">void CodeExtractor (ArrayRef BBs, DominatorTree * DT, bool AggregateArgs, BlockFrequencyInfo * BFI, BranchProbabilityInfo * BPI, AssumptionCache * AC, bool AllowVarArgs, bool AllowAlloca, BasicBlock * AllocationBlock, basic_string Suffix, bool ArgsInZeroAddressSpace)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a code extractor for a sequence of blocks.</p>
+                                    </div>
+                                    <div>
+                                        <p> Given a sequence of basic blocks where the first block in the sequence</p>
+                                        <p> dominates the rest, prepare a code extractor object for pulling this</p>
+                                        <p> sequence out into its new function. When a DominatorTree is also given,</p>
+                                        <p> extra checking and transformations are enabled. If AllowVarArgs is true,</p>
+                                        <p> vararg functions can be extracted. This is safe, if all vararg handling</p>
+                                        <p> code is extracted, including vastart. If AllowAlloca is true, then</p>
+                                        <p> extraction of blocks containing alloca instructions would be possible,</p>
+                                        <p> however code extractor won&#39;t validate whether extraction is legal.</p>
+                                        <p> Any new allocations will be placed in the AllocationBlock, unless</p>
+                                        <p> it is null, in which case it will be placed in the entry block of</p>
+                                        <p> the function from which the code is being extracted.</p>
+                                        <p> If ArgsInZeroAddressSpace param is set to true, then the aggregate</p>
+                                        <p> param pointer of the outlined function is declared in zero address</p>
+                                        <p> space.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 262 of file llvm/lib/Transforms/Utils/CodeExtractor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CE2057222CE767780B3D325810F6F07E22E8EE7B">
+                                <pre><code class="language-cpp code-clang-doc">Function * extractCodeRegion (const CodeExtractorAnalysisCache &amp; CEAC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Perform the extraction, returning the new function.</p>
+                                    </div>
+                                    <div>
+                                        <p> Returns zero when called on a CodeExtractor instance where isEligible</p>
+                                        <p> returns false.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1411 of file llvm/lib/Transforms/Utils/CodeExtractor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DEF9B4C1142C05AA4DB2A333E2BB04A4EEA24D1A">
+                                <pre><code class="language-cpp code-clang-doc">Function * extractCodeRegion (const CodeExtractorAnalysisCache &amp; CEAC, int &amp; Inputs, int &amp; Outputs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Perform the extraction, returning the new function and providing an</p>
+                                        <p> interface to see what was categorized as inputs and outputs.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>CEAC</b>   - Cache to speed up operations for the CodeExtractor when hoisting, and extracting lifetime values and assumes.
+                                    </div> 
+                                    <div>
+                                        <b>Inputs</b>   [out] - filled with  values marked as inputs to the newly outlined function.
+                                    </div> 
+                                    <div>
+                                        <b>Outputs</b>   [out] - filled with values marked as outputs to the newly outlined function.
+                                    </div> 
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54135528161EBBAD41892E3B0C32896FFED913C4">
+                                <pre><code class="language-cpp code-clang-doc">Function * extractCodeRegion (const CodeExtractorAnalysisCache &amp; CEAC, ValueSet &amp; Inputs, ValueSet &amp; Outputs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Perform the extraction, returning the new function and providing an</p>
+                                        <p> interface to see what was categorized as inputs and outputs.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>CEAC</b>   - Cache to speed up operations for the CodeExtractor when hoisting, and extracting lifetime values and assumes.
+                                    </div> 
+                                    <div>
+                                        <b>Inputs</b>   [out] - filled with  values marked as inputs to the newly outlined function.
+                                    </div> 
+                                    <div>
+                                        <b>Outputs</b>   [out] - filled with values marked as outputs to the newly outlined function.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1417 of file llvm/lib/Transforms/Utils/CodeExtractor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DA2811BFF233EE2A981F6D3BFE7A9D641E1E5136">
+                                <pre><code class="language-cpp code-clang-doc">bool verifyAssumptionCache (const Function &amp; OldFunc, const Function &amp; NewFunc, AssumptionCache * AC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Verify that assumption cache isn&#39;t stale after a region is extracted.</p>
+                                        <p> Returns true when verifier finds errors. AssumptionCache is passed as</p>
+                                        <p> parameter to make this function stateless.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2072 of file llvm/lib/Transforms/Utils/CodeExtractor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="21A06A7A6038ED1D79A1E807F318C1490F19E3C7">
+                                <pre><code class="language-cpp code-clang-doc">bool isEligible ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Test whether this code extractor is eligible.</p>
+                                    </div>
+                                    <div>
+                                        <p> Based on the blocks used when constructing the code extractor,</p>
+                                        <p> determine whether it is eligible for extraction.</p>
+                                    </div>
+                                    <div>
+                                        <p> Checks that varargs handling (with vastart and vaend) is only done in</p>
+                                        <p> the outlined blocks.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 618 of file llvm/lib/Transforms/Utils/CodeExtractor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="040FFCF97AA273DD01BC3C14BF268356C8D124AD">
+                                <pre><code class="language-cpp code-clang-doc">void findInputsOutputs (ValueSet &amp; Inputs, ValueSet &amp; Outputs, const ValueSet &amp; Allocas, bool CollectGlobalInputs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compute the set of input values and output values for the code.</p>
+                                    </div>
+                                    <div>
+                                        <p> These can be used either when performing the extraction or to evaluate</p>
+                                        <p> the expected size of a call to the extracted function. Note that this</p>
+                                        <p> work cannot be cached between the two as once we decide to extract</p>
+                                        <p> a code sequence, that sequence is modified, including changing these</p>
+                                        <p> sets, before extraction occurs. These modifications won&#39;t have any</p>
+                                        <p> significant impact on the cost however.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 663 of file llvm/lib/Transforms/Utils/CodeExtractor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54C099CE04ADA4F13ED112FA399B428E35E2024B">
+                                <pre><code class="language-cpp code-clang-doc">void findInputsOutputs (int &amp; Inputs, int &amp; Outputs, const int &amp; Allocas, bool CollectGlobalInputs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compute the set of input values and output values for the code.</p>
+                                    </div>
+                                    <div>
+                                        <p> These can be used either when performing the extraction or to evaluate</p>
+                                        <p> the expected size of a call to the extracted function. Note that this</p>
+                                        <p> work cannot be cached between the two as once we decide to extract</p>
+                                        <p> a code sequence, that sequence is modified, including changing these</p>
+                                        <p> sets, before extraction occurs. These modifications won&#39;t have any</p>
+                                        <p> significant impact on the cost however.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="39E3FF298CE6BBD89CCD37E8D15883DCCFEB315D">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalToShrinkwrapLifetimeMarkers (const CodeExtractorAnalysisCache &amp; CEAC, Instruction * AllocaAddr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if life time marker nodes can be hoisted/sunk into the outline</p>
+                                        <p> region.</p>
+                                    </div>
+                                    <div>
+                                        <p> Returns true if it is safe to do the code motion.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 380 of file llvm/lib/Transforms/Utils/CodeExtractor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="56255D596604C0082B905A3B509F3ABBBF1A0D90">
+                                <pre><code class="language-cpp code-clang-doc">void findAllocas (const CodeExtractorAnalysisCache &amp; CEAC, ValueSet &amp; SinkCands, ValueSet &amp; HoistCands, BasicBlock *&amp; ExitBlock)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Find the set of allocas whose life ranges are contained within the</p>
+                                        <p> outlined region.</p>
+                                    </div>
+                                    <div>
+                                        <p> Allocas which have life_time markers contained in the outlined region</p>
+                                        <p> should be pushed to the outlined function. The address bitcasts that</p>
+                                        <p> are used by the lifetime markers are also candidates for shrink-</p>
+                                        <p> wrapping. The instructions that need to be sunk are collected in</p>
+                                        <p> &#39;Allocas&#39;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 496 of file llvm/lib/Transforms/Utils/CodeExtractor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C21F9054B7337ECE9A9C3DB8413A47EB88DAB2B2">
+                                <pre><code class="language-cpp code-clang-doc">void findAllocas (const CodeExtractorAnalysisCache &amp; CEAC, int &amp; SinkCands, int &amp; HoistCands, BasicBlock *&amp; ExitBlock)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Find the set of allocas whose life ranges are contained within the</p>
+                                        <p> outlined region.</p>
+                                    </div>
+                                    <div>
+                                        <p> Allocas which have life_time markers contained in the outlined region</p>
+                                        <p> should be pushed to the outlined function. The address bitcasts that</p>
+                                        <p> are used by the lifetime markers are also candidates for shrink-</p>
+                                        <p> wrapping. The instructions that need to be sunk are collected in</p>
+                                        <p> &#39;Allocas&#39;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A81123C9E3CF7AAE10A7706E80E0EBEDDAD0082B">
+                                <pre><code class="language-cpp code-clang-doc">BasicBlock * findOrCreateBlockForHoisting (BasicBlock * CommonExitBlock)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Find or create a block within the outline region for placing hoisted</p>
+                                        <p> code.</p>
+                                    </div>
+                                    <div>
+                                        <p> CommonExitBlock is block outside the outline region. It is the common</p>
+                                        <p> successor of blocks inside the region. If there exists a single block</p>
+                                        <p> inside the region that is the predecessor of CommonExitBlock, that block</p>
+                                        <p> will be returned. Otherwise CommonExitBlock will be split and the</p>
+                                        <p> original block will be added to the outline region.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 393 of file llvm/lib/Transforms/Utils/CodeExtractor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="09D6DE96FB0441A7E18E754F1040EB089374D82A">
+                                <pre><code class="language-cpp code-clang-doc">void excludeArgFromAggregate (Value * Arg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Exclude a value from aggregate argument passing when extracting a code</p>
+                                        <p> region, passing it instead as a scalar.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2101 of file llvm/lib/Transforms/Utils/CodeExtractor.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

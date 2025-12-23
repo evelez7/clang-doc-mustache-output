@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MachineRegisterInfo</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MachineRegisterInfo</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#39108B0527C68CB3E09B5DA16FB1C37B2003E278">MachineRegisterInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A252B1EAA48D0BB6594A72999528146D9629B8F">setRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CF3A21363DFCF797182896EB2EF531CC98261231">setRegBank</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26DD56890530FF89E282B0D692CDA0D2046B2874">constrainRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#707DF994D50E31EC575C3F1683F9C8FBF3442460">constrainRegAttrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3650ACCEA689466F30F675DE6064FCF5707D1A6">recomputeRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#43E5A2A28752D55B89205C3E55850147FC89FC3D">MachineRegisterInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8255B1698F33533A71B0F713DEEE42DBFF02C127">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D063A4C23E6DD2762C9060D87461F9175B8060A">getTargetRegisterInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0D5A9A9BD4FB3D93C4E66F44FFBB86CE8787BCFF">resetDelegate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#62DD94B4695389A58D4F995737C54714781BDCD5">disableCalleeSavedRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2AF760EDA5F6AA9ED4F859EFC43DAF65F2F012D5">getCalleeSavedRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BCC4609E4BCC0CB2521E3C961DCA84382D984A6">setCalleeSavedRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F898684736AEF92735CF048D1AE4E2A9A1C62EA9">addRegOperandToUseList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#933F8A6C539FFB625D589D729DB2CE9A3167A176">removeRegOperandFromUseList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#87E65AE16BD278C06C01D6038AF2536D044BDE8B">moveOperands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#77ECC530DAC83B5E241EA5809580899EA0560A6E">verifyUseList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6583CE3FD2C7284A4164AB90552B6DA446CE8A7C">verifyUseLists</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF6D3698070271091893BDC5E25B753EB382DBB8">hasOneNonDBGUse</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BF1248B9F0A63DC760DE161BEF8FBE96F47E8FE">hasOneNonDBGUser</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5DCE21A4F9AC6FB87DDDF4530ABC88B3A3074853">getOneNonDBGUse</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#63D6E37A564E8A59E123D1A71031CBAC096DF03C">getOneNonDBGUser</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C50D5FCA41D921E88FFB8C029AC77BD969A8D728">hasAtMostUserInstrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5A021E87955F890A430E94CA46F0111ADA0F556A">replaceRegWith</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#586C24144DE09D2910CB8579B0FE5BC11E7C51AF">getVRegDef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F69652B711F4D079E05D214C9F0D9EB94AD29BDE">getUniqueVRegDef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C7976BE8202EF3E55B17AE6B517A5D791F3547C">clearKillFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB6FECBF6F25C0FDB040EA40FC94FD2FCDBB4C48">dumpUses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B5B23A04C2E259FBC0EB84820F053919CFC40C57">isConstantPhysReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#20455A45D713B493DB7138AB3DB8C457CBF5D505">getPressureSets</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#254A5710DD00087F1C7C9AD855F7A52236E0D0EA">createVirtualRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E99913249AC3763E42290E58AD2F85EF064A5D52">createVirtualRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8EAB9D0AF943A2A06054FBCFAFEF489D109F8A8C">cloneVirtualRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CFD3635DC25B0876E5E43B863D59FE3BAAE69D65">setType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#437FA8533ADCBF539D480936FF0DAB3B4595B52B">createGenericVirtualRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#33521D984A63CD0E94559E8F691EA797B511F9F2">clearVirtRegTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#15F557E3546247F3425933B1E8D3F69109174D00">createIncompleteVirtualRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DE955804190C044854BEE778C8050213ACA7941E">addDelegate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ECFFE9D5922090B584657BD5AC8FE9D74F98908C">noteNewVirtualRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0549AC6B0EA8E77D21E42F004DE52FD7C5AA957A">noteCloneVirtualRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9AB0755E0AA15C5630E229AF23A6E0BD4592EFD2">getMF</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8AB54748A32528E72BF4E9E3B8E102386054F398">isSSA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1F4E73F74BF2B1737557C1D7A0C3C25FDB101941">clearVirtRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9684B33BB4B2B882160B1ACCAF1C767988E70594">leaveSSA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#58A14B5646B121DCC45E43F798AF18C6406E460F">tracksLiveness</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5ACD4DDA3AFCBBC1B0F354AF9F54647E859E1AC3">invalidateLiveness</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB54EDEA846EC88EF34CA24C3E148488075FA588">shouldTrackSubRegLiveness</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#06FC373B9E8886C90EA1ECFD1A224DF4B05C33CF">shouldTrackSubRegLiveness</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD93B8E38F20E8416CD3B50AA7BFE8DEE72A243A">subRegLivenessEnabled</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B77C73DCE78232D22AB63B46BCF911886180AC69">isUpdatedCSRsInitialized</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B7021BD4B36DEB4695A0957BDD3CEFA6B37E5731">reg_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C82934174E62792B9772559F00017A4FC27FCDDE">reg_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#74FFBF15D86F44BB2B766D2D2B8D58D593F21EEC">reg_operands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0389D12BBAE7BA72274C6274D2EA193D892897BB">reg_instr_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3A00FFDC06D31BEAD85E7A134FBB3B5F2035B71">reg_instr_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4BA72C0DBB7CE5191ACC2CD965F66ED2ABA47956">reg_instructions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EFCA9F097BEC4A14F6BE4B3E1F001AB5F1E133C5">reg_bundle_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#93098826C0BC0C740CF2E80736D70820CA780C53">reg_bundle_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BEB225A617E38F8FD4C07775D905B481EC6A4866">reg_bundles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0D4F9C18E8D080A3026D0FE5C26697AF8952CF2C">reg_empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A6AC91C3A627559646DE09FDC033010CD7DD962B">reg_nodbg_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#05EAADD7A8583F74ED3FF635ACF2778F31038A8C">reg_nodbg_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7F2C6F611BEF7FB64F5C10D513DAC2D687EA7C04">reg_nodbg_operands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BEF922AF14EB29C2C669A455A28832FCC948FF8B">reg_instr_nodbg_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB73FCF42897398D019F41B4CBD02DF43ED6D0B2">reg_instr_nodbg_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#58AF423838E4150FCEE295F65B682A4B3F0EBAFE">reg_nodbg_instructions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#91C93C811698427617877A9672B19CD497D21A9F">reg_bundle_nodbg_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5FB5931874CEE553DBCF27AA233F4BABDBFFBA42">reg_bundle_nodbg_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2ABD436386A35C31AC2DEE91FDA5C0C7CCC3C0D0">reg_nodbg_bundles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AF54986EC60D9A784D4F2BC08DC43B7A093D9234">reg_nodbg_empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A8AACD3D2BF056F5A54D1FEB8C26F16DDF7584E6">def_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2E38F84DB23855347DABEE029CCEBE3353AB5D7">def_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BD928E0302548DF430A43A139CE59F16B1DB21E9">def_operands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55DB1F6BE06DBDD679993DEDFBE6F316D7432BCF">def_instr_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5B86915BE6C3279F03BBFAA923CAEC1D1258CB3">def_instr_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9D92ECCED5E4ECB110080635C618FB6D7A9FA521">def_instructions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AA0421755042F9E677628B2AE3BDA2548B4AA378">def_bundle_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5F138D1C443C60CCDE3E4B63BBED091F1CEC118C">def_bundle_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DEE28CD15D7BE389776FB712C36FD45128EA9823">def_bundles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C67C95D78A25ABFB368575A7DDFFE3325942ACE9">def_empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1CBD04D2223E16F5E1906D8B45C2DB593BF9C6FE">getVRegName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#32A9D8846B5D1BCC0209087D136FA5AE0210149A">insertVRegByName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4D7A3DC8CB0935DEB0565BD2D9C6D397281DF209">hasOneDef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28F3301A9B4F0910A6AF0F7D60ECFE0067BA65BD">getOneDef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0EDF179EE1E2B14753E494BA881CD145313BADBB">isLiveIn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3A4BCEB65D10C72041808476B2F81200347F22A">use_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E4D4D70A847ECDD02E218D455FCFEFCE54EF91FD">getLiveInPhysReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D2860757992BE79C21E20AB9BC953E98AF2A03E8">use_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3EBF2A19DD63260B94DA68817A32AB1142350302">use_operands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E96776952A6A77545988EA95877434B0FF3813A9">getLiveInVirtReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#532D443CFD0502F997C22901D1ED3CB16B2AD0AD">use_instr_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FBFFA1E7FCDC49E0DB412A1D7C37838AA243E4D9">use_instr_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C12DEE688BA00E96FBB505698E4E0ABA38C103AC">EmitLiveInCopies</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7B37511911B71BD4C65D57DE71A69AE085B31528">use_instructions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ADE9A421A3603D741F92F1334917670C95CDFB19">use_bundle_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#263F00E4C1E1C1CF23B03AC1492ADF8D04765D05">use_bundle_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6EEF0AA3B9A22096C8882702BC0264F9BF59F37D">use_bundles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3542A6D048D459FDED25901EE1FDAAEED02632C6">use_empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7769262D8012F3EB44E80D44989FE3F781B6A34">hasOneUse</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#24BD36C654F0134B24EA2956627F6B197D642F5E">markUsesInDebugValueAsUndef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#71522F55B8E266266E4525EBA107EA32502B9165">isPhysRegModified</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DF02D295BDD0AD1BC77DE134A25F3721C73B1A91">isPhysRegUsed</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2D8FD6A3E7240697B35A01436F7570B6ABAE8570">freezeReservedRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B0DFAC858CC8CB7611DABBB39D98554933F51FB2">isReservedRegUnit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2226D83A67958E04F785DB4966E5F6FB48B28BCE">getMaxLaneMaskForVReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#90760BA5D2A19C989BCB1AF4C0A824E6BD6A487B">use_nodbg_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FFABF9F98AC95D0FE70E9C21EF3E48874967F7E6">use_nodbg_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2DADB152314A8FBC373E8E7073ADE6F7DB6A20C0">use_nodbg_operands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1D33BAD759927B3DB5324E3FE5548E6FD2820CDD">use_instr_nodbg_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B9A59B5FCFB9D58F5661D5CB44E3E8B75436A0E8">use_instr_nodbg_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#341A7899938FA07F4FD7752EBC0DDE06EF36A354">use_nodbg_instructions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#30CE5888473F61A6C89B5469FC1F47AC52A45F25">use_bundle_nodbg_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#435A111AC2BD2641633EAA88DAAEC4625A85FFBF">use_bundle_nodbg_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#385DE48B2BBB9726260A16F8E3159A600A0A00E6">use_nodbg_bundles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#67DE6A7E304505202D2438D3A9FC746768D476F4">use_nodbg_empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8CA1804671545B8D7CCDE85E64567AE09344B382">getRegClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#657134C796EDBE03EF28D437056A7EFF835D1B8E">getRegClassOrNull</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26E4F0D8B901B097DAEB3270C9C38B59799B087D">getRegBank</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D311F453B76A025854B9AA0C1AFD43456AF1655">getRegBankOrNull</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FA6D858C36B21FF6EB48CB115E71735B57666CCB">getRegClassOrRegBank</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6331616A1A1A0AAA5A3FFAD73E4049948EE7AB90">setRegClassOrRegBank</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F3392AF2D440D3EC9EF59FDE1A63EEE126A221AC">getVRegAttrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A42832C6CC3DF46C271BBF9C6645A40254992E91">getType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C5BFE777B725AB97FB029477D2E40B4666BEAF1E">getNumVirtRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3CA54F2898C5CF87A980C8DBBC79E208D86AB6E7">setRegAllocationHint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B91D0F40A7F136FC2E93082B0E479754138BF12E">addRegAllocationHint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#53C8956ABB992045A92686EFAD1A22D80D8D883D">setSimpleHint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4CC3FFFEAA379F9BE85C964FC7A7076633EC751C">clearSimpleHint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#47C2B5A7D368CC6430D0C334B557446599E8D1F1">getRegAllocationHint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB8904670193DA799E686A8C36DC82CA5CA3B632">getSimpleHint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#69CFD9BF68FF16380C71B004BC1D1BC1F6F92E8E">getRegAllocationHints</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D5A50727CFBB6644536E0041CCD8DDB0032B484">updateDbgUsersToReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9160F3528337E0700893D8BC1FBB0633587AE503">addPhysRegsUsedFromRegMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1A7D20DD6EDD62645D237A1AAA10F99021E1AEC2">getUsedPhysRegsMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6BA3D43C3E5199CC091C47FE8E7E00A08BF705B4">reserveReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C5E23B085A0574A4386574AB2ACCBD8409CC66F">reservedRegsFrozen</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A3CB7FF70D63ABD943EFBA059D34D72D91DC2D9A">canReserveReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CBDE5F9BDD193A89CB8B3E466B2FFC5039B294B8">getReservedRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#77FE532F7C5EC4E6AE3F854A780FEDCB46D38062">isReserved</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4A581C41A827C9A4CD3403055F345B69E2B388A0">isAllocatable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#01DF16C7D49F0FB71FDF09A56D3B3AC22F185445">addLiveIn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CB74BCEDCDDAF1C188C6C0DB36DC7A1B6F8352A3">livein_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1AB9550964305D82B9A1A71C851107D81EA36FF">livein_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6F071CB639F1A64C476EA183471DCEEE3A744FEB">livein_empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A892567744F7E7F843E2B6320473FDDAA5EFC2A8">liveins</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MachineRegisterInfo</h1>
+                        <p>Defined at line 53 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> MachineRegisterInfo - Keep track of information for virtual and physical</p>
+                                <p> registers, including vreg register classes, use/def chains for registers,</p>
+                                <p> etc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="39108B0527C68CB3E09B5DA16FB1C37B2003E278">
+                                <pre><code class="language-cpp code-clang-doc">void MachineRegisterInfo (MachineFunction * MF)</code></pre>
+                                <p>Defined at line 43 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A252B1EAA48D0BB6594A72999528146D9629B8F">
+                                <pre><code class="language-cpp code-clang-doc">void setRegClass (Register Reg, const TargetRegisterClass * RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> setRegClass - Set the register class of the specified virtual register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 57 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CF3A21363DFCF797182896EB2EF531CC98261231">
+                                <pre><code class="language-cpp code-clang-doc">void setRegBank (Register Reg, const RegisterBank &amp; RegBank)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the register bank to </p>
+                                        <p> for </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 63 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="26DD56890530FF89E282B0D692CDA0D2046B2874">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * constrainRegClass (Register Reg, const TargetRegisterClass * RC, unsigned int MinNumRegs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> constrainRegClass - Constrain the register class of the specified virtual</p>
+                                        <p> register to be a common subclass of RC and the current register class,</p>
+                                        <p> but only if the new class has at least MinNumRegs registers.  Return the</p>
+                                        <p> new register class, or NULL if no such class exists.</p>
+                                        <p> This should only be used when the constraint is known to be trivial, like</p>
+                                        <p> GR32 -&gt; GR32_NOSP. Beware of increasing register pressure.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 84 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="707DF994D50E31EC575C3F1683F9C8FBF3442460">
+                                <pre><code class="language-cpp code-clang-doc">bool constrainRegAttrs (Register Reg, Register ConstrainingReg, unsigned int MinNumRegs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Constrain the register class or the register bank of the virtual register</p>
+                                        <p> (and low-level type) to be a common subclass or a common bank of</p>
+                                        <p> both registers provided respectively (and a common low-level type). Do</p>
+                                        <p> nothing if any of the attributes (classes, banks, or low-level types) of</p>
+                                        <p> the registers are deemed incompatible, or if the resulting register will</p>
+                                        <p> have a class smaller than before and of size less than </p>
+                                        <p> Return true if such register attributes exist, false otherwise.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 89 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C3650ACCEA689466F30F675DE6064FCF5707D1A6">
+                                <pre><code class="language-cpp code-clang-doc">bool recomputeRegClass (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> recomputeRegClass - Try to find a legal super-class of Reg&#39;s register</p>
+                                        <p> class that still satisfies the constraints from the instructions using</p>
+                                        <p> Reg.  Returns true if Reg was upgraded.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method can be used after constraints have been removed from a</p>
+                                        <p> virtual register, for example after removing instructions or splitting</p>
+                                        <p> the live range.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 119 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="43E5A2A28752D55B89205C3E55850147FC89FC3D">
+                                <pre><code class="language-cpp code-clang-doc">void MachineRegisterInfo (const MachineRegisterInfo &amp; )</code></pre>
+                                <p>Defined at line 156 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8255B1698F33533A71B0F713DEEE42DBFF02C127">
+                                <pre><code class="language-cpp code-clang-doc">MachineRegisterInfo &amp; operator= (const MachineRegisterInfo &amp; )</code></pre>
+                                <p>Defined at line 157 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D063A4C23E6DD2762C9060D87461F9175B8060A">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterInfo * getTargetRegisterInfo ()</code></pre>
+                                <p>Defined at line 159 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0D5A9A9BD4FB3D93C4E66F44FFBB86CE8787BCFF">
+                                <pre><code class="language-cpp code-clang-doc">void resetDelegate (Delegate * delegate)</code></pre>
+                                <p>Defined at line 163 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="62DD94B4695389A58D4F995737C54714781BDCD5">
+                                <pre><code class="language-cpp code-clang-doc">void disableCalleeSavedRegister (MCRegister Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Disables the register from the list of CSRs.</p>
+                                        <p> I.e. the register will not appear as part of the CSR mask.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 620 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2AF760EDA5F6AA9ED4F859EFC43DAF65F2F012D5">
+                                <pre><code class="language-cpp code-clang-doc">const MCPhysReg * getCalleeSavedRegs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns list of callee saved registers.</p>
+                                        <p> The function returns the updated CSR list (after taking into account</p>
+                                        <p> registers that are disabled from the CSR list).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 643 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BCC4609E4BCC0CB2521E3C961DCA84382D984A6">
+                                <pre><code class="language-cpp code-clang-doc">void setCalleeSavedRegs (ArrayRef&lt;MCPhysReg&gt; CSRs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Sets the updated Callee Saved Registers list.</p>
+                                        <p> Notice that it will override ant previously disabled/saved CSRs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 656 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F898684736AEF92735CF048D1AE4E2A9A1C62EA9">
+                                <pre><code class="language-cpp code-clang-doc">void addRegOperandToUseList (MachineOperand * MO)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add MO to the linked list of operands for its register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 271 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="933F8A6C539FFB625D589D729DB2CE9A3167A176">
+                                <pre><code class="language-cpp code-clang-doc">void removeRegOperandFromUseList (MachineOperand * MO)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Remove MO from its use-def list.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 310 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="87E65AE16BD278C06C01D6038AF2536D044BDE8B">
+                                <pre><code class="language-cpp code-clang-doc">void moveOperands (MachineOperand * Dst, MachineOperand * Src, unsigned int NumOps)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Move NumOps operands from Src to Dst, updating use-def lists as needed.</p>
+                                    </div>
+                                    <div>
+                                        <p> The Dst range is assumed to be uninitialized memory. (Or it may contain</p>
+                                        <p> operands that won&#39;t be destroyed, which is OK because the MO destructor is</p>
+                                        <p> trivial anyway).</p>
+                                    </div>
+                                    <div>
+                                        <p> The Src and Dst ranges may overlap.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 339 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="77ECC530DAC83B5E241EA5809580899EA0560A6E">
+                                <pre><code class="language-cpp code-clang-doc">void verifyUseList (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Verify the sanity of the use list for Reg.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 223 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6583CE3FD2C7284A4164AB90552B6DA446CE8A7C">
+                                <pre><code class="language-cpp code-clang-doc">void verifyUseLists ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Verify the use list of all registers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 261 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EF6D3698070271091893BDC5E25B753EB382DBB8">
+                                <pre><code class="language-cpp code-clang-doc">bool hasOneNonDBGUse (Register RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> hasOneNonDBGUse - Return true if there is exactly one non-Debug</p>
+                                        <p> use of the specified register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 425 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BF1248B9F0A63DC760DE161BEF8FBE96F47E8FE">
+                                <pre><code class="language-cpp code-clang-doc">bool hasOneNonDBGUser (Register RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> hasOneNonDBGUse - Return true if there is exactly one non-Debug</p>
+                                        <p> instruction using the specified register. Said instruction may have</p>
+                                        <p> multiple uses.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 429 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5DCE21A4F9AC6FB87DDDF4530ABC88B3A3074853">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand * getOneNonDBGUse (Register RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If the register has a single non-Debug use, returns it; otherwise returns</p>
+                                        <p> nullptr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 433 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="63D6E37A564E8A59E123D1A71031CBAC096DF03C">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * getOneNonDBGUser (Register RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If the register has a single non-Debug instruction using the specified</p>
+                                        <p> register, returns it; otherwise returns nullptr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 438 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C50D5FCA41D921E88FFB8C029AC77BD969A8D728">
+                                <pre><code class="language-cpp code-clang-doc">bool hasAtMostUserInstrs (Register Reg, unsigned int MaxUsers)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> hasAtMostUses - Return true if the given register has at most </p>
+                                        <p> non-debug user instructions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 443 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5A021E87955F890A430E94CA46F0111ADA0F556A">
+                                <pre><code class="language-cpp code-clang-doc">void replaceRegWith (Register FromReg, Register ToReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> replaceRegWith - Replace all instances of FromReg with ToReg in the</p>
+                                        <p> machine function.  This is like llvm-level X-&gt;replaceAllUsesWith(Y),</p>
+                                        <p> except that it also changes any definitions of the register as well.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that it is usually necessary to first constrain ToReg&#39;s register</p>
+                                        <p> class and register bank to match the FromReg constraints using one of the</p>
+                                        <p> methods:</p>
+                                    </div>
+                                    <div>
+                                        <p>   constrainRegClass(ToReg, getRegClass(FromReg))</p>
+                                        <p>   constrainRegAttrs(ToReg, FromReg)</p>
+                                        <p>   RegisterBankInfo::constrainGenericRegister(ToReg,</p>
+                                        <p>       *MRI.getRegClass(FromReg), MRI)</p>
+                                    </div>
+                                    <div>
+                                        <p> These functions will return a falsy result if the virtual registers have</p>
+                                        <p> incompatible constraints.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that if ToReg is a physical register the function will replace and</p>
+                                        <p> apply sub registers to ToReg in order to obtain a final/proper physical</p>
+                                        <p> register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 386 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="586C24144DE09D2910CB8579B0FE5BC11E7C51AF">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * getVRegDef (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getVRegDef - Return the machine instr that defines the specified virtual</p>
+                                        <p> register or null if none is found.  This assumes that the code is in SSA</p>
+                                        <p> form, so there should only be one definition.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 404 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F69652B711F4D079E05D214C9F0D9EB94AD29BDE">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * getUniqueVRegDef (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getUniqueVRegDef - Return the unique machine instr that defines the</p>
+                                        <p> specified virtual register or null if none is found.  If there are</p>
+                                        <p> multiple definitions or no definition, return null.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 417 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C7976BE8202EF3E55B17AE6B517A5D791F3547C">
+                                <pre><code class="language-cpp code-clang-doc">void clearKillFlags (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> clearKillFlags - Iterate over all the uses of the given register and</p>
+                                        <p> clear the kill flag from the MachineOperand. This function is used by</p>
+                                        <p> optimization passes which extend register lifetimes and need only</p>
+                                        <p> preserve conservative kill flag information.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 453 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB6FECBF6F25C0FDB040EA40FC94FD2FCDBB4C48">
+                                <pre><code class="language-cpp code-clang-doc">void dumpUses (Register RegNo)</code></pre>
+                                <p>Defined at line 523 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B5B23A04C2E259FBC0EB84820F053919CFC40C57">
+                                <pre><code class="language-cpp code-clang-doc">bool isConstantPhysReg (MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if PhysReg is unallocatable and constant throughout the</p>
+                                        <p> function. Writing to a constant register has no effect.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 535 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="20455A45D713B493DB7138AB3DB8C457CBF5D505">
+                                <pre><code class="language-cpp code-clang-doc">PSetIterator getPressureSets (VirtRegOrUnit VRegOrUnit)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get an iterator over the pressure sets affected by the virtual register</p>
+                                        <p> or register unit.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1280 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="254A5710DD00087F1C7C9AD855F7A52236E0D0EA">
+                                <pre><code class="language-cpp code-clang-doc">Register createVirtualRegister (const TargetRegisterClass * RegClass, StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> createVirtualRegister - Create and return a new virtual register in the</p>
+                                        <p> function with the specified register class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 153 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E99913249AC3763E42290E58AD2F85EF064A5D52">
+                                <pre><code class="language-cpp code-clang-doc">Register createVirtualRegister (VRegAttrs RegAttr, StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create and return a new virtual register in the function with the</p>
+                                        <p> specified register attributes(register class or bank and low level type).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 167 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8EAB9D0AF943A2A06054FBCFAFEF489D109F8A8C">
+                                <pre><code class="language-cpp code-clang-doc">Register cloneVirtualRegister (Register VReg, StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create and return a new virtual register in the function with the same</p>
+                                        <p> attributes as the given register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 176 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CFD3635DC25B0876E5E43B863D59FE3BAAE69D65">
+                                <pre><code class="language-cpp code-clang-doc">void setType (Register VReg, LLT Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the low-level type of </p>
+                                        <p> to </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 185 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="437FA8533ADCBF539D480936FF0DAB3B4595B52B">
+                                <pre><code class="language-cpp code-clang-doc">Register createGenericVirtualRegister (LLT Ty, StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create and return a new generic virtual register with low-level</p>
+                                        <p> type </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 190 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="33521D984A63CD0E94559E8F691EA797B511F9F2">
+                                <pre><code class="language-cpp code-clang-doc">void clearVirtRegTypes ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Remove all types associated to virtual registers (after instruction</p>
+                                        <p> selection and constraining of all generic virtual registers).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 201 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="15F557E3546247F3425933B1E8D3F69109174D00">
+                                <pre><code class="language-cpp code-clang-doc">Register createIncompleteVirtualRegister (StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Creates a new virtual register that has no register class, register bank</p>
+                                        <p> or size assigned yet. This is only allowed to be used</p>
+                                        <p> temporarily while constructing machine instructions. Most operations are</p>
+                                        <p> undefined on an incomplete register until one of setRegClass(),</p>
+                                        <p> setRegBank() or setSize() has been called on it.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 143 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DE955804190C044854BEE778C8050213ACA7941E">
+                                <pre><code class="language-cpp code-clang-doc">void addDelegate (Delegate * delegate)</code></pre>
+                                <p>Defined at line 171 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ECFFE9D5922090B584657BD5AC8FE9D74F98908C">
+                                <pre><code class="language-cpp code-clang-doc">void noteNewVirtualRegister (Register Reg)</code></pre>
+                                <p>Defined at line 179 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0549AC6B0EA8E77D21E42F004DE52FD7C5AA957A">
+                                <pre><code class="language-cpp code-clang-doc">void noteCloneVirtualRegister (Register NewReg, Register SrcReg)</code></pre>
+                                <p>Defined at line 184 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9AB0755E0AA15C5630E229AF23A6E0BD4592EFD2">
+                                <pre><code class="language-cpp code-clang-doc">const MachineFunction &amp; getMF ()</code></pre>
+                                <p>Defined at line 189 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8AB54748A32528E72BF4E9E3B8E102386054F398">
+                                <pre><code class="language-cpp code-clang-doc">bool isSSA ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isSSA - Returns true when the machine function is in SSA form. Early</p>
+                                        <p> passes require the machine function to be in SSA form where every virtual</p>
+                                        <p> register has a single defining instruction.</p>
+                                    </div>
+                                    <div>
+                                        <p> The TwoAddressInstructionPass and PHIElimination passes take the machine</p>
+                                        <p> function out of SSA form when they introduce multiple defs per virtual</p>
+                                        <p> register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 202 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1F4E73F74BF2B1737557C1D7A0C3C25FDB101941">
+                                <pre><code class="language-cpp code-clang-doc">void clearVirtRegs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> clearVirtRegs - Remove all virtual registers (after physreg assignment).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 204 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9684B33BB4B2B882160B1ACCAF1C767988E70594">
+                                <pre><code class="language-cpp code-clang-doc">void leaveSSA ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> leaveSSA - Indicates that the machine function is no longer in SSA form.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 205 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="58A14B5646B121DCC45E43F798AF18C6406E460F">
+                                <pre><code class="language-cpp code-clang-doc">bool tracksLiveness ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> tracksLiveness - Returns true when tracking register liveness accurately.</p>
+                                        <p> (see MachineFUnctionProperties::Property description for details)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 209 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5ACD4DDA3AFCBBC1B0F354AF9F54647E859E1AC3">
+                                <pre><code class="language-cpp code-clang-doc">void invalidateLiveness ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> invalidateLiveness - Indicates that register liveness is no longer being</p>
+                                        <p> tracked accurately.</p>
+                                    </div>
+                                    <div>
+                                        <p> This should be called by late passes that invalidate the liveness</p>
+                                        <p> information.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 218 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB54EDEA846EC88EF34CA24C3E148488075FA588">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldTrackSubRegLiveness (const TargetRegisterClass &amp; RC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if liveness for register class </p>
+                                        <p> should be tracked at</p>
+                                        <p> the subregister level.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 222 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="06FC373B9E8886C90EA1ECFD1A224DF4B05C33CF">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldTrackSubRegLiveness (Register VReg)</code></pre>
+                                <p>Defined at line 225 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD93B8E38F20E8416CD3B50AA7BFE8DEE72A243A">
+                                <pre><code class="language-cpp code-clang-doc">bool subRegLivenessEnabled ()</code></pre>
+                                <p>Defined at line 230 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B77C73DCE78232D22AB63B46BCF911886180AC69">
+                                <pre><code class="language-cpp code-clang-doc">bool isUpdatedCSRsInitialized ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the updated CSR list was initialized and false otherwise.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 239 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B7021BD4B36DEB4695A0957BDD3CEFA6B37E5731">
+                                <pre><code class="language-cpp code-clang-doc">reg_iterator reg_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 286 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C82934174E62792B9772559F00017A4FC27FCDDE">
+                                <pre><code class="language-cpp code-clang-doc">reg_iterator reg_end ()</code></pre>
+                                <p>Defined at line 289 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="74FFBF15D86F44BB2B766D2D2B8D58D593F21EEC">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;reg_iterator&gt; reg_operands (Register Reg)</code></pre>
+                                <p>Defined at line 291 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0389D12BBAE7BA72274C6274D2EA193D892897BB">
+                                <pre><code class="language-cpp code-clang-doc">reg_instr_iterator reg_instr_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 299 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C3A00FFDC06D31BEAD85E7A134FBB3B5F2035B71">
+                                <pre><code class="language-cpp code-clang-doc">reg_instr_iterator reg_instr_end ()</code></pre>
+                                <p>Defined at line 302 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4BA72C0DBB7CE5191ACC2CD965F66ED2ABA47956">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;reg_instr_iterator&gt; reg_instructions (Register Reg)</code></pre>
+                                <p>Defined at line 306 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EFCA9F097BEC4A14F6BE4B3E1F001AB5F1E133C5">
+                                <pre><code class="language-cpp code-clang-doc">reg_bundle_iterator reg_bundle_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 315 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="93098826C0BC0C740CF2E80736D70820CA780C53">
+                                <pre><code class="language-cpp code-clang-doc">reg_bundle_iterator reg_bundle_end ()</code></pre>
+                                <p>Defined at line 318 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BEB225A617E38F8FD4C07775D905B481EC6A4866">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;reg_bundle_iterator&gt; reg_bundles (Register Reg)</code></pre>
+                                <p>Defined at line 322 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0D4F9C18E8D080A3026D0FE5C26697AF8952CF2C">
+                                <pre><code class="language-cpp code-clang-doc">bool reg_empty (Register RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> reg_empty - Return true if there are no instructions using or defining the</p>
+                                        <p> specified register (it may be live-in).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 328 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A6AC91C3A627559646DE09FDC033010CD7DD962B">
+                                <pre><code class="language-cpp code-clang-doc">reg_nodbg_iterator reg_nodbg_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 334 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="05EAADD7A8583F74ED3FF635ACF2778F31038A8C">
+                                <pre><code class="language-cpp code-clang-doc">reg_nodbg_iterator reg_nodbg_end ()</code></pre>
+                                <p>Defined at line 337 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7F2C6F611BEF7FB64F5C10D513DAC2D687EA7C04">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;reg_nodbg_iterator&gt; reg_nodbg_operands (Register Reg)</code></pre>
+                                <p>Defined at line 341 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BEF922AF14EB29C2C669A455A28832FCC948FF8B">
+                                <pre><code class="language-cpp code-clang-doc">reg_instr_nodbg_iterator reg_instr_nodbg_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 351 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB73FCF42897398D019F41B4CBD02DF43ED6D0B2">
+                                <pre><code class="language-cpp code-clang-doc">reg_instr_nodbg_iterator reg_instr_nodbg_end ()</code></pre>
+                                <p>Defined at line 354 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="58AF423838E4150FCEE295F65B682A4B3F0EBAFE">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;reg_instr_nodbg_iterator&gt; reg_nodbg_instructions (Register Reg)</code></pre>
+                                <p>Defined at line 358 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="91C93C811698427617877A9672B19CD497D21A9F">
+                                <pre><code class="language-cpp code-clang-doc">reg_bundle_nodbg_iterator reg_bundle_nodbg_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 368 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5FB5931874CEE553DBCF27AA233F4BABDBFFBA42">
+                                <pre><code class="language-cpp code-clang-doc">reg_bundle_nodbg_iterator reg_bundle_nodbg_end ()</code></pre>
+                                <p>Defined at line 371 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2ABD436386A35C31AC2DEE91FDA5C0C7CCC3C0D0">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;reg_bundle_nodbg_iterator&gt; reg_nodbg_bundles (Register Reg)</code></pre>
+                                <p>Defined at line 375 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AF54986EC60D9A784D4F2BC08DC43B7A093D9234">
+                                <pre><code class="language-cpp code-clang-doc">bool reg_nodbg_empty (Register RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> reg_nodbg_empty - Return true if the only instructions using or defining</p>
+                                        <p> Reg are Debug instructions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 382 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A8AACD3D2BF056F5A54D1FEB8C26F16DDF7584E6">
+                                <pre><code class="language-cpp code-clang-doc">def_iterator def_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 388 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2E38F84DB23855347DABEE029CCEBE3353AB5D7">
+                                <pre><code class="language-cpp code-clang-doc">def_iterator def_end ()</code></pre>
+                                <p>Defined at line 391 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BD928E0302548DF430A43A139CE59F16B1DB21E9">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;def_iterator&gt; def_operands (Register Reg)</code></pre>
+                                <p>Defined at line 393 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="55DB1F6BE06DBDD679993DEDFBE6F316D7432BCF">
+                                <pre><code class="language-cpp code-clang-doc">def_instr_iterator def_instr_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 401 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5B86915BE6C3279F03BBFAA923CAEC1D1258CB3">
+                                <pre><code class="language-cpp code-clang-doc">def_instr_iterator def_instr_end ()</code></pre>
+                                <p>Defined at line 404 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9D92ECCED5E4ECB110080635C618FB6D7A9FA521">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;def_instr_iterator&gt; def_instructions (Register Reg)</code></pre>
+                                <p>Defined at line 408 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AA0421755042F9E677628B2AE3BDA2548B4AA378">
+                                <pre><code class="language-cpp code-clang-doc">def_bundle_iterator def_bundle_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 417 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F138D1C443C60CCDE3E4B63BBED091F1CEC118C">
+                                <pre><code class="language-cpp code-clang-doc">def_bundle_iterator def_bundle_end ()</code></pre>
+                                <p>Defined at line 420 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DEE28CD15D7BE389776FB712C36FD45128EA9823">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;def_bundle_iterator&gt; def_bundles (Register Reg)</code></pre>
+                                <p>Defined at line 424 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C67C95D78A25ABFB368575A7DDFFE3325942ACE9">
+                                <pre><code class="language-cpp code-clang-doc">bool def_empty (Register RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> def_empty - Return true if there are no instructions defining the</p>
+                                        <p> specified register (it may be live-in).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 430 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1CBD04D2223E16F5E1906D8B45C2DB593BF9C6FE">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getVRegName (Register Reg)</code></pre>
+                                <p>Defined at line 432 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="32A9D8846B5D1BCC0209087D136FA5AE0210149A">
+                                <pre><code class="language-cpp code-clang-doc">void insertVRegByName (StringRef Name, Register Reg)</code></pre>
+                                <p>Defined at line 436 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4D7A3DC8CB0935DEB0565BD2D9C6D397281DF209">
+                                <pre><code class="language-cpp code-clang-doc">bool hasOneDef (Register RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if there is exactly one operand defining the specified</p>
+                                        <p> register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 448 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="28F3301A9B4F0910A6AF0F7D60ECFE0067BA65BD">
+                                <pre><code class="language-cpp code-clang-doc">MachineOperand * getOneDef (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the defining operand if there is exactly one operand defining the</p>
+                                        <p> specified register, otherwise nullptr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 454 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0EDF179EE1E2B14753E494BA881CD145313BADBB">
+                                <pre><code class="language-cpp code-clang-doc">bool isLiveIn (Register Reg)</code></pre>
+                                <p>Defined at line 458 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C3A4BCEB65D10C72041808476B2F81200347F22A">
+                                <pre><code class="language-cpp code-clang-doc">use_iterator use_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 467 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E4D4D70A847ECDD02E218D455FCFEFCE54EF91FD">
+                                <pre><code class="language-cpp code-clang-doc">MCRegister getLiveInPhysReg (Register VReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getLiveInPhysReg - If VReg is a live-in virtual register, return the</p>
+                                        <p> corresponding live-in physical register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 467 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D2860757992BE79C21E20AB9BC953E98AF2A03E8">
+                                <pre><code class="language-cpp code-clang-doc">use_iterator use_end ()</code></pre>
+                                <p>Defined at line 470 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3EBF2A19DD63260B94DA68817A32AB1142350302">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;use_iterator&gt; use_operands (Register Reg)</code></pre>
+                                <p>Defined at line 472 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E96776952A6A77545988EA95877434B0FF3813A9">
+                                <pre><code class="language-cpp code-clang-doc">Register getLiveInVirtReg (MCRegister PReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getLiveInVirtReg - If PReg is a live-in physical register, return the</p>
+                                        <p> corresponding live-in physical register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 476 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="532D443CFD0502F997C22901D1ED3CB16B2AD0AD">
+                                <pre><code class="language-cpp code-clang-doc">use_instr_iterator use_instr_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 480 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FBFFA1E7FCDC49E0DB412A1D7C37838AA243E4D9">
+                                <pre><code class="language-cpp code-clang-doc">use_instr_iterator use_instr_end ()</code></pre>
+                                <p>Defined at line 483 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C12DEE688BA00E96FBB505698E4E0ABA38C103AC">
+                                <pre><code class="language-cpp code-clang-doc">void EmitLiveInCopies (MachineBasicBlock * EntryMBB, const TargetRegisterInfo &amp; TRI, const TargetInstrInfo &amp; TII)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> EmitLiveInCopies - Emit copies to initialize livein virtual registers</p>
+                                        <p> into the given entry block.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 485 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7B37511911B71BD4C65D57DE71A69AE085B31528">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;use_instr_iterator&gt; use_instructions (Register Reg)</code></pre>
+                                <p>Defined at line 487 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ADE9A421A3603D741F92F1334917670C95CDFB19">
+                                <pre><code class="language-cpp code-clang-doc">use_bundle_iterator use_bundle_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 496 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="263F00E4C1E1C1CF23B03AC1492ADF8D04765D05">
+                                <pre><code class="language-cpp code-clang-doc">use_bundle_iterator use_bundle_end ()</code></pre>
+                                <p>Defined at line 499 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6EEF0AA3B9A22096C8882702BC0264F9BF59F37D">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;use_bundle_iterator&gt; use_bundles (Register Reg)</code></pre>
+                                <p>Defined at line 503 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3542A6D048D459FDED25901EE1FDAAEED02632C6">
+                                <pre><code class="language-cpp code-clang-doc">bool use_empty (Register RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> use_empty - Return true if there are no instructions using the specified</p>
+                                        <p> register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 509 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F7769262D8012F3EB44E80D44989FE3F781B6A34">
+                                <pre><code class="language-cpp code-clang-doc">bool hasOneUse (Register RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> hasOneUse - Return true if there is exactly one instruction using the</p>
+                                        <p> specified register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 513 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="24BD36C654F0134B24EA2956627F6B197D642F5E">
+                                <pre><code class="language-cpp code-clang-doc">void markUsesInDebugValueAsUndef (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> markUsesInDebugValueAsUndef - Mark every DBG_VALUE referencing the</p>
+                                        <p> specified register as undefined which causes the DBG_VALUE to be</p>
+                                        <p> deleted during LiveDebugVariables analysis.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 554 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="71522F55B8E266266E4525EBA107EA32502B9165">
+                                <pre><code class="language-cpp code-clang-doc">bool isPhysRegModified (MCRegister PhysReg, bool SkipNoReturnDef)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the specified register is modified in this function.</p>
+                                        <p> This checks that no defining machine operands exist for the register or</p>
+                                        <p> any of its aliases. Definitions found on functions marked noreturn are</p>
+                                        <p> ignored, to consider them pass &#39;true&#39; for optional parameter</p>
+                                        <p> SkipNoReturnDef. The register is also considered modified when it is set</p>
+                                        <p> in the UsedPhysRegMask.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 592 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DF02D295BDD0AD1BC77DE134A25F3721C73B1A91">
+                                <pre><code class="language-cpp code-clang-doc">bool isPhysRegUsed (MCRegister PhysReg, bool SkipRegMaskTest)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the specified register is modified or read in this</p>
+                                        <p> function. This checks that no machine operands exist for the register or</p>
+                                        <p> any of its aliases. If SkipRegMaskTest is false, the register is</p>
+                                        <p> considered used when it is set in the UsedPhysRegMask.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 607 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2D8FD6A3E7240697B35A01436F7570B6ABAE8570">
+                                <pre><code class="language-cpp code-clang-doc">void freezeReservedRegs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> freezeReservedRegs - Called by the register allocator to freeze the set</p>
+                                        <p> of reserved registers before allocation begins.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 529 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B0DFAC858CC8CB7611DABBB39D98554933F51FB2">
+                                <pre><code class="language-cpp code-clang-doc">bool isReservedRegUnit (MCRegUnit Unit)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true when the given register unit is considered reserved.</p>
+                                    </div>
+                                    <div>
+                                        <p> Register units are considered reserved when for at least one of their</p>
+                                        <p> root registers, the root register and all super registers are reserved.</p>
+                                        <p> This currently iterates the register hierarchy and may be slower than</p>
+                                        <p> expected.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 668 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2226D83A67958E04F785DB4966E5F6FB48B28BCE">
+                                <pre><code class="language-cpp code-clang-doc">LaneBitmask getMaxLaneMaskForVReg (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a mask covering all bits that can appear in lane masks of</p>
+                                        <p> subregisters of the virtual register </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 515 of file llvm/lib/CodeGen/MachineRegisterInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="90760BA5D2A19C989BCB1AF4C0A824E6BD6A487B">
+                                <pre><code class="language-cpp code-clang-doc">use_nodbg_iterator use_nodbg_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 521 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FFABF9F98AC95D0FE70E9C21EF3E48874967F7E6">
+                                <pre><code class="language-cpp code-clang-doc">use_nodbg_iterator use_nodbg_end ()</code></pre>
+                                <p>Defined at line 524 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2DADB152314A8FBC373E8E7073ADE6F7DB6A20C0">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;use_nodbg_iterator&gt; use_nodbg_operands (Register Reg)</code></pre>
+                                <p>Defined at line 528 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1D33BAD759927B3DB5324E3FE5548E6FD2820CDD">
+                                <pre><code class="language-cpp code-clang-doc">use_instr_nodbg_iterator use_instr_nodbg_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 538 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B9A59B5FCFB9D58F5661D5CB44E3E8B75436A0E8">
+                                <pre><code class="language-cpp code-clang-doc">use_instr_nodbg_iterator use_instr_nodbg_end ()</code></pre>
+                                <p>Defined at line 541 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="341A7899938FA07F4FD7752EBC0DDE06EF36A354">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;use_instr_nodbg_iterator&gt; use_nodbg_instructions (Register Reg)</code></pre>
+                                <p>Defined at line 545 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="30CE5888473F61A6C89B5469FC1F47AC52A45F25">
+                                <pre><code class="language-cpp code-clang-doc">use_bundle_nodbg_iterator use_bundle_nodbg_begin (Register RegNo)</code></pre>
+                                <p>Defined at line 555 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="435A111AC2BD2641633EAA88DAAEC4625A85FFBF">
+                                <pre><code class="language-cpp code-clang-doc">use_bundle_nodbg_iterator use_bundle_nodbg_end ()</code></pre>
+                                <p>Defined at line 558 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="385DE48B2BBB9726260A16F8E3159A600A0A00E6">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;use_bundle_nodbg_iterator&gt; use_nodbg_bundles (Register Reg)</code></pre>
+                                <p>Defined at line 562 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="67DE6A7E304505202D2438D3A9FC746768D476F4">
+                                <pre><code class="language-cpp code-clang-doc">bool use_nodbg_empty (Register RegNo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> use_nodbg_empty - Return true if there are no non-Debug instructions</p>
+                                        <p> using the specified register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 569 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8CA1804671545B8D7CCDE85E64567AE09344B382">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getRegClass (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the register class of the specified virtual register.</p>
+                                        <p> This shouldn&#39;t be used directly unless </p>
+                                        <p> has a register class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 648 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="657134C796EDBE03EF28D437056A7EFF835D1B8E">
+                                <pre><code class="language-cpp code-clang-doc">const TargetRegisterClass * getRegClassOrNull (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the register class of </p>
+                                        <p> or null if Reg has not been assigned</p>
+                                        <p> a register class yet.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 665 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="26E4F0D8B901B097DAEB3270C9C38B59799B087D">
+                                <pre><code class="language-cpp code-clang-doc">const RegisterBank * getRegBank (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the register bank of </p>
+                                        <p> This shouldn&#39;t be used directly unless </p>
+                                        <p> has a register bank.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 672 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3D311F453B76A025854B9AA0C1AFD43456AF1655">
+                                <pre><code class="language-cpp code-clang-doc">const RegisterBank * getRegBankOrNull (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the register bank of </p>
+                                        <p> or null if Reg has not been assigned</p>
+                                        <p> a register bank or has been assigned a register class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 680 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FA6D858C36B21FF6EB48CB115E71735B57666CCB">
+                                <pre><code class="language-cpp code-clang-doc">const RegClassOrRegBank &amp; getRegClassOrRegBank (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the register bank or register class of </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 688 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6331616A1A1A0AAA5A3FFAD73E4049948EE7AB90">
+                                <pre><code class="language-cpp code-clang-doc">void setRegClassOrRegBank (Register Reg, const RegClassOrRegBank &amp; RCOrRB)</code></pre>
+                                <p>Defined at line 698 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F3392AF2D440D3EC9EF59FDE1A63EEE126A221AC">
+                                <pre><code class="language-cpp code-clang-doc">VRegAttrs getVRegAttrs (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns register class or bank and low level type of </p>
+                                        <p> Always safe</p>
+                                        <p> to use. Special values are returned when </p>
+                                        <p> does not have some of the</p>
+                                        <p> attributes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 756 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A42832C6CC3DF46C271BBF9C6645A40254992E91">
+                                <pre><code class="language-cpp code-clang-doc">LLT getType (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the low-level type of </p>
+                                        <p> or LLT{} if Reg is not a generic</p>
+                                        <p> (target independent) virtual register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 771 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C5BFE777B725AB97FB029477D2E40B4666BEAF1E">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumVirtRegs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getNumVirtRegs - Return the number of virtual registers created.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 796 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3CA54F2898C5CF87A980C8DBBC79E208D86AB6E7">
+                                <pre><code class="language-cpp code-clang-doc">void setRegAllocationHint (Register VReg, unsigned int Type, Register PrefReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> setRegAllocationHint - Specify a register allocation hint for the</p>
+                                        <p> specified virtual register. This is typically used by target, and in case</p>
+                                        <p> of an earlier hint it will be overwritten.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 804 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B91D0F40A7F136FC2E93082B0E479754138BF12E">
+                                <pre><code class="language-cpp code-clang-doc">void addRegAllocationHint (Register VReg, Register PrefReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> addRegAllocationHint - Add a register allocation hint to the hints</p>
+                                        <p> vector for VReg.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 815 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="53C8956ABB992045A92686EFAD1A22D80D8D883D">
+                                <pre><code class="language-cpp code-clang-doc">void setSimpleHint (Register VReg, Register PrefReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Specify the preferred (target independent) register allocation hint for</p>
+                                        <p> the specified virtual register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 823 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4CC3FFFEAA379F9BE85C964FC7A7076633EC751C">
+                                <pre><code class="language-cpp code-clang-doc">void clearSimpleHint (Register VReg)</code></pre>
+                                <p>Defined at line 827 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="47C2B5A7D368CC6430D0C334B557446599E8D1F1">
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;unsigned int, Register&gt; getRegAllocationHint (Register VReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getRegAllocationHint - Return the register allocation hint for the</p>
+                                        <p> specified virtual register. If there are many hints, this returns the</p>
+                                        <p> one with the greatest weight.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 837 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB8904670193DA799E686A8C36DC82CA5CA3B632">
+                                <pre><code class="language-cpp code-clang-doc">Register getSimpleHint (Register VReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getSimpleHint - same as getRegAllocationHint except it will only return</p>
+                                        <p> a target independent hint.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 848 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="69CFD9BF68FF16380C71B004BC1D1BC1F6F92E8E">
+                                <pre><code class="language-cpp code-clang-doc">const std::pair&lt;unsigned int, SmallVector&lt;Register, 4&gt;&gt; * getRegAllocationHints (Register VReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getRegAllocationHints - Return a reference to the vector of all</p>
+                                        <p> register allocation hints for VReg.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 856 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3D5A50727CFBB6644536E0041CCD8DDB0032B484">
+                                <pre><code class="language-cpp code-clang-doc">void updateDbgUsersToReg (MCRegister OldReg, MCRegister NewReg, ArrayRef&lt;MachineInstr *&gt; Users)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> updateDbgUsersToReg - Update a collection of debug instructions</p>
+                                        <p> to refer to the designated register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 869 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9160F3528337E0700893D8BC1FBB0633587AE503">
+                                <pre><code class="language-cpp code-clang-doc">void addPhysRegsUsedFromRegMask (const uint32_t * RegMask)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> addPhysRegsUsedFromRegMask - Mark any registers not in RegMask as used.</p>
+                                        <p> This corresponds to the bit mask attached to register mask operands.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 913 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1A7D20DD6EDD62645D237A1AAA10F99021E1AEC2">
+                                <pre><code class="language-cpp code-clang-doc">const BitVector &amp; getUsedPhysRegsMask ()</code></pre>
+                                <p>Defined at line 917 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6BA3D43C3E5199CC091C47FE8E7E00A08BF705B4">
+                                <pre><code class="language-cpp code-clang-doc">void reserveReg (MCRegister PhysReg, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> reserveReg -- Mark a register as reserved so checks like isAllocatable</p>
+                                        <p> will not suggest using it. This should not be used during the middle</p>
+                                        <p> of a function walk, or when liveness info is available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 938 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C5E23B085A0574A4386574AB2ACCBD8409CC66F">
+                                <pre><code class="language-cpp code-clang-doc">bool reservedRegsFrozen ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> reservedRegsFrozen - Returns true after freezeReservedRegs() was called</p>
+                                        <p> to ensure the set of reserved registers stays constant.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 949 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A3CB7FF70D63ABD943EFBA059D34D72D91DC2D9A">
+                                <pre><code class="language-cpp code-clang-doc">bool canReserveReg (MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> canReserveReg - Returns true if PhysReg can be used as a reserved</p>
+                                        <p> register.  Any register can be reserved before freezeReservedRegs() is</p>
+                                        <p> called.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 956 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CBDE5F9BDD193A89CB8B3E466B2FFC5039B294B8">
+                                <pre><code class="language-cpp code-clang-doc">const BitVector &amp; getReservedRegs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getReservedRegs - Returns a reference to the frozen set of reserved</p>
+                                        <p> registers. This method should always be preferred to calling</p>
+                                        <p> TRI::getReservedRegs() when possible.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 963 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="77FE532F7C5EC4E6AE3F854A780FEDCB46D38062">
+                                <pre><code class="language-cpp code-clang-doc">bool isReserved (MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isReserved - Returns true when PhysReg is a reserved register.</p>
+                                    </div>
+                                    <div>
+                                        <p> Reserved registers may belong to an allocatable register class, but the</p>
+                                        <p> target has explicitly requested that they are not used.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 974 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4A581C41A827C9A4CD3403055F345B69E2B388A0">
+                                <pre><code class="language-cpp code-clang-doc">bool isAllocatable (MCRegister PhysReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isAllocatable - Returns true when PhysReg belongs to an allocatable</p>
+                                        <p> register class and it hasn&#39;t been reserved.</p>
+                                    </div>
+                                    <div>
+                                        <p> Allocatable registers may show up in the allocation order of some virtual</p>
+                                        <p> register, so a register allocator needs to track its liveness and</p>
+                                        <p> availability.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 992 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="01DF16C7D49F0FB71FDF09A56D3B3AC22F185445">
+                                <pre><code class="language-cpp code-clang-doc">void addLiveIn (MCRegister Reg, Register vreg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> addLiveIn - Add the specified register as a live-in.  Note that it</p>
+                                        <p> is an error to add the same register to the same set more than once.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1003 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CB74BCEDCDDAF1C188C6C0DB36DC7A1B6F8352A3">
+                                <pre><code class="language-cpp code-clang-doc">int livein_begin ()</code></pre>
+                                <p>Defined at line 1011 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1AB9550964305D82B9A1A71C851107D81EA36FF">
+                                <pre><code class="language-cpp code-clang-doc">int livein_end ()</code></pre>
+                                <p>Defined at line 1012 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6F071CB639F1A64C476EA183471DCEEE3A744FEB">
+                                <pre><code class="language-cpp code-clang-doc">bool livein_empty ()</code></pre>
+                                <p>Defined at line 1013 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A892567744F7E7F843E2B6320473FDDAA5EFC2A8">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;std::pair&lt;MCRegister, Register&gt;&gt; liveins ()</code></pre>
+                                <p>Defined at line 1015 of file llvm/include/llvm/CodeGen/MachineRegisterInfo.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

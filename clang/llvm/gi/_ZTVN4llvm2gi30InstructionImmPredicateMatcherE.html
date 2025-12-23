@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>InstructionImmPredicateMatcher</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">gi</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class InstructionImmPredicateMatcher</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Protected Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#831F36678EB9C8E55FEC13D2F031CE11ABD257BF">InstructionImmPredicateMatcher</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB17AE8D720C9EF9460CF7874D1010A8224CEDA3">classof</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B916DC22B7BCDC62A9BA0DD0F695BF0AB8FE9681">isIdentical</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C8BCC50902D9FDB8E3690E2B5D63836855067CCF">emitPredicateOpcodes</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class InstructionImmPredicateMatcher</h1>
+                        <p>Defined at line 1508 of file llvm/utils/TableGen/Common/GlobalISel/GlobalISelMatchTable.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Generates code to check that this instruction is a constant whose value</p>
+                                <p> meets an immediate predicate.</p>
+                            </div>
+                            <div>
+                                <p> Immediates are slightly odd since they are typically used like an operand</p>
+                                <p> but are represented as an operator internally. We typically write simm8:$src</p>
+                                <p> in a tablegen pattern, but this is just syntactic sugar for</p>
+                                <p> (imm:i32)</p>
+                                <p>&lt;</p>
+                                <p>&lt;P</p>
+                                <p>:Predicate_simm8&gt;&gt;:$imm which more directly describes the nodes</p>
+                                <p> that will be matched and the predicate (which is attached to the imm</p>
+                                <p> operator) that will be tested. In SelectionDAG this describes a</p>
+                                <p> ConstantSDNode whose internal value will be tested using the simm8</p>
+                                <p> predicate.</p>
+                            </div>
+                            <div>
+                                <p> The corresponding GlobalISel representation is %1 = G_CONSTANT iN Value. In</p>
+                                <p> this representation, the immediate could be tested with an</p>
+                                <p> InstructionMatcher, InstructionOpcodeMatcher, OperandMatcher, and a</p>
+                                <p> OperandPredicateMatcher-subclass to check the Value meets the predicate but</p>
+                                <p> there are two implementation issues with producing that matcher</p>
+                                <p> configuration from the SelectionDAG pattern:</p>
+                                <p> * ImmLeaf is a PatFrag whose root is an InstructionMatcher. This means that</p>
+                                <p>   were we to sink the immediate predicate to the operand we would have to</p>
+                                <p>   have two partial implementations of PatFrag support, one for immediates</p>
+                                <p>   and one for non-immediates.</p>
+                                <p> * At the point we handle the predicate, the OperandMatcher hasn&#39;t been</p>
+                                <p>   created yet. If we were to sink the predicate to the OperandMatcher we</p>
+                                <p>   would also have to complicate (or duplicate) the code that descends and</p>
+                                <p>   creates matchers for the subtree.</p>
+                                <p> Overall, it&#39;s simpler to handle it in the place it was found.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="ProtectedMembers" class="section-container">
+                    <h2>Protected Members</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="831F36678EB9C8E55FEC13D2F031CE11ABD257BF">
+                                <pre><code class="language-cpp code-clang-doc">void InstructionImmPredicateMatcher (unsigned int InsnVarID, const TreePredicateFn &amp; Predicate)</code></pre>
+                                <p>Defined at line 1513 of file llvm/utils/TableGen/Common/GlobalISel/GlobalISelMatchTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB17AE8D720C9EF9460CF7874D1010A8224CEDA3">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const PredicateMatcher * P)</code></pre>
+                                <p>Defined at line 1520 of file llvm/utils/TableGen/Common/GlobalISel/GlobalISelMatchTable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B916DC22B7BCDC62A9BA0DD0F695BF0AB8FE9681">
+                                <pre><code class="language-cpp code-clang-doc">bool isIdentical (const PredicateMatcher &amp; B)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===- InstructionImmPredicateMatcher -------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1591 of file llvm/utils/TableGen/Common/GlobalISel/GlobalISelMatchTable.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C8BCC50902D9FDB8E3690E2B5D63836855067CCF">
+                                <pre><code class="language-cpp code-clang-doc">void emitPredicateOpcodes (MatchTable &amp; Table, RuleMatcher &amp; Rule)</code></pre>
+                                <p>Defined at line 1599 of file llvm/utils/TableGen/Common/GlobalISel/GlobalISelMatchTable.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CrashRecoveryContext</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class CrashRecoveryContext</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#RetCode">RetCode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DumpStackAndCleanupOnFailure">DumpStackAndCleanupOnFailure</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1CC0425B62FBBCE554D9CC84B1348BC57408013B">CrashRecoveryContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B4C0075EEA6E8F55D89E0D67D6A57DFBA9059417">~CrashRecoveryContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B1D290790A1EC46621E61E79AB827D03D522EC2">registerCleanup</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#87C48B5F40BB1A13A240BEF1BACF890340A09F61">unregisterCleanup</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DBBCE96D528F0259A30D950CD8E5996259DFE8D3">Enable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF6D836D4B1A60C7B5918B18F5018028DABD80BC">Disable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55891A235FF0252C387FC63CEC060A0CE9891A77">GetCurrent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D50F9E32146E62A35F7D33576E577A7328218AB0">isRecoveringFromCrash</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B485719EAE246E1459C82BC0622CFE4B2C3F2A6E">RunSafely</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23268F157FDC356C56C3D947D3F3C895099775C2">RunSafelyOnThread</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D339CD45CD65D0D1A8B353711EE99988A555AB7C">RunSafelyOnNewStack</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F2A921A5FD087C134EF076C50CF540135878D1AA">HandleExit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2086CAAEC3139B146840044A7F86EE2EA1CAFAB2">isCrash</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9A15199E38807BE3DEC26A93E1DA15D790BBAB26">throwIfCrash</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class CrashRecoveryContext</h1>
+                        <p>Defined at line 47 of file llvm/include/llvm/Support/CrashRecoveryContext.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Crash recovery helper object.</p>
+                            </div>
+                            <div>
+                                <p> This class implements support for running operations in a safe context so</p>
+                                <p> that crashes (memory errors, stack overflow, assertion violations) can be</p>
+                                <p> detected and control restored to the crashing thread. Crash detection is</p>
+                                <p> purely &quot;best effort&quot;, the exact set of failures which can be recovered from</p>
+                                <p> is platform dependent.</p>
+                            </div>
+                            <div>
+                                <p> Clients make use of this code by first calling</p>
+                                <p> CrashRecoveryContext::Enable(), and then executing unsafe operations via a</p>
+                                <p> CrashRecoveryContext object. For example:</p>
+                            </div>
+                            <div>
+                                <p> To assist recovery the class allows specifying set of actions that will be</p>
+                                <p> executed in any case, whether crash occurs or not. These actions may be used</p>
+                                <p> to reclaim resources in the case of crash.</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                            void actual_work(void *);
+                                        
+                                            void foo() {
+                                              CrashRecoveryContext CRC;
+                                        
+                                              if (!CRC.RunSafely(actual_work, 0)) {
+                                                 ... a crash was detected, report error to user ...
+                                              }
+                                        
+                                              ... no crash was detected ...
+                                            }
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="RetCode" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int RetCode</code></pre>
+                        </div>
+                        <div id="DumpStackAndCleanupOnFailure" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool DumpStackAndCleanupOnFailure</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="1CC0425B62FBBCE554D9CC84B1348BC57408013B">
+                                <pre><code class="language-cpp code-clang-doc">void CrashRecoveryContext ()</code></pre>
+                                <p>Defined at line 100 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B4C0075EEA6E8F55D89E0D67D6A57DFBA9059417">
+                                <pre><code class="language-cpp code-clang-doc">void ~CrashRecoveryContext ()</code></pre>
+                                <p>Defined at line 107 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3B1D290790A1EC46621E61E79AB827D03D522EC2">
+                                <pre><code class="language-cpp code-clang-doc">void registerCleanup (CrashRecoveryContextCleanup * cleanup)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Register cleanup handler, which is used when the recovery context is</p>
+                                        <p> finished.</p>
+                                        <p> The recovery context owns the handler.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 157 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="87C48B5F40BB1A13A240BEF1BACF890340A09F61">
+                                <pre><code class="language-cpp code-clang-doc">void unregisterCleanup (CrashRecoveryContextCleanup * cleanup)</code></pre>
+                                <p>Defined at line 167 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DBBCE96D528F0259A30D950CD8E5996259DFE8D3">
+                                <pre><code class="language-cpp code-clang-doc">void Enable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Enable crash recovery.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 140 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EF6D836D4B1A60C7B5918B18F5018028DABD80BC">
+                                <pre><code class="language-cpp code-clang-doc">void Disable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Disable crash recovery.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 149 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="55891A235FF0252C387FC63CEC060A0CE9891A77">
+                                <pre><code class="language-cpp code-clang-doc">CrashRecoveryContext * GetCurrent ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the active context, if the code is currently executing in a</p>
+                                        <p> thread which is in a protected context.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 129 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D50F9E32146E62A35F7D33576E577A7328218AB0">
+                                <pre><code class="language-cpp code-clang-doc">bool isRecoveringFromCrash ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the current thread is recovering from a crash.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 125 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B485719EAE246E1459C82BC0622CFE4B2C3F2A6E">
+                                <pre><code class="language-cpp code-clang-doc">bool RunSafely (function_ref Fn)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Execute the provided callback function (with the given arguments) in</p>
+                                        <p> a protected context.</p>
+                                    </div>
+                                    <h3>Returns</h3>
+                                    <p> True if the function completed successfully, and false if the</p>
+                                    <p> function crashed (or HandleCrash was called explicitly). Clients should</p>
+                                    <p> make as little assumptions as possible about the program state when</p>
+                                    <p> RunSafely has returned false.</p>
+                                </div>
+                                <p>Defined at line 413 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23268F157FDC356C56C3D947D3F3C895099775C2">
+                                <pre><code class="language-cpp code-clang-doc">bool RunSafelyOnThread (function_ref , unsigned int RequestedStackSize)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Execute the provide callback function (with the given arguments) in</p>
+                                        <p> a protected context which is run in another thread (optionally with a</p>
+                                        <p> requested stack size).</p>
+                                    </div>
+                                    <div>
+                                        <p> See RunSafely().</p>
+                                    </div>
+                                    <div>
+                                        <p> On Darwin, if PRIO_DARWIN_BG is set on the calling thread, it will be</p>
+                                        <p> propagated to the new thread as well.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 512 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D339CD45CD65D0D1A8B353711EE99988A555AB7C">
+                                <pre><code class="language-cpp code-clang-doc">bool RunSafelyOnNewStack (function_ref , unsigned int RequestedStackSize)</code></pre>
+                                <p>Defined at line 527 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F2A921A5FD087C134EF076C50CF540135878D1AA">
+                                <pre><code class="language-cpp code-clang-doc">void HandleExit (int RetCode)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Explicitly trigger a crash recovery in the current process, and</p>
+                                        <p> return failure from RunSafely(). This function does not return.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 432 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2086CAAEC3139B146840044A7F86EE2EA1CAFAB2">
+                                <pre><code class="language-cpp code-clang-doc">bool isCrash (int RetCode)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if RetCode indicates that a signal or an exception occurred.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 449 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9A15199E38807BE3DEC26A93E1DA15D790BBAB26">
+                                <pre><code class="language-cpp code-clang-doc">bool throwIfCrash (int RetCode)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Throw again a signal or an exception, after it was catched once by a</p>
+                                        <p> CrashRecoveryContext.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 467 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

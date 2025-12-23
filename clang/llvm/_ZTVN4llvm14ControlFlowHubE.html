@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ControlFlowHub</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct ControlFlowHub</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Branches">Branches</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#035400F52AD9B9173F6A8E2BB055BF1072FF594E">addBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#10A91BEDCC7429C2427622EEACE0D705B0D6E007">finalize</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct ControlFlowHub</h1>
+                        <p>Defined at line 100 of file llvm/include/llvm/Transforms/Utils/ControlFlowUtils.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Given a set of branch descriptors [BB, Succ0, Succ1], create a &quot;hub&quot; such</p>
+                                <p> that the control flow from each BB to a successor is now split into two</p>
+                                <p> edges, one from BB to the hub and another from the hub to the successor. The</p>
+                                <p> hub consists of a series of guard blocks, one for each outgoing block. Each</p>
+                                <p> guard block conditionally branches to the corresponding outgoing block, or</p>
+                                <p> the next guard block in the chain. These guard blocks are returned in the</p>
+                                <p> argument vector.</p>
+                            </div>
+                            <div>
+                                <p> This also updates any PHINodes in the successor. For each such PHINode, the</p>
+                                <p> operands corresponding to incoming blocks are moved to a new PHINode in the</p>
+                                <p> hub, and the hub is made an operand of the original PHINode.</p>
+                            </div>
+                            <div>
+                                <p> Note that for some block BB with a conditional branch, it is not necessary</p>
+                                <p> that both successors are rerouted. The client specifies this by setting</p>
+                                <p> either Succ0 or Succ1 to nullptr, in which case, the corresponding successor</p>
+                                <p> is not rerouted.</p>
+                            </div>
+                            <div>
+                                <p> Input CFG:</p>
+                                <p> ----------</p>
+                            </div>
+                            <div>
+                                <p>                    Def</p>
+                                <p>                     |</p>
+                                <p>                     v</p>
+                                <p>           In1      In2</p>
+                                <p>            |        |</p>
+                                <p>            |        |</p>
+                                <p>            v        v</p>
+                                <p>  Foo ---&gt; Out1     Out2</p>
+                                <p>                     |</p>
+                                <p>                     v</p>
+                                <p>                    Use</p>
+                            </div>
+                            <div>
+                                <p> Create hub: Incoming = {In1, In2}, Outgoing = {Out1, Out2}</p>
+                                <p> ----------------------------------------------------------</p>
+                            </div>
+                            <div>
+                                <p>             Def</p>
+                                <p>              |</p>
+                                <p>              v</p>
+                                <p>  In1        In2          Foo</p>
+                                <p>   |    Hub   |            |</p>
+                                <p>   |    + - - | - - +      |</p>
+                                <p>   |    &#39;     v     &#39;      V</p>
+                                <p>   +------&gt; Guard1 -----&gt; Out1</p>
+                                <p>        &#39;     |     &#39;</p>
+                                <p>        &#39;     v     &#39;</p>
+                                <p>        &#39;   Guard2 -----&gt; Out2</p>
+                                <p>        &#39;           &#39;      |</p>
+                                <p>        + - - - - - +      |</p>
+                                <p>                           v</p>
+                                <p>                          Use</p>
+                            </div>
+                            <div>
+                                <p> Limitations:</p>
+                                <p> -----------</p>
+                                <p> 1. This assumes that all terminators in the CFG are direct branches (the</p>
+                                <p>    &quot;br&quot; instruction). The presence of any other control flow such as</p>
+                                <p>    indirectbr, switch or callbr will cause an assert.</p>
+                            </div>
+                            <div>
+                                <p> 2. The updates to the PHINodes are not sufficient to restore SSA</p>
+                                <p>    form. Consider a definition Def, its use Use, incoming block In2 and</p>
+                                <p>    outgoing block Out2, such that:</p>
+                                <p>    a. In2 is reachable from D or contains D.</p>
+                                <p>    b. U is reachable from Out2 or is contained in Out2.</p>
+                                <p>    c. U is not a PHINode if U is contained in Out2.</p>
+                            </div>
+                            <div>
+                                <p>    Clearly, Def dominates Out2 since the program is valid SSA. But when the</p>
+                                <p>    hub is introduced, there is a new path through the hub along which Use is</p>
+                                <p>    reachable from entry without passing through Def, and SSA is no longer</p>
+                                <p>    valid. To fix this, we need to look at all the blocks post-dominated by</p>
+                                <p>    the hub on the one hand, and dominated by Out2 on the other. This is left</p>
+                                <p>    for the caller to accomplish, since each specific use of this function</p>
+                                <p>    may have additional information which simplifies this fixup. For example,</p>
+                                <p>    see restoreSSA() in the UnifyLoopExits pass.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Branches" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector Branches</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="035400F52AD9B9173F6A8E2BB055BF1072FF594E">
+                                <pre><code class="language-cpp code-clang-doc">void addBranch (BasicBlock * BB, BasicBlock * Succ0, BasicBlock * Succ1)</code></pre>
+                                <p>Defined at line 110 of file llvm/include/llvm/Transforms/Utils/ControlFlowUtils.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="10A91BEDCC7429C2427622EEACE0D705B0D6E007">
+                                <pre><code class="language-cpp code-clang-doc">pair finalize (DomTreeUpdater * DTU, SmallVectorImpl&lt;BasicBlock *&gt; &amp; GuardBlocks, StringRef Prefix, optional MaxControlFlowBooleans)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the unified loop exit block and a flag indicating if the CFG was</p>
+                                        <p> changed at all.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 275 of file llvm/lib/Transforms/Utils/ControlFlowUtils.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

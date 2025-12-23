@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LoadedSlice</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct LoadedSlice</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Inst">Inst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Origin">Origin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Shift">Shift</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAG">DAG</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#39904BF7B46F599CCF2311A7FE95A75595EA7CCE">LoadedSlice</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AEE4917778BD699CB120C9C0F54F8DCF32F4D48B">getUsedBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FFA585DA6A4027EC4FDC81497880B447010BC76A">getLoadedSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7E36C1EC111B25727481569CA3149255CF36694E">getLoadedType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8BED426F27A705EB39631BA8DF3B7804713AF200">getAlign</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9681F7CA867B57153BAE7480E84D6B7C2D9C623C">isLegal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#091935DE84EC3E598784DA1A8270BE62CD3541E3">getOffsetFromBase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3AC3D60DB6A517BCCFA5CF1D23CEF507CB3EFB61">loadSlice</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#54812936715669C982626775B677BF4133690FBC">canMergeExpensiveCrossRegisterBankCopy</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct LoadedSlice</h1>
+                        <p>Defined at line 20652 of file llvm/lib/CodeGen/SelectionDAG/DAGCombiner.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Helper structure used to slice a load in smaller loads.</p>
+                                <p> Basically a slice is obtained from the following sequence:</p>
+                                <p> Origin = load Ty1, Base</p>
+                                <p> Shift = srl Ty1 Origin, CstTy Amount</p>
+                                <p> Inst = trunc Shift to Ty2</p>
+                            </div>
+                            <div>
+                                <p> Then, it will be rewritten into:</p>
+                                <p> Slice = load SliceTy, Base + SliceOffset</p>
+                                <p> [Inst = zext Slice to Ty2], only if SliceTy </p>
+                                <p>&lt;</p>
+                                <p>&gt; Ty2</p>
+                            </div>
+                            <div>
+                                <p> SliceTy is deduced from the number of bits that are actually used to</p>
+                                <p> build Inst.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Inst" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SDNode * Inst</code></pre>
+                        </div>
+                        <div id="Origin" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LoadSDNode * Origin</code></pre>
+                        </div>
+                        <div id="Shift" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int Shift</code></pre>
+                        </div>
+                        <div id="DAG" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SelectionDAG * DAG</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="39904BF7B46F599CCF2311A7FE95A75595EA7CCE">
+                                <pre><code class="language-cpp code-clang-doc">void LoadedSlice (SDNode * Inst, LoadSDNode * Origin, unsigned int Shift, SelectionDAG * DAG)</code></pre>
+                                <p>Defined at line 20745 of file llvm/lib/CodeGen/SelectionDAG/DAGCombiner.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AEE4917778BD699CB120C9C0F54F8DCF32F4D48B">
+                                <pre><code class="language-cpp code-clang-doc">APInt getUsedBits ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the bits used in a chunk of bits </p>
+                                        <p> large.</p>
+                                    </div>
+                                    <h3>Returns</h3>
+                                    <p> Result is </p>
+                                    <p> and has used bits set to 1 and</p>
+                                    <p>         not used bits set to 0.</p>
+                                </div>
+                                <p>Defined at line 20752 of file llvm/lib/CodeGen/SelectionDAG/DAGCombiner.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FFA585DA6A4027EC4FDC81497880B447010BC76A">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getLoadedSize ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the size of the slice to be loaded in bytes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 20770 of file llvm/lib/CodeGen/SelectionDAG/DAGCombiner.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7E36C1EC111B25727481569CA3149255CF36694E">
+                                <pre><code class="language-cpp code-clang-doc">EVT getLoadedType ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the type that will be loaded for this slice.</p>
+                                        <p> Note: This may not be the final type for the slice.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 20778 of file llvm/lib/CodeGen/SelectionDAG/DAGCombiner.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8BED426F27A705EB39631BA8DF3B7804713AF200">
+                                <pre><code class="language-cpp code-clang-doc">Align getAlign ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the alignment of the load used for this slice.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 20785 of file llvm/lib/CodeGen/SelectionDAG/DAGCombiner.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9681F7CA867B57153BAE7480E84D6B7C2D9C623C">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegal ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if this slice can be rewritten with legal operations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 20794 of file llvm/lib/CodeGen/SelectionDAG/DAGCombiner.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="091935DE84EC3E598784DA1A8270BE62CD3541E3">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getOffsetFromBase ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the offset in bytes of this slice in the original chunk of</p>
+                                        <p> bits.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 20840 of file llvm/lib/CodeGen/SelectionDAG/DAGCombiner.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3AC3D60DB6A517BCCFA5CF1D23CEF507CB3EFB61">
+                                <pre><code class="language-cpp code-clang-doc">SDValue loadSlice ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Generate the sequence of instructions to load the slice</p>
+                                        <p> represented by this object and redirect the uses of this slice to</p>
+                                        <p> this new sequence of instructions.</p>
+                                    </div>
+                                    <h3>Returns</h3>
+                                    <p> The last instruction of the sequence used to load the slice.</p>
+                                </div>
+                                <p>Defined at line 20864 of file llvm/lib/CodeGen/SelectionDAG/DAGCombiner.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54812936715669C982626775B677BF4133690FBC">
+                                <pre><code class="language-cpp code-clang-doc">bool canMergeExpensiveCrossRegisterBankCopy ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if this slice can be merged with an expensive cross register</p>
+                                        <p> bank copy. E.g.,</p>
+                                        <p> i = load i32</p>
+                                        <p> f = bitcast i32 i to float</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 20900 of file llvm/lib/CodeGen/SelectionDAG/DAGCombiner.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

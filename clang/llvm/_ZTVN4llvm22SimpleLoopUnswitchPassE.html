@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SimpleLoopUnswitchPass</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SimpleLoopUnswitchPass</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B2E656EAB8444F79DA6B07AED2AFE651F6A553A9">SimpleLoopUnswitchPass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#22AE01C4DFE610CCA32CB2216D222870F01C2225">run</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2CE13C7AC4899EEF4BBE30D19EF29C6093CC999">printPipeline</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SimpleLoopUnswitchPass</h1>
+                        <p>Defined at line 68 of file llvm/include/llvm/Transforms/Scalar/SimpleLoopUnswitch.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This pass transforms loops that contain branches or switches on loop-</p>
+                                <p> invariant conditions to have multiple loops. For example, it turns the left</p>
+                                <p> into the right code:</p>
+                            </div>
+                            <div>
+                                <p>  for (...)                  if (lic)</p>
+                                <p>    A                          for (...)</p>
+                                <p>    if (lic)                     A; B; C</p>
+                                <p>      B                      else</p>
+                                <p>    C                          for (...)</p>
+                                <p>                                 A; C</p>
+                            </div>
+                            <div>
+                                <p> This can increase the size of the code exponentially (doubling it every time</p>
+                                <p> a loop is unswitched) so we only unswitch if the resultant code will be</p>
+                                <p> smaller than a threshold.</p>
+                            </div>
+                            <div>
+                                <p> This pass expects LICM to be run before it to hoist invariant conditions out</p>
+                                <p> of the loop, to make the unswitching opportunity obvious.</p>
+                            </div>
+                            <div>
+                                <p> There is a taxonomy of unswitching that we use to classify different forms</p>
+                                <p> of this transformaiton:</p>
+                            </div>
+                            <div>
+                                <p> - Trival unswitching: this is when the condition can be unswitched without</p>
+                                <p>   cloning any code from inside the loop. A non-trivial unswitch requires</p>
+                                <p>   code duplication.</p>
+                            </div>
+                            <div>
+                                <p> - Full unswitching: this is when the branch or switch is completely moved</p>
+                                <p>   from inside the loop to outside the loop. Partial unswitching removes the</p>
+                                <p>   branch from the clone of the loop but must leave a (somewhat simplified)</p>
+                                <p>   branch in the original loop. While theoretically partial unswitching can</p>
+                                <p>   be done for switches, the requirements are extreme - we need the loop</p>
+                                <p>   invariant input to the switch to be sufficient to collapse to a single</p>
+                                <p>   successor in each clone.</p>
+                            </div>
+                            <div>
+                                <p> This pass always does trivial, full unswitching for both branches and</p>
+                                <p> switches. For branches, it also always does trivial, partial unswitching.</p>
+                            </div>
+                            <div>
+                                <p> If enabled (via the constructor&#39;s `NonTrivial` parameter), this pass will</p>
+                                <p> additionally do non-trivial, full unswitching for branches and switches, and</p>
+                                <p> will do non-trivial, partial unswitching for branches.</p>
+                            </div>
+                            <div>
+                                <p> Because partial unswitching of switches is extremely unlikely to be possible</p>
+                                <p> in practice and significantly complicates the implementation, this pass does</p>
+                                <p> not currently implement that in any mode.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="B2E656EAB8444F79DA6B07AED2AFE651F6A553A9">
+                                <pre><code class="language-cpp code-clang-doc">void SimpleLoopUnswitchPass (bool NonTrivial, bool Trivial)</code></pre>
+                                <p>Defined at line 73 of file llvm/include/llvm/Transforms/Scalar/SimpleLoopUnswitch.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="22AE01C4DFE610CCA32CB2216D222870F01C2225">
+                                <pre><code class="language-cpp code-clang-doc">PreservedAnalyses run (Loop &amp; L, LoopAnalysisManager &amp; AM, LoopStandardAnalysisResults &amp; AR, LPMUpdater &amp; U)</code></pre>
+                                <p>Defined at line 3733 of file llvm/lib/Transforms/Scalar/SimpleLoopUnswitch.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A2CE13C7AC4899EEF4BBE30D19EF29C6093CC999">
+                                <pre><code class="language-cpp code-clang-doc">void printPipeline (raw_ostream &amp; OS, function_ref MapClassName2PassName)</code></pre>
+                                <p>Defined at line 3764 of file llvm/lib/Transforms/Scalar/SimpleLoopUnswitch.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

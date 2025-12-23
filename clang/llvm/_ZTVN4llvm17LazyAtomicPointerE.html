@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LazyAtomicPointer</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LazyAtomicPointer</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9CAC1B685E83BAC0A99EF5BBC82630D2B6CD57CD">store</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#17437D1962285133B9371E0F96BC77E1935D20C2">exchange</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6AB93A7B70F45BBFEA25C7308913CFD6C7DA5BFB">compare_exchange_weak</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8EC1D1850A42D08E96259939D0634549C0380276">compare_exchange_strong</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#57AA15DC14B71C5586F2353F0296B3FA217053AB">load</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4490CAF6F077E2E0E75F77F753EA49739DEE8026">loadOrGenerate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C7A4DB4640B9549F759452891C1F38EB56C59AB2">operator bool</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5DE5298FB4A4E4F8CBA213231F5E467A196824A3">operator type-parameter-0-0 *</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B9F0E1BB46701A72916186F8458D52EC3C261B7C">operator*</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5432276E509242A48FFF247C8B33E91F416442C">operator-&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8B350702F30EF1ECBB60509D08A9129F5721494F">LazyAtomicPointer&lt;T&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F31729C6E5009BE8E3B0E98F3CC3263C5AEC6926">LazyAtomicPointer&lt;T&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6A42491D7FF022446E913D1FA91F3CF2E674716B">LazyAtomicPointer&lt;T&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9702EC844764EB1E83AC6138603C062ACFD01388">LazyAtomicPointer&lt;T&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B0BB56BD16DBCFC07CA602ECB4F3FA2DC20206D1">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0D4FBE5FC331467C25313495A84027885AC2EAA6">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2405C039DD65A6B53B186F756EA5B2035F127035">operator=</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;class T&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LazyAtomicPointer</h1>
+                        <p>Defined at line 34 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Atomic pointer that&#39;s lock-free, but that can coordinate concurrent writes</p>
+                                <p> from a lazy generator. Should be reserved for cases where concurrent uses of</p>
+                                <p> a generator for the same storage is unlikely.</p>
+                            </div>
+                            <div>
+                                <p> The laziness comes in with </p>
+                                <p> which lazily calls the</p>
+                                <p> provided generator ONLY when the value is currently </p>
+                                <p> With</p>
+                                <p> concurrent calls, only one generator is called and the rest see that value.</p>
+                            </div>
+                            <div>
+                                <p> Most other APIs treat an in-flight </p>
+                                <p> as if </p>
+                                <p> were stored. APIs that are required to write a value will spin.</p>
+                            </div>
+                            <div>
+                                <p> The underlying storage is </p>
+                            </div>
+                            <div>
+                                <p> TODO: In C++20, use std::atomic</p>
+                                <p>&lt;T</p>
+                                <p>&gt;::wait() instead of spinning and call</p>
+                                <p> std::atomic</p>
+                                <p>&lt;T</p>
+                                <p>&gt;::notify_all() in </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="9CAC1B685E83BAC0A99EF5BBC82630D2B6CD57CD">
+                                <pre><code class="language-cpp code-clang-doc">void store (T * Value)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Store a value. Waits for concurrent </p>
+                                        <p> calls.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 50 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="17437D1962285133B9371E0F96BC77E1935D20C2">
+                                <pre><code class="language-cpp code-clang-doc">T * exchange (T * Value)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set a value. Return the old value. Waits for concurrent </p>
+                                        <p> calls.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 54 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6AB93A7B70F45BBFEA25C7308913CFD6C7DA5BFB">
+                                <pre><code class="language-cpp code-clang-doc">bool compare_exchange_weak (T *&amp; ExistingValue, T * NewValue)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compare-exchange. Returns </p>
+                                        <p> if there is a concurrent </p>
+                                        <p> call, setting </p>
+                                        <p> to </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 65 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8EC1D1850A42D08E96259939D0634549C0380276">
+                                <pre><code class="language-cpp code-clang-doc">bool compare_exchange_strong (T *&amp; ExistingValue, T * NewValue)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compare-exchange. Keeps trying if there is a concurrent</p>
+                                        <p> call.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 80 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="57AA15DC14B71C5586F2353F0296B3FA217053AB">
+                                <pre><code class="language-cpp code-clang-doc">T * load ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the current stored value. Returns </p>
+                                        <p> if there is a concurrent</p>
+                                        <p> in flight.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 100 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4490CAF6F077E2E0E75F77F753EA49739DEE8026">
+                                <pre><code class="language-cpp code-clang-doc">T &amp; loadOrGenerate (function_ref&lt;T *()&gt; Generator)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the current value, or call </p>
+                                        <p> to generate a value.</p>
+                                        <p> Guarantees that only one thread&#39;s </p>
+                                        <p> will run.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 109 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C7A4DB4640B9549F759452891C1F38EB56C59AB2">
+                                <pre><code class="language-cpp code-clang-doc">bool operator bool ()</code></pre>
+                                <p>Defined at line 131 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5DE5298FB4A4E4F8CBA213231F5E467A196824A3">
+                                <pre><code class="language-cpp code-clang-doc">T * operator type-parameter-0-0 * ()</code></pre>
+                                <p>Defined at line 132 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B9F0E1BB46701A72916186F8458D52EC3C261B7C">
+                                <pre><code class="language-cpp code-clang-doc">T &amp; operator* ()</code></pre>
+                                <p>Defined at line 134 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5432276E509242A48FFF247C8B33E91F416442C">
+                                <pre><code class="language-cpp code-clang-doc">T * operator-&gt; ()</code></pre>
+                                <p>Defined at line 139 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8B350702F30EF1ECBB60509D08A9129F5721494F">
+                                <pre><code class="language-cpp code-clang-doc">void LazyAtomicPointer&lt;T&gt; ()</code></pre>
+                                <p>Defined at line 141 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F31729C6E5009BE8E3B0E98F3CC3263C5AEC6926">
+                                <pre><code class="language-cpp code-clang-doc">void LazyAtomicPointer&lt;T&gt; (std::nullptr_t )</code></pre>
+                                <p>Defined at line 142 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6A42491D7FF022446E913D1FA91F3CF2E674716B">
+                                <pre><code class="language-cpp code-clang-doc">void LazyAtomicPointer&lt;T&gt; (T * Value)</code></pre>
+                                <p>Defined at line 143 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9702EC844764EB1E83AC6138603C062ACFD01388">
+                                <pre><code class="language-cpp code-clang-doc">void LazyAtomicPointer&lt;T&gt; (const LazyAtomicPointer&lt;T&gt; &amp; RHS)</code></pre>
+                                <p>Defined at line 144 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B0BB56BD16DBCFC07CA602ECB4F3FA2DC20206D1">
+                                <pre><code class="language-cpp code-clang-doc">LazyAtomicPointer&lt;T&gt; &amp; operator= (std::nullptr_t )</code></pre>
+                                <p>Defined at line 147 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0D4FBE5FC331467C25313495A84027885AC2EAA6">
+                                <pre><code class="language-cpp code-clang-doc">LazyAtomicPointer&lt;T&gt; &amp; operator= (T * RHS)</code></pre>
+                                <p>Defined at line 151 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2405C039DD65A6B53B186F756EA5B2035F127035">
+                                <pre><code class="language-cpp code-clang-doc">LazyAtomicPointer&lt;T&gt; &amp; operator= (const LazyAtomicPointer&lt;T&gt; &amp; RHS)</code></pre>
+                                <p>Defined at line 155 of file llvm/include/llvm/ADT/LazyAtomicPointer.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

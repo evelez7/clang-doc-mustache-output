@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>TypeStreamMerger</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class TypeStreamMerger</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Untranslated">Untranslated</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28D12C2BE79DFF7AE6BBFB6B4480C74138B8AD98">TypeStreamMerger</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#876F70E69FBF762B5C50AF7955DDC0C0180E8826">mergeTypesAndIds</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D510DE327686E2F552387D5E96149C9F7BAE5C90">mergeIdRecords</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#70ACC92AFB62995EA5F6899117017CF324907E93">mergeTypeRecords</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4A4EEE298A08113B6AA4F9753582EF1098C4E94F">mergeTypesAndIds</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B2A1CF4EF8A7EBA8CA5BD64FEC22048E3C5DCEF1">mergeIdRecords</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EDD8D832C250257158D2B9781BCC679310313DFD">mergeTypeRecords</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class TypeStreamMerger</h1>
+                        <p>Defined at line 63 of file llvm/lib/DebugInfo/CodeView/TypeStreamMerger.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Implementation of CodeView type stream merging.</p>
+                            </div>
+                            <div>
+                                <p> A CodeView type stream is a series of records that reference each other</p>
+                                <p> through type indices. A type index is either &quot;simple&quot;, meaning it is less</p>
+                                <p> than 0x1000 and refers to a builtin type, or it is complex, meaning it</p>
+                                <p> refers to a prior type record in the current stream. The type index of a</p>
+                                <p> record is equal to the number of records before it in the stream plus</p>
+                                <p> 0x1000.</p>
+                            </div>
+                            <div>
+                                <p> Type records are only allowed to use type indices smaller than their own, so</p>
+                                <p> a type stream is effectively a topologically sorted DAG. Cycles occurring in</p>
+                                <p> the type graph of the source program are resolved with forward declarations</p>
+                                <p> of composite types. This class implements the following type stream merging</p>
+                                <p> algorithm, which relies on this DAG structure:</p>
+                            </div>
+                            <div>
+                                <p> - Begin with a new empty stream, and a new empty hash table that maps from</p>
+                                <p>   type record contents to new type index.</p>
+                                <p> - For each new type stream, maintain a map from source type index to</p>
+                                <p>   destination type index.</p>
+                                <p> - For each record, copy it and rewrite its type indices to be valid in the</p>
+                                <p>   destination type stream.</p>
+                                <p> - If the new type record is not already present in the destination stream</p>
+                                <p>   hash table, append it to the destination type stream, assign it the next</p>
+                                <p>   type index, and update the two hash tables.</p>
+                                <p> - If the type record already exists in the destination stream, discard it</p>
+                                <p>   and update the type index map to forward the source type index to the</p>
+                                <p>   existing destination type index.</p>
+                            </div>
+                            <div>
+                                <p> As an additional complication, type stream merging actually produces two</p>
+                                <p> streams: an item (or IPI) stream and a type stream, as this is what is</p>
+                                <p> actually stored in the final PDB. We choose which records go where by</p>
+                                <p> looking at the record kind.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Untranslated" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static TypeIndex Untranslated</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="28D12C2BE79DFF7AE6BBFB6B4480C74138B8AD98">
+                                <pre><code class="language-cpp code-clang-doc">void TypeStreamMerger (SmallVectorImpl&lt;TypeIndex&gt; &amp; SourceToDest)</code></pre>
+                                <p>Defined at line 65 of file llvm/lib/DebugInfo/CodeView/TypeStreamMerger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="876F70E69FBF762B5C50AF7955DDC0C0180E8826">
+                                <pre><code class="language-cpp code-clang-doc">Error mergeTypesAndIds (MergingTypeTableBuilder &amp; DestIds, MergingTypeTableBuilder &amp; DestTypes, const CVTypeArray &amp; IdsAndTypes, std::optional&lt;PCHMergerInfo&gt; &amp; PCHInfo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Local hashing entry points</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 260 of file llvm/lib/DebugInfo/CodeView/TypeStreamMerger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D510DE327686E2F552387D5E96149C9F7BAE5C90">
+                                <pre><code class="language-cpp code-clang-doc">Error mergeIdRecords (MergingTypeTableBuilder &amp; Dest, ArrayRef TypeSourceToDest, const CVTypeArray &amp; Ids)</code></pre>
+                                <p>Defined at line 250 of file llvm/lib/DebugInfo/CodeView/TypeStreamMerger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="70ACC92AFB62995EA5F6899117017CF324907E93">
+                                <pre><code class="language-cpp code-clang-doc">Error mergeTypeRecords (MergingTypeTableBuilder &amp; Dest, const CVTypeArray &amp; Types)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Local hashing entry points</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 242 of file llvm/lib/DebugInfo/CodeView/TypeStreamMerger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4A4EEE298A08113B6AA4F9753582EF1098C4E94F">
+                                <pre><code class="language-cpp code-clang-doc">Error mergeTypesAndIds (GlobalTypeTableBuilder &amp; DestIds, GlobalTypeTableBuilder &amp; DestTypes, const CVTypeArray &amp; IdsAndTypes, ArrayRef Hashes, std::optional&lt;PCHMergerInfo&gt; &amp; PCHInfo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Global hashing entry points</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 296 of file llvm/lib/DebugInfo/CodeView/TypeStreamMerger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B2A1CF4EF8A7EBA8CA5BD64FEC22048E3C5DCEF1">
+                                <pre><code class="language-cpp code-clang-doc">Error mergeIdRecords (GlobalTypeTableBuilder &amp; Dest, ArrayRef TypeSourceToDest, const CVTypeArray &amp; Ids, ArrayRef Hashes)</code></pre>
+                                <p>Defined at line 284 of file llvm/lib/DebugInfo/CodeView/TypeStreamMerger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EDD8D832C250257158D2B9781BCC679310313DFD">
+                                <pre><code class="language-cpp code-clang-doc">Error mergeTypeRecords (GlobalTypeTableBuilder &amp; Dest, const CVTypeArray &amp; Types, ArrayRef Hashes, std::optional&lt;PCHMergerInfo&gt; &amp; PCHInfo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Global hashing entry points</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 272 of file llvm/lib/DebugInfo/CodeView/TypeStreamMerger.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

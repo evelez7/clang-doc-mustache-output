@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>X86TargetLowering</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class X86TargetLowering</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#73F9CFA45902A75AD5F3FB7FD64013CABB06798E">X86TargetLowering</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#068A8DAF33C8256148D3AC225DEEB00828C6C0B3">getJumpTableEncoding</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1D30ADAF1D683A6D5A806FC938EA77071DB3E88C">useSoftFloat</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6ED88921B4AFB3208F1279CF9322DCB9503A30F1">markLibCallAttributes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9BFEAAA165FFD3E1FD9D676AA4D60EDE8B9D081C">LowerCustomJumpTableEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5A290667CAEA46B04085E1DFF81E35BF6DA31F60">getPICJumpTableRelocBase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4532BCD8DF20239FA559E1B014F94531D90D09A6">getPICJumpTableRelocBaseExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A3B4CD28028F72BD653742B16EAB7117C8D43EA8">getByValTypeAlignment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#270335EF3CB0677F9A5AA5A2FEDFF20EBD5AF334">getOptimalMemOpType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5B8AED46E1CC1F4EE94761046A7ADE2E0D310A9">isSafeMemOpType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#92CF44FFD0E9AF40645B259D3F8DD9425B2DD551">isMemoryAccessFast</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A5F24EF9AAA62E133D66F7DC3E25371AF9A449B">allowsMisalignedMemoryAccesses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#060056091442803644FB164ED4594B7C0482658B">allowsMemoryAccess</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7ECD1DDE2784047B54312901EC66153DF4A46BF">LowerOperation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#489D0ACFD34CBBD76F503E13A1D7DC260091BB7F">ReplaceNodeResults</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#35A5D34593E0EFD22DADC39FE28C0A08D584EE63">PerformDAGCombine</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#53EA7BFFA9802A01235CB688AD2F41DC5AFB12D9">preferABDSToABSWithNSW</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#232613F98203978BA555D0D076EA35AF8BFB91C2">preferSextInRegOfTruncate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C5629A7600E7B72336D09B83C37352ADC53C3883">isXAndYEqZeroPreferableToXAndYEqY</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#389397F3726B64CAAF39255AA04B0193D5A19170">isTypeDesirableForOp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#872A20B7E15D145EEDF35B3A1FA02C9C84EEFE12">IsDesirableToPromoteOp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A3DC62A372798F0F1B5B1B4341AA8F7868780DC5">isDesirableToCombineLogicOpOfSETCC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4CD5EF229BAF0792AA8AC3DABABFBCE46C2CEC50">getNegatedExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C8094DF5F085D5DC281FB76E8510368824E3435">EmitInstrWithCustomInserter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B114E826DF730490F7A349E6A03D0D7D98AECC72">getTargetNodeName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B483F421FD2E9517888003C797E5B772564E5DF7">canMergeStoresTo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2064C61268CD8469023C58029503090D72A5FA6E">isCheapToSpeculateCttz</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ECB960144BE3B90784AF26A6769CFC3FCC4E5CEA">isCheapToSpeculateCtlz</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#65A6E28179D50667F91649A55F1D3C974E96B343">isCtlzFast</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#82527B12D80A034F6F1CE8189E2A2F19404CCE5E">isMaskAndCmp0FoldingBeneficial</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5095EDF6D2DD506218D19DBE0FB51707FBE96ACF">hasAndNotCompare</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#19C58AB936D5FF5002356DFC2CE6F29A04B9A42C">hasAndNot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#43AD47167ED6B9F65F5F3D946C84291537D44BFB">hasBitTest</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#276E028A753F6681E7465B6DAB80E70774FB722F">shouldProduceAndByConstByHoistingConstFromShiftsLHSOfAnd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A0450379F6DA51FD0DC7C1B4FBCA1E430B3D120E">preferedOpcodeForCmpEqPiecesOfOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#48785D1DBE4F2EC4205FDCB2D2E8056F4EB23C96">preferScalarizeSplat</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#636938BACA9D04F7EB3F69AB3A94C2A352CA4D4C">getJumpConditionMergingParams</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BAE156F476223E15D2CBB27D052DE4EBFDD8DCEB">shouldFoldConstantShiftPairToMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C17A56489A172E9E201E24920BEBB7F33DAE6950">shouldFoldMaskToVariableShiftPair</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1359666853B61008A3D62C755D53717B34CB9950">preferredShiftLegalizationStrategy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AEE8D68378E7EFBF0CB66D728948C6B741C71EB8">shouldSplatInsEltVarIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D35C61ADA6913087212979F1FE1A99E311CE61D">hasFastEqualityCompare</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC75B0594DB6B665359EBAE604378B54D45D5D20">getSetCCResultType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F17E03D4E85139220251F10AC9D29DF1F15D3D36">targetShrinkDemandedConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#282BA34F66E0B54EE03902D5D04773EEE173DFC6">computeKnownBitsForTargetNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#262258F30692CC9E178A881C2F8517E106F178F4">ComputeNumSignBitsForTargetNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0671F43C281CB0D1A14CEEF3062C0287834447FA">SimplifyDemandedVectorEltsForTargetNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5FF13DA3A06F74FDC4F675E78814D127EF37CC45">SimplifyDemandedVectorEltsForTargetShuffle</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7DFA30A4D6067410E7608B659E9569D1FB3FE707">SimplifyDemandedBitsForTargetNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#16509D6C7C4D8BB6C39F0393B4FF64A377CA4EB4">SimplifyMultipleUseDemandedBitsForTargetNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9308AF841C4CFC0F1923B76D4DBEE31382C60250">isGuaranteedNotToBeUndefOrPoisonForTargetNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D9E54EF3A6FF913D678FBDE487C6D9C32BFA6B77">canCreateUndefOrPoisonForTargetNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3210CC742BA7065CBCA82466567A316CA9740B5E">isSplatValueForTargetNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EEFE4B877984680B1AADFD9198A42BE1092E8372">isTargetCanonicalSelect</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A9F64F89064ADFBEA8D826C9A8B35D4C6C02DE9">getTargetConstantFromLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#510D9804CD9AE3CC5A15EA83E638C01665232262">unwrapAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3E04387ABDD840C1CEF906220E33D1F0DB3E6B85">getReturnAddressFrameIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#40F95FDB9888DCBDACDD4E7576EFE56367DE9A8C">getConstraintType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#33141FA9B54D5BA5A221980D707E1AEE6A70E0BE">getSingleConstraintMatchWeight</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FC734C779DB8EA636BC35D0CFB253F46A17A0B20">LowerXConstraint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1FC3DB6F8E0CEE6C2A02237CA4A23DB24DE3E383">LowerAsmOperandForConstraint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#230CE91DFB09E46A975E5D1BD33FD9D87984BA72">LowerAsmOutputForConstraint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED1AEABD2553135C5620AC720C2F45DB713F5B65">getRegForInlineAsmConstraint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AE1AE4E0F2663680AFFBBB8399B560500C80E344">isLegalAddressingMode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A57C19349D361955E03FA8C97A894E6C320D4978">addressingModeSupportsTLS</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B7A220435E4004D8B0622D36CDE4F8C0FDDF38A">isLegalICmpImmediate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5976B766F707E9FE939E240A496337785A26E769">isLegalAddImmediate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D31509676AE3340E118438DB2017D49EB5B8533B">isLegalStoreImmediate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CACA72868272647335954C271755D6ACBF18ECDD">isBinOp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A0803E906EB87A49854C9965ABC1D634031D812">isCommutativeBinOp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C88ABF78F453AEFA5B981B1E3ED658ED7CA79F3B">isTruncateFree</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A8F75069671E9636767ED7EECCB363A1206A9D73">isTruncateFree</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#616EDFA6E381989C315FFC20908206D3CB57D1AB">allowTruncateForTailCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4248EC8CDD4B02714DB375C37A5D840E6D4348F8">isZExtFree</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8EA8D354A768213B220C170C739F6D0DA1FE2338">isZExtFree</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2F16D5E3BE4C7ADA35CBDF0DA5A4872DF73225F3">isZExtFree</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AA011541E9E8023CC2CACB8D63F5958D2A9F6DF2">shouldConvertPhiType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1EDFBD2E667352B9694E82F18BA6FBDC3C19D246">isVectorLoadExtDesirable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B5D687C0BB63070E5D62CE81A9CBFC55DD145D3D">isFMAFasterThanFMulAndFAdd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4C9E88E549E7C3C338948FB1EE4820A269AE391A">isNarrowingProfitable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#03B1FE29DA53FA2D06358AA0C47292ED5261E71E">shouldFoldSelectWithIdentityConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#764B328DD4A59B5BE74FA3CCBCE45BCB36DE96B8">getTgtMemIntrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C5C0BE42915C21B6D12478511B5E558700FE18E0">isFPImmLegal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9E9949DD019548BF48F0270CFBC0E0A50568DDD7">isShuffleMaskLegal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C254D6CE371763FD14994597CE572C818FCADB66">isVectorClearMaskLegal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4D837E4C5062365B6FFBE16DA919FC67D29BA112">areJTsAllowed</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5FEB00C1D14AA9831981F3E2D454D4E7E29508B9">getPreferredSwitchConditionType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED4AF7FC0C35963E407B13A0BA9191603C7E5DA2">ShouldShrinkFPConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44594DC3D3EFEBDBDA1547144FC02EBCEC9228FB">shouldReduceLoadWidth</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CDD3AC4579522D8F68F6B787BABBDB993E42B0EB">isScalarFPTypeInSSEReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#616E922AB12F1BFC4476F73AC6BA1E87ED92D24A">shouldConvertConstantLoadToIntImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B17366FD0B11C8D724DB629FE09761951682E7E1">reduceSelectOfFPConstantLoads</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8F16A3E3E8DCBF3F6D40CF101880D1BC0969A7C6">convertSelectOfConstantsToMath</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C41E46BEA7295EC050C361EF98534ADA8D5B1FC4">decomposeMulByConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ECED8B66F2CE6E610C567CFEBD6A51044F1F8F93">isExtractSubvectorCheap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23AB13127DBAC09A7835BE0B4E86B6D034326E8C">shouldScalarizeBinop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C3F92AFEC8D11BD6D1B8F3B3D8E9625300CE93E">shouldFormOverflowOp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72F41130BEB08A562DFBA9741D269A8392F80792">isLoadBitCastBeneficial</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1345D8E1EBE5A2B5D6C22D791DF19969108B8A28">getRegisterByName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#370A40920C48E9E7A68C5A43A65E3CA0FA344F93">getExceptionPointerRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#373346718821FF20A2FD3359F103EE42CEDF5969">getExceptionSelectorRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#53AECFCF0D3FCEFBB9CFAA76BFC06AE7E4B131F3">needsFixedCatchObjects</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B72CD648B76351CFCC6A4C8BE39B1B45C1EBC815">createFastISel</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D91093B8757663A6D544C319400499BD21571F0D">getIRStackGuard</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC2C38036650920345AA555AD2502E6E1283B2B3">useLoadStackGuardNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E03DDF8C111FFEAD36FF0BA1C035074662BF8D98">useStackGuardMixCookie</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E44AB2592B5335250DC254705119EF4F4C594AFD">insertSSPDeclarations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#45CD26A99FADE7611FC138178103A627684D91E1">emitStackGuardMixCookie</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F92272D02C637481E499709E946342AD439EF113">getSafeStackPointerLocation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#90EFAC64E74D7AFD8CF25A7ED5719A9985ABB5C7">BuildFILD</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6227B524C4209B4033D8E7157DA0F78C0A92076B">getPreferredVectorAction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#16094944357B211A97A64AF352980EA448A67192">getRegisterTypeForCallingConv</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B725EA890724F6871D62FA38DAF54F7069635F5D">getNumRegistersForCallingConv</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B8094C40E5044AE098D6C2877DB2BEC782E2BF49">getVectorTypeBreakdownForCallingConv</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#517FE23EEACA5F106FE3D5B818548226F786BE49">functionArgumentNeedsConsecutiveRegisters</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#16773427E864AF547B20BD436AFD85C84948151B">lowerInterleavedLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5502C14541731D21FB6DF14B41D7676A686D6B36">lowerInterleavedStore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F2ACC447BC41143135B49C74A37FEB5978DB91F7">getScalarShiftAmountTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB18FDA6478C674D4C7E48B8D0AA7ADEB077CEDF">allowsMemoryAccess</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2976FCB6C8A1F3F379107DEADA88CCC18060138F">mergeStoresAfterLegalization</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52C57918C89EA1979D07B2850BF37DF053C06E22">isMultiStoresCheaperThanBitsMerge</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B1F0B26F72C6825B9CA810D960550C69292AE84">shouldTransformSignedTruncationCheck</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#31D8FBA2FC32634EFCCEC4551E6DA8E646F0D601">shouldConvertFpToSat</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#94E653D65B6EE2E06D3906CD4236DF9A95ECF115">convertSetCCLogicToBitwiseLogic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#459AE317AAF2AFAE73724EE08EDC9ACB8708E465">isTargetCanonicalConstantNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7303E21D5FBD235550FFFA579D74FAE6BAFA7A6B">getInlineAsmMemConstraint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#75E34BFC2F8A1C88E325EDEBBA935E3A8D5DBD88">isExtractVecEltCheap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#88116E62326A8720C63C86769133E003472A370A">storeOfVectorConstantIsCheap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AADCF3DC8E9A84F61AB88BF2899450DD340AA377">softPromoteHalfType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D59CC65B20499F541B9BD7C661355883180EA3BE">supportKCFIBundles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3272CCC555065CEB871325531B994B366B6D7972">hasVectorBlend</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3E3D3423506683AFCBEC585A3FB9C018ECCF9275">getMaxSupportedInterleaveFactor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D394703C6F32FEA15C1F51AC9AF31AC9DA781608">getTypeToTransformTo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4422FC418829EE7312ABB7554980AC749A2ED0EC">isIntDivCheap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2C300EFBC679F916F9E05DF7D4A096765C15A487">supportSwiftError</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5587AB55C2AFCE18362478E1CF166D53E04E15D1">EmitKCFICheck</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4AF681B098C324CBFFB2F6A7CBDA0AFBEF9341B2">hasStackProbeSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3CCDD3BEE3209A7AA639900C5E72E37D7BC8039B">hasInlineStackProbe</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B366AD934B57123ED1577214125FBAEB0316BA5F">getStackProbeSymbolName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#322361FF5AF45AEB1B7A1B606FC6D1594C7C61D5">getStackProbeSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7EB599C3A426B1389CE56AC087FB3BC0FDBEA4DA">isInlineAsmTargetBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0C8321FD070D95463300ED4027A37B5A00E5DA2E">visitMaskedLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A0CF551833009EF046D4DCD22D9DF8E38E2B5E68">visitMaskedStore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#476F5A2EEE34F0C06BD093FD23C29416BF8F30E4">expandIndirectJTBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E9BDF7B027E0307BB0B5BFE9BD92071924EC1915">getPrefLoopAlignment</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class X86TargetLowering</h1>
+                        <p>Defined at line 1074 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p>===--------------------------------------------------------------------===//</p>
+                                <p>  X86 Implementation of the TargetLowering interface</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="73F9CFA45902A75AD5F3FB7FD64013CABB06798E">
+                                <pre><code class="language-cpp code-clang-doc">void X86TargetLowering (const X86TargetMachine &amp; TM, const X86Subtarget &amp; STI)</code></pre>
+                                <p>Defined at line 131 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="068A8DAF33C8256148D3AC225DEEB00828C6C0B3">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getJumpTableEncoding ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the entry encoding for a jump table in the</p>
+                                        <p> current function.  The returned value is a member of the</p>
+                                        <p> MachineJumpTableInfo::JTEntryKind enum.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 432 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1D30ADAF1D683A6D5A806FC938EA77071DB3E88C">
+                                <pre><code class="language-cpp code-clang-doc">bool useSoftFloat ()</code></pre>
+                                <p>Defined at line 446 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6ED88921B4AFB3208F1279CF9322DCB9503A30F1">
+                                <pre><code class="language-cpp code-clang-doc">void markLibCallAttributes (MachineFunction * MF, unsigned int CC, int &amp; Args)</code></pre>
+                                <p>Defined at line 450 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9BFEAAA165FFD3E1FD9D676AA4D60EDE8B9D081C">
+                                <pre><code class="language-cpp code-clang-doc">const MCExpr * LowerCustomJumpTableEntry (const MachineJumpTableInfo * MJTI, const MachineBasicBlock * MBB, unsigned int uid, MCContext &amp; Ctx)</code></pre>
+                                <p>Defined at line 478 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5A290667CAEA46B04085E1DFF81E35BF6DA31F60">
+                                <pre><code class="language-cpp code-clang-doc">SDValue getPICJumpTableRelocBase (SDValue Table, SelectionDAG &amp; DAG)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns relocation base for the given PIC jumptable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 489 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4532BCD8DF20239FA559E1B014F94531D90D09A6">
+                                <pre><code class="language-cpp code-clang-doc">const MCExpr * getPICJumpTableRelocBaseExpr (const MachineFunction * MF, unsigned int JTI, MCContext &amp; Ctx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This returns the relocation base for the given PIC jumptable,</p>
+                                        <p> the same as getPICJumpTableRelocBase, but as an MCExpr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 501 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A3B4CD28028F72BD653742B16EAB7117C8D43EA8">
+                                <pre><code class="language-cpp code-clang-doc">Align getByValTypeAlignment (Type * Ty, const DataLayout &amp; DL)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the desired alignment for ByVal aggregate</p>
+                                        <p> function arguments in the caller parameter area. For X86, aggregates</p>
+                                        <p> that contain SSE vectors are placed at 16-byte boundaries while the rest</p>
+                                        <p> are at 4-byte boundaries.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 283 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="270335EF3CB0677F9A5AA5A2FEDFF20EBD5AF334">
+                                <pre><code class="language-cpp code-clang-doc">EVT getOptimalMemOpType (LLVMContext &amp; Context, const MemOp &amp; Op, const AttributeList &amp; FuncAttributes)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> It returns EVT::Other if the type should be determined using generic</p>
+                                        <p> target-independent logic.</p>
+                                        <p> For vector ops we check that the overall size isn&#39;t larger than our</p>
+                                        <p> preferred vector width.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 298 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5B8AED46E1CC1F4EE94761046A7ADE2E0D310A9">
+                                <pre><code class="language-cpp code-clang-doc">bool isSafeMemOpType (MVT VT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if it&#39;s safe to use load / store of the</p>
+                                        <p> specified type to expand memcpy / memset inline. This is mostly true</p>
+                                        <p> for all types except for some special cases. For example, on X86</p>
+                                        <p> targets without SSE2 f64 load / store are done with fldl / fstpl which</p>
+                                        <p> also does type conversion. Note the specified type doesn&#39;t have to be</p>
+                                        <p> legal as the hook is used before type legalization.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 345 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="92CF44FFD0E9AF40645B259D3F8DD9425B2DD551">
+                                <pre><code class="language-cpp code-clang-doc">bool isMemoryAccessFast (EVT VT, Align Alignment)</code></pre>
+                                <p>Defined at line 357 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A5F24EF9AAA62E133D66F7DC3E25371AF9A449B">
+                                <pre><code class="language-cpp code-clang-doc">bool allowsMisalignedMemoryAccesses (EVT VT, unsigned int AS, Align Alignment, Flags Flags, unsigned int * Fast)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target allows unaligned memory accesses of the</p>
+                                        <p> specified type. Returns whether it is &quot;fast&quot; in the last argument.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 372 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="060056091442803644FB164ED4594B7C0482658B">
+                                <pre><code class="language-cpp code-clang-doc">bool allowsMemoryAccess (LLVMContext &amp; Context, const DataLayout &amp; DL, EVT VT, unsigned int AddrSpace, Align Alignment, Flags Flags, unsigned int * Fast)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This function returns true if the memory access is aligned or if the</p>
+                                        <p> target allows this specific unaligned memory access. If the access is</p>
+                                        <p> allowed, the optional final parameter returns a relative speed of the</p>
+                                        <p> access (as defined by the target).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 391 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F7ECD1DDE2784047B54312901EC66153DF4A46BF">
+                                <pre><code class="language-cpp code-clang-doc">SDValue LowerOperation (SDValue Op, SelectionDAG &amp; DAG)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Provide custom lowering hooks for some operations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 33769 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="489D0ACFD34CBBD76F503E13A1D7DC260091BB7F">
+                                <pre><code class="language-cpp code-clang-doc">void ReplaceNodeResults (SDNode * N, SmallVectorImpl&lt;SDValue&gt; &amp; Results, SelectionDAG &amp; DAG)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Replace a node with an illegal result type with a new node built out of</p>
+                                        <p> custom code.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 33933 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="35A5D34593E0EFD22DADC39FE28C0A08D584EE63">
+                                <pre><code class="language-cpp code-clang-doc">SDValue PerformDAGCombine (SDNode * N, DAGCombinerInfo &amp; DCI)</code></pre>
+                                <p>Defined at line 61424 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="53EA7BFFA9802A01235CB688AD2F41DC5AFB12D9">
+                                <pre><code class="language-cpp code-clang-doc">bool preferABDSToABSWithNSW (EVT VT)</code></pre>
+                                <p>Defined at line 61634 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="232613F98203978BA555D0D076EA35AF8BFB91C2">
+                                <pre><code class="language-cpp code-clang-doc">bool preferSextInRegOfTruncate (EVT TruncVT, EVT VT, EVT ExtVT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Prefer (non-AVX512) vector TRUNCATE(SIGN_EXTEND_INREG(X)) to use of PACKSS.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 61639 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C5629A7600E7B72336D09B83C37352ADC53C3883">
+                                <pre><code class="language-cpp code-clang-doc">bool isXAndYEqZeroPreferableToXAndYEqY (CondCode Cond, EVT VT)</code></pre>
+                                <p>Defined at line 23857 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="389397F3726B64CAAF39255AA04B0193D5A19170">
+                                <pre><code class="language-cpp code-clang-doc">bool isTypeDesirableForOp (unsigned int Opc, EVT VT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the target has native support for</p>
+                                        <p> the specified value type and it is &#39;desirable&#39; to use the type for the</p>
+                                        <p> given node type. e.g. On x86 i16 is legal, but undesirable since i16</p>
+                                        <p> instruction encodings are longer and some i16 instructions are slow.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 61644 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="872A20B7E15D145EEDF35B3A1FA02C9C84EEFE12">
+                                <pre><code class="language-cpp code-clang-doc">bool IsDesirableToPromoteOp (SDValue Op, EVT &amp; PVT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the target has native support for the</p>
+                                        <p> specified value type and it is &#39;desirable&#39; to use the type. e.g. On x86</p>
+                                        <p> i16 is legal, but undesirable since i16 instruction encodings are longer</p>
+                                        <p> and some i16 instructions are slow.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 61738 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A3DC62A372798F0F1B5B1B4341AA8F7868780DC5">
+                                <pre><code class="language-cpp code-clang-doc">AndOrSETCCFoldKind isDesirableToCombineLogicOpOfSETCC (const SDNode * LogicOp, const SDNode * SETCC0, const SDNode * SETCC1)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return prefered fold type, Abs if this is a vector, AddAnd if its an</p>
+                                        <p> integer, None otherwise.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 61715 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4CD5EF229BAF0792AA8AC3DABABFBCE46C2CEC50">
+                                <pre><code class="language-cpp code-clang-doc">SDValue getNegatedExpression (SDValue Op, SelectionDAG &amp; DAG, bool LegalOperations, bool ForCodeSize, NegatibleCost &amp; Cost, unsigned int Depth)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the newly negated expression if the cost is not expensive and</p>
+                                        <p> set the cost in </p>
+                                        <p> to indicate that if it is cheaper or neutral to</p>
+                                        <p> do the negation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 55323 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C8094DF5F085D5DC281FB76E8510368824E3435">
+                                <pre><code class="language-cpp code-clang-doc">MachineBasicBlock * EmitInstrWithCustomInserter (MachineInstr &amp; MI, MachineBasicBlock * MBB)</code></pre>
+                                <p>Defined at line 38003 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B114E826DF730490F7A349E6A03D0D7D98AECC72">
+                                <pre><code class="language-cpp code-clang-doc">const char * getTargetNodeName (unsigned int Opcode)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method returns the name of a target specific DAG node.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35194 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B483F421FD2E9517888003C797E5B772564E5DF7">
+                                <pre><code class="language-cpp code-clang-doc">bool canMergeStoresTo (unsigned int AddressSpace, EVT MemVT, const MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 3512 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2064C61268CD8469023C58029503090D72A5FA6E">
+                                <pre><code class="language-cpp code-clang-doc">bool isCheapToSpeculateCttz (Type * Ty)</code></pre>
+                                <p>Defined at line 3458 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ECB960144BE3B90784AF26A6769CFC3FCC4E5CEA">
+                                <pre><code class="language-cpp code-clang-doc">bool isCheapToSpeculateCtlz (Type * Ty)</code></pre>
+                                <p>Defined at line 3467 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="65A6E28179D50667F91649A55F1D3C974E96B343">
+                                <pre><code class="language-cpp code-clang-doc">bool isCtlzFast ()</code></pre>
+                                <p>Defined at line 3530 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="82527B12D80A034F6F1CE8189E2A2F19404CCE5E">
+                                <pre><code class="language-cpp code-clang-doc">bool isMaskAndCmp0FoldingBeneficial (const Instruction &amp; AndI)</code></pre>
+                                <p>Defined at line 3534 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5095EDF6D2DD506218D19DBE0FB51707FBE96ACF">
+                                <pre><code class="language-cpp code-clang-doc">bool hasAndNotCompare (SDValue Y)</code></pre>
+                                <p>Defined at line 3539 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="19C58AB936D5FF5002356DFC2CE6F29A04B9A42C">
+                                <pre><code class="language-cpp code-clang-doc">bool hasAndNot (SDValue Y)</code></pre>
+                                <p>Defined at line 3555 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="43AD47167ED6B9F65F5F3D946C84291537D44BFB">
+                                <pre><code class="language-cpp code-clang-doc">bool hasBitTest (SDValue X, SDValue Y)</code></pre>
+                                <p>Defined at line 3572 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="276E028A753F6681E7465B6DAB80E70774FB722F">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldProduceAndByConstByHoistingConstFromShiftsLHSOfAnd (SDValue X, ConstantSDNode * XC, ConstantSDNode * CC, SDValue Y, unsigned int OldShiftOpcode, unsigned int NewShiftOpcode, SelectionDAG &amp; DAG)</code></pre>
+                                <p>Defined at line 3576 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A0450379F6DA51FD0DC7C1B4FBCA1E430B3D120E">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int preferedOpcodeForCmpEqPiecesOfOperand (EVT VT, unsigned int ShiftOpc, bool MayTransformRotate, const APInt &amp; ShiftOrRotateAmt, const std::optional&lt;APInt&gt; &amp; AndMask)</code></pre>
+                                <p>Defined at line 3599 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="48785D1DBE4F2EC4205FDCB2D2E8056F4EB23C96">
+                                <pre><code class="language-cpp code-clang-doc">bool preferScalarizeSplat (SDNode * N)</code></pre>
+                                <p>Defined at line 3694 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="636938BACA9D04F7EB3F69AB3A94C2A352CA4D4C">
+                                <pre><code class="language-cpp code-clang-doc">CondMergingParams getJumpConditionMergingParams (BinaryOps Opc, const Value * Lhs, const Value * Rhs)</code></pre>
+                                <p>Defined at line 3666 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BAE156F476223E15D2CBB27D052DE4EBFDD8DCEB">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldFoldConstantShiftPairToMask (const SDNode * N)</code></pre>
+                                <p>Defined at line 3698 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C17A56489A172E9E201E24920BEBB7F33DAE6950">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldFoldMaskToVariableShiftPair (SDValue Y)</code></pre>
+                                <p>Defined at line 3717 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1359666853B61008A3D62C755D53717B34CB9950">
+                                <pre><code class="language-cpp code-clang-doc">ShiftLegalizationStrategy preferredShiftLegalizationStrategy (SelectionDAG &amp; DAG, SDNode * N, unsigned int ExpansionFactor)</code></pre>
+                                <p>Defined at line 3728 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AEE8D68378E7EFBF0CB66D728948C6B741C71EB8">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldSplatInsEltVarIndex (EVT VT)</code></pre>
+                                <p>Defined at line 3738 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3D35C61ADA6913087212979F1FE1A99E311CE61D">
+                                <pre><code class="language-cpp code-clang-doc">MVT hasFastEqualityCompare (unsigned int NumBits)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Vector-sized comparisons are fast using PCMPEQ + PMOVMSK or PTEST.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3744 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC75B0594DB6B665359EBAE604378B54D45D5D20">
+                                <pre><code class="language-cpp code-clang-doc">EVT getSetCCResultType (const DataLayout &amp; DL, LLVMContext &amp; Context, EVT VT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the value type to use for ISD::SETCC.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 208 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F17E03D4E85139220251F10AC9D29DF1F15D3D36">
+                                <pre><code class="language-cpp code-clang-doc">bool targetShrinkDemandedConstant (SDValue Op, const APInt &amp; DemandedBits, const APInt &amp; DemandedElts, TargetLoweringOpt &amp; TLO)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                        <p>                           X86 Optimization Hooks</p>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 38566 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="282BA34F66E0B54EE03902D5D04773EEE173DFC6">
+                                <pre><code class="language-cpp code-clang-doc">void computeKnownBitsForTargetNode (SDValue Op, KnownBits &amp; Known, const APInt &amp; DemandedElts, const SelectionDAG &amp; DAG, unsigned int Depth)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determine which of the bits specified in Mask are known to be either</p>
+                                        <p> zero or one and return them in the KnownZero/KnownOne bitsets.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 38746 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="262258F30692CC9E178A881C2F8517E106F178F4">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int ComputeNumSignBitsForTargetNode (SDValue Op, const APInt &amp; DemandedElts, const SelectionDAG &amp; DAG, unsigned int Depth)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determine the number of bits in the operation that are sign bits.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 39227 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0671F43C281CB0D1A14CEEF3062C0287834447FA">
+                                <pre><code class="language-cpp code-clang-doc">bool SimplifyDemandedVectorEltsForTargetNode (SDValue Op, const APInt &amp; DemandedElts, APInt &amp; KnownUndef, APInt &amp; KnownZero, TargetLoweringOpt &amp; TLO, unsigned int Depth)</code></pre>
+                                <p>Defined at line 43670 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5FF13DA3A06F74FDC4F675E78814D127EF37CC45">
+                                <pre><code class="language-cpp code-clang-doc">bool SimplifyDemandedVectorEltsForTargetShuffle (SDValue Op, const APInt &amp; DemandedElts, unsigned int MaskIndex, TargetLoweringOpt &amp; TLO, unsigned int Depth)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Simplify variable target shuffle masks based on the demanded elements.</p>
+                                        <p> TODO: Handle DemandedBits in mask indices as well?</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 43603 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7DFA30A4D6067410E7608B659E9569D1FB3FE707">
+                                <pre><code class="language-cpp code-clang-doc">bool SimplifyDemandedBitsForTargetNode (SDValue Op, const APInt &amp; DemandedBits, const APInt &amp; DemandedElts, KnownBits &amp; Known, TargetLoweringOpt &amp; TLO, unsigned int Depth)</code></pre>
+                                <p>Defined at line 44577 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="16509D6C7C4D8BB6C39F0393B4FF64A377CA4EB4">
+                                <pre><code class="language-cpp code-clang-doc">SDValue SimplifyMultipleUseDemandedBitsForTargetNode (SDValue Op, const APInt &amp; DemandedBits, const APInt &amp; DemandedElts, SelectionDAG &amp; DAG, unsigned int Depth)</code></pre>
+                                <p>Defined at line 45197 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9308AF841C4CFC0F1923B76D4DBEE31382C60250">
+                                <pre><code class="language-cpp code-clang-doc">bool isGuaranteedNotToBeUndefOrPoisonForTargetNode (SDValue Op, const APInt &amp; DemandedElts, const SelectionDAG &amp; DAG, bool PoisonOnly, unsigned int Depth)</code></pre>
+                                <p>Defined at line 45317 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D9E54EF3A6FF913D678FBDE487C6D9C32BFA6B77">
+                                <pre><code class="language-cpp code-clang-doc">bool canCreateUndefOrPoisonForTargetNode (SDValue Op, const APInt &amp; DemandedElts, const SelectionDAG &amp; DAG, bool PoisonOnly, bool ConsiderFlags, unsigned int Depth)</code></pre>
+                                <p>Defined at line 45392 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3210CC742BA7065CBCA82466567A316CA9740B5E">
+                                <pre><code class="language-cpp code-clang-doc">bool isSplatValueForTargetNode (SDValue Op, const APInt &amp; DemandedElts, APInt &amp; UndefElts, const SelectionDAG &amp; DAG, unsigned int Depth)</code></pre>
+                                <p>Defined at line 45493 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EEFE4B877984680B1AADFD9198A42BE1092E8372">
+                                <pre><code class="language-cpp code-clang-doc">bool isTargetCanonicalSelect (SDNode * N)</code></pre>
+                                <p>Defined at line 5040 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A9F64F89064ADFBEA8D826C9A8B35D4C6C02DE9">
+                                <pre><code class="language-cpp code-clang-doc">const Constant * getTargetConstantFromLoad (LoadSDNode * LD)</code></pre>
+                                <p>Defined at line 5034 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="510D9804CD9AE3CC5A15EA83E638C01665232262">
+                                <pre><code class="language-cpp code-clang-doc">SDValue unwrapAddress (SDValue N)</code></pre>
+                                <p>Defined at line 39396 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3E04387ABDD840C1CEF906220E33D1F0DB3E6B85">
+                                <pre><code class="language-cpp code-clang-doc">SDValue getReturnAddressFrameIndex (SelectionDAG &amp; DAG)</code></pre>
+                                <p>Defined at line 2941 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="40F95FDB9888DCBDACDD4E7576EFE56367DE9A8C">
+                                <pre><code class="language-cpp code-clang-doc">ConstraintType getConstraintType (StringRef Constraint)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a constraint letter, return the type of constraint for this target.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 61874 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="33141FA9B54D5BA5A221980D707E1AEE6A70E0BE">
+                                <pre><code class="language-cpp code-clang-doc">ConstraintWeight getSingleConstraintMatchWeight (AsmOperandInfo &amp; Info, const char * Constraint)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Examine constraint string and operand type and determine a weight value.</p>
+                                        <p> The operand object must already have been set up with the operand type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 61953 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FC734C779DB8EA636BC35D0CFB253F46A17A0B20">
+                                <pre><code class="language-cpp code-clang-doc">const char * LowerXConstraint (EVT ConstraintVT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Try to replace an X constraint, which matches anything, with another that</p>
+                                        <p> has more specific requirements based on the type of the corresponding</p>
+                                        <p> operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 62103 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1FC3DB6F8E0CEE6C2A02237CA4A23DB24DE3E383">
+                                <pre><code class="language-cpp code-clang-doc">void LowerAsmOperandForConstraint (SDValue Op, StringRef Constraint, int &amp; Ops, SelectionDAG &amp; DAG)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lower the specified operand into the Ops vector.</p>
+                                        <p> If it is invalid, don&#39;t add anything to Ops.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 62143 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="230CE91DFB09E46A975E5D1BD33FD9D87984BA72">
+                                <pre><code class="language-cpp code-clang-doc">SDValue LowerAsmOutputForConstraint (SDValue &amp; Chain, SDValue &amp; Flag, const SDLoc &amp; DL, const AsmOperandInfo &amp; Constraint, SelectionDAG &amp; DAG)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Handle Lowering flag assembly outputs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 62116 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED1AEABD2553135C5620AC720C2F45DB713F5B65">
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;unsigned int, const TargetRegisterClass *&gt; getRegForInlineAsmConstraint (const TargetRegisterInfo * TRI, StringRef Constraint, MVT VT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a physical register constraint</p>
+                                        <p> (e.g. {edx}), return the register number and the register class for the</p>
+                                        <p> register.  This should only be used for C_Register constraints.  On</p>
+                                        <p> error, this returns a register number of 0.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 62342 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AE1AE4E0F2663680AFFBBB8399B560500C80E344">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalAddressingMode (const DataLayout &amp; DL, const AddrMode &amp; AM, Type * Ty, unsigned int AS, Instruction * I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the addressing mode represented</p>
+                                        <p> by AM is legal for this target, for a load/store of the specified type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35668 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A57C19349D361955E03FA8C97A894E6C320D4978">
+                                <pre><code class="language-cpp code-clang-doc">bool addressingModeSupportsTLS (const GlobalValue &amp; GV)</code></pre>
+                                <p>Defined at line 20005 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B7A220435E4004D8B0622D36CDE4F8C0FDDF38A">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalICmpImmediate (int64_t Imm)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the specified immediate is legal</p>
+                                        <p> icmp immediate, that is the target has icmp instructions which can</p>
+                                        <p> compare a register against the immediate without having to materialize</p>
+                                        <p> the immediate into a register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35779 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5976B766F707E9FE939E240A496337785A26E769">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalAddImmediate (int64_t Imm)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the specified immediate is legal</p>
+                                        <p> add immediate, that is the target has add instructions which can</p>
+                                        <p> add a register and the immediate without having to materialize</p>
+                                        <p> the immediate into a register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35783 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D31509676AE3340E118438DB2017D49EB5B8533B">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalStoreImmediate (int64_t Imm)</code></pre>
+                                <p>Defined at line 35788 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CACA72868272647335954C271755D6ACBF18ECDD">
+                                <pre><code class="language-cpp code-clang-doc">bool isBinOp (unsigned int Opcode)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add x86-specific opcodes to the default list.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35720 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A0803E906EB87A49854C9965ABC1D634031D812">
+                                <pre><code class="language-cpp code-clang-doc">bool isCommutativeBinOp (unsigned int Opcode)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the opcode is a commutative binary operation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35740 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C88ABF78F453AEFA5B981B1E3ED658ED7CA79F3B">
+                                <pre><code class="language-cpp code-clang-doc">bool isTruncateFree (Type * Ty1, Type * Ty2)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if it&#39;s free to truncate a value of</p>
+                                        <p> type Ty1 to type Ty2. e.g. On x86 it&#39;s free to truncate a i32 value in</p>
+                                        <p> register EAX to i16 by referencing its sub-register AX.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35757 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A8F75069671E9636767ED7EECCB363A1206A9D73">
+                                <pre><code class="language-cpp code-clang-doc">bool isTruncateFree (EVT VT1, EVT VT2)</code></pre>
+                                <p>Defined at line 35792 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="616EDFA6E381989C315FFC20908206D3CB57D1AB">
+                                <pre><code class="language-cpp code-clang-doc">bool allowTruncateForTailCall (Type * Ty1, Type * Ty2)</code></pre>
+                                <p>Defined at line 35765 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4248EC8CDD4B02714DB375C37A5D840E6D4348F8">
+                                <pre><code class="language-cpp code-clang-doc">bool isZExtFree (Type * Ty1, Type * Ty2)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if any actual instruction that defines a</p>
+                                        <p> value of type Ty1 implicit zero-extends the value to Ty2 in the result</p>
+                                        <p> register. This does not necessarily include registers defined in</p>
+                                        <p> unknown ways, such as incoming arguments, or copies from unknown</p>
+                                        <p> virtual registers. Also, if isTruncateFree(Ty2, Ty1) is true, this</p>
+                                        <p> does not necessarily apply to truncate instructions. e.g. on x86-64,</p>
+                                        <p> all instructions that define 32-bit values implicit zero-extend the</p>
+                                        <p> result out to 64 bits.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35800 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8EA8D354A768213B220C170C739F6D0DA1FE2338">
+                                <pre><code class="language-cpp code-clang-doc">bool isZExtFree (EVT VT1, EVT VT2)</code></pre>
+                                <p>Defined at line 35805 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2F16D5E3BE4C7ADA35CBDF0DA5A4872DF73225F3">
+                                <pre><code class="language-cpp code-clang-doc">bool isZExtFree (SDValue Val, EVT VT2)</code></pre>
+                                <p>Defined at line 35810 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AA011541E9E8023CC2CACB8D63F5958D2A9F6DF2">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldConvertPhiType (Type * From, Type * To)</code></pre>
+                                <p>Defined at line 35834 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1EDFBD2E667352B9694E82F18BA6FBDC3C19D246">
+                                <pre><code class="language-cpp code-clang-doc">bool isVectorLoadExtDesirable (SDValue )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if folding a vector load into ExtVal (a sign, zero, or any</p>
+                                        <p> extend node) is profitable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35840 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B5D687C0BB63070E5D62CE81A9CBFC55DD145D3D">
+                                <pre><code class="language-cpp code-clang-doc">bool isFMAFasterThanFMulAndFAdd (const MachineFunction &amp; MF, EVT VT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if an FMA operation is faster than a pair of fmul and fadd</p>
+                                        <p> instructions. fmuladd intrinsics will be expanded to FMAs when this</p>
+                                        <p> method returns true, otherwise fmuladd is expanded to fmul + fadd.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35853 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4C9E88E549E7C3C338948FB1EE4820A269AE391A">
+                                <pre><code class="language-cpp code-clang-doc">bool isNarrowingProfitable (SDNode * N, EVT SrcVT, EVT DestVT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if it&#39;s profitable to narrow operations of type SrcVT to</p>
+                                        <p> DestVT. e.g. on x86, it&#39;s profitable to narrow from i32 to i8 but not</p>
+                                        <p> from i32 to i16.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35879 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="03B1FE29DA53FA2D06358AA0C47292ED5261E71E">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldFoldSelectWithIdentityConstant (unsigned int BinOpcode, EVT VT, unsigned int SelectOpcode, SDValue X, SDValue Y)</code></pre>
+                                <p>Defined at line 35885 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="764B328DD4A59B5BE74FA3CCBCE45BCB36DE96B8">
+                                <pre><code class="language-cpp code-clang-doc">bool getTgtMemIntrinsic (IntrinsicInfo &amp; Info, const CallBase &amp; I, MachineFunction &amp; MF, unsigned int Intrinsic)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given an intrinsic, checks if on the target the intrinsic will need to map</p>
+                                        <p> to a MemIntrinsicNode (touches memory). If this is the case, it returns</p>
+                                        <p> true and stores the intrinsic information into the IntrinsicInfo that was</p>
+                                        <p> passed to the function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3133 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C5C0BE42915C21B6D12478511B5E558700FE18E0">
+                                <pre><code class="language-cpp code-clang-doc">bool isFPImmLegal (const APFloat &amp; Imm, EVT VT, bool ForCodeSize)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target can instruction select the</p>
+                                        <p> specified FP immediate natively. If false, the legalizer will</p>
+                                        <p> materialize the FP immediate as a load from a constant pool.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3282 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9E9949DD019548BF48F0270CFBC0E0A50568DDD7">
+                                <pre><code class="language-cpp code-clang-doc">bool isShuffleMaskLegal (ArrayRef&lt;int&gt; Mask, EVT VT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Targets can use this to indicate that they only support *some*</p>
+                                        <p> VECTOR_SHUFFLE operations, those with specific masks.</p>
+                                        <p> By default, if a target supports the VECTOR_SHUFFLE node, all mask values</p>
+                                        <p> are assumed to be legal.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35927 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C254D6CE371763FD14994597CE572C818FCADB66">
+                                <pre><code class="language-cpp code-clang-doc">bool isVectorClearMaskLegal (ArrayRef&lt;int&gt; Mask, EVT VT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Similar to isShuffleMaskLegal. Targets can use this to indicate if there</p>
+                                        <p> is a suitable VECTOR_SHUFFLE that can be used to replace a VAND with a</p>
+                                        <p> constant pool entry.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35944 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4D837E4C5062365B6FFBE16DA919FC67D29BA112">
+                                <pre><code class="language-cpp code-clang-doc">bool areJTsAllowed (const Function * Fn)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if lowering to a jump table is allowed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 35956 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5FEB00C1D14AA9831981F3E2D454D4E7E29508B9">
+                                <pre><code class="language-cpp code-clang-doc">MVT getPreferredSwitchConditionType (LLVMContext &amp; Context, EVT ConditionVT)</code></pre>
+                                <p>Defined at line 35965 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED4AF7FC0C35963E407B13A0BA9191603C7E5DA2">
+                                <pre><code class="language-cpp code-clang-doc">bool ShouldShrinkFPConstant (EVT VT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If true, then instruction selection should</p>
+                                        <p> seek to shrink the FP constant of the specified type to a smaller type</p>
+                                        <p> in order to save space and / or reduce runtime.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3474 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44594DC3D3EFEBDBDA1547144FC02EBCEC9228FB">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldReduceLoadWidth (SDNode * Load, LoadExtType ExtTy, EVT NewVT, optional ByteOffset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if we believe it is correct and profitable to reduce the</p>
+                                        <p> load node to a smaller type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3290 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CDD3AC4579522D8F68F6B787BABBDB993E42B0EB">
+                                <pre><code class="language-cpp code-clang-doc">bool isScalarFPTypeInSSEReg (EVT VT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the specified scalar FP type is computed in an SSE</p>
+                                        <p> register, not on the X87 floating point stack.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3481 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="616E922AB12F1BFC4476F73AC6BA1E87ED92D24A">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldConvertConstantLoadToIntImm (const APInt &amp; Imm, Type * Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if it is beneficial to convert a load of a constant</p>
+                                        <p> to just the constant itself.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3357 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B17366FD0B11C8D724DB629FE09761951682E7E1">
+                                <pre><code class="language-cpp code-clang-doc">bool reduceSelectOfFPConstantLoads (EVT CmpOpVT)</code></pre>
+                                <p>Defined at line 3367 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8F16A3E3E8DCBF3F6D40CF101880D1BC0969A7C6">
+                                <pre><code class="language-cpp code-clang-doc">bool convertSelectOfConstantsToMath (EVT VT)</code></pre>
+                                <p>Defined at line 3376 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C41E46BEA7295EC050C361EF98534ADA8D5B1FC4">
+                                <pre><code class="language-cpp code-clang-doc">bool decomposeMulByConstant (LLVMContext &amp; Context, EVT VT, SDValue C)</code></pre>
+                                <p>Defined at line 3385 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ECED8B66F2CE6E610C567CFEBD6A51044F1F8F93">
+                                <pre><code class="language-cpp code-clang-doc">bool isExtractSubvectorCheap (EVT ResVT, EVT SrcVT, unsigned int Index)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if EXTRACT_SUBVECTOR is cheap for this result type</p>
+                                        <p> with this index.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3417 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23AB13127DBAC09A7835BE0B4E86B6D034326E8C">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldScalarizeBinop (SDValue )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Scalar ops always have equal or better analysis/performance/power than</p>
+                                        <p> the vector equivalent, so this always makes sense if the scalar op is</p>
+                                        <p> supported.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3431 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C3F92AFEC8D11BD6D1B8F3B3D8E9625300CE93E">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldFormOverflowOp (unsigned int Opcode, EVT VT, bool MathUsed)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Overflow nodes should get combined/lowered to optimal instructions</p>
+                                        <p> (they should allow eliminating explicit compares by getting flags from</p>
+                                        <p> math ops).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3450 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72F41130BEB08A562DFBA9741D269A8392F80792">
+                                <pre><code class="language-cpp code-clang-doc">bool isLoadBitCastBeneficial (EVT LoadVT, EVT BitcastVT, const SelectionDAG &amp; DAG, const MachineMemOperand &amp; MMO)</code></pre>
+                                <p>Defined at line 3486 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1345D8E1EBE5A2B5D6C22D791DF19969108B8A28">
+                                <pre><code class="language-cpp code-clang-doc">Register getRegisterByName (const char * RegName, LLT VT, const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> FIXME? Maybe this could be a TableGen attribute on some registers and</p>
+                                        <p> this table could be generated automatically from RegInfo.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 28572 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="370A40920C48E9E7A68C5A43A65E3CA0FA344F93">
+                                <pre><code class="language-cpp code-clang-doc">Register getExceptionPointerRegister (const Constant * PersonalityFn)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If a physical register, this returns the register that receives the</p>
+                                        <p> exception address on entry to an EH pad.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 28608 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="373346718821FF20A2FD3359F103EE42CEDF5969">
+                                <pre><code class="language-cpp code-clang-doc">Register getExceptionSelectorRegister (const Constant * PersonalityFn)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If a physical register, this returns the register that receives the</p>
+                                        <p> exception typeid on entry to a landing pad.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 28616 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="53AECFCF0D3FCEFBB9CFAA76BFC06AE7E4B131F3">
+                                <pre><code class="language-cpp code-clang-doc">bool needsFixedCatchObjects ()</code></pre>
+                                <p>Defined at line 28624 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B72CD648B76351CFCC6A4C8BE39B1B45C1EBC815">
+                                <pre><code class="language-cpp code-clang-doc">FastISel * createFastISel (FunctionLoweringInfo &amp; funcInfo, const TargetLibraryInfo * libInfo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method returns a target specific FastISel object,</p>
+                                        <p> or null if the target does not support &quot;fast&quot; ISel.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2798 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D91093B8757663A6D544C319400499BD21571F0D">
+                                <pre><code class="language-cpp code-clang-doc">Value * getIRStackGuard (IRBuilderBase &amp; IRB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If the target has a standard location for the stack protector cookie,</p>
+                                        <p> returns the address of that location. Otherwise, returns nullptr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 560 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC2C38036650920345AA555AD2502E6E1283B2B3">
+                                <pre><code class="language-cpp code-clang-doc">bool useLoadStackGuardNode (const Module &amp; M)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This has so far only been implemented for 64-bit MachO.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2761 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E03DDF8C111FFEAD36FF0BA1C035074662BF8D98">
+                                <pre><code class="language-cpp code-clang-doc">bool useStackGuardMixCookie ()</code></pre>
+                                <p>Defined at line 2765 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E44AB2592B5335250DC254705119EF4F4C594AFD">
+                                <pre><code class="language-cpp code-clang-doc">void insertSSPDeclarations (Module &amp; M)</code></pre>
+                                <p>Defined at line 607 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="45CD26A99FADE7611FC138178103A627684D91E1">
+                                <pre><code class="language-cpp code-clang-doc">SDValue emitStackGuardMixCookie (SelectionDAG &amp; DAG, SDValue Val, const SDLoc &amp; DL, bool FailureBB)</code></pre>
+                                <p>Defined at line 2770 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F92272D02C637481E499709E946342AD439EF113">
+                                <pre><code class="language-cpp code-clang-doc">Value * getSafeStackPointerLocation (IRBuilderBase &amp; IRB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the target stores SafeStack pointer at a fixed offset in</p>
+                                        <p> some non-standard address space, and populates the address space and</p>
+                                        <p> offset as appropriate.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 643 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="90EFAC64E74D7AFD8CF25A7ED5719A9985ABB5C7">
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;SDValue, SDValue&gt; BuildFILD (EVT DstVT, EVT SrcVT, const SDLoc &amp; DL, SDValue Chain, SDValue Pointer, MachinePointerInfo PtrInfo, Align Alignment, SelectionDAG &amp; DAG)</code></pre>
+                                <p>Defined at line 20461 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6227B524C4209B4033D8E7157DA0F78C0A92076B">
+                                <pre><code class="language-cpp code-clang-doc">LegalizeTypeAction getPreferredVectorAction (MVT VT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Customize the preferred legalization strategy for certain types.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2779 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="16094944357B211A97A64AF352980EA448A67192">
+                                <pre><code class="language-cpp code-clang-doc">MVT getRegisterTypeForCallingConv (LLVMContext &amp; Context, CallingConv::ID CC, EVT VT)</code></pre>
+                                <p>Defined at line 103 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B725EA890724F6871D62FA38DAF54F7069635F5D">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumRegistersForCallingConv (LLVMContext &amp; Context, CallingConv::ID CC, EVT VT)</code></pre>
+                                <p>Defined at line 139 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B8094C40E5044AE098D6C2877DB2BEC782E2BF49">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getVectorTypeBreakdownForCallingConv (LLVMContext &amp; Context, CallingConv::ID CC, EVT VT, EVT &amp; IntermediateVT, unsigned int &amp; NumIntermediates, MVT &amp; RegisterVT)</code></pre>
+                                <p>Defined at line 175 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="517FE23EEACA5F106FE3D5B818548226F786BE49">
+                                <pre><code class="language-cpp code-clang-doc">bool functionArgumentNeedsConsecutiveRegisters (Type * Ty, CallingConv::ID CallConv, bool isVarArg, const DataLayout &amp; DL)</code></pre>
+                                <p>Defined at line 237 of file llvm/lib/Target/X86/X86ISelLoweringCall.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="16773427E864AF547B20BD436AFD85C84948151B">
+                                <pre><code class="language-cpp code-clang-doc">bool lowerInterleavedLoad (Instruction * Load, Value * Mask, ArrayRef&lt;ShuffleVectorInst *&gt; Shuffles, ArrayRef Indices, unsigned int Factor, const APInt &amp; GapMask)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lower interleaved load(s) into target specific</p>
+                                        <p> instructions/intrinsics.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 803 of file llvm/lib/Target/X86/X86InterleavedAccess.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5502C14541731D21FB6DF14B41D7676A686D6B36">
+                                <pre><code class="language-cpp code-clang-doc">bool lowerInterleavedStore (Instruction * Store, Value * Mask, ShuffleVectorInst * SVI, unsigned int Factor, const APInt &amp; GapMask)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lower interleaved store(s) into target specific</p>
+                                        <p> instructions/intrinsics.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 825 of file llvm/lib/Target/X86/X86InterleavedAccess.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F2ACC447BC41143135B49C74A37FEB5978DB91F7">
+                                <pre><code class="language-cpp code-clang-doc">MVT getScalarShiftAmountTy (const DataLayout &amp; , EVT VT)</code></pre>
+                                <p>Defined at line 1085 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB18FDA6478C674D4C7E48B8D0AA7ADEB077CEDF">
+                                <pre><code class="language-cpp code-clang-doc">bool allowsMemoryAccess (LLVMContext &amp; Context, const DataLayout &amp; DL, EVT VT, const MachineMemOperand &amp; MMO, unsigned int * Fast)</code></pre>
+                                <p>Defined at line 1136 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2976FCB6C8A1F3F379107DEADA88CCC18060138F">
+                                <pre><code class="language-cpp code-clang-doc">bool mergeStoresAfterLegalization (EVT MemVT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Do not merge vector stores after legalization because that may conflict</p>
+                                        <p> with x86-specific store splitting optimizations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1199 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="52C57918C89EA1979D07B2850BF37DF053C06E22">
+                                <pre><code class="language-cpp code-clang-doc">bool isMultiStoresCheaperThanBitsMerge (EVT LTy, EVT HTy)</code></pre>
+                                <p>Defined at line 1212 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B1F0B26F72C6825B9CA810D960550C69292AE84">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldTransformSignedTruncationCheck (EVT XVT, unsigned int KeptBits)</code></pre>
+                                <p>Defined at line 1256 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="31D8FBA2FC32634EFCCEC4551E6DA8E646F0D601">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldConvertFpToSat (unsigned int Op, EVT FPVT, EVT VT)</code></pre>
+                                <p>Defined at line 1280 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="94E653D65B6EE2E06D3906CD4236DF9A95ECF115">
+                                <pre><code class="language-cpp code-clang-doc">bool convertSetCCLogicToBitwiseLogic (EVT VT)</code></pre>
+                                <p>Defined at line 1286 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="459AE317AAF2AFAE73724EE08EDC9ACB8708E465">
+                                <pre><code class="language-cpp code-clang-doc">bool isTargetCanonicalConstantNode (SDValue Op)</code></pre>
+                                <p>Defined at line 1351 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7303E21D5FBD235550FFFA579D74FAE6BAFA7A6B">
+                                <pre><code class="language-cpp code-clang-doc">ConstraintCode getInlineAsmMemConstraint (StringRef ConstraintCode)</code></pre>
+                                <p>Defined at line 1392 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="75E34BFC2F8A1C88E325EDEBBA935E3A8D5DBD88">
+                                <pre><code class="language-cpp code-clang-doc">bool isExtractVecEltCheap (EVT VT, unsigned int Index)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Extract of a scalar FP value from index 0 of a vector is free.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1551 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="88116E62326A8720C63C86769133E003472A370A">
+                                <pre><code class="language-cpp code-clang-doc">bool storeOfVectorConstantIsCheap (bool IsZero, EVT MemVT, unsigned int NumElem, unsigned int AddrSpace)</code></pre>
+                                <p>Defined at line 1562 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AADCF3DC8E9A84F61AB88BF2899450DD340AA377">
+                                <pre><code class="language-cpp code-clang-doc">bool softPromoteHalfType ()</code></pre>
+                                <p>Defined at line 1618 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D59CC65B20499F541B9BD7C661355883180EA3BE">
+                                <pre><code class="language-cpp code-clang-doc">bool supportKCFIBundles ()</code></pre>
+                                <p>Defined at line 1639 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3272CCC555065CEB871325531B994B366B6D7972">
+                                <pre><code class="language-cpp code-clang-doc">bool hasVectorBlend ()</code></pre>
+                                <p>Defined at line 1651 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3E3D3423506683AFCBEC585A3FB9C018ECCF9275">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getMaxSupportedInterleaveFactor ()</code></pre>
+                                <p>Defined at line 1653 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D394703C6F32FEA15C1F51AC9AF31AC9DA781608">
+                                <pre><code class="language-cpp code-clang-doc">EVT getTypeToTransformTo (LLVMContext &amp; Context, EVT VT)</code></pre>
+                                <p>Defined at line 1684 of file llvm/lib/Target/X86/X86ISelLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4422FC418829EE7312ABB7554980AC749A2ED0EC">
+                                <pre><code class="language-cpp code-clang-doc">bool isIntDivCheap (EVT VT, AttributeList Attr)</code></pre>
+                                <p>Defined at line 62850 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2C300EFBC679F916F9E05DF7D4A096765C15A487">
+                                <pre><code class="language-cpp code-clang-doc">bool supportSwiftError ()</code></pre>
+                                <p>Defined at line 62911 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5587AB55C2AFCE18362478E1CF166D53E04E15D1">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * EmitKCFICheck (MachineBasicBlock &amp; MBB, int &amp; MBBI, const TargetInstrInfo * TII)</code></pre>
+                                <p>Defined at line 62915 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4AF681B098C324CBFFB2F6A7CBDA0AFBEF9341B2">
+                                <pre><code class="language-cpp code-clang-doc">bool hasStackProbeSymbol (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if stack probing through a function call is requested.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 62982 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3CCDD3BEE3209A7AA639900C5E72E37D7BC8039B">
+                                <pre><code class="language-cpp code-clang-doc">bool hasInlineStackProbe (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if stack probing through inline assembly is requested.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 62987 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B366AD934B57123ED1577214125FBAEB0316BA5F">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getStackProbeSymbolName (const MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the name of the symbol used to emit stack probes or the empty</p>
+                                        <p> string if not applicable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 63004 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="322361FF5AF45AEB1B7A1B606FC6D1594C7C61D5">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getStackProbeSize (const MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 63029 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7EB599C3A426B1389CE56AC087FB3BC0FDBEA4DA">
+                                <pre><code class="language-cpp code-clang-doc">bool isInlineAsmTargetBranch (const SmallVectorImpl&lt;StringRef&gt; &amp; AsmStrs, unsigned int OpNo)</code></pre>
+                                <p>Defined at line 33709 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0C8321FD070D95463300ED4027A37B5A00E5DA2E">
+                                <pre><code class="language-cpp code-clang-doc">SDValue visitMaskedLoad (SelectionDAG &amp; DAG, const SDLoc &amp; DL, SDValue Chain, MachineMemOperand * MMO, SDValue &amp; NewLoad, SDValue Ptr, SDValue PassThru, SDValue Mask)</code></pre>
+                                <p>Defined at line 33731 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A0CF551833009EF046D4DCD22D9DF8E38E2B5E68">
+                                <pre><code class="language-cpp code-clang-doc">SDValue visitMaskedStore (SelectionDAG &amp; DAG, const SDLoc &amp; DL, SDValue Chain, MachineMemOperand * MMO, SDValue Ptr, SDValue Val, SDValue Mask)</code></pre>
+                                <p>Defined at line 33751 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="476F5A2EEE34F0C06BD093FD23C29416BF8F30E4">
+                                <pre><code class="language-cpp code-clang-doc">SDValue expandIndirectJTBranch (const SDLoc &amp; dl, SDValue Value, SDValue Addr, int JTI, SelectionDAG &amp; DAG)</code></pre>
+                                <p>Defined at line 61694 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E9BDF7B027E0307BB0B5BFE9BD92071924EC1915">
+                                <pre><code class="language-cpp code-clang-doc">Align getPrefLoopAlignment (MachineLoop * ML)</code></pre>
+                                <p>Defined at line 63037 of file llvm/lib/Target/X86/X86ISelLowering.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>RuntimeDyldChecker</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class RuntimeDyldChecker</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B2B0AF646A2555E7DC2F88601456BF9DB9A91E5A">RuntimeDyldChecker</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4249031DD51FA99A7CAED1C9D9F177F803F16BD4">~RuntimeDyldChecker</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#916B31E7CBC81B41223E472BF1784BD3FEF16ED4">check</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C978D84CD2E53EEC77CC4E27951349A3FD0FE1B0">checkAllRulesInBuffer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#211190CE752FE92E444C07FF38F2CAA18BD1D273">getSectionAddr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3AB500969E45A8CD3D0D10037FB05DDB3EFC17BE">getSectionLoadAddress</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class RuntimeDyldChecker</h1>
+                        <p>Defined at line 81 of file llvm/include/llvm/ExecutionEngine/RuntimeDyldChecker.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> RuntimeDyld invariant checker for verifying that RuntimeDyld has</p>
+                                <p>        correctly applied relocations.</p>
+                            </div>
+                            <div>
+                                <p> The RuntimeDyldChecker class evaluates expressions against an attached</p>
+                                <p> RuntimeDyld instance to verify that relocations have been applied</p>
+                                <p> correctly.</p>
+                            </div>
+                            <div>
+                                <p> The expression language supports basic pointer arithmetic and bit-masking,</p>
+                                <p> and has limited disassembler integration for accessing instruction</p>
+                                <p> operands and the next PC (program counter) address for each instruction.</p>
+                            </div>
+                            <div>
+                                <p> The language syntax is:</p>
+                            </div>
+                            <div>
+                                <p> check = expr &#39;=&#39; expr</p>
+                            </div>
+                            <div>
+                                <p> expr = binary_expr</p>
+                                <p>      | sliceable_expr</p>
+                            </div>
+                            <div>
+                                <p> sliceable_expr = &#39;*{&#39; number &#39;}&#39; load_addr_expr [slice]</p>
+                                <p>                | &#39;(&#39; expr &#39;)&#39; [slice]</p>
+                                <p>                | ident_expr [slice]</p>
+                                <p>                | number [slice]</p>
+                            </div>
+                            <div>
+                                <p> slice = &#39;[&#39; high-bit-index &#39;:&#39; low-bit-index &#39;]&#39;</p>
+                            </div>
+                            <div>
+                                <p> load_addr_expr = symbol</p>
+                                <p>                | &#39;(&#39; symbol &#39;+&#39; number &#39;)&#39;</p>
+                                <p>                | &#39;(&#39; symbol &#39;-&#39; number &#39;)&#39;</p>
+                            </div>
+                            <div>
+                                <p> ident_expr = &#39;decode_operand&#39; &#39;(&#39; symbol &#39;,&#39; operand-index &#39;)&#39;</p>
+                                <p>            | &#39;next_pc&#39;        &#39;(&#39; symbol &#39;)&#39;</p>
+                                <p>            | &#39;stub_addr&#39; &#39;(&#39; stub-container-name &#39;,&#39; symbol &#39;)&#39;</p>
+                                <p>            | &#39;got_addr&#39; &#39;(&#39; stub-container-name &#39;,&#39; symbol &#39;)&#39;</p>
+                                <p>            | &#39;section_addr&#39; &#39;(&#39; stub-container-name &#39;,&#39; symbol &#39;)&#39;</p>
+                                <p>            | symbol</p>
+                            </div>
+                            <div>
+                                <p> binary_expr = expr &#39;+&#39; expr</p>
+                                <p>             | expr &#39;-&#39; expr</p>
+                                <p>             | expr &#39;</p>
+                                <p>&amp;</p>
+                                <p>&#39; expr</p>
+                                <p>             | expr &#39;|&#39; expr</p>
+                                <p>             | expr &#39;</p>
+                                <p>&lt;</p>
+                                <p>&lt;</p>
+                                <p>&#39; expr</p>
+                                <p>             | expr &#39;&gt;&gt;&#39; expr</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="B2B0AF646A2555E7DC2F88601456BF9DB9A91E5A">
+                                <pre><code class="language-cpp code-clang-doc">void RuntimeDyldChecker (IsSymbolValidFunction IsSymbolValid, GetSymbolInfoFunction GetSymbolInfo, GetSectionInfoFunction GetSectionInfo, GetStubInfoFunction GetStubInfo, GetGOTInfoFunction GetGOTInfo, endianness Endianness, Triple TT, StringRef CPU, SubtargetFeatures TF, raw_ostream &amp; ErrStream)</code></pre>
+                                <p>Defined at line 1031 of file llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldChecker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4249031DD51FA99A7CAED1C9D9F177F803F16BD4">
+                                <pre><code class="language-cpp code-clang-doc">void ~RuntimeDyldChecker ()</code></pre>
+                                <p>Defined at line 1042 of file llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldChecker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="916B31E7CBC81B41223E472BF1784BD3FEF16ED4">
+                                <pre><code class="language-cpp code-clang-doc">bool check (StringRef CheckExpr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check a single expression against the attached RuntimeDyld</p>
+                                        <p>        instance.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1044 of file llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldChecker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C978D84CD2E53EEC77CC4E27951349A3FD0FE1B0">
+                                <pre><code class="language-cpp code-clang-doc">bool checkAllRulesInBuffer (StringRef RulePrefix, MemoryBuffer * MemBuf)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Scan the given memory buffer for lines beginning with the string</p>
+                                        <p>        in RulePrefix. The remainder of the line is passed to the check</p>
+                                        <p>        method to be evaluated as an expression.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1048 of file llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldChecker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="211190CE752FE92E444C07FF38F2CAA18BD1D273">
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;uint64_t, std::string&gt; getSectionAddr (StringRef FileName, StringRef SectionName, bool LocalAddress)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the address of the requested section (or an error message</p>
+                                        <p>        in the second element of the pair if the address cannot be found).</p>
+                                    </div>
+                                    <div>
+                                        <p> if &#39;LocalAddress&#39; is true, this returns the address of the section</p>
+                                        <p> within the linker&#39;s memory. If &#39;LocalAddress&#39; is false it returns the</p>
+                                        <p> address within the target process (i.e. the load address).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1053 of file llvm/lib/ExecutionEngine/RuntimeDyld/RuntimeDyldChecker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3AB500969E45A8CD3D0D10037FB05DDB3EFC17BE">
+                                <pre><code class="language-cpp code-clang-doc">optional getSectionLoadAddress (void * LocalAddress)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If there is a section at the given local address, return its load</p>
+                                        <p> address, otherwise return std::nullopt.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Scheduler</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">mca</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class Scheduler</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C1B4155ED1F3A725B359003FD6BCFDA4B268E6A">isAvailable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC7450F1E189D9403406C328997010D9C4E99A4E">issueInstruction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D7226A2A820048ECE63904A1726CE1812221E485">dump</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FA84286E3C2D8BBB399492009AE99D5DB6C0BE03">Scheduler</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC78103D3EB93CD7EA74CE51CB329BC16381E549">Scheduler</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6BD59D63817F717A9A6F5ACC15343649B226EEF">Scheduler</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1D2984C479BB1975EE1CFCAE51A347641BC90A6F">getResourceID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1E1BF87C99624E4ED4C8C87E2FE007CC907C660">cycleEvent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5C5DDAD7A019EB245C505931BD6D443C552BF85D">select</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A06A5D9ED3460AA9A2FAA91DCB9780C1E8864F6E">isReadySetEmpty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#34C75188FC6DD79B24169697F9063BCBEA3F243F">isWaitSetEmpty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#57DDBC94023B85B298B99B8E413B21A3E83AE7A9">analyzeDataDependencies</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C94003A7F1849F4109792B6E0A6B5335737B14C0">analyzeResourcePressure</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DFE54F7EFE636FD54997EC64F8C3AB98601A73DE">hadTokenStall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D8C7F9CD3577D88F418BF7FFD6360C06833748B1">instructionCheck</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#49E85F91FF43FAC284F30A8BDA97B63572EF81D6">dispatch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#70D6B26690F2685C39E1F8A5950945D0C163ACCB">mustIssueImmediately</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class Scheduler</h1>
+                        <p>Defined at line 71 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Class Scheduler is responsible for issuing instructions to pipeline</p>
+                                <p> resources.</p>
+                            </div>
+                            <div>
+                                <p> Internally, it delegates to a ResourceManager the management of processor</p>
+                                <p> resources. This class is also responsible for tracking the progress of</p>
+                                <p> instructions from the dispatch stage, until the write-back stage.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="8C1B4155ED1F3A725B359003FD6BCFDA4B268E6A">
+                                <pre><code class="language-cpp code-clang-doc">Status isAvailable (const InstRef &amp; IR)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if the instruction in &#39;IR&#39; can be dispatched during this cycle.</p>
+                                        <p> Return SC_AVAILABLE if both scheduler and LS resources are available.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method is also responsible for setting field HadTokenStall if</p>
+                                        <p> IR cannot be dispatched to the Scheduler due to unavailable resources.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 40 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EC7450F1E189D9403406C328997010D9C4E99A4E">
+                                <pre><code class="language-cpp code-clang-doc">void issueInstruction (InstRef &amp; IR, SmallVectorImpl&lt;std::pair&lt;ResourceRef, ReleaseAtCycles&gt;&gt; &amp; Used, SmallVectorImpl&lt;InstRef&gt; &amp; Pending, SmallVectorImpl&lt;InstRef&gt; &amp; Ready)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Issue an instruction and populates a vector of used pipeline resources,</p>
+                                        <p> and a vector of instructions that transitioned to the ready state as a</p>
+                                        <p> result of this event.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 100 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D7226A2A820048ECE63904A1726CE1812221E485">
+                                <pre><code class="language-cpp code-clang-doc">void dump ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Update the ready queues.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 32 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FA84286E3C2D8BBB399492009AE99D5DB6C0BE03">
+                                <pre><code class="language-cpp code-clang-doc">void Scheduler (const MCSchedModel &amp; Model, LSUnitBase &amp; Lsu)</code></pre>
+                                <p>Defined at line 158 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EC78103D3EB93CD7EA74CE51CB329BC16381E549">
+                                <pre><code class="language-cpp code-clang-doc">void Scheduler (const MCSchedModel &amp; Model, LSUnitBase &amp; Lsu, unique_ptr SelectStrategy)</code></pre>
+                                <p>Defined at line 161 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F6BD59D63817F717A9A6F5ACC15343649B226EEF">
+                                <pre><code class="language-cpp code-clang-doc">void Scheduler (unique_ptr RM, LSUnitBase &amp; Lsu, unique_ptr SelectStrategy)</code></pre>
+                                <p>Defined at line 166 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1D2984C479BB1975EE1CFCAE51A347641BC90A6F">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getResourceID (uint64_t Mask)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Convert a resource mask into a valid llvm processor resource identifier.</p>
+                                    </div>
+                                    <div>
+                                        <p> Only the most significant bit of the Mask is used by this method to</p>
+                                        <p> identify the processor resource.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 234 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1E1BF87C99624E4ED4C8C87E2FE007CC907C660">
+                                <pre><code class="language-cpp code-clang-doc">void cycleEvent (SmallVectorImpl&lt;ResourceRef&gt; &amp; Freed, SmallVectorImpl&lt;InstRef&gt; &amp; Executed, SmallVectorImpl&lt;InstRef&gt; &amp; Pending, SmallVectorImpl&lt;InstRef&gt; &amp; Ready)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This routine notifies the Scheduler that a new cycle just started.</p>
+                                    </div>
+                                    <div>
+                                        <p> It notifies the underlying ResourceManager that a new cycle just started.</p>
+                                        <p> Vector `Freed` is populated with resourceRef related to resources that</p>
+                                        <p> have changed in state, and that are now available to new instructions.</p>
+                                        <p> Instructions executed are added to vector Executed, while vector Ready is</p>
+                                        <p> populated with instructions that have become ready in this new cycle.</p>
+                                        <p> Vector Pending is popluated by instructions that have transitioned through</p>
+                                        <p> the pending stat during this cycle. The Pending and Ready sets may not be</p>
+                                        <p> disjoint. An instruction is allowed to transition from the WAIT state to</p>
+                                        <p> the READY state (going through the PENDING state) within a single cycle.</p>
+                                        <p> That means, instructions may appear in both the Pending and Ready set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 265 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5C5DDAD7A019EB245C505931BD6D443C552BF85D">
+                                <pre><code class="language-cpp code-clang-doc">InstRef select ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Select the next instruction to issue from the ReadySet. Returns an invalid</p>
+                                        <p> instruction reference if there are no ready instructions, or if processor</p>
+                                        <p> resources are not available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 193 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A06A5D9ED3460AA9A2FAA91DCB9780C1E8864F6E">
+                                <pre><code class="language-cpp code-clang-doc">bool isReadySetEmpty ()</code></pre>
+                                <p>Defined at line 243 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="34C75188FC6DD79B24169697F9063BCBEA3F243F">
+                                <pre><code class="language-cpp code-clang-doc">bool isWaitSetEmpty ()</code></pre>
+                                <p>Defined at line 244 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="57DDBC94023B85B298B99B8E413B21A3E83AE7A9">
+                                <pre><code class="language-cpp code-clang-doc">void analyzeDataDependencies (SmallVectorImpl&lt;InstRef&gt; &amp; RegDeps, SmallVectorImpl&lt;InstRef&gt; &amp; MemDeps)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method is called by the ExecuteStage at the end of each cycle to</p>
+                                        <p> identify bottlenecks caused by data dependencies. Vector RegDeps is</p>
+                                        <p> populated by instructions that were not issued because of unsolved</p>
+                                        <p> register dependencies.  Vector MemDeps is populated by instructions that</p>
+                                        <p> were not issued because of unsolved memory dependencies.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 249 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C94003A7F1849F4109792B6E0A6B5335737B14C0">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t analyzeResourcePressure (SmallVectorImpl&lt;InstRef&gt; &amp; Insts)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a mask of busy resources, and populates vector Insts with</p>
+                                        <p> instructions that could not be issued to the underlying pipelines because</p>
+                                        <p> not all pipeline resources were available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 244 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DFE54F7EFE636FD54997EC64F8C3AB98601A73DE">
+                                <pre><code class="language-cpp code-clang-doc">bool hadTokenStall ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the dispatch logic couldn&#39;t dispatch a full group due to</p>
+                                        <p> unavailable scheduler and/or LS resources.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 261 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D8C7F9CD3577D88F418BF7FFD6360C06833748B1">
+                                <pre><code class="language-cpp code-clang-doc">void instructionCheck (const InstRef &amp; IR)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This routine performs a basic correctness check.  This routine should only</p>
+                                        <p> be called when we know that &#39;IR&#39; is not in the scheduler&#39;s instruction</p>
+                                        <p> queues.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 270 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="49E85F91FF43FAC284F30A8BDA97B63572EF81D6">
+                                <pre><code class="language-cpp code-clang-doc">bool dispatch (InstRef &amp; IR)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Reserves buffer and LSUnit queue resources that are necessary to issue</p>
+                                        <p> this instruction.</p>
+                                    </div>
+                                    <div>
+                                        <p> Returns true if instruction IR is ready to be issued to the underlying</p>
+                                        <p> pipelines. Note that this operation cannot fail; it assumes that a</p>
+                                        <p> previous call to method `isAvailable(IR)` returned `SC_AVAILABLE`.</p>
+                                    </div>
+                                    <div>
+                                        <p> If IR is a memory operation, then the Scheduler queries the LS unit to</p>
+                                        <p> obtain a LS token. An LS token is used internally to track memory</p>
+                                        <p> dependencies.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 301 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="70D6B26690F2685C39E1F8A5950945D0C163ACCB">
+                                <pre><code class="language-cpp code-clang-doc">bool mustIssueImmediately (const InstRef &amp; IR)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if IR has to be issued immediately, or if IR is a zero</p>
+                                        <p> latency instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 291 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

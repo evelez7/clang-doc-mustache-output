@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>JobserverClientImpl</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../_ZTVN4llvm7JobSlotE.html">JobSlot</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class JobserverClientImpl</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E67FEEE8186551DD3C6D3C79A6B3E29114C53AA8">JobserverClientImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E7089A26E54B04A55E5DF407C18A3E41FDD12744">~JobserverClientImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5F6029FF17854C559ADAD5EB82488E79E9CE12F9">tryAcquire</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9651793664984C65093E0782956A7BCB2BAF02EF">release</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1521030666DF4F287A0E46DBB370A5F4F3546A92">getNumJobs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23C78A14E93CB1E0D04A1C95B09FC395768A0796">isValid</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class JobserverClientImpl</h1>
+                        <p>Defined at line 147 of file llvm/lib/Support/Jobserver.cpp</p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="E67FEEE8186551DD3C6D3C79A6B3E29114C53AA8">
+                                <pre><code class="language-cpp code-clang-doc">void JobserverClientImpl (const JobserverConfig &amp; Config)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The constructor sets up the client based on the provided configuration.</p>
+                                        <p> For pipe-based jobservers, it duplicates the inherited file descriptors,</p>
+                                        <p> sets them to close-on-exec, and makes the read descriptor non-blocking.</p>
+                                        <p> For FIFO-based jobservers, it opens the named pipe. After setup, it drains</p>
+                                        <p> all available tokens from the jobserver to determine the total number of</p>
+                                        <p> available jobs (`NumJobs`), then immediately releases them back.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 37 of file llvm/lib/Support/Unix/Jobserver.inc</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E7089A26E54B04A55E5DF407C18A3E41FDD12744">
+                                <pre><code class="language-cpp code-clang-doc">void ~JobserverClientImpl ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The destructor closes any open file descriptors.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 101 of file llvm/lib/Support/Unix/Jobserver.inc</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F6029FF17854C559ADAD5EB82488E79E9CE12F9">
+                                <pre><code class="language-cpp code-clang-doc">JobSlot tryAcquire ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Tries to acquire a job slot. The first call to this function will always</p>
+                                        <p> successfully acquire the single &quot;implicit&quot; slot that is granted to every</p>
+                                        <p> process started by `make`. Subsequent calls attempt to read a one-byte</p>
+                                        <p> token from the jobserver&#39;s read pipe. A successful read grants one</p>
+                                        <p> explicit job slot. The read is non-blocking; if no token is available,</p>
+                                        <p> it fails and returns an invalid JobSlot.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 114 of file llvm/lib/Support/Unix/Jobserver.inc</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9651793664984C65093E0782956A7BCB2BAF02EF">
+                                <pre><code class="language-cpp code-clang-doc">void release (JobSlot Slot)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Releases a job slot back to the pool. If the slot is implicit, it simply</p>
+                                        <p> resets a flag. If the slot is explicit, it writes the character token</p>
+                                        <p> associated with the slot back into the jobserver&#39;s write pipe. For FIFO</p>
+                                        <p> jobservers, this may require opening the FIFO for writing if it hasn&#39;t</p>
+                                        <p> been already.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 147 of file llvm/lib/Support/Unix/Jobserver.inc</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1521030666DF4F287A0E46DBB370A5F4F3546A92">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumJobs ()</code></pre>
+                                <p>Defined at line 158 of file llvm/lib/Support/Jobserver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23C78A14E93CB1E0D04A1C95B09FC395768A0796">
+                                <pre><code class="language-cpp code-clang-doc">bool isValid ()</code></pre>
+                                <p>Defined at line 160 of file llvm/lib/Support/Jobserver.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

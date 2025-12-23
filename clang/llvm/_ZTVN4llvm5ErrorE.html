@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Error</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class Error</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#06E125B47DB39A5D7853C306AC92EDE35B881244">Error</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#180BC02074CF374CEA77B8711F648EDC2005FA7A">Error</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AA7FC45FD8FD0BA4926038004301E7C5B2C3A7CC">Error</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#282D473518C28DF2A005B6A261AFB371F2453139">Error</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C5A9D2F054350FF98260427BA309E6F4BD212669">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CD87B895C12D0852CDE7F7BB6BA73535F9CCCDD6">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A857C175D90AA9454D2B82C12B1E285DB984AA91">~Error</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB9833890E48960553A6E9B63F4DECA3E243F1FF">operator bool</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7E90713BF201119A63F1403A8E566C746105B9EA">isA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0AF05F0316B11D205FE43F2FB4A76FDD3646223C">dynamicClassID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C25D835EDD07FEA60E62F848C1AC521A96301AC">success</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class Error</h1>
+                        <p>Defined at line 159 of file llvm/include/llvm/Support/Error.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Lightweight error class with error context and mandatory checking.</p>
+                            </div>
+                            <div>
+                                <p> Instances of this class wrap a ErrorInfoBase pointer. Failure states</p>
+                                <p> are represented by setting the pointer to a ErrorInfoBase subclass</p>
+                                <p> instance containing information describing the failure. Success is</p>
+                                <p> represented by a null pointer value.</p>
+                            </div>
+                            <div>
+                                <p> Instances of Error also contains a &#39;Checked&#39; flag, which must be set</p>
+                                <p> before the destructor is called, otherwise the destructor will trigger a</p>
+                                <p> runtime error. This enforces at runtime the requirement that all Error</p>
+                                <p> instances be checked or returned to the caller.</p>
+                            </div>
+                            <div>
+                                <p> There are two ways to set the checked flag, depending on what state the</p>
+                                <p> Error instance is in. For Error instances indicating success, it</p>
+                                <p> is sufficient to invoke the boolean conversion operator. E.g.:</p>
+                            </div>
+                            <div>
+                                <p> A success value *can not* be dropped. For example, just calling &#39;foo(</p>
+                                <p>&lt;</p>
+                                <p>...&gt;)&#39;</p>
+                                <p> without testing the return value will raise a runtime error, even if foo</p>
+                                <p> returns success.</p>
+                            </div>
+                            <div>
+                                <p> For Error instances representing failure, you must use either the</p>
+                                <p> handleErrors or handleAllErrors function with a typed handler. E.g.:</p>
+                            </div>
+                            <div>
+                                <p> The handleAllErrors function is identical to handleErrors, except</p>
+                                <p> that it has a void return type, and requires all errors to be handled and</p>
+                                <p> no new errors be returned. It prevents errors (assuming they can all be</p>
+                                <p> handled) from having to be bubbled all the way to the top-level.</p>
+                            </div>
+                            <div>
+                                <p> *All* Error instances must be checked before destruction, even if</p>
+                                <p> they&#39;re moved-assigned or constructed from Success values that have already</p>
+                                <p> been checked. This enforces checking through all levels of the call stack.</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                        {.cpp}
+                                           Error foo(&lt;...&gt;);
+                                        
+                                           if (auto E = foo(&lt;...&gt;))
+                                             return E; // &lt;- Return E if it is in the error state.
+                                           // We have verified that E was in the success state. It can now be safely
+                                           // destroyed.
+                                    </code>
+                                </pre>
+                            </div>
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                        {.cpp}
+                                           class MyErrorInfo : public ErrorInfo&lt;MyErrorInfo&gt; {
+                                             // Custom error info.
+                                           };
+                                        
+                                           Error foo(&lt;...&gt;) { return make_error&lt;MyErrorInfo&gt;(...); }
+                                        
+                                           auto E = foo(&lt;...&gt;); // &lt;- foo returns failure with MyErrorInfo.
+                                           auto NewE =
+                                             handleErrors(std::move(E),
+                                               [](const MyErrorInfo &amp;M) {
+                                                 // Deal with the error.
+                                               },
+                                               [](std::unique_ptr&lt;OtherError&gt; M) -&gt; Error {
+                                                 if (canHandle(*M)) {
+                                                   // handle error.
+                                                   return Error::success();
+                                                 }
+                                                 // Couldn&#39;t handle this error instance. Pass it up the stack.
+                                                 return Error(std::move(M));
+                                             });
+                                           // Note - The error passed to handleErrors will be marked as checked. If
+                                           // there is no matched handler, a new error with the same payload is
+                                           // created and returned.
+                                           // The handlers take the error checked by handleErrors as an argument,
+                                           // which can be used to retrieve more information. If a new error is
+                                           // created by a handler, it will be passed back to the caller of
+                                           // handleErrors and needs to be checked or return up to the stack.
+                                           // Otherwise, the passed-in error is considered consumed.
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="06E125B47DB39A5D7853C306AC92EDE35B881244">
+                                <pre><code class="language-cpp code-clang-doc">void Error (const Error &amp; Other)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Errors are not copy-constructable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 191 of file llvm/include/llvm/Support/Error.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="180BC02074CF374CEA77B8711F648EDC2005FA7A">
+                                <pre><code class="language-cpp code-clang-doc">void Error (Error &amp;&amp; Other)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Move-construct an error value. The newly constructed error is considered</p>
+                                        <p> unchecked, even if the source error had been checked. The original error</p>
+                                        <p> becomes a checked Success value, regardless of its original state.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 196 of file llvm/include/llvm/Support/Error.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AA7FC45FD8FD0BA4926038004301E7C5B2C3A7CC">
+                                <pre><code class="language-cpp code-clang-doc">void Error (int Payload)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create an error value. Prefer using the &#39;make_error&#39; function, but</p>
+                                        <p> this constructor can be useful when &quot;re-throwing&quot; errors from handlers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 203 of file llvm/include/llvm/Support/Error.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="282D473518C28DF2A005B6A261AFB371F2453139">
+                                <pre><code class="language-cpp code-clang-doc">void Error (unique_ptr Payload)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create an error value. Prefer using the &#39;make_error&#39; function, but</p>
+                                        <p> this constructor can be useful when &quot;re-throwing&quot; errors from handlers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 203 of file llvm/include/llvm/Support/Error.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C5A9D2F054350FF98260427BA309E6F4BD212669">
+                                <pre><code class="language-cpp code-clang-doc">Error &amp; operator= (const Error &amp; Other)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Errors are not copy-assignable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 209 of file llvm/include/llvm/Support/Error.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CD87B895C12D0852CDE7F7BB6BA73535F9CCCDD6">
+                                <pre><code class="language-cpp code-clang-doc">Error &amp; operator= (Error &amp;&amp; Other)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Move-assign an error value. The current error must represent success, you</p>
+                                        <p> you cannot overwrite an unhandled error. The current error is then</p>
+                                        <p> considered unchecked. The source error becomes a checked success value,</p>
+                                        <p> regardless of its original state.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 215 of file llvm/include/llvm/Support/Error.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A857C175D90AA9454D2B82C12B1E285DB984AA91">
+                                <pre><code class="language-cpp code-clang-doc">void ~Error ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Destroy a Error. Fails with a call to abort() if the error is</p>
+                                        <p> unchecked.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 232 of file llvm/include/llvm/Support/Error.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB9833890E48960553A6E9B63F4DECA3E243F1FF">
+                                <pre><code class="language-cpp code-clang-doc">bool operator bool ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Bool conversion. Returns true if this Error is in a failure state,</p>
+                                        <p> and false if it is in an accept state. If the error is in a Success state</p>
+                                        <p> it will be considered checked.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 240 of file llvm/include/llvm/Support/Error.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7E90713BF201119A63F1403A8E566C746105B9EA">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename ErrT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">bool isA ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check whether one error is a subclass of another.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 246 of file llvm/include/llvm/Support/Error.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0AF05F0316B11D205FE43F2FB4A76FDD3646223C">
+                                <pre><code class="language-cpp code-clang-doc">const void * dynamicClassID ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the dynamic class id of this error, or null if this is a success</p>
+                                        <p> value.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 252 of file llvm/include/llvm/Support/Error.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C25D835EDD07FEA60E62F848C1AC521A96301AC">
+                                <pre><code class="language-cpp code-clang-doc">ErrorSuccess success ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a success value.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 336 of file llvm/include/llvm/Support/Error.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

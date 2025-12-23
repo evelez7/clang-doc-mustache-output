@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>HashKeyMap</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">sampleprof</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class HashKeyMap</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B648EE56271E12D81903E8FDBFAA86D4899D614">try_emplace</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#281311C606F022822A807D7B52A57C6E20763A13">try_emplace</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BCBE47ECF29BB6F0A5D8542F2FC344F1106BEC5A">emplace</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D8A64211A80C59059088D2B2B1272FB1D67C7C8">operator[]</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B29682BACDFCB066E1BDE52A44D29EA01F77BAB2">find</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#832101BE23517471BAA396E686B746AC3895C7E7">find</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2DFB503D7E63F3CB54F3AACDB826B8A770CE9970">lookup</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F700F76880AF3B91C151BB54C07AF66C6E3ADBEE">count</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5034F588BE293833A941DD660413A73CCD873921">erase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3F81D8DFE33E54642216E42CD78045A0DB810E67">erase</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;template &lt;typename, typename, typename...&gt; typename MapT, typename KeyT, typename ValueT, typename... MapTArgs&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class HashKeyMap</h1>
+                        <p>Defined at line 51 of file llvm/include/llvm/ProfileData/HashKeyMap.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This class is a wrapper to associative container MapT</p>
+                                <p>&lt;KeyT</p>
+                                <p>, ValueT&gt; using</p>
+                                <p> the hash value of the original key as the new key. This greatly improves the</p>
+                                <p> performance of insert and query operations especially when hash values of</p>
+                                <p> keys are available a priori, and reduces memory usage if KeyT has a large</p>
+                                <p> size.</p>
+                                <p> All keys with the same hash value are considered equivalent (i.e. hash</p>
+                                <p> collision is silently ignored). Given such feature this class should only be</p>
+                                <p> used where it does not affect compilation correctness, for example, when</p>
+                                <p> loading a sample profile. The original key is not stored, so if the user</p>
+                                <p> needs to preserve it, it should be stored in the mapped type.</p>
+                                <p> Assuming the hashing algorithm is uniform, we use the formula</p>
+                                <p> 1 - Permute(n, k) / n ^ k where n is the universe size and k is number of</p>
+                                <p> elements chosen at random to calculate the probability of collision. With</p>
+                                <p> 1,000,000 entries the probability is negligible:</p>
+                                <p> 1 - (2^64)!/((2^64-1000000)!*(2^64)^1000000) ~= 3*10^-8.</p>
+                                <p> Source: https://en.wikipedia.org/wiki/Birthday_problem</p>
+                            </div>
+                            <h3>Parameters</h3>
+                            <div>
+                                <b>MapT</b>   The underlying associative container type.
+                            </div> 
+                            <div>
+                                <b>KeyT</b>   The original key type, which requires the implementation of   llvm::hash_value(KeyT).
+                            </div> 
+                            <div>
+                                <b>ValueT</b>   The original mapped type, which has the same requirement as   the underlying container.
+                            </div> 
+                            <div>
+                                <b>MapTArgs</b>   Additional template parameters passed to the underlying   container.
+                            </div> 
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="0B648EE56271E12D81903E8FDBFAA86D4899D614">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename... Ts&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;iterator, bool&gt; try_emplace (const key_type &amp; Hash, const original_key_type &amp; Key, Ts &amp;&amp;... Args)</code></pre>
+                                <p>Defined at line 64 of file llvm/include/llvm/ProfileData/HashKeyMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="281311C606F022822A807D7B52A57C6E20763A13">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename... Ts&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;iterator, bool&gt; try_emplace (const original_key_type &amp; Key, Ts &amp;&amp;... Args)</code></pre>
+                                <p>Defined at line 72 of file llvm/include/llvm/ProfileData/HashKeyMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BCBE47ECF29BB6F0A5D8542F2FC344F1106BEC5A">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename... Ts&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;iterator, bool&gt; emplace (Ts &amp;&amp;... Args)</code></pre>
+                                <p>Defined at line 77 of file llvm/include/llvm/ProfileData/HashKeyMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D8A64211A80C59059088D2B2B1272FB1D67C7C8">
+                                <pre><code class="language-cpp code-clang-doc">mapped_type &amp; operator[] (const original_key_type &amp; Key)</code></pre>
+                                <p>Defined at line 81 of file llvm/include/llvm/ProfileData/HashKeyMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B29682BACDFCB066E1BDE52A44D29EA01F77BAB2">
+                                <pre><code class="language-cpp code-clang-doc">iterator find (const original_key_type &amp; Key)</code></pre>
+                                <p>Defined at line 85 of file llvm/include/llvm/ProfileData/HashKeyMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="832101BE23517471BAA396E686B746AC3895C7E7">
+                                <pre><code class="language-cpp code-clang-doc">const_iterator find (const original_key_type &amp; Key)</code></pre>
+                                <p>Defined at line 92 of file llvm/include/llvm/ProfileData/HashKeyMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2DFB503D7E63F3CB54F3AACDB826B8A770CE9970">
+                                <pre><code class="language-cpp code-clang-doc">mapped_type lookup (const original_key_type &amp; Key)</code></pre>
+                                <p>Defined at line 99 of file llvm/include/llvm/ProfileData/HashKeyMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F700F76880AF3B91C151BB54C07AF66C6E3ADBEE">
+                                <pre><code class="language-cpp code-clang-doc">size_t count (const original_key_type &amp; Key)</code></pre>
+                                <p>Defined at line 106 of file llvm/include/llvm/ProfileData/HashKeyMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5034F588BE293833A941DD660413A73CCD873921">
+                                <pre><code class="language-cpp code-clang-doc">size_t erase (const original_key_type &amp; Ctx)</code></pre>
+                                <p>Defined at line 110 of file llvm/include/llvm/ProfileData/HashKeyMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3F81D8DFE33E54642216E42CD78045A0DB810E67">
+                                <pre><code class="language-cpp code-clang-doc">iterator erase (const_iterator It)</code></pre>
+                                <p>Defined at line 119 of file llvm/include/llvm/ProfileData/HashKeyMap.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

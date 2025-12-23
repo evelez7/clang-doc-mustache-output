@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DispatchStage</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">mca</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class DispatchStage</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52F76538CAE8F33ACCBEDADE19E09EBECC69DF8C">DispatchStage</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9A143B4F66D8DB61DE09C521BDE70DD2E5067E26">hasWorkToComplete</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#38F7EC8586171EB4DBCD35DFA44D64AC8EF13E07">isAvailable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E1B2B2759AE68006E7DBD22424B013EA49B710F">cycleStart</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6FABC2EC5717BC2D90FAE05642147B934AF58A10">execute</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3A77A53391D10F0053255C3987D72F4CED04F80B">dump</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class DispatchStage</h1>
+                        <p>Defined at line 49 of file llvm/include/llvm/MCA/Stages/DispatchStage.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Implements the hardware dispatch logic.</p>
+                            </div>
+                            <div>
+                                <p> This class is responsible for the dispatch stage, in which instructions are</p>
+                                <p> dispatched in groups to the Scheduler.  An instruction can be dispatched if</p>
+                                <p> the following conditions are met:</p>
+                                <p>  1) There are enough entries in the reorder buffer (see class</p>
+                                <p>     RetireControlUnit) to write the opcodes associated with the instruction.</p>
+                                <p>  2) There are enough physical registers to rename output register operands.</p>
+                                <p>  3) There are enough entries available in the used buffered resource(s).</p>
+                            </div>
+                            <div>
+                                <p> The number of micro opcodes that can be dispatched in one cycle is limited by</p>
+                                <p> the value of field &#39;DispatchWidth&#39;. A &quot;dynamic dispatch stall&quot; occurs when</p>
+                                <p> processor resources are not available. Dispatch stall events are counted</p>
+                                <p> during the entire execution of the code, and displayed by the performance</p>
+                                <p> report when flag &#39;-dispatch-stats&#39; is specified.</p>
+                            </div>
+                            <div>
+                                <p> If the number of micro opcodes exceedes DispatchWidth, then the instruction</p>
+                                <p> is dispatched in multiple cycles.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="52F76538CAE8F33ACCBEDADE19E09EBECC69DF8C">
+                                <pre><code class="language-cpp code-clang-doc">void DispatchStage (const MCSubtargetInfo &amp; Subtarget, const MCRegisterInfo &amp; MRI, unsigned int MaxDispatchWidth, RetireControlUnit &amp; R, RegisterFile &amp; F)</code></pre>
+                                <p>Defined at line 27 of file llvm/lib/MCA/Stages/DispatchStage.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9A143B4F66D8DB61DE09C521BDE70DD2E5067E26">
+                                <pre><code class="language-cpp code-clang-doc">bool hasWorkToComplete ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The dispatch logic internally doesn&#39;t buffer instructions. So there is</p>
+                                        <p> never work to do at the beginning of every cycle.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 76 of file llvm/include/llvm/MCA/Stages/DispatchStage.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="38F7EC8586171EB4DBCD35DFA44D64AC8EF13E07">
+                                <pre><code class="language-cpp code-clang-doc">bool isAvailable (const InstRef &amp; IR)</code></pre>
+                                <p>Defined at line 153 of file llvm/lib/MCA/Stages/DispatchStage.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E1B2B2759AE68006E7DBD22424B013EA49B710F">
+                                <pre><code class="language-cpp code-clang-doc">Error cycleStart ()</code></pre>
+                                <p>Defined at line 133 of file llvm/lib/MCA/Stages/DispatchStage.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6FABC2EC5717BC2D90FAE05642147B934AF58A10">
+                                <pre><code class="language-cpp code-clang-doc">Error execute (InstRef &amp; IR)</code></pre>
+                                <p>Defined at line 173 of file llvm/lib/MCA/Stages/DispatchStage.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3A77A53391D10F0053255C3987D72F4CED04F80B">
+                                <pre><code class="language-cpp code-clang-doc">void dump ()</code></pre>
+                                <p>Defined at line 179 of file llvm/lib/MCA/Stages/DispatchStage.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

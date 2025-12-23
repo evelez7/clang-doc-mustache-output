@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ByteArrayBuilder</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">lowertypetests</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct ByteArrayBuilder</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Bytes">Bytes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BitAllocs">BitAllocs</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC91A7B7311DA39AEDC4F29691AD927526F46CE9">ByteArrayBuilder</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C10A7E9C69E7FC14A552991BA696AA51A617AE55">allocate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F1140C93418424D04991F7970845D08C49A8C61F">allocate</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct ByteArrayBuilder</h1>
+                        <p>Defined at line 172 of file llvm/include/llvm/Transforms/IPO/LowerTypeTests.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This class is used to build a byte array containing overlapping bit sets. By</p>
+                                <p> loading from indexed offsets into the byte array and applying a mask, a</p>
+                                <p> program can test bits from the bit set with a relatively short instruction</p>
+                                <p> sequence. For example, suppose we have 15 bit sets to lay out:</p>
+                            </div>
+                            <div>
+                                <p> A (16 bits), B (15 bits), C (14 bits), D (13 bits), E (12 bits),</p>
+                                <p> F (11 bits), G (10 bits), H (9 bits), I (7 bits), J (6 bits), K (5 bits),</p>
+                                <p> L (4 bits), M (3 bits), N (2 bits), O (1 bit)</p>
+                            </div>
+                            <div>
+                                <p> These bits can be laid out in a 16-byte array like this:</p>
+                            </div>
+                            <div>
+                                <p>       Byte Offset</p>
+                                <p>     0123456789ABCDEF</p>
+                                <p> Bit</p>
+                                <p>   7 HHHHHHHHHIIIIIII</p>
+                                <p>   6 GGGGGGGGGGJJJJJJ</p>
+                                <p>   5 FFFFFFFFFFFKKKKK</p>
+                                <p>   4 EEEEEEEEEEEELLLL</p>
+                                <p>   3 DDDDDDDDDDDDDMMM</p>
+                                <p>   2 CCCCCCCCCCCCCCNN</p>
+                                <p>   1 BBBBBBBBBBBBBBBO</p>
+                                <p>   0 AAAAAAAAAAAAAAAA</p>
+                            </div>
+                            <div>
+                                <p> For example, to test bit X of A, we evaluate ((bits[X] </p>
+                                <p>&amp;</p>
+                                <p> 1) != 0), or to</p>
+                                <p> test bit X of I, we evaluate ((bits[9 + X] </p>
+                                <p>&amp;</p>
+                                <p> 0x80) != 0). This can be done</p>
+                                <p> in 1-2 machine instructions on x86, or 4-6 instructions on ARM.</p>
+                            </div>
+                            <div>
+                                <p> This is a byte array, rather than (say) a 2-byte array or a 4-byte array,</p>
+                                <p> because for one thing it gives us better packing (the more bins there are,</p>
+                                <p> the less evenly they will be filled), and for another, the instruction</p>
+                                <p> sequences can be slightly shorter, both on x86 and ARM.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Bytes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int Bytes</code></pre>
+                        </div>
+                        <div id="BitAllocs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint64_t[8] BitAllocs</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="EC91A7B7311DA39AEDC4F29691AD927526F46CE9">
+                                <pre><code class="language-cpp code-clang-doc">void ByteArrayBuilder ()</code></pre>
+                                <p>Defined at line 181 of file llvm/include/llvm/Transforms/IPO/LowerTypeTests.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C10A7E9C69E7FC14A552991BA696AA51A617AE55">
+                                <pre><code class="language-cpp code-clang-doc">void allocate (const int &amp; Bits, uint64_t BitSize, uint64_t &amp; AllocByteOffset, uint8_t &amp; AllocMask)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Allocate BitSize bits in the byte array where Bits contains the bits to</p>
+                                        <p> set. AllocByteOffset is set to the offset within the byte array and</p>
+                                        <p> AllocMask is set to the bitmask for those bits. This uses the LPT (Longest</p>
+                                        <p> Processing Time) multiprocessor scheduling algorithm to lay out the bits</p>
+                                        <p> efficiently; the pass allocates bit sets in decreasing size order.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F1140C93418424D04991F7970845D08C49A8C61F">
+                                <pre><code class="language-cpp code-clang-doc">void allocate (const std::set&lt;uint64_t&gt; &amp; Bits, uint64_t BitSize, uint64_t &amp; AllocByteOffset, uint8_t &amp; AllocMask)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Allocate BitSize bits in the byte array where Bits contains the bits to</p>
+                                        <p> set. AllocByteOffset is set to the offset within the byte array and</p>
+                                        <p> AllocMask is set to the bitmask for those bits. This uses the LPT (Longest</p>
+                                        <p> Processing Time) multiprocessor scheduling algorithm to lay out the bits</p>
+                                        <p> efficiently; the pass allocates bit sets in decreasing size order.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 231 of file llvm/lib/Transforms/IPO/LowerTypeTests.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

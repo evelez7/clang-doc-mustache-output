@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>GlobPattern</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class GlobPattern</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#562D640AC05812AAFD16D9B7FE2B1F0C5EBBFFE4">isTrivialMatchAll</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9A5F99E11FB5783B34A0FDE13C82AF877047B2BA">prefix</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0A1DFCDFB9431C512E3F49DCD0FAD01B44958DD7">suffix</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#95E8949F26EBBFC24E3930CAE68B64573AE6A953">create</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FAC601517D2BAC6FD03285E6780489EA45BBF18">match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3FBE11B2296BB79D1D793A5B9ADE885B9D1280EB">longest_substr</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class GlobPattern</h1>
+                        <p>Defined at line 52 of file llvm/include/llvm/Support/GlobPattern.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This class implements a glob pattern matcher similar to the one found in</p>
+                                <p> bash, but with some key differences. Namely, that `*` matches all</p>
+                                <p> characters and does not exclude path separators.</p>
+                            </div>
+                            <div>
+                                <p> * `?` matches a single character.</p>
+                                <p> * `*` matches zero or more characters.</p>
+                                <p> * `[</p>
+                                <p>&lt;chars</p>
+                                <p>&gt;]` matches one character in the bracket. Character ranges,</p>
+                                <p>   e.g., `[a-z]`, and negative sets via `[^ab]` or `[!ab]` are also</p>
+                                <p>   supported.</p>
+                                <p> * `{</p>
+                                <p>&lt;glob</p>
+                                <p>&gt;,...}` matches one of the globs in the list. Nested brace</p>
+                                <p>   expansions are not supported. If </p>
+                                <p> is empty then</p>
+                                <p>   brace expansions are not supported and characters `{,}` are treated as</p>
+                                <p>   literals.</p>
+                                <p> * `</p>
+                                <p>\</p>
+                                <p>` escapes the next character so it is treated as a literal.</p>
+                            </div>
+                            <div>
+                                <p> Some known edge cases are:</p>
+                                <p> * The literal `]` is allowed as the first character in a character class,</p>
+                                <p>    i.e., `[]]` is valid and matches the literal `]`.</p>
+                                <p> * The empty character class, i.e., `[]`, is invalid.</p>
+                                <p> * Empty or singleton brace expansions, e.g., `{}`, `{a}`, are invalid.</p>
+                                <p> * The literals `}` and `,` that are not inside a brace expansion are taken</p>
+                                <p>   as literals, e.g., `,}` is valid but `{` is not.</p>
+                            </div>
+                            <div>
+                                <p> Examples:</p>
+                                <p> * `*[/</p>
+                                <p>\</p>
+                                <p>]foo.{c,cpp}` will match (unix or windows) paths to files named</p>
+                                <p>   `foo.c` or `foo.cpp`.</p>
+                                <p> * `_Z{N,NK,}S[tabsoid]*` will match mangled C++ standard library functions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="562D640AC05812AAFD16D9B7FE2B1F0C5EBBFFE4">
+                                <pre><code class="language-cpp code-clang-doc">bool isTrivialMatchAll ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true for glob pattern &quot;*&quot;. Can be used to avoid expensive</p>
+                                        <p> preparation/acquisition of the input for match().</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 65 of file llvm/include/llvm/Support/GlobPattern.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9A5F99E11FB5783B34A0FDE13C82AF877047B2BA">
+                                <pre><code class="language-cpp code-clang-doc">StringRef prefix ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns plain prefix of the pattern.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 79 of file llvm/include/llvm/Support/GlobPattern.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0A1DFCDFB9431C512E3F49DCD0FAD01B44958DD7">
+                                <pre><code class="language-cpp code-clang-doc">StringRef suffix ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns plain suffix of the pattern.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 81 of file llvm/include/llvm/Support/GlobPattern.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95E8949F26EBBFC24E3930CAE68B64573AE6A953">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;GlobPattern&gt; create (StringRef Pat, optional MaxSubPatterns)</code></pre>
+                                <div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Pat</b>   the pattern to match against
+                                    </div> 
+                                    <div>
+                                        <b>MaxSubPatterns</b>   if provided limit the number of allowed subpatterns                       created from expanding braces otherwise disable                       brace expansion
+                                    </div> 
+                                </div>
+                                <p>Defined at line 178 of file llvm/lib/Support/GlobPattern.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9FAC601517D2BAC6FD03285E6780489EA45BBF18">
+                                <pre><code class="language-cpp code-clang-doc">bool match (StringRef S)</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 253 of file llvm/lib/Support/GlobPattern.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3FBE11B2296BB79D1D793A5B9ADE885B9D1280EB">
+                                <pre><code class="language-cpp code-clang-doc">StringRef longest_substr ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the longest plain substring of the pattern between prefix and</p>
+                                        <p> suffix.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 248 of file llvm/lib/Support/GlobPattern.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

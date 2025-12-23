@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Memory</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">sys</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../_ZTVN4llvm3sys11MemoryBlockE.html">MemoryBlock</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class Memory</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#30D3FC227188C1F3800EB39BA919FA3C21C63D00">allocateMappedMemory</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6CC1AE4392F3A907D18FD6FC0B49C762A57434F9">releaseMappedMemory</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#313CF3CC88A1D08448F6C4889B00478A94AC38E2">protectMappedMemory</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B70089BC4FFF14E056657B7061DA4C498A4602BC">InvalidateInstructionCache</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class Memory</h1>
+                        <p>Defined at line 54 of file llvm/include/llvm/Support/Memory.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This class provides various memory handling functions that manipulate</p>
+                                <p> MemoryBlock instances.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="30D3FC227188C1F3800EB39BA919FA3C21C63D00">
+                                <pre><code class="language-cpp code-clang-doc">MemoryBlock allocateMappedMemory (size_t NumBytes, const MemoryBlock *const NearBlock, unsigned int Flags, std::error_code &amp; EC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method allocates a block of memory that is suitable for loading</p>
+                                        <p> dynamically generated code (e.g. JIT). An attempt to allocate</p>
+                                        <p> bytes of virtual memory is made.</p>
+                                        <p> may point to an existing allocation in which case</p>
+                                        <p> an attempt is made to allocate more memory near the existing block.</p>
+                                        <p> The actual allocated address is not guaranteed to be near the requested</p>
+                                        <p> address.</p>
+                                        <p> is used to set the initial protection flags for the block</p>
+                                        <p> of the memory.</p>
+                                        <p> [out] returns an object describing any error that occurs.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method may allocate more than the number of bytes requested.  The</p>
+                                        <p> actual number of bytes allocated is indicated in the returned</p>
+                                        <p> MemoryBlock.</p>
+                                    </div>
+                                    <div>
+                                        <p> The start of the allocated block must be aligned with the</p>
+                                        <p> system allocation granularity (64K on Windows, page size on Linux).</p>
+                                        <p> If the address following </p>
+                                        <p> is not so aligned, it will be</p>
+                                        <p> rounded up to the next allocation granularity boundary.</p>
+                                    </div>
+                                    <div>
+                                        <p> a non-null MemoryBlock if the function was successful,</p>
+                                        <p> otherwise a null MemoryBlock is with </p>
+                                        <p> describing the error.</p>
+                                    </div>
+                                    <div>
+                                        <p> Allocate mapped memory.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 73 of file llvm/lib/Support/Unix/Memory.inc</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6CC1AE4392F3A907D18FD6FC0B49C762A57434F9">
+                                <pre><code class="language-cpp code-clang-doc">error_code releaseMappedMemory (MemoryBlock &amp; Block)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method releases a block of memory that was allocated with the</p>
+                                        <p> allocateMappedMemory method. It should not be used to release any</p>
+                                        <p> memory block allocated any other way.</p>
+                                        <p> describes the memory to be released.</p>
+                                    </div>
+                                    <div>
+                                        <p> error_success if the function was successful, or an error_code</p>
+                                        <p> describing the failure if an error occurred.</p>
+                                    </div>
+                                    <div>
+                                        <p> Release mapped memory.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 151 of file llvm/lib/Support/Unix/Memory.inc</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="313CF3CC88A1D08448F6C4889B00478A94AC38E2">
+                                <pre><code class="language-cpp code-clang-doc">error_code protectMappedMemory (const MemoryBlock &amp; Block, unsigned int Flags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method sets the protection flags for a block of memory to the</p>
+                                        <p> state specified by /p Flags.  The behavior is not specified if the</p>
+                                        <p> memory was not allocated using the allocateMappedMemory method.</p>
+                                        <p> describes the memory block to be protected.</p>
+                                        <p> specifies the new protection state to be assigned to the block.</p>
+                                    </div>
+                                    <div>
+                                        <p> If </p>
+                                        <p> is MF_WRITE, the actual behavior varies</p>
+                                        <p> with the operating system (i.e. MF_READ | MF_WRITE on Windows) and the</p>
+                                        <p> target architecture (i.e. MF_WRITE -&gt; MF_READ | MF_WRITE on i386).</p>
+                                    </div>
+                                    <div>
+                                        <p> error_success if the function was successful, or an error_code</p>
+                                        <p> describing the failure if an error occurred.</p>
+                                    </div>
+                                    <div>
+                                        <p> Set memory protection state.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 164 of file llvm/lib/Support/Unix/Memory.inc</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B70089BC4FFF14E056657B7061DA4C498A4602BC">
+                                <pre><code class="language-cpp code-clang-doc">void InvalidateInstructionCache (const void * Addr, size_t Len)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> InvalidateInstructionCache - Before the JIT can run a block of code</p>
+                                        <p> that has been emitted it must invalidate the instruction cache on some</p>
+                                        <p> platforms.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 210 of file llvm/lib/Support/Unix/Memory.inc</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

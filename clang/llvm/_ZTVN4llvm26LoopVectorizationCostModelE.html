@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LoopVectorizationCostModel</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LoopVectorizationCostModel</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TheLoop">TheLoop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#PSE">PSE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LI">LI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Legal">Legal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TTI">TTI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TLI">TLI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DB">DB</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC">AC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ORE">ORE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#GetBFI">GetBFI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BFI">BFI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TheFunction">TheFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Hints">Hints</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#InterleaveInfo">InterleaveInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ValuesToIgnore">ValuesToIgnore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#VecValuesToIgnore">VecValuesToIgnore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ElementTypesInLoop">ElementTypesInLoop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CostKind">CostKind</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#OptForSize">OptForSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MaxPermissibleVFWithoutMaxBW">MaxPermissibleVFWithoutMaxBW</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#95182B09E330FDD64008DAF23AB2E4AAA3F33E3F">LoopVectorizationCostModel</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4E41E3A2F44729CF1C809428A7B334D7E7292147">selectUserVectorizationFactor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2D399D21AF1DEB4B20B4EAD077F8FE65A787FC63">useOrderedReductions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F61FA855368BFC4748DA1DA21011E6C2BE21163C">getMinimalBitwidths</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8AC0FC4AC12ED8006A1AD1CF3539166081B0D1AF">isProfitableToScalarize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#885C89EF9566354E00B618A7BC1B13FBEE3CF561">isUniformAfterVectorization</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A886078B1A7E79E2436F5CD9DEAD1578D515A0FA">isScalarAfterVectorization</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#64CF9A9FF3EAA8441BA06D03E617B10AA839F91B">canTruncateToMinimalBitwidth</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#33F30777B2D37D7E5A3D3304DE69967A70224DA5">setWideningDecision</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#031D26FC591BC913C5D57EB5AC01A81B5FA1DED6">setWideningDecision</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6BA9813508A9E573F082F17477D24F33959120A7">getWideningDecision</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#11714F359350459B86BA64BD03F4AA4B3E5B865C">getWideningCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#21F3DF87017A83F2BA1117E3A432EEF70119286C">setCallWideningDecision</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6B84C50FD79FF9E96B5706F0DDFB95DF50CFA77C">getCallWideningDecision</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0C0746939A2382ABF1465DF69C1ADBA517596F6C">isOptimizableIVTruncate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8B03E7BFD2F7844A508BE4E12648A1C6AABA1953">collectNonVectorizedAndSetWideningDecisions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4205304C969590B1C4035D32ABC62FE09A0EE3B9">isLegalMaskedStore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7B0A0B06C40B5A6CAA59AEA06CADE21FC6A51DC">isLegalMaskedLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4F93256551CB638D9B77CD532C61D3CF3933920">isLegalGatherOrScatter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F26769F54DFE08BE3A97A2FB57275F3773DEDFB3">canVectorizeReductions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B98B5190E72436B5BC71578DACE7A65FBE58821A">isDivRemScalarWithPredication</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8E04DB9973B36DCEF01049972A8E9483507C458D">isAccessInterleaved</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9554DA84405CEFEAFC536D3923F537A3BFBBEF3D">getInterleavedAccessGroup</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D8B0E366F64ADF156CEF05FE8D4BF0E9E111B59C">requiresScalarEpilogue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7E861C3556CE122D732C7175FC29A5C5A37C4E6C">isScalarEpilogueAllowed</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#21E572E6108E4B81B350D950EC44233997F74A94">preferPredicatedLoop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#170678FC79E8523E76CDFA0FF416559244BF0408">getTailFoldingStyle</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F29BE1549E475B8B27DD328ABA43AAAA54C0B6D8">setTailFoldingStyles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7152E95797F9A19B22995D3D99B491E206006F42">foldTailByMasking</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FA5F70F6415E5ACECED7AC59994060E3A38AF88B">useWideActiveLaneMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2DA6C0FA090C33FBCD16CF78751333AFF0D1E705">getMaxSafeElements</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B7B17FD2A7284927964A751588DB80E623DE27ED">blockNeedsPredicationForAnyReason</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#901F766999ED2A612BEED85D2A45941894218562">foldTailWithEVL</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F748002B9C4176945D1CB22FE06CE3A0796763D">isInLoopReduction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AE4FE79B3AD82D6B2A293401F4072F5617F7DD25">getInLoopReductions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7539EA5087F8DA233BA3C0BB06BED770229F8E94">usePredicatedReductionSelect</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#93D430793EA951B2A537238D06B34604AB778E70">invalidateCostModelingDecisions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#160D51C03178FAB6E28C68E29F1190A5AD9C378B">hasPredStores</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#04C2C4FCE61DA7505F1AE06EFCF1E8258A6789F5">getVScaleForTuning</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F982097C1B8E9AD4CDC8C69C9FC7F64B37A0FD34">getBFI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DE89AA15B74CA8601E82FE0326117062C1B78BEE">computeMaxVF</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B94614D615C4CB911FC8AA0B42333FDFB0332663">runtimeChecksRequired</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#930BBB608305C44B19F970F0B0C95E6304368308">useMaxBandwidth</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D4CF69E296C183B4AEA3C42DDAA6683AEB5F63A0">shouldConsiderRegPressureForVF</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6579F315D69E66CD97A50E8087EA5B98DA37D06B">getSmallestAndWidestTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C78E80987F80A9830C4A6FBAD62B39DDDFFD8D7">setCostBasedWideningDecision</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#32AF6B16549B81150D48353790883C8CEC626B14">setVectorizedCallDecision</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#672C0183AA354B0DF35E730E0D5986749D78F895">collectValuesToIgnore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#45A32A404BA916E916DA3D23A8BAB53877DEE192">collectElementTypesForWidening</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EDAA1EEFEFDC5182C83A81BC78672A8CD8AE9CF3">collectInLoopReductions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8192ADB79C0DDB02EBBC5B8D4B19E7A0A0860FEF">collectInstsToScalarize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E9A7C58CA95E00E0D96B3ED66D61F71339E85B94">isScalarWithPredication</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#62920B7528F8F744934EB3AEEBA70534775C1CDC">isPredicatedInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF87F37567814D89132E60DD3558CB0BFA40C5BD">getPredBlockCostDivisor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D371A35A4D021A595B3463AC4C6057D8AB779F42">getDivRemSpeculationCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#58F2AB0A405F009DE7B4DAC38AC0E7CAEC03983F">memoryInstructionCanBeWidened</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3751F226561DEC43293FE2BA54672662E9C0CBBF">interleavedAccessCanBeWidened</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1A10383BF2FC1FE268F10FC5B2C985BEADA1014C">getVectorIntrinsicCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D70529EA951BBE593E6FBC8297A66252708367E7">getVectorCallCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6AF1994D3B041420BDAF5FA5F35965217B2BE2E4">expectedCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5222CA42A20289C89BFFCB4FBCF73ED9E441E7A7">isEpilogueVectorizationProfitable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B345109FAA4D92B34040B17A389F7985D2D0C122">getInstructionCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#018FB0AD2E8E6EF6B7BAA1D921C962E2F8133622">getReductionPatternCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4DE1CFC1A54B907C7940882D678792F4754BB7A1">shouldConsiderInvariant</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LoopVectorizationCostModel</h1>
+                        <p>Defined at line 867 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> LoopVectorizationCostModel - estimates the expected speedups due to</p>
+                                <p> vectorization.</p>
+                                <p> In many cases vectorization is not profitable. This can happen because of</p>
+                                <p> a number of reasons. In this class we mainly attempt to predict the</p>
+                                <p> expected speedup/slowdowns due to the supported instruction set. We use the</p>
+                                <p> TargetTransformInfo to query the different backends for the cost of</p>
+                                <p> different operations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="TheLoop" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Loop * TheLoop</code></pre>
+                        </div>
+                        <div id="PSE" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >PredicatedScalarEvolution &amp; PSE</code></pre>
+                        </div>
+                        <div id="LI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LoopInfo * LI</code></pre>
+                        </div>
+                        <div id="Legal" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LoopVectorizationLegality * Legal</code></pre>
+                        </div>
+                        <div id="TTI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetTransformInfo &amp; TTI</code></pre>
+                        </div>
+                        <div id="TLI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetLibraryInfo * TLI</code></pre>
+                        </div>
+                        <div id="DB" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DemandedBits * DB</code></pre>
+                        </div>
+                        <div id="AC" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >AssumptionCache * AC</code></pre>
+                        </div>
+                        <div id="ORE" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >OptimizationRemarkEmitter * ORE</code></pre>
+                        </div>
+                        <div id="GetBFI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >function GetBFI</code></pre>
+                        </div>
+                        <div id="BFI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >BlockFrequencyInfo * BFI</code></pre>
+                        </div>
+                        <div id="TheFunction" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const Function * TheFunction</code></pre>
+                        </div>
+                        <div id="Hints" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const LoopVectorizeHints * Hints</code></pre>
+                        </div>
+                        <div id="InterleaveInfo" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >InterleavedAccessInfo &amp; InterleaveInfo</code></pre>
+                        </div>
+                        <div id="ValuesToIgnore" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallPtrSet ValuesToIgnore</code></pre>
+                        </div>
+                        <div id="VecValuesToIgnore" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallPtrSet VecValuesToIgnore</code></pre>
+                        </div>
+                        <div id="ElementTypesInLoop" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallPtrSet&lt;Type *, 16&gt; ElementTypesInLoop</code></pre>
+                        </div>
+                        <div id="CostKind" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >TargetCostKind CostKind</code></pre>
+                        </div>
+                        <div id="OptForSize" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool OptForSize</code></pre>
+                        </div>
+                        <div id="MaxPermissibleVFWithoutMaxBW" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >FixedScalableVFPair MaxPermissibleVFWithoutMaxBW</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="95182B09E330FDD64008DAF23AB2E4AAA3F33E3F">
+                                <pre><code class="language-cpp code-clang-doc">void LoopVectorizationCostModel (ScalarEpilogueLowering SEL, Loop * L, PredicatedScalarEvolution &amp; PSE, LoopInfo * LI, LoopVectorizationLegality * Legal, const TargetTransformInfo &amp; TTI, const TargetLibraryInfo * TLI, DemandedBits * DB, AssumptionCache * AC, OptimizationRemarkEmitter * ORE, function GetBFI, const Function * F, const LoopVectorizeHints * Hints, InterleavedAccessInfo &amp; IAI, bool OptForSize)</code></pre>
+                                <p>Defined at line 871 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4E41E3A2F44729CF1C809428A7B334D7E7292147">
+                                <pre><code class="language-cpp code-clang-doc">bool selectUserVectorizationFactor (ElementCount UserVF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Setup cost-based decisions for user vectorization factor.</p>
+                                    </div>
+                                    <h3>Returns</h3>
+                                    <p> true if the UserVF is a feasible VF to be chosen.</p>
+                                </div>
+                                <p>Defined at line 901 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2D399D21AF1DEB4B20B4EAD077F8FE65A787FC63">
+                                <pre><code class="language-cpp code-clang-doc">bool useOrderedReductions (const RecurrenceDescriptor &amp; RdxDesc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if we should use strict in-order reductions for the given</p>
+                                        <p> RdxDesc. This is true if the -enable-strict-reductions flag is passed,</p>
+                                        <p> the IsOrdered flag of RdxDesc is set and we do not allow reordering</p>
+                                        <p> of FP operations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 948 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F61FA855368BFC4748DA1DA21011E6C2BE21163C">
+                                <pre><code class="language-cpp code-clang-doc">const int &amp; getMinimalBitwidths ()</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 955 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8AC0FC4AC12ED8006A1AD1CF3539166081B0D1AF">
+                                <pre><code class="language-cpp code-clang-doc">bool isProfitableToScalarize (Instruction * I, ElementCount VF)</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 961 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="885C89EF9566354E00B618A7BC1B13FBEE3CF561">
+                                <pre><code class="language-cpp code-clang-doc">bool isUniformAfterVectorization (Instruction * I, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> is known to be uniform after vectorization.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 975 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A886078B1A7E79E2436F5CD9DEAD1578D515A0FA">
+                                <pre><code class="language-cpp code-clang-doc">bool isScalarAfterVectorization (Instruction * I, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> is known to be scalar after vectorization.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 995 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="64CF9A9FF3EAA8441BA06D03E617B10AA839F91B">
+                                <pre><code class="language-cpp code-clang-doc">bool canTruncateToMinimalBitwidth (Instruction * I, ElementCount VF)</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 1010 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="33F30777B2D37D7E5A3D3304DE69967A70224DA5">
+                                <pre><code class="language-cpp code-clang-doc">void setWideningDecision (Instruction * I, ElementCount VF, InstWidening W, InstructionCost Cost)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Save vectorization decision </p>
+                                        <p> and </p>
+                                        <p> taken by the cost model for</p>
+                                        <p> instruction </p>
+                                        <p> and vector width </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1034 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="031D26FC591BC913C5D57EB5AC01A81B5FA1DED6">
+                                <pre><code class="language-cpp code-clang-doc">void setWideningDecision (const InterleaveGroup&lt;Instruction&gt; * Grp, ElementCount VF, InstWidening W, InstructionCost Cost)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Save vectorization decision </p>
+                                        <p> and </p>
+                                        <p> taken by the cost model for</p>
+                                        <p> interleaving group </p>
+                                        <p> and vector width </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1042 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6BA9813508A9E573F082F17477D24F33959120A7">
+                                <pre><code class="language-cpp code-clang-doc">InstWidening getWideningDecision (Instruction * I, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the cost model decision for the given instruction </p>
+                                        <p> and vector</p>
+                                        <p> width </p>
+                                        <p> Return CM_Unknown if this instruction did not pass</p>
+                                        <p> through the cost modeling.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1069 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="11714F359350459B86BA64BD03F4AA4B3E5B865C">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getWideningCost (Instruction * I, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the vectorization cost for the given instruction </p>
+                                        <p> and vector</p>
+                                        <p> width </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1084 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="21F3DF87017A83F2BA1117E3A432EEF70119286C">
+                                <pre><code class="language-cpp code-clang-doc">void setCallWideningDecision (CallInst * CI, ElementCount VF, InstWidening Kind, Function * Variant, Intrinsic::ID IID, optional MaskPos, InstructionCost Cost)</code></pre>
+                                <p>Defined at line 1100 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6B84C50FD79FF9E96B5706F0DDFB95DF50CFA77C">
+                                <pre><code class="language-cpp code-clang-doc">CallWideningDecision getCallWideningDecision (CallInst * CI, ElementCount VF)</code></pre>
+                                <p>Defined at line 1108 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0C0746939A2382ABF1465DF69C1ADBA517596F6C">
+                                <pre><code class="language-cpp code-clang-doc">bool isOptimizableIVTruncate (Instruction * I, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return True if instruction </p>
+                                        <p> is an optimizable truncate whose operand</p>
+                                        <p> is an induction variable. Such a truncate will be removed by adding a new</p>
+                                        <p> induction variable with the destination type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1120 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8B03E7BFD2F7844A508BE4E12648A1C6AABA1953">
+                                <pre><code class="language-cpp code-clang-doc">void collectNonVectorizedAndSetWideningDecisions (ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Collect values that will not be widened, including Uniforms, Scalars, and</p>
+                                        <p> Instructions to Scalarize for the given </p>
+                                        <p> The sets depend on CM decision for Load/Store instructions</p>
+                                        <p> that may be vectorized as interleave, gather-scatter or scalarized.</p>
+                                        <p> Also make a decision on what to do about call instructions in the loop</p>
+                                        <p> at that VF -- scalarize, call a known vector routine, or call a</p>
+                                        <p> vector intrinsic.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1154 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4205304C969590B1C4035D32ABC62FE09A0EE3B9">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalMaskedStore (Type * DataType, Value * Ptr, Align Alignment, unsigned int AddressSpace)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target machine supports masked store operation</p>
+                                        <p> for the given </p>
+                                        <p> and kind of access to </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1167 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F7B0A0B06C40B5A6CAA59AEA06CADE21FC6A51DC">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalMaskedLoad (Type * DataType, Value * Ptr, Align Alignment, unsigned int AddressSpace)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target machine supports masked load operation</p>
+                                        <p> for the given </p>
+                                        <p> and kind of access to </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1175 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4F93256551CB638D9B77CD532C61D3CF3933920">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalGatherOrScatter (Value * V, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target machine can represent </p>
+                                        <p> as a masked gather</p>
+                                        <p> or scatter operation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1183 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F26769F54DFE08BE3A97A2FB57275F3773DEDFB3">
+                                <pre><code class="language-cpp code-clang-doc">bool canVectorizeReductions (ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the target machine supports all of the reduction</p>
+                                        <p> variables found for the given VF.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1198 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B98B5190E72436B5BC71578DACE7A65FBE58821A">
+                                <pre><code class="language-cpp code-clang-doc">bool isDivRemScalarWithPredication (InstructionCost ScalarCost, InstructionCost SafeDivisorCost)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given costs for both strategies, return true if the scalar predication</p>
+                                        <p> lowering should be used for div/rem.  This incorporates an override</p>
+                                        <p> option so it is not simply a cost comparison.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1208 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8E04DB9973B36DCEF01049972A8E9483507C458D">
+                                <pre><code class="language-cpp code-clang-doc">bool isAccessInterleaved (Instruction * Instr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if </p>
+                                        <p> belongs to any interleaved access group.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1264 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9554DA84405CEFEAFC536D3923F537A3BFBBEF3D">
+                                <pre><code class="language-cpp code-clang-doc">const InterleaveGroup&lt;Instruction&gt; * getInterleavedAccessGroup (Instruction * Instr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the interleaved access group that </p>
+                                        <p> belongs to.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1269 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D8B0E366F64ADF156CEF05FE8D4BF0E9E111B59C">
+                                <pre><code class="language-cpp code-clang-doc">bool requiresScalarEpilogue (bool IsVectorizing)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if we&#39;re required to use a scalar epilogue for at least</p>
+                                        <p> the final iteration of the original loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1276 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7E861C3556CE122D732C7175FC29A5C5A37C4E6C">
+                                <pre><code class="language-cpp code-clang-doc">bool isScalarEpilogueAllowed ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if a scalar epilogue is not allowed due to optsize or a</p>
+                                        <p> loop hint annotation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1300 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="21E572E6108E4B81B350D950EC44233997F74A94">
+                                <pre><code class="language-cpp code-clang-doc">bool preferPredicatedLoop ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if tail-folding is preferred over a scalar epilogue.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1305 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="170678FC79E8523E76CDFA0FF416559244BF0408">
+                                <pre><code class="language-cpp code-clang-doc">TailFoldingStyle getTailFoldingStyle (bool IVUpdateMayOverflow)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the TailFoldingStyle that is best for the current loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1311 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F29BE1549E475B8B27DD328ABA43AAAA54C0B6D8">
+                                <pre><code class="language-cpp code-clang-doc">void setTailFoldingStyles (bool IsScalableVF, unsigned int UserIC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Selects and saves TailFoldingStyle for 2 options - if IV update may</p>
+                                        <p> overflow or not.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>IsScalableVF</b>   true if scalable vector factors enabled.
+                                    </div> 
+                                    <div>
+                                        <b>UserIC</b>   User specific interleave count.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1322 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7152E95797F9A19B22995D3D99B491E206006F42">
+                                <pre><code class="language-cpp code-clang-doc">bool foldTailByMasking ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if all loop blocks should be masked to fold tail loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1364 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FA5F70F6415E5ACECED7AC59994060E3A38AF88B">
+                                <pre><code class="language-cpp code-clang-doc">bool useWideActiveLaneMask ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the use of wide lane masks is requested and the loop is</p>
+                                        <p> using tail-folding with a lane mask for control flow.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1372 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2DA6C0FA090C33FBCD16CF78751333AFF0D1E705">
+                                <pre><code class="language-cpp code-clang-doc">optional getMaxSafeElements ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return maximum safe number of elements to be processed per vector</p>
+                                        <p> iteration, which do not prevent store-load forwarding and are safe with</p>
+                                        <p> regard to the memory dependencies. Required for EVL-based VPlans to</p>
+                                        <p> correctly calculate AVL (application vector length) as min(remaining AVL,</p>
+                                        <p> MaxSafeElements).</p>
+                                        <p> TODO: need to consider adjusting cost model to use this value as a</p>
+                                        <p> vectorization factor for EVL-based vectorization.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1388 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B7B17FD2A7284927964A751588DB80E623DE27ED">
+                                <pre><code class="language-cpp code-clang-doc">bool blockNeedsPredicationForAnyReason (BasicBlock * BB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the instructions in this block requires predication</p>
+                                        <p> for any reason, e.g. because tail folding now requires a predicate</p>
+                                        <p> or because the block in the original loop was predicated.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1393 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="901F766999ED2A612BEED85D2A45941894218562">
+                                <pre><code class="language-cpp code-clang-doc">bool foldTailWithEVL ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if VP intrinsics with explicit vector length support should</p>
+                                        <p> be generated in the tail folded loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1399 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F748002B9C4176945D1CB22FE06CE3A0796763D">
+                                <pre><code class="language-cpp code-clang-doc">bool isInLoopReduction (PHINode * Phi)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the Phi is part of an inloop reduction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1404 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AE4FE79B3AD82D6B2A293401F4072F5617F7DD25">
+                                <pre><code class="language-cpp code-clang-doc">const SmallPtrSetImpl&lt;PHINode *&gt; &amp; getInLoopReductions ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the set of in-loop reduction PHIs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1409 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7539EA5087F8DA233BA3C0BB06BED770229F8E94">
+                                <pre><code class="language-cpp code-clang-doc">bool usePredicatedReductionSelect ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the predicated reduction select should be used to set the</p>
+                                        <p> incoming value for the reduction phi.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1415 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="93D430793EA951B2A537238D06B34604AB778E70">
+                                <pre><code class="language-cpp code-clang-doc">void invalidateCostModelingDecisions ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Invalidates decisions already taken by the cost model.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1435 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="160D51C03178FAB6E28C68E29F1190A5AD9C378B">
+                                <pre><code class="language-cpp code-clang-doc">bool hasPredStores ()</code></pre>
+                                <p>Defined at line 1448 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="04C2C4FCE61DA7505F1AE06EFCF1E8258A6789F5">
+                                <pre><code class="language-cpp code-clang-doc">optional getVScaleForTuning ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the value of vscale used for tuning the cost model.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1473 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F982097C1B8E9AD4CDC8C69C9FC7F64B37A0FD34">
+                                <pre><code class="language-cpp code-clang-doc">BlockFrequencyInfo &amp; getBFI ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the BlockFrequencyInfo for the function if cached, otherwise</p>
+                                        <p> fetches it via GetBFI. Avoids an indirect call to the std::function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1738 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DE89AA15B74CA8601E82FE0326117062C1B78BEE">
+                                <pre><code class="language-cpp code-clang-doc">FixedScalableVFPair computeMaxVF (ElementCount UserVF, unsigned int UserIC)</code></pre>
+                                <div>
+                                    <h3>Returns</h3>
+                                    <p> An upper bound for the vectorization factors (both fixed and</p>
+                                    <p> scalable). If the factors are 0, vectorization and interleaving should be</p>
+                                    <p> avoided up front.</p>
+                                </div>
+                                <p>Defined at line 3559 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B94614D615C4CB911FC8AA0B42333FDFB0332663">
+                                <pre><code class="language-cpp code-clang-doc">bool runtimeChecksRequired ()</code></pre>
+                                <div>
+                                    <h3>Returns</h3>
+                                    <p> True if runtime checks are required for vectorization, and false</p>
+                                    <p> otherwise.</p>
+                                </div>
+                                <p>Defined at line 3334 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="930BBB608305C44B19F970F0B0C95E6304368308">
+                                <pre><code class="language-cpp code-clang-doc">bool useMaxBandwidth (RegisterKind RegKind)</code></pre>
+                                <div>
+                                    <h3>Returns</h3>
+                                    <p> True if maximizing vector bandwidth is enabled by the target or</p>
+                                    <p> user options, for the given register kind.</p>
+                                </div>
+                                <p>Defined at line 3787 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D4CF69E296C183B4AEA3C42DDAA6683AEB5F63A0">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldConsiderRegPressureForVF (ElementCount VF)</code></pre>
+                                <div>
+                                    <h3>Returns</h3>
+                                    <p> True if register pressure should be considered for the given VF.</p>
+                                </div>
+                                <p>Defined at line 3767 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6579F315D69E66CD97A50E8087EA5B98DA37D06B">
+                                <pre><code class="language-cpp code-clang-doc">pair getSmallestAndWidestTypes ()</code></pre>
+                                <div>
+                                    <h3>Returns</h3>
+                                    <p> The size (in bits) of the smallest and widest types in the code</p>
+                                    <p> that needs to be vectorized. We ignore values that remain scalar such as</p>
+                                    <p> 64 bit loop indices.</p>
+                                </div>
+                                <p>Defined at line 4537 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C78E80987F80A9830C4A6FBAD62B39DDDFFD8D7">
+                                <pre><code class="language-cpp code-clang-doc">void setCostBasedWideningDecision (ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Memory access instruction may be vectorized in more than one way.</p>
+                                        <p> Form of instruction after vectorization depends on cost.</p>
+                                        <p> This function takes cost-based decisions for Load/Store instructions</p>
+                                        <p> and collects them in a map. This decisions map is used for building</p>
+                                        <p> the lists of loop-uniform and loop-scalar instructions.</p>
+                                        <p> The calculated cost is saved with widening decision in order to</p>
+                                        <p> avoid redundant calculations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5657 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="32AF6B16549B81150D48353790883C8CEC626B14">
+                                <pre><code class="language-cpp code-clang-doc">void setVectorizedCallDecision (ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> A call may be vectorized in different ways depending on whether we have</p>
+                                        <p> vectorized variants available and whether the target supports masking.</p>
+                                        <p> This function analyzes all calls in the function at the supplied VF,</p>
+                                        <p> makes a decision based on the costs of available options, and stores that</p>
+                                        <p> decision in a map for use in planning and plan execution.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5883 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="672C0183AA354B0DF35E730E0D5986749D78F895">
+                                <pre><code class="language-cpp code-clang-doc">void collectValuesToIgnore ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Collect values we want to ignore in the cost model.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 6490 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="45A32A404BA916E916DA3D23A8BAB53877DEE192">
+                                <pre><code class="language-cpp code-clang-doc">void collectElementTypesForWidening ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Collect all element types in the loop for which widening is needed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4568 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EDAA1EEFEFDC5182C83A81BC78672A8CD8AE9CF3">
+                                <pre><code class="language-cpp code-clang-doc">void collectInLoopReductions ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Split reductions into those that happen in the loop, and those that happen</p>
+                                        <p> outside. In loop reductions are collected into InLoopReductions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 6628 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8192ADB79C0DDB02EBBC5B8D4B19E7A0A0860FEF">
+                                <pre><code class="language-cpp code-clang-doc">void collectInstsToScalarize (ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Collects the instructions to scalarize for each predicated instruction in</p>
+                                        <p> the loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4963 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E9A7C58CA95E00E0D96B3ED66D61F71339E85B94">
+                                <pre><code class="language-cpp code-clang-doc">bool isScalarWithPredication (Instruction * I, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> is an instruction which requires predication and</p>
+                                        <p> for which our chosen predication strategy is scalarization (i.e. we</p>
+                                        <p> don&#39;t have an alternate strategy such as masking available).</p>
+                                        <p> is the vectorization factor that will be used to vectorize </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2819 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="62920B7528F8F744934EB3AEEBA70534775C1CDC">
+                                <pre><code class="language-cpp code-clang-doc">bool isPredicatedInst (Instruction * I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> is an instruction that needs to be predicated</p>
+                                        <p> at runtime.  The result is independent of the predication mechanism.</p>
+                                        <p> Superset of instructions that return true for isScalarWithPredication.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2861 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EF87F37567814D89132E60DD3558CB0BFA40C5BD">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getPredBlockCostDivisor (TargetCostKind CostKind, const BasicBlock * BB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> A helper function that returns how much we should divide the cost of a</p>
+                                        <p> predicated block by. Typically this is the reciprocal of the block</p>
+                                        <p> probability, i.e. if we return X we are assuming the predicated block will</p>
+                                        <p> execute once for every X iterations of the loop header so the block should</p>
+                                        <p> only contribute 1/X of its cost to the total cost calculation, but when</p>
+                                        <p> optimizing for code size it will just be 1 as code size costs don&#39;t depend</p>
+                                        <p> on execution probabilities.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that if a block wasn&#39;t originally predicated but was predicated due</p>
+                                        <p> to tail folding, the divisor will still be 1 because it will execute for</p>
+                                        <p> every iteration of the loop header.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2913 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D371A35A4D021A595B3463AC4C6057D8AB779F42">
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;InstructionCost, InstructionCost&gt; getDivRemSpeculationCost (Instruction * I, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the costs for our two available strategies for lowering a</p>
+                                        <p> div/rem operation which requires speculating at least one lane.</p>
+                                        <p> First result is for scalarization (will be invalid for scalable</p>
+                                        <p> vectors); second is for the safe-divisor strategy.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2930 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="58F2AB0A405F009DE7B4DAC38AC0E7CAEC03983F">
+                                <pre><code class="language-cpp code-clang-doc">bool memoryInstructionCanBeWidened (Instruction * I, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> is a memory instruction with consecutive memory</p>
+                                        <p> access that can be widened.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3068 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3751F226561DEC43293FE2BA54672662E9C0CBBF">
+                                <pre><code class="language-cpp code-clang-doc">bool interleavedAccessCanBeWidened (Instruction * I, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> is a memory instruction in an interleaved-group</p>
+                                        <p> of memory accesses that can be vectorized with wide vector loads/stores</p>
+                                        <p> and shuffles.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2988 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1A10383BF2FC1FE268F10FC5B2C985BEADA1014C">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getVectorIntrinsicCost (CallInst * CI, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Estimate cost of an intrinsic call instruction CI if it were vectorized</p>
+                                        <p> with factor VF.  Return the cost of the instruction, including</p>
+                                        <p> scalarization overhead if it&#39;s needed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2574 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D70529EA951BBE593E6FBC8297A66252708367E7">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getVectorCallCost (CallInst * CI, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Estimate cost of a call instruction CI if it were vectorized with factor</p>
+                                        <p> VF. Return the cost of the instruction, including scalarization overhead</p>
+                                        <p> if it&#39;s needed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2540 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6AF1994D3B041420BDAF5FA5F35965217B2BE2E4">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost expectedCost (ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the expected execution cost. The unit of the cost does</p>
+                                        <p> not matter because we use the &#39;cost&#39; units to compare different</p>
+                                        <p> vector widths. The cost that is returned is *not* normalized by</p>
+                                        <p> the factor width.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5140 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5222CA42A20289C89BFFCB4FBCF73ED9E441E7A7">
+                                <pre><code class="language-cpp code-clang-doc">bool isEpilogueVectorizationProfitable (ElementCount VF, const unsigned int IC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if epilogue vectorization is considered profitable, and</p>
+                                        <p> false otherwise.</p>
+                                        <p> is the vectorization factor chosen for the original loop.</p>
+                                        <p> is an aditional scaling factor applied to VF before</p>
+                                        <p> comparing to EpilogueVectorizationMinVF.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4379 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B345109FAA4D92B34040B17A389F7985D2D0C122">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getInstructionCost (Instruction * I, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the execution time cost of an instruction for a given vector</p>
+                                        <p> width. Vector width of one means scalar.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 6053 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="018FB0AD2E8E6EF6B7BAA1D921C962E2F8133622">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;InstructionCost&gt; getReductionPatternCost (Instruction * I, ElementCount VF, Type * VectorTy)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the cost of instructions in an inloop reduction pattern, if I is</p>
+                                        <p> part of that pattern.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5408 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4DE1CFC1A54B907C7940882D678792F4754BB7A1">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldConsiderInvariant (Value * Op)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> should be considered invariant and if it is</p>
+                                        <p> trivially hoistable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 6040 of file llvm/lib/Transforms/Vectorize/LoopVectorize.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

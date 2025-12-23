@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DIExpression</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class DIExpression</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C49B5338E66C21317A226C423587993F1A9736F2">isConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#86447EBBF9B84D1D35B359F18AB29D0B604D6A51">getNumLocationOperands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8A3D9759F7F1CA8856BD0C6070E6F4897AE710B4">isValid</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#120283D0448747BFE4E6BE1FAA2C5DBE6801CFE5">startsWithDeref</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2E1AEB8E6360261C53897EB47EEF9E4ECEB68EE6">isDeref</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CC24F836F4DA2EEF3AA6EF84276439205183A2D8">getActiveBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C886AFB70CB375CE1EAB90153814E3F1669A8BA2">getFragmentInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4371EC737F78EFEEE148352CC1EBCCE5F10D99C7">isImplicit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DEACD7F6F280875F9CD625B45305BB88BA39DAD6">isComplex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8477689A2D28EB25EA307DFE472F737EDF3007A9">isSingleLocationExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7F95BDEF6D5FDCD752397014AF0BCE8AFC948CD5">getSingleLocationExpressionElements</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1D625FF11B0D9A4333C142CC9231F9077AFFADF">convertToUndefExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7A244EC57BCD09AC9A2B53118B2FE4B143910F31">convertToVariadicExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#807D59F34347C76F1551A29292923F6EBA035646">convertToNonVariadicExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E654D527223871792D992CBE8D9FF372B7B69F1B">canonicalizeExpressionOps</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E204B864971E775867D9C61FC4C4A51D8EB3F698">isEqualExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#439BA6AA1B3618AB011E7B549AEB7270F632A4CB">appendOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#51342EDBF9ECD72F3F195FB09459BDEB70AB220A">extractIfOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C906F0BDA1D80E230C427E6D10736FE7925157AD">extractLeadingOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#14A401CCD9E200B024144CCC3399161FDEA7BFF3">hasAllLocationOps</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07A2C4069078061B0A7FC47741A09C53B51962A8">extractAddressClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CBBA308AE7B9EC797F0EEA48CE071EE67A8A0D8B">prepend</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#077D9820E2E8E66BE56F573A527A2780AD79BBFF">prependOpcodes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B384EBE5B6AE9EC722658ACA92DE0BF02BB3436C">append</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BE3F7E59CC3121809DD7BCBE21D7A7F2FA00734C">appendToStack</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E8FB482A453CA20B6D31B8AB6BC676F3CC923972">appendOpsToArg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#48C97196D6A80D9D218B9E9BF5D55CA3C92C0C68">replaceArg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#191BB9EDC8BD3222E5809420B3E93B3BF9821175">createFragmentExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6B24267053CFF105B0DE78951EA17C5D9EE3488C">calculateFragmentIntersect</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#501DCC14B5BD5685B9DA83060407340576A1CDA7">getExtOps</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0BCBFF8EF0070F7EE3D3FD3EEDC15418F3E5F630">appendExt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AE4738189BB313984338915C4933B51EECAA32E9">isEntryValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#17E5A3C8F72F8725998537426896B5C28226044E">constantFold</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9710AC0113D2D56159DF238E910E44C57BF4FCF6">foldConstantMath</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E129F62F72E201FD3A52CFA8DBC3C8D273E84254">get</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2278C469DAC3E26197F83E4F4F1E5694DD68D621">getDistinct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9AC0D00E8FE28E8EEBBB828BC85E0CE340EA3C0D">getIfExists</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC0C315E9AA228682C69A7BE2148F86484B3A3B5">getTemporary</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F884B74E371DF2DE9486FE0A92710F95D50EDA01">clone</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#78F7648B4EC044696F36DB6985B6F6E357EC4891">getElements</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28D21E5A82645269B2DDEA0E30374AF0878DD181">getNumElements</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FE94A649CD91B31AEF2ED29978DEB04C48416504">getElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0C916621545908158A967AEDC8AC4EAECEC8F197">elements_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#63023491CB5DEC50A2B855E2E6F814E0F2240BA2">elements_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0933B96393277AB4D086B8924579A89DA83D26E3">expr_op_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FA5BC340537C3348090727E46AF61665308AEAD2">expr_op_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAE2B8F72FCAB285629F5E0F9E3F5B2166BBA02E">expr_ops</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A5785877E96D5E1BC6F850BC37F454A7E2ACDEE4">classof</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#887AECB95E81F62A9357A260CF834015FB6D1444">getFragmentInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#73D5F144DCA6209A09105F0286DD0B8BE0EFA8FC">isFragment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#068853635B757C07D962FF7201602AD1590E1E0C">fragmentCmp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F2FB518AC9342462B9764FA505235857A4948579">fragmentsOverlap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6F091904A53E3C5BDF4B7EF61F386BF033207DB4">fragmentCmp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#561C0C609B4ABC15A4E87C1BABF441A219886574">fragmentsOverlap</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class DIExpression</h1>
+                        <p>Defined at line 3407 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> DWARF expression.</p>
+                            </div>
+                            <div>
+                                <p> This is (almost) a DWARF expression that modifies the location of a</p>
+                                <p> variable, or the location of a single piece of a variable, or (when using</p>
+                                <p> DW_OP_stack_value) is the constant variable value.</p>
+                            </div>
+                            <div>
+                                <p> TODO: Co-allocate the expression elements.</p>
+                                <p> TODO: Separate from MDNode, or otherwise drop Distinct and Temporary</p>
+                                <p> storage types.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="C49B5338E66C21317A226C423587993F1A9736F2">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;SignedOrUnsignedConstant&gt; isConstant ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determine whether this represents a constant value, if so</p>
+                                        <p> return it&#39;s sign information.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2515 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="86447EBBF9B84D1D35B359F18AB29D0B604D6A51">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getNumLocationOperands ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the number of unique location operands referred to (via</p>
+                                        <p> DW_OP_LLVM_arg) in this expression; this is not necessarily the number of</p>
+                                        <p> instances of DW_OP_LLVM_arg within the expression.</p>
+                                        <p> For example, for the expression:</p>
+                                        <p>   (DW_OP_LLVM_arg 0, DW_OP_LLVM_arg 1, DW_OP_plus,</p>
+                                        <p>    DW_OP_LLVM_arg 0, DW_OP_mul)</p>
+                                        <p> This function would return 2, as there are two unique location operands</p>
+                                        <p> (0 and 1).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2505 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8A3D9759F7F1CA8856BD0C6070E6F4897AE710B4">
+                                <pre><code class="language-cpp code-clang-doc">bool isValid ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p>@</p>
+                                        <p>}</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1725 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="120283D0448747BFE4E6BE1FAA2C5DBE6801CFE5">
+                                <pre><code class="language-cpp code-clang-doc">bool startsWithDeref ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return whether the first element a DW_OP_deref.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1678 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2E1AEB8E6360261C53897EB47EEF9E4ECEB68EE6">
+                                <pre><code class="language-cpp code-clang-doc">bool isDeref ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return whether there is exactly one operator and it is a DW_OP_deref;</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1684 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CC24F836F4DA2EEF3AA6EF84276439205183A2D8">
+                                <pre><code class="language-cpp code-clang-doc">optional getActiveBits (DIVariable * Var)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the number of bits that have an active value, i.e. those that</p>
+                                        <p> aren&#39;t known to be zero/sign (depending on the type of Var) and which</p>
+                                        <p> are within the size of this fragment (if it is one). If we can&#39;t deduce</p>
+                                        <p> anything from the expression this will return the size of Var.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1985 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C886AFB70CB375CE1EAB90153814E3F1669A8BA2">
+                                <pre><code class="language-cpp code-clang-doc">optional getFragmentInfo (expr_op_iterator Start, expr_op_iterator End)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the details of this fragment expression.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1975 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4371EC737F78EFEEE148352CC1EBCCE5F10D99C7">
+                                <pre><code class="language-cpp code-clang-doc">bool isImplicit ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return whether this is an implicit location description.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1820 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DEACD7F6F280875F9CD625B45305BB88BA39DAD6">
+                                <pre><code class="language-cpp code-clang-doc">bool isComplex ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return whether the location is computed on the expression stack, meaning</p>
+                                        <p> it cannot be a simple register location.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1839 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8477689A2D28EB25EA307DFE472F737EDF3007A9">
+                                <pre><code class="language-cpp code-clang-doc">bool isSingleLocationExpression ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return whether the evaluated expression makes use of a single location at</p>
+                                        <p> the start of the expression, i.e. if it contains only a single</p>
+                                        <p> DW_OP_LLVM_arg op as its first operand, or if it contains none.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1862 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7F95BDEF6D5FDCD752397014AF0BCE8AFC948CD5">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;ArrayRef&lt;uint64_t&gt;&gt; getSingleLocationExpressionElements ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a reference to the elements contained in this expression, skipping</p>
+                                        <p> past the leading `DW_OP_LLVM_arg, 0` if one is present.</p>
+                                        <p> Similar to `convertToNonVariadicExpression`, but faster and cheaper - it</p>
+                                        <p> does not check whether the expression is a single-location expression, and</p>
+                                        <p> it returns elements rather than creating a new DIExpression.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1882 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1D625FF11B0D9A4333C142CC9231F9077AFFADF">
+                                <pre><code class="language-cpp code-clang-doc">const DIExpression * convertToUndefExpression (const DIExpression * Expr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Removes all elements from </p>
+                                        <p> that do not apply to an undef debug</p>
+                                        <p> value, which includes every operator that computes the value/location on</p>
+                                        <p> the DWARF stack, including any DW_OP_LLVM_arg elements (making the result</p>
+                                        <p> of this function always a single-location expression) while leaving</p>
+                                        <p> everything that defines what the computed value applies to, i.e. the</p>
+                                        <p> fragment information.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1899 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7A244EC57BCD09AC9A2B53118B2FE4B143910F31">
+                                <pre><code class="language-cpp code-clang-doc">const DIExpression * convertToVariadicExpression (const DIExpression * Expr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If </p>
+                                        <p> is a non-variadic expression (i.e. one that does not contain</p>
+                                        <p> DW_OP_LLVM_arg), returns </p>
+                                        <p> converted to variadic form by adding a</p>
+                                        <p> leading [DW_OP_LLVM_arg, 0] to the expression; otherwise returns </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1909 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="807D59F34347C76F1551A29292923F6EBA035646">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;const DIExpression *&gt; convertToNonVariadicExpression (const DIExpression * Expr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If </p>
+                                        <p> is a valid single-location expression, i.e. it refers to only a</p>
+                                        <p> single debug operand at the start of the expression, then return that</p>
+                                        <p> expression in a non-variadic form by removing DW_OP_LLVM_arg from the</p>
+                                        <p> expression if it is present; otherwise returns std::nullopt.</p>
+                                        <p> See also `getSingleLocationExpressionElements` above, which skips</p>
+                                        <p> checking `isSingleLocationExpression` and returns a list of elements</p>
+                                        <p> rather than a DIExpression.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1922 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E654D527223871792D992CBE8D9FF372B7B69F1B">
+                                <pre><code class="language-cpp code-clang-doc">void canonicalizeExpressionOps (SmallVectorImpl&lt;uint64_t&gt; &amp; Ops, const DIExpression * Expr, bool IsIndirect)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Inserts the elements of </p>
+                                        <p> into </p>
+                                        <p> modified to a canonical form,</p>
+                                        <p> which uses DW_OP_LLVM_arg (i.e. is a variadic expression) and folds the</p>
+                                        <p> implied derefence from the </p>
+                                        <p> flag into the expression. This</p>
+                                        <p> allows us to check equivalence between expressions with differing</p>
+                                        <p> directness or variadicness.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1933 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E204B864971E775867D9C61FC4C4A51D8EB3F698">
+                                <pre><code class="language-cpp code-clang-doc">bool isEqualExpression (const DIExpression * FirstExpr, bool FirstIndirect, const DIExpression * SecondExpr, bool SecondIndirect)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determines whether two debug values should produce equivalent DWARF</p>
+                                        <p> expressions, using their DIExpressions and directness, ignoring the</p>
+                                        <p> differences between otherwise identical expressions in variadic and</p>
+                                        <p> non-variadic form and not considering the debug operands.</p>
+                                        <p> is the DIExpression for the first debug value.</p>
+                                        <p> should be true if the first debug value is indirect; in</p>
+                                        <p> IR this should be true for dbg.declare intrinsics and false for</p>
+                                        <p> dbg.values, and in MIR this should be true only for DBG_VALUE instructions</p>
+                                        <p> whose second operand is an immediate value.</p>
+                                        <p> and </p>
+                                        <p> have the same meaning as the prior</p>
+                                        <p> arguments, but apply to the second debug value.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1963 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="439BA6AA1B3618AB011E7B549AEB7270F632A4CB">
+                                <pre><code class="language-cpp code-clang-doc">void appendOffset (SmallVectorImpl&lt;uint64_t&gt; &amp; Ops, int64_t Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Append </p>
+                                        <p> with operations to apply the </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2020 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="51342EDBF9ECD72F3F195FB09459BDEB70AB220A">
+                                <pre><code class="language-cpp code-clang-doc">bool extractIfOffset (int64_t &amp; Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If this is a constant offset, extract it. If there is no expression,</p>
+                                        <p> return true with an offset of zero.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2035 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C906F0BDA1D80E230C427E6D10736FE7925157AD">
+                                <pre><code class="language-cpp code-clang-doc">bool extractLeadingOffset (int64_t &amp; OffsetInBytes, SmallVectorImpl&lt;uint64_t&gt; &amp; RemainingOps)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Assuming that the expression operates on an address, extract a constant</p>
+                                        <p> offset and the successive ops. Return false if the expression contains</p>
+                                        <p> any incompatible ops (including non-zero DW_OP_LLVM_args - only a single</p>
+                                        <p> address operand to the expression is permitted).</p>
+                                    </div>
+                                    <div>
+                                        <p> We don&#39;t try very hard to interpret the expression because we assume that</p>
+                                        <p> foldConstantMath has canonicalized the expression.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2066 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="14A401CCD9E200B024144CCC3399161FDEA7BFF3">
+                                <pre><code class="language-cpp code-clang-doc">bool hasAllLocationOps (unsigned int N)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true iff this DIExpression contains at least one instance of</p>
+                                        <p> `DW_OP_LLVM_arg, n` for all n in [0, N).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2105 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07A2C4069078061B0A7FC47741A09C53B51962A8">
+                                <pre><code class="language-cpp code-clang-doc">const DIExpression * extractAddressClass (const DIExpression * Expr, unsigned int &amp; AddrClass)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Checks if the last 4 elements of the expression are DW_OP_constu </p>
+                                        <p>&lt;DWARF</p>
+                                        <p> Address Space&gt; DW_OP_swap DW_OP_xderef and extracts the </p>
+                                        <p>&lt;DWARF</p>
+                                        <p> Address</p>
+                                        <p> Space&gt;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2116 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CBBA308AE7B9EC797F0EEA48CE071EE67A8A0D8B">
+                                <pre><code class="language-cpp code-clang-doc">DIExpression * prepend (const DIExpression * Expr, uint8_t Flags, int64_t Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Prepend </p>
+                                        <p> with a deref and offset operation and optionally turn it</p>
+                                        <p> into a stack value or/and an entry value.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2141 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="077D9820E2E8E66BE56F573A527A2780AD79BBFF">
+                                <pre><code class="language-cpp code-clang-doc">DIExpression * prependOpcodes (const DIExpression * Expr, SmallVectorImpl&lt;uint64_t&gt; &amp; Ops, bool StackValue, bool EntryValue)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Prepend </p>
+                                        <p> with the given opcodes and optionally turn it into a</p>
+                                        <p> stack value.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2214 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B384EBE5B6AE9EC722658ACA92DE0BF02BB3436C">
+                                <pre><code class="language-cpp code-clang-doc">DIExpression * append (const DIExpression * Expr, ArrayRef Ops)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Append the opcodes </p>
+                                        <p> to </p>
+                                        <p> Unlike </p>
+                                        <p> the</p>
+                                        <p> returned expression is a stack value only if </p>
+                                        <p> is a stack value.</p>
+                                        <p> If </p>
+                                        <p> describes a fragment, the returned expression will describe</p>
+                                        <p> the same fragment.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2247 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BE3F7E59CC3121809DD7BCBE21D7A7F2FA00734C">
+                                <pre><code class="language-cpp code-clang-doc">DIExpression * appendToStack (const DIExpression * Expr, ArrayRef Ops)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Convert </p>
+                                        <p> into a stack value if it isn&#39;t one already by appending</p>
+                                        <p> DW_OP_deref if needed, and appending </p>
+                                        <p> to the resulting expression.</p>
+                                        <p> If </p>
+                                        <p> describes a fragment, the returned expression will describe</p>
+                                        <p> the same fragment.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2271 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E8FB482A453CA20B6D31B8AB6BC676F3CC923972">
+                                <pre><code class="language-cpp code-clang-doc">DIExpression * appendOpsToArg (const DIExpression * Expr, ArrayRef Ops, unsigned int ArgNo, bool StackValue)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a copy of </p>
+                                        <p> by appending the given list of </p>
+                                        <p> to each</p>
+                                        <p> instance of the operand `DW_OP_LLVM_arg, </p>
+                                        <p> This is used to</p>
+                                        <p> modify a specific location used by </p>
+                                        <p> such as when salvaging that</p>
+                                        <p> location.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2157 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="48C97196D6A80D9D218B9E9BF5D55CA3C92C0C68">
+                                <pre><code class="language-cpp code-clang-doc">DIExpression * replaceArg (const DIExpression * Expr, uint64_t OldArg, uint64_t NewArg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a copy of </p>
+                                        <p> with each instance of</p>
+                                        <p> `DW_OP_LLVM_arg, </p>
+                                        <p> replaced with `DW_OP_LLVM_arg, </p>
+                                        <p> and each instance of `DW_OP_LLVM_arg, Arg` with `DW_OP_LLVM_arg, Arg - 1`</p>
+                                        <p> for all Arg &gt; </p>
+                                        <p> This is used when replacing one of the operands of a debug value list</p>
+                                        <p> with another operand in the same list and deleting the old operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2192 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="191BB9EDC8BD3222E5809420B3E93B3BF9821175">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;DIExpression *&gt; createFragmentExpression (const DIExpression * Expr, unsigned int OffsetInBits, unsigned int SizeInBits)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a DIExpression to describe one part of an aggregate variable that</p>
+                                        <p> is fragmented across multiple Values. The DW_OP_LLVM_fragment operation</p>
+                                        <p> will be appended to the elements of </p>
+                                        <p> If </p>
+                                        <p> already contains</p>
+                                        <p> a </p>
+                                        <p> is interpreted as an offset</p>
+                                        <p> into the existing fragment.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>OffsetInBits</b>   Offset of the piece in bits.
+                                    </div> 
+                                    <div>
+                                        <b>SizeInBits</b>     Size of the piece in bits.
+                                    </div> 
+                                    <h3>Returns</h3>
+                                    <p>             Creating a fragment expression may fail if </p>
+                                    <p>                     contains arithmetic operations that would be</p>
+                                    <p>                     truncated.</p>
+                                </div>
+                                <p>Defined at line 2305 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6B24267053CFF105B0DE78951EA17C5D9EE3488C">
+                                <pre><code class="language-cpp code-clang-doc">bool calculateFragmentIntersect (const DataLayout &amp; DL, const Value * SliceStart, uint64_t SliceOffsetInBits, uint64_t SliceSizeInBits, const Value * DbgPtr, int64_t DbgPtrOffsetInBits, int64_t DbgExtractOffsetInBits, DbgVariableFragmentInfo VarFrag, std::optional&lt;DIExpression::FragmentInfo&gt; &amp; Result, int64_t &amp; OffsetFromLocationInBits)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Computes a fragment, bit-extract operation if needed, and new constant</p>
+                                        <p> offset to describe a part of a variable covered by some memory.</p>
+                                    </div>
+                                    <div>
+                                        <p> The memory region starts at:</p>
+                                        <p> + </p>
+                                        <p> And is size:</p>
+                                    </div>
+                                    <div>
+                                        <p> The location of the existing variable fragment </p>
+                                        <p> is:</p>
+                                        <p> + </p>
+                                        <p> + </p>
+                                    </div>
+                                    <div>
+                                        <p> It is intended that these arguments are derived from a debug record:</p>
+                                        <p> - </p>
+                                        <p> is the (single) DIExpression operand.</p>
+                                        <p> - </p>
+                                        <p> is the constant offset applied to </p>
+                                        <p> - </p>
+                                        <p> is the offset from a</p>
+                                        <p>   DW_OP_LLVM_bit_extract_[sz]ext operation.</p>
+                                    </div>
+                                    <div>
+                                        <p> Results and return value:</p>
+                                        <p> - Return false if the result can&#39;t be calculated for any reason.</p>
+                                        <p> - </p>
+                                        <p> is set to nullopt if the intersect equals </p>
+                                        <p> - </p>
+                                        <p> contains a zero-sized fragment if there&#39;s no intersect.</p>
+                                        <p> - </p>
+                                        <p> is set to the difference between the first</p>
+                                        <p>   bit of the variable location and the first bit of the slice. The</p>
+                                        <p>   magnitude of a negative value therefore indicates the number of bits</p>
+                                        <p>   into the variable fragment that the memory region begins.</p>
+                                    </div>
+                                    <div>
+                                        <p> We don&#39;t pass in a debug record directly to get the constituent parts</p>
+                                        <p> and offsets because different debug records store the information in</p>
+                                        <p> different places (dbg_assign has two DIExpressions - one contains the</p>
+                                        <p> fragment info for the entire intrinsic).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2398 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="501DCC14B5BD5685B9DA83060407340576A1CDA7">
+                                <pre><code class="language-cpp code-clang-doc">ExtOps getExtOps (unsigned int FromSize, unsigned int ToSize, bool Signed)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the ops for a zero- or sign-extension in a DIExpression.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2542 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0BCBFF8EF0070F7EE3D3FD3EEDC15418F3E5F630">
+                                <pre><code class="language-cpp code-clang-doc">DIExpression * appendExt (const DIExpression * Expr, unsigned int FromSize, unsigned int ToSize, bool Signed)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Append a zero- or sign-extension to </p>
+                                        <p> Converts the expression to a</p>
+                                        <p> stack value if it isn&#39;t one already.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2550 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AE4738189BB313984338915C4933B51EECAA32E9">
+                                <pre><code class="language-cpp code-clang-doc">bool isEntryValue ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if the expression consists of exactly one entry value operand.</p>
+                                        <p> (This is the only configuration of entry values that is supported.)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1671 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="17E5A3C8F72F8725998537426896B5C28226044E">
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;DIExpression *, const ConstantInt *&gt; constantFold (const ConstantInt * CI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Try to shorten an expression with an initial constant operand.</p>
+                                        <p> Returns a new expression and constant on success, or the original</p>
+                                        <p> expression and constant on failure.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2466 of file llvm/lib/IR/DebugInfoMetadata.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9710AC0113D2D56159DF238E910E44C57BF4FCF6">
+                                <pre><code class="language-cpp code-clang-doc">DIExpression * foldConstantMath ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Try to shorten an expression with constant math operations that can be</p>
+                                        <p> evaluated at compile time. Returns a new expression on success, or the old</p>
+                                        <p> expression if there is nothing to be reduced.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 288 of file llvm/lib/IR/DIExpressionOptimizer.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E129F62F72E201FD3A52CFA8DBC3C8D273E84254">
+                                <pre><code class="language-cpp code-clang-doc">DIExpression * get (LLVMContext &amp; Context, ArrayRef Elements)</code></pre>
+                                <p>Defined at line 3428 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2278C469DAC3E26197F83E4F4F1E5694DD68D621">
+                                <pre><code class="language-cpp code-clang-doc">DIExpression * getDistinct (LLVMContext &amp; Context, ArrayRef Elements)</code></pre>
+                                <p>Defined at line 3428 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9AC0D00E8FE28E8EEBBB828BC85E0CE340EA3C0D">
+                                <pre><code class="language-cpp code-clang-doc">DIExpression * getIfExists (LLVMContext &amp; Context, ArrayRef Elements)</code></pre>
+                                <p>Defined at line 3428 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EC0C315E9AA228682C69A7BE2148F86484B3A3B5">
+                                <pre><code class="language-cpp code-clang-doc">unique_ptr getTemporary (LLVMContext &amp; Context, ArrayRef Elements)</code></pre>
+                                <p>Defined at line 3428 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F884B74E371DF2DE9486FE0A92710F95D50EDA01">
+                                <pre><code class="language-cpp code-clang-doc">unique_ptr clone ()</code></pre>
+                                <p>Defined at line 3430 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="78F7648B4EC044696F36DB6985B6F6E357EC4891">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getElements ()</code></pre>
+                                <p>Defined at line 3432 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="28D21E5A82645269B2DDEA0E30374AF0878DD181">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumElements ()</code></pre>
+                                <p>Defined at line 3434 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FE94A649CD91B31AEF2ED29978DEB04C48416504">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getElement (unsigned int I)</code></pre>
+                                <p>Defined at line 3436 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0C916621545908158A967AEDC8AC4EAECEC8F197">
+                                <pre><code class="language-cpp code-clang-doc">element_iterator elements_begin ()</code></pre>
+                                <p>Defined at line 3458 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="63023491CB5DEC50A2B855E2E6F814E0F2240BA2">
+                                <pre><code class="language-cpp code-clang-doc">element_iterator elements_end ()</code></pre>
+                                <p>Defined at line 3459 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0933B96393277AB4D086B8924579A89DA83D26E3">
+                                <pre><code class="language-cpp code-clang-doc">expr_op_iterator expr_op_begin ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Visit the elements via ExprOperand wrappers.</p>
+                                    </div>
+                                    <div>
+                                        <p> These range iterators visit elements through </p>
+                                        <p> wrappers.</p>
+                                        <p> This is not guaranteed to be a valid range unless </p>
+                                        <p> gives </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3549 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FA5BC340537C3348090727E46AF61665308AEAD2">
+                                <pre><code class="language-cpp code-clang-doc">expr_op_iterator expr_op_end ()</code></pre>
+                                <p>Defined at line 3552 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DAE2B8F72FCAB285629F5E0F9E3F5B2166BBA02E">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range expr_ops ()</code></pre>
+                                <p>Defined at line 3555 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A5785877E96D5E1BC6F850BC37F454A7E2ACDEE4">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const Metadata * MD)</code></pre>
+                                <p>Defined at line 3562 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="887AECB95E81F62A9357A260CF834015FB6D1444">
+                                <pre><code class="language-cpp code-clang-doc">optional getFragmentInfo ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the details of this fragment expression.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3585 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="73D5F144DCA6209A09105F0286DD0B8BE0EFA8FC">
+                                <pre><code class="language-cpp code-clang-doc">bool isFragment ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return whether this is a piece of an aggregate variable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3590 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="068853635B757C07D962FF7201602AD1590E1E0C">
+                                <pre><code class="language-cpp code-clang-doc">int fragmentCmp (const FragmentInfo &amp; A, const FragmentInfo &amp; B)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determine the relative position of the fragments passed in.</p>
+                                        <p> Returns -1 if this is entirely before Other, 0 if this and Other overlap,</p>
+                                        <p> 1 if this is entirely after Other.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3762 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F2FB518AC9342462B9764FA505235857A4948579">
+                                <pre><code class="language-cpp code-clang-doc">bool fragmentsOverlap (const FragmentInfo &amp; A, const FragmentInfo &amp; B)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if fragments overlap between a pair of FragmentInfos.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3825 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6F091904A53E3C5BDF4B7EF61F386BF033207DB4">
+                                <pre><code class="language-cpp code-clang-doc">int fragmentCmp (const DIExpression * Other)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determine the relative position of the fragments described by this</p>
+                                        <p> DIExpression and </p>
+                                        <p> Calls static fragmentCmp implementation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3831 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="561C0C609B4ABC15A4E87C1BABF441A219886574">
+                                <pre><code class="language-cpp code-clang-doc">bool fragmentsOverlap (const DIExpression * Other)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if fragments overlap between this DIExpression and </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3838 of file llvm/include/llvm/IR/DebugInfoMetadata.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

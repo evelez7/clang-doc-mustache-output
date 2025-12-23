@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="./index.html">Global Namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FB53C3E5E55A9B5E10E639BE3A0C4C6D4B1C84D2">DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#784934D0D66D25C4461659F9CDB7F274B91D82BA">DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AEE726C5DDBE47A3B371527BEA400482C16B5801">DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E9661862FEE30B2250A34D004F2407EC79525981">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#10BA4F614F0BD12F6756550FBD316DC312225F4F">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A9E9F20E59E68B2AA15727020592A5D9CEC586C7">~DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test</h1>
+                        <p>Defined at line 485 of file llvm/unittests/IR/DominatorTreeTest.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Verify that the PDT is correctly updated in case an edge removal results</p>
+                                <p> in an infinite loop. Also make sure that the updated PDT is the</p>
+                                <p> same as a freshly recalculated one.</p>
+                            </div>
+                            <div>
+                                <p> Test case:</p>
+                            </div>
+                            <div>
+                                <p>          CFG                   PDT</p>
+                            </div>
+                            <div>
+                                <p>           A                    Exit</p>
+                                <p>           |                     |</p>
+                                <p>          _B                     D</p>
+                                <p>         / | </p>
+                                <p>\</p>
+                                <p>                   |</p>
+                                <p>        ^  v  </p>
+                                <p>\</p>
+                                <p>                  B</p>
+                                <p>\</p>
+                                <p> /    D                / </p>
+                                <p>\</p>
+                                <p>//         C      </p>
+                                <p>\</p>
+                                <p>              C   A</p>
+                                <p>        / </p>
+                                <p>\</p>
+                                <p>      v</p>
+                                <p>       ^  v      Exit</p>
+                                <p>\</p>
+                                <p>_/</p>
+                            </div>
+                            <div>
+                                <p> After deleting the edge C-&gt;B, C is part of an infinite reverse-unreachable</p>
+                                <p> loop:</p>
+                            </div>
+                            <div>
+                                <p>          CFG&#39;                  PDT&#39;</p>
+                            </div>
+                            <div>
+                                <p>           A                    Exit</p>
+                                <p>           |                   / | </p>
+                                <p>\</p>
+                                <p>//           B                  C  B  D</p>
+                                <p>           | </p>
+                                <p>\</p>
+                                <p>                   |</p>
+                                <p>           v  </p>
+                                <p>\</p>
+                                <p>                  A</p>
+                                <p>          /    D</p>
+                                <p>         C      </p>
+                                <p>\</p>
+                                <p>//        / </p>
+                                <p>\</p>
+                                <p>      v</p>
+                                <p>       ^  v      Exit</p>
+                                <p>\</p>
+                                <p>_/</p>
+                            </div>
+                            <div>
+                                <p> As C now becomes reverse-unreachable, it forms a new non-trivial root and</p>
+                                <p> gets connected to the virtual exit.</p>
+                                <p> D does not postdominate B anymore, because there are two forward paths from</p>
+                                <p> B to the virtual exit:</p>
+                                <p>  - B -&gt; C -&gt; VirtualExit</p>
+                                <p>  - B -&gt; D -&gt; VirtualExit.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="FB53C3E5E55A9B5E10E639BE3A0C4C6D4B1C84D2">
+                                <pre><code class="language-cpp code-clang-doc">void DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test ()</code></pre>
+                                <p>Defined at line 485 of file llvm/unittests/IR/DominatorTreeTest.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="784934D0D66D25C4461659F9CDB7F274B91D82BA">
+                                <pre><code class="language-cpp code-clang-doc">void DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test (const DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test &amp; )</code></pre>
+                                <p>Defined at line 485 of file llvm/unittests/IR/DominatorTreeTest.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AEE726C5DDBE47A3B371527BEA400482C16B5801">
+                                <pre><code class="language-cpp code-clang-doc">void DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test (DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test &amp;&amp; )</code></pre>
+                                <p>Defined at line 485 of file llvm/unittests/IR/DominatorTreeTest.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E9661862FEE30B2250A34D004F2407EC79525981">
+                                <pre><code class="language-cpp code-clang-doc">DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test &amp; operator= (const DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test &amp; )</code></pre>
+                                <p>Defined at line 485 of file llvm/unittests/IR/DominatorTreeTest.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="10BA4F614F0BD12F6756550FBD316DC312225F4F">
+                                <pre><code class="language-cpp code-clang-doc">DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test &amp; operator= (DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test &amp;&amp; )</code></pre>
+                                <p>Defined at line 485 of file llvm/unittests/IR/DominatorTreeTest.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A9E9F20E59E68B2AA15727020592A5D9CEC586C7">
+                                <pre><code class="language-cpp code-clang-doc">void ~DominatorTree_DeletingEdgesIntroducesInfiniteLoop_Test ()</code></pre>
+                                <p>Defined at line 485 of file llvm/unittests/IR/DominatorTreeTest.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

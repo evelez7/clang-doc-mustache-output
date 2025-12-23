@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ImportIDTable</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../_ZTVN4llvm16FunctionImporterE.html">FunctionImporter</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ImportIDTable</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D434E78F50E3DC31FAC6D1E22E1752EFAE8B0D72">ImportIDTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FCD943E019F77D4AAFB617975F98B4EEF5931C3A">ImportIDTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#560A09DA07E2E250F3AA90D95B891D5F816BCA32">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#85E6C7ACC8ED7C777CCE6FB1EF139A9716A21205">createImportIDs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#686493D0DF7DEBAF97EA4FA06C78C9FFB02932DB">getImportIDs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#01BD3B1F1A30B0753B30D93EBFB3FA2F6D96F6F6">lookup</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BA67758B282BF59A6C95A236298AAD8D74C2F66">operator()</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ImportIDTable</h1>
+                        <p>Defined at line 111 of file llvm/include/llvm/Transforms/IPO/FunctionImport.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Issues import IDs.  Each ID uniquely corresponds to a tuple of</p>
+                                <p> (FromModule, GUID, Definition/Declaration).</p>
+                            </div>
+                            <div>
+                                <p> The import IDs make the import list space efficient by referring to each</p>
+                                <p> import with a 32-bit integer ID while maintaining a central table that maps</p>
+                                <p> those integer IDs to tuples of (FromModule, GUID, Def/Decl).</p>
+                            </div>
+                            <div>
+                                <p> In one large application, a pair of (FromModule, GUID) is mentioned in</p>
+                                <p> import lists more than 50 times on average across all destination modules.</p>
+                                <p> Mentioning the 32-byte tuple:</p>
+                            </div>
+                            <div>
+                                <p> std::tuple</p>
+                                <p>&lt;StringRef</p>
+                                <p>, GlobalValue::GUID, GlobalValueSummary::ImportKind&gt;</p>
+                            </div>
+                            <div>
+                                <p> 50 times by value in various import lists would be costly.  We can reduce</p>
+                                <p> the memory footprint of import lists by placing one copy in a central table</p>
+                                <p> and referring to it with 32-bit integer IDs.</p>
+                            </div>
+                            <div>
+                                <p> To save space within the central table, we only store pairs of</p>
+                                <p> (FromModule, GUID) in the central table.  In the actual 32-bit integer ID,</p>
+                                <p> the top 31 bits index into the central table while the bottom 1 bit</p>
+                                <p> indicates whether an ID is for GlobalValueSummary::Declaration or</p>
+                                <p> GlobalValueSummary::Definition.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="D434E78F50E3DC31FAC6D1E22E1752EFAE8B0D72">
+                                <pre><code class="language-cpp code-clang-doc">void ImportIDTable ()</code></pre>
+                                <p>Defined at line 115 of file llvm/include/llvm/Transforms/IPO/FunctionImport.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FCD943E019F77D4AAFB617975F98B4EEF5931C3A">
+                                <pre><code class="language-cpp code-clang-doc">void ImportIDTable (const ImportIDTable &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Something is wrong with the application logic if we need to make a copy</p>
+                                        <p> of this and potentially make a fork.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 119 of file llvm/include/llvm/Transforms/IPO/FunctionImport.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="560A09DA07E2E250F3AA90D95B891D5F816BCA32">
+                                <pre><code class="language-cpp code-clang-doc">ImportIDTable &amp; operator= (const ImportIDTable &amp; )</code></pre>
+                                <p>Defined at line 120 of file llvm/include/llvm/Transforms/IPO/FunctionImport.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="85E6C7ACC8ED7C777CCE6FB1EF139A9716A21205">
+                                <pre><code class="language-cpp code-clang-doc">pair createImportIDs (StringRef FromModule, GlobalValue::GUID GUID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a pair of import IDs [Def, Decl] for a given pair of FromModule</p>
+                                        <p> and GUID.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 124 of file llvm/include/llvm/Transforms/IPO/FunctionImport.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="686493D0DF7DEBAF97EA4FA06C78C9FFB02932DB">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;std::pair&lt;ImportIDTy, ImportIDTy&gt;&gt; getImportIDs (StringRef FromModule, GlobalValue::GUID GUID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get a pair of previously created import IDs [Def, Decl] for a given pair</p>
+                                        <p> of FromModule and GUID.  Returns std::nullopt if not available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 133 of file llvm/include/llvm/Transforms/IPO/FunctionImport.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="01BD3B1F1A30B0753B30D93EBFB3FA2F6D96F6F6">
+                                <pre><code class="language-cpp code-clang-doc">std::tuple&lt;StringRef, GlobalValue::GUID, GlobalValueSummary::ImportKind&gt; lookup (ImportIDTy ImportID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a tuple of [FromModule, GUID, Def/Decl] that a given ImportID</p>
+                                        <p> corresponds to.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 144 of file llvm/include/llvm/Transforms/IPO/FunctionImport.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BA67758B282BF59A6C95A236298AAD8D74C2F66">
+                                <pre><code class="language-cpp code-clang-doc">std::tuple&lt;StringRef, GlobalValue::GUID, GlobalValueSummary::ImportKind&gt; operator() (ImportIDTable::ImportIDTy ImportID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The same as lookup above.  Useful for map_iterator.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 156 of file llvm/include/llvm/Transforms/IPO/FunctionImport.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

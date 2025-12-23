@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LoopVectorizationLegality</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LoopVectorizationLegality</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5A45D7298C41300FEFFD94C62981908AE9455BE0">LoopVectorizationLegality</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6ECE74168A71574396BFD451AF0FD93836C6EF73">getPrimaryInduction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#08C3D5370185B4495668B918CCA67830352A82A6">getReductionVars</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B1FC89D7DF0D513D7011B1E7BDC9FB21EF9D4307">getRecurrenceDescriptor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#70E141885425695BC27B0684B0ADF69ECE9982D1">getInductionVars</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D91DB797E71CA5ECA22188AE2C72DD7E90D7CD25">getFixedOrderRecurrences</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D41E496F9DDCF7049479B5AC2A4B4BB5D5D13825">getWidestInductionType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72CA10C1F59B1B8EC7325308FA0EFCEF7B7AC18A">isReductionVariable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DB3939662F6B2D2346D4368D802E0A86932972D7">getRuntimePointerChecking</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8EB914BF938244E735B20AB0BF75F60159E28FF2">getLAI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FF92FF948F9BBB9AD4F8C61E2DA8BA80DAD123D2">isSafeForAnyVectorWidth</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B0EACC6CED5F7EC1CE6901D7EA7094CC247BDD5">getMaxSafeVectorWidthInBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#67E957BBCB185AD5793DB6AF9B61D4DCF01B4659">hasUncountableEarlyExit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#31C931FA0D464804360CE0A7C807374365C859FD">getUncountableEarlyExitingBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#319E85A0C2EDC03E0BAEB7EB47C401EC8C86B6B9">hasUncountableExitWithSideEffects</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FF2860669639AD4F251F4B53051BE1101059BE0A">isSafeForAnyStoreLoadForwardDistances</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44150B8443FA463809008814EBE932D883B1CB5A">getMaxStoreLoadForwardSafeDistanceInBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#50456366F4BB29F3E2373F19DFE805BF557CFD8F">isMaskRequired</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2259F4159A165B8A7A26525E5C4D8E8FABE6015D">hasVectorCallVariants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#735D97FFCCBAC20DC14C5BE8E774AA067E004A45">getNumStores</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2C7523603CAE6BDC6E59D66906480BBE1580E0D7">getNumLoads</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#249D4979D16F3808C29BA74130EC6F0F8CBC936B">getHistogramInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E040356E20E5C90E4A009BFAC07BFCD800CB03EE">hasHistograms</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#952747198260A025134B086D73DC639E7E0322CE">getPotentiallyFaultingLoads</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#16D8B67C99A4047D1F90A099DD26863A2A253CE3">getPredicatedScalarEvolution</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C55D74E5C0AA6609EF103D0703C2FCBCA5CD8654">getLoop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2DDFFBEDBD6CCAA91310610FCB73992652D6D01">getLoopInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#40A80835AA779C0EADF6915F075DBE253EC27187">getAssumptionCache</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23262970B302480DB8EBBC8010A53FC2088C5D35">getScalarEvolution</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E8986D1172771620EC55B38C4B584D947A70B54">getDominatorTree</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A53CB401E2A6EF84CE025D98188EC670C474E1E1">getCountableExitingBlocks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C26A3E64BCA81FC99BAA4F964EC43D2911EDDF7">canVectorize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#45BEDD514CF793C75B662B629E228AE92EF4D24A">canVectorizeFPMath</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E836F6214ADE1BF517EDF5FC51B9D91CCB4AA356">canFoldTailByMasking</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7AC403D31C8BC9D01CD0B11EDB1808B0421D78E5">prepareToFoldTailByMasking</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#493B3B375F9587A9F17730193C78AF54E6E711A7">isInvariantStoreOfReduction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5C75EAB4C24B3350FFD3BE59DBA1BEAA66186F1">isInvariantAddressOfReduction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1F74F264CA8832E3B5EE7C2BBF3616042CC7DF96">isInductionPhi</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#610ABB8D15446CEC7E3C11FF61C3689198CA776D">getIntOrFpInductionDescriptor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FF61DB9E4AE4E413FE5637D73EF56A76720DD4F0">getPointerInductionDescriptor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#569F6B4A0B4B05E5708DD7DCDFF64D5C9A4AD095">isCastedInductionVariable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E29F487A584C8E4B9E3F7D6BA1810CA47E4C449A">isInductionVariable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72136807A8F70ABA6DE7915E3919FBA6539072F7">isFixedOrderRecurrence</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9593FFB8A9C63C476C3C7936F6F5464F0774137E">blockNeedsPredication</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C7883F607F16EF6457441291F4C74CE9C06D7693">isConsecutivePtr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#643EE0717F034893DC21D3524EB90C1857C33C92">isInvariant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7AAAD046CAB6822B24A0644A1F3B5C6CDD515C95">isUniform</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C5C61F3D16451E69D4FE5D81455517787EF7502">isUniformMemOp</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LoopVectorizationLegality</h1>
+                        <p>Defined at line 261 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> LoopVectorizationLegality checks if it is legal to vectorize a loop, and</p>
+                                <p> to what vectorization factor.</p>
+                                <p> This class does not look at the profitability of vectorization, only the</p>
+                                <p> legality. This class has two main kinds of checks:</p>
+                                <p> * Memory checks - The code in canVectorizeMemory checks if vectorization</p>
+                                <p>   will change the order of memory accesses in a way that will change the</p>
+                                <p>   correctness of the program.</p>
+                                <p> * Scalars checks - The code in canVectorizeInstrs and canVectorizeMemory</p>
+                                <p> checks for a number of different conditions, such as the availability of a</p>
+                                <p> single induction variable, that all types are supported and vectorize-able,</p>
+                                <p> etc. This code reflects the capabilities of InnerLoopVectorizer.</p>
+                                <p> This class is also used by InnerLoopVectorizer for identifying</p>
+                                <p> induction variable and the different reduction variables.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="5A45D7298C41300FEFFD94C62981908AE9455BE0">
+                                <pre><code class="language-cpp code-clang-doc">void LoopVectorizationLegality (Loop * L, PredicatedScalarEvolution &amp; PSE, DominatorTree * DT, TargetTransformInfo * TTI, TargetLibraryInfo * TLI, Function * F, LoopAccessInfoManager &amp; LAIs, LoopInfo * LI, OptimizationRemarkEmitter * ORE, LoopVectorizationRequirements * R, LoopVectorizeHints * H, DemandedBits * DB, AssumptionCache * AC, bool AllowRuntimeSCEVChecks, AAResults * AA)</code></pre>
+                                <p>Defined at line 263 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6ECE74168A71574396BFD451AF0FD93836C6EF73">
+                                <pre><code class="language-cpp code-clang-doc">PHINode * getPrimaryInduction ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the primary induction variable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 308 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="08C3D5370185B4495668B918CCA67830352A82A6">
+                                <pre><code class="language-cpp code-clang-doc">const ReductionList &amp; getReductionVars ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the reduction variables found in the loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 311 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B1FC89D7DF0D513D7011B1E7BDC9FB21EF9D4307">
+                                <pre><code class="language-cpp code-clang-doc">const RecurrenceDescriptor &amp; getRecurrenceDescriptor (PHINode * PN)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the recurrence descriptor associated with a given phi node </p>
+                                        <p> expecting one to exist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 315 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="70E141885425695BC27B0684B0ADF69ECE9982D1">
+                                <pre><code class="language-cpp code-clang-doc">const InductionList &amp; getInductionVars ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the induction variables found in the loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 322 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D91DB797E71CA5ECA22188AE2C72DD7E90D7CD25">
+                                <pre><code class="language-cpp code-clang-doc">RecurrenceSet &amp; getFixedOrderRecurrences ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the fixed-order recurrences found in the loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 325 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D41E496F9DDCF7049479B5AC2A4B4BB5D5D13825">
+                                <pre><code class="language-cpp code-clang-doc">IntegerType * getWidestInductionType ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the widest induction type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 328 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72CA10C1F59B1B8EC7325308FA0EFCEF7B7AC18A">
+                                <pre><code class="language-cpp code-clang-doc">bool isReductionVariable (PHINode * PN)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns True if PN is a reduction variable in this loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 360 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DB3939662F6B2D2346D4368D802E0A86932972D7">
+                                <pre><code class="language-cpp code-clang-doc">const RuntimePointerChecking * getRuntimePointerChecking ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the information that we collected about runtime memory check.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 395 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8EB914BF938244E735B20AB0BF75F60159E28FF2">
+                                <pre><code class="language-cpp code-clang-doc">const LoopAccessInfo * getLAI ()</code></pre>
+                                <p>Defined at line 399 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF92FF948F9BBB9AD4F8C61E2DA8BA80DAD123D2">
+                                <pre><code class="language-cpp code-clang-doc">bool isSafeForAnyVectorWidth ()</code></pre>
+                                <p>Defined at line 401 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B0EACC6CED5F7EC1CE6901D7EA7094CC247BDD5">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getMaxSafeVectorWidthInBits ()</code></pre>
+                                <p>Defined at line 406 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="67E957BBCB185AD5793DB6AF9B61D4DCF01B4659">
+                                <pre><code class="language-cpp code-clang-doc">bool hasUncountableEarlyExit ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the loop has exactly one uncountable early exit, i.e. an</p>
+                                        <p> uncountable exit that isn&#39;t the latch block.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 412 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="31C931FA0D464804360CE0A7C807374365C859FD">
+                                <pre><code class="language-cpp code-clang-doc">BasicBlock * getUncountableEarlyExitingBlock ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the uncountable early exiting block, if there is exactly one.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 415 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="319E85A0C2EDC03E0BAEB7EB47C401EC8C86B6B9">
+                                <pre><code class="language-cpp code-clang-doc">bool hasUncountableExitWithSideEffects ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if this is an early exit loop with state-changing or</p>
+                                        <p> potentially-faulting operations and the condition for the uncountable</p>
+                                        <p> exit must be determined before any of the state changes or potentially</p>
+                                        <p> faulting operations take place.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 423 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF2860669639AD4F251F4B53051BE1101059BE0A">
+                                <pre><code class="language-cpp code-clang-doc">bool isSafeForAnyStoreLoadForwardDistances ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if there is store-load forwarding dependencies.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 428 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44150B8443FA463809008814EBE932D883B1CB5A">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getMaxStoreLoadForwardSafeDistanceInBits ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return safe power-of-2 number of elements, which do not prevent store-load</p>
+                                        <p> forwarding and safe to operate simultaneously.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 434 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="50456366F4BB29F3E2373F19DFE805BF557CFD8F">
+                                <pre><code class="language-cpp code-clang-doc">bool isMaskRequired (const Instruction * I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if vector representation of the instruction </p>
+                                        <p> requires mask.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 440 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2259F4159A165B8A7A26525E5C4D8E8FABE6015D">
+                                <pre><code class="language-cpp code-clang-doc">bool hasVectorCallVariants ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if there is at least one function call in the loop which</p>
+                                        <p> has a vectorized variant available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 446 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="735D97FFCCBAC20DC14C5BE8E774AA067E004A45">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumStores ()</code></pre>
+                                <p>Defined at line 448 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2C7523603CAE6BDC6E59D66906480BBE1580E0D7">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumLoads ()</code></pre>
+                                <p>Defined at line 449 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="249D4979D16F3808C29BA74130EC6F0F8CBC936B">
+                                <pre><code class="language-cpp code-clang-doc">optional getHistogramInfo (Instruction * I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a HistogramInfo* for the given instruction if it was determined</p>
+                                        <p> to be part of a load -&gt; update -&gt; store sequence where multiple lanes</p>
+                                        <p> may be working on the same memory address.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 454 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E040356E20E5C90E4A009BFAC07BFCD800CB03EE">
+                                <pre><code class="language-cpp code-clang-doc">bool hasHistograms ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a list of all known histogram operations in the loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 463 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="952747198260A025134B086D73DC639E7E0322CE">
+                                <pre><code class="language-cpp code-clang-doc">const SmallPtrSetImpl&lt;const Instruction *&gt; &amp; getPotentiallyFaultingLoads ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns potentially faulting loads.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 466 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="16D8B67C99A4047D1F90A099DD26863A2A253CE3">
+                                <pre><code class="language-cpp code-clang-doc">PredicatedScalarEvolution * getPredicatedScalarEvolution ()</code></pre>
+                                <p>Defined at line 471 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C55D74E5C0AA6609EF103D0703C2FCBCA5CD8654">
+                                <pre><code class="language-cpp code-clang-doc">Loop * getLoop ()</code></pre>
+                                <p>Defined at line 475 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2DDFFBEDBD6CCAA91310610FCB73992652D6D01">
+                                <pre><code class="language-cpp code-clang-doc">LoopInfo * getLoopInfo ()</code></pre>
+                                <p>Defined at line 477 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="40A80835AA779C0EADF6915F075DBE253EC27187">
+                                <pre><code class="language-cpp code-clang-doc">AssumptionCache * getAssumptionCache ()</code></pre>
+                                <p>Defined at line 479 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23262970B302480DB8EBBC8010A53FC2088C5D35">
+                                <pre><code class="language-cpp code-clang-doc">ScalarEvolution * getScalarEvolution ()</code></pre>
+                                <p>Defined at line 481 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E8986D1172771620EC55B38C4B584D947A70B54">
+                                <pre><code class="language-cpp code-clang-doc">DominatorTree * getDominatorTree ()</code></pre>
+                                <p>Defined at line 483 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A53CB401E2A6EF84CE025D98188EC670C474E1E1">
+                                <pre><code class="language-cpp code-clang-doc">const SmallVector&lt;BasicBlock *, 4&gt; &amp; getCountableExitingBlocks ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns all exiting blocks with a countable exit, i.e. the</p>
+                                        <p> exit-not-taken count is known exactly at compile time.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 487 of file llvm/include/llvm/Transforms/Vectorize/LoopVectorizationLegality.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C26A3E64BCA81FC99BAA4F964EC43D2911EDDF7">
+                                <pre><code class="language-cpp code-clang-doc">bool canVectorize (bool UseVPlanNativePath)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if it is legal to vectorize this loop.</p>
+                                        <p> This does not mean that it is profitable to vectorize this</p>
+                                        <p> loop, only that it is legal to do so.</p>
+                                        <p> Temporarily taking UseVPlanNativePath parameter. If true, take</p>
+                                        <p> the new code path being implemented for outer loop vectorization</p>
+                                        <p> (should be functional for inner loop vectorization) based on VPlan.</p>
+                                        <p> If false, good old LV code.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1977 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="45BEDD514CF793C75B662B629E228AE92EF4D24A">
+                                <pre><code class="language-cpp code-clang-doc">bool canVectorizeFPMath (bool EnableStrictReductions)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if it is legal to vectorize the FP math operations in this</p>
+                                        <p> loop. Vectorizing is legal if we allow reordering of FP operations, or if</p>
+                                        <p> we can use in-order reductions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1355 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E836F6214ADE1BF517EDF5FC51B9D91CCB4AA356">
+                                <pre><code class="language-cpp code-clang-doc">bool canFoldTailByMasking ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if we can vectorize this loop while folding its tail by</p>
+                                        <p> masking.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2105 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7AC403D31C8BC9D01CD0B11EDB1808B0421D78E5">
+                                <pre><code class="language-cpp code-clang-doc">void prepareToFoldTailByMasking ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Mark all respective loads/stores for masking. Must only be called when</p>
+                                        <p> tail-folding is possible.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2155 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="493B3B375F9587A9F17730193C78AF54E6E711A7">
+                                <pre><code class="language-cpp code-clang-doc">bool isInvariantStoreOfReduction (StoreInst * SI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns True if given store is a final invariant store of one of the</p>
+                                        <p> reductions found in the loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1381 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5C75EAB4C24B3350FFD3BE59DBA1BEAA66186F1">
+                                <pre><code class="language-cpp code-clang-doc">bool isInvariantAddressOfReduction (Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns True if given address is invariant and is used to store recurrent</p>
+                                        <p> expression</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1388 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1F74F264CA8832E3B5EE7C2BBF3616042CC7DF96">
+                                <pre><code class="language-cpp code-clang-doc">bool isInductionPhi (const Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns True if V is a Phi node of an induction variable in this loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1401 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="610ABB8D15446CEC7E3C11FF61C3689198CA776D">
+                                <pre><code class="language-cpp code-clang-doc">const InductionDescriptor * getIntOrFpInductionDescriptor (PHINode * Phi)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a pointer to the induction descriptor, if </p>
+                                        <p> is an integer or</p>
+                                        <p> floating point induction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1410 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF61DB9E4AE4E413FE5637D73EF56A76720DD4F0">
+                                <pre><code class="language-cpp code-clang-doc">const InductionDescriptor * getPointerInductionDescriptor (PHINode * Phi)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a pointer to the induction descriptor, if </p>
+                                        <p> is pointer</p>
+                                        <p> induction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1421 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="569F6B4A0B4B05E5708DD7DCDFF64D5C9A4AD095">
+                                <pre><code class="language-cpp code-clang-doc">bool isCastedInductionVariable (const Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns True if V is a cast that is part of an induction def-use chain,</p>
+                                        <p> and had been proven to be redundant under a runtime guard (in other</p>
+                                        <p> words, the cast has the same SCEV expression as the induction phi).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1431 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E29F487A584C8E4B9E3F7D6BA1810CA47E4C449A">
+                                <pre><code class="language-cpp code-clang-doc">bool isInductionVariable (const Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns True if V can be considered as an induction variable in this</p>
+                                        <p> loop. V can be the induction phi, or some redundant cast in the def-use</p>
+                                        <p> chain of the inducion phi.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1437 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72136807A8F70ABA6DE7915E3919FBA6539072F7">
+                                <pre><code class="language-cpp code-clang-doc">bool isFixedOrderRecurrence (const PHINode * Phi)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns True if Phi is a fixed-order recurrence in this loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1441 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9593FFB8A9C63C476C3C7936F6F5464F0774137E">
+                                <pre><code class="language-cpp code-clang-doc">bool blockNeedsPredication (const BasicBlock * BB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the block BB needs to be predicated in order for the loop</p>
+                                        <p> to be vectorized.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1446 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C7883F607F16EF6457441291F4C74CE9C06D7693">
+                                <pre><code class="language-cpp code-clang-doc">int isConsecutivePtr (Type * AccessTy, Value * Ptr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if this pointer is consecutive when vectorizing. This happens</p>
+                                        <p> when the last index of the GEP is the induction variable, or that the</p>
+                                        <p> pointer itself is an induction variable.</p>
+                                        <p> This check allows us to vectorize A[idx] into a wide load/store.</p>
+                                        <p> Returns:</p>
+                                        <p> 0 - Stride is unknown or non-consecutive.</p>
+                                        <p> 1 - Address is consecutive.</p>
+                                        <p> -1 - Address is consecutive, and decreasing.</p>
+                                        <p> NOTE: This method must only be used before modifying the original scalar</p>
+                                        <p> loop. Do not use after invoking &#39;createVectorizedLoopSkeleton&#39; (PR34965).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 474 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="643EE0717F034893DC21D3524EB90C1857C33C92">
+                                <pre><code class="language-cpp code-clang-doc">bool isInvariant (Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> is invariant across all loop iterations according to</p>
+                                        <p> SCEV.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 491 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7AAAD046CAB6822B24A0644A1F3B5C6CDD515C95">
+                                <pre><code class="language-cpp code-clang-doc">bool isUniform (Value * V, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if value V is uniform across </p>
+                                        <p> lanes, when </p>
+                                        <p> is</p>
+                                        <p> provided, and otherwise if </p>
+                                        <p> is invariant across all loop iterations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 586 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C5C61F3D16451E69D4FE5D81455517787EF7502">
+                                <pre><code class="language-cpp code-clang-doc">bool isUniformMemOp (Instruction &amp; I, ElementCount VF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> A uniform memory op is a load or store which accesses the same memory</p>
+                                        <p> location on all </p>
+                                        <p> lanes, if </p>
+                                        <p> is provided and otherwise if the</p>
+                                        <p> memory location is invariant.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 619 of file llvm/lib/Transforms/Vectorize/LoopVectorizationLegality.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ConcurrentHashTableInfoByPtr</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ConcurrentHashTableInfoByPtr</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#18713E128596949259E08AAD710FDB31C10827B1">getHashValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2886FE503882B2A12EA155A2A369FE035BAD655E">isEqual</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2C798CCBE3630D2CB26B07FA9F0AF07EA66619FE">getKey</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8800AEDD3333BCCB56CC7C7B9D873A9392705268">create</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename KeyTy, typename KeyDataTy, typename AllocatorTy&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ConcurrentHashTableInfoByPtr</h1>
+                        <p>Defined at line 75 of file llvm/include/llvm/ADT/ConcurrentHashtable.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> ConcurrentHashTable - is a resizeable concurrent hashtable.</p>
+                                <p> The number of resizings limited up to x2^31. This hashtable is</p>
+                                <p> useful to have efficient access to aggregate data(like strings,</p>
+                                <p> type descriptors...) and to keep only single copy of such</p>
+                                <p> an aggregate. The hashtable allows only concurrent insertions:</p>
+                            </div>
+                            <div>
+                                <p> KeyDataTy* = insert ( const KeyTy</p>
+                                <p>&amp;</p>
+                                <p> );</p>
+                            </div>
+                            <div>
+                                <p> Data structure:</p>
+                            </div>
+                            <div>
+                                <p> Inserted value KeyTy is mapped to 64-bit hash value -&gt;</p>
+                            </div>
+                            <div>
+                                <p>          [------- 64-bit Hash value --------]</p>
+                                <p>          [  StartEntryIndex ][ Bucket Index ]</p>
+                                <p>                    |                |</p>
+                                <p>              points to the     points to</p>
+                                <p>              first probe       the bucket.</p>
+                                <p>              position inside</p>
+                                <p>              bucket entries</p>
+                            </div>
+                            <div>
+                                <p> After initialization, all buckets have an initial size. During insertions,</p>
+                                <p> buckets might be extended to contain more entries. Each bucket can be</p>
+                                <p> independently resized and rehashed(no need to lock the whole table).</p>
+                                <p> Different buckets may have different sizes. If the single bucket is full</p>
+                                <p> then the bucket is resized.</p>
+                            </div>
+                            <div>
+                                <p> BucketsArray keeps all buckets. Each bucket keeps an array of Entries</p>
+                                <p> (pointers to KeyDataTy) and another array of entries hashes:</p>
+                            </div>
+                            <div>
+                                <p> BucketsArray[BucketIdx].Hashes[EntryIdx]:</p>
+                                <p> BucketsArray[BucketIdx].Entries[EntryIdx]:</p>
+                            </div>
+                            <div>
+                                <p> [Bucket 0].Hashes -&gt; [uint32_t][uint32_t]</p>
+                                <p> [Bucket 0].Entries -&gt; [KeyDataTy*][KeyDataTy*]</p>
+                            </div>
+                            <div>
+                                <p> [Bucket 1].Hashes -&gt; [uint32_t][uint32_t][uint32_t][uint32_t]</p>
+                                <p> [Bucket 1].Entries -&gt; [KeyDataTy*][KeyDataTy*][KeyDataTy*][KeyDataTy*]</p>
+                                <p>                      .........................</p>
+                                <p> [Bucket N].Hashes -&gt; [uint32_t][uint32_t][uint32_t]</p>
+                                <p> [Bucket N].Entries -&gt; [KeyDataTy*][KeyDataTy*][KeyDataTy*]</p>
+                            </div>
+                            <div>
+                                <p> ConcurrentHashTableByPtr uses an external thread-safe allocator to allocate</p>
+                                <p> KeyDataTy items.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="18713E128596949259E08AAD710FDB31C10827B1">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getHashValue (const KeyTy &amp; Key)</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 78 of file llvm/include/llvm/ADT/ConcurrentHashtable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2886FE503882B2A12EA155A2A369FE035BAD655E">
+                                <pre><code class="language-cpp code-clang-doc">bool isEqual (const KeyTy &amp; LHS, const KeyTy &amp; RHS)</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 83 of file llvm/include/llvm/ADT/ConcurrentHashtable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2C798CCBE3630D2CB26B07FA9F0AF07EA66619FE">
+                                <pre><code class="language-cpp code-clang-doc">const KeyTy &amp; getKey (const KeyDataTy &amp; KeyData)</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 88 of file llvm/include/llvm/ADT/ConcurrentHashtable.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8800AEDD3333BCCB56CC7C7B9D873A9392705268">
+                                <pre><code class="language-cpp code-clang-doc">KeyDataTy * create (const KeyTy &amp; Key, AllocatorTy &amp; Allocator)</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 93 of file llvm/include/llvm/ADT/ConcurrentHashtable.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

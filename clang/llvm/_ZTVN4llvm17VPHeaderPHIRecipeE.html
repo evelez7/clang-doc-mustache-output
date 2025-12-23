@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>VPHeaderPHIRecipe</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class VPHeaderPHIRecipe</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0309518F29BB5509BF0F50E065491EBEFA8935BF">~VPHeaderPHIRecipe</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5EAD56CBFFE84AD3F15502CCE2A8C36AA966A58C">classof</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#596C372EE45211D098BCCE5CBD643EAAFAE4DE27">classof</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#22CD6EEF27EC5743EF4A2B1CF9F0B4CD6FC8AC79">classof</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E55F63BE5E216348D1428268477C176FD6D90FBE">execute</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E33249418E4673C0E8207267D08B1EC9352BEBB4">getStartValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#82963C582378C844E0EFC921FF61BC2ADAE95245">getStartValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#199386824E55909C975637021886993A2B8E9719">setStartValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C53C3DB5E2725E5E66F142B7A4F22B1D2D6A5241">getBackedgeValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B164FC7FE292475D2BE16D2A15821D879F99E946">setBackedgeValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A0345094A5BD7D7B406C13DB9E01360BE446C057">getBackedgeRecipe</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#62530929DC4D296D34B6790379C1C1F558E63BE4">computeCost</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class VPHeaderPHIRecipe</h1>
+                        <p>Defined at line 2055 of file llvm/include/../lib/Transforms/Vectorize/VPlan.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A pure virtual base class for all recipes modeling header phis, including</p>
+                                <p> phis for first order recurrences, pointer inductions and reductions. The</p>
+                                <p> start value is the first operand of the recipe and the incoming value from</p>
+                                <p> the backedge is the second operand.</p>
+                            </div>
+                            <div>
+                                <p> Inductions are modeled using the following sub-classes:</p>
+                                <p>  * VPCanonicalIVPHIRecipe: Canonical scalar induction of the vector loop,</p>
+                                <p>    starting at a specified value (zero for the main vector loop, the resume</p>
+                                <p>    value for the epilogue vector loop) and stepping by 1. The induction</p>
+                                <p>    controls exiting of the vector loop by comparing against the vector trip</p>
+                                <p>    count. Produces a single scalar PHI for the induction value per</p>
+                                <p>    iteration.</p>
+                                <p>  * VPWidenIntOrFpInductionRecipe: Generates vector values for integer and</p>
+                                <p>    floating point inductions with arbitrary start and step values. Produces</p>
+                                <p>    a vector PHI per-part.</p>
+                                <p>  * VPDerivedIVRecipe: Converts the canonical IV value to the corresponding</p>
+                                <p>    value of an IV with different start and step values. Produces a single</p>
+                                <p>    scalar value per iteration</p>
+                                <p>  * VPScalarIVStepsRecipe: Generates scalar values per-lane based on a</p>
+                                <p>    canonical or derived induction.</p>
+                                <p>  * VPWidenPointerInductionRecipe: Generate vector and scalar values for a</p>
+                                <p>    pointer induction. Produces either a vector PHI per-part or scalar values</p>
+                                <p>    per-lane based on the canonical induction.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="0309518F29BB5509BF0F50E065491EBEFA8935BF">
+                                <pre><code class="language-cpp code-clang-doc">void ~VPHeaderPHIRecipe ()</code></pre>
+                                <p>Defined at line 2066 of file llvm/include/../lib/Transforms/Vectorize/VPlan.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5EAD56CBFFE84AD3F15502CCE2A8C36AA966A58C">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const VPRecipeBase * R)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Method to support type inquiry through isa, cast, and dyn_cast.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2069 of file llvm/include/../lib/Transforms/Vectorize/VPlan.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="596C372EE45211D098BCCE5CBD643EAAFAE4DE27">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const VPValue * V)</code></pre>
+                                <p>Defined at line 2073 of file llvm/include/../lib/Transforms/Vectorize/VPlan.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="22CD6EEF27EC5743EF4A2B1CF9F0B4CD6FC8AC79">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const VPSingleDefRecipe * R)</code></pre>
+                                <p>Defined at line 2076 of file llvm/include/../lib/Transforms/Vectorize/VPlan.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E55F63BE5E216348D1428268477C176FD6D90FBE">
+                                <pre><code class="language-cpp code-clang-doc">void execute (VPTransformState &amp; State)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Generate the phi nodes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E33249418E4673C0E8207267D08B1EC9352BEBB4">
+                                <pre><code class="language-cpp code-clang-doc">VPValue * getStartValue ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the start value of the phi, if one is set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2088 of file llvm/include/../lib/Transforms/Vectorize/VPlan.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="82963C582378C844E0EFC921FF61BC2ADAE95245">
+                                <pre><code class="language-cpp code-clang-doc">VPValue * getStartValue ()</code></pre>
+                                <p>Defined at line 2091 of file llvm/include/../lib/Transforms/Vectorize/VPlan.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="199386824E55909C975637021886993A2B8E9719">
+                                <pre><code class="language-cpp code-clang-doc">void setStartValue (VPValue * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Update the start value of the recipe.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2096 of file llvm/include/../lib/Transforms/Vectorize/VPlan.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C53C3DB5E2725E5E66F142B7A4F22B1D2D6A5241">
+                                <pre><code class="language-cpp code-clang-doc">VPValue * getBackedgeValue ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the incoming value from the loop backedge.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2099 of file llvm/include/../lib/Transforms/Vectorize/VPlan.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B164FC7FE292475D2BE16D2A15821D879F99E946">
+                                <pre><code class="language-cpp code-clang-doc">void setBackedgeValue (VPValue * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Update the incoming value from the loop backedge.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2104 of file llvm/include/../lib/Transforms/Vectorize/VPlan.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A0345094A5BD7D7B406C13DB9E01360BE446C057">
+                                <pre><code class="language-cpp code-clang-doc">VPRecipeBase &amp; getBackedgeRecipe ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the backedge value as a recipe. The backedge value is guaranteed</p>
+                                        <p> to be a recipe.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2108 of file llvm/include/../lib/Transforms/Vectorize/VPlan.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="62530929DC4D296D34B6790379C1C1F558E63BE4">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost computeCost (ElementCount VF, VPCostContext &amp; Ctx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the cost of this header phi recipe.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2314 of file llvm/lib/Transforms/Vectorize/VPlanRecipes.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

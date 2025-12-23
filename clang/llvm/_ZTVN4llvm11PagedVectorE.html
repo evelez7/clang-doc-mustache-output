@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>PagedVector</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class PagedVector</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#943173DA8E9CADC4925B27FEDDDAFD75AD88E965">PagedVector&lt;T, PageSize&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E98C377D62014354CB36CDCA07130DBB4CE36F2C">PagedVector&lt;T, PageSize&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B22591F3DEC84DD171E2E71A2EBE6F0C7D2D68CA">~PagedVector&lt;T, PageSize&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4BAC53351CC4B5AA94FD03B60537085545003CE7">PagedVector&lt;T, PageSize&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C724FBFCECD4F0A6B824EF311EF57E9DD44F6E70">PagedVector&lt;T, PageSize&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B9D83216D73F4A752C9A1064C3095454AAF0512C">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#069A85277C5F56197A2214C809476BE4B3F97E58">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CB20FB2B81DFDB65A20EB1ADF4DE37810F13241E">operator[]</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CE639CFFF4F3A54E8EA4D73BB33A8ADD23D877E1">capacity</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E80DF7902CE1D94F6B4E32BDB951AFAA68D80395">size</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C987797A4C5756493269097A0A990CF5097B65E6">resize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#530E060791EB65BFA4393C4B85934AEBE6B6B274">empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1751923C06D8A9B8B3F7198546DF68E1575CE59">clear</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D3A53AEDB494AEB145A00AB9AFC471F7DFAB323E">materialized_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#95315790E96B583BE47DFA20F74ABFA0E6B9DDF6">materialized_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D74EFEB861D88A9C8E1853E6D15D0E9D7B6D5235">materialized</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename T, size_t PageSize = 1024 / sizeof(T)&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class PagedVector</h1>
+                        <p>Defined at line 42 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A vector that allocates memory in pages.</p>
+                            </div>
+                            <div>
+                                <p> Order is kept, but memory is allocated only when one element of the page is</p>
+                                <p> accessed. This introduces a level of indirection, but it is useful when you</p>
+                                <p> have a sparsely initialised vector where the full size is allocated upfront.</p>
+                            </div>
+                            <div>
+                                <p> As a side effect the elements are initialised later than in a normal vector.</p>
+                                <p> On the first access to one of the elements of a given page, all the elements</p>
+                                <p> of the page are initialised. This also means that the elements of the page</p>
+                                <p> are initialised beyond the size of the vector.</p>
+                            </div>
+                            <div>
+                                <p> Similarly on destruction the elements are destroyed only when the page is</p>
+                                <p> not needed anymore, delaying invoking the destructor of the elements.</p>
+                            </div>
+                            <div>
+                                <p> Notice that this has iterators only on materialized elements. This</p>
+                                <p> is deliberately done under the assumption you would dereference the elements</p>
+                                <p> while iterating, therefore materialising them and losing the gains in terms</p>
+                                <p> of memory usage this container provides. If you have such a use case, you</p>
+                                <p> probably want to use a normal std::vector or a llvm::SmallVector.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="943173DA8E9CADC4925B27FEDDDAFD75AD88E965">
+                                <pre><code class="language-cpp code-clang-doc">void PagedVector&lt;T, PageSize&gt; ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Default constructor. We build our own allocator and mark it as such with</p>
+                                        <p> `true` in the second pair element.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 61 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E98C377D62014354CB36CDCA07130DBB4CE36F2C">
+                                <pre><code class="language-cpp code-clang-doc">void PagedVector&lt;T, PageSize&gt; (BumpPtrAllocator * A)</code></pre>
+                                <p>Defined at line 62 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B22591F3DEC84DD171E2E71A2EBE6F0C7D2D68CA">
+                                <pre><code class="language-cpp code-clang-doc">void ~PagedVector&lt;T, PageSize&gt; ()</code></pre>
+                                <p>Defined at line 66 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4BAC53351CC4B5AA94FD03B60537085545003CE7">
+                                <pre><code class="language-cpp code-clang-doc">void PagedVector&lt;T, PageSize&gt; (const PagedVector&lt;T, PageSize&gt; &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Forbid copy and move as we do not need them for the current use case.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 74 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C724FBFCECD4F0A6B824EF311EF57E9DD44F6E70">
+                                <pre><code class="language-cpp code-clang-doc">void PagedVector&lt;T, PageSize&gt; (PagedVector&lt;T, PageSize&gt; &amp;&amp; )</code></pre>
+                                <p>Defined at line 75 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B9D83216D73F4A752C9A1064C3095454AAF0512C">
+                                <pre><code class="language-cpp code-clang-doc">PagedVector&lt;T, PageSize&gt; &amp; operator= (const PagedVector&lt;T, PageSize&gt; &amp; )</code></pre>
+                                <p>Defined at line 76 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="069A85277C5F56197A2214C809476BE4B3F97E58">
+                                <pre><code class="language-cpp code-clang-doc">PagedVector&lt;T, PageSize&gt; &amp; operator= (PagedVector&lt;T, PageSize&gt; &amp;&amp; )</code></pre>
+                                <p>Defined at line 77 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CB20FB2B81DFDB65A20EB1ADF4DE37810F13241E">
+                                <pre><code class="language-cpp code-clang-doc">T &amp; operator[] (size_t Index)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Look up an element at position `Index`.</p>
+                                        <p> If the associated page is not filled, it will be filled with default</p>
+                                        <p> constructed elements.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 82 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CE639CFFF4F3A54E8EA4D73BB33A8ADD23D877E1">
+                                <pre><code class="language-cpp code-clang-doc">size_t capacity ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the capacity of the vector. I.e. the maximum size it can be</p>
+                                        <p> expanded to with the resize method without allocating more pages.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 99 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E80DF7902CE1D94F6B4E32BDB951AFAA68D80395">
+                                <pre><code class="language-cpp code-clang-doc">size_t size ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the size of the vector.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 104 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C987797A4C5756493269097A0A990CF5097B65E6">
+                                <pre><code class="language-cpp code-clang-doc">void resize (size_t NewSize)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Resize the vector. Notice that the constructor of the elements will not</p>
+                                        <p> be invoked until an element of a given page is accessed, at which point</p>
+                                        <p> all the elements of the page will be constructed.</p>
+                                    </div>
+                                    <div>
+                                        <p> If the new size is smaller than the current size, the elements of the</p>
+                                        <p> pages that are not needed anymore will be destroyed, however, elements of</p>
+                                        <p> the last page will not be destroyed.</p>
+                                    </div>
+                                    <div>
+                                        <p> For these reason the usage of this vector is discouraged if you rely</p>
+                                        <p> on the construction / destructor of the elements to be invoked.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 116 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="530E060791EB65BFA4393C4B85934AEBE6B6B274">
+                                <pre><code class="language-cpp code-clang-doc">bool empty ()</code></pre>
+                                <p>Defined at line 146 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1751923C06D8A9B8B3F7198546DF68E1575CE59">
+                                <pre><code class="language-cpp code-clang-doc">void clear ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Clear the vector, i.e. clear the allocated pages, the whole page</p>
+                                        <p> lookup index and reset the size.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 150 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D3A53AEDB494AEB145A00AB9AFC471F7DFAB323E">
+                                <pre><code class="language-cpp code-clang-doc">MaterializedIterator materialized_begin ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Iterators over the materialized elements of the vector.</p>
+                                    </div>
+                                    <div>
+                                        <p> This includes all the elements belonging to allocated pages,</p>
+                                        <p> even if they have not been accessed yet. It&#39;s enough to access</p>
+                                        <p> one element of a page to materialize all the elements of the page.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 244 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95315790E96B583BE47DFA20F74ABFA0E6B9DDF6">
+                                <pre><code class="language-cpp code-clang-doc">MaterializedIterator materialized_end ()</code></pre>
+                                <p>Defined at line 253 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D74EFEB861D88A9C8E1853E6D15D0E9D7B6D5235">
+                                <pre><code class="language-cpp code-clang-doc">llvm::iterator_range&lt;MaterializedIterator&gt; materialized ()</code></pre>
+                                <p>Defined at line 257 of file llvm/include/llvm/ADT/PagedVector.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

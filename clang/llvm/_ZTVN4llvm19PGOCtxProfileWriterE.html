@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>PGOCtxProfileWriter</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class PGOCtxProfileWriter</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CodeLen">CodeLen</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CurrentVersion">CurrentVersion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#VBREncodingBits">VBREncodingBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ContainerMagic">ContainerMagic</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2D56C0398CB363F967BCC4566232097EB7DE51F1">PGOCtxProfileWriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ABB173E09C8AFDFD1CD897D1C1BEBB75A680C877">~PGOCtxProfileWriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAF5D27735349F2FC82181627D08F1B6B39ACB8C">startContextSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DA087EC7B4CB49C000A10C18105EC4BF9FE02A5D">writeContextual</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C5DD92CE4F95DC8AABE3F2286B8B3620152D2FAD">endContextSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#987F28CAC4B8E1784DEFDBFB358C9E80AAAC10B8">startFlatSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1312EF355C010FBF07AFA2922D54D2CB4FE780BE">writeFlat</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EBE7B11E0BFB779D122F8A3EBD327E77AEB012D2">endFlatSection</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class PGOCtxProfileWriter</h1>
+                        <p>Defined at line 78 of file llvm/include/llvm/ProfileData/PGOCtxProfWriter.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Write one or more ContextNodes to the provided raw_fd_stream.</p>
+                                <p> The caller must destroy the PGOCtxProfileWriter object before closing the</p>
+                                <p> stream.</p>
+                                <p> The design allows serializing a bunch of contexts embedded in some other</p>
+                                <p> file. The overall format is:</p>
+                            </div>
+                            <div>
+                                <p>  [... other data written to the stream...]</p>
+                                <p>  SubBlock(ProfileMetadataBlockID)</p>
+                                <p>   Version</p>
+                                <p>   SubBlock(ContextNodeBlockID)</p>
+                                <p>     [RECORDS]</p>
+                                <p>     SubBlock(ContextNodeBlockID)</p>
+                                <p>       [RECORDS]</p>
+                                <p>       [... more SubBlocks]</p>
+                                <p>     EndBlock</p>
+                                <p>   EndBlock</p>
+                            </div>
+                            <div>
+                                <p> The &quot;RECORDS&quot; are bitsream records. The IDs are in CtxProfileCodes (except)</p>
+                                <p> for Version, which is just for metadata). All contexts will have Guid and</p>
+                                <p> Counters, and all but the roots have CalleeIndex. The order in which the</p>
+                                <p> records appear does not matter, but they must precede any subcontexts,</p>
+                                <p> because that helps keep the reader code simpler.</p>
+                            </div>
+                            <div>
+                                <p> Subblock containment captures the context-&gt;subcontext relationship. The</p>
+                                <p> &quot;next()&quot; relationship in the raw profile, between call targets of indirect</p>
+                                <p> calls, are just modeled as peer subblocks where the callee index is the</p>
+                                <p> same.</p>
+                            </div>
+                            <div>
+                                <p> Versioning: the writer may produce additional records not known by the</p>
+                                <p> reader. The version number indicates a more structural change.</p>
+                                <p> The current version, in particular, is set up to expect optional extensions</p>
+                                <p> like value profiling - which would appear as additional records. For</p>
+                                <p> example, value profiling would produce a new record with a new record ID,</p>
+                                <p> containing the profiled values (much like the counters)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="CodeLen" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static const unsigned int CodeLen</code></pre>
+                        </div>
+                        <div id="CurrentVersion" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static const uint32_t CurrentVersion</code></pre>
+                        </div>
+                        <div id="VBREncodingBits" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static const unsigned int VBREncodingBits</code></pre>
+                        </div>
+                        <div id="ContainerMagic" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static StringRef ContainerMagic</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="2D56C0398CB363F967BCC4566232097EB7DE51F1">
+                                <pre><code class="language-cpp code-clang-doc">void PGOCtxProfileWriter (raw_ostream &amp; Out, optional VersionOverride, bool IncludeEmpty)</code></pre>
+                                <p>Defined at line 29 of file llvm/lib/ProfileData/PGOCtxProfWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ABB173E09C8AFDFD1CD897D1C1BEBB75A680C877">
+                                <pre><code class="language-cpp code-clang-doc">void ~PGOCtxProfileWriter ()</code></pre>
+                                <p>Defined at line 95 of file llvm/include/llvm/ProfileData/PGOCtxProfWriter.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DAF5D27735349F2FC82181627D08F1B6B39ACB8C">
+                                <pre><code class="language-cpp code-clang-doc">void startContextSection ()</code></pre>
+                                <p>Defined at line 125 of file llvm/lib/ProfileData/PGOCtxProfWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DA087EC7B4CB49C000A10C18105EC4BF9FE02A5D">
+                                <pre><code class="language-cpp code-clang-doc">void writeContextual (const ctx_profile::ContextNode &amp; RootNode, const ctx_profile::ContextNode * Unhandled, uint64_t TotalRootEntryCount)</code></pre>
+                                <p>Defined at line 137 of file llvm/lib/ProfileData/PGOCtxProfWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C5DD92CE4F95DC8AABE3F2286B8B3620152D2FAD">
+                                <pre><code class="language-cpp code-clang-doc">void endContextSection ()</code></pre>
+                                <p>Defined at line 134 of file llvm/lib/ProfileData/PGOCtxProfWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="987F28CAC4B8E1784DEFDBFB358C9E80AAAC10B8">
+                                <pre><code class="language-cpp code-clang-doc">void startFlatSection ()</code></pre>
+                                <p>Defined at line 129 of file llvm/lib/ProfileData/PGOCtxProfWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1312EF355C010FBF07AFA2922D54D2CB4FE780BE">
+                                <pre><code class="language-cpp code-clang-doc">void writeFlat (ctx_profile::GUID Guid, const uint64_t * Buffer, size_t BufferSize)</code></pre>
+                                <p>Defined at line 157 of file llvm/lib/ProfileData/PGOCtxProfWriter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EBE7B11E0BFB779D122F8A3EBD327E77AEB012D2">
+                                <pre><code class="language-cpp code-clang-doc">void endFlatSection ()</code></pre>
+                                <p>Defined at line 135 of file llvm/lib/ProfileData/PGOCtxProfWriter.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>InteractiveModelRunner</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class InteractiveModelRunner</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C352629D168DCF560A0B412AF17BBBBBEF4EDB45">InteractiveModelRunner</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#585A66EBDC8F7DE34872AD71BD297B7C3227C049">InteractiveModelRunner</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#37642B63D94238381A0CFA9C70509FAFE085D6A4">classof</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#78D1D939CF3825FF4E46E07D24A92D87787A7020">switchContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44C66ABBE1A6F7A1A8B50AACDA3BB9C96A7083FC">~InteractiveModelRunner</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class InteractiveModelRunner</h1>
+                        <p>Defined at line 39 of file llvm/include/llvm/Analysis/InteractiveModelRunner.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A MLModelRunner that asks for advice from an external agent, or host. It</p>
+                                <p> uses 2 files - ideally named pipes - one to send data to that agent, and</p>
+                                <p> one to receive advice.</p>
+                                <p> The data exchange uses the training logger (Utils/TrainingLogger.h) format.</p>
+                                <p> Specifically, the compiler will send the log header, set the context, and</p>
+                                <p> send observations; the host is expected to reply with a tensor value after</p>
+                                <p> each observation as a binary buffer that&#39;s conforming to the shape of the</p>
+                                <p> advice. Interleaved, the data closely resembles the training log for a</p>
+                                <p> log where we don&#39;t capture the reward signal.</p>
+                            </div>
+                            <div>
+                                <p> Note that the correctness of the received data is the responsibility of the</p>
+                                <p> host. In particular, if insufficient data were sent, the compiler will block</p>
+                                <p> when waiting for an advice.</p>
+                            </div>
+                            <div>
+                                <p> Note that the host can either open the pipes RW, or open first the pipe to</p>
+                                <p> the compiler - i.e. the &quot;Inbound&quot; - and then the &quot;Outbound&quot;, to avoid</p>
+                                <p> deadlock. This is because the compiler first tries to open the inbound</p>
+                                <p> (which will hang until there&#39;s a writer on the other end).</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="C352629D168DCF560A0B412AF17BBBBBEF4EDB45">
+                                <pre><code class="language-cpp code-clang-doc">void InteractiveModelRunner (LLVMContext &amp; Ctx, const int &amp; Inputs, const TensorSpec &amp; Advice, StringRef OutboundName, StringRef InboundName)</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="585A66EBDC8F7DE34872AD71BD297B7C3227C049">
+                                <pre><code class="language-cpp code-clang-doc">void InteractiveModelRunner (LLVMContext &amp; Ctx, const std::vector&lt;TensorSpec&gt; &amp; Inputs, const TensorSpec &amp; Advice, StringRef OutboundName, StringRef InboundName)</code></pre>
+                                <p>Defined at line 26 of file llvm/lib/Analysis/InteractiveModelRunner.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="37642B63D94238381A0CFA9C70509FAFE085D6A4">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const MLModelRunner * R)</code></pre>
+                                <p>Defined at line 46 of file llvm/include/llvm/Analysis/InteractiveModelRunner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="78D1D939CF3825FF4E46E07D24A92D87787A7020">
+                                <pre><code class="language-cpp code-clang-doc">void switchContext (StringRef Name)</code></pre>
+                                <p>Defined at line 49 of file llvm/include/llvm/Analysis/InteractiveModelRunner.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44C66ABBE1A6F7A1A8B50AACDA3BB9C96A7083FC">
+                                <pre><code class="language-cpp code-clang-doc">void ~InteractiveModelRunner ()</code></pre>
+                                <p>Defined at line 53 of file llvm/lib/Analysis/InteractiveModelRunner.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

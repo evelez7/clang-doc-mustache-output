@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CSEMIRBuilder</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../_ZTVN4llvm12GISelCSEInfoE.html">GISelCSEInfo</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class CSEMIRBuilder</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#99874E3C0228B00F0E7DEC3E6C99C69961A62C3C">buildInstr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E05AFB2B3CAE9606092BC6FFA8234074CCCDA99D">buildConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4525A9D231FA47A38AD56068C5BD62388A5E4DFF">buildFConstant</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class CSEMIRBuilder</h1>
+                        <p>Defined at line 39 of file llvm/include/llvm/CodeGen/GlobalISel/CSEMIRBuilder.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Defines a builder that does CSE of MachineInstructions using GISelCSEInfo.</p>
+                                <p> Eg usage.</p>
+                            </div>
+                            <div>
+                                <p> Explicitly passing in a register would materialize a copy if possible.</p>
+                                <p> CSEMIRBuilder also does trivial constant folding for binary ops.</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                            GISelCSEInfo *Info =
+                                                &amp;getAnalysis&lt;GISelCSEAnalysisWrapperPass&gt;().getCSEInfo();
+                                            CSEMIRBuilder CB(Builder.getState());
+                                            CB.setCSEInfo(Info);
+                                            auto A = CB.buildConstant(s32, 42);
+                                            auto B = CB.buildConstant(s32, 42);
+                                            assert(A == B);
+                                            unsigned CReg = MRI.createGenericVirtualRegister(s32);
+                                            auto C = CB.buildConstant(CReg, 42);
+                                            assert(C-&gt;getOpcode() == TargetOpcode::COPY);
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="99874E3C0228B00F0E7DEC3E6C99C69961A62C3C">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstrBuilder buildInstr (unsigned int Opc, ArrayRef&lt;DstOp&gt; DstOps, ArrayRef&lt;SrcOp&gt; SrcOps, std::optional&lt;unsigned int&gt; Flag)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Unhide buildInstr</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 179 of file llvm/lib/CodeGen/GlobalISel/CSEMIRBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E05AFB2B3CAE9606092BC6FFA8234074CCCDA99D">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstrBuilder buildConstant (const DstOp &amp; Res, const ConstantInt &amp; Val)</code></pre>
+                                <p>Defined at line 334 of file llvm/lib/CodeGen/GlobalISel/CSEMIRBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4525A9D231FA47A38AD56068C5BD62388A5E4DFF">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstrBuilder buildFConstant (const DstOp &amp; Res, const ConstantFP &amp; Val)</code></pre>
+                                <p>Defined at line 363 of file llvm/lib/CodeGen/GlobalISel/CSEMIRBuilder.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

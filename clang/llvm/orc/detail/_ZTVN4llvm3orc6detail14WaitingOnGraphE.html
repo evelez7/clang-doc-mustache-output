@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>WaitingOnGraph</title>
+        <link rel="stylesheet" type="text/css" href="../../../clang-doc-mustache.css"/>
+        <script src="../../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">orc</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">detail</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class WaitingOnGraph</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9385AFD50413E96C25C964ABCDE43941E8EE695C">simplify</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#38FCD1B33E51C90D7DED0B1B94F0D34D154C44DF">simplify</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#598F1FA5094359037ED527EC37B60610BCA89942">emit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D0D6E8F136A563A54959FD520EB00F03CA2ACFDC">fail</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A24516F26857317E31B79346DFBFFF732D05B5C4">fail</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A663870CF33011D8DF79F287AB620E6D3E6B2BC9">validate</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename ContainerIdT, typename ElementIdT&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class WaitingOnGraph</h1>
+                        <p>Defined at line 82 of file llvm/include/llvm/ExecutionEngine/Orc/WaitingOnGraph.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> WaitingOnGraph class template.</p>
+                            </div>
+                            <div>
+                                <p> This type is intended to provide efficient dependence tracking for Symbols</p>
+                                <p> in an ORC program.</p>
+                            </div>
+                            <div>
+                                <p> WaitingOnGraph models a directed graph with four partitions:</p>
+                                <p>   1. Not-yet-emitted nodes: Nodes identified as waited-on in an emit</p>
+                                <p>      operation.</p>
+                                <p>   2. Emitted nodes: Nodes emitted and waiting on some non-empty set of</p>
+                                <p>      other nodes.</p>
+                                <p>   3. Ready nodes: Nodes emitted and not waiting on any other nodes</p>
+                                <p>      (either because they weren&#39;t waiting on any nodes when they were</p>
+                                <p>      emitted, or because all transitively waited-on nodes have since</p>
+                                <p>      been emitted).</p>
+                                <p>   4. Failed nodes: Nodes that have been marked as failed-to-emit, and</p>
+                                <p>      nodes that were found to transitively wait-on some failed node.</p>
+                            </div>
+                            <div>
+                                <p> Nodes are added to the graph by *emit* and *fail* operations.</p>
+                            </div>
+                            <div>
+                                <p> The *emit* operation takes a bipartite *local dependence graph* as an</p>
+                                <p> argument and returns...</p>
+                                <p>   a. the set of nodes (both existing and newly added from the local</p>
+                                <p>      dependence graph) whose waiting-on set is the empty set, and...</p>
+                                <p>   b. the set of newly added nodes that are found to depend on failed</p>
+                                <p>      nodes.</p>
+                            </div>
+                            <div>
+                                <p> The *fail* operation takes a set of failed nodes and returns the set of</p>
+                                <p> Emitted nodes that were waiting on the failed nodes.</p>
+                            </div>
+                            <div>
+                                <p> The concrete representation adopts several approaches for efficiency:</p>
+                            </div>
+                            <div>
+                                <p> 1. Only *Emitted* and *Not-yet-emitted* nodes are represented explicitly.</p>
+                                <p>    *Ready* and *Failed* nodes are represented by the values returned by the</p>
+                                <p>    GetExternalStateFn argument to *emit*.</p>
+                            </div>
+                            <div>
+                                <p> 2. Labels are (*Container*, *Element*) pairs that are intended to represent</p>
+                                <p>    ORC symbols (ORC uses types Container = JITDylib,</p>
+                                <p>    Element = NonOwningSymbolStringPtr). The internal representation of the</p>
+                                <p>    graph is optimized on the assumption that there are many more Elements</p>
+                                <p>    (symbol names) than Containers (JITDylibs) used to construct the labels.</p>
+                                <p>    (Consider for example the common case where most JIT&#39;d code is placed in</p>
+                                <p>    a single &quot;main&quot; JITDylib).</p>
+                            </div>
+                            <div>
+                                <p> 3. The data structure stores *SuperNodes* which have multiple labels. This</p>
+                                <p>    reduces the number of nodes and edges in the graph in the common case</p>
+                                <p>    where many JIT symbols have the same set of dependencies. SuperNodes are</p>
+                                <p>    coalesced when their dependence sets become equal.</p>
+                            </div>
+                            <div>
+                                <p> 4. The *simplify* method can be applied to an initial *local dependence</p>
+                                <p>    graph* (as a list of SuperNodes) to eliminate any internal dependence</p>
+                                <p>    relationships that would have to be propagated internally by *emit*.</p>
+                                <p>    Access to the WaitingOnGraph is assumed to be guarded by a mutex (ORC</p>
+                                <p>    will access it from multiple threads) so this allows some pre-processing</p>
+                                <p>    to be performed outside the mutex.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="9385AFD50413E96C25C964ABCDE43941E8EE695C">
+                                <pre><code class="language-cpp code-clang-doc">SimplifyResult simplify (int SNs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Preprocess a list of SuperNodes to remove all intra-SN dependencies.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 257 of file llvm/include/llvm/ExecutionEngine/Orc/WaitingOnGraph.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="38FCD1B33E51C90D7DED0B1B94F0D34D154C44DF">
+                                <pre><code class="language-cpp code-clang-doc">SimplifyResult simplify (std::vector&lt;std::unique_ptr&lt;SuperNode&gt;&gt; SNs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Preprocess a list of SuperNodes to remove all intra-SN dependencies.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 257 of file llvm/include/llvm/ExecutionEngine/Orc/WaitingOnGraph.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="598F1FA5094359037ED527EC37B60610BCA89942">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename GetExternalStateFn&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">EmitResult emit (SimplifyResult SR, GetExternalStateFn &amp;&amp; GetExternalState)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add the given SuperNodes to the graph, returning any SuperNodes that</p>
+                                        <p> move to the Ready or Failed states as a result.</p>
+                                        <p> The GetExternalState function is used to represent SuperNodes that have</p>
+                                        <p> already become Ready or Failed (since such nodes are not explicitly</p>
+                                        <p> represented in the graph).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 292 of file llvm/include/llvm/ExecutionEngine/Orc/WaitingOnGraph.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D0D6E8F136A563A54959FD520EB00F03CA2ACFDC">
+                                <pre><code class="language-cpp code-clang-doc">int fail (const int &amp; Failed)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Identify the given symbols as Failed.</p>
+                                        <p> The elements of the Failed map will not be included in the returned</p>
+                                        <p> result, so clients should take whatever actions are needed to mark</p>
+                                        <p> this as failed in their external representation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 369 of file llvm/include/llvm/ExecutionEngine/Orc/WaitingOnGraph.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A24516F26857317E31B79346DFBFFF732D05B5C4">
+                                <pre><code class="language-cpp code-clang-doc">std::vector&lt;std::unique_ptr&lt;SuperNode&gt;&gt; fail (const ContainerElementsMap &amp; Failed)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Identify the given symbols as Failed.</p>
+                                        <p> The elements of the Failed map will not be included in the returned</p>
+                                        <p> result, so clients should take whatever actions are needed to mark</p>
+                                        <p> this as failed in their external representation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 369 of file llvm/include/llvm/ExecutionEngine/Orc/WaitingOnGraph.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A663870CF33011D8DF79F287AB620E6D3E6B2BC9">
+                                <pre><code class="language-cpp code-clang-doc">bool validate (raw_ostream &amp; Log)</code></pre>
+                                <p>Defined at line 418 of file llvm/include/llvm/ExecutionEngine/Orc/WaitingOnGraph.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>VirtualUnwinder</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">sampleprof</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class VirtualUnwinder</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumTotalBranches">NumTotalBranches</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumExtCallBranch">NumExtCallBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumMissingExternalFrame">NumMissingExternalFrame</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumMismatchedProEpiBranch">NumMismatchedProEpiBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumMismatchedExtCallBranch">NumMismatchedExtCallBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumUnpairedExtAddr">NumUnpairedExtAddr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumPairedExtAddr">NumPairedExtAddr</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#610DBDE10F19E52360E4C02354B8385179D4A811">unwind</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#92EFAAD19615EC986743B99D2494DD4D47CEE2DA">VirtualUnwinder</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6934981FDEEFDD38C19E471949BA4F3EB0A23D9B">getUntrackedCallsites</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class VirtualUnwinder</h1>
+                        <p>Defined at line 478 of file llvm/include/../tools/llvm-profgen/PerfReader.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p>As in hybrid sample we have a group of LBRs and the most recent sampling call</p>
+                                <p>stack, we can walk through those LBRs to infer more call stacks which would be</p>
+                                <p>used as context for profile. VirtualUnwinder is the class to do the call stack</p>
+                                <p>unwinding based on LBR state. Two types of unwinding are processd here:</p>
+                                <p>1) LBR unwinding and 2) linear range unwinding.</p>
+                                <p>Specifically, for each LBR entry(can be classified into call, return, regular</p>
+                                <p>branch), LBR unwinding will replay the operation by pushing, popping or</p>
+                                <p>switching leaf frame towards the call stack and since the initial call stack</p>
+                                <p>is most recently sampled, the replay should be in anti-execution order, i.e. for</p>
+                                <p>the regular case, pop the call stack when LBR is call, push frame on call stack</p>
+                                <p>when LBR is return. After each LBR processed, it also needs to align with the</p>
+                                <p>next LBR by going through instructions from previous LBR&#39;s target to current</p>
+                                <p>LBR&#39;s source, which is the linear unwinding. As instruction from linear range</p>
+                                <p>can come from different function by inlining, linear unwinding will do the range</p>
+                                <p>splitting and record counters by the range with same inline context. Over those</p>
+                                <p>unwinding process we will record each call stack as context id and LBR/linear</p>
+                                <p>range as sample counter for further CS profile generation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="NumTotalBranches" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint64_t NumTotalBranches</code></pre>
+                        </div>
+                        <div id="NumExtCallBranch" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint64_t NumExtCallBranch</code></pre>
+                        </div>
+                        <div id="NumMissingExternalFrame" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint64_t NumMissingExternalFrame</code></pre>
+                        </div>
+                        <div id="NumMismatchedProEpiBranch" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint64_t NumMismatchedProEpiBranch</code></pre>
+                        </div>
+                        <div id="NumMismatchedExtCallBranch" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint64_t NumMismatchedExtCallBranch</code></pre>
+                        </div>
+                        <div id="NumUnpairedExtAddr" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint64_t NumUnpairedExtAddr</code></pre>
+                        </div>
+                        <div id="NumPairedExtAddr" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint64_t NumPairedExtAddr</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="610DBDE10F19E52360E4C02354B8385179D4A811">
+                                <pre><code class="language-cpp code-clang-doc">bool unwind (const PerfSample * Sample, uint64_t Repeat)</code></pre>
+                                <p>Defined at line 289 of file llvm/tools/llvm-profgen/PerfReader.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="92EFAAD19615EC986743B99D2494DD4D47CEE2DA">
+                                <pre><code class="language-cpp code-clang-doc">void VirtualUnwinder (ContextSampleCounterMap * Counter, ProfiledBinary * B)</code></pre>
+                                <p>Defined at line 480 of file llvm/include/../tools/llvm-profgen/PerfReader.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6934981FDEEFDD38C19E471949BA4F3EB0A23D9B">
+                                <pre><code class="language-cpp code-clang-doc">std::set&lt;uint64_t&gt; &amp; getUntrackedCallsites ()</code></pre>
+                                <p>Defined at line 483 of file llvm/include/../tools/llvm-profgen/PerfReader.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DomainValue</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct DomainValue</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Refs">Refs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AvailableDomains">AvailableDomains</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Next">Next</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Instrs">Instrs</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6B0EF384AB5D12A34EB3DDD8A7603CBDCF07490D">DomainValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB18EBF07A5D8C134AA69EB0DBAE14526C3BC5F8">isCollapsed</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D2BD0C9F3F28BB37B4494FDA203F0505741F800D">hasDomain</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6EAA9D823F4EEC91D1A745FAE3DE2C95722921E0">addDomain</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F780AC1ECA9CBE46E8E4EC85FD124F535E6A10A8">setSingleDomain</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7295DEE2804EC49643851B078426E1EB87339E76">getCommonDomains</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#946F1848559044FEE20642D1DC98528B652C9B3C">getFirstDomain</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#782E53548D30CEB3F2C524A42092DCB9FD1ABDFB">clear</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct DomainValue</h1>
+                        <p>Defined at line 51 of file llvm/include/llvm/CodeGen/ExecutionDomainFix.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A DomainValue is a bit like LiveIntervals&#39; ValNo, but it also keeps track</p>
+                                <p> of execution domains.</p>
+                            </div>
+                            <div>
+                                <p> An open DomainValue represents a set of instructions that can still switch</p>
+                                <p> execution domain. Multiple registers may refer to the same open</p>
+                                <p> DomainValue - they will eventually be collapsed to the same execution</p>
+                                <p> domain.</p>
+                            </div>
+                            <div>
+                                <p> A collapsed DomainValue represents a single register that has been forced</p>
+                                <p> into one of more execution domains. There is a separate collapsed</p>
+                                <p> DomainValue for each register, but it may contain multiple execution</p>
+                                <p> domains. A register value is initially created in a single execution</p>
+                                <p> domain, but if we were forced to pay the penalty of a domain crossing, we</p>
+                                <p> keep track of the fact that the register is now available in multiple</p>
+                                <p> domains.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Refs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int Refs</code></pre>
+                        </div>
+                        <div id="AvailableDomains" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int AvailableDomains</code></pre>
+                        </div>
+                        <div id="Next" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DomainValue * Next</code></pre>
+                        </div>
+                        <div id="Instrs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector&lt;MachineInstr *, 8&gt; Instrs</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="6B0EF384AB5D12A34EB3DDD8A7603CBDCF07490D">
+                                <pre><code class="language-cpp code-clang-doc">void DomainValue ()</code></pre>
+                                <p>Defined at line 68 of file llvm/include/llvm/CodeGen/ExecutionDomainFix.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB18EBF07A5D8C134AA69EB0DBAE14526C3BC5F8">
+                                <pre><code class="language-cpp code-clang-doc">bool isCollapsed ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> A collapsed DomainValue has no instructions to twiddle - it simply keeps</p>
+                                        <p> track of the domains where the registers are already available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 72 of file llvm/include/llvm/CodeGen/ExecutionDomainFix.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D2BD0C9F3F28BB37B4494FDA203F0505741F800D">
+                                <pre><code class="language-cpp code-clang-doc">bool hasDomain (unsigned int domain)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Is domain available?</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 75 of file llvm/include/llvm/CodeGen/ExecutionDomainFix.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6EAA9D823F4EEC91D1A745FAE3DE2C95722921E0">
+                                <pre><code class="language-cpp code-clang-doc">void addDomain (unsigned int domain)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Mark domain as available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 83 of file llvm/include/llvm/CodeGen/ExecutionDomainFix.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F780AC1ECA9CBE46E8E4EC85FD124F535E6A10A8">
+                                <pre><code class="language-cpp code-clang-doc">void setSingleDomain (unsigned int domain)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Restrict to a single domain available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 91 of file llvm/include/llvm/CodeGen/ExecutionDomainFix.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7295DEE2804EC49643851B078426E1EB87339E76">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getCommonDomains (unsigned int mask)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return bitmask of domains that are available and in mask.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 99 of file llvm/include/llvm/CodeGen/ExecutionDomainFix.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="946F1848559044FEE20642D1DC98528B652C9B3C">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getFirstDomain ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> First domain available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 104 of file llvm/include/llvm/CodeGen/ExecutionDomainFix.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="782E53548D30CEB3F2C524A42092DCB9FD1ABDFB">
+                                <pre><code class="language-cpp code-clang-doc">void clear ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Clear this DomainValue and point to next which has all its data.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 109 of file llvm/include/llvm/CodeGen/ExecutionDomainFix.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

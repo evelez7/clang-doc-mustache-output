@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LazyBranchProbabilityInfoPass</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LazyBranchProbabilityInfoPass</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ID">ID</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D520E42F8B7F13A58629D0557614426ECF5D75C">LazyBranchProbabilityInfoPass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A8C282498DF0567A6DC3D362FC46EEC71855C539">getAnalysisUsage</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B880D9B2DADEB0BDEDC1C573BE173A4BFD25DB51">getLazyBPIAnalysisUsage</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#67254200FAF0038FBD15DD9D5211DD345BD49CA3">runOnFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ADEA9C9C12CEF0C0B6BF3FC28B5CE532774B1BC2">releaseMemory</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#474DF6F5EABF8F81253E57D4503B334F1E894A12">print</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#09E557A666722ACB98F050F09E2134AE357F9EC5">getBPI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#867500030FB75CA1DA29C54BFEE9D9236697DFDF">getBPI</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LazyBranchProbabilityInfoPass</h1>
+                        <p>Defined at line 49 of file llvm/include/llvm/Analysis/LazyBranchProbabilityInfo.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This is an alternative analysis pass to</p>
+                                <p> BranchProbabilityInfoWrapperPass.  The difference is that with this pass the</p>
+                                <p> branch probabilities are not computed when the analysis pass is executed but</p>
+                                <p> rather when the BPI results is explicitly requested by the analysis client.</p>
+                            </div>
+                            <div>
+                                <p> There are some additional requirements for any client pass that wants to use</p>
+                                <p> the analysis:</p>
+                            </div>
+                            <div>
+                                <p> 1. The pass needs to initialize dependent passes with:</p>
+                            </div>
+                            <div>
+                                <p>   INITIALIZE_PASS_DEPENDENCY(LazyBPIPass)</p>
+                            </div>
+                            <div>
+                                <p> 2. Similarly, getAnalysisUsage should call:</p>
+                            </div>
+                            <div>
+                                <p>   LazyBranchProbabilityInfoPass::getLazyBPIAnalysisUsage(AU)</p>
+                            </div>
+                            <div>
+                                <p> 3. The computed BPI should be requested with</p>
+                                <p>    getAnalysis</p>
+                                <p>&lt;LazyBranchProbabilityInfoPass</p>
+                                <p>&gt;().getBPI() before LoopInfo</p>
+                                <p>    could be invalidated for example by changing the CFG.</p>
+                            </div>
+                            <div>
+                                <p> Note that it is expected that we wouldn&#39;t need this functionality for the</p>
+                                <p> new PM since with the new PM, analyses are executed on demand.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="ID" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static char ID</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="3D520E42F8B7F13A58629D0557614426ECF5D75C">
+                                <pre><code class="language-cpp code-clang-doc">void LazyBranchProbabilityInfoPass ()</code></pre>
+                                <p>Defined at line 35 of file llvm/lib/Analysis/LazyBranchProbabilityInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A8C282498DF0567A6DC3D362FC46EEC71855C539">
+                                <pre><code class="language-cpp code-clang-doc">void getAnalysisUsage (AnalysisUsage &amp; AU)</code></pre>
+                                <p>Defined at line 45 of file llvm/lib/Analysis/LazyBranchProbabilityInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B880D9B2DADEB0BDEDC1C573BE173A4BFD25DB51">
+                                <pre><code class="language-cpp code-clang-doc">void getLazyBPIAnalysisUsage (AnalysisUsage &amp; AU)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Helper for client passes to set up the analysis usage on behalf of this</p>
+                                        <p> pass.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 65 of file llvm/lib/Analysis/LazyBranchProbabilityInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="67254200FAF0038FBD15DD9D5211DD345BD49CA3">
+                                <pre><code class="language-cpp code-clang-doc">bool runOnFunction (Function &amp; F)</code></pre>
+                                <p>Defined at line 57 of file llvm/lib/Analysis/LazyBranchProbabilityInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ADEA9C9C12CEF0C0B6BF3FC28B5CE532774B1BC2">
+                                <pre><code class="language-cpp code-clang-doc">void releaseMemory ()</code></pre>
+                                <p>Defined at line 55 of file llvm/lib/Analysis/LazyBranchProbabilityInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="474DF6F5EABF8F81253E57D4503B334F1E894A12">
+                                <pre><code class="language-cpp code-clang-doc">void print (raw_ostream &amp; OS, const Module * M)</code></pre>
+                                <p>Defined at line 40 of file llvm/lib/Analysis/LazyBranchProbabilityInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="09E557A666722ACB98F050F09E2134AE357F9EC5">
+                                <pre><code class="language-cpp code-clang-doc">BranchProbabilityInfo &amp; getBPI ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compute and return the branch probabilities.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 91 of file llvm/include/llvm/Analysis/LazyBranchProbabilityInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="867500030FB75CA1DA29C54BFEE9D9236697DFDF">
+                                <pre><code class="language-cpp code-clang-doc">const BranchProbabilityInfo &amp; getBPI ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compute and return the branch probabilities.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 94 of file llvm/include/llvm/Analysis/LazyBranchProbabilityInfo.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DependencyGraph</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">mca</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class DependencyGraph</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07744628C37D51F0DD56340ED523A31A430180AE">DependencyGraph</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B67B1903512C9831EDCF7F80A6F7BB657733105C">addRegisterDep</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6ADD12CEAD9F90BDDDF8927379884BBBA5CEA4AF">getCriticalSequence</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8B037792D50A4378CCFA70D8185EC723AFFBBDD1">addMemoryDep</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#818B95768F374A931CAA61860F3C6F189FE4407E">addResourceDep</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#82C56755F2CF38A4E48C9694CB9A1B9032B69885">finalizeGraph</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7E7DA59F7251095AE83BB6640C75326EED9281B7">dump</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class DependencyGraph</h1>
+                        <p>Defined at line 223 of file llvm/tools/llvm-mca/Views/BottleneckAnalysis.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A dependency graph used by the bottleneck analysis to describe data</p>
+                                <p> dependencies and processor resource interferences between instructions.</p>
+                            </div>
+                            <div>
+                                <p> There is a node (an instance of struct DGNode) for every instruction in the</p>
+                                <p> input assembly sequence. Edges of the graph represent dependencies between</p>
+                                <p> instructions.</p>
+                            </div>
+                            <div>
+                                <p> Each edge of the graph is associated with a cost value which is used</p>
+                                <p> internally to rank dependency based on their impact on the runtime</p>
+                                <p> performance (see field DependencyEdge::Dependency::Cost). In general, the</p>
+                                <p> higher the cost of an edge, the higher the impact on performance.</p>
+                            </div>
+                            <div>
+                                <p> The cost of a dependency is a function of both the latency and the number of</p>
+                                <p> cycles where the dependency has been seen as critical (i.e. contributing to</p>
+                                <p> back-pressure increases).</p>
+                            </div>
+                            <div>
+                                <p> Loop carried dependencies are carefully expanded by the bottleneck analysis</p>
+                                <p> to guarantee that the graph stays acyclic. To this end, extra nodes are</p>
+                                <p> pre-allocated at construction time to describe instructions from &quot;past and</p>
+                                <p> future&quot; iterations. The graph is kept acyclic mainly because it simplifies</p>
+                                <p> the complexity of the algorithm that computes the critical sequence.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="07744628C37D51F0DD56340ED523A31A430180AE">
+                                <pre><code class="language-cpp code-clang-doc">void DependencyGraph (unsigned int Size)</code></pre>
+                                <p>Defined at line 255 of file llvm/tools/llvm-mca/Views/BottleneckAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B67B1903512C9831EDCF7F80A6F7BB657733105C">
+                                <pre><code class="language-cpp code-clang-doc">void addRegisterDep (unsigned int From, unsigned int To, unsigned int RegID, unsigned int Cost)</code></pre>
+                                <p>Defined at line 257 of file llvm/tools/llvm-mca/Views/BottleneckAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6ADD12CEAD9F90BDDDF8927379884BBBA5CEA4AF">
+                                <pre><code class="language-cpp code-clang-doc">void getCriticalSequence (SmallVectorImpl&lt;const DependencyEdge *&gt; &amp; Seq)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a sequence of edges representing the critical sequence based on the</p>
+                                        <p> simulated run. It assumes that the graph has already been finalized (i.e.</p>
+                                        <p> method `finalizeGraph()` has already been called on this graph).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 260 of file llvm/tools/llvm-mca/Views/BottleneckAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8B037792D50A4378CCFA70D8185EC723AFFBBDD1">
+                                <pre><code class="language-cpp code-clang-doc">void addMemoryDep (unsigned int From, unsigned int To, unsigned int Cost)</code></pre>
+                                <p>Defined at line 262 of file llvm/tools/llvm-mca/Views/BottleneckAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="818B95768F374A931CAA61860F3C6F189FE4407E">
+                                <pre><code class="language-cpp code-clang-doc">void addResourceDep (unsigned int From, unsigned int To, uint64_t Mask, unsigned int Cost)</code></pre>
+                                <p>Defined at line 266 of file llvm/tools/llvm-mca/Views/BottleneckAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="82C56755F2CF38A4E48C9694CB9A1B9032B69885">
+                                <pre><code class="language-cpp code-clang-doc">void finalizeGraph (unsigned int Iterations)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called by the bottleneck analysis at the end of simulation to propagate</p>
+                                        <p> costs through the edges of the graph, and compute a critical path.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 273 of file llvm/tools/llvm-mca/Views/BottleneckAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7E7DA59F7251095AE83BB6640C75326EED9281B7">
+                                <pre><code class="language-cpp code-clang-doc">void dump (raw_ostream &amp; OS, MCInstPrinter &amp; MCIP)</code></pre>
+                                <p>Defined at line 400 of file llvm/tools/llvm-mca/Views/BottleneckAnalysis.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

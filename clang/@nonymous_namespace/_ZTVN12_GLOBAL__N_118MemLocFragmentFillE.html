@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MemLocFragmentFill</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MemLocFragmentFill</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C56AA1A78E642391B43A416E155C2A97F9264621">MemLocFragmentFill</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#633B761AF179E981BB609E3F39D96B9DF828DDBF">run</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MemLocFragmentFill</h1>
+                        <p>Defined at line 366 of file llvm/lib/CodeGen/AssignmentTrackingAnalysis.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> In dwarf emission, the following sequence</p>
+                                <p>    1. dbg.value ... Fragment(0, 64)</p>
+                                <p>    2. dbg.value ... Fragment(0, 32)</p>
+                                <p> effectively sets Fragment(32, 32) to undef (each def sets all bits not in</p>
+                                <p> the intersection of the fragments to having &quot;no location&quot;). This makes</p>
+                                <p> sense for implicit location values because splitting the computed values</p>
+                                <p> could be troublesome, and is probably quite uncommon.  When we convert</p>
+                                <p> dbg.assigns to dbg.value+deref this kind of thing is common, and describing</p>
+                                <p> a location (memory) rather than a value means we don&#39;t need to worry about</p>
+                                <p> splitting any values, so we try to recover the rest of the fragment</p>
+                                <p> location here.</p>
+                                <p> This class performs a(nother) dataflow analysis over the function, adding</p>
+                                <p> variable locations so that any bits of a variable with a memory location</p>
+                                <p> have that location explicitly reinstated at each subsequent variable</p>
+                                <p> location definition that that doesn&#39;t overwrite those bits. i.e. after a</p>
+                                <p> variable location def, insert new defs for the memory location with</p>
+                                <p> fragments for the difference of &quot;all bits currently in memory&quot; and &quot;the</p>
+                                <p> fragment of the second def&quot;.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="C56AA1A78E642391B43A416E155C2A97F9264621">
+                                <pre><code class="language-cpp code-clang-doc">void MemLocFragmentFill (Function &amp; Fn, const DenseSet&lt;DebugAggregate&gt; * VarsWithStackSlot, bool CoalesceAdjacentFragments)</code></pre>
+                                <p>Defined at line 842 of file llvm/lib/CodeGen/AssignmentTrackingAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="633B761AF179E981BB609E3F39D96B9DF828DDBF">
+                                <pre><code class="language-cpp code-clang-doc">void run (FunctionVarLocsBuilder * FnVarLocs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add variable locations to </p>
+                                        <p> so that any bits of a variable</p>
+                                        <p> with a memory location have that location explicitly reinstated at each</p>
+                                        <p> subsequent variable location definition that that doesn&#39;t overwrite those</p>
+                                        <p> bits. i.e. after a variable location def, insert new defs for the memory</p>
+                                        <p> location with fragments for the difference of &quot;all bits currently in</p>
+                                        <p> memory&quot; and &quot;the fragment of the second def&quot;. e.g.</p>
+                                    </div>
+                                    <div>
+                                        <p>     Before:</p>
+                                    </div>
+                                    <div>
+                                        <p>     var x bits 0 to 63:  value in memory</p>
+                                        <p>     more instructions</p>
+                                        <p>     var x bits 0 to 31:  value is %0</p>
+                                    </div>
+                                    <div>
+                                        <p>     After:</p>
+                                    </div>
+                                    <div>
+                                        <p>     var x bits 0 to 63:  value in memory</p>
+                                        <p>     more instructions</p>
+                                        <p>     var x bits 0 to 31:  value is %0</p>
+                                        <p>     var x bits 32 to 61: value in memory ; </p>
+                                        <p>&lt;</p>
+                                        <p>-- new loc def</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 868 of file llvm/lib/CodeGen/AssignmentTrackingAnalysis.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

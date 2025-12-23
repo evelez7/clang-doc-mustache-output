@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>COFFObjectFile</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">object</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class COFFObjectFile</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28F17F4B6E597A9CE8A221670AEBE9B833D5FEAB">getSymbolTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8E6B15F347CC2B1D7678A5392581186A90FBB9D8">getStringTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C178B7600EF9918E85A21A65F9675F6655F0A8F">getMachine</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8787F40AF9794F23668B8A4BC1DA6EA74B90CE06">getSizeOfOptionalHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8F10C3FB15D52F590B5E41E675C7CF5C406E53E0">getCharacteristics</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#292270F302D7C187D0634C90EDBD9D60272FFA85">getTimeDateStamp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CA719A2007975B95C55A2BC76696E5FDF0398C1E">getNumberOfSections</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26A5AC26A338CC666C9ABF9A4F0471D213320141">getPointerToSymbolTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#007DCD06A21FF4F5ABCCF98DA9A70255B583C446">getRawNumberOfSymbols</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D782EFD0210BBD632453290426B4CE4A27350189">getNumberOfSymbols</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A9225F07B75E0FE6980E5876B449CA36032B9B99">getStringTableSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#246E918ACDD9F3292EA39A47176A60EB5CCBF138">getExportTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D1836E2B091B1FFF1DAD66A3910B27FEDDB7130">getLoadConfig32</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3698776F7E65991EEC73837DC9299BA291AF3BCB">getLoadConfig64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B1C5EC6961B8AC41C2961E94AB40BEE3CE26305F">getCHPEMetadata</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#277464FC1F78F9346D6E0888ABBEBF8A47998168">getDynamicRelocTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C392D84171826B2F41DE60AF62AF061520EF1F48">create</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0947FA95B7ABDAE412BA80E5A845CB3B82959CC4">getRelocationTypeName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#69F0894F6EF5C58CDE4B7A2067795CD140ABD8B5">symbol_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED38039E79B57DCF5884A7AA2FADE038234C84CF">symbol_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#490FF2C2C4DE148CF5ECE3A41594637926A707BC">section_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#560F1C6E132212E18DC403B35AEFDFB12A16B26B">getSectionID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F9EA294B518425E426175457173F9D94C407AD93">getSymbolSectionID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5BB3CF73025A8C95A80BB11D8D5C5ECB51E651B3">import_directory_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E000DE1DF9ED9C622C3D0E98137BCEFA82DAE14A">import_directory_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B099D8E1421B4C22F3A540AEE27DF76E7B6A4514">delay_import_directory_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#14B3DC0EC8F5615B66C44F193327570AFF82CC2A">delay_import_directory_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5D0E07C2AC5930770F17847EFE9991C800D3F2B4">export_directory_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#18FC9B6B2B13F8B45298F45545013B299B47DE46">export_directory_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B6F7B8B2C864DEDE15CF00E66B8AA5587883F355">getImageBase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F538DBC9149EA5EC894B01F22E9BCFCC0A223F65">getVaPtr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D95D2B8C1369CC155CAED738FEA3C12085373C56">getRvaPtr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BA323207D318AF3C44AAC98C0DFBDC6C67989DFE">getRvaAndSizeAsBytes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07EA2EFC5D95C81D4AAF63E7B567A71B384EFF9F">getHintName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D7D1985FB2E4C894FD009D577E2B6FC9C4181B8">getDebugPDBInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A411BEBC4C0AF432B8BC3AF67DC9A99A6CEE7EE6">getDebugPDBInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8BFC32E274904634387E841D67C4262172356857">is64Bit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1451CBD1F9816C940C8A5B2B8ACF133F5B170F21">section_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D7909759C5B9F6FC8CE6A34C4B53AAB8FC7A47C9">getFeatures</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8CCB7AF106AB8621BDD18E99B0E722C8A65A56F4">getBytesInAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F006E22F2E1AE6B2D2104BE48FEB5BD06181C5EC">getFileFormatName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#99234B98365653CCA8D8EAA8CE7B7A69317D0D64">base_reloc_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B719EAC593F000CE98B5024DCF2C5D461FCD2FA0">base_reloc_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9BA3B1B904C426761601E207452039CAB309AD14">dynamic_reloc_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B1C81F8ABE4F67B4895127AB62D9B419D51684B0">dynamic_reloc_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#664BC9400316AB4D6AA9B3B7D5DDDB0387572861">debug_directory_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#86C8BEAB1044F39A9EE145F48FCAAFEFE3B84DF6">debug_directory_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F88F5C55BE2E22CEE3A855D535E4B9AF610D5462">debug_directories</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4F1DBB8381669A1722765E953795F41406EE222">getTLSDirectory32</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#487E7B087518AD11D2BB41F747934022C7486C9E">getTLSDirectory64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#10D78180680CAFCF84B3A58F92C4C6BEEAEA59D6">getDOSHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#22C8BD6BFE0924E1A04E06F4C3AB28E85AB3706F">getArch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#00F8A8FBA3DD5CE0AC82BF5A4E0882B36E3EC299">getCOFFHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8785041A0DF21F9691A0D4F0EF1E5B97DCCD6EFA">getCOFFBigObjHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6865F6622E670A82DA46BD6837A855DCD4101736">getStartAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2E13AAC039143C2FE9B0F192AA094C9B6C950B9">getPE32Header</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FA3365DEE8D27C3C2C551DE6932E967E4D4ECC42">getPE32PlusHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#20A6448949DD00E2A3DB343A650441EEFED79E33">import_directories</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8BE4C0D6BFE08E12A737D15E2126C8919BD2E0AC">getSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#643E31835C2FC9DA47F9D84A29DABB7AA3724624">delay_import_directories</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5E70F76022E3D5F944E659DE4ACC6C5FB818C8D9">export_directories</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB516A0355E91075AD187FEC8AD1FC526CE728DC">getAuxSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#039E605DF67463B33848D314B7995B36033DC117">base_relocs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9A9B5BC22BB540D92ABEC60F531EF920F470F350">dynamic_relocs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#236E350A6FAE817677E8A8A4F11BB7C375CB35EA">getDataDirectory</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5EFD68A44546F268451617E09AD0B12AF575E8B1">getSymbolTableEntrySize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#17F47C40B7278195EA0628D517105E3159C26911">getSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ADF36AFBDE3E714FF507D27F2A6D96A427661A54">getSymbolName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A76003F6B7F1CB9D170EAD00FAFF24C9AC339704">getSymbolName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FBE00DEB6DB7646EC2C6A46B68AEB7247788D3FB">is64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2552814D9E1F4BF32D0A444FE4B7171D0F907E2D">classof</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5614C99B14D909BF6A6CA2B1561C00D4D626B914">getCOFFSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5AFD143BBECC381666FBB71BC36DCE73ED163641">getCOFFSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E64DD5C1198C6AA5366D70A11627C7EC5AE80B75">getCOFFSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#34690A3071EC168A85EEF5998FE628A93E10B79A">getCOFFRelocation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED56F5A2FAAA7552D19E7A44A6BB748E6B16AE53">getHybridObjectView</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D961DB47FD30C7AEEC732B0AF8D4F8981D6B1E45">getSymbolAuxData</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D6A714E1E4A694DF9F8AE5393B2956E8257E39AF">getSymbolIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6424EEA1918CFA1166ECC91A8F0F99DA95EBD0E4">getRelocations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B4A813E7970216A147D39489FD54BC384DA68513">getSectionName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7011662DB4E82A9F7D698054768412798F9D29E2">getSectionSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB30E3A1F8C9E6050F2DDF61070A1DDC69B1A78B">getSectionContents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#92FF1B53A3E196FF8C770025A7912B171E429F39">isRelocatableObject</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#948C820FCB8E6BB5DAA2CBB951032653F6F66F23">mapDebugSectionName</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class COFFObjectFile</h1>
+                        <p>Defined at line 880 of file llvm/include/llvm/Object/COFF.h</p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="28F17F4B6E597A9CE8A221670AEBE9B833D5FEAB">
+                                <pre><code class="language-cpp code-clang-doc">uintptr_t getSymbolTable ()</code></pre>
+                                <p>Defined at line 935 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8E6B15F347CC2B1D7678A5392581186A90FBB9D8">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getStringTable ()</code></pre>
+                                <p>Defined at line 943 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C178B7600EF9918E85A21A65F9675F6655F0A8F">
+                                <pre><code class="language-cpp code-clang-doc">uint16_t getMachine ()</code></pre>
+                                <p>Defined at line 947 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8787F40AF9794F23668B8A4BC1DA6EA74B90CE06">
+                                <pre><code class="language-cpp code-clang-doc">uint16_t getSizeOfOptionalHeader ()</code></pre>
+                                <p>Defined at line 964 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8F10C3FB15D52F590B5E41E675C7CF5C406E53E0">
+                                <pre><code class="language-cpp code-clang-doc">uint16_t getCharacteristics ()</code></pre>
+                                <p>Defined at line 974 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="292270F302D7C187D0634C90EDBD9D60272FFA85">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getTimeDateStamp ()</code></pre>
+                                <p>Defined at line 984 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CA719A2007975B95C55A2BC76696E5FDF0398C1E">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getNumberOfSections ()</code></pre>
+                                <p>Defined at line 992 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="26A5AC26A338CC666C9ABF9A4F0471D213320141">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getPointerToSymbolTable ()</code></pre>
+                                <p>Defined at line 1000 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="007DCD06A21FF4F5ABCCF98DA9A70255B583C446">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getRawNumberOfSymbols ()</code></pre>
+                                <p>Defined at line 1009 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D782EFD0210BBD632453290426B4CE4A27350189">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getNumberOfSymbols ()</code></pre>
+                                <p>Defined at line 1017 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A9225F07B75E0FE6980E5876B449CA36032B9B99">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getStringTableSize ()</code></pre>
+                                <p>Defined at line 1023 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="246E918ACDD9F3292EA39A47176A60EB5CCBF138">
+                                <pre><code class="language-cpp code-clang-doc">const export_directory_table_entry * getExportTable ()</code></pre>
+                                <p>Defined at line 1025 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D1836E2B091B1FFF1DAD66A3910B27FEDDB7130">
+                                <pre><code class="language-cpp code-clang-doc">const coff_load_configuration32 * getLoadConfig32 ()</code></pre>
+                                <p>Defined at line 1029 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3698776F7E65991EEC73837DC9299BA291AF3BCB">
+                                <pre><code class="language-cpp code-clang-doc">const coff_load_configuration64 * getLoadConfig64 ()</code></pre>
+                                <p>Defined at line 1034 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B1C5EC6961B8AC41C2961E94AB40BEE3CE26305F">
+                                <pre><code class="language-cpp code-clang-doc">const chpe_metadata * getCHPEMetadata ()</code></pre>
+                                <p>Defined at line 1039 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="277464FC1F78F9346D6E0888ABBEBF8A47998168">
+                                <pre><code class="language-cpp code-clang-doc">const coff_dynamic_reloc_table * getDynamicRelocTable ()</code></pre>
+                                <p>Defined at line 1040 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C392D84171826B2F41DE60AF62AF061520EF1F48">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;std::unique_ptr&lt;COFFObjectFile&gt;&gt; create (MemoryBufferRef Object)</code></pre>
+                                <p>Defined at line 860 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0947FA95B7ABDAE412BA80E5A845CB3B82959CC4">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getRelocationTypeName (uint16_t Type)</code></pre>
+                                <p>Defined at line 1381 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="69F0894F6EF5C58CDE4B7A2067795CD140ABD8B5">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator symbol_begin ()</code></pre>
+                                <p>Defined at line 1029 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED38039E79B57DCF5884A7AA2FADE038234C84CF">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator symbol_end ()</code></pre>
+                                <p>Defined at line 1035 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="490FF2C2C4DE148CF5ECE3A41594637926A707BC">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator section_begin ()</code></pre>
+                                <p>Defined at line 1082 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="560F1C6E132212E18DC403B35AEFDFB12A16B26B">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSectionID (SectionRef Sec)</code></pre>
+                                <p>Defined at line 341 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F9EA294B518425E426175457173F9D94C407AD93">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSymbolSectionID (SymbolRef Sym)</code></pre>
+                                <p>Defined at line 258 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5BB3CF73025A8C95A80BB11D8D5C5ECB51E651B3">
+                                <pre><code class="language-cpp code-clang-doc">import_directory_iterator import_directory_begin ()</code></pre>
+                                <p>Defined at line 1042 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E000DE1DF9ED9C622C3D0E98137BCEFA82DAE14A">
+                                <pre><code class="language-cpp code-clang-doc">import_directory_iterator import_directory_end ()</code></pre>
+                                <p>Defined at line 1051 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B099D8E1421B4C22F3A540AEE27DF76E7B6A4514">
+                                <pre><code class="language-cpp code-clang-doc">delay_import_directory_iterator delay_import_directory_begin ()</code></pre>
+                                <p>Defined at line 1056 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="14B3DC0EC8F5615B66C44F193327570AFF82CC2A">
+                                <pre><code class="language-cpp code-clang-doc">delay_import_directory_iterator delay_import_directory_end ()</code></pre>
+                                <p>Defined at line 1062 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5D0E07C2AC5930770F17847EFE9991C800D3F2B4">
+                                <pre><code class="language-cpp code-clang-doc">export_directory_iterator export_directory_begin ()</code></pre>
+                                <p>Defined at line 1069 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="18FC9B6B2B13F8B45298F45545013B299B47DE46">
+                                <pre><code class="language-cpp code-clang-doc">export_directory_iterator export_directory_end ()</code></pre>
+                                <p>Defined at line 1074 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B6F7B8B2C864DEDE15CF00E66B8AA5587883F355">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getImageBase ()</code></pre>
+                                <p>Defined at line 454 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F538DBC9149EA5EC894B01F22E9BCFCC0A223F65">
+                                <pre><code class="language-cpp code-clang-doc">Error getVaPtr (uint64_t VA, uintptr_t &amp; Res)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the file offset for the given VA.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 464 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D95D2B8C1369CC155CAED738FEA3C12085373C56">
+                                <pre><code class="language-cpp code-clang-doc">Error getRvaPtr (uint32_t Rva, uintptr_t &amp; Res, const char * ErrorContext)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the file offset for the given RVA.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 472 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BA323207D318AF3C44AAC98C0DFBDC6C67989DFE">
+                                <pre><code class="language-cpp code-clang-doc">Error getRvaAndSizeAsBytes (uint32_t RVA, uint32_t Size, ArrayRef&lt;uint8_t&gt; &amp; Contents, const char * ErrorContext)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given an RVA base and size, returns a valid array of bytes or an error</p>
+                                        <p> code if the RVA and size is not contained completely within a valid</p>
+                                        <p> section.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 506 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07EA2EFC5D95C81D4AAF63E7B567A71B384EFF9F">
+                                <pre><code class="language-cpp code-clang-doc">Error getHintName (uint32_t Rva, uint16_t &amp; Hint, StringRef &amp; Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns hint and name fields, assuming </p>
+                                        <p> is pointing to a Hint/Name</p>
+                                        <p> table entry.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 534 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3D7D1985FB2E4C894FD009D577E2B6FC9C4181B8">
+                                <pre><code class="language-cpp code-clang-doc">Error getDebugPDBInfo (const debug_directory * DebugDir, const codeview::DebugInfo *&amp; Info, StringRef &amp; PDBFileName)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get PDB information out of a codeview debug directory entry.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 545 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A411BEBC4C0AF432B8BC3AF67DC9A99A6CEE7EE6">
+                                <pre><code class="language-cpp code-clang-doc">Error getDebugPDBInfo (const codeview::DebugInfo *&amp; Info, StringRef &amp; PDBFileName)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get PDB information from an executable. If the information is not present,</p>
+                                        <p> Info will be set to nullptr and PDBFileName will be empty. An error is</p>
+                                        <p> returned only on corrupt object files. Convenience accessor that can be</p>
+                                        <p> used if the debug directory is not already handy.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 564 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8BFC32E274904634387E841D67C4262172356857">
+                                <pre><code class="language-cpp code-clang-doc">bool is64Bit ()</code></pre>
+                                <p>Defined at line 1086 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1451CBD1F9816C940C8A5B2B8ACF133F5B170F21">
+                                <pre><code class="language-cpp code-clang-doc">content_iterator section_end ()</code></pre>
+                                <p>Defined at line 1088 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D7909759C5B9F6FC8CE6A34C4B53AAB8FC7A47C9">
+                                <pre><code class="language-cpp code-clang-doc">Expected getFeatures ()</code></pre>
+                                <p>Defined at line 1099 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8CCB7AF106AB8621BDD18E99B0E722C8A65A56F4">
+                                <pre><code class="language-cpp code-clang-doc">uint8_t getBytesInAddress ()</code></pre>
+                                <p>Defined at line 1117 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F006E22F2E1AE6B2D2104BE48FEB5BD06181C5EC">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getFileFormatName ()</code></pre>
+                                <p>Defined at line 1121 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="99234B98365653CCA8D8EAA8CE7B7A69317D0D64">
+                                <pre><code class="language-cpp code-clang-doc">base_reloc_iterator base_reloc_begin ()</code></pre>
+                                <p>Defined at line 1096 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B719EAC593F000CE98B5024DCF2C5D461FCD2FA0">
+                                <pre><code class="language-cpp code-clang-doc">base_reloc_iterator base_reloc_end ()</code></pre>
+                                <p>Defined at line 1100 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9BA3B1B904C426761601E207452039CAB309AD14">
+                                <pre><code class="language-cpp code-clang-doc">dynamic_reloc_iterator dynamic_reloc_begin ()</code></pre>
+                                <p>Defined at line 1104 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B1C81F8ABE4F67B4895127AB62D9B419D51684B0">
+                                <pre><code class="language-cpp code-clang-doc">dynamic_reloc_iterator dynamic_reloc_end ()</code></pre>
+                                <p>Defined at line 1109 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="664BC9400316AB4D6AA9B3B7D5DDDB0387572861">
+                                <pre><code class="language-cpp code-clang-doc">const debug_directory * debug_directory_begin ()</code></pre>
+                                <p>Defined at line 1114 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="86C8BEAB1044F39A9EE145F48FCAAFEFE3B84DF6">
+                                <pre><code class="language-cpp code-clang-doc">const debug_directory * debug_directory_end ()</code></pre>
+                                <p>Defined at line 1117 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F88F5C55BE2E22CEE3A855D535E4B9AF610D5462">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range debug_directories ()</code></pre>
+                                <p>Defined at line 1127 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4F1DBB8381669A1722765E953795F41406EE222">
+                                <pre><code class="language-cpp code-clang-doc">const coff_tls_directory32 * getTLSDirectory32 ()</code></pre>
+                                <p>Defined at line 1131 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="487E7B087518AD11D2BB41F747934022C7486C9E">
+                                <pre><code class="language-cpp code-clang-doc">const coff_tls_directory64 * getTLSDirectory64 ()</code></pre>
+                                <p>Defined at line 1134 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="10D78180680CAFCF84B3A58F92C4C6BEEAEA59D6">
+                                <pre><code class="language-cpp code-clang-doc">const dos_header * getDOSHeader ()</code></pre>
+                                <p>Defined at line 1138 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="22C8BD6BFE0924E1A04E06F4C3AB28E85AB3706F">
+                                <pre><code class="language-cpp code-clang-doc">ArchType getArch ()</code></pre>
+                                <p>Defined at line 1142 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="00F8A8FBA3DD5CE0AC82BF5A4E0882B36E3EC299">
+                                <pre><code class="language-cpp code-clang-doc">const coff_file_header * getCOFFHeader ()</code></pre>
+                                <p>Defined at line 1144 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8785041A0DF21F9691A0D4F0EF1E5B97DCCD6EFA">
+                                <pre><code class="language-cpp code-clang-doc">const coff_bigobj_file_header * getCOFFBigObjHeader ()</code></pre>
+                                <p>Defined at line 1145 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6865F6622E670A82DA46BD6837A855DCD4101736">
+                                <pre><code class="language-cpp code-clang-doc">Expected getStartAddress ()</code></pre>
+                                <p>Defined at line 1146 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A2E13AAC039143C2FE9B0F192AA094C9B6C950B9">
+                                <pre><code class="language-cpp code-clang-doc">const pe32_header * getPE32Header ()</code></pre>
+                                <p>Defined at line 1148 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FA3365DEE8D27C3C2C551DE6932E967E4D4ECC42">
+                                <pre><code class="language-cpp code-clang-doc">const pe32plus_header * getPE32PlusHeader ()</code></pre>
+                                <p>Defined at line 1149 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="20A6448949DD00E2A3DB343A650441EEFED79E33">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;import_directory_iterator&gt; import_directories ()</code></pre>
+                                <p>Defined at line 1152 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8BE4C0D6BFE08E12A737D15E2126C8919BD2E0AC">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbol (uint32_t index)</code></pre>
+                                <p>Defined at line 1154 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="643E31835C2FC9DA47F9D84A29DABB7AA3724624">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;delay_import_directory_iterator&gt; delay_import_directories ()</code></pre>
+                                <p>Defined at line 1157 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5E70F76022E3D5F944E659DE4ACC6C5FB818C8D9">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;export_directory_iterator&gt; export_directories ()</code></pre>
+                                <p>Defined at line 1163 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB516A0355E91075AD187FEC8AD1FC526CE728DC">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">Error getAuxSymbol (uint32_t index, const T *&amp; Res)</code></pre>
+                                <p>Defined at line 1165 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="039E605DF67463B33848D314B7995B36033DC117">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;base_reloc_iterator&gt; base_relocs ()</code></pre>
+                                <p>Defined at line 1168 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9A9B5BC22BB540D92ABEC60F531EF920F470F350">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;dynamic_reloc_iterator&gt; dynamic_relocs ()</code></pre>
+                                <p>Defined at line 1172 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="236E350A6FAE817677E8A8A4F11BB7C375CB35EA">
+                                <pre><code class="language-cpp code-clang-doc">const data_directory * getDataDirectory (uint32_t index)</code></pre>
+                                <p>Defined at line 1176 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5EFD68A44546F268451617E09AD0B12AF575E8B1">
+                                <pre><code class="language-cpp code-clang-doc">size_t getSymbolTableEntrySize ()</code></pre>
+                                <p>Defined at line 1180 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="17F47C40B7278195EA0628D517105E3159C26911">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;const coff_section *&gt; getSection (int32_t index)</code></pre>
+                                <p>Defined at line 1187 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ADF36AFBDE3E714FF507D27F2A6D96A427661A54">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolName (COFFSymbolRef Symbol)</code></pre>
+                                <p>Defined at line 1209 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A76003F6B7F1CB9D170EAD00FAFF24C9AC339704">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolName (const coff_symbol_generic * Symbol)</code></pre>
+                                <p>Defined at line 1213 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FBE00DEB6DB7646EC2C6A46B68AEB7247788D3FB">
+                                <pre><code class="language-cpp code-clang-doc">bool is64 ()</code></pre>
+                                <p>Defined at line 1223 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2552814D9E1F4BF32D0A444FE4B7171D0F907E2D">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const Binary * v)</code></pre>
+                                <p>Defined at line 1227 of file llvm/include/llvm/Object/COFF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5614C99B14D909BF6A6CA2B1561C00D4D626B914">
+                                <pre><code class="language-cpp code-clang-doc">const coff_section * getCOFFSection (const SectionRef &amp; Section)</code></pre>
+                                <p>Defined at line 1349 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5AFD143BBECC381666FBB71BC36DCE73ED163641">
+                                <pre><code class="language-cpp code-clang-doc">COFFSymbolRef getCOFFSymbol (const DataRefImpl &amp; Ref)</code></pre>
+                                <p>Defined at line 1354 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E64DD5C1198C6AA5366D70A11627C7EC5AE80B75">
+                                <pre><code class="language-cpp code-clang-doc">COFFSymbolRef getCOFFSymbol (const SymbolRef &amp; Symbol)</code></pre>
+                                <p>Defined at line 1362 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="34690A3071EC168A85EEF5998FE628A93E10B79A">
+                                <pre><code class="language-cpp code-clang-doc">const coff_relocation * getCOFFRelocation (const RelocationRef &amp; Reloc)</code></pre>
+                                <p>Defined at line 1366 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED56F5A2FAAA7552D19E7A44A6BB748E6B16AE53">
+                                <pre><code class="language-cpp code-clang-doc">unique_ptr getHybridObjectView ()</code></pre>
+                                <p>Defined at line 1515 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D961DB47FD30C7AEEC732B0AF8D4F8981D6B1E45">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getSymbolAuxData (COFFSymbolRef Symbol)</code></pre>
+                                <p>Defined at line 1227 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D6A714E1E4A694DF9F8AE5393B2956E8257E39AF">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getSymbolIndex (COFFSymbolRef Symbol)</code></pre>
+                                <p>Defined at line 1250 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6424EEA1918CFA1166ECC91A8F0F99DA95EBD0E4">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef&lt;coff_relocation&gt; getRelocations (const coff_section * Sec)</code></pre>
+                                <p>Defined at line 1371 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B4A813E7970216A147D39489FD54BC384DA68513">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSectionName (const coff_section * Sec)</code></pre>
+                                <p>Defined at line 1260 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7011662DB4E82A9F7D698054768412798F9D29E2">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getSectionSize (const coff_section * Sec)</code></pre>
+                                <p>Defined at line 1282 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB30E3A1F8C9E6050F2DDF61070A1DDC69B1A78B">
+                                <pre><code class="language-cpp code-clang-doc">Error getSectionContents (const coff_section * Sec, ArrayRef&lt;uint8_t&gt; &amp; Res)</code></pre>
+                                <p>Defined at line 1298 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="92FF1B53A3E196FF8C770025A7912B171E429F39">
+                                <pre><code class="language-cpp code-clang-doc">bool isRelocatableObject ()</code></pre>
+                                <p>Defined at line 1505 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="948C820FCB8E6BB5DAA2CBB951032653F6F66F23">
+                                <pre><code class="language-cpp code-clang-doc">StringRef mapDebugSectionName (StringRef Name)</code></pre>
+                                <p>Defined at line 1509 of file llvm/lib/Object/COFFObjectFile.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ilist_node</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ilist_node</h2>
+                <ul>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;class T, class... Options&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ilist_node</h1>
+                        <p>Defined at line 208 of file llvm/include/llvm/ADT/ilist_node.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> An intrusive list node.</p>
+                            </div>
+                            <div>
+                                <p> A base class to enable membership in intrusive lists, including </p>
+                                <p> and </p>
+                                <p>  The first template parameter is the</p>
+                                <p> for the list.</p>
+                            </div>
+                            <div>
+                                <p> An ilist node can be configured with compile-time options to change</p>
+                                <p> behaviour and/or add API.</p>
+                            </div>
+                            <div>
+                                <p> By default, an </p>
+                                <p> knows whether it is the list sentinel (an</p>
+                                <p> instance of </p>
+                                <p> if and only if</p>
+                                <p> LLVM_ENABLE_ABI_BREAKING_CHECKS.  The function </p>
+                                <p> always</p>
+                                <p> returns </p>
+                                <p> tracking is off.  Sentinel tracking steals a bit from the</p>
+                                <p> &quot;prev&quot; link, which adds a mask operation when decrementing an iterator, but</p>
+                                <p> enables bug-finding assertions in </p>
+                            </div>
+                            <div>
+                                <p> To turn sentinel tracking on all the time, pass in the</p>
+                                <p> ilist_sentinel_tracking</p>
+                                <p>&lt;true</p>
+                                <p>&gt; template parameter.  This also enables the </p>
+                                <p> function.  The same option must be passed to the intrusive</p>
+                                <p> list.  (ilist_sentinel_tracking</p>
+                                <p>&lt;false</p>
+                                <p>&gt; turns sentinel tracking off all the</p>
+                                <p> time.)</p>
+                            </div>
+                            <div>
+                                <p> A type can inherit from ilist_node multiple times by passing in different</p>
+                                <p> options.  This allows a single instance to be inserted into</p>
+                                <p> multiple lists simultaneously, where each list is given the same tag.</p>
+                            </div>
+                            <div>
+                                <p> struct A {};</p>
+                                <p> struct B {};</p>
+                                <p> struct N : ilist_node</p>
+                                <p>&lt;N</p>
+                                <p>, ilist_tag</p>
+                                <p>&lt;A</p>
+                                <p>&gt;&gt;, ilist_node</p>
+                                <p>&lt;N</p>
+                                <p>, ilist_tag</p>
+                                <p>&lt;B</p>
+                                <p>&gt;&gt; {};</p>
+                            </div>
+                            <div>
+                                <p> void foo() {</p>
+                                <p>   simple_ilist</p>
+                                <p>&lt;N</p>
+                                <p>, ilist_tag</p>
+                                <p>&lt;A</p>
+                                <p>&gt;&gt; ListA;</p>
+                                <p>   simple_ilist</p>
+                                <p>&lt;N</p>
+                                <p>, ilist_tag</p>
+                                <p>&lt;B</p>
+                                <p>&gt;&gt; ListB;</p>
+                                <p>   N N1;</p>
+                                <p>   ListA.push_back(N1);</p>
+                                <p>   ListB.push_back(N1);</p>
+                                <p> }</p>
+                            </div>
+                            <div>
+                                <p> When the </p>
+                                <p> option is passed to an ilist_node and the</p>
+                                <p> owning ilist, each node contains a pointer to the ilist&#39;s owner. This adds</p>
+                                <p> and </p>
+                                <p> methods to the ilist_node, which</p>
+                                <p> will be used for node access by the ilist if the node class publicly</p>
+                                <p> inherits from </p>
+                                <p> By default, setParent() is not</p>
+                                <p> automatically called by the ilist; a SymbolTableList will call setParent()</p>
+                                <p> on inserted nodes, but the sentinel must still be manually set after the</p>
+                                <p> list is created (e.g. SymTabList.end()-&gt;setParent(Parent)).</p>
+                            </div>
+                            <div>
+                                <p> The primary benefit of using ilist_parent is that a parent</p>
+                                <p> pointer will be stored in the sentinel, meaning that you can safely use </p>
+                                <p> to get the node parent from any valid (i.e.</p>
+                                <p> non-null) iterator, even one that points to a sentinel value.</p>
+                            </div>
+                            <div>
+                                <p> See </p>
+                                <p> for steps on adding a new option.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

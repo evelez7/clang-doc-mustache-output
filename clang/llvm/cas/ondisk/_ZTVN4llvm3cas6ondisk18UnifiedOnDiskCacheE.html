@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>UnifiedOnDiskCache</title>
+        <link rel="stylesheet" type="text/css" href="../../../clang-doc-mustache.css"/>
+        <script src="../../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">cas</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">ondisk</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class UnifiedOnDiskCache</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2D5D12F90D050006C18E2FDEE770469C43F79687">getGraphDB</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1A1994FD9ADEB83CCCC512811E80318A2F0AD119">getKeyValueDB</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#274A328D47897A022527A4E8D05AF4657F96ED4A">getObjectIDFromValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AADA06DF80DD02FC64340A3B4A36F789ABFC316E">getValueFromObjectID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26681D7C34AE1CFC1EF3F6B3DE20AFC0DF68E41C">needsGarbageCollection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FCB311ABE2EBBA508C6C5577A0360BF01C24F85">open</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5E9FA78530CBAB4A28ED6BE5A80BC0E6F207AE97">validateIfNeeded</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EDBE4BCB03686983E9433EF75575B25FA408351C">close</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F8A05E3E4EEFF0DDB3CC94AF7E35995C08F0756">setSizeLimit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#42FE9191AA0485141AB7355660EA9CB224AA1DA7">getStorageSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0358525B39DEC9199567C88EA2E72BCF592E6E19">hasExceededSizeLimit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9D795B40518E136D1B4BA02732FDE9CFE00F8B3E">collectGarbage</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79323A450293B50AAD8F036D5C02A3BCA0906353">collectGarbage</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D028994E170422F5E3B186E3C2160DEDC4252C61">~UnifiedOnDiskCache</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class UnifiedOnDiskCache</h1>
+                        <p>Defined at line 41 of file llvm/include/llvm/CAS/UnifiedOnDiskCache.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A unified CAS nodes and key-value database, using on-disk storage for both.</p>
+                                <p> It manages storage growth and provides APIs for garbage collection.</p>
+                            </div>
+                            <div>
+                                <p> High-level properties:</p>
+                                <p> * While </p>
+                                <p> is open on a directory, by any process, the</p>
+                                <p>   storage size in that directory will keep growing unrestricted. For data to</p>
+                                <p>   become eligible for garbage-collection there should be no open instances</p>
+                                <p>   of </p>
+                                <p> for that directory, by any process.</p>
+                                <p> * Garbage-collection needs to be triggered explicitly by the client. It can</p>
+                                <p>   be triggered on a directory concurrently, at any time and by any process,</p>
+                                <p>   without affecting any active readers/writers, in the same process or other</p>
+                                <p>   processes.</p>
+                            </div>
+                            <div>
+                                <p> Usage patterns should be that an instance of </p>
+                                <p> is open</p>
+                                <p> for a limited period of time, e.g. for the duration of a build operation.</p>
+                                <p> For long-living processes that need periodic access to a</p>
+                                <p> the client should devise a scheme where access is</p>
+                                <p> performed within some defined period. For example, if a service is designed</p>
+                                <p> to continuously wait for requests that access a </p>
+                                <p> it</p>
+                                <p> could keep the instance alive while new requests are coming in but close it</p>
+                                <p> after a time period in which there are no new requests.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="2D5D12F90D050006C18E2FDEE770469C43F79687">
+                                <pre><code class="language-cpp code-clang-doc">OnDiskGraphDB &amp; getGraphDB ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The </p>
+                                        <p> instance for the open directory.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 44 of file llvm/include/llvm/CAS/UnifiedOnDiskCache.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1A1994FD9ADEB83CCCC512811E80318A2F0AD119">
+                                <pre><code class="language-cpp code-clang-doc">OnDiskKeyValueDB &amp; getKeyValueDB ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The </p>
+                                        <p> instance for the open directory.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 47 of file llvm/include/llvm/CAS/UnifiedOnDiskCache.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="274A328D47897A022527A4E8D05AF4657F96ED4A">
+                                <pre><code class="language-cpp code-clang-doc">ObjectID getObjectIDFromValue (ArrayRef Value)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Helper function to convert the value stored in KeyValueDB and ObjectID.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 104 of file llvm/lib/CAS/UnifiedOnDiskCache.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AADA06DF80DD02FC64340A3B4A36F789ABFC316E">
+                                <pre><code class="language-cpp code-clang-doc">array getValueFromObjectID (ObjectID ID)</code></pre>
+                                <p>Defined at line 110 of file llvm/lib/CAS/UnifiedOnDiskCache.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="26681D7C34AE1CFC1EF3F6B3DE20AFC0DF68E41C">
+                                <pre><code class="language-cpp code-clang-doc">bool needsGarbageCollection ()</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 119 of file llvm/include/llvm/CAS/UnifiedOnDiskCache.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9FCB311ABE2EBBA508C6C5577A0360BF01C24F85">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;std::unique_ptr&lt;UnifiedOnDiskCache&gt;&gt; open (StringRef Path, optional SizeLimit, StringRef HashName, unsigned int HashByteSize, FaultInPolicy FaultInPolicy)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Open a </p>
+                                        <p> instance for a directory.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Path</b>   directory for the on-disk database. The directory will be created if it doesn&#39;t exist.
+                                    </div> 
+                                    <div>
+                                        <b>SizeLimit</b>   Optional size for limiting growth. This has an effect for when the instance is closed.
+                                    </div> 
+                                    <div>
+                                        <b>HashName</b>   Identifier name for the hashing algorithm that is going to be used.
+                                    </div> 
+                                    <div>
+                                        <b>HashByteSize</b>   Size for the object digest hash bytes.
+                                    </div> 
+                                    <div>
+                                        <b>FaultInPolicy</b>   Controls how nodes are copied to primary store. This is recorded at creation time and subsequent opens need to pass the same policy otherwise the  will fail.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 390 of file llvm/lib/CAS/UnifiedOnDiskCache.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5E9FA78530CBAB4A28ED6BE5A80BC0E6F207AE97">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;ValidationResult&gt; validateIfNeeded (StringRef Path, StringRef HashName, unsigned int HashByteSize, bool CheckHash, bool AllowRecovery, bool ForceValidation, std::optional&lt;StringRef&gt; LLVMCasBinary)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Validate the data in </p>
+                                        <p> if needed to ensure correctness.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note: if invalid data is detected and </p>
+                                        <p> is true, then</p>
+                                        <p> recovery requires exclusive access to the CAS and it is an error to</p>
+                                        <p> attempt recovery if there is concurrent use of the CAS.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Path</b>   directory for the on-disk database.
+                                    </div> 
+                                    <div>
+                                        <b>HashName</b>   Identifier name for the hashing algorithm that is going to be used.
+                                    </div> 
+                                    <div>
+                                        <b>HashByteSize</b>   Size for the object digest hash bytes.
+                                    </div> 
+                                    <div>
+                                        <b>CheckHash</b>   Whether to validate hashes match the data.
+                                    </div> 
+                                    <div>
+                                        <b>AllowRecovery</b>   Whether to automatically recover from invalid data by marking the files for garbage collection.
+                                    </div> 
+                                    <div>
+                                        <b>ForceValidation</b>   Whether to force validation to occur even if it should not be necessary.
+                                    </div> 
+                                    <div>
+                                        <b>LLVMCasBinary</b>   If provided, validation is performed out-of-process using the given  executable which protects against crashes during validation. Otherwise validation is performed in-process.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 271 of file llvm/lib/CAS/UnifiedOnDiskCache.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EDBE4BCB03686983E9433EF75575B25FA408351C">
+                                <pre><code class="language-cpp code-clang-doc">Error close (bool CheckSizeLimit)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This is called implicitly at destruction time, so it is not required for a</p>
+                                        <p> client to call this. After calling </p>
+                                        <p> the only method that is valid</p>
+                                        <p> to call is </p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>CheckSizeLimit</b>   if true it will check whether the primary store has exceeded its intended size limit. If false the check is skipped even if a was passed to the  call.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 517 of file llvm/lib/CAS/UnifiedOnDiskCache.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F8A05E3E4EEFF0DDB3CC94AF7E35995C08F0756">
+                                <pre><code class="language-cpp code-clang-doc">void setSizeLimit (optional SizeLimit)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the size for limiting growth. This has an effect for when the instance</p>
+                                        <p> is closed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 475 of file llvm/lib/CAS/UnifiedOnDiskCache.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="42FE9191AA0485141AB7355660EA9CB224AA1DA7">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getStorageSize ()</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 479 of file llvm/lib/CAS/UnifiedOnDiskCache.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0358525B39DEC9199567C88EA2E72BCF592E6E19">
+                                <pre><code class="language-cpp code-clang-doc">bool hasExceededSizeLimit ()</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 492 of file llvm/lib/CAS/UnifiedOnDiskCache.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9D795B40518E136D1B4BA02732FDE9CFE00F8B3E">
+                                <pre><code class="language-cpp code-clang-doc">Error collectGarbage (StringRef Path)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Remove any unused data from the directory at </p>
+                                        <p> If there are no such</p>
+                                        <p> data the operation is a no-op.</p>
+                                    </div>
+                                    <div>
+                                        <p> This can be called concurrently, regardless of whether there is an open</p>
+                                        <p> instance or not; it has no effect on readers/writers</p>
+                                        <p> in the same process or other processes.</p>
+                                    </div>
+                                    <div>
+                                        <p> It is recommended that garbage-collection is triggered concurrently in the</p>
+                                        <p> background, so that it has minimal effect on the workload of the process.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 574 of file llvm/lib/CAS/UnifiedOnDiskCache.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79323A450293B50AAD8F036D5C02A3BCA0906353">
+                                <pre><code class="language-cpp code-clang-doc">Error collectGarbage ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Remove unused data from the current UnifiedOnDiskCache.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 589 of file llvm/lib/CAS/UnifiedOnDiskCache.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D028994E170422F5E3B186E3C2160DEDC4252C61">
+                                <pre><code class="language-cpp code-clang-doc">void ~UnifiedOnDiskCache ()</code></pre>
+                                <p>Defined at line 572 of file llvm/lib/CAS/UnifiedOnDiskCache.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

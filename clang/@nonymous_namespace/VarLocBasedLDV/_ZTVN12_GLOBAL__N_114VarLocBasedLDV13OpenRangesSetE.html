@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>OpenRangesSet</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">@nonymous_namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../_ZTVN12_GLOBAL__N_114VarLocBasedLDVE.html">VarLocBasedLDV</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class OpenRangesSet</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#995D82B5EA86D5D11B34E66A0D583673BC0A07B9">OpenRangesSet</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A0BB3117DE0780BE33AD894D9808EBC7D285049C">getVarLocs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#513FE8E0D0E24F678552A9AA9090BA29B5FFDE51">getUniqueVarLocs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C7B527D4E158DAFE48C98F5CA840228A41D95540">clear</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#527F50AF21A95F511D1F3A72839C3D0DBED3E796">empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#57A38B8C1C698C2B41A60C0388B6D59E89ABEBC1">getEmptyVarLocRange</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#91960ADD33E6F79C48A0AC0C2A45863F90B180A9">getRegisterVarLocs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7FB7ADE50106204F649AE20B20A08850306FA92">getSpillVarLocs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6BA34C82CBC6A34B24834639FA7D2AD1773BE0DA">getEntryValueBackupVarLocs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD0B0D87AF685733CE833D1337E6E616B5762A83">getWasmVarLocs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#01CDECF8D6C123969D5B0E52D771FB7F92D1360A">erase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5DF7349FED743FC0CFF934566F640852D93DB8A8">erase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AE0D286AA9AE2FF55308B77039CF8AD28F399EE0">insert</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D22CD2E745B53B3FAC05AC0011F1238DDE588340">insertFromLocSet</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3047ED2B5E304B1F87F72E7E7CF4FA9972D4A862">getEntryValueBackup</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class OpenRangesSet</h1>
+                        <p>Defined at line 896 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This holds the working set of currently open ranges. For fast</p>
+                                <p> access, this is done both as a set of VarLocIDs, and a map of</p>
+                                <p> DebugVariable to recent VarLocID. Note that a DBG_VALUE ends all</p>
+                                <p> previous open ranges for the same variable. In addition, we keep</p>
+                                <p> two different maps (Vars/EntryValuesBackupVars), so erase/insert</p>
+                                <p> methods act differently depending on whether a VarLoc is primary</p>
+                                <p> location or backup one. In the case the VarLoc is backup location</p>
+                                <p> we will erase/insert from the EntryValuesBackupVars map, otherwise</p>
+                                <p> we perform the operation on the Vars.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="995D82B5EA86D5D11B34E66A0D583673BC0A07B9">
+                                <pre><code class="language-cpp code-clang-doc">void OpenRangesSet (int &amp; Alloc, int &amp; _OLapMap)</code></pre>
+                                <p>Defined at line 906 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A0BB3117DE0780BE33AD894D9808EBC7D285049C">
+                                <pre><code class="language-cpp code-clang-doc">const VarLocSet &amp; getVarLocs ()</code></pre>
+                                <p>Defined at line 909 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="513FE8E0D0E24F678552A9AA9090BA29B5FFDE51">
+                                <pre><code class="language-cpp code-clang-doc">void getUniqueVarLocs (SmallVectorImpl&lt;VarLoc&gt; &amp; Collected, const VarLocMap &amp; VarLocIDs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Fetches all VarLocs in </p>
+                                        <p> and inserts them into </p>
+                                        <p> This method is needed to get every VarLoc once, as each VarLoc may have</p>
+                                        <p> multiple indices in a VarLocMap (corresponding to each applicable</p>
+                                        <p> location), but all VarLocs appear exactly once at the universal location</p>
+                                        <p> index.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 916 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C7B527D4E158DAFE48C98F5CA840228A41D95540">
+                                <pre><code class="language-cpp code-clang-doc">void clear ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Empty the set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 938 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="527F50AF21A95F511D1F3A72839C3D0DBED3E796">
+                                <pre><code class="language-cpp code-clang-doc">bool empty ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return whether the set is empty or not.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 945 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="57A38B8C1C698C2B41A60C0388B6D59E89ABEBC1">
+                                <pre><code class="language-cpp code-clang-doc">void getEmptyVarLocRange ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get an empty range of VarLoc IDs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 953 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="91960ADD33E6F79C48A0AC0C2A45863F90B180A9">
+                                <pre><code class="language-cpp code-clang-doc">auto getRegisterVarLocs (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get all set IDs for VarLocs with MLs of kind RegisterKind in </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 959 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F7FB7ADE50106204F649AE20B20A08850306FA92">
+                                <pre><code class="language-cpp code-clang-doc">auto getSpillVarLocs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get all set IDs for VarLocs with MLs of kind SpillLocKind.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 964 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6BA34C82CBC6A34B24834639FA7D2AD1773BE0DA">
+                                <pre><code class="language-cpp code-clang-doc">auto getEntryValueBackupVarLocs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get all set IDs for VarLocs of EVKind EntryValueBackupKind or</p>
+                                        <p> EntryValueCopyBackupKind.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 971 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD0B0D87AF685733CE833D1337E6E616B5762A83">
+                                <pre><code class="language-cpp code-clang-doc">auto getWasmVarLocs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get all set IDs for VarLocs with MLs of kind WasmLocKind.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 977 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="01CDECF8D6C123969D5B0E52D771FB7F92D1360A">
+                                <pre><code class="language-cpp code-clang-doc">void erase (const VarLoc &amp; VL)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Erase a variable from the set of open ranges, and additionally erase any</p>
+                                        <p> fragments that may overlap it. If the VarLoc is a backup location, erase</p>
+                                        <p> the variable from the EntryValuesBackupVars set, indicating we should stop</p>
+                                        <p> tracking its backup entry location. Otherwise, if the VarLoc is primary</p>
+                                        <p> location, erase the variable from the Vars set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1120 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5DF7349FED743FC0CFF934566F640852D93DB8A8">
+                                <pre><code class="language-cpp code-clang-doc">void erase (const int &amp; KillSet, const VarLocMap &amp; VarLocIDs, LocIndex::u32_location_t Location)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Terminate all open ranges listed as indices in </p>
+                                        <p> with</p>
+                                        <p> by removing them from the set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1155 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AE0D286AA9AE2FF55308B77039CF8AD28F399EE0">
+                                <pre><code class="language-cpp code-clang-doc">void insert (LocIndices VarLocIDs, const VarLoc &amp; VL)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Insert a new range into the set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1184 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D22CD2E745B53B3FAC05AC0011F1238DDE588340">
+                                <pre><code class="language-cpp code-clang-doc">void insertFromLocSet (const VarLocSet &amp; ToLoad, const VarLocMap &amp; Map)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Insert a set of ranges.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1170 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3047ED2B5E304B1F87F72E7E7CF4FA9972D4A862">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;LocIndices&gt; getEntryValueBackup (DebugVariable Var)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the Loc ID of an entry value backup location, if it exists for the</p>
+                                        <p> variable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1194 of file llvm/lib/CodeGen/LiveDebugValues/VarLocBasedImpl.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

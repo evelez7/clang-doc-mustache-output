@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>OnceAction</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">testing</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class OnceAction</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7F34A03E648993E26A53DB8374F92AABF3D14B0D">OnceAction&lt;Result (Args...)&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CAA951CD02654C060AB36BCEE0856F481C0BB34D">OnceAction&lt;Result (Args...)&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#930798CE4BE887AF39A081179DEC0CB6671F1DE8">OnceAction&lt;Result (Args...)&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FEF4B2DAA96EA0BAF482290324DAD70E2FE6BCAA">OnceAction&lt;Result (Args...)&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2633320452F17452A4FC5ED0BA1790E91405F3D">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3A06F84FD044726689C64158604EBBA20A52FF6E">OnceAction&lt;Result (Args...)&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D716D431057CD13D9EB6AEE1A4F6302F29FF1291">Call</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Result, typename... Args&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class OnceAction</h1>
+                        <p>Defined at line 416 of file third-party/unittest/googlemock/include/gmock/gmock-actions.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> An action that can only be used once.</p>
+                            </div>
+                            <div>
+                                <p> This is accepted by WillOnce, which doesn&#39;t require the underlying action to</p>
+                                <p> be copy-constructible (only move-constructible), and promises to invoke it as</p>
+                                <p> an rvalue reference. This allows the action to work with move-only types like</p>
+                                <p> std::move_only_function in a type-safe manner.</p>
+                            </div>
+                            <div>
+                                <p> For example:</p>
+                            </div>
+                            <div>
+                                <p>     // Assume we have some API that needs to accept a unique pointer to some</p>
+                                <p>     // non-copyable object Foo.</p>
+                                <p>     void AcceptUniquePointer(std::unique_ptr</p>
+                                <p>&lt;Foo</p>
+                                <p>&gt; foo);</p>
+                            </div>
+                            <div>
+                                <p>     // We can define an action that provides a Foo to that API. Because It</p>
+                                <p>     // has to give away its unique pointer, it must not be called more than</p>
+                                <p>     // once, so its call operator is </p>
+                                <p>&amp;</p>
+                                <p>&amp;</p>
+                                <p>-qualified.</p>
+                                <p>     struct ProvideFoo {</p>
+                                <p>       std::unique_ptr</p>
+                                <p>&lt;Foo</p>
+                                <p>&gt; foo;</p>
+                            </div>
+                            <div>
+                                <p>       void operator()() </p>
+                                <p>&amp;</p>
+                                <p>&amp;</p>
+                                <p> {</p>
+                                <p>         AcceptUniquePointer(std::move(Foo));</p>
+                                <p>       }</p>
+                                <p>     };</p>
+                            </div>
+                            <div>
+                                <p>     // This action can be used with WillOnce.</p>
+                                <p>     EXPECT_CALL(mock, Call)</p>
+                                <p>         .WillOnce(ProvideFoo{std::make_unique</p>
+                                <p>&lt;Foo</p>
+                                <p>&gt;(...)});</p>
+                            </div>
+                            <div>
+                                <p>     // But a call to WillRepeatedly will fail to compile. This is correct,</p>
+                                <p>     // since the action cannot correctly be used repeatedly.</p>
+                                <p>     EXPECT_CALL(mock, Call)</p>
+                                <p>         .WillRepeatedly(ProvideFoo{std::make_unique</p>
+                                <p>&lt;Foo</p>
+                                <p>&gt;(...)});</p>
+                            </div>
+                            <div>
+                                <p> A less-contrived example would be an action that returns an arbitrary type,</p>
+                                <p> whose </p>
+                                <p>&amp;</p>
+                                <p>&amp;</p>
+                                <p>-qualified call operator is capable of dealing with move-only types.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="7F34A03E648993E26A53DB8374F92AABF3D14B0D">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename Callable, typename std::enable_if&lt;
+                                        internal::conjunction&lt;
+                                            // Teach clang on macOS that we&#39;re not talking about a
+                                            // copy/move constructor here. Otherwise it gets confused
+                                            // when checking the is_constructible requirement of our
+                                            // traits above.
+                                            internal::negation&lt;std::is_same&lt;
+                                                OnceAction, typename std::decay&lt;Callable&gt;::type&gt;&gt;,
+                                            IsDirectlyCompatible&lt;Callable&gt;&gt;  //
+                                        ::value,
+                                        int&gt;::type = 0&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void OnceAction&lt;Result (Args...)&gt; (Callable &amp;&amp; callable)</code></pre>
+                                <p>Defined at line 455 of file third-party/unittest/googlemock/include/gmock/gmock-actions.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CAA951CD02654C060AB36BCEE0856F481C0BB34D">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename Callable, typename std::enable_if&lt;
+                                        internal::conjunction&lt;
+                                            // Teach clang on macOS that we&#39;re not talking about a
+                                            // copy/move constructor here. Otherwise it gets confused
+                                            // when checking the is_constructible requirement of our
+                                            // traits above.
+                                            internal::negation&lt;std::is_same&lt;
+                                                OnceAction, typename std::decay&lt;Callable&gt;::type&gt;&gt;,
+                                            IsDirectlyCompatible&lt;Callable&gt;&gt;  //
+                                        ::value,
+                                        int&gt;::type = 0&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void OnceAction&lt;Result (Args...)&gt; (Callable &amp;&amp; callable)</code></pre>
+                                <p>Defined at line 455 of file third-party/unittest/googlemock/include/gmock/gmock-actions.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="930798CE4BE887AF39A081179DEC0CB6671F1DE8">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename Callable, typename std::enable_if&lt;
+                                        internal::conjunction&lt;
+                                            // Teach clang on macOS that we&#39;re not talking about a
+                                            // copy/move constructor here. Otherwise it gets confused
+                                            // when checking the is_constructible requirement of our
+                                            // traits above.
+                                            internal::negation&lt;std::is_same&lt;
+                                                OnceAction, typename std::decay&lt;Callable&gt;::type&gt;&gt;,
+                                            // Exclude callables for which the overload above works.
+                                            // We&#39;d rather provide the arguments if possible.
+                                            internal::negation&lt;IsDirectlyCompatible&lt;Callable&gt;&gt;,
+                                            IsCompatibleAfterIgnoringArguments&lt;Callable&gt;&gt;::value,
+                                        int&gt;::type = 0&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void OnceAction&lt;Result (Args...)&gt; (Callable &amp;&amp; callable)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Exclude callables for which the overload above works.</p>
+                                        <p> We&#39;d rather provide the arguments if possible.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 474 of file third-party/unittest/googlemock/include/gmock/gmock-actions.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FEF4B2DAA96EA0BAF482290324DAD70E2FE6BCAA">
+                                <pre><code class="language-cpp code-clang-doc">void OnceAction&lt;Result (Args...)&gt; (const OnceAction&lt;Result (Args...)&gt; &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> We are naturally copyable because we store only an std::function, but</p>
+                                        <p> semantically we should not be copyable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 482 of file third-party/unittest/googlemock/include/gmock/gmock-actions.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2633320452F17452A4FC5ED0BA1790E91405F3D">
+                                <pre><code class="language-cpp code-clang-doc">OnceAction&lt;Result (Args...)&gt; &amp; operator= (const OnceAction&lt;Result (Args...)&gt; &amp; )</code></pre>
+                                <p>Defined at line 483 of file third-party/unittest/googlemock/include/gmock/gmock-actions.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3A06F84FD044726689C64158604EBBA20A52FF6E">
+                                <pre><code class="language-cpp code-clang-doc">void OnceAction&lt;Result (Args...)&gt; (OnceAction&lt;Result (Args...)&gt; &amp;&amp; )</code></pre>
+                                <p>Defined at line 484 of file third-party/unittest/googlemock/include/gmock/gmock-actions.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D716D431057CD13D9EB6AEE1A4F6302F29FF1291">
+                                <pre><code class="language-cpp code-clang-doc">Result Call (Args... args)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Invoke the underlying action callable with which we were constructed,</p>
+                                        <p> handing it the supplied arguments.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 488 of file third-party/unittest/googlemock/include/gmock/gmock-actions.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

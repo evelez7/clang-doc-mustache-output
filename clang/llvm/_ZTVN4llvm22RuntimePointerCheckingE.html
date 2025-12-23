@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>RuntimePointerChecking</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class RuntimePointerChecking</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Need">Need</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Pointers">Pointers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CheckingGroups">CheckingGroups</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BD58229B8E02EF9C4127DCF8935E2CAB681DE308">insert</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#88A73D52465A0D5EE04765B725FFF87F658C85E1">RuntimePointerChecking</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7EF97E6A173689AA46FB2EF5962813FE9C62B2C9">generateChecks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72F9E59FA8D66549FF0D5EFF67A9F7DC22EDBB9D">reset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EAB3C7EACE48BDA5F8DDCE08A8947472CD3BEE55">needsChecking</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A439047B04FCC796736BA0A0631D088FB09E368D">empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A21996BED3DA720158971DCBD7099C743F09E6A1">generateChecks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A5CFF202AD357D6AD8C253402535EFD0079D3A79">getChecks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D73BD2B416F9FB48D94313E6B04A9ADD87FEE50">getDiffChecks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3C264873C73B5896DA46C15175888E0619CFB0F9">getNumberOfChecks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#360BF2CD60D08D874F97CD9F23DA8AD6E026FC37">getPointerInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44F6A6A5E5E807C0B79D15FFF828A2C6C469154E">getSE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CDF11130D64C91073C25E078CF1C1C41B64C8727">print</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1F48A3B0B0346DB118ADB4990DB6714838B6CCC">printChecks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#228722387A7E0BE606A6D610B379E86B774DDCB1">arePointersInSamePartition</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4EAB77137D64479DB0A84796F3589FC9AC70A31B">needsChecking</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class RuntimePointerChecking</h1>
+                        <p>Defined at line 503 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Holds information about the memory runtime legality checks to verify</p>
+                                <p> that a group of pointers do not overlap.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Need" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool Need</code></pre>
+                        </div>
+                        <div id="Pointers" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector Pointers</code></pre>
+                        </div>
+                        <div id="CheckingGroups" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector CheckingGroups</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="BD58229B8E02EF9C4127DCF8935E2CAB681DE308">
+                                <pre><code class="language-cpp code-clang-doc">void insert (Loop * Lp, Value * Ptr, const SCEV * PtrExpr, Type * AccessTy, bool WritePtr, unsigned int DepSetId, unsigned int ASId, PredicatedScalarEvolution &amp; PSE, bool NeedsFreeze)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Calculate Start and End points of memory access using</p>
+                                        <p> getStartAndEndForAccess.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 401 of file llvm/lib/Analysis/LoopAccessAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="88A73D52465A0D5EE04765B725FFF87F658C85E1">
+                                <pre><code class="language-cpp code-clang-doc">void RuntimePointerChecking (MemoryDepChecker &amp; DC, ScalarEvolution * SE, std::optional&lt;ScalarEvolution::LoopGuards&gt; &amp; LoopGuards)</code></pre>
+                                <p>Defined at line 536 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7EF97E6A173689AA46FB2EF5962813FE9C62B2C9">
+                                <pre><code class="language-cpp code-clang-doc">void generateChecks (MemoryDepChecker::DepCandidates &amp; DepCands, bool UseDependencies)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Generate the checks and store it.  This also performs the grouping</p>
+                                        <p> of pointers to reduce the number of memchecks necessary.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 540 of file llvm/lib/Analysis/LoopAccessAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72F9E59FA8D66549FF0D5EFF67A9F7DC22EDBB9D">
+                                <pre><code class="language-cpp code-clang-doc">void reset ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Reset the state of the pointer runtime information.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 541 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EAB3C7EACE48BDA5F8DDCE08A8947472CD3BEE55">
+                                <pre><code class="language-cpp code-clang-doc">bool needsChecking (const RuntimeCheckingPtrGroup &amp; M, const RuntimeCheckingPtrGroup &amp; N)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Decide if we need to add a check between two groups of pointers,</p>
+                                        <p> according to needsChecking.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 547 of file llvm/lib/Analysis/LoopAccessAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A439047B04FCC796736BA0A0631D088FB09E368D">
+                                <pre><code class="language-cpp code-clang-doc">bool empty ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> No run-time memory checking is necessary.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 561 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A21996BED3DA720158971DCBD7099C743F09E6A1">
+                                <pre><code class="language-cpp code-clang-doc">void generateChecks (MemoryDepChecker::DepCandidates &amp; DepCands, bool UseDependencies)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Generate the checks and store it.  This also performs the grouping</p>
+                                        <p> of pointers to reduce the number of memchecks necessary.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A5CFF202AD357D6AD8C253402535EFD0079D3A79">
+                                <pre><code class="language-cpp code-clang-doc">const SmallVectorImpl&lt;RuntimePointerCheck&gt; &amp; getChecks ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the checks that generateChecks created. They can be used to ensure</p>
+                                        <p> no read/write accesses overlap across all loop iterations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 570 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D73BD2B416F9FB48D94313E6B04A9ADD87FEE50">
+                                <pre><code class="language-cpp code-clang-doc">optional getDiffChecks ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns an optional list of (pointer-difference expressions, access size)</p>
+                                        <p> pairs that can be used to prove that there are no vectorization-preventing</p>
+                                        <p> dependencies at runtime. There are is a vectorization-preventing dependency</p>
+                                        <p> if any pointer-difference is </p>
+                                        <p>* InterleaveCount * access size. Returns</p>
+                                        <p> std::nullopt if pointer-difference checks cannot be used.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 579 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3C264873C73B5896DA46C15175888E0619CFB0F9">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumberOfChecks ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the number of run-time checks required according to</p>
+                                        <p> needsChecking.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 592 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="360BF2CD60D08D874F97CD9F23DA8AD6E026FC37">
+                                <pre><code class="language-cpp code-clang-doc">const PointerInfo &amp; getPointerInfo (unsigned int PtrIdx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return PointerInfo for pointer at index </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 624 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44F6A6A5E5E807C0B79D15FFF828A2C6C469154E">
+                                <pre><code class="language-cpp code-clang-doc">ScalarEvolution * getSE ()</code></pre>
+                                <p>Defined at line 628 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CDF11130D64C91073C25E078CF1C1C41B64C8727">
+                                <pre><code class="language-cpp code-clang-doc">void print (raw_ostream &amp; OS, unsigned int Depth)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print the list run-time memory checks necessary.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 780 of file llvm/lib/Analysis/LoopAccessAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1F48A3B0B0346DB118ADB4990DB6714838B6CCC">
+                                <pre><code class="language-cpp code-clang-doc">void printChecks (raw_ostream &amp; OS, const SmallVectorImpl&lt;RuntimePointerCheck&gt; &amp; Checks, unsigned int Depth)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 761 of file llvm/lib/Analysis/LoopAccessAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="228722387A7E0BE606A6D610B379E86B774DDCB1">
+                                <pre><code class="language-cpp code-clang-doc">bool arePointersInSamePartition (const SmallVectorImpl&lt;int&gt; &amp; PtrToPartition, unsigned int PtrIdx1, unsigned int PtrIdx2)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if pointers are in the same partition</p>
+                                    </div>
+                                    <div>
+                                        <p> contains the partition number for pointers (-1 if the</p>
+                                        <p> pointer belongs to multiple partitions).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 729 of file llvm/lib/Analysis/LoopAccessAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4EAB77137D64479DB0A84796F3589FC9AC70A31B">
+                                <pre><code class="language-cpp code-clang-doc">bool needsChecking (unsigned int I, unsigned int J)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Decide whether we need to issue a run-time check for pointer at</p>
+                                        <p> index </p>
+                                        <p> and </p>
+                                        <p> to prove their independence.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 736 of file llvm/lib/Analysis/LoopAccessAnalysis.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

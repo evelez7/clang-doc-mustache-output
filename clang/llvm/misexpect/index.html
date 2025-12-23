@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>misexpect</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>misexpect</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Functions">Functions</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4D04BA5DC17027D4CCBEFED420697AA574195DE8">checkBackendInstrumentation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FB958D2AB17E67E8EA3290F558DB6365CDEB80C2">checkFrontendInstrumentation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#187916CB40BC8D35EA77D23B70054598A075C842">verifyMisExpect</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2DAB77661F2AAF52373629A8E4B96CCBDBA29901">checkExpectAnnotations</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section id="Functions" class="section-container">
+                    <h2>Functions</h2>
+                    <ul class="class-container">
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="4D04BA5DC17027D4CCBEFED420697AA574195DE8">
+                                    <pre><code class="language-cpp code-clang-doc">void checkBackendInstrumentation (const Instruction &amp; I, ArrayRef RealWeights)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> checkBackendInstrumentation - compares PGO counters to the thresholds used</p>
+                                            <p> for llvm.expect and warns if the PGO counters are outside of the expected</p>
+                                            <p> range. It extracts the expected weights from the MD_prof weights attached</p>
+                                            <p> to the instruction, which are assumed to come from lowered llvm.expect</p>
+                                            <p> intrinsics. The RealWeights parameter and the extracted expected weights are</p>
+                                            <p> then passed to verifyMisexpect() for verification</p>
+                                        </div>
+                                        <h3>Parameters</h3>
+                                        <div>
+                                            <b>I</b>   The Instruction being checked
+                                        </div> 
+                                        <div>
+                                            <b>RealWeights</b>   A vector of profile weights for each target block
+                                        </div> 
+                                    </div>
+                                    <p>Defined at line 166 of file llvm/lib/Transforms/Utils/MisExpect.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="FB958D2AB17E67E8EA3290F558DB6365CDEB80C2">
+                                    <pre><code class="language-cpp code-clang-doc">void checkFrontendInstrumentation (const Instruction &amp; I, ArrayRef ExpectedWeights)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> checkFrontendInstrumentation - compares PGO counters to the thresholds used</p>
+                                            <p> for llvm.expect and warns if the PGO counters are outside of the expected</p>
+                                            <p> range. It extracts the expected weights from the MD_prof weights attached</p>
+                                            <p> to the instruction, which are assumed to come from profiling data</p>
+                                            <p> attached by the frontend prior to llvm.expect intrinsic lowering. The</p>
+                                            <p> ExpectedWeights parameter and the extracted real weights are then passed to</p>
+                                            <p> verifyMisexpect() for verification</p>
+                                        </div>
+                                        <h3>Parameters</h3>
+                                        <div>
+                                            <b>I</b>   The Instruction being checked
+                                        </div> 
+                                        <div>
+                                            <b>ExpectedWeights</b>   A vector of the expected weights for each target block, this determines the threshold values used when emitting diagnostics
+                                        </div> 
+                                    </div>
+                                    <p>Defined at line 181 of file llvm/lib/Transforms/Utils/MisExpect.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="187916CB40BC8D35EA77D23B70054598A075C842">
+                                    <pre><code class="language-cpp code-clang-doc">void verifyMisExpect (const Instruction &amp; I, ArrayRef RealWeights, ArrayRef ExpectedWeights)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> veryifyMisExpect - compares RealWeights to the thresholds used</p>
+                                            <p> for llvm.expect and warns if the PGO counters are outside of the expected</p>
+                                            <p> range.</p>
+                                        </div>
+                                        <h3>Parameters</h3>
+                                        <div>
+                                            <b>I</b>   The Instruction being checked
+                                        </div> 
+                                        <div>
+                                            <b>RealWeights</b>   A vector of profile weights from the profile data
+                                        </div> 
+                                        <div>
+                                            <b>ExpectedWeights</b>   A vector of the weights attatch by llvm.expect
+                                        </div> 
+                                    </div>
+                                    <p>Defined at line 110 of file llvm/lib/Transforms/Utils/MisExpect.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="2DAB77661F2AAF52373629A8E4B96CCBDBA29901">
+                                    <pre><code class="language-cpp code-clang-doc">void checkExpectAnnotations (const Instruction &amp; IArrayRef ExistingWeightsbool IsFrontend)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> checkExpectAnnotations - compares PGO counters to the thresholds used</p>
+                                            <p> for llvm.expect and warns if the PGO counters are outside of the expected</p>
+                                            <p> range. It extracts the expected weights from the MD_prof weights attached</p>
+                                            <p> to the instruction, which are assumed to come from lowered llvm.expect</p>
+                                            <p> intrinsics. The RealWeights parameter and the extracted expected weights are</p>
+                                            <p> then passed to verifyMisexpect() for verification. It is a thin wrapper</p>
+                                            <p> around the checkFrontendInstrumentation and checkBackendInstrumentation APIs</p>
+                                        </div>
+                                        <h3>Parameters</h3>
+                                        <div>
+                                            <b>I</b>   The Instruction being checked
+                                        </div> 
+                                        <div>
+                                            <b>ExistingWeights</b>   A vector of profile weights for each target block
+                                        </div> 
+                                        <div>
+                                            <b>IsFrontend</b>   A boolean describing if this is Frontend instrumentation
+                                        </div> 
+                                    </div>
+                                    <p>Defined at line 189 of file llvm/lib/Transforms/Utils/MisExpect.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

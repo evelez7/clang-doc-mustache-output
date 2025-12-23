@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>PreservedAnalyses</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class PreservedAnalyses</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4860F1C1EA112FCB707B69D7A9D54D88CDB1BDA5">none</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DF27DBE96831C04449D4B6E3E5A16ABFA4AF433B">all</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F07ED14B14F05BB5D1C773751B82C10FF250D62F">allInSet</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6937C481563EB1690E9492E399619518BCC75678">preserve</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C332F4860B3BD361C5E5233C0F70143248EBDDFC">preserve</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E23C2C7B41514C1D15EA2DB7F22DB446577E5D5F">preserveSet</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7DB10352585B3BD2FC4F5EE8E894556455AAF987">preserveSet</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D9DDC3F435B2033A7CAFCD945EE27CF82F6CC5F8">abandon</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8A1F1D9835FFEBDD0DBF03EDCBCA0B294B176B1F">abandon</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9539572810E64B6B63E29C7083A8FEDF43A61776">intersect</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C70B6DCEB655749091F75F1BDA52CB427D52CB21">intersect</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#481F350AD115B55B039BF39E21B80AB6B4AA3D55">getChecker</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#900A584D07412186C561DD2334B09386E2BF5E1F">getChecker</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FC3AD4A971ACA2D7D1A77385B4C2EF4E5D46B82">areAllPreserved</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5112CB305BD2915685C7128784F8BFD470FE1DD7">allAnalysesInSetPreserved</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#93472A430AB820D4B61DA1C436E5B61FBB221B44">allAnalysesInSetPreserved</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class PreservedAnalyses</h1>
+                        <p>Defined at line 112 of file llvm/include/llvm/IR/Analysis.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A set of analyses that are preserved following a run of a transformation</p>
+                                <p> pass.</p>
+                            </div>
+                            <div>
+                                <p> Transformation passes build and return these objects to communicate which</p>
+                                <p> analyses are still valid after the transformation. For most passes this is</p>
+                                <p> fairly simple: if they don&#39;t change anything all analyses are preserved,</p>
+                                <p> otherwise only a short list of analyses that have been explicitly updated</p>
+                                <p> are preserved.</p>
+                            </div>
+                            <div>
+                                <p> This class also lets transformation passes mark abstract *sets* of analyses</p>
+                                <p> as preserved. A transformation that (say) does not alter the CFG can</p>
+                                <p> indicate such by marking a particular AnalysisSetKey as preserved, and</p>
+                                <p> then analyses can query whether that AnalysisSetKey is preserved.</p>
+                            </div>
+                            <div>
+                                <p> Finally, this class can represent an &quot;abandoned&quot; analysis, which is</p>
+                                <p> not preserved even if it would be covered by some abstract set of analyses.</p>
+                            </div>
+                            <div>
+                                <p> Given a `PreservedAnalyses` object, an analysis will typically want to</p>
+                                <p> figure out whether it is preserved. In the example below, MyAnalysisType is</p>
+                                <p> preserved if it&#39;s not abandoned, and (a) it&#39;s explicitly marked as</p>
+                                <p> preserved, (b), the set AllAnalysesOn</p>
+                                <p>&lt;MyIRUnit</p>
+                                <p>&gt; is preserved, or (c) both</p>
+                                <p> AnalysisSetA and AnalysisSetB are preserved.</p>
+                            </div>
+                            <div>
+                                <p> ```</p>
+                                <p>   auto PAC = PA.getChecker</p>
+                                <p>&lt;MyAnalysisType</p>
+                                <p>&gt;();</p>
+                                <p>   if (PAC.preserved() || PAC.preservedSet</p>
+                                <p>&lt;AllAnalysesOn</p>
+                                <p>&lt;MyIRUnit</p>
+                                <p>&gt;&gt;() ||</p>
+                                <p>       (PAC.preservedSet</p>
+                                <p>&lt;AnalysisSetA</p>
+                                <p>&gt;() </p>
+                                <p>&amp;</p>
+                                <p>&amp;</p>
+                                <p>        PAC.preservedSet</p>
+                                <p>&lt;AnalysisSetB</p>
+                                <p>&gt;())) {</p>
+                                <p>     // The analysis has been successfully preserved ...</p>
+                                <p>   }</p>
+                                <p> ```</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="4860F1C1EA112FCB707B69D7A9D54D88CDB1BDA5">
+                                <pre><code class="language-cpp code-clang-doc">PreservedAnalyses none ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Convenience factory function for the empty preserved set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 115 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DF27DBE96831C04449D4B6E3E5A16ABFA4AF433B">
+                                <pre><code class="language-cpp code-clang-doc">PreservedAnalyses all ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Construct a special preserved set that preserves all passes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 118 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F07ED14B14F05BB5D1C773751B82C10FF250D62F">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AnalysisSetT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">PreservedAnalyses allInSet ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Construct a preserved analyses object with a single preserved set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 125 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6937C481563EB1690E9492E399619518BCC75678">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AnalysisT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">PreservedAnalyses &amp; preserve ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Mark an analysis as preserved.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 132 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C332F4860B3BD361C5E5233C0F70143248EBDDFC">
+                                <pre><code class="language-cpp code-clang-doc">PreservedAnalyses &amp; preserve (AnalysisKey * ID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given an analysis&#39;s ID, mark the analysis as preserved, adding it</p>
+                                        <p> to the set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 139 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E23C2C7B41514C1D15EA2DB7F22DB446577E5D5F">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AnalysisSetT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">PreservedAnalyses &amp; preserveSet ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Mark an analysis set as preserved.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 151 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7DB10352585B3BD2FC4F5EE8E894556455AAF987">
+                                <pre><code class="language-cpp code-clang-doc">PreservedAnalyses &amp; preserveSet (AnalysisSetKey * ID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Mark an analysis set as preserved using its ID.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 157 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D9DDC3F435B2033A7CAFCD945EE27CF82F6CC5F8">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AnalysisT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">PreservedAnalyses &amp; abandon ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Mark an analysis as abandoned.</p>
+                                    </div>
+                                    <div>
+                                        <p> An abandoned analysis is not preserved, even if it is nominally covered</p>
+                                        <p> by some other set or was previously explicitly marked as preserved.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that you can only abandon a specific analysis, not a *set* of</p>
+                                        <p> analyses.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 171 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8A1F1D9835FFEBDD0DBF03EDCBCA0B294B176B1F">
+                                <pre><code class="language-cpp code-clang-doc">PreservedAnalyses &amp; abandon (AnalysisKey * ID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Mark an analysis as abandoned using its ID.</p>
+                                    </div>
+                                    <div>
+                                        <p> An abandoned analysis is not preserved, even if it is nominally covered</p>
+                                        <p> by some other set or was previously explicitly marked as preserved.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that you can only abandon a specific analysis, not a *set* of</p>
+                                        <p> analyses.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 183 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9539572810E64B6B63E29C7083A8FEDF43A61776">
+                                <pre><code class="language-cpp code-clang-doc">void intersect (const PreservedAnalyses &amp; Arg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Intersect this set with another in place.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is a mutating operation on this preserved set, removing all</p>
+                                        <p> preserved passes which are not also preserved in the argument.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 193 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C70B6DCEB655749091F75F1BDA52CB427D52CB21">
+                                <pre><code class="language-cpp code-clang-doc">void intersect (PreservedAnalyses &amp;&amp; Arg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Intersect this set with a temporary other set in place.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is a mutating operation on this preserved set, removing all</p>
+                                        <p> preserved passes which are not also preserved in the argument.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 214 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="481F350AD115B55B039BF39E21B80AB6B4AA3D55">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AnalysisT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">PreservedAnalysisChecker getChecker ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Build a checker for this `PreservedAnalyses` and the specified analysis</p>
+                                        <p> type.</p>
+                                    </div>
+                                    <div>
+                                        <p> You can use the returned object to query whether an analysis was</p>
+                                        <p> preserved. See the example in the comment on `PreservedAnalysis`.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 275 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="900A584D07412186C561DD2334B09386E2BF5E1F">
+                                <pre><code class="language-cpp code-clang-doc">PreservedAnalysisChecker getChecker (AnalysisKey * ID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Build a checker for this `PreservedAnalyses` and the specified analysis</p>
+                                        <p> ID.</p>
+                                    </div>
+                                    <div>
+                                        <p> You can use the returned object to query whether an analysis was</p>
+                                        <p> preserved. See the example in the comment on `PreservedAnalysis`.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 284 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9FC3AD4A971ACA2D7D1A77385B4C2EF4E5D46B82">
+                                <pre><code class="language-cpp code-clang-doc">bool areAllPreserved ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Test whether all analyses are preserved (and none are abandoned).</p>
+                                    </div>
+                                    <div>
+                                        <p> This is used primarily to optimize for the common case of a transformation</p>
+                                        <p> which makes no changes to the IR.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 292 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5112CB305BD2915685C7128784F8BFD470FE1DD7">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AnalysisSetT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">bool allAnalysesInSetPreserved ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Directly test whether a set of analyses is preserved.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is only true when no analyses have been explicitly abandoned.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 300 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="93472A430AB820D4B61DA1C436E5B61FBB221B44">
+                                <pre><code class="language-cpp code-clang-doc">bool allAnalysesInSetPreserved (AnalysisSetKey * SetID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Directly test whether a set of analyses is preserved.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is only true when no analyses have been explicitly abandoned.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 307 of file llvm/include/llvm/IR/Analysis.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

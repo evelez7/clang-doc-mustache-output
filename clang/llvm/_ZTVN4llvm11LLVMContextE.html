@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LLVMContext</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LLVMContext</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#pImpl">pImpl</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#872FA2AF8BE9F6CC33AD0505D9B14EB4809ED66F">LLVMContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5F9C3F6F26027447A63A06B204CC7D748F665953">LLVMContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BA5188068A6118C18A065280FCAB4238D2BFB730">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D69A7EFE80FBFF48B1ED0F32FC1335D018C4F776">~LLVMContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4AE18FBAA560D552B889C6D7A8D67BF98B06CE08">getMDKindID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#134DC6129FE4CD5187672F3E479DC9F8EF805B86">getMDKindNames</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E09B0178EFF5BB37ECA435B73F28FC753D6CF371">getOperandBundleTags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CEE4EFE59070F62DE552892A42305EBD21DABD1D">getOrInsertBundleTag</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#08E5E8E8D2EA88D01D70DC64FFEB761BC44EFEBB">getOperandBundleTagID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E9A941BDC110613FD76E95C683628E26F81FCAB3">getOrInsertSyncScopeID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#384352C1E9E8B71BCD8FEDD8DD1FA4FDB40BAC20">getSyncScopeNames</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C051A70FA2DB5CBA3DBBF1F47919BD3F97754E57">getSyncScopeName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#39873A8E6D0D555200B8383E38B30EDAED9C4892">setGC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6144136D712E9A0D598BE1BB4877FA3C9986A7FD">getGC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#329FC6003373BDD185654A22AD2A899B0493F51A">deleteGC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A94CE043257F79A464A487C5F1B2336B1D81BAA1">shouldDiscardValueNames</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3C2CC9EE3349A4B602D5A041FA9E672A0AFBC11D">setDiscardValueNames</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#660D774458C6666B1788DFFA6C9242D3ECB7F4CC">isODRUniquingDebugTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C12A3B40C2FC98540169411089D379E22BC8B8C3">enableDebugTypeODRUniquing</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#60DBEAF94A3DCB701A478CB7FE40C80B44F3AEF4">disableDebugTypeODRUniquing</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F26CE446BB0367C10C70B5A6D52E26361A84AFCF">generateMachineFunctionNum</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C0ACE0BD4A887FD96BBD1C32C68D15A06378F42">setDiagnosticHandlerCallBack</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E6DCD36E51086CB14E29813C03A0D93F2F8FC8BB">setDiagnosticHandler</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#016C3F6A42BAA98DD91EB0168E69B2CA174C0C43">setDiagnosticHandler</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#170EB36D46B1809798EAE4060BAD61FD62AE7ACE">getDiagnosticHandlerCallBack</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#891D888BA2DB4C32C85E96EFC36642C84728DBB8">getDiagnosticContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E4E9B690F0032A2F276036FBBBC4F5C73565D11E">getDiagHandlerPtr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#65E169B0A1C5998DA7F463B68D29119A4222B754">getDiagnosticHandler</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3BC76A1A2AAA074AC37A4FFA5EF6CCC05A65C17B">getDiagnosticsHotnessRequested</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A046722DEBB7DD165FCD3888D9F3A6A2D432ACA1">setDiagnosticsHotnessRequested</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9BCC22C8DF4FED10636324C144AE9778B84F4AAA">getMisExpectWarningRequested</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CFA3BC45987E048816B29082E79808EB81BBD714">setMisExpectWarningRequested</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#12FF074EBE94468A049963FAA1F3E4A3C0471226">setDiagnosticsMisExpectTolerance</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#71ED2E260295A3380A843437C244060E936B1F80">getDiagnosticsMisExpectTolerance</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8BB643E2E366936B6365F1EA126AAD5D85978AFD">getDiagnosticsHotnessThreshold</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#383E00729E676841AD8D2E3C05E8535A07194A3E">setDiagnosticsHotnessThreshold</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CEA11D9D7A5E247DB4076391ECCAEFF01A3B6090">isDiagnosticsHotnessThresholdSetFromPSI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#737BEB2540FFDE9216B6FB8342736DC09D690FDB">getMainRemarkStreamer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#65B3471911B482089E09041B7EC41B0337F792BD">getMainRemarkStreamer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC828C26D073DC2D2493056849CE8B41A32E4207">setMainRemarkStreamer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5F00A73A36748842AE8F6374C5453AB82878E305">setMainRemarkStreamer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44FEBBB2513930D94C585708C1555A3116191F9A">getLLVMRemarkStreamer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D7CB899B0AF7D7E6AD9E1331E4E4A1A267082C4B">getLLVMRemarkStreamer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#054E3BC9F263E16FAAA90723B2A83494F732F4D2">setLLVMRemarkStreamer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#45F430F5ED1294371922F4637CEC62C3EBE84831">setLLVMRemarkStreamer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C61F159F3972F93C5D69032F5685DF4A841DCBA2">getDiagnosticMessagePrefix</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55382026CE4CEC8B72548597B6A22A6EB2387CA9">diagnose</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7724D6187DF13BA0F1E649239CB2C71A8AC01854">setYieldCallback</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4D15ACF9F429CBBE48FE371727EEB9D0205DDBCA">yield</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#41620A11D703EFB69A32D920A3104C0A236F0037">emitError</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4984113AB19B0CA89C4B18655B3FA2E281E27090">emitError</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E26C0D10613EA05DBDDC4343F2CEB8EA281DB932">getOptPassGate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CB0EA6F74830FED1D6DFB7D12B1C2DEBDF4B841E">setOptPassGate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8DE58460321379663A7F68DDBA0DE234FFCA1440">getDefaultTargetCPU</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4ADA9E2583378B242831B4C435D4D80FD4F1BDC">setDefaultTargetCPU</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#32F102737A68C52F0544065D0F2AB60A272B4A63">getDefaultTargetFeatures</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5042EDDF8524B05F5F0242E91403F00365B04656">setDefaultTargetFeatures</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#617247557E3F8EFD9AC0D15B7E074EB06FF24EFA">updateDILocationAtomGroupWaterline</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2F3D83B7BFE340C821557CCA725AB99CF7C063B3">incNextDILocationAtomGroup</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LLVMContext</h1>
+                        <p>Defined at line 68 of file llvm/include/llvm/IR/LLVMContext.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This is an important class for using LLVM in a threaded context.  It</p>
+                                <p> (opaquely) owns and manages the core &quot;global&quot; data of LLVM&#39;s core</p>
+                                <p> infrastructure, including the type and constant uniquing tables.</p>
+                                <p> LLVMContext itself provides no locking guarantees, so you should be careful</p>
+                                <p> to have one context per thread.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="pImpl" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LLVMContextImpl *const pImpl</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="872FA2AF8BE9F6CC33AD0505D9B14EB4809ED66F">
+                                <pre><code class="language-cpp code-clang-doc">void LLVMContext ()</code></pre>
+                                <p>Defined at line 67 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F9C3F6F26027447A63A06B204CC7D748F665953">
+                                <pre><code class="language-cpp code-clang-doc">void LLVMContext (const LLVMContext &amp; )</code></pre>
+                                <p>Defined at line 72 of file llvm/include/llvm/IR/LLVMContext.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BA5188068A6118C18A065280FCAB4238D2BFB730">
+                                <pre><code class="language-cpp code-clang-doc">LLVMContext &amp; operator= (const LLVMContext &amp; )</code></pre>
+                                <p>Defined at line 73 of file llvm/include/llvm/IR/LLVMContext.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D69A7EFE80FBFF48B1ED0F32FC1335D018C4F776">
+                                <pre><code class="language-cpp code-clang-doc">void ~LLVMContext ()</code></pre>
+                                <p>Defined at line 102 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4AE18FBAA560D552B889C6D7A8D67BF98B06CE08">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getMDKindID (StringRef Name)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a unique non-zero ID for the specified metadata kind.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 280 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="134DC6129FE4CD5187672F3E479DC9F8EF805B86">
+                                <pre><code class="language-cpp code-clang-doc">void getMDKindNames (SmallVectorImpl&lt;StringRef&gt; &amp; Result)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getHandlerNames - Populate client-supplied smallvector using custom</p>
+                                        <p> metadata name and ID.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 290 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E09B0178EFF5BB37ECA435B73F28FC753D6CF371">
+                                <pre><code class="language-cpp code-clang-doc">void getOperandBundleTags (SmallVectorImpl&lt;StringRef&gt; &amp; Result)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getOperandBundleTags - Populate client supplied SmallVector with the</p>
+                                        <p> bundle tags registered in this LLVMContext.  The bundle tags are ordered</p>
+                                        <p> by increasing bundle IDs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 297 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CEE4EFE59070F62DE552892A42305EBD21DABD1D">
+                                <pre><code class="language-cpp code-clang-doc">StringMapEntry&lt;uint32_t&gt; * getOrInsertBundleTag (StringRef TagName)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getOrInsertBundleTag - Returns the Tag to use for an operand bundle of</p>
+                                        <p> name TagName.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 301 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="08E5E8E8D2EA88D01D70DC64FFEB761BC44EFEBB">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getOperandBundleTagID (StringRef Tag)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getOperandBundleTagID - Maps a bundle tag to an integer ID.  Every bundle</p>
+                                        <p> tag registered with an LLVMContext has an unique ID.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 306 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E9A941BDC110613FD76E95C683628E26F81FCAB3">
+                                <pre><code class="language-cpp code-clang-doc">SyncScope::ID getOrInsertSyncScopeID (StringRef SSN)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getOrInsertSyncScopeID - Maps synchronization scope name to</p>
+                                        <p> synchronization scope ID.  Every synchronization scope registered with</p>
+                                        <p> LLVMContext has unique ID except pre-defined ones.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 310 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="384352C1E9E8B71BCD8FEDD8DD1FA4FDB40BAC20">
+                                <pre><code class="language-cpp code-clang-doc">void getSyncScopeNames (SmallVectorImpl&lt;StringRef&gt; &amp; SSNs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getSyncScopeNames - Populates client supplied SmallVector with</p>
+                                        <p> synchronization scope names registered with LLVMContext.  Synchronization</p>
+                                        <p> scope names are ordered by increasing synchronization scope IDs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 314 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C051A70FA2DB5CBA3DBBF1F47919BD3F97754E57">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;StringRef&gt; getSyncScopeName (SyncScope::ID Id)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getSyncScopeName - Returns the name of a SyncScope::ID</p>
+                                        <p> registered with LLVMContext, if any.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 318 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="39873A8E6D0D555200B8383E38B30EDAED9C4892">
+                                <pre><code class="language-cpp code-clang-doc">void setGC (const Function &amp; Fn, basic_string GCName)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Define the GC for a function</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 322 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6144136D712E9A0D598BE1BB4877FA3C9986A7FD">
+                                <pre><code class="language-cpp code-clang-doc">const std::string &amp; getGC (const Function &amp; Fn)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the GC for a function</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 326 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="329FC6003373BDD185654A22AD2A899B0493F51A">
+                                <pre><code class="language-cpp code-clang-doc">void deleteGC (const Function &amp; Fn)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Remove the GC for a function</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 330 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A94CE043257F79A464A487C5F1B2336B1D81BAA1">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldDiscardValueNames ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the Context runtime configuration is set to discard all</p>
+                                        <p> value names. When true, only GlobalValue names will be available in the</p>
+                                        <p> IR.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 334 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3C2CC9EE3349A4B602D5A041FA9E672A0AFBC11D">
+                                <pre><code class="language-cpp code-clang-doc">void setDiscardValueNames (bool Discard)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the Context runtime configuration to discard all value name (but</p>
+                                        <p> GlobalValue). Clients can use this flag to save memory and runtime,</p>
+                                        <p> especially in release mode.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 349 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="660D774458C6666B1788DFFA6C9242D3ECB7F4CC">
+                                <pre><code class="language-cpp code-clang-doc">bool isODRUniquingDebugTypes ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Whether there is a string map for uniquing debug info</p>
+                                        <p> identifiers across the context.  Off by default.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 338 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C12A3B40C2FC98540169411089D379E22BC8B8C3">
+                                <pre><code class="language-cpp code-clang-doc">void enableDebugTypeODRUniquing ()</code></pre>
+                                <p>Defined at line 340 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="60DBEAF94A3DCB701A478CB7FE40C80B44F3AEF4">
+                                <pre><code class="language-cpp code-clang-doc">void disableDebugTypeODRUniquing ()</code></pre>
+                                <p>Defined at line 347 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F26CE446BB0367C10C70B5A6D52E26361A84AFCF">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int generateMachineFunctionNum (Function &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> generateMachineFunctionNum - Get a unique number for MachineFunction</p>
+                                        <p> that associated with the given Function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 113 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C0ACE0BD4A887FD96BBD1C32C68D15A06378F42">
+                                <pre><code class="language-cpp code-clang-doc">void setDiagnosticHandlerCallBack (DiagnosticHandler::DiagnosticHandlerTy DiagHandler, void * DiagContext, bool RespectFilters)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> setDiagnosticHandlerCallBack - This method sets a handler call back</p>
+                                        <p> that is invoked when the backend needs to report anything to the user.</p>
+                                        <p> The first argument is a function pointer and the second is a context pointer</p>
+                                        <p> that gets passed into the DiagHandler.  The third argument should be set to</p>
+                                        <p> true if the handler only expects enabled diagnostics.</p>
+                                    </div>
+                                    <div>
+                                        <p> LLVMContext doesn&#39;t take ownership or interpret either of these</p>
+                                        <p> pointers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 123 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E6DCD36E51086CB14E29813C03A0D93F2F8FC8BB">
+                                <pre><code class="language-cpp code-clang-doc">void setDiagnosticHandler (std::unique_ptr&lt;DiagnosticHandler&gt; &amp;&amp; DH, bool RespectFilters)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> setDiagnosticHandler - This method sets unique_ptr to object of</p>
+                                        <p> DiagnosticHandler to provide custom diagnostic handling. The first</p>
+                                        <p> argument is unique_ptr of object of type DiagnosticHandler or a derived</p>
+                                        <p> of that. The second argument should be set to true if the handler only</p>
+                                        <p> expects enabled diagnostics.</p>
+                                    </div>
+                                    <div>
+                                        <p> Ownership of this pointer is moved to LLVMContextImpl.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 131 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="016C3F6A42BAA98DD91EB0168E69B2CA174C0C43">
+                                <pre><code class="language-cpp code-clang-doc">void setDiagnosticHandler (int &amp;&amp; DH, bool RespectFilters)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> setDiagnosticHandler - This method sets unique_ptr to object of</p>
+                                        <p> DiagnosticHandler to provide custom diagnostic handling. The first</p>
+                                        <p> argument is unique_ptr of object of type DiagnosticHandler or a derived</p>
+                                        <p> of that. The second argument should be set to true if the handler only</p>
+                                        <p> expects enabled diagnostics.</p>
+                                    </div>
+                                    <div>
+                                        <p> Ownership of this pointer is moved to LLVMContextImpl.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="170EB36D46B1809798EAE4060BAD61FD62AE7ACE">
+                                <pre><code class="language-cpp code-clang-doc">DiagnosticHandler::DiagnosticHandlerTy getDiagnosticHandlerCallBack ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getDiagnosticHandlerCallBack - Return the diagnostic handler call back set by</p>
+                                        <p> setDiagnosticHandlerCallBack.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 190 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="891D888BA2DB4C32C85E96EFC36642C84728DBB8">
+                                <pre><code class="language-cpp code-clang-doc">void * getDiagnosticContext ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getDiagnosticContext - Return the diagnostic context set by</p>
+                                        <p> setDiagnosticContext.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 195 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E4E9B690F0032A2F276036FBBBC4F5C73565D11E">
+                                <pre><code class="language-cpp code-clang-doc">const DiagnosticHandler * getDiagHandlerPtr ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getDiagHandlerPtr - Returns const raw pointer of DiagnosticHandler set by</p>
+                                        <p> setDiagnosticHandler.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 361 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="65E169B0A1C5998DA7F463B68D29119A4222B754">
+                                <pre><code class="language-cpp code-clang-doc">std::unique_ptr&lt;DiagnosticHandler&gt; getDiagnosticHandler ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getDiagnosticHandler - transfers ownership of DiagnosticHandler unique_ptr</p>
+                                        <p> to caller.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 365 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3BC76A1A2AAA074AC37A4FFA5EF6CCC05A65C17B">
+                                <pre><code class="language-cpp code-clang-doc">bool getDiagnosticsHotnessRequested ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return if a code hotness metric should be included in optimization</p>
+                                        <p> diagnostics.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 140 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A046722DEBB7DD165FCD3888D9F3A6A2D432ACA1">
+                                <pre><code class="language-cpp code-clang-doc">void setDiagnosticsHotnessRequested (bool Requested)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set if a code hotness metric should be included in optimization</p>
+                                        <p> diagnostics.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 137 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9BCC22C8DF4FED10636324C144AE9778B84F4AAA">
+                                <pre><code class="language-cpp code-clang-doc">bool getMisExpectWarningRequested ()</code></pre>
+                                <p>Defined at line 150 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CFA3BC45987E048816B29082E79808EB81BBD714">
+                                <pre><code class="language-cpp code-clang-doc">void setMisExpectWarningRequested (bool Requested)</code></pre>
+                                <p>Defined at line 147 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="12FF074EBE94468A049963FAA1F3E4A3C0471226">
+                                <pre><code class="language-cpp code-clang-doc">void setDiagnosticsMisExpectTolerance (std::optional&lt;uint32_t&gt; Tolerance)</code></pre>
+                                <p>Defined at line 156 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="71ED2E260295A3380A843437C244060E936B1F80">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getDiagnosticsMisExpectTolerance ()</code></pre>
+                                <p>Defined at line 160 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8BB643E2E366936B6365F1EA126AAD5D85978AFD">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getDiagnosticsHotnessThreshold ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the minimum hotness value a diagnostic would need in order</p>
+                                        <p> to be included in optimization diagnostics.</p>
+                                    </div>
+                                    <div>
+                                        <p> Three possible return values:</p>
+                                        <p> 0            - threshold is disabled. Everything will be printed out.</p>
+                                        <p> positive int - threshold is set.</p>
+                                        <p> UINT64_MAX   - threshold is not yet set, and needs to be synced from</p>
+                                        <p>                profile summary. Note that in case of missing profile</p>
+                                        <p>                summary, threshold will be kept at &quot;MAX&quot;, effectively</p>
+                                        <p>                suppresses all remarks output.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 153 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="383E00729E676841AD8D2E3C05E8535A07194A3E">
+                                <pre><code class="language-cpp code-clang-doc">void setDiagnosticsHotnessThreshold (std::optional&lt;uint64_t&gt; Threshold)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the minimum hotness value a diagnostic needs in order to be</p>
+                                        <p> included in optimization diagnostics.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 144 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CEA11D9D7A5E247DB4076391ECCAEFF01A3B6090">
+                                <pre><code class="language-cpp code-clang-doc">bool isDiagnosticsHotnessThresholdSetFromPSI ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return if hotness threshold is requested from PSI.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 164 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="737BEB2540FFDE9216B6FB8342736DC09D690FDB">
+                                <pre><code class="language-cpp code-clang-doc">remarks::RemarkStreamer * getMainRemarkStreamer ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The &quot;main remark streamer&quot; used by all the specialized remark streamers.</p>
+                                        <p> This streamer keeps generic remark metadata in memory throughout the life</p>
+                                        <p> of the LLVMContext. This metadata may be emitted in a section in object</p>
+                                        <p> files depending on the format requirements.</p>
+                                    </div>
+                                    <div>
+                                        <p> All specialized remark streamers should convert remarks to</p>
+                                        <p> llvm::remarks::Remark and emit them through this streamer.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 168 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="65B3471911B482089E09041B7EC41B0337F792BD">
+                                <pre><code class="language-cpp code-clang-doc">const remarks::RemarkStreamer * getMainRemarkStreamer ()</code></pre>
+                                <p>Defined at line 171 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC828C26D073DC2D2493056849CE8B41A32E4207">
+                                <pre><code class="language-cpp code-clang-doc">void setMainRemarkStreamer (std::unique_ptr&lt;remarks::RemarkStreamer&gt; MainRemarkStreamer)</code></pre>
+                                <p>Defined at line 174 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F00A73A36748842AE8F6374C5453AB82878E305">
+                                <pre><code class="language-cpp code-clang-doc">void setMainRemarkStreamer (int MainRemarkStreamer)</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44FEBBB2513930D94C585708C1555A3116191F9A">
+                                <pre><code class="language-cpp code-clang-doc">LLVMRemarkStreamer * getLLVMRemarkStreamer ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The &quot;LLVM remark streamer&quot; used by LLVM to serialize remark diagnostics</p>
+                                        <p> comming from IR and MIR passes.</p>
+                                    </div>
+                                    <div>
+                                        <p> If it does not exist, diagnostics are not saved in a file but only emitted</p>
+                                        <p> via the diagnostic handler.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 179 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D7CB899B0AF7D7E6AD9E1331E4E4A1A267082C4B">
+                                <pre><code class="language-cpp code-clang-doc">const LLVMRemarkStreamer * getLLVMRemarkStreamer ()</code></pre>
+                                <p>Defined at line 182 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="054E3BC9F263E16FAAA90723B2A83494F732F4D2">
+                                <pre><code class="language-cpp code-clang-doc">void setLLVMRemarkStreamer (int RemarkStreamer)</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="45F430F5ED1294371922F4637CEC62C3EBE84831">
+                                <pre><code class="language-cpp code-clang-doc">void setLLVMRemarkStreamer (std::unique_ptr&lt;LLVMRemarkStreamer&gt; RemarkStreamer)</code></pre>
+                                <p>Defined at line 185 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C61F159F3972F93C5D69032F5685DF4A841DCBA2">
+                                <pre><code class="language-cpp code-clang-doc">const char * getDiagnosticMessagePrefix (DiagnosticSeverity Severity)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the prefix that should be printed in front of a diagnostic of</p>
+                                        <p>        the given </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 234 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="55382026CE4CEC8B72548597B6A22A6EB2387CA9">
+                                <pre><code class="language-cpp code-clang-doc">void diagnose (const DiagnosticInfo &amp; DI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Report a message to the currently installed diagnostic handler.</p>
+                                    </div>
+                                    <div>
+                                        <p> This function returns, in particular in the case of error reporting</p>
+                                        <p> (DI.Severity == </p>
+                                        <p> so the caller should leave the compilation</p>
+                                        <p> process in a self-consistent state, even though the generated code</p>
+                                        <p> need not be correct.</p>
+                                    </div>
+                                    <div>
+                                        <p> The diagnostic message will be implicitly prefixed with a severity keyword</p>
+                                        <p> according to </p>
+                                        <p> i.e., &quot;error: &quot; for </p>
+                                        <p> &quot;warning: &quot; for </p>
+                                        <p> and &quot;note: &quot; for </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 249 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7724D6187DF13BA0F1E649239CB2C71A8AC01854">
+                                <pre><code class="language-cpp code-clang-doc">void setYieldCallback (YieldCallbackTy Callback, void * OpaqueHandle)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Registers a yield callback with the given context.</p>
+                                    </div>
+                                    <div>
+                                        <p> The yield callback function may be called by LLVM to transfer control back</p>
+                                        <p> to the client that invoked the LLVM compilation. This can be used to yield</p>
+                                        <p> control of the thread, or perform periodic work needed by the client.</p>
+                                        <p> There is no guaranteed frequency at which callbacks must occur; in fact,</p>
+                                        <p> the client is not guaranteed to ever receive this callback. It is at the</p>
+                                        <p> sole discretion of LLVM to do so and only if it can guarantee that</p>
+                                        <p> suspending the thread won&#39;t block any forward progress in other LLVM</p>
+                                        <p> contexts in the same process.</p>
+                                    </div>
+                                    <div>
+                                        <p> At a suspend point, the state of the current LLVM context is intentionally</p>
+                                        <p> undefined. No assumptions about it can or should be made. Only LLVM</p>
+                                        <p> context API calls that explicitly state that they can be used during a</p>
+                                        <p> yield callback are allowed to be used. Any other API calls into the</p>
+                                        <p> context are not supported until the yield callback function returns</p>
+                                        <p> control to LLVM. Other LLVM contexts are unaffected by this restriction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 199 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4D15ACF9F429CBBE48FE371727EEB9D0205DDBCA">
+                                <pre><code class="language-cpp code-clang-doc">void yield ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Calls the yield callback (if applicable).</p>
+                                    </div>
+                                    <div>
+                                        <p> This transfers control of the current thread back to the client, which may</p>
+                                        <p> suspend the current thread. Only call this method when LLVM doesn&#39;t hold</p>
+                                        <p> any global mutex or cannot block the execution in another LLVM context.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 205 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="41620A11D703EFB69A32D920A3104C0A236F0037">
+                                <pre><code class="language-cpp code-clang-doc">void emitError (const Instruction * I, const Twine &amp; ErrorStr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> emitError - Emit an error message to the currently installed error handler</p>
+                                        <p> with optional location information.  This function returns, so code should</p>
+                                        <p> be prepared to drop the erroneous construct on the floor and &quot;not crash&quot;.</p>
+                                        <p> The generated code need not be correct.  The error message will be</p>
+                                        <p> implicitly prefixed with &quot;error: &quot; and should not end with a &quot;.&quot;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 214 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4984113AB19B0CA89C4B18655B3FA2E281E27090">
+                                <pre><code class="language-cpp code-clang-doc">void emitError (const Twine &amp; ErrorStr)</code></pre>
+                                <p>Defined at line 210 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E26C0D10613EA05DBDDC4343F2CEB8EA281DB932">
+                                <pre><code class="language-cpp code-clang-doc">OptPassGate &amp; getOptPassGate ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Access the object which can disable optional passes and individual</p>
+                                        <p> optimizations at compile time.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 353 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CB0EA6F74830FED1D6DFB7D12B1C2DEBDF4B841E">
+                                <pre><code class="language-cpp code-clang-doc">void setOptPassGate (OptPassGate &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the object which can disable optional passes and individual</p>
+                                        <p> optimizations at compile time.</p>
+                                    </div>
+                                    <div>
+                                        <p> The lifetime of the object must be guaranteed to extend as long as the</p>
+                                        <p> LLVMContext is used by compilation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 357 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8DE58460321379663A7F68DDBA0DE234FFCA1440">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getDefaultTargetCPU ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get or set the current &quot;default&quot; target CPU (target-cpu function</p>
+                                        <p> attribute). The intent is that compiler frontends will set this to a value</p>
+                                        <p> that reflects the attribute that a function would get &quot;by default&quot; without</p>
+                                        <p> any specific function attributes, and compiler passes will attach the</p>
+                                        <p> attribute to newly created functions that are not associated with a</p>
+                                        <p> particular function, such as global initializers.</p>
+                                        <p> Function::createWithDefaultAttr() will create functions with this</p>
+                                        <p> attribute. This function should only be called by passes that run at</p>
+                                        <p> compile time and not by the backend or LTO passes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 369 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4ADA9E2583378B242831B4C435D4D80FD4F1BDC">
+                                <pre><code class="language-cpp code-clang-doc">void setDefaultTargetCPU (StringRef CPU)</code></pre>
+                                <p>Defined at line 373 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="32F102737A68C52F0544065D0F2AB60A272B4A63">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getDefaultTargetFeatures ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Similar to {get,set}DefaultTargetCPU() but for default target-features.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 377 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5042EDDF8524B05F5F0242E91403F00365B04656">
+                                <pre><code class="language-cpp code-clang-doc">void setDefaultTargetFeatures (StringRef Features)</code></pre>
+                                <p>Defined at line 381 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="617247557E3F8EFD9AC0D15B7E074EB06FF24EFA">
+                                <pre><code class="language-cpp code-clang-doc">void updateDILocationAtomGroupWaterline (uint64_t G)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Key Instructions: update the highest number atom group emitted for any</p>
+                                        <p> function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 385 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2F3D83B7BFE340C821557CCA725AB99CF7C063B3">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t incNextDILocationAtomGroup ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Key Instructions: get the next free atom group number and increment</p>
+                                        <p> the global tracker.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 389 of file llvm/lib/IR/LLVMContext.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

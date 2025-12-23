@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>PriorityWorklist</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class PriorityWorklist</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D1976C388FE18971C175A87F491B72EC569112E6">PriorityWorklist&lt;T, VectorT, MapT&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BCDEFF27BAAB724D167DCBF9CC734B92BA32E9AB">empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#055CB68C3B5CB96CA20B0D8F8C3FF871549E7498">size</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E11EA1D58262ACB23B429761E54E448D15FEBB96">count</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CB08CA3B86211187F12F43B8D19D37A81D852F1B">back</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#103708DB4FEA0AE3B10FFFCCBC960EDF6D62E35F">insert</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#47814E392C15E895731928515CAD7C69A5435E35">insert</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9660E8268B88EB27C4B9EACD20B99603FE0E30E3">insert</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DF827E9747DB7A81C9288C96C5E23C8044067CF8">insert</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#464B3E9C64DA1AC9F3CDF4E552ECE1DCB9632418">pop_back</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B60EDAE10EC25345DDD4FCBCE916085A9D8B9C96">pop_back_val</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79AA99BE28E8CED8454F0A2C8577243F87A5F43E">erase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#47E7AE0239389CDCD9692261803AC1480EFDB1FF">erase_if</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#073576B9DC98CB02E6A89FEA07DDF60FB012873E">clear</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename T, typename VectorT, typename MapT&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class PriorityWorklist</h1>
+                        <p>Defined at line 55 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A FILO worklist that prioritizes on re-insertion without duplication.</p>
+                            </div>
+                            <div>
+                                <p> This is very similar to a </p>
+                                <p> with the primary difference that</p>
+                                <p> while re-insertion does not create a duplicate, it does adjust the</p>
+                                <p> visitation order to respect the last insertion point. This can be useful</p>
+                                <p> when the visit order needs to be prioritized based on insertion point</p>
+                                <p> without actually having duplicate visits.</p>
+                            </div>
+                            <div>
+                                <p> Note that this doesn&#39;t prevent re-insertion of elements which have been</p>
+                                <p> visited -- if you need to break cycles, a set will still be necessary.</p>
+                            </div>
+                            <div>
+                                <p> The type </p>
+                                <p> must be default constructable to a null value that will be</p>
+                                <p> ignored. It is an error to insert such a value, and popping elements will</p>
+                                <p> never produce such a value. It is expected to be used with common nullable</p>
+                                <p> types like pointers or optionals.</p>
+                            </div>
+                            <div>
+                                <p> Internally this uses a vector to store the worklist and a map to identify</p>
+                                <p> existing elements in the worklist. Both of these may be customized, but the</p>
+                                <p> map must support the basic DenseMap API for mapping from a T to an integer</p>
+                                <p> index into the vector.</p>
+                            </div>
+                            <div>
+                                <p> A partial specialization is provided to automatically select a SmallVector</p>
+                                <p> and a SmallDenseMap if custom data structures are not provided.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="D1976C388FE18971C175A87F491B72EC569112E6">
+                                <pre><code class="language-cpp code-clang-doc">void PriorityWorklist&lt;T, VectorT, MapT&gt; ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Construct an empty PriorityWorklist</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 64 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BCDEFF27BAAB724D167DCBF9CC734B92BA32E9AB">
+                                <pre><code class="language-cpp code-clang-doc">bool empty ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determine if the PriorityWorklist is empty or not.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 67 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="055CB68C3B5CB96CA20B0D8F8C3FF871549E7498">
+                                <pre><code class="language-cpp code-clang-doc">size_type size ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the number of elements in the worklist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 72 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E11EA1D58262ACB23B429761E54E448D15FEBB96">
+                                <pre><code class="language-cpp code-clang-doc">size_type count (const key_type &amp; key)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Count the number of elements of a given key in the PriorityWorklist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 78 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CB08CA3B86211187F12F43B8D19D37A81D852F1B">
+                                <pre><code class="language-cpp code-clang-doc">const T &amp; back ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the last element of the PriorityWorklist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 83 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="103708DB4FEA0AE3B10FFFCCBC960EDF6D62E35F">
+                                <pre><code class="language-cpp code-clang-doc">bool insert (const T &amp; X)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Insert a new element into the PriorityWorklist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 90 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="47814E392C15E895731928515CAD7C69A5435E35">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename SequenceT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">int insert (SequenceT &amp;&amp; Input)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Insert a sequence of new elements into the PriorityWorklist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 112 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9660E8268B88EB27C4B9EACD20B99603FE0E30E3">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename SequenceT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">std::enable_if_t&lt;!std::is_convertible&lt;SequenceT, T&gt;::value&gt; insert (SequenceT &amp;&amp; Input)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Insert a sequence of new elements into the PriorityWorklist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 112 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DF827E9747DB7A81C9288C96C5E23C8044067CF8">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename SequenceT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">std::enable_if_t&lt;! std::is_convertible&lt;SequenceT, T&gt;::value&gt; insert (SequenceT &amp;&amp; Input)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Insert a sequence of new elements into the PriorityWorklist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 112 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="464B3E9C64DA1AC9F3CDF4E552ECE1DCB9632418">
+                                <pre><code class="language-cpp code-clang-doc">void pop_back ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Remove the last element of the PriorityWorklist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 144 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B60EDAE10EC25345DDD4FCBCE916085A9D8B9C96">
+                                <pre><code class="language-cpp code-clang-doc">T pop_back_val ()</code></pre>
+                                <p>Defined at line 153 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79AA99BE28E8CED8454F0A2C8577243F87A5F43E">
+                                <pre><code class="language-cpp code-clang-doc">bool erase (const T &amp; X)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Erase an item from the worklist.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that this is constant time due to the nature of the worklist implementation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 162 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="47E7AE0239389CDCD9692261803AC1480EFDB1FF">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename UnaryPredicate&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">bool erase_if (UnaryPredicate P)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Erase items from the set vector based on a predicate function.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is intended to be equivalent to the following code, if we could</p>
+                                        <p> write it:</p>
+                                    </div>
+                                    <div>
+                                        <p> However, PriorityWorklist doesn&#39;t expose non-const iterators, making any</p>
+                                        <p> algorithm like remove_if impossible to use.</p>
+                                    </div>
+                                    <h3>Code</h3> 
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                   V.erase(remove_if(V, P), V.end());
+                                            </code>
+                                        </pre>
+                                    </div>
+                                </div>
+                                <p>Defined at line 193 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="073576B9DC98CB02E6A89FEA07DDF60FB012873E">
+                                <pre><code class="language-cpp code-clang-doc">void clear ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Completely clear the PriorityWorklist</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 220 of file llvm/include/llvm/ADT/PriorityWorklist.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

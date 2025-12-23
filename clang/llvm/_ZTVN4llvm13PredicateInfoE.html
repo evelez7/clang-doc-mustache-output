@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>PredicateInfo</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct PredicateInfo</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ProcModelMask">ProcModelMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#OperandMask">OperandMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Predicate">Predicate</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B01B80C226A57034C3440DC2293182EB108BCB06">PredicateInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#05561D435C4EF27D047C5D83F498780FE902C055">getPredicateInfoFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#47DF490481FD1982D5CD66F0FE7B31E1DDE383C6">PredicateInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A0738F27AF8FC9386F67E30595B86B213E7D172D">operator==</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#15C0ECB850928C36CF23AD9667014A91BAFDAF87">PredicateInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#896B7959AAF6D29F66E49C826794768AA091B958">verifyPredicateInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E30F95ED08BC002F2D15F20040BD046F41A44861">dump</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0D3680B78296460481DE4AFEEBDD048EC282302F">print</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct PredicateInfo</h1>
+                        <p>Defined at line 333 of file llvm/utils/TableGen/Common/CodeGenSchedule.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Used to correlate instructions to MCInstPredicates specified by</p>
+                                <p> InstructionEquivalentClass tablegen definitions.</p>
+                            </div>
+                            <div>
+                                <p> Example: a XOR of a register with self, is a known zero-idiom for most</p>
+                                <p> X86 processors.</p>
+                            </div>
+                            <div>
+                                <p> Each processor can use a (potentially different) InstructionEquivalenceClass</p>
+                                <p>  definition to classify zero-idioms. That means, XORrr is likely to appear</p>
+                                <p> in more than one equivalence class (where each class definition is</p>
+                                <p> contributed by a different processor).</p>
+                            </div>
+                            <div>
+                                <p> There is no guarantee that the same MCInstPredicate will be used to describe</p>
+                                <p> equivalence classes that identify XORrr as a zero-idiom.</p>
+                            </div>
+                            <div>
+                                <p> To be more specific, the requirements for being a zero-idiom XORrr may be</p>
+                                <p> different for different processors.</p>
+                            </div>
+                            <div>
+                                <p> Class PredicateInfo identifies a subset of processors that specify the same</p>
+                                <p> requirements (i.e. same MCInstPredicate and OperandMask) for an instruction</p>
+                                <p> opcode.</p>
+                            </div>
+                            <div>
+                                <p> Back to the example. Field `ProcModelMask` will have one bit set for every</p>
+                                <p> processor model that sees XORrr as a zero-idiom, and that specifies the same</p>
+                                <p> set of constraints.</p>
+                            </div>
+                            <div>
+                                <p> By construction, there can be multiple instances of PredicateInfo associated</p>
+                                <p> with a same instruction opcode. For example, different processors may define</p>
+                                <p> different constraints on the same opcode.</p>
+                            </div>
+                            <div>
+                                <p> Field OperandMask can be used as an extra constraint.</p>
+                                <p> It may be used to describe conditions that appy only to a subset of the</p>
+                                <p> operands of a machine instruction, and the operands subset may not be the</p>
+                                <p> same for all processor models.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="ProcModelMask" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >APInt ProcModelMask</code></pre>
+                        </div>
+                        <div id="OperandMask" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >APInt OperandMask</code></pre>
+                        </div>
+                        <div id="Predicate" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const Record * Predicate</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="B01B80C226A57034C3440DC2293182EB108BCB06">
+                                <pre><code class="language-cpp code-clang-doc">void PredicateInfo (Function &amp; , DominatorTree &amp; , AssumptionCache &amp; , int &amp; )</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="05561D435C4EF27D047C5D83F498780FE902C055">
+                                <pre><code class="language-cpp code-clang-doc">const PredicateBase * getPredicateInfoFor (const Value * V)</code></pre>
+                                <p>Defined at line 186 of file llvm/include/llvm/Transforms/Utils/PredicateInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="47DF490481FD1982D5CD66F0FE7B31E1DDE383C6">
+                                <pre><code class="language-cpp code-clang-doc">void PredicateInfo (APInt CpuMask, APInt Operands, const Record * Pred)</code></pre>
+                                <p>Defined at line 337 of file llvm/utils/TableGen/Common/CodeGenSchedule.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A0738F27AF8FC9386F67E30595B86B213E7D172D">
+                                <pre><code class="language-cpp code-clang-doc">bool operator== (const PredicateInfo &amp; Other)</code></pre>
+                                <p>Defined at line 340 of file llvm/utils/TableGen/Common/CodeGenSchedule.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="15C0ECB850928C36CF23AD9667014A91BAFDAF87">
+                                <pre><code class="language-cpp code-clang-doc">void PredicateInfo (Function &amp; , DominatorTree &amp; , AssumptionCache &amp; , BumpPtrAllocator &amp; )</code></pre>
+                                <p>Defined at line 706 of file llvm/lib/Transforms/Utils/PredicateInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="896B7959AAF6D29F66E49C826794768AA091B958">
+                                <pre><code class="language-cpp code-clang-doc">void verifyPredicateInfo ()</code></pre>
+                                <p>Defined at line 768 of file llvm/lib/Transforms/Utils/PredicateInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E30F95ED08BC002F2D15F20040BD046F41A44861">
+                                <pre><code class="language-cpp code-clang-doc">void dump ()</code></pre>
+                                <p>Defined at line 842 of file llvm/lib/Transforms/Utils/PredicateInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0D3680B78296460481DE4AFEEBDD048EC282302F">
+                                <pre><code class="language-cpp code-clang-doc">void print (raw_ostream &amp; )</code></pre>
+                                <p>Defined at line 837 of file llvm/lib/Transforms/Utils/PredicateInfo.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

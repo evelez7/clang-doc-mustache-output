@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SectionMemoryManager</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SectionMemoryManager</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#27E0CDEC44126DDB87F5B1C8CD1E8C2E3F243E06">reserveAllocationSpace</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B370872E5A65449A7371D8AD1E4A7253CDDAA225">SectionMemoryManager</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4A54149939FF3A02F90163E385C0EE5DC57148EC">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9EC0387BFBBD5DB06E9A7453A424279A7377B630">needsToReserveAllocationSpace</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A01AF800AC8E751E19B8C153C4582DF3B42B33AE">SectionMemoryManager</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#10F69F242B280CE319C8A60F118D1FB356A96976">~SectionMemoryManager</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A52D8F86D88CF090C2C5ADAE95A7534101F8DFD9">allocateCodeSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1A1E2FA994F7EED3F63C58F074EBF499E85A2168">allocateDataSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C98010364F74FB8A4B88F2E54D91984AF8C8885">finalizeMemory</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DD8DA44BC456CCB6AFF7AC4057562A84C3822C38">invalidateInstructionCache</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SectionMemoryManager</h1>
+                        <p>Defined at line 40 of file llvm/include/llvm/ExecutionEngine/SectionMemoryManager.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This is a simple memory manager which implements the methods called by</p>
+                                <p> the RuntimeDyld class to allocate memory for section-based loading of</p>
+                                <p> objects, usually those generated by the MCJIT execution engine.</p>
+                            </div>
+                            <div>
+                                <p> This memory manager allocates all section memory as read-write.  The</p>
+                                <p> RuntimeDyld will copy JITed section memory into these allocated blocks</p>
+                                <p> and perform any necessary linking and relocations.</p>
+                            </div>
+                            <div>
+                                <p> Any client using this memory manager MUST ensure that section-specific</p>
+                                <p> page permissions have been applied before attempting to execute functions</p>
+                                <p> in the JITed object.  Permissions can be applied either by calling</p>
+                                <p> MCJIT::finalizeObject or by calling SectionMemoryManager::finalizeMemory</p>
+                                <p> directly.  Clients of MCJIT should call MCJIT::finalizeObject.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="27E0CDEC44126DDB87F5B1C8CD1E8C2E3F243E06">
+                                <pre><code class="language-cpp code-clang-doc">void reserveAllocationSpace (uintptr_t CodeSize, Align CodeAlign, uintptr_t RODataSize, Align RODataAlign, uintptr_t RWDataSize, Align RWDataAlign)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Implements allocating all memory in a single block. This is required to</p>
+                                        <p> limit memory offsets to fit the ARM ABI; large memory systems may</p>
+                                        <p> otherwise allocate separate sections too far apart.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 29 of file llvm/lib/ExecutionEngine/SectionMemoryManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B370872E5A65449A7371D8AD1E4A7253CDDAA225">
+                                <pre><code class="language-cpp code-clang-doc">void SectionMemoryManager (const SectionMemoryManager &amp; )</code></pre>
+                                <p>Defined at line 112 of file llvm/include/llvm/ExecutionEngine/SectionMemoryManager.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4A54149939FF3A02F90163E385C0EE5DC57148EC">
+                                <pre><code class="language-cpp code-clang-doc">void operator= (const SectionMemoryManager &amp; )</code></pre>
+                                <p>Defined at line 113 of file llvm/include/llvm/ExecutionEngine/SectionMemoryManager.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9EC0387BFBBD5DB06E9A7453A424279A7377B630">
+                                <pre><code class="language-cpp code-clang-doc">bool needsToReserveAllocationSpace ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Enable reserveAllocationSpace when requested.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 117 of file llvm/include/llvm/ExecutionEngine/SectionMemoryManager.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A01AF800AC8E751E19B8C153C4582DF3B42B33AE">
+                                <pre><code class="language-cpp code-clang-doc">void SectionMemoryManager (MemoryMapper * MM, bool ReserveAlloc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Creates a SectionMemoryManager instance with </p>
+                                        <p> as the associated</p>
+                                        <p> memory mapper.  If </p>
+                                        <p> is nullptr then a default memory mapper is used</p>
+                                        <p> that directly calls into the operating system.</p>
+                                    </div>
+                                    <div>
+                                        <p> If </p>
+                                        <p> is true all memory will be pre-allocated, and any</p>
+                                        <p> attempts to allocate beyond pre-allocated memory will fail.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 358 of file llvm/lib/ExecutionEngine/SectionMemoryManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="10F69F242B280CE319C8A60F118D1FB356A96976">
+                                <pre><code class="language-cpp code-clang-doc">void ~SectionMemoryManager ()</code></pre>
+                                <p>Defined at line 324 of file llvm/lib/ExecutionEngine/SectionMemoryManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A52D8F86D88CF090C2C5ADAE95A7534101F8DFD9">
+                                <pre><code class="language-cpp code-clang-doc">uint8_t * allocateCodeSection (uintptr_t Size, unsigned int Alignment, unsigned int SectionID, StringRef SectionName)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Allocates a memory block of (at least) the given size suitable for</p>
+                                        <p> executable code.</p>
+                                    </div>
+                                    <div>
+                                        <p> The value of </p>
+                                        <p> must be a power of two.  If </p>
+                                        <p> is zero</p>
+                                        <p> a default alignment of 16 will be used.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 123 of file llvm/lib/ExecutionEngine/SectionMemoryManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1A1E2FA994F7EED3F63C58F074EBF499E85A2168">
+                                <pre><code class="language-cpp code-clang-doc">uint8_t * allocateDataSection (uintptr_t Size, unsigned int Alignment, unsigned int SectionID, StringRef SectionName, bool isReadOnly)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Allocates a memory block of (at least) the given size suitable for</p>
+                                        <p> executable code.</p>
+                                    </div>
+                                    <div>
+                                        <p> The value of </p>
+                                        <p> must be a power of two.  If </p>
+                                        <p> is zero</p>
+                                        <p> a default alignment of 16 will be used.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 111 of file llvm/lib/ExecutionEngine/SectionMemoryManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C98010364F74FB8A4B88F2E54D91984AF8C8885">
+                                <pre><code class="language-cpp code-clang-doc">bool finalizeMemory (std::string * ErrMsg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Update section-specific memory permissions and other attributes.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method is called when object loading is complete and section page</p>
+                                        <p> permissions can be applied.  It is up to the memory manager implementation</p>
+                                        <p> to decide whether or not to act on this method.  The memory manager will</p>
+                                        <p> typically allocate all sections as read-write and then apply specific</p>
+                                        <p> permissions when this method is called.  Code sections cannot be executed</p>
+                                        <p> until this function has been called.  In addition, any cache coherency</p>
+                                        <p> operations needed to reliably use the memory are also performed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 239 of file llvm/lib/ExecutionEngine/SectionMemoryManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DD8DA44BC456CCB6AFF7AC4057562A84C3822C38">
+                                <pre><code class="language-cpp code-clang-doc">void invalidateInstructionCache ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Invalidate instruction cache for code sections.</p>
+                                    </div>
+                                    <div>
+                                        <p> Some platforms with separate data cache and instruction cache require</p>
+                                        <p> explicit cache flush, otherwise JIT code manipulations (like resolved</p>
+                                        <p> relocations) will get to the data cache but not to the instruction cache.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method is called from finalizeMemory.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 318 of file llvm/lib/ExecutionEngine/SectionMemoryManager.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>VarStreamArrayIterator</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class VarStreamArrayIterator</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E4B2CCD30392E5264852C7371A61D73A2265ACD6">VarStreamArrayIterator&lt;ValueType, Extractor&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DE788D8537B92ED34B0870B3074786CB161D5EF7">VarStreamArrayIterator&lt;ValueType, Extractor&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#407B9D44D06662565B27F8EA10702605AAC66FEC">VarStreamArrayIterator&lt;ValueType, Extractor&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44198BD613263C94F6E3B001D9F148525A0B464B">~VarStreamArrayIterator&lt;ValueType, Extractor&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CC2BEE0AECF0178B174D84891E06D7031C080B04">operator==</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26FC0BBCEB9B72372E4C201730EEE8D62FF20B24">operator*</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B0C139B00B4EDCC887FA10352716DE242725316F">operator+=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4FCEF2DEB77825A8D1AA374B8D211E4DB60C160">offset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DF93F18874F7D134E5F9C40AC5ACAFE43E784B1E">getRecordLength</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename ValueType, typename Extractor&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class VarStreamArrayIterator</h1>
+                        <p>Defined at line 156 of file llvm/include/llvm/Support/BinaryStreamArray.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> VarStreamArray represents an array of variable length records backed by a</p>
+                                <p> stream.  This could be a contiguous sequence of bytes in memory, it could</p>
+                                <p> be a file on disk, or it could be a PDB stream where bytes are stored as</p>
+                                <p> discontiguous blocks in a file.  Usually it is desirable to treat arrays</p>
+                                <p> as contiguous blocks of memory, but doing so with large PDB files, for</p>
+                                <p> example, could mean allocating huge amounts of memory just to allow</p>
+                                <p> re-ordering of stream data to be contiguous before iterating over it.  By</p>
+                                <p> abstracting this out, we need not duplicate this memory, and we can</p>
+                                <p> iterate over arrays in arbitrarily formatted streams.  Elements are parsed</p>
+                                <p> lazily on iteration, so there is no upfront cost associated with building</p>
+                                <p> or copying a VarStreamArray, no matter how large it may be.</p>
+                            </div>
+                            <div>
+                                <p> You create a VarStreamArray by specifying a ValueType and an Extractor type.</p>
+                                <p> If you do not specify an Extractor type, you are expected to specialize</p>
+                                <p> VarStreamArrayExtractor</p>
+                                <p>&lt;T</p>
+                                <p>&gt; for your ValueType.</p>
+                            </div>
+                            <div>
+                                <p> By default an Extractor is default constructed in the class, but in some</p>
+                                <p> cases you might find it useful for an Extractor to maintain state across</p>
+                                <p> extractions.  In this case you can provide your own Extractor through a</p>
+                                <p> secondary constructor.  The following examples show various ways of</p>
+                                <p> creating a VarStreamArray.</p>
+                            </div>
+                            <div>
+                                <p>       // Will use VarStreamArrayExtractor</p>
+                                <p>&lt;MyType</p>
+                                <p>&gt; as the extractor.</p>
+                                <p>       VarStreamArray</p>
+                                <p>&lt;MyType</p>
+                                <p>&gt; MyTypeArray;</p>
+                            </div>
+                            <div>
+                                <p>       // Will use a default-constructed MyExtractor as the extractor.</p>
+                                <p>       VarStreamArray</p>
+                                <p>&lt;MyType</p>
+                                <p>, MyExtractor&gt; MyTypeArray2;</p>
+                            </div>
+                            <div>
+                                <p>       // Will use the specific instance of MyExtractor provided.</p>
+                                <p>       // MyExtractor need not be default-constructible in this case.</p>
+                                <p>       MyExtractor E(SomeContext);</p>
+                                <p>       VarStreamArray</p>
+                                <p>&lt;MyType</p>
+                                <p>, MyExtractor&gt; MyTypeArray3(E);</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="E4B2CCD30392E5264852C7371A61D73A2265ACD6">
+                                <pre><code class="language-cpp code-clang-doc">void VarStreamArrayIterator&lt;ValueType, Extractor&gt; (const ArrayType &amp; Array, const Extractor &amp; E, uint32_t Offset, bool * HadError)</code></pre>
+                                <p>Defined at line 163 of file llvm/include/llvm/Support/BinaryStreamArray.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DE788D8537B92ED34B0870B3074786CB161D5EF7">
+                                <pre><code class="language-cpp code-clang-doc">void VarStreamArrayIterator&lt;ValueType, Extractor&gt; ()</code></pre>
+                                <p>Defined at line 178 of file llvm/include/llvm/Support/BinaryStreamArray.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="407B9D44D06662565B27F8EA10702605AAC66FEC">
+                                <pre><code class="language-cpp code-clang-doc">void VarStreamArrayIterator&lt;ValueType, Extractor&gt; (const Extractor &amp; E)</code></pre>
+                                <p>Defined at line 179 of file llvm/include/llvm/Support/BinaryStreamArray.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44198BD613263C94F6E3B001D9F148525A0B464B">
+                                <pre><code class="language-cpp code-clang-doc">void ~VarStreamArrayIterator&lt;ValueType, Extractor&gt; ()</code></pre>
+                                <p>Defined at line 180 of file llvm/include/llvm/Support/BinaryStreamArray.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CC2BEE0AECF0178B174D84891E06D7031C080B04">
+                                <pre><code class="language-cpp code-clang-doc">bool operator== (const IterType &amp; R)</code></pre>
+                                <p>Defined at line 182 of file llvm/include/llvm/Support/BinaryStreamArray.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="26FC0BBCEB9B72372E4C201730EEE8D62FF20B24">
+                                <pre><code class="language-cpp code-clang-doc">const ValueType &amp; operator* ()</code></pre>
+                                <p>Defined at line 197 of file llvm/include/llvm/Support/BinaryStreamArray.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B0C139B00B4EDCC887FA10352716DE242725316F">
+                                <pre><code class="language-cpp code-clang-doc">IterType &amp; operator+= (unsigned int N)</code></pre>
+                                <p>Defined at line 202 of file llvm/include/llvm/Support/BinaryStreamArray.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4FCEF2DEB77825A8D1AA374B8D211E4DB60C160">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t offset ()</code></pre>
+                                <p>Defined at line 227 of file llvm/include/llvm/Support/BinaryStreamArray.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DF93F18874F7D134E5F9C40AC5ACAFE43E784B1E">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getRecordLength ()</code></pre>
+                                <p>Defined at line 228 of file llvm/include/llvm/Support/BinaryStreamArray.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

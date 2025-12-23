@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Attributor</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct Attributor</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Allocator">Allocator</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6B91A714B210B8D2AD23A5D7ED2C7F6EDE4F176">Attributor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#876FECFBE31D7BDA0FFEF53023472216704F596D">~Attributor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#939361B93087B99238CFFA787DA5CBBDD880DFC6">run</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#97943B6ADF9252BB865A8F31F508A3CFAE307707">registerForUpdate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#64F54126BFDADB3605EF6FD315C28BAD0642A51F">recordDependence</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#71B3F2517CC5F2F386EFD67C35DDC63663890E07">isClosedWorldModule</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4E706EB69BDE1B355C981CE68A58BCDD6772D585">identifyDefaultAbstractAttributes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4D5BC8254C00580E0FC437C938576BBE2804953">getAttrsFromAssumes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D51D34DE93DA9AD42C401F0E7456D42C8436D79">hasAttr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7DA5B5EC962088DCEB822EE967841AA625F097D2">getAttrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2163BC89DA9FE3D03FAB1AC9508FD8312B5CBFD">removeAttrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7C3008FEE6A4BF2DC18B8EC8D7AF5C7D205238E7">removeAttrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#47D808974BC4E9FA26E8781AA418540F592BE018">manifestAttrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1FD5192A73FDB235C718F87D1C57F648314AB1D3">getAssumedConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E72C275C3158106C7D866CD7AD0EA58CF9419EAA">getAssumedSimplified</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4B40EE6155858B0C5D6408205D5EF44C98BE257B">getAssumedSimplifiedValues</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B97695056220940AC25F0D923F60D5CFE4B56AF">translateArgumentToCallSiteContent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BED66A963C8F4A90F8B99381C2DBF48E9C2D0D9">isAssumedDead</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D4814AEE01DA8237738EBAEBA7ED87D91DB6FBB6">isAssumedDead</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#021315CB19577585218995235C8E583582C21873">getAAFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3AF168D3C568F7FBFDC1660027F4A4E020CC8963">getOrCreateAAFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#25371E887D5B8DB531CD4B623078E9E3189CAD1F">isAssumedDead</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#19558D2CC7A07A09985112FE641FDE670FA6665F">getOrCreateAAFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7C30624DA5C921BDA271C1C52DC959609C09EF6">isAssumedDead</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44931B572AE807B87E15AB83D018E2F3450076A4">isAssumedDead</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D4EA8E73B03E588D8CCA5173B353BD6413E26883">getInfoCache</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5FB1FA955A569C182EDA1BF6087C56EDEE347B58">checkForAllCallees</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A6EE27D4A0A89DBA93D7BF92312C15C263A9F4BE">internalizeFunctions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#24C69693344111AA2F8AB0BF30781661DBF3AD36">lookupAAFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#17E2F7E3C341D1E9AD1FF6767C97ED7450CF59EA">registerAA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#259C2DC8ECEB64DEDF1C3C1E45963A2B42E69D23">isModulePass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#94087DB1268E4B4F83B4C2E25EDAD13B9567C86E">shouldSpecializeCallSiteForCallee</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#81FBD6F054B71D81805CF0E750C50A4178AC3E2A">isRunOn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5F6F3A115184913D00BC15DCE0969217F11B54F">isRunOn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C0F4CC5511F034C8E318B7AAB59CF63B15763AB4">shouldUpdateAA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#300E658C608535642BF3D911343F71F0D93FA592">checkForAllUses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FC772B3F4F016F1AF560DF157F7A9C6D37F95901">shouldInitialize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8AD1F4287FE2CF695772CA92D96B9E0880464545">isFunctionIPOAmendable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D052CE07D0F6CF2591DE8E8A225C964262EBFD2D">markLiveInternalFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#174B3A297C0AE0B803771E26346F01F670F3A30D">changeUseAfterManifest</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A19A39F56A99E307C002ED6D43621F5FF120D4D5">changeAfterManifest</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07E100B057706B845F5B31D4E6AB4807DE59015B">checkForAllCallSites</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BD587C19926B869CE5840177935F58B5C4FB3D47">checkForAllCallSites</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CAD5B21C2BC570FD1AE072B5676042E49C6895FC">changeToUnreachableAfterManifest</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3830E8ECF4B3D86D657694DFA395080C78E0616">registerInvokeWithDeadSuccessor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C22DB9D7094F7D5193EE4E013FD88A40510F06FC">deleteAfterManifest</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2EB057046D0F3B40569B34A295D50EA9D389C6A9">deleteAfterManifest</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5CF28BD65D27A2578F9FD45F58962595962B4B84">registerManifestAddedBasicBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#852CD797D8D1CF4A872B0414342AA1E15F386463">deleteAfterManifest</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3BA2F72DCC22248D44DFCB806501B2DFA3390973">getAssumedConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2B5B4371C4DCD710B597F819A5B8405946E4CB2D">checkForAllReturnedValues</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7E076C9363CFA392108E9D0A9172DD8579BBB18E">getAssumedSimplified</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C748AD9D8BC51CA3CD5017F8EB276FED4CFA6D7E">getAssumedSimplified</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#01194D8D0FE58A0D463CD7DF1802C15A8FB51D6C">registerSimplificationCallback</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EDC0E16C0457D8EE7AF69869819CBB8B85228DC9">hasSimplificationCallback</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#768BD81148053BDBA607B16B5DEA6204212A08C8">checkForAllInstructions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DEA114C40EB210B3185BA820234C73794D71F1A1">registerGlobalVariableSimplificationCallback</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#331759EFABD95609768C6234FA292A48C4A5CBD1">hasGlobalVariableSimplificationCallback</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A9BB879A7A3EAE5137F0C0338425B56AA590A3A4">getAssumedInitializerFromCallBack</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#354556DF1EF61F3245DE1E5F638DB4467E9809BA">emitRemark</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7AA66F2FCFA90457513659EF53ECAB9130777DC">isValidFunctionSignatureRewrite</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7C7C704CB571D2E78619E40F28CB28946A807F4C">registerFunctionSignatureRewrite</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#51E0B55FC8A7CA155354EC7E566E2D28D0EE3E81">checkForAllInstructions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ECD575AAFFA6D51AE0E0A40ACA83F53DE14A51E9">registerVirtualUseCallback</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#40308405C91627DEB5E67FE8D339196D9E93384D">checkForAllReadWriteInstructions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B52BACC3CF556B36B6D0C15AC859CAF180B0838A">emitRemark</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AA50BAC963394DC373286994B4E4C0749B4437B9">checkForAllCallLikeInstructions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BBF61EE9C647268088E96C82B0048CC7E17D9610">getDataLayout</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#63BA7E8D0399AC23E915E95B95954F703D16AF96">getModifiedFunctions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#714E1BBD81D13EFB9C97D1DCA22BC7BB1194DB98">createShallowWrapper</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D58049B2837FF6DB9C94734C3C89C1C7736FA721">isInternalizable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#131BD471840B1DFC3CBCE3A5F8408ED79C31269F">internalizeFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79978C1AEF26D51AE3744F313FD207DAB05C65A5">internalizeFunctions</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct Attributor</h1>
+                        <p>Defined at line 1533 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> The fixpoint analysis framework that orchestrates the attribute deduction.</p>
+                            </div>
+                            <div>
+                                <p> The Attributor provides a general abstract analysis framework (guided</p>
+                                <p> fixpoint iteration) as well as helper functions for the deduction of</p>
+                                <p> (LLVM-IR) attributes. However, also other code properties can be deduced,</p>
+                                <p> propagated, and ultimately manifested through the Attributor framework. This</p>
+                                <p> is particularly useful if these properties interact with attributes and a</p>
+                                <p> co-scheduled deduction allows to improve the solution. Even if not, thus if</p>
+                                <p> attributes/properties are completely isolated, they should use the</p>
+                                <p> Attributor framework to reduce the number of fixpoint iteration frameworks</p>
+                                <p> in the code base. Note that the Attributor design makes sure that isolated</p>
+                                <p> attributes are not impacted, in any way, by others derived at the same time</p>
+                                <p> if there is no cross-reasoning performed.</p>
+                            </div>
+                            <div>
+                                <p> The public facing interface of the Attributor is kept simple and basically</p>
+                                <p> allows abstract attributes to one thing, query abstract attributes</p>
+                                <p> in-flight. There are two reasons to do this:</p>
+                                <p>    a) The optimistic state of one abstract attribute can justify an</p>
+                                <p>       optimistic state of another, allowing to framework to end up with an</p>
+                                <p>       optimistic (=best possible) fixpoint instead of one based solely on</p>
+                                <p>       information in the IR.</p>
+                                <p>    b) This avoids reimplementing various kinds of lookups, e.g., to check</p>
+                                <p>       for existing IR attributes, in favor of a single lookups interface</p>
+                                <p>       provided by an abstract attribute subclass.</p>
+                            </div>
+                            <div>
+                                <p> NOTE: The mechanics of adding a new &quot;concrete&quot; abstract attribute are</p>
+                                <p>       described in the file comment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Allocator" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >BumpPtrAllocator &amp; Allocator</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="F6B91A714B210B8D2AD23A5D7ED2C7F6EDE4F176">
+                                <pre><code class="language-cpp code-clang-doc">void Attributor (int &amp; Functions, InformationCache &amp; InfoCache, AttributorConfig Configuration)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Constructor</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Functions</b>   The set of functions we are deriving attributes for.
+                                    </div> 
+                                    <div>
+                                        <b>InfoCache</b>   Cache to hold various information accessible for                  the abstract attributes.
+                                    </div> 
+                                    <div>
+                                        <b>Configuration</b>   The Attributor configuration which determines what                      generic features to use.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1076 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="876FECFBE31D7BDA0FFEF53023472216704F596D">
+                                <pre><code class="language-cpp code-clang-doc">void ~Attributor ()</code></pre>
+                                <p>Defined at line 1543 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="939361B93087B99238CFFA787DA5CBBDD880DFC6">
+                                <pre><code class="language-cpp code-clang-doc">ChangeStatus run ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Run the analyses until a fixpoint is reached or enforced (timeout).</p>
+                                    </div>
+                                    <div>
+                                        <p> The attributes registered with this Attributor can be used after as long</p>
+                                        <p> as the Attributor is not destroyed (it owns the attributes now).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2647 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="97943B6ADF9252BB865A8F31F508A3CFAE307707">
+                                <pre><code class="language-cpp code-clang-doc">void registerForUpdate (AbstractAttribute &amp; AA)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Allows a query AA to request an update if a new query was received.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2260 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="64F54126BFDADB3605EF6FD315C28BAD0642A51F">
+                                <pre><code class="language-cpp code-clang-doc">void recordDependence (const AbstractAttribute &amp; FromAA, const AbstractAttribute &amp; ToAA, DepClassTy DepClass)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Explicitly record a dependence from </p>
+                                        <p> to </p>
+                                        <p> that is if</p>
+                                        <p> changes </p>
+                                        <p> should be updated as well.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method should be used in conjunction with the `getAAFor` method and</p>
+                                        <p> with the DepClass enum passed to the method set to None. This can</p>
+                                        <p> be beneficial to avoid false dependences but it requires the users of</p>
+                                        <p> `getAAFor` to explicitly record true dependences through this method.</p>
+                                        <p> The </p>
+                                        <p> flag indicates if the dependence is striclty necessary.</p>
+                                        <p> That means for required dependences, if </p>
+                                        <p> changes to an invalid</p>
+                                        <p> state, </p>
+                                        <p> can be moved to a pessimistic fixpoint because it required</p>
+                                        <p> information from </p>
+                                        <p> but none are available anymore.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3303 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="71B3F2517CC5F2F386EFD67C35DDC63663890E07">
+                                <pre><code class="language-cpp code-clang-doc">bool isClosedWorldModule ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the module contains the whole world, thus, no outside</p>
+                                        <p> functions exist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3658 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4E706EB69BDE1B355C981CE68A58BCDD6772D585">
+                                <pre><code class="language-cpp code-clang-doc">void identifyDefaultAbstractAttributes (Function &amp; F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determine opportunities to derive &#39;default&#39; attributes in </p>
+                                        <p> and create</p>
+                                        <p> abstract attribute objects for them.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that abstract attribute instances are generally created even if the</p>
+                                        <p> IR already contains the information they would deduce. The most important</p>
+                                        <p> reason for this is the single interface, the one of the abstract attribute</p>
+                                        <p> instance, which can be queried without the need to look at the IR in</p>
+                                        <p> various places.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>F</b>   The function that is checked for attribute opportunities.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 3342 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4D5BC8254C00580E0FC437C938576BBE2804953">
+                                <pre><code class="language-cpp code-clang-doc">bool getAttrsFromAssumes (const IRPosition &amp; IRP, AttrKind AK, SmallVectorImpl&lt;Attribute&gt; &amp; Attrs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the attributes of kind </p>
+                                        <p> existing in the IR as operand bundles</p>
+                                        <p> of an llvm.assume.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1093 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3D51D34DE93DA9AD42C401F0E7456D42C8436D79">
+                                <pre><code class="language-cpp code-clang-doc">bool hasAttr (const IRPosition &amp; IRP, ArrayRef&lt;Attribute::AttrKind&gt; AKs, bool IgnoreSubsumingPositions, AttrKind ImpliedAttributeKind)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if any kind in </p>
+                                        <p> existing in the IR at a position that</p>
+                                        <p> will affect this one. See also getAttrs(...).</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>IgnoreSubsumingPositions</b>   Flag to determine if subsuming positions,                                 e.g., the function position if this is an                                 argument position, should be ignored.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1167 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7DA5B5EC962088DCEB822EE967841AA625F097D2">
+                                <pre><code class="language-cpp code-clang-doc">void getAttrs (const IRPosition &amp; IRP, ArrayRef&lt;Attribute::AttrKind&gt; AKs, SmallVectorImpl&lt;Attribute&gt; &amp; Attrs, bool IgnoreSubsumingPositions)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the attributes of any kind in </p>
+                                        <p> existing in the IR at a</p>
+                                        <p> position that will affect this one. While each position can only have a</p>
+                                        <p> single attribute of any kind in </p>
+                                        <p> there are &quot;subsuming&quot; positions</p>
+                                        <p> that could have an attribute as well. This method returns all attributes</p>
+                                        <p> found in </p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>IgnoreSubsumingPositions</b>   Flag to determine if subsuming positions,                                 e.g., the function position if this is an                                 argument position, should be ignored.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1209 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A2163BC89DA9FE3D03FAB1AC9508FD8312B5CBFD">
+                                <pre><code class="language-cpp code-clang-doc">ChangeStatus removeAttrs (const IRPosition &amp; IRP, ArrayRef&lt;Attribute::AttrKind&gt; AttrKinds)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Remove all </p>
+                                        <p> attached to </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1232 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7C3008FEE6A4BF2DC18B8EC8D7AF5C7D205238E7">
+                                <pre><code class="language-cpp code-clang-doc">ChangeStatus removeAttrs (const IRPosition &amp; IRP, ArrayRef Attrs)</code></pre>
+                                <p>Defined at line 1244 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="47D808974BC4E9FA26E8781AA418540F592BE018">
+                                <pre><code class="language-cpp code-clang-doc">ChangeStatus manifestAttrs (const IRPosition &amp; IRP, ArrayRef DeducedAttrs, bool ForceReplace)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Attach </p>
+                                        <p> to </p>
+                                        <p> if </p>
+                                        <p> is set we do this</p>
+                                        <p> even if the same attribute kind was already present.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1257 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1FD5192A73FDB235C718F87D1C57F648314AB1D3">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Constant *&gt; getAssumedConstant (const IRPosition &amp; IRP, const AbstractAttribute &amp; AA, bool &amp; UsedAssumedInformation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If </p>
+                                        <p> is assumed to be a constant, return it, if it is unclear yet,</p>
+                                        <p> return std::nullopt, otherwise return `nullptr`.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1407 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E72C275C3158106C7D866CD7AD0EA58CF9419EAA">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Value *&gt; getAssumedSimplified (const IRPosition &amp; V, const AbstractAttribute * AA, bool &amp; UsedAssumedInformation, ValueScope S)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If </p>
+                                        <p> is assumed simplified, return it, if it is unclear yet,</p>
+                                        <p> return std::nullopt, otherwise return `nullptr`. Same as the public</p>
+                                        <p> version except that it can be used without recording dependences on any </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1437 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4B40EE6155858B0C5D6408205D5EF44C98BE257B">
+                                <pre><code class="language-cpp code-clang-doc">bool getAssumedSimplifiedValues (const IRPosition &amp; IRP, const AbstractAttribute * AA, SmallVectorImpl&lt;AA::ValueAndContext&gt; &amp; Values, ValueScope S, bool &amp; UsedAssumedInformation, bool RecurseForSelectAndPHI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Try to simplify </p>
+                                        <p> and in the scope </p>
+                                        <p> If successful, true is</p>
+                                        <p> returned and all potential values </p>
+                                        <p> can take are put into </p>
+                                        <p> If the result in </p>
+                                        <p> contains select or PHI instructions it means</p>
+                                        <p> those could not be simplified to a single value. Recursive calls with</p>
+                                        <p> these instructions will yield their respective potential values. If false</p>
+                                        <p> is returned no other information is valid.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1460 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B97695056220940AC25F0D923F60D5CFE4B56AF">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Value *&gt; translateArgumentToCallSiteContent (std::optional&lt;Value *&gt; V, CallBase &amp; CB, const AbstractAttribute &amp; AA, bool &amp; UsedAssumedInformation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Translate </p>
+                                        <p> from the callee context into the call site context.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1526 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BED66A963C8F4A90F8B99381C2DBF48E9C2D0D9">
+                                <pre><code class="language-cpp code-clang-doc">bool isAssumedDead (const AbstractAttribute &amp; AA, const AAIsDead * LivenessAA, bool &amp; UsedAssumedInformation, bool CheckBBLivenessOnly, DepClassTy DepClass)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if </p>
+                                        <p> (or its context instruction) is assumed dead.</p>
+                                    </div>
+                                    <div>
+                                        <p> If </p>
+                                        <p> is not provided it is queried.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1552 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D4814AEE01DA8237738EBAEBA7ED87D91DB6FBB6">
+                                <pre><code class="language-cpp code-clang-doc">bool isAssumedDead (const Use &amp; U, const AbstractAttribute * QueryingAA, const AAIsDead * FnLivenessAA, bool &amp; UsedAssumedInformation, bool CheckBBLivenessOnly, DepClassTy DepClass)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if </p>
+                                        <p> is assumed dead.</p>
+                                    </div>
+                                    <div>
+                                        <p> If </p>
+                                        <p> is not provided it is queried.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1565 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="021315CB19577585218995235C8E583582C21873">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AAType&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">const AAType * getAAFor (const AbstractAttribute &amp; QueryingAA, const IRPosition &amp; IRP, DepClassTy DepClass)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lookup an abstract attribute of type </p>
+                                        <p> at position </p>
+                                        <p> While</p>
+                                        <p> no abstract attribute is found equivalent positions are checked, see</p>
+                                        <p> SubsumingPositionIterator. Thus, the returned abstract attribute</p>
+                                        <p> might be anchored at a different position, e.g., the callee if </p>
+                                        <p> is a</p>
+                                        <p> call base.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method is the only (supported) way an abstract attribute can retrieve</p>
+                                        <p> information from another abstract attribute. As an example, take an</p>
+                                        <p> abstract attribute that determines the memory access behavior for a</p>
+                                        <p> argument (readnone, readonly, ...). It should use `getAAFor` to get the</p>
+                                        <p> most optimistic information for other abstract attributes in-flight, e.g.</p>
+                                        <p> the one reasoning about the &quot;captured&quot; state for the argument or the one</p>
+                                        <p> reasoning on the memory access behavior of the function as a whole.</p>
+                                    </div>
+                                    <div>
+                                        <p> If the DepClass enum is set to `DepClassTy::None` the dependence from</p>
+                                        <p> to the return abstract attribute is not automatically</p>
+                                        <p> recorded. This should only be used if the caller will record the</p>
+                                        <p> dependence explicitly if necessary, thus if it the returned abstract</p>
+                                        <p> attribute is used for reasoning. To record the dependences explicitly use</p>
+                                        <p> the `Attributor::recordDependence` method.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1577 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3AF168D3C568F7FBFDC1660027F4A4E020CC8963">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AAType&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">const AAType * getOrCreateAAFor (IRPosition IRP, const AbstractAttribute * QueryingAA, DepClassTy DepClass, bool ForceUpdate, bool UpdateAfterInit)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The version of getAAFor that allows to omit a querying abstract</p>
+                                        <p> attribute. Using this after Attributor started running is restricted to</p>
+                                        <p> only the Attributor itself. Initial seeding of AAs can be done via this</p>
+                                        <p> function.</p>
+                                        <p> NOTE: ForceUpdate is ignored in any stage other than the update stage.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1589 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="25371E887D5B8DB531CD4B623078E9E3189CAD1F">
+                                <pre><code class="language-cpp code-clang-doc">bool isAssumedDead (const Instruction &amp; I, const AbstractAttribute * QueryingAA, const AAIsDead * LivenessAA, bool &amp; UsedAssumedInformation, bool CheckBBLivenessOnly, DepClassTy DepClass, bool CheckForDeadStore)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if </p>
+                                        <p> is assumed dead.</p>
+                                    </div>
+                                    <div>
+                                        <p> If </p>
+                                        <p> is not provided it is queried.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1614 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="19558D2CC7A07A09985112FE641FDE670FA6665F">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AAType&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">const AAType * getOrCreateAAFor (const IRPosition &amp; IRP)</code></pre>
+                                <p>Defined at line 1659 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F7C30624DA5C921BDA271C1C52DC959609C09EF6">
+                                <pre><code class="language-cpp code-clang-doc">bool isAssumedDead (const IRPosition &amp; IRP, const AbstractAttribute * QueryingAA, const AAIsDead * FnLivenessAA, bool &amp; UsedAssumedInformation, bool CheckBBLivenessOnly, DepClassTy DepClass)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if </p>
+                                        <p> is assumed dead.</p>
+                                    </div>
+                                    <div>
+                                        <p> If </p>
+                                        <p> is not provided it is queried.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1677 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44931B572AE807B87E15AB83D018E2F3450076A4">
+                                <pre><code class="language-cpp code-clang-doc">bool isAssumedDead (const BasicBlock &amp; BB, const AbstractAttribute * QueryingAA, const AAIsDead * FnLivenessAA, DepClassTy DepClass)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if </p>
+                                        <p> is assumed dead.</p>
+                                    </div>
+                                    <div>
+                                        <p> If </p>
+                                        <p> is not provided it is queried.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1725 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D4EA8E73B03E588D8CCA5173B353BD6413E26883">
+                                <pre><code class="language-cpp code-clang-doc">InformationCache &amp; getInfoCache ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the internal information cache.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1740 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5FB1FA955A569C182EDA1BF6087C56EDEE347B58">
+                                <pre><code class="language-cpp code-clang-doc">bool checkForAllCallees (function_ref&lt;bool (ArrayRef&lt;const Function *&gt;)&gt; Pred, const AbstractAttribute &amp; QueryingAA, const CallBase &amp; CB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check </p>
+                                        <p> on all potential Callees of </p>
+                                    </div>
+                                    <div>
+                                        <p> This method will evaluate </p>
+                                        <p> with all potential callees of </p>
+                                        <p> as</p>
+                                        <p> input and return true if </p>
+                                        <p> does. If some callees might be unknown</p>
+                                        <p> this function will return false.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1749 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A6EE27D4A0A89DBA93D7BF92312C15C263A9F4BE">
+                                <pre><code class="language-cpp code-clang-doc">bool internalizeFunctions (SmallPtrSetImpl&lt;Function *&gt; &amp; FnSet, int &amp; FnMap)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Make copies of each function in the set </p>
+                                        <p> such that the copied</p>
+                                        <p> version has internal linkage afterwards and can be analysed. Then we</p>
+                                        <p> replace all uses of the original function to the copied one. The map</p>
+                                        <p> contains a mapping of functions to their internalized versions.</p>
+                                    </div>
+                                    <div>
+                                        <p> Only non-locally linked functions that have `linkonce_odr` or `weak_odr`</p>
+                                        <p> linkage can be internalized because these linkages guarantee that other</p>
+                                        <p> definitions with the same name have the same semantics as this one.</p>
+                                    </div>
+                                    <div>
+                                        <p> This version will internalize all the functions in the set </p>
+                                        <p> at</p>
+                                        <p> once and then replace the uses. This prevents internalized functions being</p>
+                                        <p> called by external functions when there is an internalized version in the</p>
+                                        <p> module.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="24C69693344111AA2F8AB0BF30781661DBF3AD36">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AAType&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">AAType * lookupAAFor (const IRPosition &amp; IRP, const AbstractAttribute * QueryingAA, DepClassTy DepClass, bool AllowInvalidState)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the attribute of </p>
+                                        <p> for </p>
+                                        <p> if existing and valid. This</p>
+                                        <p> also allows non-AA users lookup.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1667 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="17E2F7E3C341D1E9AD1FF6767C97ED7450CF59EA">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AAType&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">AAType &amp; registerAA (AAType &amp; AA)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Introduce a new abstract attribute into the fixpoint analysis.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that ownership of the attribute is given to the Attributor. It will</p>
+                                        <p> invoke delete for the Attributor on destruction of the Attributor.</p>
+                                    </div>
+                                    <div>
+                                        <p> Attributes are identified by their IR position (AAType::getIRPosition())</p>
+                                        <p> and the address of their static member (see AAType::ID).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1719 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="259C2DC8ECEB64DEDF1C3C1E45963A2B42E69D23">
+                                <pre><code class="language-cpp code-clang-doc">bool isModulePass ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if this is a module pass, false otherwise.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1743 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="94087DB1268E4B4F83B4C2E25EDAD13B9567C86E">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldSpecializeCallSiteForCallee (const AbstractAttribute &amp; AA, CallBase &amp; CB, Function &amp; Callee, unsigned int NumAssumedCallees)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if we should specialize the call site </p>
+                                        <p> for the potential</p>
+                                        <p> callee </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1747 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="81FBD6F054B71D81805CF0E750C50A4178AC3E2A">
+                                <pre><code class="language-cpp code-clang-doc">bool isRunOn (Function &amp; Fn)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if we derive attributes for </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1761 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5F6F3A115184913D00BC15DCE0969217F11B54F">
+                                <pre><code class="language-cpp code-clang-doc">bool isRunOn (Function * Fn)</code></pre>
+                                <p>Defined at line 1762 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C0F4CC5511F034C8E318B7AAB59CF63B15763AB4">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AAType&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">bool shouldUpdateAA (const IRPosition &amp; IRP)</code></pre>
+                                <p>Defined at line 1766 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="300E658C608535642BF3D911343F71F0D93FA592">
+                                <pre><code class="language-cpp code-clang-doc">bool checkForAllUses (function_ref&lt;bool (const Use &amp;, bool &amp;)&gt; Pred, const AbstractAttribute &amp; QueryingAA, const Value &amp; V, bool CheckBBLivenessOnly, DepClassTy LivenessDepClass, bool IgnoreDroppableUses, function_ref&lt;bool (const Use &amp;, const Use &amp;)&gt; EquivalentUseCB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check </p>
+                                        <p> on all (transitive) uses of </p>
+                                    </div>
+                                    <div>
+                                        <p> This method will evaluate </p>
+                                        <p> on all (transitive) uses of the</p>
+                                        <p> associated value and return true if </p>
+                                        <p> holds every time.</p>
+                                        <p> If uses are skipped in favor of equivalent ones, e.g., if we look through</p>
+                                        <p> memory, the </p>
+                                        <p> will be used to give the caller an idea</p>
+                                        <p> what original used was replaced by a new one (or new ones). The visit is</p>
+                                        <p> cut short if </p>
+                                        <p> returns false and the function will return</p>
+                                        <p> false as well.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1768 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FC772B3F4F016F1AF560DF157F7A9C6D37F95901">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename AAType&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">bool shouldInitialize (const IRPosition &amp; IRP, bool &amp; ShouldUpdateAA)</code></pre>
+                                <p>Defined at line 1802 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8AD1F4287FE2CF695772CA92D96B9E0880464545">
+                                <pre><code class="language-cpp code-clang-doc">bool isFunctionIPOAmendable (const Function &amp; F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determine whether the function </p>
+                                        <p> is IPO amendable</p>
+                                    </div>
+                                    <div>
+                                        <p> If a function is exactly defined or it has alwaysinline attribute</p>
+                                        <p> and is viable to be inlined, we say it is IPO amendable</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1840 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D052CE07D0F6CF2591DE8E8A225C964262EBFD2D">
+                                <pre><code class="language-cpp code-clang-doc">void markLiveInternalFunction (const Function &amp; F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Mark the internal function </p>
+                                        <p> as live.</p>
+                                    </div>
+                                    <div>
+                                        <p> This will trigger the identification and initialization of attributes for</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1849 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="174B3A297C0AE0B803771E26346F01F670F3A30D">
+                                <pre><code class="language-cpp code-clang-doc">bool changeUseAfterManifest (Use &amp; U, Value &amp; NV)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Record that </p>
+                                        <p> is to be replaces with </p>
+                                        <p> after information was</p>
+                                        <p> manifested. This also triggers deletion of trivially dead istructions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1861 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A19A39F56A99E307C002ED6D43621F5FF120D4D5">
+                                <pre><code class="language-cpp code-clang-doc">bool changeAfterManifest (IRPosition IRP, Value &amp; NV, bool ChangeDroppable)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Helper function to replace all uses associated with </p>
+                                        <p> with </p>
+                                        <p> Return true if there is any change. The flag </p>
+                                        <p> indicates</p>
+                                        <p> if dropppable uses should be changed too.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1875 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07E100B057706B845F5B31D4E6AB4807DE59015B">
+                                <pre><code class="language-cpp code-clang-doc">bool checkForAllCallSites (function_ref&lt;bool (AbstractCallSite)&gt; Pred, const AbstractAttribute &amp; QueryingAA, bool RequireAllCallSites, bool &amp; UsedAssumedInformation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check </p>
+                                        <p> on all function call sites.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method will evaluate </p>
+                                        <p> on call sites and return</p>
+                                        <p> true if </p>
+                                        <p> holds in every call sites. However, this is only possible</p>
+                                        <p> all call sites are known, hence the function has internal linkage.</p>
+                                        <p> If true is returned, </p>
+                                        <p> is set if assumed</p>
+                                        <p> information was used to skip or simplify potential call sites.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1875 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BD587C19926B869CE5840177935F58B5C4FB3D47">
+                                <pre><code class="language-cpp code-clang-doc">bool checkForAllCallSites (function_ref&lt;bool (AbstractCallSite)&gt; Pred, const Function &amp; Fn, bool RequireAllCallSites, const AbstractAttribute * QueryingAA, bool &amp; UsedAssumedInformation, bool CheckPotentiallyDead)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check </p>
+                                        <p> on all call sites of </p>
+                                    </div>
+                                    <div>
+                                        <p> This method will evaluate </p>
+                                        <p> on call sites and return</p>
+                                        <p> true if </p>
+                                        <p> holds in every call sites. However, this is only possible</p>
+                                        <p> all call sites are known, hence the function has internal linkage.</p>
+                                        <p> If true is returned, </p>
+                                        <p> is set if assumed</p>
+                                        <p> information was used to skip or simplify potential call sites.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1894 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CAD5B21C2BC570FD1AE072B5676042E49C6895FC">
+                                <pre><code class="language-cpp code-clang-doc">void changeToUnreachableAfterManifest (Instruction * I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Record that </p>
+                                        <p> is to be replaced with `unreachable` after information</p>
+                                        <p> was manifested.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1896 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C3830E8ECF4B3D86D657694DFA395080C78E0616">
+                                <pre><code class="language-cpp code-clang-doc">void registerInvokeWithDeadSuccessor (InvokeInst &amp; II)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Record that </p>
+                                        <p> has at least one dead successor block. This information</p>
+                                        <p> is used, e.g., to replace </p>
+                                        <p> with a call, after information was</p>
+                                        <p> manifested.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1903 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C22DB9D7094F7D5193EE4E013FD88A40510F06FC">
+                                <pre><code class="language-cpp code-clang-doc">void deleteAfterManifest (Instruction &amp; I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Record that </p>
+                                        <p> is deleted after information was manifested. This also</p>
+                                        <p> triggers deletion of trivially dead istructions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1909 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2EB057046D0F3B40569B34A295D50EA9D389C6A9">
+                                <pre><code class="language-cpp code-clang-doc">void deleteAfterManifest (BasicBlock &amp; BB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Record that </p>
+                                        <p> is deleted after information was manifested. This also</p>
+                                        <p> triggers deletion of trivially dead istructions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1913 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5CF28BD65D27A2578F9FD45F58962595962B4B84">
+                                <pre><code class="language-cpp code-clang-doc">void registerManifestAddedBasicBlock (BasicBlock &amp; BB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Record that </p>
+                                        <p> is added during the manifest of an AA. Added basic blocks</p>
+                                        <p> are preserved in the IR.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1917 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="852CD797D8D1CF4A872B0414342AA1E15F386463">
+                                <pre><code class="language-cpp code-clang-doc">void deleteAfterManifest (Function &amp; F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Record that </p>
+                                        <p> is deleted after information was manifested.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1922 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3BA2F72DCC22248D44DFCB806501B2DFA3390973">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Constant *&gt; getAssumedConstant (const Value &amp; V, const AbstractAttribute &amp; AA, bool &amp; UsedAssumedInformation)</code></pre>
+                                <p>Defined at line 1994 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2B5B4371C4DCD710B597F819A5B8405946E4CB2D">
+                                <pre><code class="language-cpp code-clang-doc">bool checkForAllReturnedValues (function_ref&lt;bool (Value &amp;)&gt; Pred, const AbstractAttribute &amp; QueryingAA, ValueScope S, bool RecurseForSelectAndPHI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check </p>
+                                        <p> on all values potentially returned by the function</p>
+                                        <p> associated with </p>
+                                    </div>
+                                    <div>
+                                        <p> This is the context insensitive version of the method above.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2000 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7E076C9363CFA392108E9D0A9172DD8579BBB18E">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Value *&gt; getAssumedSimplified (const IRPosition &amp; IRP, const AbstractAttribute &amp; AA, bool &amp; UsedAssumedInformation, ValueScope S)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If </p>
+                                        <p> is assumed simplified, return it, if it is unclear yet,</p>
+                                        <p> return std::nullopt, otherwise return `nullptr`.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2002 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C748AD9D8BC51CA3CD5017F8EB276FED4CFA6D7E">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Value *&gt; getAssumedSimplified (const Value &amp; V, const AbstractAttribute &amp; AA, bool &amp; UsedAssumedInformation, ValueScope S)</code></pre>
+                                <p>Defined at line 2008 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="01194D8D0FE58A0D463CD7DF1802C15A8FB51D6C">
+                                <pre><code class="language-cpp code-clang-doc">void registerSimplificationCallback (const IRPosition &amp; IRP, const SimplifictionCallbackTy &amp; CB)</code></pre>
+                                <p>Defined at line 2043 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EDC0E16C0457D8EE7AF69869819CBB8B85228DC9">
+                                <pre><code class="language-cpp code-clang-doc">bool hasSimplificationCallback (const IRPosition &amp; IRP)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if there is a simplification callback for </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2049 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="768BD81148053BDBA607B16B5DEA6204212A08C8">
+                                <pre><code class="language-cpp code-clang-doc">bool checkForAllInstructions (function_ref&lt;bool (Instruction &amp;)&gt; Pred, const Function * Fn, const AbstractAttribute * QueryingAA, ArrayRef Opcodes, bool &amp; UsedAssumedInformation, bool CheckBBLivenessOnly, bool CheckPotentiallyDead)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check </p>
+                                        <p> on all instructions in </p>
+                                        <p> with an opcode present in</p>
+                                    </div>
+                                    <div>
+                                        <p> This method will evaluate </p>
+                                        <p> on all instructions with an opcode</p>
+                                        <p> present in </p>
+                                        <p> and return true if </p>
+                                        <p> holds on all of them.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2052 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DEA114C40EB210B3185BA820234C73794D71F1A1">
+                                <pre><code class="language-cpp code-clang-doc">void registerGlobalVariableSimplificationCallback (const GlobalVariable &amp; GV, const GlobalVariableSimplifictionCallbackTy &amp; CB)</code></pre>
+                                <p>Defined at line 2059 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="331759EFABD95609768C6234FA292A48C4A5CBD1">
+                                <pre><code class="language-cpp code-clang-doc">bool hasGlobalVariableSimplificationCallback (const GlobalVariable &amp; GV)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if there is a simplification callback for </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2066 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A9BB879A7A3EAE5137F0C0338425B56AA590A3A4">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Constant *&gt; getAssumedInitializerFromCallBack (const GlobalVariable &amp; GV, const AbstractAttribute * AA, bool &amp; UsedAssumedInformation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return </p>
+                                        <p> if there is no call back registered for </p>
+                                        <p> or</p>
+                                        <p> the call back is still not sure if </p>
+                                        <p> can be simplified. Return </p>
+                                        <p> if </p>
+                                        <p> can&#39;t be simplified.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2073 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="354556DF1EF61F3245DE1E5F638DB4467E9809BA">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename RemarkKind, typename RemarkCallBack&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void emitRemark (Function * F, StringRef RemarkName, RemarkCallBack &amp;&amp; RemarkCB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit a remark on a function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2222 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F7AA66F2FCFA90457513659EF53ECAB9130777DC">
+                                <pre><code class="language-cpp code-clang-doc">bool isValidFunctionSignatureRewrite (Argument &amp; Arg, ArrayRef ReplacementTypes)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if we can rewrite a function signature.</p>
+                                    </div>
+                                    <div>
+                                        <p> The argument </p>
+                                        <p> is replaced with new ones defined by the number,</p>
+                                        <p> order, and types in </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2854 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7C7C704CB571D2E78619E40F28CB28946A807F4C">
+                                <pre><code class="language-cpp code-clang-doc">bool registerFunctionSignatureRewrite (Argument &amp; Arg, ArrayRef ReplacementTypes, ArgumentReplacementInfo::CalleeRepairCBTy &amp;&amp; CalleeRepairCB, ArgumentReplacementInfo::ACSRepairCBTy &amp;&amp; ACSRepairCB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Register a rewrite for a function signature.</p>
+                                    </div>
+                                    <div>
+                                        <p> The argument </p>
+                                        <p> is replaced with new ones defined by the number,</p>
+                                        <p> order, and types in </p>
+                                        <p> The rewiring at the call sites is</p>
+                                        <p> done through </p>
+                                        <p> and at the callee site through</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2923 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="51E0B55FC8A7CA155354EC7E566E2D28D0EE3E81">
+                                <pre><code class="language-cpp code-clang-doc">bool checkForAllInstructions (function_ref&lt;bool (Instruction &amp;)&gt; Pred, const AbstractAttribute &amp; QueryingAA, ArrayRef Opcodes, bool &amp; UsedAssumedInformation, bool CheckBBLivenessOnly, bool CheckPotentiallyDead)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check </p>
+                                        <p> on all instructions with an opcode present in </p>
+                                    </div>
+                                    <div>
+                                        <p> This method will evaluate </p>
+                                        <p> on all instructions with an opcode</p>
+                                        <p> present in </p>
+                                        <p> and return true if </p>
+                                        <p> holds on all of them.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2078 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ECD575AAFFA6D51AE0E0A40ACA83F53DE14A51E9">
+                                <pre><code class="language-cpp code-clang-doc">void registerVirtualUseCallback (const Value &amp; V, const VirtualUseCallbackTy &amp; CB)</code></pre>
+                                <p>Defined at line 2089 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="40308405C91627DEB5E67FE8D339196D9E93384D">
+                                <pre><code class="language-cpp code-clang-doc">bool checkForAllReadWriteInstructions (function_ref&lt;bool (Instruction &amp;)&gt; Pred, AbstractAttribute &amp; QueryingAA, bool &amp; UsedAssumedInformation)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check </p>
+                                        <p> on all Read/Write instructions.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method will evaluate </p>
+                                        <p> on all instructions that read or write</p>
+                                        <p> to memory present in the information cache and return true if </p>
+                                        <p> holds on all of them.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2091 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B52BACC3CF556B36B6D0C15AC859CAF180B0838A">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename RemarkKind, typename RemarkCallBack&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void emitRemark (Instruction * I, StringRef RemarkName, RemarkCallBack &amp;&amp; RemarkCB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit a remark generically.</p>
+                                    </div>
+                                    <div>
+                                        <p> This template function can be used to generically emit a remark. The</p>
+                                        <p> RemarkKind should be one of the following:</p>
+                                        <p>   - OptimizationRemark to indicate a successful optimization attempt</p>
+                                        <p>   - OptimizationRemarkMissed to report a failed optimization attempt</p>
+                                        <p>   - OptimizationRemarkAnalysis to provide additional information about an</p>
+                                        <p>     optimization attempt</p>
+                                    </div>
+                                    <div>
+                                        <p> The remark is built using a callback function </p>
+                                        <p> that takes a</p>
+                                        <p> RemarkKind as input and returns a RemarkKind.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2201 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AA50BAC963394DC373286994B4E4C0749B4437B9">
+                                <pre><code class="language-cpp code-clang-doc">bool checkForAllCallLikeInstructions (function_ref&lt;bool (Instruction &amp;)&gt; Pred, const AbstractAttribute &amp; QueryingAA, bool &amp; UsedAssumedInformation, bool CheckBBLivenessOnly, bool CheckPotentiallyDead)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check </p>
+                                        <p> on all call-like instructions (=CallBased derived).</p>
+                                    </div>
+                                    <div>
+                                        <p> See checkForAllCallLikeInstructions(...) for more information.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2405 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BBF61EE9C647268088E96C82B0048CC7E17D9610">
+                                <pre><code class="language-cpp code-clang-doc">const DataLayout &amp; getDataLayout ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the data layout associated with the anchor scope.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2481 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="63BA7E8D0399AC23E915E95B95954F703D16AF96">
+                                <pre><code class="language-cpp code-clang-doc">const SmallSetVector&lt;Function *, 8&gt; &amp; getModifiedFunctions ()</code></pre>
+                                <p>Defined at line 2486 of file llvm/include/llvm/Transforms/IPO/Attributor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="714E1BBD81D13EFB9C97D1DCA22BC7BB1194DB98">
+                                <pre><code class="language-cpp code-clang-doc">void createShallowWrapper (Function &amp; F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a shallow wrapper for </p>
+                                        <p> such that </p>
+                                        <p> has internal linkage</p>
+                                        <p> afterwards. It also sets the original </p>
+                                        <p> &#39;s name to anonymous</p>
+                                    </div>
+                                    <div>
+                                        <p> A wrapper is a function with the same type (and attributes) as </p>
+                                        <p> that will only call </p>
+                                        <p> and return the result, if any.</p>
+                                    </div>
+                                    <div>
+                                        <p> Assuming the declaration of looks like:</p>
+                                        <p>   rty F(aty0 arg0, ..., atyN argN);</p>
+                                    </div>
+                                    <div>
+                                        <p> The wrapper will then look as follows:</p>
+                                        <p>   rty wrapper(aty0 arg0, ..., atyN argN) {</p>
+                                        <p>     return F(arg0, ..., argN);</p>
+                                        <p>   }</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2726 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D58049B2837FF6DB9C94734C3C89C1C7736FA721">
+                                <pre><code class="language-cpp code-clang-doc">bool isInternalizable (Function &amp; F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the function </p>
+                                        <p> can be internalized. i.e. it has a</p>
+                                        <p> compatible linkage.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2773 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="131BD471840B1DFC3CBCE3A5F8408ED79C31269F">
+                                <pre><code class="language-cpp code-clang-doc">Function * internalizeFunction (Function &amp; F, bool Force)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Make another copy of the function </p>
+                                        <p> such that the copied version has</p>
+                                        <p> internal linkage afterwards and can be analysed. Then we replace all uses</p>
+                                        <p> of the original function to the copied one</p>
+                                    </div>
+                                    <div>
+                                        <p> Only non-locally linked functions that have `linkonce_odr` or `weak_odr`</p>
+                                        <p> linkage can be internalized because these linkages guarantee that other</p>
+                                        <p> definitions with the same name have the same semantics as this one.</p>
+                                    </div>
+                                    <div>
+                                        <p> This will only be run if the `attributor-allow-deep-wrappers` option is</p>
+                                        <p> set, or if the function is called with </p>
+                                        <p> set to true.</p>
+                                    </div>
+                                    <div>
+                                        <p> If the function </p>
+                                        <p> failed to be internalized the return value will be a</p>
+                                        <p> null pointer.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2780 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79978C1AEF26D51AE3744F313FD207DAB05C65A5">
+                                <pre><code class="language-cpp code-clang-doc">bool internalizeFunctions (SmallPtrSetImpl&lt;Function *&gt; &amp; FnSet, int &amp; FnMap)</code></pre>
+                                <p>Defined at line 2793 of file llvm/lib/Transforms/IPO/Attributor.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

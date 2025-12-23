@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ModifiedPostOrder</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ModifiedPostOrder</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4C3282ECA1A622CE6B067BB80F48B7F3FEA9CC07">ModifiedPostOrder&lt;ContextT&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4C2C61365DD6A2C61BC7D36597D73A9A0BE492A0">empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6D975CB93B8ACAFF3A4EC8FE5E531FC4B96F7E3C">size</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B40B66371F51EACB4BCC68A629642589CF559802">clear</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55C94D92CE0B23ECA29192CB9F6CCB395A4D2BFA">count</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F279D29E8D3A753BFFA5B813166B642131518DA8">operator[]</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#234C1FBC3E9F59909B25F49B8A8CF5BE3838B208">appendBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C093B949242F656FCE1EB162AB64F2018E9AC1E">getIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3DB3158B37C0677E68537BE451825E79132B4682">isReducibleCycleHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#49A65DE7922DF4BAD9223486072156FC124BA017">compute</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename ContextT&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ModifiedPostOrder</h1>
+                        <p>Defined at line 89 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Construct a specially modified post-order traversal of cycles.</p>
+                            </div>
+                            <div>
+                                <p> The ModifiedPO is contructed using a virtually modified CFG as follows:</p>
+                            </div>
+                            <div>
+                                <p> 1. The successors of pre-entry nodes (predecessors of an cycle</p>
+                                <p>    entry that are outside the cycle) are replaced by the</p>
+                                <p>    successors of the successors of the header.</p>
+                                <p> 2. Successors of the cycle header are replaced by the exit blocks</p>
+                                <p>    of the cycle.</p>
+                            </div>
+                            <div>
+                                <p> Effectively, we produce a depth-first numbering with the following</p>
+                                <p> properties:</p>
+                            </div>
+                            <div>
+                                <p> 1. Nodes after a cycle are numbered earlier than the cycle header.</p>
+                                <p> 2. The header is numbered earlier than the nodes in the cycle.</p>
+                                <p> 3. The numbering of the nodes within the cycle forms an interval</p>
+                                <p>    starting with the header.</p>
+                            </div>
+                            <div>
+                                <p> Effectively, the virtual modification arranges the nodes in a</p>
+                                <p> cycle as a DAG with the header as the sole leaf, and successors of</p>
+                                <p> the header as the roots. A reverse traversal of this numbering has</p>
+                                <p> the following invariant on the unmodified original CFG:</p>
+                            </div>
+                            <div>
+                                <p>    Each node is visited after all its predecessors, except if that</p>
+                                <p>    predecessor is the cycle header.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="4C3282ECA1A622CE6B067BB80F48B7F3FEA9CC07">
+                                <pre><code class="language-cpp code-clang-doc">void ModifiedPostOrder&lt;ContextT&gt; (const ContextT &amp; C)</code></pre>
+                                <p>Defined at line 99 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4C2C61365DD6A2C61BC7D36597D73A9A0BE492A0">
+                                <pre><code class="language-cpp code-clang-doc">bool empty ()</code></pre>
+                                <p>Defined at line 101 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6D975CB93B8ACAFF3A4EC8FE5E531FC4B96F7E3C">
+                                <pre><code class="language-cpp code-clang-doc">size_t size ()</code></pre>
+                                <p>Defined at line 102 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B40B66371F51EACB4BCC68A629642589CF559802">
+                                <pre><code class="language-cpp code-clang-doc">void clear ()</code></pre>
+                                <p>Defined at line 104 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="55C94D92CE0B23ECA29192CB9F6CCB395A4D2BFA">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int count (BlockT * BB)</code></pre>
+                                <p>Defined at line 107 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F279D29E8D3A753BFFA5B813166B642131518DA8">
+                                <pre><code class="language-cpp code-clang-doc">const BlockT * operator[] (size_t idx)</code></pre>
+                                <p>Defined at line 108 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="234C1FBC3E9F59909B25F49B8A8CF5BE3838B208">
+                                <pre><code class="language-cpp code-clang-doc">void appendBlock (const BlockT &amp; BB, bool isReducibleCycleHeader)</code></pre>
+                                <p>Defined at line 110 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C093B949242F656FCE1EB162AB64F2018E9AC1E">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getIndex (const BlockT * BB)</code></pre>
+                                <p>Defined at line 119 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3DB3158B37C0677E68537BE451825E79132B4682">
+                                <pre><code class="language-cpp code-clang-doc">bool isReducibleCycleHeader (const BlockT * BB)</code></pre>
+                                <p>Defined at line 124 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="49A65DE7922DF4BAD9223486072156FC124BA017">
+                                <pre><code class="language-cpp code-clang-doc">void compute (const CycleInfoT &amp; CI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Generically compute the modified post order.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1394 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LiveIntervalUnion</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LiveIntervalUnion</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2AF586C7A9B13F3B99780E6487C555741368D76">unify</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A250F25443E1E4CD0BAA77204DA33F78DD2D2B1">extract</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C5BF029BE5283260AEFFB3F6EB010FF57002F8B6">LiveIntervalUnion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5BC108F62F9291B045916D5620FC8E8FE6DC0E99">begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B2BBC53B977AEE5432A9279B56CC36BC94192DF">end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D00FF1EEA9F459CFD6BD15479E079248DE30ECBC">find</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#980D53F0117E786A946E284B63EB24E6B8BEE846">begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6D60C897645ABA094266BC7533CD46BA5ACF14D1">end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F545C066C46906CA01D60B25F4BC28CEE2C15206">find</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E92DE6EE09550D55F69913D7E9BEEE2497958109">empty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#41E569822FA4BB7A9B4EE5E85CB6D356766B7575">startIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07337F9F63FD5E1E3F5D054C56EFF05317A2C770">endIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E2DABCE77F74A0F50E66469C9E2049F48A609335">getMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0ED8632A13599E84C99A66ED3D8BE0C01ABBA02A">print</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C6B71B6DF92E0A115449CD3B9BF00CC75F63F2A2">getTag</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DB98E6A1599EE19AA20C5DB6C2073AF2C6153BFA">changedSince</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3726F354D6EB7A3D8B65106AC98BD7B72EA78E5E">clear</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A244F3AF582F3BF5491548C93DB3B53B22E6B6F6">verify</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D3CB83CE800D71488918DE7A4F4A1210E3BF28BF">getOneVReg</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LiveIntervalUnion</h1>
+                        <p>Defined at line 42 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Union of live intervals that are strong candidates for coalescing into a</p>
+                                <p> single register (either physical or virtual depending on the context).  We</p>
+                                <p> expect the constituent live intervals to be disjoint, although we may</p>
+                                <p> eventually make exceptions to handle value-based interference.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="C2AF586C7A9B13F3B99780E6487C555741368D76">
+                                <pre><code class="language-cpp code-clang-doc">void unify (const LiveInterval &amp; VirtReg, const LiveRange &amp; Range)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add a live virtual register to this union and merge its segments.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 28 of file llvm/lib/CodeGen/LiveIntervalUnion.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A250F25443E1E4CD0BAA77204DA33F78DD2D2B1">
+                                <pre><code class="language-cpp code-clang-doc">void extract (const LiveInterval &amp; VirtReg, const LiveRange &amp; Range)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Remove a live virtual register&#39;s segments from this union.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 56 of file llvm/lib/CodeGen/LiveIntervalUnion.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C5BF029BE5283260AEFFB3F6EB010FF57002F8B6">
+                                <pre><code class="language-cpp code-clang-doc">void LiveIntervalUnion (int &amp; a)</code></pre>
+                                <p>Defined at line 65 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5BC108F62F9291B045916D5620FC8E8FE6DC0E99">
+                                <pre><code class="language-cpp code-clang-doc">int begin ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Iterate over all segments in the union of live virtual registers ordered</p>
+                                        <p> by their starting position.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 69 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3B2BBC53B977AEE5432A9279B56CC36BC94192DF">
+                                <pre><code class="language-cpp code-clang-doc">int end ()</code></pre>
+                                <p>Defined at line 70 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D00FF1EEA9F459CFD6BD15479E079248DE30ECBC">
+                                <pre><code class="language-cpp code-clang-doc">int find (SlotIndex x)</code></pre>
+                                <p>Defined at line 71 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="980D53F0117E786A946E284B63EB24E6B8BEE846">
+                                <pre><code class="language-cpp code-clang-doc">int begin ()</code></pre>
+                                <p>Defined at line 72 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6D60C897645ABA094266BC7533CD46BA5ACF14D1">
+                                <pre><code class="language-cpp code-clang-doc">int end ()</code></pre>
+                                <p>Defined at line 73 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F545C066C46906CA01D60B25F4BC28CEE2C15206">
+                                <pre><code class="language-cpp code-clang-doc">int find (SlotIndex x)</code></pre>
+                                <p>Defined at line 74 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E92DE6EE09550D55F69913D7E9BEEE2497958109">
+                                <pre><code class="language-cpp code-clang-doc">bool empty ()</code></pre>
+                                <p>Defined at line 76 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="41E569822FA4BB7A9B4EE5E85CB6D356766B7575">
+                                <pre><code class="language-cpp code-clang-doc">SlotIndex startIndex ()</code></pre>
+                                <p>Defined at line 77 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07337F9F63FD5E1E3F5D054C56EFF05317A2C770">
+                                <pre><code class="language-cpp code-clang-doc">SlotIndex endIndex ()</code></pre>
+                                <p>Defined at line 78 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E2DABCE77F74A0F50E66469C9E2049F48A609335">
+                                <pre><code class="language-cpp code-clang-doc">const int &amp; getMap ()</code></pre>
+                                <p>Defined at line 82 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0ED8632A13599E84C99A66ED3D8BE0C01ABBA02A">
+                                <pre><code class="language-cpp code-clang-doc">void print (raw_ostream &amp; OS, const TargetRegisterInfo * TRI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print union, using TRI to translate register names</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 82 of file llvm/lib/CodeGen/LiveIntervalUnion.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C6B71B6DF92E0A115449CD3B9BF00CC75F63F2A2">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getTag ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getTag - Return an opaque tag representing the current state of the union.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 85 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DB98E6A1599EE19AA20C5DB6C2073AF2C6153BFA">
+                                <pre><code class="language-cpp code-clang-doc">bool changedSince (unsigned int tag)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> changedSince - Return true if the union change since getTag returned tag.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 88 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3726F354D6EB7A3D8B65106AC98BD7B72EA78E5E">
+                                <pre><code class="language-cpp code-clang-doc">void clear ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Remove all inserted virtual registers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 97 of file llvm/include/llvm/CodeGen/LiveIntervalUnion.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A244F3AF582F3BF5491548C93DB3B53B22E6B6F6">
+                                <pre><code class="language-cpp code-clang-doc">void verify (LiveVirtRegBitSet &amp; VisitedVRegs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Verify the live intervals in this union and add them to the visited set.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 97 of file llvm/lib/CodeGen/LiveIntervalUnion.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D3CB83CE800D71488918DE7A4F4A1210E3BF28BF">
+                                <pre><code class="language-cpp code-clang-doc">const LiveInterval * getOneVReg ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get any virtual register that is assign to this physical unit</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 103 of file llvm/lib/CodeGen/LiveIntervalUnion.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

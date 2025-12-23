@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>OnDiskTrieRawHashMap</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">cas</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class OnDiskTrieRawHashMap</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#50D303C17063178FE3E5F567169B8538C780BA61">validOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C0E6BC48CACDEC2CAA71C26C91BA89B8F05E4E65">insert</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6B9C55D65F67CA80CA1D858C11EB63199C12173">dump</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#283FEA653D9EA72350AD6B268D7AD802DAB762EB">print</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E0C8266BEA5FC40B128D40ABFE74764FE7909519">validate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DF4FDF94831CBD6E980C273B4BC2D84A1349A719">find</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#40FF49B248A092CEDD6D3FC0BA5934E38DF47E6E">recoverFromFileOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C9EB9E8130F6D0B57EE1E43CE0BFB3BDF16F2783">insertLazy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#59EFB8BF41AFE5A9AD11DA1F837121AB6B138C67">size</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD99B08670013D1213A289BF775A6323F10B24CA">capacity</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2D7B0CA6DE0FFA10A4900104C1E9FA4ECA3ED12B">create</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FC9FB4E1DDAFABE11AAA4F2842171EFC0A161054">OnDiskTrieRawHashMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8F5CE2FA32451D5D62D3BAFF3183804A793B58DB">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#952444833BC54117BED44C0A192EEFA42DE3A7A5">~OnDiskTrieRawHashMap</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class OnDiskTrieRawHashMap</h1>
+                        <p>Defined at line 51 of file llvm/include/llvm/CAS/OnDiskTrieRawHashMap.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> OnDiskTrieRawHashMap is a persistent trie data structure used as hash maps.</p>
+                                <p> The keys are fixed length, and are expected to be binary hashes with a</p>
+                                <p> normal distribution.</p>
+                            </div>
+                            <div>
+                                <p> - Thread-safety is achieved through the use of atomics within a shared</p>
+                                <p>   memory mapping. Atomic access does not work on networked filesystems.</p>
+                                <p> - Filesystem locks are used, but only sparingly:</p>
+                                <p>     - during initialization, for creating / opening an existing store;</p>
+                                <p>     - for the lifetime of the instance, a shared/reader lock is held</p>
+                                <p>     - during destruction, if there are no concurrent readers, to shrink the</p>
+                                <p>       files to their minimum size.</p>
+                                <p> - Path is used as a directory:</p>
+                                <p>     - &quot;index&quot; stores the root trie and subtries.</p>
+                                <p>     - &quot;data&quot; stores (most of) the entries, like a bump-ptr-allocator.</p>
+                                <p>     - Large entries are stored externally in a file named by the key.</p>
+                                <p> - Code is system-dependent and binary format itself is not portable. These</p>
+                                <p>   are not artifacts that can/should be moved between different systems; they</p>
+                                <p>   are only appropriate for local storage.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="50D303C17063178FE3E5F567169B8538C780BA61">
+                                <pre><code class="language-cpp code-clang-doc">bool validOffset (FileOffset Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check the valid range of file offset for OnDiskTrieRawHashMap.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 90 of file llvm/include/llvm/CAS/OnDiskTrieRawHashMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C0E6BC48CACDEC2CAA71C26C91BA89B8F05E4E65">
+                                <pre><code class="language-cpp code-clang-doc">Expected insert (const ConstValueProxy &amp; Value)</code></pre>
+                                <p>Defined at line 195 of file llvm/include/llvm/CAS/OnDiskTrieRawHashMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F6B9C55D65F67CA80CA1D858C11EB63199C12173">
+                                <pre><code class="language-cpp code-clang-doc">void dump ()</code></pre>
+                                <p>Defined at line 677 of file llvm/lib/CAS/OnDiskTrieRawHashMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="283FEA653D9EA72350AD6B268D7AD802DAB762EB">
+                                <pre><code class="language-cpp code-clang-doc">void print (raw_ostream &amp; OS, function_ref PrintRecordData)</code></pre>
+                                <p>Defined at line 603 of file llvm/lib/CAS/OnDiskTrieRawHashMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E0C8266BEA5FC40B128D40ABFE74764FE7909519">
+                                <pre><code class="language-cpp code-clang-doc">Error validate (function_ref&lt;Error (FileOffset, ConstValueProxy)&gt; RecordVerifier)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Validate the trie data structure.</p>
+                                    </div>
+                                    <div>
+                                        <p> Callback receives the file offset to the data entry and the data stored.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 608 of file llvm/lib/CAS/OnDiskTrieRawHashMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DF4FDF94831CBD6E980C273B4BC2D84A1349A719">
+                                <pre><code class="language-cpp code-clang-doc">ConstOnDiskPtr find (ArrayRef Hash)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Find the value from hash.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 454 of file llvm/lib/CAS/OnDiskTrieRawHashMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="40FF49B248A092CEDD6D3FC0BA5934E38DF47E6E">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;ConstOnDiskPtr&gt; recoverFromFileOffset (FileOffset Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Helper function to recover a pointer into the trie from file offset.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 430 of file llvm/lib/CAS/OnDiskTrieRawHashMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C9EB9E8130F6D0B57EE1E43CE0BFB3BDF16F2783">
+                                <pre><code class="language-cpp code-clang-doc">Expected insertLazy (ArrayRef Hash, function_ref OnConstruct, function_ref OnLeak)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Insert lazily.</p>
+                                    </div>
+                                    <div>
+                                        <p> is called when ready to insert a value, after allocating</p>
+                                        <p> space for the data. It is called at most once.</p>
+                                    </div>
+                                    <div>
+                                        <p> is called only if </p>
+                                        <p> has been called and a race</p>
+                                        <p> occurred before insertion, causing the tentative offset and data to be</p>
+                                        <p> abandoned. This allows clients to clean up other results or update any</p>
+                                        <p> references.</p>
+                                    </div>
+                                    <div>
+                                        <p> NOTE: Does *not* guarantee that </p>
+                                        <p> is only called on success.</p>
+                                        <p> The in-memory </p>
+                                        <p> uses LazyAtomicPointer to synchronize</p>
+                                        <p> simultaneous writes, but that seems dangerous to use in a memory-mapped</p>
+                                        <p> file in case a process crashes in the busy state.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 493 of file llvm/lib/CAS/OnDiskTrieRawHashMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="59EFB8BF41AFE5A9AD11DA1F837121AB6B138C67">
+                                <pre><code class="language-cpp code-clang-doc">size_t size ()</code></pre>
+                                <p>Defined at line 695 of file llvm/lib/CAS/OnDiskTrieRawHashMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD99B08670013D1213A289BF775A6323F10B24CA">
+                                <pre><code class="language-cpp code-clang-doc">size_t capacity ()</code></pre>
+                                <p>Defined at line 696 of file llvm/lib/CAS/OnDiskTrieRawHashMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2D7B0CA6DE0FFA10A4900104C1E9FA4ECA3ED12B">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;OnDiskTrieRawHashMap&gt; create (const Twine &amp; Path, const Twine &amp; TrieName, size_t NumHashBits, uint64_t DataSize, uint64_t MaxFileSize, optional NewFileInitialSize, optional NewTableNumRootBits, optional NewTableNumSubtrieBits)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Gets or creates a file at </p>
+                                        <p> with a hash-mapped trie named </p>
+                                        <p> The hash size is </p>
+                                        <p> (in bits) and the records store</p>
+                                        <p> data of size </p>
+                                        <p> (in bytes).</p>
+                                    </div>
+                                    <div>
+                                        <p> controls the maximum file size to support, limiting the</p>
+                                        <p> size of the </p>
+                                        <p> is the starting</p>
+                                        <p> size if a new file is created.</p>
+                                    </div>
+                                    <div>
+                                        <p> and </p>
+                                        <p> are hints to</p>
+                                        <p> configure the trie, if it doesn&#39;t already exist.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 700 of file llvm/lib/CAS/OnDiskTrieRawHashMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FC9FB4E1DDAFABE11AAA4F2842171EFC0A161054">
+                                <pre><code class="language-cpp code-clang-doc">void OnDiskTrieRawHashMap (OnDiskTrieRawHashMap &amp;&amp; RHS)</code></pre>
+                                <p>Defined at line 1174 of file llvm/lib/CAS/OnDiskTrieRawHashMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8F5CE2FA32451D5D62D3BAFF3183804A793B58DB">
+                                <pre><code class="language-cpp code-clang-doc">OnDiskTrieRawHashMap &amp; operator= (OnDiskTrieRawHashMap &amp;&amp; RHS)</code></pre>
+                                <p>Defined at line 1176 of file llvm/lib/CAS/OnDiskTrieRawHashMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="952444833BC54117BED44C0A192EEFA42DE3A7A5">
+                                <pre><code class="language-cpp code-clang-doc">void ~OnDiskTrieRawHashMap ()</code></pre>
+                                <p>Defined at line 1178 of file llvm/lib/CAS/OnDiskTrieRawHashMap.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

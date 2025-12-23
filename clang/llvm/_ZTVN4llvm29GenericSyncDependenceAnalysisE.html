@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>GenericSyncDependenceAnalysis</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class GenericSyncDependenceAnalysis</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C53D193525058B30890151CAFD7ED6A04BB08AD8">GenericSyncDependenceAnalysis&lt;ContextT&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#262A8FEC2AF1ABB839EE160574AAB5D2F69512EE">getJoinBlocks</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename ContextT&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class GenericSyncDependenceAnalysis</h1>
+                        <p>Defined at line 262 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> --- Above line is not a doxygen comment; intentionally left blank ---</p>
+                            </div>
+                            <div>
+                                <p> Originally implemented in SyncDependenceAnalysis.cpp for DivergenceAnalysis.</p>
+                            </div>
+                            <div>
+                                <p> The SyncDependenceAnalysis is used in the UniformityAnalysis to model</p>
+                                <p> control-induced divergence in phi nodes.</p>
+                            </div>
+                            <div>
+                                <p> -- Reference --</p>
+                                <p> The algorithm is an extension of Section 5 of</p>
+                            </div>
+                            <div>
+                                <p>   An abstract interpretation for SPMD divergence</p>
+                                <p>       on reducible control flow graphs.</p>
+                                <p>   Julian Rosemann, Simon Moll and Sebastian Hack</p>
+                                <p>   POPL &#39;21</p>
+                            </div>
+                            <div>
+                                <p> -- Sync dependence --</p>
+                                <p> Sync dependence characterizes the control flow aspect of the</p>
+                                <p> propagation of branch divergence. For example,</p>
+                            </div>
+                            <div>
+                                <p>   %cond = icmp slt i32 %tid, 10</p>
+                                <p>   br i1 %cond, label %then, label %else</p>
+                                <p> then:</p>
+                                <p>   br label %merge</p>
+                                <p> else:</p>
+                                <p>   br label %merge</p>
+                                <p> merge:</p>
+                                <p>   %a = phi i32 [ 0, %then ], [ 1, %else ]</p>
+                            </div>
+                            <div>
+                                <p> Suppose %tid holds the thread ID. Although %a is not data dependent on %tid</p>
+                                <p> because %tid is not on its use-def chains, %a is sync dependent on %tid</p>
+                                <p> because the branch &quot;br i1 %cond&quot; depends on %tid and affects which value %a</p>
+                                <p> is assigned to.</p>
+                            </div>
+                            <div>
+                                <p> -- Reduction to SSA construction --</p>
+                                <p> There are two disjoint paths from A to X, if a certain variant of SSA</p>
+                                <p> construction places a phi node in X under the following set-up scheme.</p>
+                            </div>
+                            <div>
+                                <p> This variant of SSA construction ignores incoming undef values.</p>
+                                <p> That is paths from the entry without a definition do not result in</p>
+                                <p> phi nodes.</p>
+                            </div>
+                            <div>
+                                <p>       entry</p>
+                                <p>     /      </p>
+                                <p>\</p>
+                                <p>//    A        </p>
+                                <p>\</p>
+                                <p>//  /   </p>
+                                <p>\</p>
+                                <p>       Y</p>
+                                <p> B     C     /</p>
+                                <p>\</p>
+                                <p>   /  </p>
+                                <p>\</p>
+                                <p>  /</p>
+                                <p>    D     E</p>
+                                <p>\</p>
+                                <p>   /</p>
+                                <p>       F</p>
+                            </div>
+                            <div>
+                                <p> Assume that A contains a divergent branch. We are interested</p>
+                                <p> in the set of all blocks where each block is reachable from A</p>
+                                <p> via two disjoint paths. This would be the set {D, F} in this</p>
+                                <p> case.</p>
+                                <p> To generally reduce this query to SSA construction we introduce</p>
+                                <p> a virtual variable x and assign to x different values in each</p>
+                                <p> successor block of A.</p>
+                            </div>
+                            <div>
+                                <p>           entry</p>
+                                <p>         /      </p>
+                                <p>\</p>
+                                <p>//        A        </p>
+                                <p>\</p>
+                                <p>//      /   </p>
+                                <p>\</p>
+                                <p>       Y</p>
+                                <p> x = 0   x = 1   /</p>
+                                <p>\</p>
+                                <p>  /   </p>
+                                <p>\</p>
+                                <p>  /</p>
+                                <p>        D     E</p>
+                                <p>\</p>
+                                <p>   /</p>
+                                <p>           F</p>
+                            </div>
+                            <div>
+                                <p> Our flavor of SSA construction for x will construct the following</p>
+                            </div>
+                            <div>
+                                <p>            entry</p>
+                                <p>          /      </p>
+                                <p>\</p>
+                                <p>//         A        </p>
+                                <p>\</p>
+                                <p>//       /   </p>
+                                <p>\</p>
+                                <p>       Y</p>
+                                <p> x0 = 0   x1 = 1  /</p>
+                                <p>\</p>
+                                <p>   /   </p>
+                                <p>\</p>
+                                <p> /</p>
+                                <p>     x2 = phi   E</p>
+                                <p>\</p>
+                                <p>     /</p>
+                                <p>         x3 = phi</p>
+                            </div>
+                            <div>
+                                <p> The blocks D and F contain phi nodes and are thus each reachable</p>
+                                <p> by two disjoins paths from A.</p>
+                            </div>
+                            <div>
+                                <p> -- Remarks --</p>
+                                <p> * In case of cycle exits we need to check for temporal divergence.</p>
+                                <p>   To this end, we check whether the definition of x differs between the</p>
+                                <p>   cycle exit and the cycle header (_after_ SSA construction).</p>
+                            </div>
+                            <div>
+                                <p> * In the presence of irreducible control flow, the fixed point is</p>
+                                <p>   reached only after multiple iterations. This is because labels</p>
+                                <p>   reaching the header of a cycle must be repropagated through the</p>
+                                <p>   cycle. This is true even in a reducible cycle, since the labels</p>
+                                <p>   may have been produced by a nested irreducible cycle.</p>
+                            </div>
+                            <div>
+                                <p> * Note that SyncDependenceAnalysis is not concerned with the points</p>
+                                <p>   of convergence in an irreducible cycle. It&#39;s only purpose is to</p>
+                                <p>   identify join blocks. The &quot;diverged entry&quot; criterion is</p>
+                                <p>   separately applied on join blocks to determine if an entire</p>
+                                <p>   irreducible cycle is assumed to be divergent.</p>
+                            </div>
+                            <div>
+                                <p> * Relevant related work:</p>
+                                <p>     A simple algorithm for global data flow analysis problems.</p>
+                                <p>     Matthew S. Hecht and Jeffrey D. Ullman.</p>
+                                <p>     SIAM Journal on Computing, 4(4):519–532, December 1975.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="C53D193525058B30890151CAFD7ED6A04BB08AD8">
+                                <pre><code class="language-cpp code-clang-doc">void GenericSyncDependenceAnalysis&lt;ContextT&gt; (const ContextT &amp; Context, const DominatorTreeT &amp; DT, const CycleInfoT &amp; CI)</code></pre>
+                                <p>Defined at line 735 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="262A8FEC2AF1ABB839EE160574AAB5D2F69512EE">
+                                <pre><code class="language-cpp code-clang-doc">const DivergenceDescriptor &amp; getJoinBlocks (const BlockT * DivTermBlock)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Computes divergent join points and cycle exits caused by branch</p>
+                                        <p> divergence in </p>
+                                    </div>
+                                    <div>
+                                        <p> This returns a pair of sets:</p>
+                                        <p> * The set of blocks which are reachable by disjoint paths from</p>
+                                        <p> * The set also contains cycle exits if there two disjoint paths:</p>
+                                        <p>   one from </p>
+                                        <p> to the cycle exit and another from </p>
+                                        <p> to</p>
+                                        <p>   the cycle header.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 742 of file llvm/include/llvm/ADT/GenericUniformityImpl.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

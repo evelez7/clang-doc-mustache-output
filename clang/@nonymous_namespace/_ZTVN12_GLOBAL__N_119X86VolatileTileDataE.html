@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>X86VolatileTileData</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class X86VolatileTileData</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD6BD9628D30EF2F30F590678A1780DEB3FDF96B">X86VolatileTileData</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE420018FFAF7CCB811D689E775BCB9C696EDA22">updatePhiIncomings</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C88653D26481C823C8ACB38718230E7241A31883">replacePhiDefWithLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#93D20BB31A278204BD13AF37B1381108DD774870">volatileTileData</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EA88408B17EA825D794E744754C5A6F3980DC7B2">volatileTilePHI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#08655C04AC874E5FB52471967A41B215DD7893EA">volatileTileNonPHI</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class X86VolatileTileData</h1>
+                        <p>Defined at line 550 of file llvm/lib/Target/X86/X86LowerAMXType.cpp</p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="FD6BD9628D30EF2F30F590678A1780DEB3FDF96B">
+                                <pre><code class="language-cpp code-clang-doc">void X86VolatileTileData (Function &amp; Func)</code></pre>
+                                <p>Defined at line 554 of file llvm/lib/Target/X86/X86LowerAMXType.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE420018FFAF7CCB811D689E775BCB9C696EDA22">
+                                <pre><code class="language-cpp code-clang-doc">Value * updatePhiIncomings (BasicBlock * BB, SmallVector&lt;Instruction *, 2&gt; &amp; Incomings)</code></pre>
+                                <p>Defined at line 563 of file llvm/lib/Target/X86/X86LowerAMXType.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C88653D26481C823C8ACB38718230E7241A31883">
+                                <pre><code class="language-cpp code-clang-doc">void replacePhiDefWithLoad (Instruction * PHI, Value * StorePtr)</code></pre>
+                                <p>Defined at line 581 of file llvm/lib/Target/X86/X86LowerAMXType.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="93D20BB31A278204BD13AF37B1381108DD774870">
+                                <pre><code class="language-cpp code-clang-doc">bool volatileTileData ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Volatile Tile Model:</p>
+                                        <p> 1) All the uses of tile data comes from tileload in time.</p>
+                                        <p> 2) All the defs of tile data tilestore into mem immediately.</p>
+                                        <p> For example:</p>
+                                        <p> --------------------------------------------------------------------------</p>
+                                        <p> %t1 = call x86_amx </p>
+                                        <p>.x86.tileloadd64.internal(m, k, ...)          key</p>
+                                        <p> %t2 = call x86_amx </p>
+                                        <p>.x86.tileloadd64.internal(k, n, ...)</p>
+                                        <p> %t3 = call x86_amx </p>
+                                        <p>.x86.tileloadd64.internal(m, n, ...)          amx</p>
+                                        <p> %td = tail call x86_amx </p>
+                                        <p>.x86.tdpbssd.internal(m, n, k, t1, t2, t3)</p>
+                                        <p> call void </p>
+                                        <p>.x86.tilestored64.internal(... td)                     area</p>
+                                        <p> --------------------------------------------------------------------------</p>
+                                        <p> 3) No terminator, call or other amx instructions in the key amx area.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 700 of file llvm/lib/Target/X86/X86LowerAMXType.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EA88408B17EA825D794E744754C5A6F3980DC7B2">
+                                <pre><code class="language-cpp code-clang-doc">void volatileTilePHI (PHINode * PHI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Smilar with volatileTileNonPHI, this function only handle PHI Nodes</p>
+                                        <p> and their related AMX intrinsics.</p>
+                                        <p> 1) PHI Def should change to tileload.</p>
+                                        <p> 2) PHI Incoming Values should tilestored in just after their def.</p>
+                                        <p> 3) The mem of these tileload and tilestores should be same.</p>
+                                        <p> e.g.</p>
+                                        <p> ------------------------------------------------------</p>
+                                        <p> bb_dom:</p>
+                                        <p>   ...</p>
+                                        <p>   br i1 %bool.cond, label %if.else, label %if.then</p>
+                                    </div>
+                                    <div>
+                                        <p> if.then:</p>
+                                        <p>   def %t0 = ...</p>
+                                        <p>   ...</p>
+                                        <p>   use %t0</p>
+                                        <p>   ...</p>
+                                        <p>   br label %if.end</p>
+                                    </div>
+                                    <div>
+                                        <p> if.else:</p>
+                                        <p>   def %t1 = ...</p>
+                                        <p>   br label %if.end</p>
+                                    </div>
+                                    <div>
+                                        <p> if.end:</p>
+                                        <p>   %td = phi x86_amx [ %t1, %if.else ], [ %t0, %if.then ]</p>
+                                        <p>   ...</p>
+                                        <p>   use %td</p>
+                                        <p> ------------------------------------------------------</p>
+                                        <p> --&gt;</p>
+                                        <p> ------------------------------------------------------</p>
+                                        <p> bb_entry:</p>
+                                        <p>   %mem = alloca </p>
+                                        <p>&lt;</p>
+                                        <p>256 x i32&gt;, align 1024                  *</p>
+                                        <p>   ...</p>
+                                        <p> bb_dom:</p>
+                                        <p>   ...</p>
+                                        <p>   br i1 %bool.cond, label %if.else, label %if.then</p>
+                                    </div>
+                                    <div>
+                                        <p> if.then:</p>
+                                        <p>   def %t0 = ...</p>
+                                        <p>   call void </p>
+                                        <p>.x86.tilestored64.internal(mem, %t0)    *</p>
+                                        <p>   ...</p>
+                                        <p>   %t0` = call x86_amx </p>
+                                        <p>.x86.tileloadd64.internal(mem)*</p>
+                                        <p>   use %t0`                                               *</p>
+                                        <p>   ...</p>
+                                        <p>   br label %if.end</p>
+                                    </div>
+                                    <div>
+                                        <p> if.else:</p>
+                                        <p>   def %t1 = ...</p>
+                                        <p>   call void </p>
+                                        <p>.x86.tilestored64.internal(mem, %t1)    *</p>
+                                        <p>   br label %if.end</p>
+                                    </div>
+                                    <div>
+                                        <p> if.end:</p>
+                                        <p>   ...</p>
+                                        <p>   %td = call x86_amx </p>
+                                        <p>.x86.tileloadd64.internal(mem) *</p>
+                                        <p>   use %td</p>
+                                        <p> ------------------------------------------------------</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 643 of file llvm/lib/Target/X86/X86LowerAMXType.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="08655C04AC874E5FB52471967A41B215DD7893EA">
+                                <pre><code class="language-cpp code-clang-doc">void volatileTileNonPHI (Instruction * I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Store the defined tile and load it before use.</p>
+                                        <p> All its users are not PHI.</p>
+                                        <p> e.g.</p>
+                                        <p> ------------------------------------------------------</p>
+                                        <p> def %td = ...</p>
+                                        <p> ...</p>
+                                        <p> &quot;use %td&quot;</p>
+                                        <p> ------------------------------------------------------</p>
+                                        <p> --&gt;</p>
+                                        <p> ------------------------------------------------------</p>
+                                        <p> def %td = ...</p>
+                                        <p> call void </p>
+                                        <p>.x86.tilestored64.internal(mem, %td)</p>
+                                        <p> ...</p>
+                                        <p> %td2 = call x86_amx </p>
+                                        <p>.x86.tileloadd64.internal(mem)</p>
+                                        <p> &quot;use %td2&quot;</p>
+                                        <p> ------------------------------------------------------</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 674 of file llvm/lib/Target/X86/X86LowerAMXType.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

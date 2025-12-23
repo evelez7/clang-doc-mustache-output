@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CacheCost</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class CacheCost</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3C038B1B7F2887DA0B51E6D174D7D51B9F11DD74">getLoopCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0C5C3C675CBC6EB276C0BB65FCAE0B18403929F5">getLoopCosts</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#703BDBB868A293CA6878E8C9E9203E98688AB003">CacheCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#58DF556604C79EBBE9A7FBFF4D572AA6DE70DF25">getCacheCost</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class CacheCost</h1>
+                        <p>Defined at line 191 of file llvm/include/llvm/Analysis/LoopCacheAnalysis.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> represents the estimated cost of a inner loop as the number of</p>
+                                <p> cache lines used by the memory references it contains.</p>
+                                <p> The &#39;cache cost&#39; of a loop &#39;L&#39; in a loop nest &#39;LN&#39; is computed as the sum of</p>
+                                <p> the cache costs of all of its reference groups when the loop is considered</p>
+                                <p> to be in the innermost position in the nest.</p>
+                                <p> A reference group represents memory references that fall into the same cache</p>
+                                <p> line. Each reference group is analysed with respect to the innermost loop in</p>
+                                <p> a loop nest. The cost of a reference is defined as follow:</p>
+                                <p>  - one if it is loop invariant w.r.t the innermost loop,</p>
+                                <p>  - equal to the loop trip count divided by the cache line times the</p>
+                                <p>    reference stride if the reference stride is less than the cache line</p>
+                                <p>    size (CLS), and the coefficient of this loop&#39;s index variable used in all</p>
+                                <p>    other subscripts is zero (e.g. RefCost = TripCount/(CLS/RefStride))</p>
+                                <p>  - equal to the innermost loop trip count if the reference stride is greater</p>
+                                <p>    or equal to the cache line size CLS.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="3C038B1B7F2887DA0B51E6D174D7D51B9F11DD74">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getLoopCost (const Loop &amp; L)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the estimated cost of loop </p>
+                                        <p> if the given loop is part of the</p>
+                                        <p> loop nest associated with this object. Return -1 otherwise.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 215 of file llvm/include/llvm/Analysis/LoopCacheAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0C5C3C675CBC6EB276C0BB65FCAE0B18403929F5">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getLoopCosts ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the estimated ordered loop costs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 223 of file llvm/include/llvm/Analysis/LoopCacheAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="703BDBB868A293CA6878E8C9E9203E98688AB003">
+                                <pre><code class="language-cpp code-clang-doc">void CacheCost (const LoopVectorTy &amp; Loops, const LoopInfo &amp; LI, ScalarEvolution &amp; SE, TargetTransformInfo &amp; TTI, AAResults &amp; AA, DependenceInfo &amp; DI, optional TRT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Construct a CacheCost object for the loop nest described by </p>
+                                        <p> The optional parameter </p>
+                                        <p> can be used to specify the max. distance</p>
+                                        <p> between array elements accessed in a loop so that the elements are</p>
+                                        <p> classified to have temporal reuse.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 575 of file llvm/lib/Analysis/LoopCacheAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="58DF556604C79EBBE9A7FBFF4D572AA6DE70DF25">
+                                <pre><code class="language-cpp code-clang-doc">unique_ptr getCacheCost (Loop &amp; Root, LoopStandardAnalysisResults &amp; AR, DependenceInfo &amp; DI, optional TRT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a CacheCost for the loop nest rooted by </p>
+                                        <p> The optional parameter </p>
+                                        <p> can be used to specify the max. distance</p>
+                                        <p> between array elements accessed in a loop so that the elements are</p>
+                                        <p> classified to have temporal reuse.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 592 of file llvm/lib/Analysis/LoopCacheAnalysis.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

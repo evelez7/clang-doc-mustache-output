@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>VPlanPatternMatch</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>VPlanPatternMatch</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4B0FFE5B78E7BF6F31733845216EE9A8E15D7164">Argument_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB9BE608F572E1228CAF0C17B4DD8E4B1A313CA1">Cmp_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2441C805468FB4D6CE88611758DE0AD8BCA3715B">IntrinsicID_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F69DC95D31B7C79CD6ACE84D33CC93644FD63647">Load_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ADCC28A0ABE2211DA4C20F1679FB17FC924FA3EB">OneUse_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B7E9E042DEFAB6B0B7C407AA8B5C4A206DC18C77">Recipe_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79888A5A9ACAE17ECAC910A54E4FE0994DD87C32">SpecificCmp_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2B039D8705D45D36892B6F763CE77EBF6C0F7C10">Store_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#523BC4D9F8EC5C5B2D758888283AE31692D70880">VPMatchFunctor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1912B07A5D5F6F15CEB35AA64BACA3A99CBF3BAF">bind_apint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4C0F846D52CF424CBF643531AFD469E4EE73408E">bind_const_int</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7A3AA01688A5D75199478A57FB41CD2D974FDB68">bind_ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3DAEE31A3612388676E148A77D9DA9A82ACB42AE">class_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#369819B8D978DC631203EBB5F5A02F33CE9D5792">deferredval_ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CB3EE9BB83A8FE9EC29066AE6861080322A99DFD">int_pred_ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8BB2CAF44668139201EDE0C35954DBB57A71A305">is_all_ones</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB97CC68DE9A8B0DB1F5B893980FFC5C979C55A0">is_one</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A001805E79B2E12EB124836429C334E46392EEF0">is_specific_int</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5BC8A5C6A2CEB60BFDBFC1FD78FB45894DEA97E0">is_zero_int</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9CA9C28751634F74AC4EA35244CEBF16761899FE">live_in_vpvalue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6A3EFFC91BF252D3ACBF37BB11D3801B1D44FA31">m_Intrinsic_Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B7A6556277288244B0B2695A36C19734ABD3DB86">m_Intrinsic_Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#99FA4B2FF272BF4C59122AA9AAA5C0F96E1882EF">m_Intrinsic_Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#346D6EB93CCFB96E6669A230D32F49DCD71F5E27">m_Intrinsic_Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#259ECDB4AD399A9FA5FE5E3AC359BEF8BF297E69">match_combine_and</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B4965940911B0852818A472878E9588EE76F194E">match_combine_or</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5CE03670E77B72EBF4089621AC568CBF4D6BF13D">specificval_ty</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Functions">Functions</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3175CF5F4F013DF6F9B041DF6103C5AA0362DADE">match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#82E4EF56733B2E297F82AD9873AD681ECCC9259C">match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F4D5C521E6BCAAFFC1E0E921CE86976DE5D0C50">match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9971929924FE17144881C774D54FA840FFCF2D63">match_fn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28305834010F6699D6DDF167E3A407E628D4F224">m_VPValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3BBF04A3094F3BA6E5C7FC5C13584533D1C81856">m_Specific</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B0ADAA8AB149B80B411EA8CFDA51865319477E3E">m_Deferred</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4A2E689CF2F81478DE4182EA757239FAD54E92E">m_SpecificInt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52410D7E4DDF868EF19F226C9A6559E7EED9F61B">m_False</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#790111480350D6705244FDFF93346F32505D6049">m_True</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2B32C8549122F4A636D50E7EFCA3C92157AFD66C">m_AllOnes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6239E865F35CCDDA1DE6CCF5D00E2005E9764B5E">m_ZeroInt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#49F604486E33FEAF4259C46DE1C8A2420CFF5038">m_One</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#940153336B233630AC89378699DC2AC4F77B6C63">m_APInt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4B681E14D8028146D34692817BABCAB6866D4DC8">m_ConstantInt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#085DABFAADEAED2C602E84861551A18C03A8CDFC">m_CombineOr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#56B7B1B0B1E1E7340B2E6FBDD84454FD33FDCD5B">m_CombineAnd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#797DBC38C48E9FE7513019031A19EED820E36207">m_VPValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DD131B4311BA7813B812F9871D7612D35C5ADA04">m_VPInstruction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C998D9811C2BFEAA78E9EF6BA3193BDD65991109">m_VPInstruction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8A0DCB627F2C20FF8EF98F011F291110BE17D599">m_BuildVector</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#87925511A24F590BF9B9FE4DE776A603AC9C67A6">m_Freeze</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4B129384007E848FB271A387893022C77EB533AB">m_BranchOnCond</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E34ABE09E38EB55D46D639D321B56A67626AFF5D">m_BranchOnCond</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EA27ABE012A737E572695F4EBF274DC0258FBB24">m_Broadcast</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0CA4F93CF2E946788593309B745348D92015054A">m_EVL</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#33B43281033C8A4D16B6D82479EC50D28C0DF058">m_ExtractLastLane</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C5FD581CAACBE57FB13E27EE96E373D2F2963BF1">m_ExtractElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2E12A3678A444339DEC735579A7F778ACBC6997F">m_ExtractLane</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#41295675264564B3FADEAF5E092F50AE40365C90">m_ExtractLastPart</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F2EEAA923E4AB9270854D55EC2592EA06005D747">m_ExtractLastLaneOfLastPart</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#05EC7E46AA4F5A1FB85C477B2720998B3BCDA63C">m_ExtractPenultimateElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#96137D4CB17C545260DD3DB0C9FFDBD03AEAFF21">m_ActiveLaneMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26E7D5E6E100A99D49353A39C1CBCD18D3C86003">m_BranchOnCount</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DF441155CE4B37988A052DA2315EBCED1038E059">m_BranchOnCount</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2E96477F0893B122835E7BE05DD1F7F900B7A6D">m_AnyOf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1069E6BC835C2E048D782EB799100005DD31BDD2">m_AnyOf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#63756593A33C24AF06E6BC8440EBF3BE91B9F3D7">m_FirstActiveLane</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CB271108086E136836F60B943271A40D21B50D2F">m_LastActiveLane</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#060298F5B2B158B33A94331B0D1EB2FD67390151">m_Reverse</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26987C8AB78C28868746B83772C9A4DF2A0F5754">m_StepVector</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2FE68B5E80E40140F92A535703757F8E85B5962C">m_Unary</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BF05899BBFE637CF57835AA285486A17FA0D8C01">m_Trunc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C28911496C0E23418D99FA65F113216AD94553C">m_TruncOrSelf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C5D701556C33FBD2953902FEACB7C730F2E3AF2A">m_ZExt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#20E1263A679E6DEE269C6D4FD4099A04174BCCEE">m_SExt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8584F7920C41051889091EC94DBCD36AC6440CD5">m_ZExtOrSExt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EA3C338D633E1A0536B23B02C566805FEFD03CD2">m_ZExtOrSelf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07A7517D9FFB6D56F253E07781A067F1E25B631E">m_Binary</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#84B2DB4433E8BF08E151B9C22863C94A3270F73F">m_c_Binary</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#850D460AC18BF6202D9C215D9D8FF4E8DB2E01A2">m_Add</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0F4714F6A8D71DC10C325500A137275F87C01275">m_c_Add</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3551E17363177D712140BBC348EF239736036A29">m_Sub</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7ECF55C70DBEE1CD70269ED772FA85370E5427CF">m_Mul</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#68246EA129E7371F86D64410501DD823C0D9B57D">m_c_Mul</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1F17ED16C6FA703774F66E7FD3F0B00BC7A73144">m_c_BinaryAnd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2F53882667C2A1F359482EF0E075E4F6564C9AEB">m_BinaryOr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DBFA37D31106170FAEF32452DB77C132C40A8C5C">m_c_BinaryOr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C7E8B8CFA0B02776E08B3C6E702C481B3BFD9A2">m_ICmp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#536E757442B459B4228450C28134F5C08686535D">m_ICmp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#47DC47E397B20AF9180C8E6CBC72E6FD325AAEDB">m_SpecificICmp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A7BFAB18746B4DE4F72C7BC02A9396528B8E6F5D">m_Cmp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C33FE71854E56E0DDFAF1C81C9E061099606F634">m_Cmp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8A3EF9FE707D8631BBC5A6CF0392D8529B9DC575">m_SpecificCmp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D1FFEB121EAD3C425AF5592E0031117FFA453CD">m_GetElementPtr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79D4AAD5D9310DD349B04117D68A7131DC0F1CD0">m_Select</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D10C4E2C0E851B01038D7D7ABECFCB4FE46C8A2F">m_Not</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#245B4ED3AECB089741A11032696CCDBBA7012667">m_LogicalAnd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#699A76C1F1B36E5EBCF6467EBFD876DCA26893AB">m_LogicalOr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F97EA0233C022725696B4ED042A52F5ED72A8156">m_ScalarIVSteps</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C8B6E3777700DAE432C25A7543F8C3FA9A9C2989">m_DerivedIV</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#82E25C77DD7C8AA9B9B5B239AFB6AAF101A307E8">m_MaskedLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7341697ADF064B52C86CCD5C48D8BBCAF8BDF2D7">m_MaskedStore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E7A2DFBF3D6339CDA228AB514EE75B4731975B3F">m_VecEndPtr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C038F85048F6F09FC098710B6E903D3B1BD7B4C8">m_Argument</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6ACA4F3015103CC85FF9A8CF11A24FBD7731E07E">m_Intrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FE46200F26E148C806BE4ABD9AFFC351892165BA">m_Intrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B2FCDB88D8C9EB7327DD476136647717CD2FF722">m_Intrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8E34EC23870001476591E87541080FF40F440153">m_Intrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0EBFD29D6E55AF5BCF68B5ABACC4C156FB689872">m_Intrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3574A0440F785B59798296F283126409B54C1B12">m_Intrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1CFA31C9ADB8569A371BFC1081C87AB5DC1A8508">m_LiveIn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D39CB2FBB9FE4090D9FF3EA0A6CDC8247E5AC36A">m_OneUse</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="4B0FFE5B78E7BF6F31733845216EE9A8E15D7164" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch14Argument_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class Argument_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="AB9BE608F572E1228CAF0C17B4DD8E4B1A313CA1" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch9Cmp_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class Cmp_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="2441C805468FB4D6CE88611758DE0AD8BCA3715B" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch17IntrinsicID_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class IntrinsicID_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="F69DC95D31B7C79CD6ACE84D33CC93644FD63647" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch10Load_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class Load_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="ADCC28A0ABE2211DA4C20F1679FB17FC924FA3EB" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch12OneUse_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class OneUse_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="B7E9E042DEFAB6B0B7C407AA8B5C4A206DC18C77" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch12Recipe_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class Recipe_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="79888A5A9ACAE17ECAC910A54E4FE0994DD87C32" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch17SpecificCmp_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class SpecificCmp_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="2B039D8705D45D36892B6F763CE77EBF6C0F7C10" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch11Store_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class Store_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="523BC4D9F8EC5C5B2D758888283AE31692D70880" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch14VPMatchFunctorE.html">
+                                <pre><code class="language-cpp code-clang-doc">class VPMatchFunctor</code></pre>
+                            </a>
+                        </li>
+                        <li id="1912B07A5D5F6F15CEB35AA64BACA3A99CBF3BAF" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch10bind_apintE.html">
+                                <pre><code class="language-cpp code-clang-doc">class bind_apint</code></pre>
+                            </a>
+                        </li>
+                        <li id="4C0F846D52CF424CBF643531AFD469E4EE73408E" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch14bind_const_intE.html">
+                                <pre><code class="language-cpp code-clang-doc">class bind_const_int</code></pre>
+                            </a>
+                        </li>
+                        <li id="7A3AA01688A5D75199478A57FB41CD2D974FDB68" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch7bind_tyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class bind_ty</code></pre>
+                            </a>
+                        </li>
+                        <li id="3DAEE31A3612388676E148A77D9DA9A82ACB42AE" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch11class_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class class_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="369819B8D978DC631203EBB5F5A02F33CE9D5792" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch14deferredval_tyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class deferredval_ty</code></pre>
+                            </a>
+                        </li>
+                        <li id="CB3EE9BB83A8FE9EC29066AE6861080322A99DFD" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch11int_pred_tyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class int_pred_ty</code></pre>
+                            </a>
+                        </li>
+                        <li id="8BB2CAF44668139201EDE0C35954DBB57A71A305" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch11is_all_onesE.html">
+                                <pre><code class="language-cpp code-clang-doc">class is_all_ones</code></pre>
+                            </a>
+                        </li>
+                        <li id="BB97CC68DE9A8B0DB1F5B893980FFC5C979C55A0" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch6is_oneE.html">
+                                <pre><code class="language-cpp code-clang-doc">class is_one</code></pre>
+                            </a>
+                        </li>
+                        <li id="A001805E79B2E12EB124836429C334E46392EEF0" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch15is_specific_intE.html">
+                                <pre><code class="language-cpp code-clang-doc">class is_specific_int</code></pre>
+                            </a>
+                        </li>
+                        <li id="5BC8A5C6A2CEB60BFDBFC1FD78FB45894DEA97E0" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch11is_zero_intE.html">
+                                <pre><code class="language-cpp code-clang-doc">class is_zero_int</code></pre>
+                            </a>
+                        </li>
+                        <li id="9CA9C28751634F74AC4EA35244CEBF16761899FE" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch15live_in_vpvalueE.html">
+                                <pre><code class="language-cpp code-clang-doc">class live_in_vpvalue</code></pre>
+                            </a>
+                        </li>
+                        <li id="6A3EFFC91BF252D3ACBF37BB11D3801B1D44FA31" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch14m_Intrinsic_TyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class m_Intrinsic_Ty</code></pre>
+                            </a>
+                        </li>
+                        <li id="B7A6556277288244B0B2695A36C19734ABD3DB86" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch14m_Intrinsic_TyIT_vvvEE.html">
+                                <pre><code class="language-cpp code-clang-doc">class m_Intrinsic_Ty</code></pre>
+                            </a>
+                        </li>
+                        <li id="99FA4B2FF272BF4C59122AA9AAA5C0F96E1882EF" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch14m_Intrinsic_TyIT_T0_vvEE.html">
+                                <pre><code class="language-cpp code-clang-doc">class m_Intrinsic_Ty</code></pre>
+                            </a>
+                        </li>
+                        <li id="346D6EB93CCFB96E6669A230D32F49DCD71F5E27" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch14m_Intrinsic_TyIT_T0_T1_vEE.html">
+                                <pre><code class="language-cpp code-clang-doc">class m_Intrinsic_Ty</code></pre>
+                            </a>
+                        </li>
+                        <li id="259ECDB4AD399A9FA5FE5E3AC359BEF8BF297E69" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch17match_combine_andE.html">
+                                <pre><code class="language-cpp code-clang-doc">class match_combine_and</code></pre>
+                            </a>
+                        </li>
+                        <li id="B4965940911B0852818A472878E9588EE76F194E" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch16match_combine_orE.html">
+                                <pre><code class="language-cpp code-clang-doc">class match_combine_or</code></pre>
+                            </a>
+                        </li>
+                        <li id="5CE03670E77B72EBF4089621AC568CBF4D6BF13D" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm17VPlanPatternMatch14specificval_tyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class specificval_ty</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Functions" class="section-container">
+                    <h2>Functions</h2>
+                    <ul class="class-container">
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="3175CF5F4F013DF6F9B041DF6103C5AA0362DADE">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Val, typename Pattern&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">bool match (Val * V, const Pattern &amp; P)</code></pre>
+                                    <p>Defined at line 22 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="82E4EF56733B2E297F82AD9873AD681ECCC9259C">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Pattern&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">bool match (VPUser * U, const Pattern &amp; P)</code></pre>
+                                    <p>Defined at line 26 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="9F4D5C521E6BCAAFFC1E0E921CE86976DE5D0C50">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Pattern&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">bool match (VPSingleDefRecipe * R, const Pattern &amp; P)</code></pre>
+                                    <p>Defined at line 31 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="9971929924FE17144881C774D54FA840FFCF2D63">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Val = VPUser, typename Pattern&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPMatchFunctor&lt;Val, Pattern&gt; match_fn (const Pattern &amp; P)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> A match functor that can be used as a UnaryPredicate in functional</p>
+                                            <p> algorithms like all_of.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 44 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="28305834010F6699D6DDF167E3A407E628D4F224">
+                                    <pre><code class="language-cpp code-clang-doc">class_match m_VPValue ()</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match an arbitrary VPValue and ignore it.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 53 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="3BBF04A3094F3BA6E5C7FC5C13584533D1C81856">
+                                    <pre><code class="language-cpp code-clang-doc">specificval_ty m_Specific (const VPValue * VPV)</code></pre>
+                                    <p>Defined at line 78 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="B0ADAA8AB149B80B411EA8CFDA51865319477E3E">
+                                    <pre><code class="language-cpp code-clang-doc">deferredval_ty m_Deferred (VPValue *const &amp; V)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Like m_Specific(), but works if the specific value to match is determined</p>
+                                            <p> as part of the same match() expression. For example:</p>
+                                            <p> m_Mul(m_VPValue(X), m_Specific(X)) is incorrect, because m_Specific() will</p>
+                                            <p> bind X before the pattern match starts.</p>
+                                            <p> m_Mul(m_VPValue(X), m_Deferred(X)) is correct, and will check against</p>
+                                            <p> whichever value m_VPValue(X) populated.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 96 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="F4A2E689CF2F81478DE4182EA757239FAD54E92E">
+                                    <pre><code class="language-cpp code-clang-doc">int_pred_ty m_SpecificInt (uint64_t V)</code></pre>
+                                    <p>Defined at line 139 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="52410D7E4DDF868EF19F226C9A6559E7EED9F61B">
+                                    <pre><code class="language-cpp code-clang-doc">int_pred_ty m_False ()</code></pre>
+                                    <p>Defined at line 143 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="790111480350D6705244FDFF93346F32505D6049">
+                                    <pre><code class="language-cpp code-clang-doc">int_pred_ty m_True ()</code></pre>
+                                    <p>Defined at line 147 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="2B32C8549122F4A636D50E7EFCA3C92157AFD66C">
+                                    <pre><code class="language-cpp code-clang-doc">int_pred_ty m_AllOnes ()</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match an integer or vector with all bits set.</p>
+                                            <p> For vectors, this includes constants with undefined elements.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 157 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="6239E865F35CCDDA1DE6CCF5D00E2005E9764B5E">
+                                    <pre><code class="language-cpp code-clang-doc">int_pred_ty m_ZeroInt ()</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match an integer 0 or a vector with all elements equal to 0.</p>
+                                            <p> For vectors, this includes constants with undefined elements.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 171 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="49F604486E33FEAF4259C46DE1C8A2420CFF5038">
+                                    <pre><code class="language-cpp code-clang-doc">int_pred_ty m_One ()</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match an integer 1 or a vector with all elements equal to 1.</p>
+                                            <p> For vectors, this includes constants with undefined elements.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 177 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="940153336B233630AC89378699DC2AC4F77B6C63">
+                                    <pre><code class="language-cpp code-clang-doc">bind_apint m_APInt (const APInt *&amp; C)</code></pre>
+                                    <p>Defined at line 199 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="4B681E14D8028146D34692817BABCAB6866D4DC8">
+                                    <pre><code class="language-cpp code-clang-doc">bind_const_int m_ConstantInt (uint64_t &amp; C)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match a plain integer constant no wider than 64-bits, capturing it if we</p>
+                                            <p> match.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 220 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="085DABFAADEAED2C602E84861551A18C03A8CDFC">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename LTy, typename RTy&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">match_combine_or&lt;LTy, RTy&gt; m_CombineOr (const LTy &amp; L, const RTy &amp; R)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Combine two pattern matchers matching L || R</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 247 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="56B7B1B0B1E1E7340B2E6FBDD84454FD33FDCD5B">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename LTy, typename RTy&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">match_combine_and&lt;LTy, RTy&gt; m_CombineAnd (const LTy &amp; L, const RTy &amp; R)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Combine two pattern matchers matching L </p>
+                                            <p>&amp;</p>
+                                            <p>&amp;</p>
+                                            <p> R</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 253 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="797DBC38C48E9FE7513019031A19EED820E36207">
+                                    <pre><code class="language-cpp code-clang-doc">bind_ty m_VPValue (VPValue *&amp; V)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match a VPValue, capturing it if we match.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 258 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="DD131B4311BA7813B812F9871D7612D35C5ADA04">
+                                    <pre><code class="language-cpp code-clang-doc">bind_ty m_VPInstruction (VPInstruction *&amp; V)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match a VPInstruction, capturing if we match.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 261 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="C998D9811C2BFEAA78E9EF6BA3193BDD65991109">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;unsigned Opcode, typename... OpTys&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;Opcode, OpTys...&gt; m_VPInstruction (const OpTys &amp;... Ops)</code></pre>
+                                    <p>Defined at line 350 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="8A0DCB627F2C20FF8EF98F011F291110BE17D599">
+                                    <pre><code class="language-cpp code-clang-doc">Recipe_match m_BuildVector ()</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> BuildVector is matches only its opcode, w/o matching its operands as the</p>
+                                            <p> number of operands is not fixed.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 357 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="87925511A24F590BF9B9FE4DE776A603AC9C67A6">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;Instruction::Freeze, Op0_t&gt; m_Freeze (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 362 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="4B129384007E848FB271A387893022C77EB533AB">
+                                    <pre><code class="language-cpp code-clang-doc">Recipe_match m_BranchOnCond ()</code></pre>
+                                    <p>Defined at line 367 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="E34ABE09E38EB55D46D639D321B56A67626AFF5D">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::BranchOnCond, Op0_t&gt; m_BranchOnCond (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 372 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="EA27ABE012A737E572695F4EBF274DC0258FBB24">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::Broadcast, Op0_t&gt; m_Broadcast (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 378 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="0CA4F93CF2E946788593309B745348D92015054A">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::ExplicitVectorLength, Op0_t&gt; m_EVL (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 384 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="33B43281033C8A4D16B6D82479EC50D28C0DF058">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::ExtractLastLane, Op0_t&gt; m_ExtractLastLane (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 390 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="C5FD581CAACBE57FB13E27EE96E373D2F2963BF1">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;Instruction::ExtractElement, Op0_t, Op1_t&gt; m_ExtractElement (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 396 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="2E12A3678A444339DEC735579A7F778ACBC6997F">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::ExtractLane, Op0_t, Op1_t&gt; m_ExtractLane (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 402 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="41295675264564B3FADEAF5E092F50AE40365C90">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::ExtractLastPart, Op0_t&gt; m_ExtractLastPart (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 408 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="F2EEAA923E4AB9270854D55EC2592EA06005D747">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::ExtractLastLane, VPInstruction_match&lt;VPInstruction::ExtractLastPart, Op0_t&gt;&gt; m_ExtractLastLaneOfLastPart (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 414 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="05EC7E46AA4F5A1FB85C477B2720998B3BCDA63C">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::ExtractPenultimateElement, Op0_t&gt; m_ExtractPenultimateElement (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 422 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="96137D4CB17C545260DD3DB0C9FFDBD03AEAFF21">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t, typename Op2_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::ActiveLaneMask, Op0_t, Op1_t, Op2_t&gt; m_ActiveLaneMask (const Op0_t &amp; Op0, const Op1_t &amp; Op1, const Op2_t &amp; Op2)</code></pre>
+                                    <p>Defined at line 428 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="26E7D5E6E100A99D49353A39C1CBCD18D3C86003">
+                                    <pre><code class="language-cpp code-clang-doc">Recipe_match m_BranchOnCount ()</code></pre>
+                                    <p>Defined at line 433 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="DF441155CE4B37988A052DA2315EBCED1038E059">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::BranchOnCount, Op0_t, Op1_t&gt; m_BranchOnCount (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 438 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="A2E96477F0893B122835E7BE05DD1F7F900B7A6D">
+                                    <pre><code class="language-cpp code-clang-doc">Recipe_match m_AnyOf ()</code></pre>
+                                    <p>Defined at line 443 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="1069E6BC835C2E048D782EB799100005DD31BDD2">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::AnyOf, Op0_t&gt; m_AnyOf (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 448 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="63756593A33C24AF06E6BC8440EBF3BE91B9F3D7">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::FirstActiveLane, Op0_t&gt; m_FirstActiveLane (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 454 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="CB271108086E136836F60B943271A40D21B50D2F">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::LastActiveLane, Op0_t&gt; m_LastActiveLane (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 460 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="060298F5B2B158B33A94331B0D1EB2FD67390151">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPInstruction_match&lt;VPInstruction::Reverse, Op0_t&gt; m_Reverse (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 466 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="26987C8AB78C28868746B83772C9A4DF2A0F5754">
+                                    <pre><code class="language-cpp code-clang-doc">Recipe_match m_StepVector ()</code></pre>
+                                    <p>Defined at line 471 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="2FE68B5E80E40140F92A535703757F8E85B5962C">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;unsigned Opcode, typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_match&lt;Opcode, Op0_t&gt; m_Unary (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 476 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="BF05899BBFE637CF57835AA285486A17FA0D8C01">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_match&lt;Instruction::Trunc, Op0_t&gt; m_Trunc (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 481 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="9C28911496C0E23418D99FA65F113216AD94553C">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">match_combine_or&lt;AllRecipe_match&lt;Instruction::Trunc, Op0_t&gt;, Op0_t&gt; m_TruncOrSelf (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 486 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="C5D701556C33FBD2953902FEACB7C730F2E3AF2A">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_match&lt;Instruction::ZExt, Op0_t&gt; m_ZExt (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 492 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="20E1263A679E6DEE269C6D4FD4099A04174BCCEE">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_match&lt;Instruction::SExt, Op0_t&gt; m_SExt (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 497 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="8584F7920C41051889091EC94DBCD36AC6440CD5">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">match_combine_or&lt;AllRecipe_match&lt;Instruction::ZExt, Op0_t&gt;, AllRecipe_match&lt;Instruction::SExt, Op0_t&gt;&gt; m_ZExtOrSExt (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 502 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="EA3C338D633E1A0536B23B02C566805FEFD03CD2">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">match_combine_or&lt;AllRecipe_match&lt;Instruction::ZExt, Op0_t&gt;, Op0_t&gt; m_ZExtOrSelf (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 509 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="07A7517D9FFB6D56F253E07781A067F1E25B631E">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;unsigned Opcode, typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_match&lt;Opcode, Op0_t, Op1_t&gt; m_Binary (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 515 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="84B2DB4433E8BF08E151B9C22863C94A3270F73F">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;unsigned Opcode, typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_commutative_match&lt;Opcode, Op0_t, Op1_t&gt; m_c_Binary (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 521 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="850D460AC18BF6202D9C215D9D8FF4E8DB2E01A2">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_match&lt;Instruction::Add, Op0_t, Op1_t&gt; m_Add (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 527 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="0F4714F6A8D71DC10C325500A137275F87C01275">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_commutative_match&lt;Instruction::Add, Op0_t, Op1_t&gt; m_c_Add (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 533 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="3551E17363177D712140BBC348EF239736036A29">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_match&lt;Instruction::Sub, Op0_t, Op1_t&gt; m_Sub (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 539 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="7ECF55C70DBEE1CD70269ED772FA85370E5427CF">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_match&lt;Instruction::Mul, Op0_t, Op1_t&gt; m_Mul (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 545 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="68246EA129E7371F86D64410501DD823C0D9B57D">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_commutative_match&lt;Instruction::Mul, Op0_t, Op1_t&gt; m_c_Mul (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 551 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="1F17ED16C6FA703774F66E7FD3F0B00BC7A73144">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_commutative_match&lt;Instruction::And, Op0_t, Op1_t&gt; m_c_BinaryAnd (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match a binary AND operation.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 558 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="2F53882667C2A1F359482EF0E075E4F6564C9AEB">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_match&lt;Instruction::Or, Op0_t, Op1_t&gt; m_BinaryOr (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match a binary OR operation. Note that while conceptually the operands can</p>
+                                            <p> be matched commutatively, </p>
+                                            <p> defaults to false in line with the</p>
+                                            <p> IR-based pattern matching infrastructure. Use m_c_BinaryOr for a commutative</p>
+                                            <p> version of the matcher.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 568 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="DBFA37D31106170FAEF32452DB77C132C40A8C5C">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_commutative_match&lt;Instruction::Or, Op0_t, Op1_t&gt; m_c_BinaryOr (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 574 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="6C7E8B8CFA0B02776E08B3C6E702C481B3BFD9A2">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">Cmp_match&lt;Op0_t, Op1_t, Instruction::ICmp&gt; m_ICmp (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 633 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="536E757442B459B4228450C28134F5C08686535D">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">Cmp_match&lt;Op0_t, Op1_t, Instruction::ICmp&gt; m_ICmp (CmpPredicate &amp; Pred, const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 639 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="47DC47E397B20AF9180C8E6CBC72E6FD325AAEDB">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SpecificCmp_match&lt;Op0_t, Op1_t, Instruction::ICmp&gt; m_SpecificICmp (CmpPredicate MatchPred, const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 645 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="A7BFAB18746B4DE4F72C7BC02A9396528B8E6F5D">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">Cmp_match&lt;Op0_t, Op1_t, Instruction::ICmp, Instruction::FCmp&gt; m_Cmp (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 652 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="C33FE71854E56E0DDFAF1C81C9E061099606F634">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">Cmp_match&lt;Op0_t, Op1_t, Instruction::ICmp, Instruction::FCmp&gt; m_Cmp (CmpPredicate &amp; Pred, const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 659 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="8A3EF9FE707D8631BBC5A6CF0392D8529B9DC575">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SpecificCmp_match&lt;Op0_t, Op1_t, Instruction::ICmp, Instruction::FCmp&gt; m_SpecificCmp (CmpPredicate MatchPred, const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 666 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="7D1FFEB121EAD3C425AF5592E0031117FFA453CD">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">GEPLikeRecipe_match&lt;Op0_t, Op1_t&gt; m_GetElementPtr (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 681 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="79D4AAD5D9310DD349B04117D68A7131DC0F1CD0">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t, typename Op2_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_match&lt;Instruction::Select, Op0_t, Op1_t, Op2_t&gt; m_Select (const Op0_t &amp; Op0, const Op1_t &amp; Op1, const Op2_t &amp; Op2)</code></pre>
+                                    <p>Defined at line 694 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="D10C4E2C0E851B01038D7D7ABECFCB4FE46C8A2F">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">match_combine_or&lt;VPInstruction_match&lt;VPInstruction::Not, Op0_t&gt;, AllRecipe_commutative_match&lt;Instruction::Xor, int_pred_ty&lt;is_all_ones&gt;, Op0_t&gt;&gt; m_Not (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 701 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="245B4ED3AECB089741A11032696CCDBBA7012667">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">match_combine_or&lt;VPInstruction_match&lt;VPInstruction::LogicalAnd, Op0_t, Op1_t&gt;, AllRecipe_match&lt;Instruction::Select, Op0_t, Op1_t, specific_intval&lt;1&gt;&gt;&gt; m_LogicalAnd (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 710 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="699A76C1F1B36E5EBCF6467EBFD876DCA26893AB">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">AllRecipe_match&lt;Instruction::Select, Op0_t, specific_intval&lt;1&gt;, Op1_t&gt; m_LogicalOr (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 720 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="F97EA0233C022725696B4ED042A52F5ED72A8156">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t, typename Op2_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPScalarIVSteps_match&lt;Op0_t, Op1_t, Op2_t&gt; m_ScalarIVSteps (const Op0_t &amp; Op0, const Op1_t &amp; Op1, const Op2_t &amp; Op2)</code></pre>
+                                    <p>Defined at line 730 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="C8B6E3777700DAE432C25A7543F8C3FA9A9C2989">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t, typename Op2_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VPDerivedIV_match&lt;Op0_t, Op1_t, Op2_t&gt; m_DerivedIV (const Op0_t &amp; Op0, const Op1_t &amp; Op1, const Op2_t &amp; Op2)</code></pre>
+                                    <p>Defined at line 740 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="82E25C77DD7C8AA9B9B5B239AFB6AAF101A307E8">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Addr_t, typename Mask_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">Load_match&lt;Addr_t, Mask_t&gt; m_MaskedLoad (const Addr_t &amp; Addr, const Mask_t &amp; Mask)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match a (possibly reversed) masked load.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 762 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="7341697ADF064B52C86CCD5C48D8BBCAF8BDF2D7">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Addr_t, typename Val_t, typename Mask_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">Store_match&lt;Addr_t, Val_t, Mask_t&gt; m_MaskedStore (const Addr_t &amp; Addr, const Val_t &amp; Val, const Mask_t &amp; Mask)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match a (possibly reversed) masked store.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 787 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="E7A2DFBF3D6339CDA228AB514EE75B4731975B3F">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">VectorEndPointerRecipe_match&lt;Op0_t, Op1_t&gt; m_VecEndPtr (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 798 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="C038F85048F6F09FC098710B6E903D3B1BD7B4C8">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;unsigned OpI, typename Opnd_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">Argument_match&lt;Opnd_t&gt; m_Argument (const Opnd_t &amp; Op)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match a call argument.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 825 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="6ACA4F3015103CC85FF9A8CF11A24FBD7731E07E">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;Intrinsic::ID IntrID&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">IntrinsicID_match m_Intrinsic ()</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match intrinsic calls like this:</p>
+                                            <p> m_Intrinsic</p>
+                                            <p>&lt;Intrinsic</p>
+                                            <p>::fabs&gt;(m_VPValue(X), ...)</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 875 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="FE46200F26E148C806BE4ABD9AFFC351892165BA">
+                                    <pre><code class="language-cpp code-clang-doc">IntrinsicID_match m_Intrinsic (Intrinsic::ID IntrID)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match intrinsic calls with a runtime intrinsic ID.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 880 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="B2FCDB88D8C9EB7327DD476136647717CD2FF722">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;Intrinsic::ID IntrID, typename T0&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">typename m_Intrinsic_Ty&lt;T0&gt;::Ty m_Intrinsic (const T0 &amp; Op0)</code></pre>
+                                    <p>Defined at line 885 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="8E34EC23870001476591E87541080FF40F440153">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;Intrinsic::ID IntrID, typename T0, typename T1&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">typename m_Intrinsic_Ty&lt;T0, T1&gt;::Ty m_Intrinsic (const T0 &amp; Op0, const T1 &amp; Op1)</code></pre>
+                                    <p>Defined at line 890 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="0EBFD29D6E55AF5BCF68B5ABACC4C156FB689872">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;Intrinsic::ID IntrID, typename T0, typename T1, typename T2&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">typename m_Intrinsic_Ty&lt;T0, T1, T2&gt;::Ty m_Intrinsic (const T0 &amp; Op0, const T1 &amp; Op1, const T2 &amp; Op2)</code></pre>
+                                    <p>Defined at line 896 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="3574A0440F785B59798296F283126409B54C1B12">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;Intrinsic::ID IntrID, typename T0, typename T1, typename T2, typename T3&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">typename m_Intrinsic_Ty&lt;T0, T1, T2, T3&gt;::Ty m_Intrinsic (const T0 &amp; Op0, const T1 &amp; Op1, const T2 &amp; Op2, const T3 &amp; Op3)</code></pre>
+                                    <p>Defined at line 903 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="1CFA31C9ADB8569A371BFC1081C87AB5DC1A8508">
+                                    <pre><code class="language-cpp code-clang-doc">live_in_vpvalue m_LiveIn ()</code></pre>
+                                    <p>Defined at line 915 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="D39CB2FBB9FE4090D9FF3EA0A6CDC8247E5AC36A">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">OneUse_match&lt;T&gt; m_OneUse (const T &amp; SubPattern)</code></pre>
+                                    <p>Defined at line 927 of file llvm/lib/Transforms/Vectorize/VPlanPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

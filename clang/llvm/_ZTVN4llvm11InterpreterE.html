@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Interpreter</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class Interpreter</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3CB01B965670813A94CCC0130281769C576C8F67">Interpreter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1A7619F99309D2DB00D82640C99019DD78FBCC6E">~Interpreter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1587CC721848F0158C45AB6902161EB95856D446">runAtExitHandlers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#14D3AEC28BF8480B80464147041D07B859E559C5">create</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B7756065D94763A90B0C74CC2DBFDFD9FA45F350">runFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6D209AD1A75711C6C04199AED0C85378E3DE37A5">visitUnaryOperator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7B86C9558BB95D79733B491BB06A22A2AFA54DCB">Register</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2DE448B33C2EFAE21B954983DB83D0B109DAF32A">getPointerToNamedFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5ECBC184CF9679BA8319349CF819C96005601DA4">visitPHINode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E94B8112639C909C3C911A5574CE174F2C3049E3">visitInstruction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FC84A48EBA579955C256716412930D9C41272BAE">addAtExitHandler</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F0CEF5698E76872CEE1BE7BB9396171D2E2F5DB2">getFirstVarArg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CA8F5BC3B01A201EC384308C699E0D94D754BAEF">callFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#990BCB32FC9245C719F1CCADF17223DC00CD04EE">run</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3DFC31B1A09F31B5435130C0663A46D90D242040">visitReturnInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0C31A85560F1B9230994DBAE10CAB15471053877">visitBranchInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6CBB4F350A55F04395911FA5166F8D8097118FEF">visitSwitchInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D7938DCDDCC3A36A458F1BA993D1371852CAAC46">visitIndirectBrInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB69BC21A32D6B53FEE977C455CB3691C0911CE3">visitBinaryOperator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E6A466A245D2CCBB11F6BABCB497E5B5EAA86D86">visitICmpInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5BA92AE220C236CE8190F7709DAA50FA01C06D25">visitFCmpInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#207FAA1701A09B668317403E28C958386209D02D">visitAllocaInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ECCB42C9E5830B67916C99685027D01A79405D53">visitLoadInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#549733398C9473F662BDFE40F8BFCC074B6EB0BF">visitStoreInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#762970BDC8CEECC399C254C2F93E79C5DAC7D8DE">visitGetElementPtrInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7AA3F5E4FF014E29C1CFA2D7DF56CFA564C7EF39">visitTruncInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7A2A8814102937E04067528FE4BCB24600A3D839">visitZExtInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#94C21E782B95AA959AA6B1DE48DAB3A42F9811CE">visitSExtInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E2C6242835C8B2A1801D657BCC045B35E667FA72">visitFPTruncInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C634D172DD15F030FA556874E851117E151C5D08">visitFPExtInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F844DFE7F7EF2F6328033B062F345EEA9E15B0FA">visitUIToFPInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2E8EE167D9DF18464ED32892B82033EAD2D0AD38">visitSIToFPInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B6A163499EAA79A3668121C37047303C6F72DC62">visitFPToUIInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#64743099B8ABE82891DA87543AC5D0E9BBD3ADC6">visitFPToSIInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F8B3FA6ABD2C184718F9E1FBE3579C7AE37FD28B">visitPtrToIntInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BEC680E8794483BAAFFF1BBE18353B70F2C22AEF">visitIntToPtrInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7DB2339DD41BA70473BA5099743AEE67334BF782">visitBitCastInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D01BADCD0331C776D5A0C3B6E6234A84255256BF">visitSelectInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7E592E9AE9C8158D228658A1560153C683E1B7EE">visitVAStartInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3559E3630488A473AE606B0EF33A72CDA40AE16A">visitVAEndInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7E6FAEB38FED6C856C099B9B67AD4974D8892819">visitVACopyInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#17D5DCDF8FEB714CD3A716CC115C56169529549E">visitIntrinsicInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#42217258327443928F77E65673920101E56B1830">visitCallBase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#51E71D4ECC15DD9578E31548013C80B8DECFED7D">visitUnreachableInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2FB6B3CDE521E9158598C189E7B551544D20031E">visitShl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A0572046ADFE5E2E7567B74F1E5702672ECB2FC">visitLShr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#04205CED6C327A671010FBDDB711CF006FF80E09">visitAShr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B8B2B6073C362E14307774F63670AC3C813C362">visitVAArgInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E456BD8957E05B4D402F164CAD4AB3539AD63BF5">visitExtractElementInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F319A9A05E15753A2337F4C4891CEFF1F7A91BF5">visitInsertElementInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3DC541DA4387782B84F9F76615F660CEC8891DBE">visitShuffleVectorInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#82F2A0177A43BD8951CEB19DD9099BB1D37E8E9D">visitExtractValueInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FBEFC83EDA09B37C341CDA5F9D6312DDF5F82F0A">visitInsertValueInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#19D45395ECB998D1B80F57CDC8B2B506F015C0EE">callExternalFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72A6C2E771EA37BE442ED0331455ABF1E054C752">exitCalled</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class Interpreter</h1>
+                        <p>Defined at line 74 of file llvm/lib/ExecutionEngine/Interpreter/Interpreter.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Interpreter - This class represents the entirety of the interpreter.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="3CB01B965670813A94CCC0130281769C576C8F67">
+                                <pre><code class="language-cpp code-clang-doc">void Interpreter (unique_ptr M)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                        <p> Interpreter ctor - Initialize stuff</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 54 of file llvm/lib/ExecutionEngine/Interpreter/Interpreter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1A7619F99309D2DB00D82640C99019DD78FBCC6E">
+                                <pre><code class="language-cpp code-clang-doc">void ~Interpreter ()</code></pre>
+                                <p>Defined at line 66 of file llvm/lib/ExecutionEngine/Interpreter/Interpreter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1587CC721848F0158C45AB6902161EB95856D446">
+                                <pre><code class="language-cpp code-clang-doc">void runAtExitHandlers ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> runAtExitHandlers - Run any functions registered by the program&#39;s calls to</p>
+                                        <p> atexit(3), which we intercept and store in AtExitHandlers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 70 of file llvm/lib/ExecutionEngine/Interpreter/Interpreter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="14D3AEC28BF8480B80464147041D07B859E559C5">
+                                <pre><code class="language-cpp code-clang-doc">ExecutionEngine * create (unique_ptr M, std::string * ErrorStr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a new interpreter object.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 34 of file llvm/lib/ExecutionEngine/Interpreter/Interpreter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B7756065D94763A90B0C74CC2DBFDFD9FA45F350">
+                                <pre><code class="language-cpp code-clang-doc">GenericValue runFunction (Function * F, ArrayRef ArgValues)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> run - Start execution with the specified function and arguments.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 80 of file llvm/lib/ExecutionEngine/Interpreter/Interpreter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6D209AD1A75711C6C04199AED0C85378E3DE37A5">
+                                <pre><code class="language-cpp code-clang-doc">void visitUnaryOperator (UnaryOperator &amp; I)</code></pre>
+                                <p>Defined at line 62 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7B86C9558BB95D79733B491BB06A22A2AFA54DCB">
+                                <pre><code class="language-cpp code-clang-doc">void Register ()</code></pre>
+                                <p>Defined at line 95 of file llvm/lib/ExecutionEngine/Interpreter/Interpreter.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2DE448B33C2EFAE21B954983DB83D0B109DAF32A">
+                                <pre><code class="language-cpp code-clang-doc">void * getPointerToNamedFunction (StringRef Name, bool AbortOnFailure)</code></pre>
+                                <p>Defined at line 109 of file llvm/lib/ExecutionEngine/Interpreter/Interpreter.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5ECBC184CF9679BA8319349CF819C96005601DA4">
+                                <pre><code class="language-cpp code-clang-doc">void visitPHINode (PHINode &amp; PN)</code></pre>
+                                <p>Defined at line 134 of file llvm/lib/ExecutionEngine/Interpreter/Interpreter.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E94B8112639C909C3C911A5574CE174F2C3049E3">
+                                <pre><code class="language-cpp code-clang-doc">void visitInstruction (Instruction &amp; I)</code></pre>
+                                <p>Defined at line 170 of file llvm/lib/ExecutionEngine/Interpreter/Interpreter.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FC84A48EBA579955C256716412930D9C41272BAE">
+                                <pre><code class="language-cpp code-clang-doc">void addAtExitHandler (Function * F)</code></pre>
+                                <p>Defined at line 179 of file llvm/lib/ExecutionEngine/Interpreter/Interpreter.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F0CEF5698E76872CEE1BE7BB9396171D2E2F5DB2">
+                                <pre><code class="language-cpp code-clang-doc">GenericValue * getFirstVarArg ()</code></pre>
+                                <p>Defined at line 183 of file llvm/lib/ExecutionEngine/Interpreter/Interpreter.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CA8F5BC3B01A201EC384308C699E0D94D754BAEF">
+                                <pre><code class="language-cpp code-clang-doc">void callFunction (Function * F, ArrayRef ArgVals)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Methods used to execute code:</p>
+                                        <p> Place a call on the stack</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2037 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="990BCB32FC9245C719F1CCADF17223DC00CD04EE">
+                                <pre><code class="language-cpp code-clang-doc">void run ()</code></pre>
+                                <p>Defined at line 2074 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3DFC31B1A09F31B5435130C0663A46D90D242040">
+                                <pre><code class="language-cpp code-clang-doc">void visitReturnInst (ReturnInst &amp; I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Opcode Implementations</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 882 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0C31A85560F1B9230994DBAE10CAB15471053877">
+                                <pre><code class="language-cpp code-clang-doc">void visitBranchInst (BranchInst &amp; I)</code></pre>
+                                <p>Defined at line 900 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6CBB4F350A55F04395911FA5166F8D8097118FEF">
+                                <pre><code class="language-cpp code-clang-doc">void visitSwitchInst (SwitchInst &amp; I)</code></pre>
+                                <p>Defined at line 913 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D7938DCDDCC3A36A458F1BA993D1371852CAAC46">
+                                <pre><code class="language-cpp code-clang-doc">void visitIndirectBrInst (IndirectBrInst &amp; I)</code></pre>
+                                <p>Defined at line 932 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB69BC21A32D6B53FEE977C455CB3691C0911CE3">
+                                <pre><code class="language-cpp code-clang-doc">void visitBinaryOperator (BinaryOperator &amp; I)</code></pre>
+                                <p>Defined at line 700 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E6A466A245D2CCBB11F6BABCB497E5B5EAA86D86">
+                                <pre><code class="language-cpp code-clang-doc">void visitICmpInst (ICmpInst &amp; I)</code></pre>
+                                <p>Defined at line 332 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5BA92AE220C236CE8190F7709DAA50FA01C06D25">
+                                <pre><code class="language-cpp code-clang-doc">void visitFCmpInst (FCmpInst &amp; I)</code></pre>
+                                <p>Defined at line 665 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="207FAA1701A09B668317403E28C958386209D02D">
+                                <pre><code class="language-cpp code-clang-doc">void visitAllocaInst (AllocaInst &amp; I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                        <p>                     Memory Instruction Implementations</p>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 981 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ECCB42C9E5830B67916C99685027D01A79405D53">
+                                <pre><code class="language-cpp code-clang-doc">void visitLoadInst (LoadInst &amp; I)</code></pre>
+                                <p>Defined at line 1057 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="549733398C9473F662BDFE40F8BFCC074B6EB0BF">
+                                <pre><code class="language-cpp code-clang-doc">void visitStoreInst (StoreInst &amp; I)</code></pre>
+                                <p>Defined at line 1068 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="762970BDC8CEECC399C254C2F93E79C5DAC7D8DE">
+                                <pre><code class="language-cpp code-clang-doc">void visitGetElementPtrInst (GetElementPtrInst &amp; I)</code></pre>
+                                <p>Defined at line 1051 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7AA3F5E4FF014E29C1CFA2D7DF56CFA564C7EF39">
+                                <pre><code class="language-cpp code-clang-doc">void visitTruncInst (TruncInst &amp; I)</code></pre>
+                                <p>Defined at line 1666 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7A2A8814102937E04067528FE4BCB24600A3D839">
+                                <pre><code class="language-cpp code-clang-doc">void visitZExtInst (ZExtInst &amp; I)</code></pre>
+                                <p>Defined at line 1676 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="94C21E782B95AA959AA6B1DE48DAB3A42F9811CE">
+                                <pre><code class="language-cpp code-clang-doc">void visitSExtInst (SExtInst &amp; I)</code></pre>
+                                <p>Defined at line 1671 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E2C6242835C8B2A1801D657BCC045B35E667FA72">
+                                <pre><code class="language-cpp code-clang-doc">void visitFPTruncInst (FPTruncInst &amp; I)</code></pre>
+                                <p>Defined at line 1681 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C634D172DD15F030FA556874E851117E151C5D08">
+                                <pre><code class="language-cpp code-clang-doc">void visitFPExtInst (FPExtInst &amp; I)</code></pre>
+                                <p>Defined at line 1686 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F844DFE7F7EF2F6328033B062F345EEA9E15B0FA">
+                                <pre><code class="language-cpp code-clang-doc">void visitUIToFPInst (UIToFPInst &amp; I)</code></pre>
+                                <p>Defined at line 1691 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2E8EE167D9DF18464ED32892B82033EAD2D0AD38">
+                                <pre><code class="language-cpp code-clang-doc">void visitSIToFPInst (SIToFPInst &amp; I)</code></pre>
+                                <p>Defined at line 1696 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B6A163499EAA79A3668121C37047303C6F72DC62">
+                                <pre><code class="language-cpp code-clang-doc">void visitFPToUIInst (FPToUIInst &amp; I)</code></pre>
+                                <p>Defined at line 1701 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="64743099B8ABE82891DA87543AC5D0E9BBD3ADC6">
+                                <pre><code class="language-cpp code-clang-doc">void visitFPToSIInst (FPToSIInst &amp; I)</code></pre>
+                                <p>Defined at line 1706 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F8B3FA6ABD2C184718F9E1FBE3579C7AE37FD28B">
+                                <pre><code class="language-cpp code-clang-doc">void visitPtrToIntInst (PtrToIntInst &amp; I)</code></pre>
+                                <p>Defined at line 1711 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BEC680E8794483BAAFFF1BBE18353B70F2C22AEF">
+                                <pre><code class="language-cpp code-clang-doc">void visitIntToPtrInst (IntToPtrInst &amp; I)</code></pre>
+                                <p>Defined at line 1716 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7DB2339DD41BA70473BA5099743AEE67334BF782">
+                                <pre><code class="language-cpp code-clang-doc">void visitBitCastInst (BitCastInst &amp; I)</code></pre>
+                                <p>Defined at line 1721 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D01BADCD0331C776D5A0C3B6E6234A84255256BF">
+                                <pre><code class="language-cpp code-clang-doc">void visitSelectInst (SelectInst &amp; I)</code></pre>
+                                <p>Defined at line 825 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7E592E9AE9C8158D228658A1560153C683E1B7EE">
+                                <pre><code class="language-cpp code-clang-doc">void visitVAStartInst (VAStartInst &amp; I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                        <p>                 Miscellaneous Instruction Implementations</p>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1082 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3559E3630488A473AE606B0EF33A72CDA40AE16A">
+                                <pre><code class="language-cpp code-clang-doc">void visitVAEndInst (VAEndInst &amp; I)</code></pre>
+                                <p>Defined at line 1090 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7E6FAEB38FED6C856C099B9B67AD4974D8892819">
+                                <pre><code class="language-cpp code-clang-doc">void visitVACopyInst (VACopyInst &amp; I)</code></pre>
+                                <p>Defined at line 1094 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="17D5DCDF8FEB714CD3A716CC115C56169529549E">
+                                <pre><code class="language-cpp code-clang-doc">void visitIntrinsicInst (IntrinsicInst &amp; I)</code></pre>
+                                <p>Defined at line 1099 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="42217258327443928F77E65673920101E56B1830">
+                                <pre><code class="language-cpp code-clang-doc">void visitCallBase (CallBase &amp; I)</code></pre>
+                                <p>Defined at line 1122 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="51E71D4ECC15DD9578E31548013C80B8DECFED7D">
+                                <pre><code class="language-cpp code-clang-doc">void visitUnreachableInst (UnreachableInst &amp; I)</code></pre>
+                                <p>Defined at line 896 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2FB6B3CDE521E9158598C189E7B551544D20031E">
+                                <pre><code class="language-cpp code-clang-doc">void visitShl (BinaryOperator &amp; I)</code></pre>
+                                <p>Defined at line 1150 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A0572046ADFE5E2E7567B74F1E5702672ECB2FC">
+                                <pre><code class="language-cpp code-clang-doc">void visitLShr (BinaryOperator &amp; I)</code></pre>
+                                <p>Defined at line 1177 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="04205CED6C327A671010FBDDB711CF006FF80E09">
+                                <pre><code class="language-cpp code-clang-doc">void visitAShr (BinaryOperator &amp; I)</code></pre>
+                                <p>Defined at line 1204 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B8B2B6073C362E14307774F63670AC3C813C362">
+                                <pre><code class="language-cpp code-clang-doc">void visitVAArgInst (VAArgInst &amp; I)</code></pre>
+                                <p>Defined at line 1729 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E456BD8957E05B4D402F164CAD4AB3539AD63BF5">
+                                <pre><code class="language-cpp code-clang-doc">void visitExtractElementInst (ExtractElementInst &amp; I)</code></pre>
+                                <p>Defined at line 1758 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F319A9A05E15753A2337F4C4891CEFF1F7A91BF5">
+                                <pre><code class="language-cpp code-clang-doc">void visitInsertElementInst (InsertElementInst &amp; I)</code></pre>
+                                <p>Defined at line 1791 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3DC541DA4387782B84F9F76615F660CEC8891DBE">
+                                <pre><code class="language-cpp code-clang-doc">void visitShuffleVectorInst (ShuffleVectorInst &amp; I)</code></pre>
+                                <p>Defined at line 1823 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="82F2A0177A43BD8951CEB19DD9099BB1D37E8E9D">
+                                <pre><code class="language-cpp code-clang-doc">void visitExtractValueInst (ExtractValueInst &amp; I)</code></pre>
+                                <p>Defined at line 1890 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FBEFC83EDA09B37C341CDA5F9D6312DDF5F82F0A">
+                                <pre><code class="language-cpp code-clang-doc">void visitInsertValueInst (InsertValueInst &amp; I)</code></pre>
+                                <p>Defined at line 1933 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="19D45395ECB998D1B80F57CDC8B2B506F015C0EE">
+                                <pre><code class="language-cpp code-clang-doc">GenericValue callExternalFunction (Function * F, ArrayRef ArgVals)</code></pre>
+                                <p>Defined at line 268 of file llvm/lib/ExecutionEngine/Interpreter/ExternalFunctions.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72A6C2E771EA37BE442ED0331455ABF1E054C752">
+                                <pre><code class="language-cpp code-clang-doc">void exitCalled (GenericValue GV)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                        <p>                     Terminator Instruction Implementations</p>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 839 of file llvm/lib/ExecutionEngine/Interpreter/Execution.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Filter</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct Filter</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#StartBit">StartBit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumBits">NumBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FilteredIDs">FilteredIDs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#VariableIDs">VariableIDs</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#77BDB48AC36D766E3A90987BAE511DF100AD54AF">Filter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F0FBE8BBED50619381F95B1D76773A8A6055B902">usefulness</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct Filter</h1>
+                        <p>Defined at line 239 of file llvm/utils/TableGen/DecoderEmitter.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Filter - Filter works with FilterChooser to produce the decoding tree for</p>
+                                <p> the ISA.</p>
+                            </div>
+                            <div>
+                                <p> It is useful to think of a Filter as governing the switch stmts of the</p>
+                                <p> decoding tree in a certain level.  Each case stmt delegates to an inferior</p>
+                                <p> FilterChooser to decide what further decoding logic to employ, or in another</p>
+                                <p> words, what other remaining bits to look at.  The FilterChooser eventually</p>
+                                <p> chooses a best Filter to do its job.</p>
+                            </div>
+                            <div>
+                                <p> This recursive scheme ends when the number of Opcodes assigned to the</p>
+                                <p> FilterChooser becomes 1 or if there is a conflict.  A conflict happens when</p>
+                                <p> the Filter/FilterChooser combo does not know how to distinguish among the</p>
+                                <p> Opcodes assigned.</p>
+                            </div>
+                            <div>
+                                <p> An example of a conflict is</p>
+                            </div>
+                            <div>
+                                <p> Decoding Conflict:</p>
+                                <p>     ................................</p>
+                                <p>     1111............................</p>
+                                <p>     1111010.........................</p>
+                                <p>     1111010...00....................</p>
+                                <p>     1111010...00........0001........</p>
+                                <p>     111101000.00........0001........</p>
+                                <p>     111101000.00........00010000....</p>
+                                <p>     111101000_00________00010000____  VST4q8a</p>
+                                <p>     111101000_00________00010000____  VST4q8b</p>
+                            </div>
+                            <div>
+                                <p> The Debug output shows the path that the decoding tree follows to reach the</p>
+                                <p> the conclusion that there is a conflict.  VST4q8a is a vst4 to double-spaced</p>
+                                <p> even registers, while VST4q8b is a vst4 to double-spaced odd registers.</p>
+                            </div>
+                            <div>
+                                <p> The encoding info in the .td files does not specify this meta information,</p>
+                                <p> which could have been used by the decoder to resolve the conflict.  The</p>
+                                <p> decoder could try to decode the even/odd register numbering and assign to</p>
+                                <p> VST4q8a or VST4q8b, but for the time being, the decoder chooses the &quot;a&quot;</p>
+                                <p> version and return the Opcode since the two have the same Asm format string.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="StartBit" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int StartBit</code></pre>
+                        </div>
+                        <div id="NumBits" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int NumBits</code></pre>
+                        </div>
+                        <div id="FilteredIDs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int FilteredIDs</code></pre>
+                        </div>
+                        <div id="VariableIDs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int VariableIDs</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="77BDB48AC36D766E3A90987BAE511DF100AD54AF">
+                                <pre><code class="language-cpp code-clang-doc">void Filter (ArrayRef&lt;InstructionEncoding&gt; Encodings, ArrayRef&lt;unsigned int&gt; EncodingIDs, unsigned int StartBit, unsigned int NumBits)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>////////////////////////</p>
+                                        <p>                       //</p>
+                                        <p> Filter Implementation //</p>
+                                        <p>                       //</p>
+                                        <p>////////////////////////</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 405 of file llvm/utils/TableGen/DecoderEmitter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F0FBE8BBED50619381F95B1D76773A8A6055B902">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int usefulness ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the number of fanout produced by the filter.  More fanout implies</p>
+                                        <p> the filter distinguishes more categories of instructions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 463 of file llvm/utils/TableGen/DecoderEmitter.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

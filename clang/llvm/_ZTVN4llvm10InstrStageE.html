@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>InstrStage</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct InstrStage</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Cycles_">Cycles_</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Units_">Units_</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NextCycles_">NextCycles_</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Kind_">Kind_</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D7B2BFE0CB2F4D57CE3B8A368EE5314E508A725D">getCycles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2EE31115107B2FA7B0CEFBB555E37AEF77AC3344">getUnits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C8612110059F4EDF160D33639453F430021E2622">getReservationKind</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#99C33F78211AF39E784E1E8BEF1413EEE845E4F0">getNextCycles</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct InstrStage</h1>
+                        <p>Defined at line 59 of file llvm/include/llvm/MC/MCInstrItineraries.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p>===----------------------------------------------------------------------===//</p>
+                                <p> These values represent a non-pipelined step in</p>
+                                <p> the execution of an instruction.  Cycles represents the number of</p>
+                                <p> discrete time slots needed to complete the stage.  Units represent</p>
+                                <p> the choice of functional units that can be used to complete the</p>
+                                <p> stage.  Eg. IntUnit1, IntUnit2. NextCycles indicates how many</p>
+                                <p> cycles should elapse from the start of this stage to the start of</p>
+                                <p> the next stage in the itinerary. A value of -1 indicates that the</p>
+                                <p> next stage should start immediately after the current one.</p>
+                                <p> For example:</p>
+                            </div>
+                            <div>
+                                <p>   { 1, x, -1 }</p>
+                                <p>      indicates that the stage occupies FU x for 1 cycle and that</p>
+                                <p>      the next stage starts immediately after this one.</p>
+                            </div>
+                            <div>
+                                <p>   { 2, x|y, 1 }</p>
+                                <p>      indicates that the stage occupies either FU x or FU y for 2</p>
+                                <p>      consecutive cycles and that the next stage starts one cycle</p>
+                                <p>      after this stage starts. That is, the stage requirements</p>
+                                <p>      overlap in time.</p>
+                            </div>
+                            <div>
+                                <p>   { 1, x, 0 }</p>
+                                <p>      indicates that the stage occupies FU x for 1 cycle and that</p>
+                                <p>      the next stage starts in this same cycle. This can be used to</p>
+                                <p>      indicate that the instruction requires multiple stages at the</p>
+                                <p>      same time.</p>
+                            </div>
+                            <div>
+                                <p> FU reservation can be of two different kinds:</p>
+                                <p>  - FUs which instruction actually requires</p>
+                                <p>  - FUs which instruction just reserves. Reserved unit is not available for</p>
+                                <p>    execution of other instruction. However, several instructions can reserve</p>
+                                <p>    the same unit several times.</p>
+                                <p> Such two types of units reservation is used to model instruction domain</p>
+                                <p> change stalls, FUs using the same resource (e.g. same register file), etc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Cycles_" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int Cycles_</code></pre>
+                        </div>
+                        <div id="Units_" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >FuncUnits Units_</code></pre>
+                        </div>
+                        <div id="NextCycles_" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int NextCycles_</code></pre>
+                        </div>
+                        <div id="Kind_" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >ReservationKinds Kind_</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="D7B2BFE0CB2F4D57CE3B8A368EE5314E508A725D">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getCycles ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the number of cycles the stage is occupied.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 74 of file llvm/include/llvm/MC/MCInstrItineraries.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2EE31115107B2FA7B0CEFBB555E37AEF77AC3344">
+                                <pre><code class="language-cpp code-clang-doc">FuncUnits getUnits ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the choice of FUs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 79 of file llvm/include/llvm/MC/MCInstrItineraries.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C8612110059F4EDF160D33639453F430021E2622">
+                                <pre><code class="language-cpp code-clang-doc">ReservationKinds getReservationKind ()</code></pre>
+                                <p>Defined at line 83 of file llvm/include/llvm/MC/MCInstrItineraries.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="99C33F78211AF39E784E1E8BEF1413EEE845E4F0">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNextCycles ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the number of cycles from the start of this stage to the</p>
+                                        <p> start of the next stage in the itinerary</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 89 of file llvm/include/llvm/MC/MCInstrItineraries.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>X86TTIImpl</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class X86TTIImpl</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6541F1C28E56A5AA733E5460F39F3207C9A68CED">getPopcntSupport</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3AE27216D9F8BAB4BFD9455F0FD4F89491D771B">X86TTIImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6563BC64EE2EDFD42887B2002EE62FB00078A72A">getCacheSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A4708258DA6E6444961EAD321AAC7C2FD718EC1">getCacheAssociativity</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A1FC593B0F660CBBC50C3A5691AB44C1BDD919F7">getNumberOfRegisters</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#99E7958D93D3FDE51E567FDF04329BA9D3E1C3DC">getRegisterClassForType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#21320C26CE82898ECC882E383D6345B5B89CF4D0">hasConditionalLoadStoreForType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7F5D30DA63E220C7381331F0BF187F8CD2728801">getRegisterBitWidth</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9327F1241929AC353B4165D834047A33DBFB0F2C">getLoadStoreVecRegBitWidth</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#96A601EA1E019E4611549B3ED94C603FBE5F9CD9">getMaxInterleaveFactor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ECBCDFEA5EEBA5F571C134F6E3998D7267C03352">getArithmeticInstrCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2EE34132F1373C3BB5483852A3A8FDA54C03CD4D">forceScalarizeMaskedScatter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#651D32A121F29BD7851116B7A82BEC26E18FE04D">getMaxMemIntrinsicInlineSizeThreshold</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8DB66F22F1599403BEC1A6CE1B7EA5509A7FFA1B">preferAlternateOpcodeVectorization</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#27C50A453F7DAD180FABDEFED261C73BDAC9D93A">getAltInstrCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3A8CA854B0CBA1F83FAF145CA8DC18EF22E90176">getShuffleCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3AC464152A9CBE96BE090670DEC2B044AD173744">getCastInstrCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#95FBF9F0841B66B02DAD021FA552DA19B0E8A97D">getCmpSelInstrCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#14D1D0FCF7B9881F9F9F68AAAE9B91FB47EDE46A">getVectorInstrCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#088E1221C1248A68B16DA147FC30235F4A79A368">getScalarizationOverhead</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B6F48DD69335F87A43B6537CFDC41E49EE904E72">getReplicationShuffleCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#60EB5B3A9D7E6BFB6E723D1DB86EF7D94E7962E4">getMemoryOpCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F526397B15AD3DC888F29CA8CD5F51474E8CC2DD">getMemIntrinsicInstrCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#00EC8C4315B617BA15C10A303D1D0FA5C3B21157">getMaskedMemoryOpCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#60A1A6997248A15149F336AAB3C3D1470153E372">getGatherScatterOpCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4AE05822D2529FB18B2D26FB13D3626994111257">getPointersChainCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B5D2B000B4106775CB4C1BBA90DE4FBCA040ECD6">getAddressComputationCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7DD55D36D4425CACDAC6F9E3B15A9FEC2B3A707">instCombineIntrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#95B510418BEA6DB226952BA5B1F1CB58E5BBD12D">simplifyDemandedUseBitsIntrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EB87B1AD2D5FDEDAB4D4A9DE72A5D48CFED6D42E">simplifyDemandedVectorEltsIntrinsic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BF6650AC6983A5B04DC8F7A30BE5105293460B54">getAtomicMemIntrinsicMaxElementSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1239D9BB9F2C68D1C6AECE31B3E337E9B88B309D">getIntrinsicInstrCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72BE2A46E42766BDF35D04883F47C32FB69BA604">getArithmeticReductionCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D6C60D921FDAA3D8B297E7C12D1B9AEDBCB21753">getMinMaxCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A77549A67F91937EE1E0A436E10A4EC7FAEA8592">getMinMaxReductionCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D334272C7289D38FE36D8D7A40A65D4F105E5F59">getInterleavedMemoryOpCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B929632BFCF630EC94787D73D3ED6054357B7A34">getInterleavedMemoryOpCostAVX512</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B54EBE77361A9818C11B0A5B639C02C436A64B00">getIntImmCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#121E956C95E16422A87E912930EB257FC8A635F1">getIntImmCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DCC2CE4E81E412FA894F0277526DAC3A6C92FE77">getCFInstrCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CBCC89517DFFD23DB3F5892DA4844F27E55660C9">getIntImmCostInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#257CAC23EB95EE6C59A079825E3B95351FA948E6">getIntImmCostIntrin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E70B6E4FE8B1952DC27A20970320BD106CB6292F">getScalingFactorCost</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E0162F166BB178B7C44771CAD8D0D986C1D01F4C">isLSRCostLess</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C2D6F794A4FA122CBD4EA68393D81307209A407">canMacroFuseCmp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#196F383AA1F6EB0C8D91B6DAD2B400ABC3772CED">isLegalMaskedLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D4E60E0C4E82E84CDBE21A98559926D176989D36">isLegalMaskedStore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B1F586331E36094AB72E36C80944A0063C465886">isLegalNTLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CE3BAE0BD3CB87DAB81A5B14C1DB08D2CBBFC779">isLegalNTStore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#54EBCB6E040D516ACD0AD6A9C45EBEC408763ECF">isLegalBroadcastLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#25C03DE0ECA48F23AA670F6379044491958A752E">forceScalarizeMaskedGather</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1BBA622DB1D745694595BDE8C1911843B4A377C4">isLegalMaskedGatherScatter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#982B7E5834233540FA5ED63D71CC46D922E35D2E">isLegalMaskedGather</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44FE7DC0D98373C3641B74F27B5DA80FB9B9C16A">isLegalMaskedScatter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DB6251047D12613B49F43267D9CDA0319E83137B">isLegalMaskedExpandLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FF5746EFD15F9EBC7B3B2C95D33BBFB6E21DCBA">isLegalMaskedCompressStore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5F07AFCD54C5C82EDAD3E3F2D356C0DF03E9BD23">isLegalAltInstr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2E3DCDF703187543C6131A02EED45DF9ACDADBC2">hasDivRemOp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3C5CE99BA7DE63E3AD13C142925F8456304770EA">isExpensiveToSpeculativelyExecute</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B405DD35393C25C25046D66B3D3EE62AA529B04E">isFCmpOrdCheaperThanFCmpZero</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B731556E19C277DEA601AADB1029EEF13202E78">areInlineCompatible</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE49C47C5155EDD45F75FF49EDECCF1B280A28B9">areTypesABICompatible</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6282FB835880FAD48EA78C0E0BE7DBDED1662C9">enableMemCmpExpansion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDFF2922182DB11E2BAE368D62DD34E41AD8B552">prefersVectorizedAddressing</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8DCD70B83A91BA7E1A250CAF7EB5C62A23F9E1C3">supportsEfficientVectorElementLoadStore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3281ABDDE233832F1F0899AEDA2CCBA0645DC8DB">enableInterleavedAccessVectorization</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#932BB790204F6F272A1E6BC230FEF777B612A38E">getBranchMispredictPenalty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0FBC9E4078AB3B8C7C8E9EC0665AF7FCF1E00682">isProfitableToSinkOperands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#805DFD74BA8FD52CA961AFA284F8DF845E2E8E74">isVectorShiftByScalarCheap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#03A6A4B6B15EE18BD28D465AE94849C555DCA8AC">getStoreMinimumVF</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#98C39657FAB835145B04F65FBDA01E3C16A0715A">useFastCCForInternalCall</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class X86TTIImpl</h1>
+                        <p>Defined at line 28 of file llvm/lib/Target/X86/X86TargetTransformInfo.h</p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="6541F1C28E56A5AA733E5460F39F3207C9A68CED">
+                                <pre><code class="language-cpp code-clang-doc">PopcntSupportKind getPopcntSupport (unsigned int TyWidth)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>@</p>
+                                        <p>{</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 104 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C3AE27216D9F8BAB4BFD9455F0FD4F89491D771B">
+                                <pre><code class="language-cpp code-clang-doc">void X86TTIImpl (const X86TargetMachine * TM, const Function &amp; F)</code></pre>
+                                <p>Defined at line 113 of file llvm/lib/Target/X86/X86TargetTransformInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6563BC64EE2EDFD42887B2002EE62FB00078A72A">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;unsigned int&gt; getCacheSize (CacheLevel Level)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>@</p>
+                                        <p>{</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 113 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A4708258DA6E6444961EAD321AAC7C2FD718EC1">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;unsigned int&gt; getCacheAssociativity (CacheLevel Level)</code></pre>
+                                <p>Defined at line 143 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A1FC593B0F660CBBC50C3A5691AB44C1BDD919F7">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumberOfRegisters (unsigned int ClassID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>@</p>
+                                        <p>{</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 172 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="99E7958D93D3FDE51E567FDF04329BA9D3E1C3DC">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getRegisterClassForType (bool Vector, Type * Ty)</code></pre>
+                                <p>Defined at line 166 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="21320C26CE82898ECC882E383D6345B5B89CF4D0">
+                                <pre><code class="language-cpp code-clang-doc">bool hasConditionalLoadStoreForType (Type * Ty, bool IsStore)</code></pre>
+                                <p>Defined at line 186 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7F5D30DA63E220C7381331F0BF187F8CD2728801">
+                                <pre><code class="language-cpp code-clang-doc">TypeSize getRegisterBitWidth (RegisterKind K)</code></pre>
+                                <p>Defined at line 209 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9327F1241929AC353B4165D834047A33DBFB0F2C">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getLoadStoreVecRegBitWidth (unsigned int AS)</code></pre>
+                                <p>Defined at line 230 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="96A601EA1E019E4611549B3ED94C603FBE5F9CD9">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getMaxInterleaveFactor (ElementCount VF)</code></pre>
+                                <p>Defined at line 235 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ECBCDFEA5EEBA5F571C134F6E3998D7267C03352">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getArithmeticInstrCost (unsigned int Opcode, Type * Ty, TargetCostKind CostKind, OperandValueInfo Op1Info, OperandValueInfo Op2Info, ArrayRef&lt;const Value *&gt; Args, const Instruction * CxtI)</code></pre>
+                                <p>Defined at line 253 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2EE34132F1373C3BB5483852A3A8FDA54C03CD4D">
+                                <pre><code class="language-cpp code-clang-doc">bool forceScalarizeMaskedScatter (VectorType * VTy, Align Alignment)</code></pre>
+                                <p>Defined at line 283 of file llvm/lib/Target/X86/X86TargetTransformInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="651D32A121F29BD7851116B7A82BEC26E18FE04D">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getMaxMemIntrinsicInlineSizeThreshold ()</code></pre>
+                                <p>Defined at line 303 of file llvm/lib/Target/X86/X86TargetTransformInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8DB66F22F1599403BEC1A6CE1B7EA5509A7FFA1B">
+                                <pre><code class="language-cpp code-clang-doc">bool preferAlternateOpcodeVectorization ()</code></pre>
+                                <p>Defined at line 309 of file llvm/lib/Target/X86/X86TargetTransformInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="27C50A453F7DAD180FABDEFED261C73BDAC9D93A">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getAltInstrCost (VectorType * VecTy, unsigned int Opcode0, unsigned int Opcode1, const SmallBitVector &amp; OpcodeMask, TargetCostKind CostKind)</code></pre>
+                                <p>Defined at line 1525 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3A8CA854B0CBA1F83FAF145CA8DC18EF22E90176">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getShuffleCost (ShuffleKind Kind, VectorType * DstTy, VectorType * SrcTy, ArrayRef&lt;int&gt; Mask, TargetCostKind CostKind, int Index, VectorType * SubTp, ArrayRef&lt;const Value *&gt; Args, const Instruction * CxtI)</code></pre>
+                                <p>Defined at line 1534 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3AC464152A9CBE96BE090670DEC2B044AD173744">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getCastInstrCost (unsigned int Opcode, Type * Dst, Type * Src, CastContextHint CCH, TargetCostKind CostKind, const Instruction * I)</code></pre>
+                                <p>Defined at line 2307 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95FBF9F0841B66B02DAD021FA552DA19B0E8A97D">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getCmpSelInstrCost (unsigned int Opcode, Type * ValTy, Type * CondTy, Predicate VecPred, TargetCostKind CostKind, OperandValueInfo Op1Info, OperandValueInfo Op2Info, const Instruction * I)</code></pre>
+                                <p>Defined at line 3333 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="14D1D0FCF7B9881F9F9F68AAAE9B91FB47EDE46A">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getVectorInstrCost (unsigned int Opcode, Type * Val, TargetCostKind CostKind, unsigned int Index, const Value * Op0, const Value * Op1)</code></pre>
+                                <p>Defined at line 4806 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="088E1221C1248A68B16DA147FC30235F4A79A368">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getScalarizationOverhead (VectorType * Ty, const APInt &amp; DemandedElts, bool Insert, bool Extract, TargetCostKind CostKind, bool ForPoisonSrc, ArrayRef&lt;Value *&gt; VL)</code></pre>
+                                <p>Defined at line 4955 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B6F48DD69335F87A43B6537CFDC41E49EE904E72">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getReplicationShuffleCost (Type * EltTy, int ReplicationFactor, int VF, const APInt &amp; DemandedDstElts, TargetCostKind CostKind)</code></pre>
+                                <p>Defined at line 5136 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="60EB5B3A9D7E6BFB6E723D1DB86EF7D94E7962E4">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getMemoryOpCost (unsigned int Opcode, Type * Src, Align Alignment, unsigned int AddressSpace, TargetCostKind CostKind, OperandValueInfo OpInfo, const Instruction * I)</code></pre>
+                                <p>Defined at line 5243 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F526397B15AD3DC888F29CA8CD5F51474E8CC2DD">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getMemIntrinsicInstrCost (const MemIntrinsicCostAttributes &amp; MICA, TargetCostKind CostKind)</code></pre>
+                                <p>Defined at line 5413 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="00EC8C4315B617BA15C10A303D1D0FA5C3B21157">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getMaskedMemoryOpCost (const MemIntrinsicCostAttributes &amp; MICA, TargetCostKind CostKind)</code></pre>
+                                <p>Defined at line 5427 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="60A1A6997248A15149F336AAB3C3D1470153E372">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getGatherScatterOpCost (const MemIntrinsicCostAttributes &amp; MICA, TargetCostKind CostKind)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Calculate the cost of Gather / Scatter operation</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 6275 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4AE05822D2529FB18B2D26FB13D3626994111257">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getPointersChainCost (ArrayRef&lt;const Value *&gt; Ptrs, const Value * Base, const TTI::PointersChainInfo &amp; Info, Type * AccessTy, TargetCostKind CostKind)</code></pre>
+                                <p>Defined at line 5500 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B5D2B000B4106775CB4C1BBA90DE4FBCA040ECD6">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getAddressComputationCost (Type * PtrTy, ScalarEvolution * SE, const SCEV * Ptr, TargetCostKind CostKind)</code></pre>
+                                <p>Defined at line 5519 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F7DD55D36D4425CACDAC6F9E3B15A9FEC2B3A707">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Instruction *&gt; instCombineIntrinsic (InstCombiner &amp; IC, IntrinsicInst &amp; II)</code></pre>
+                                <p>Defined at line 2153 of file llvm/lib/Target/X86/X86InstCombineIntrinsic.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95B510418BEA6DB226952BA5B1F1CB58E5BBD12D">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Value *&gt; simplifyDemandedUseBitsIntrinsic (InstCombiner &amp; IC, IntrinsicInst &amp; II, APInt DemandedMask, KnownBits &amp; Known, bool &amp; KnownBitsComputed)</code></pre>
+                                <p>Defined at line 3092 of file llvm/lib/Target/X86/X86InstCombineIntrinsic.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EB87B1AD2D5FDEDAB4D4A9DE72A5D48CFED6D42E">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;Value *&gt; simplifyDemandedVectorEltsIntrinsic (InstCombiner &amp; IC, IntrinsicInst &amp; II, APInt DemandedElts, APInt &amp; UndefElts, APInt &amp; UndefElts2, APInt &amp; UndefElts3, std::function&lt;void (Instruction *, unsigned int, APInt, APInt &amp;)&gt; SimplifyAndSetOp)</code></pre>
+                                <p>Defined at line 3132 of file llvm/lib/Target/X86/X86InstCombineIntrinsic.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BF6650AC6983A5B04DC8F7A30BE5105293460B54">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getAtomicMemIntrinsicMaxElementSize ()</code></pre>
+                                <p>Defined at line 3632 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1239D9BB9F2C68D1C6AECE31B3E337E9B88B309D">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getIntrinsicInstrCost (const IntrinsicCostAttributes &amp; ICA, TargetCostKind CostKind)</code></pre>
+                                <p>Defined at line 3634 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72BE2A46E42766BDF35D04883F47C32FB69BA604">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getArithmeticReductionCost (unsigned int Opcode, VectorType * Ty, std::optional&lt;FastMathFlags&gt; FMF, TargetCostKind CostKind)</code></pre>
+                                <p>Defined at line 5548 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D6C60D921FDAA3D8B297E7C12D1B9AEDBCB21753">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getMinMaxCost (Intrinsic::ID IID, Type * Ty, TargetCostKind CostKind, FastMathFlags FMF)</code></pre>
+                                <p>Defined at line 5798 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A77549A67F91937EE1E0A436E10A4EC7FAEA8592">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getMinMaxReductionCost (Intrinsic::ID IID, VectorType * Ty, FastMathFlags FMF, TargetCostKind CostKind)</code></pre>
+                                <p>Defined at line 5805 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D334272C7289D38FE36D8D7A40A65D4F105E5F59">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getInterleavedMemoryOpCost (unsigned int Opcode, Type * VecTy, unsigned int Factor, ArrayRef&lt;unsigned int&gt; Indices, Align Alignment, unsigned int AddressSpace, TargetCostKind CostKind, bool UseMaskForCond, bool UseMaskForGaps)</code></pre>
+                                <p>Defined at line 6812 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B929632BFCF630EC94787D73D3ED6054357B7A34">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getInterleavedMemoryOpCostAVX512 (unsigned int Opcode, FixedVectorType * VecTy, unsigned int Factor, ArrayRef&lt;unsigned int&gt; Indices, Align Alignment, unsigned int AddressSpace, TargetCostKind CostKind, bool UseMaskForCond, bool UseMaskForGaps)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get estimation for interleaved load/store operations and strided load.</p>
+                                        <p> contains indices for strided load.</p>
+                                        <p> - the factor of interleaving.</p>
+                                        <p> AVX-512 provides 3-src shuffles that significantly reduces the cost.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 6654 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B54EBE77361A9818C11B0A5B639C02C436A64B00">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getIntImmCost (int64_t )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Calculate the cost of materializing a 64-bit value. This helper</p>
+                                        <p> method might only calculate a fraction of a larger immediate. Therefore it</p>
+                                        <p> is valid to return a cost of ZERO.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5980 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="121E956C95E16422A87E912930EB257FC8A635F1">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getIntImmCost (const APInt &amp; Imm, Type * Ty, TargetCostKind CostKind)</code></pre>
+                                <p>Defined at line 5990 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DCC2CE4E81E412FA894F0277526DAC3A6C92FE77">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getCFInstrCost (unsigned int Opcode, TargetCostKind CostKind, const Instruction * I)</code></pre>
+                                <p>Defined at line 6174 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CBCC89517DFFD23DB3F5892DA4844F27E55660C9">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getIntImmCostInst (unsigned int Opcode, unsigned int Idx, const APInt &amp; Imm, Type * Ty, TargetCostKind CostKind, Instruction * Inst)</code></pre>
+                                <p>Defined at line 6025 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="257CAC23EB95EE6C59A079825E3B95351FA948E6">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getIntImmCostIntrin (Intrinsic::ID IID, unsigned int Idx, const APInt &amp; Imm, Type * Ty, TargetCostKind CostKind)</code></pre>
+                                <p>Defined at line 6137 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E70B6E4FE8B1952DC27A20970320BD106CB6292F">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getScalingFactorCost (Type * Ty, GlobalValue * BaseGV, StackOffset BaseOffset, bool HasBaseReg, int64_t Scale, unsigned int AddrSpace)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the cost of the scaling factor used in the addressing</p>
+                                        <p> mode represented by AM for this target, for a load/store</p>
+                                        <p> of the specified type.</p>
+                                        <p> If the AM is supported, the return value must be &gt;= 0.</p>
+                                        <p> If the AM is not supported, it returns an invalid cost.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 7127 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E0162F166BB178B7C44771CAD8D0D986C1D01F4C">
+                                <pre><code class="language-cpp code-clang-doc">bool isLSRCostLess (const TargetTransformInfo::LSRCost &amp; C1, const TargetTransformInfo::LSRCost &amp; C2)</code></pre>
+                                <p>Defined at line 6305 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C2D6F794A4FA122CBD4EA68393D81307209A407">
+                                <pre><code class="language-cpp code-clang-doc">bool canMacroFuseCmp ()</code></pre>
+                                <p>Defined at line 6314 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="196F383AA1F6EB0C8D91B6DAD2B400ABC3772CED">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalMaskedLoad (Type * DataType, Align Alignment, unsigned int AddressSpace, MaskKind MaskKind)</code></pre>
+                                <p>Defined at line 6342 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D4E60E0C4E82E84CDBE21A98559926D176989D36">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalMaskedStore (Type * DataType, Align Alignment, unsigned int AddressSpace, MaskKind MaskKind)</code></pre>
+                                <p>Defined at line 6356 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B1F586331E36094AB72E36C80944A0063C465886">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalNTLoad (Type * DataType, Align Alignment)</code></pre>
+                                <p>Defined at line 6370 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CE3BAE0BD3CB87DAB81A5B14C1DB08D2CBBFC779">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalNTStore (Type * DataType, Align Alignment)</code></pre>
+                                <p>Defined at line 6381 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54EBCB6E040D516ACD0AD6A9C45EBEC408763ECF">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalBroadcastLoad (Type * ElementTy, ElementCount NumElements)</code></pre>
+                                <p>Defined at line 6405 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="25C03DE0ECA48F23AA670F6379044491958A752E">
+                                <pre><code class="language-cpp code-clang-doc">bool forceScalarizeMaskedGather (VectorType * VTy, Align Alignment)</code></pre>
+                                <p>Defined at line 6449 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1BBA622DB1D745694595BDE8C1911843B4A377C4">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalMaskedGatherScatter (Type * DataType, Align Alignment)</code></pre>
+                                <p>Defined at line 6462 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="982B7E5834233540FA5ED63D71CC46D922E35D2E">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalMaskedGather (Type * DataType, Align Alignment)</code></pre>
+                                <p>Defined at line 6478 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44FE7DC0D98373C3641B74F27B5DA80FB9B9C16A">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalMaskedScatter (Type * DataType, Align Alignment)</code></pre>
+                                <p>Defined at line 6517 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DB6251047D12613B49F43267D9CDA0319E83137B">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalMaskedExpandLoad (Type * DataType, Align Alignment)</code></pre>
+                                <p>Defined at line 6413 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9FF5746EFD15F9EBC7B3B2C95D33BBFB6E21DCBA">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalMaskedCompressStore (Type * DataType, Align Alignment)</code></pre>
+                                <p>Defined at line 6437 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F07AFCD54C5C82EDAD3E3F2D356C0DF03E9BD23">
+                                <pre><code class="language-cpp code-clang-doc">bool isLegalAltInstr (VectorType * VecTy, unsigned int Opcode0, unsigned int Opcode1, const SmallBitVector &amp; OpcodeMask)</code></pre>
+                                <p>Defined at line 6484 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2E3DCDF703187543C6131A02EED45DF9ACDADBC2">
+                                <pre><code class="language-cpp code-clang-doc">bool hasDivRemOp (Type * DataType, bool IsSigned)</code></pre>
+                                <p>Defined at line 6524 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3C5CE99BA7DE63E3AD13C142925F8456304770EA">
+                                <pre><code class="language-cpp code-clang-doc">bool isExpensiveToSpeculativelyExecute (const Instruction * I)</code></pre>
+                                <p>Defined at line 6529 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B405DD35393C25C25046D66B3D3EE62AA529B04E">
+                                <pre><code class="language-cpp code-clang-doc">bool isFCmpOrdCheaperThanFCmpZero (Type * Ty)</code></pre>
+                                <p>Defined at line 6538 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B731556E19C277DEA601AADB1029EEF13202E78">
+                                <pre><code class="language-cpp code-clang-doc">bool areInlineCompatible (const Function * Caller, const Function * Callee)</code></pre>
+                                <p>Defined at line 6540 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE49C47C5155EDD45F75FF49EDECCF1B280A28B9">
+                                <pre><code class="language-cpp code-clang-doc">bool areTypesABICompatible (const Function * Caller, const Function * Callee, ArrayRef&lt;Type *&gt; Type)</code></pre>
+                                <p>Defined at line 6588 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F6282FB835880FAD48EA78C0E0BE7DBDED1662C9">
+                                <pre><code class="language-cpp code-clang-doc">MemCmpExpansionOptions enableMemCmpExpansion (bool OptSize, bool IsZeroCmp)</code></pre>
+                                <p>Defined at line 6610 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FDFF2922182DB11E2BAE368D62DD34E41AD8B552">
+                                <pre><code class="language-cpp code-clang-doc">bool prefersVectorizedAddressing ()</code></pre>
+                                <p>Defined at line 6635 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8DCD70B83A91BA7E1A250CAF7EB5C62A23F9E1C3">
+                                <pre><code class="language-cpp code-clang-doc">bool supportsEfficientVectorElementLoadStore ()</code></pre>
+                                <p>Defined at line 6639 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3281ABDDE233832F1F0899AEDA2CCBA0645DC8DB">
+                                <pre><code class="language-cpp code-clang-doc">bool enableInterleavedAccessVectorization ()</code></pre>
+                                <p>Defined at line 6643 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="932BB790204F6F272A1E6BC230FEF777B612A38E">
+                                <pre><code class="language-cpp code-clang-doc">InstructionCost getBranchMispredictPenalty ()</code></pre>
+                                <p>Defined at line 7162 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0FBC9E4078AB3B8C7C8E9EC0665AF7FCF1E00682">
+                                <pre><code class="language-cpp code-clang-doc">bool isProfitableToSinkOperands (Instruction * I, SmallVectorImpl&lt;Use *&gt; &amp; Ops)</code></pre>
+                                <p>Defined at line 7197 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="805DFD74BA8FD52CA961AFA284F8DF845E2E8E74">
+                                <pre><code class="language-cpp code-clang-doc">bool isVectorShiftByScalarCheap (Type * Ty)</code></pre>
+                                <p>Defined at line 7167 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="03A6A4B6B15EE18BD28D465AE94849C555DCA8AC">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getStoreMinimumVF (unsigned int VF, Type * ScalarMemTy, Type * ScalarValTy)</code></pre>
+                                <p>Defined at line 7189 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="98C39657FAB835145B04F65FBDA01E3C16A0715A">
+                                <pre><code class="language-cpp code-clang-doc">bool useFastCCForInternalCall (Function &amp; F)</code></pre>
+                                <p>Defined at line 7254 of file llvm/lib/Target/X86/X86TargetTransformInfo.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

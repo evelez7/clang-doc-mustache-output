@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MaxBipartiteMatchState</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">testing</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">internal</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MaxBipartiteMatchState</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#11B80DE38F890DECFAFB73049A1C9B7587AB9C4D">MaxBipartiteMatchState</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AE06AFE62DA054A7B81D853E63E80CC51C218496">Compute</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MaxBipartiteMatchState</h1>
+                        <p>Defined at line 124 of file third-party/unittest/googlemock/src/gmock-matchers.cc</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> FindMaxBipartiteMatching and its helper class.</p>
+                            </div>
+                            <div>
+                                <p> Uses the well-known Ford-Fulkerson max flow method to find a maximum</p>
+                                <p> bipartite matching. Flow is considered to be from left to right.</p>
+                                <p> There is an implicit source node that is connected to all of the left</p>
+                                <p> nodes, and an implicit sink node that is connected to all of the</p>
+                                <p> right nodes. All edges have unit capacity.</p>
+                            </div>
+                            <div>
+                                <p> Neither the flow graph nor the residual flow graph are represented</p>
+                                <p> explicitly. Instead, they are implied by the information in &#39;graph&#39; and</p>
+                                <p> a vector</p>
+                                <p>&lt;int</p>
+                                <p>&gt; called &#39;left_&#39; whose elements are initialized to the</p>
+                                <p> value kUnused. This represents the initial state of the algorithm,</p>
+                                <p> where the flow graph is empty, and the residual flow graph has the</p>
+                                <p> following edges:</p>
+                                <p>   - An edge from source to each left_ node</p>
+                                <p>   - An edge from each right_ node to sink</p>
+                                <p>   - An edge from each left_ node to each right_ node, if the</p>
+                                <p>     corresponding edge exists in &#39;graph&#39;.</p>
+                            </div>
+                            <div>
+                                <p> When the TryAugment() method adds a flow, it sets left_[l] = r for some</p>
+                                <p> nodes l and r. This induces the following changes:</p>
+                                <p>   - The edges (source, l), (l, r), and (r, sink) are added to the</p>
+                                <p>     flow graph.</p>
+                                <p>   - The same three edges are removed from the residual flow graph.</p>
+                                <p>   - The reverse edges (l, source), (r, l), and (sink, r) are added</p>
+                                <p>     to the residual flow graph, which is a directional graph</p>
+                                <p>     representing unused flow capacity.</p>
+                            </div>
+                            <div>
+                                <p> When the method augments a flow (moving left_[l] from some r1 to some</p>
+                                <p> other r2), this can be thought of as &quot;undoing&quot; the above steps with</p>
+                                <p> respect to r1 and &quot;redoing&quot; them with respect to r2.</p>
+                            </div>
+                            <div>
+                                <p> It bears repeating that the flow graph and residual flow graph are</p>
+                                <p> never represented explicitly, but can be derived by looking at the</p>
+                                <p> information in &#39;graph&#39; and in left_.</p>
+                            </div>
+                            <div>
+                                <p> As an optimization, there is a second vector</p>
+                                <p>&lt;int</p>
+                                <p>&gt; called right_ which</p>
+                                <p> does not provide any new information. Instead, it enables more</p>
+                                <p> efficient queries about edges entering or leaving the right-side nodes</p>
+                                <p> of the flow or residual flow graphs. The following invariants are</p>
+                                <p> maintained:</p>
+                            </div>
+                            <div>
+                                <p> left[l] == kUnused or right[left[l]] == l</p>
+                                <p> right[r] == kUnused or left[right[r]] == r</p>
+                            </div>
+                            <div>
+                                <p> . [ source ]                                        .</p>
+                                <p> .   |||                                             .</p>
+                                <p> .   |||                                             .</p>
+                                <p> .   ||</p>
+                                <p>\</p>
+                                <p>--&gt; left[0]=1  ---</p>
+                                <p>\</p>
+                                <p>    right[0]=-1 ----</p>
+                                <p>\</p>
+                                <p>     .</p>
+                                <p> .   ||                   |                    |     .</p>
+                                <p> .   |</p>
+                                <p>\</p>
+                                <p>---&gt; left[1]=-1    </p>
+                                <p>\</p>
+                                <p>--&gt; right[1]=0  ---</p>
+                                <p>\</p>
+                                <p>|     .</p>
+                                <p> .   |                                        ||     .</p>
+                                <p> .   </p>
+                                <p>\</p>
+                                <p>----&gt; left[2]=2  ------&gt; right[2]=2  --</p>
+                                <p>\</p>
+                                <p>||     .</p>
+                                <p> .                                           |||     .</p>
+                                <p> .         elements           matchers       vvv     .</p>
+                                <p> .                                         [ sink ]  .</p>
+                            </div>
+                            <div>
+                                <p> See Also:</p>
+                                <p>   [1] Cormen, et al (2001). &quot;Section 26.2: The Ford-Fulkerson method&quot;.</p>
+                                <p>       &quot;Introduction to Algorithms (Second ed.)&quot;, pp. 651-664.</p>
+                                <p>   [2] &quot;Ford-Fulkerson algorithm&quot;, Wikipedia,</p>
+                                <p>       &#39;http://en.wikipedia.org/wiki/Ford%E2%80%93Fulkerson_algorithm&#39;</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="11B80DE38F890DECFAFB73049A1C9B7587AB9C4D">
+                                <pre><code class="language-cpp code-clang-doc">void MaxBipartiteMatchState (const MatchMatrix &amp; graph)</code></pre>
+                                <p>Defined at line 126 of file third-party/unittest/googlemock/src/gmock-matchers.cc</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AE06AFE62DA054A7B81D853E63E80CC51C218496">
+                                <pre><code class="language-cpp code-clang-doc">vector Compute ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the edges of a maximal match, each in the form {left, right}.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 132 of file third-party/unittest/googlemock/src/gmock-matchers.cc</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

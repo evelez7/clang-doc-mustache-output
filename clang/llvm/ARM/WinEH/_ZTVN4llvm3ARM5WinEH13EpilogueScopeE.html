@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>EpilogueScope</title>
+        <link rel="stylesheet" type="text/css" href="../../../clang-doc-mustache.css"/>
+        <script src="../../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">ARM</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">WinEH</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct EpilogueScope</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ES">ES</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B0677B24A3000E0AFB89EF4A76B78CBB45CB70C5">EpilogueScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E3E083EE3D8161383F01F1A7EA2DB2F2FA70DE2">EpilogueStartOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2718D1DF9805F8C98523E47D84F1CF7C7955A744">ResARM</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AAFEA753D89AC96824819AC0F9555D46479BEB94">ResAArch64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#530B47637697C057C4051E9742301AD3E460CB7A">Condition</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F76F10CE045336EED80542E31D0A3146EED07F56">EpilogueStartIndexARM</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E339FFAD21BE6663A7E289AAEC47639C736AFD45">EpilogueStartIndexAArch64</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct EpilogueScope</h1>
+                        <p>Defined at line 397 of file llvm/include/llvm/Support/ARMWinEH.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> ExceptionDataRecord - An entry in the table of exception data (.xdata)</p>
+                            </div>
+                            <div>
+                                <p> The format on ARM is:</p>
+                            </div>
+                            <div>
+                                <p>  3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0</p>
+                                <p>  1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0</p>
+                                <p> +-------+---------+-+-+-+---+-----------------------------------+</p>
+                                <p> | C Wrd | Epi Cnt |F|E|X|Ver|         Function Length           |</p>
+                                <p> +-------+--------+&#39;-&#39;-&#39;-&#39;---&#39;---+-------------------------------+</p>
+                                <p> |    Reserved    |Ex. Code Words|   (Extended Epilogue Count)   |</p>
+                                <p> +-------+--------+--------------+-------------------------------+</p>
+                            </div>
+                            <div>
+                                <p> The format on ARM64 is:</p>
+                            </div>
+                            <div>
+                                <p>  3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0</p>
+                                <p>  1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0</p>
+                                <p> +---------+---------+-+-+---+-----------------------------------+</p>
+                                <p> |  C Wrd  | Epi Cnt |E|X|Ver|         Function Length           |</p>
+                                <p> +---------+------+--&#39;-&#39;-&#39;---&#39;---+-------------------------------+</p>
+                                <p> |    Reserved    |Ex. Code Words|   (Extended Epilogue Count)   |</p>
+                                <p> +-------+--------+--------------+-------------------------------+</p>
+                            </div>
+                            <div>
+                                <p> Function Length : 18-bit field indicating the total length of the function</p>
+                                <p>                   in bytes divided by 2.  If a function is larger than</p>
+                                <p>                   512KB, then multiple pdata and xdata records must be used.</p>
+                                <p> Vers : 2-bit field describing the version of the remaining structure.  Only</p>
+                                <p>        version 0 is currently defined (values 1-3 are not permitted).</p>
+                                <p> X : 1-bit field indicating the presence of exception data</p>
+                                <p> E : 1-bit field indicating that the single epilogue is packed into the</p>
+                                <p>     header</p>
+                                <p> F : 1-bit field indicating that the record describes a function fragment</p>
+                                <p>     (implies that no prologue is present, and prologue processing should be</p>
+                                <p>     skipped) (ARM only)</p>
+                                <p> Epilogue Count : 5-bit field that differs in meaning based on the E field.</p>
+                            </div>
+                            <div>
+                                <p>                  If E is set, then this field specifies the index of the</p>
+                                <p>                  first unwind code describing the (only) epilogue.</p>
+                            </div>
+                            <div>
+                                <p>                  Otherwise, this field indicates the number of exception</p>
+                                <p>                  scopes.  If more than 31 scopes exist, then this field and</p>
+                                <p>                  the Code Words field must both be set to 0 to indicate that</p>
+                                <p>                  an extension word is required.</p>
+                                <p> Code Words : 4-bit (5-bit on ARM64) field that specifies the number of</p>
+                                <p>              32-bit words needed to contain all the unwind codes.  If more</p>
+                                <p>              than 15 words (31 words on ARM64) are required, then this field</p>
+                                <p>              and the Epilogue Count field must both be set to 0 to indicate</p>
+                                <p>              that an extension word is required.</p>
+                                <p> Extended Epilogue Count, Extended Code Words :</p>
+                                <p>                          Valid only if Epilog Count and Code Words are both</p>
+                                <p>                          set to 0.  Provides an 8-bit extended code word</p>
+                                <p>                          count and 16-bits for epilogue count</p>
+                            </div>
+                            <div>
+                                <p> The epilogue scope format on ARM is:</p>
+                            </div>
+                            <div>
+                                <p>  3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0</p>
+                                <p>  1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0</p>
+                                <p> +----------------+------+---+---+-------------------------------+</p>
+                                <p> |  Ep Start Idx  | Cond |Res|       Epilogue Start Offset       |</p>
+                                <p> +----------------+------+---+-----------------------------------+</p>
+                            </div>
+                            <div>
+                                <p> The epilogue scope format on ARM64 is:</p>
+                            </div>
+                            <div>
+                                <p>  3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0</p>
+                                <p>  1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0</p>
+                                <p> +-------------------+-------+---+-------------------------------+</p>
+                                <p> |  Ep Start Idx     |  Res  |   Epilogue Start Offset           |</p>
+                                <p> +-------------------+-------+-----------------------------------+</p>
+                            </div>
+                            <div>
+                                <p> If the E bit is unset in the header, the header is followed by a series of</p>
+                                <p> epilogue scopes, which are sorted by their offset.</p>
+                            </div>
+                            <div>
+                                <p> Epilogue Start Offset: 18-bit field encoding the offset of epilogue relative</p>
+                                <p>                        to the start of the function in bytes divided by two</p>
+                                <p> Res : 2-bit field reserved for future expansion (must be set to 0)</p>
+                                <p> Condition : (ARM only) 4-bit field providing the condition under which the</p>
+                                <p>             epilogue is executed.  Unconditional epilogues should set this</p>
+                                <p>             field to 0xe. Epilogues must be entirely conditional or</p>
+                                <p>             unconditional, and in Thumb-2 mode.  The epilogue begins with</p>
+                                <p>             the first instruction after the IT opcode.</p>
+                                <p> Epilogue Start Index : 8-bit field indicating the byte index of the first</p>
+                                <p>                        unwind code describing the epilogue</p>
+                            </div>
+                            <div>
+                                <p>  3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0</p>
+                                <p>  1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0</p>
+                                <p> +---------------+---------------+---------------+---------------+</p>
+                                <p> | Unwind Code 3 | Unwind Code 2 | Unwind Code 1 | Unwind Code 0 |</p>
+                                <p> +---------------+---------------+---------------+---------------+</p>
+                            </div>
+                            <div>
+                                <p> Following the epilogue scopes, the byte code describing the unwinding</p>
+                                <p> follows.  This is padded to align up to word alignment.  Bytes are stored in</p>
+                                <p> little endian.</p>
+                            </div>
+                            <div>
+                                <p>  3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0</p>
+                                <p>  1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0</p>
+                                <p> +---------------------------------------------------------------+</p>
+                                <p> |           Exception Handler RVA (requires X = 1)              |</p>
+                                <p> +---------------------------------------------------------------+</p>
+                                <p> |  (possibly followed by data required for exception handler)   |</p>
+                                <p> +---------------------------------------------------------------+</p>
+                            </div>
+                            <div>
+                                <p> If the X bit is set in the header, the unwind byte code is followed by the</p>
+                                <p> exception handler information.  This constants of one Exception Handler RVA</p>
+                                <p> which is the address to the exception handler, followed immediately by the</p>
+                                <p> variable length data associated with the exception handler.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="ES" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >packed_endian_specific_integral ES</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="B0677B24A3000E0AFB89EF4A76B78CBB45CB70C5">
+                                <pre><code class="language-cpp code-clang-doc">void EpilogueScope (packed_endian_specific_integral Data)</code></pre>
+                                <p>Defined at line 400 of file llvm/include/llvm/Support/ARMWinEH.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E3E083EE3D8161383F01F1A7EA2DB2F2FA70DE2">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t EpilogueStartOffset ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Same for both ARM and AArch64.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 402 of file llvm/include/llvm/Support/ARMWinEH.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2718D1DF9805F8C98523E47D84F1CF7C7955A744">
+                                <pre><code class="language-cpp code-clang-doc">uint8_t ResARM ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Different implementations for ARM and AArch64.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 407 of file llvm/include/llvm/Support/ARMWinEH.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AAFEA753D89AC96824819AC0F9555D46479BEB94">
+                                <pre><code class="language-cpp code-clang-doc">uint8_t ResAArch64 ()</code></pre>
+                                <p>Defined at line 411 of file llvm/include/llvm/Support/ARMWinEH.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="530B47637697C057C4051E9742301AD3E460CB7A">
+                                <pre><code class="language-cpp code-clang-doc">uint8_t Condition ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Condition is only applicable to ARM.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 416 of file llvm/include/llvm/Support/ARMWinEH.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F76F10CE045336EED80542E31D0A3146EED07F56">
+                                <pre><code class="language-cpp code-clang-doc">uint8_t EpilogueStartIndexARM ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Different implementations for ARM and AArch64.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 421 of file llvm/include/llvm/Support/ARMWinEH.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E339FFAD21BE6663A7E289AAEC47639C736AFD45">
+                                <pre><code class="language-cpp code-clang-doc">uint16_t EpilogueStartIndexAArch64 ()</code></pre>
+                                <p>Defined at line 425 of file llvm/include/llvm/Support/ARMWinEH.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

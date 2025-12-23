@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SCCPSolver</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SCCPSolver</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#58F67F1C9FF6DBC1943A1F3976AD3A3D892CADCB">SCCPSolver</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#091116503AE7A8084D733E0CADEA3E17E7008548">~SCCPSolver</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D299F11FA5D1C3CDD4ABB5AED7166E4C9E725072">addPredicateInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B19875195B0399E4B4B92B5FE9B748485EC9609">removeSSACopies</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#54DBBFD5DD1C416F20AFC7C068A476007474A076">markBlockExecutable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D848ECC5BB7545AE13326FC78C3ABEEAE88946C1">getPredicateInfoFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1893F820E8AFFABEC12862742D1989D28C781AD4">trackValueOfGlobalVariable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C30849028E3A3A25EA093F4CA7C05682AFE98195">addTrackedFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#86100556666F96E7CB7D0883212096C4EF74723E">addToMustPreserveReturnsInFunctions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#869E79136E072AE75E34497E58B092937695C4CA">mustPreserveReturn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8424BBAE861F70C612B9753790B2A5A1F6A59A8D">addArgumentTrackedFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52814889D26693B119F15DD17D498A74254993E4">isArgumentTrackedFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#73C89AF3BA0DC9325CD39AB38FBE91B32379F795">getArgumentTrackedFunctions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#65296122F8004E6D40F8706AD193C0248493CA90">solve</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0D293C50629D3D3B84B4DF86FE453FFBDCB714EC">resolvedUndefsIn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#32326078BCA3E680FF272AC428282209928D3B4E">solveWhileResolvedUndefsIn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#78F734734164A89151854FBDCE2617B2917F38BA">solveWhileResolvedUndefsIn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B2CD20D265C52F900327925AC3DB41A3133EF854">solveWhileResolvedUndefs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BC3F79FC0703B2F03F8BA2D3E3EEA7F988C584C1">isBlockExecutable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#565C20CAA5C6F35BDC70E65E374ED910716082E1">isEdgeFeasible</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C627B4FDF4796DE9EA7BAEF9B56C20CF7C9DAAD3">getStructLatticeValueFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5224BE711D631B84D5DA0975B399DAF9269AF534">removeLatticeValueFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BF11FBF0C80E5E33B231C140D51984C51F7AFDBA">resetLatticeValueFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EBED0B2AD8EA80199F3EA108197F3C3E623FF3CC">getLatticeValueFor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#25756AFE24A8A5BB6B0851B92B447FC36E5FDFB7">getTrackedRetVals</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9B679FC2CE9577484DE7F64CB94E0CD1D3BCC5FE">getTrackedGlobals</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C99C446B4B329AE8AA37660CCB927B1C93A7BD1C">getMRVFunctionsTracked</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A60D23D173F6FA9D60C24A029B3BF0868D7BE14">markOverdefined</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6B529567D7BD2F28DE12660C6C3016E9C48BA000">trackValueOfArgument</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C7FFA7EEFA855CC8098FA009ECAD5F594BA4177">isStructLatticeConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B4816F06C1404176DC2A7281A440A2229B38C78">getConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3879C60CCCBA85CF05AD006E5CEF89BEDF9B6BE7">getConstantOrNull</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#427F2C0093C314BCB6AA12138D54BD697CA3FA8B">setLatticeValueForSpecializationArguments</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CE0C621B0E11F5CACC13AA51B8A90CE964262825">markFunctionUnreachable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CAB57406C2817A599C38C89FF9FFEC8BEBF15B9F">visit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5A8FF7541B05AB7D3D3AAD1F5372381BAB4DA32B">visitCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D8DB1991E5FCE738ABE676C4B5498425C920FA02">simplifyInstsInBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D3D27E3B3CC483563C62F099D2D3B09494F8081">removeNonFeasibleEdges</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DCAE3104FF8357D29EB2D02B4A981B49CDDFFFE0">inferReturnAttributes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C79847F0F1211B50A23002BAD4FA7871FB9CC788">inferArgAttributes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4A3B226B38783FE900B7CCFECC8002B266E5D0D">tryToReplaceWithConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#711A3416BBFAB17FB121C21735827AF691161FDC">isConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5D6CAD41F178FDC6EDE843162574F06C6C378803">isOverdefined</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SCCPSolver</h1>
+                        <p>Defined at line 66 of file llvm/include/llvm/Transforms/Utils/SCCPSolver.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p>===----------------------------------------------------------------------===//</p>
+                            </div>
+                            <div>
+                                <p> SCCPSolver - This interface class is a general purpose solver for Sparse</p>
+                                <p> Conditional Constant Propagation (SCCP).</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="58F67F1C9FF6DBC1943A1F3976AD3A3D892CADCB">
+                                <pre><code class="language-cpp code-clang-doc">void SCCPSolver (const DataLayout &amp; DL, std::function&lt;const TargetLibraryInfo &amp;(Function &amp;)&gt; GetTLI, LLVMContext &amp; Ctx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                    </div>
+                                    <div>
+                                        <p> SCCPSolver implementations</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2312 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="091116503AE7A8084D733E0CADEA3E17E7008548">
+                                <pre><code class="language-cpp code-clang-doc">void ~SCCPSolver ()</code></pre>
+                                <p>Defined at line 2318 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D299F11FA5D1C3CDD4ABB5AED7166E4C9E725072">
+                                <pre><code class="language-cpp code-clang-doc">void addPredicateInfo (Function &amp; F, DominatorTree &amp; DT, AssumptionCache &amp; AC)</code></pre>
+                                <p>Defined at line 2320 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B19875195B0399E4B4B92B5FE9B748485EC9609">
+                                <pre><code class="language-cpp code-clang-doc">void removeSSACopies (Function &amp; F)</code></pre>
+                                <p>Defined at line 2325 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54DBBFD5DD1C416F20AFC7C068A476007474A076">
+                                <pre><code class="language-cpp code-clang-doc">bool markBlockExecutable (BasicBlock * BB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> markBlockExecutable - This method can be used by clients to mark all of</p>
+                                        <p> the blocks that are known to be intrinsically live in the processed unit.</p>
+                                        <p> This returns true if the block was not considered live before.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2329 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D848ECC5BB7545AE13326FC78C3ABEEAE88946C1">
+                                <pre><code class="language-cpp code-clang-doc">const PredicateBase * getPredicateInfoFor (Instruction * I)</code></pre>
+                                <p>Defined at line 2333 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1893F820E8AFFABEC12862742D1989D28C781AD4">
+                                <pre><code class="language-cpp code-clang-doc">void trackValueOfGlobalVariable (GlobalVariable * GV)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> trackValueOfGlobalVariable - Clients can use this method to</p>
+                                        <p> inform the SCCPSolver that it should track loads and stores to the</p>
+                                        <p> specified global variable if it can.  This is only legal to call if</p>
+                                        <p> performing Interprocedural SCCP.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2337 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C30849028E3A3A25EA093F4CA7C05682AFE98195">
+                                <pre><code class="language-cpp code-clang-doc">void addTrackedFunction (Function * F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> addTrackedFunction - If the SCCP solver is supposed to track calls into</p>
+                                        <p> and out of the specified function (which cannot have its address taken),</p>
+                                        <p> this method must be called.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2341 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="86100556666F96E7CB7D0883212096C4EF74723E">
+                                <pre><code class="language-cpp code-clang-doc">void addToMustPreserveReturnsInFunctions (Function * F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add function to the list of functions whose return cannot be modified.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2345 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="869E79136E072AE75E34497E58B092937695C4CA">
+                                <pre><code class="language-cpp code-clang-doc">bool mustPreserveReturn (Function * F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the return of the given function cannot be modified.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2349 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8424BBAE861F70C612B9753790B2A5A1F6A59A8D">
+                                <pre><code class="language-cpp code-clang-doc">void addArgumentTrackedFunction (Function * F)</code></pre>
+                                <p>Defined at line 2353 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="52814889D26693B119F15DD17D498A74254993E4">
+                                <pre><code class="language-cpp code-clang-doc">bool isArgumentTrackedFunction (Function * F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the given function is in the solver&#39;s set of</p>
+                                        <p> argument-tracked functions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2357 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="73C89AF3BA0DC9325CD39AB38FBE91B32379F795">
+                                <pre><code class="language-cpp code-clang-doc">const SmallPtrSetImpl&lt;Function *&gt; &amp; getArgumentTrackedFunctions ()</code></pre>
+                                <p>Defined at line 2361 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="65296122F8004E6D40F8706AD193C0248493CA90">
+                                <pre><code class="language-cpp code-clang-doc">void solve ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Solve - Solve for constants and executable blocks.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2366 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0D293C50629D3D3B84B4DF86FE453FFBDCB714EC">
+                                <pre><code class="language-cpp code-clang-doc">bool resolvedUndefsIn (Function &amp; F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> resolvedUndefsIn - While solving the dataflow for a function, we assume</p>
+                                        <p> that branches on undef values cannot reach any of their successors.</p>
+                                        <p> However, this is not a safe assumption.  After we solve dataflow, this</p>
+                                        <p> method should be use to handle this.  If this returns true, the solver</p>
+                                        <p> should be rerun.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2368 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="32326078BCA3E680FF272AC428282209928D3B4E">
+                                <pre><code class="language-cpp code-clang-doc">void solveWhileResolvedUndefsIn (Module &amp; M)</code></pre>
+                                <p>Defined at line 2372 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="78F734734164A89151854FBDCE2617B2917F38BA">
+                                <pre><code class="language-cpp code-clang-doc">void solveWhileResolvedUndefsIn (SmallVectorImpl&lt;Function *&gt; &amp; WorkList)</code></pre>
+                                <p>Defined at line 2376 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B2CD20D265C52F900327925AC3DB41A3133EF854">
+                                <pre><code class="language-cpp code-clang-doc">void solveWhileResolvedUndefs ()</code></pre>
+                                <p>Defined at line 2381 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BC3F79FC0703B2F03F8BA2D3E3EEA7F988C584C1">
+                                <pre><code class="language-cpp code-clang-doc">bool isBlockExecutable (BasicBlock * BB)</code></pre>
+                                <p>Defined at line 2385 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="565C20CAA5C6F35BDC70E65E374ED910716082E1">
+                                <pre><code class="language-cpp code-clang-doc">bool isEdgeFeasible (BasicBlock * From, BasicBlock * To)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isEdgeFeasible - Return true if the control flow edge from the &#39;From&#39; basic</p>
+                                        <p> block to the &#39;To&#39; basic block is currently feasible.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2389 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C627B4FDF4796DE9EA7BAEF9B56C20CF7C9DAAD3">
+                                <pre><code class="language-cpp code-clang-doc">int getStructLatticeValueFor (Value * V)</code></pre>
+                                <p>Defined at line 2393 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5224BE711D631B84D5DA0975B399DAF9269AF534">
+                                <pre><code class="language-cpp code-clang-doc">void removeLatticeValueFor (Value * V)</code></pre>
+                                <p>Defined at line 2398 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BF11FBF0C80E5E33B231C140D51984C51F7AFDBA">
+                                <pre><code class="language-cpp code-clang-doc">void resetLatticeValueFor (CallBase * Call)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Invalidate the Lattice Value of </p>
+                                        <p> and its users after specializing</p>
+                                        <p> the call. Then recompute it.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2402 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EBED0B2AD8EA80199F3EA108197F3C3E623FF3CC">
+                                <pre><code class="language-cpp code-clang-doc">const ValueLatticeElement &amp; getLatticeValueFor (Value * V)</code></pre>
+                                <p>Defined at line 2406 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="25756AFE24A8A5BB6B0851B92B447FC36E5FDFB7">
+                                <pre><code class="language-cpp code-clang-doc">const int &amp; getTrackedRetVals ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getTrackedRetVals - Get the inferred return value map.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2410 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9B679FC2CE9577484DE7F64CB94E0CD1D3BCC5FE">
+                                <pre><code class="language-cpp code-clang-doc">const int &amp; getTrackedGlobals ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getTrackedGlobals - Get and return the set of inferred initializers for</p>
+                                        <p> global variables.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2415 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C99C446B4B329AE8AA37660CCB927B1C93A7BD1C">
+                                <pre><code class="language-cpp code-clang-doc">const SmallPtrSet&lt;Function *, 16&gt; &amp; getMRVFunctionsTracked ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getMRVFunctionsTracked - Get the set of functions which return multiple</p>
+                                        <p> values tracked by the pass.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2420 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A60D23D173F6FA9D60C24A029B3BF0868D7BE14">
+                                <pre><code class="language-cpp code-clang-doc">void markOverdefined (Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> markOverdefined - Mark the specified value overdefined.  This</p>
+                                        <p> works with both scalars and structs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2424 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6B529567D7BD2F28DE12660C6C3016E9C48BA000">
+                                <pre><code class="language-cpp code-clang-doc">void trackValueOfArgument (Argument * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> trackValueOfArgument - Mark the specified argument overdefined unless it</p>
+                                        <p> have range attribute.  This works with both scalars and structs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2426 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C7FFA7EEFA855CC8098FA009ECAD5F594BA4177">
+                                <pre><code class="language-cpp code-clang-doc">bool isStructLatticeConstant (Function * F, StructType * STy)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isStructLatticeConstant - Return true if all the lattice values</p>
+                                        <p> corresponding to elements of the structure are constants,</p>
+                                        <p> false otherwise.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2430 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B4816F06C1404176DC2A7281A440A2229B38C78">
+                                <pre><code class="language-cpp code-clang-doc">Constant * getConstant (const ValueLatticeElement &amp; LV, Type * Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Helper to return a Constant if </p>
+                                        <p> is either a constant or a constant</p>
+                                        <p> range with a single element.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2434 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3879C60CCCBA85CF05AD006E5CEF89BEDF9B6BE7">
+                                <pre><code class="language-cpp code-clang-doc">Constant * getConstantOrNull (Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return either a Constant or nullptr for a given Value.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2439 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="427F2C0093C314BCB6AA12138D54BD697CA3FA8B">
+                                <pre><code class="language-cpp code-clang-doc">void setLatticeValueForSpecializationArguments (Function * F, const SmallVectorImpl&lt;ArgInfo&gt; &amp; Args)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the Lattice Value for the arguments of a specialization </p>
+                                        <p> If an argument is Constant then its lattice value is marked with the</p>
+                                        <p> corresponding actual argument in </p>
+                                        <p> Otherwise, its lattice value</p>
+                                        <p> is inherited (copied) from the corresponding formal argument in </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2443 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CE0C621B0E11F5CACC13AA51B8A90CE964262825">
+                                <pre><code class="language-cpp code-clang-doc">void markFunctionUnreachable (Function * F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Mark all of the blocks in function </p>
+                                        <p> non-executable. Clients can used</p>
+                                        <p> this method to erase a function from the module (e.g., if it has been</p>
+                                        <p> completely specialized and is no longer needed).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2448 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CAB57406C2817A599C38C89FF9FFEC8BEBF15B9F">
+                                <pre><code class="language-cpp code-clang-doc">void visit (Instruction * I)</code></pre>
+                                <p>Defined at line 2452 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5A8FF7541B05AB7D3D3AAD1F5372381BAB4DA32B">
+                                <pre><code class="language-cpp code-clang-doc">void visitCall (CallInst &amp; I)</code></pre>
+                                <p>Defined at line 2454 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D8DB1991E5FCE738ABE676C4B5498425C920FA02">
+                                <pre><code class="language-cpp code-clang-doc">bool simplifyInstsInBlock (BasicBlock &amp; BB, SmallPtrSetImpl&lt;Value *&gt; &amp; InsertedValues, Statistic &amp; InstRemovedStat, Statistic &amp; InstReplacedStat)</code></pre>
+                                <p>Defined at line 350 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D3D27E3B3CC483563C62F099D2D3B09494F8081">
+                                <pre><code class="language-cpp code-clang-doc">bool removeNonFeasibleEdges (BasicBlock * BB, DomTreeUpdater &amp; DTU, BasicBlock *&amp; NewUnreachableBB)</code></pre>
+                                <p>Defined at line 379 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DCAE3104FF8357D29EB2D02B4A981B49CDDFFFE0">
+                                <pre><code class="language-cpp code-clang-doc">void inferReturnAttributes ()</code></pre>
+                                <p>Defined at line 502 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C79847F0F1211B50A23002BAD4FA7871FB9CC788">
+                                <pre><code class="language-cpp code-clang-doc">void inferArgAttributes ()</code></pre>
+                                <p>Defined at line 507 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4A3B226B38783FE900B7CCFECC8002B266E5D0D">
+                                <pre><code class="language-cpp code-clang-doc">bool tryToReplaceWithConstant (Value * V)</code></pre>
+                                <p>Defined at line 64 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="711A3416BBFAB17FB121C21735827AF691161FDC">
+                                <pre><code class="language-cpp code-clang-doc">bool isConstant (const ValueLatticeElement &amp; LV)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Helper to check if </p>
+                                        <p> is either a constant or a constant</p>
+                                        <p> range with a single element. This should cover exactly the same cases as</p>
+                                        <p> the old ValueLatticeElement::isConstant() and is intended to be used in the</p>
+                                        <p> transition to ValueLatticeElement.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 55 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5D6CAD41F178FDC6EDE843162574F06C6C378803">
+                                <pre><code class="language-cpp code-clang-doc">bool isOverdefined (const ValueLatticeElement &amp; LV)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Helper to check if </p>
+                                        <p> is either overdefined or a constant range with</p>
+                                        <p> more than a single element. This should cover exactly the same cases as the</p>
+                                        <p> old ValueLatticeElement::isOverdefined() and is intended to be used in the</p>
+                                        <p> transition to ValueLatticeElement.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 60 of file llvm/lib/Transforms/Utils/SCCPSolver.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

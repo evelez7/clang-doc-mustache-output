@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>GCPtrTracker</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class GCPtrTracker</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C77377F1BD48D17AA2D624951AA43A206718678E">hasLiveIncomingEdge</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CE84B7EB09C91B55D5FCB69D72E03404B88B5901">isValuePoisoned</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#27A0230EFA3305D8A19D677F19E2D107ABA73F2C">isMapped</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB8B5758F887974085FDEF05A4E07FC7601C2AC3">GCPtrTracker</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FFBE11C2365D136F04900B8581004AF1B1DBC94C">getBasicBlockState</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5B9C3B292592A222CBB9F9FD614DD614CA5D4A30">getBasicBlockState</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E22F972985295165E5D16F1C3C3FF7E8D9C7BF8">verifyFunction</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class GCPtrTracker</h1>
+                        <p>Defined at line 452 of file llvm/lib/IR/SafepointIRVerifier.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Builds BasicBlockState for each BB of the function.</p>
+                                <p> It can traverse function for verification and provides all required</p>
+                                <p> information.</p>
+                            </div>
+                            <div>
+                                <p> GC pointer may be in one of three states: relocated, unrelocated and</p>
+                                <p> poisoned.</p>
+                                <p> Relocated pointer may be used without any restrictions.</p>
+                                <p> Unrelocated pointer cannot be dereferenced, passed as argument to any call</p>
+                                <p> or returned. Unrelocated pointer may be safely compared against another</p>
+                                <p> unrelocated pointer or against a pointer exclusively derived from null.</p>
+                                <p> Poisoned pointers are produced when we somehow derive pointer from relocated</p>
+                                <p> and unrelocated pointers (e.g. phi, select). This pointers may be safely</p>
+                                <p> used in a very limited number of situations. Currently the only way to use</p>
+                                <p> it is comparison against constant exclusively derived from null. All</p>
+                                <p> limitations arise due to their undefined state: this pointers should be</p>
+                                <p> treated as relocated and unrelocated simultaneously.</p>
+                                <p> Rules of deriving:</p>
+                                <p> R + U = P - that&#39;s where the poisoned pointers come from</p>
+                                <p> P + X = P</p>
+                                <p> U + U = U</p>
+                                <p> R + R = R</p>
+                                <p> X + C = X</p>
+                                <p> Where &quot;+&quot; - any operation that somehow derive pointer, U - unrelocated,</p>
+                                <p> R - relocated and P - poisoned, C - constant, X - U or R or P or C or</p>
+                                <p> nothing (in case when &quot;+&quot; is unary operation).</p>
+                                <p> Deriving of pointers by itself is always safe.</p>
+                                <p> NOTE: when we are making decision on the status of instruction&#39;s result:</p>
+                                <p> a) for phi we need to check status of each input *at the end of</p>
+                                <p>    corresponding predecessor BB*.</p>
+                                <p> b) for other instructions we need to check status of each input *at the</p>
+                                <p>    current point*.</p>
+                            </div>
+                            <div>
+                                <p> FIXME: This works fairly well except one case</p>
+                                <p>     bb1:</p>
+                                <p>     p = *some GC-ptr def*</p>
+                                <p>     p1 = gep p, offset</p>
+                                <p>         /     |</p>
+                                <p>        /      |</p>
+                                <p>    bb2:       |</p>
+                                <p>    safepoint  |</p>
+                                <p>\</p>
+                                <p>      |</p>
+                                <p>\</p>
+                                <p>     |</p>
+                                <p>      bb3:</p>
+                                <p>      p2 = phi [p, bb2] [p1, bb1]</p>
+                                <p>      p3 = phi [p, bb2] [p, bb1]</p>
+                                <p>      here p and p1 is unrelocated</p>
+                                <p>           p2 and p3 is poisoned (though they shouldn&#39;t be)</p>
+                            </div>
+                            <div>
+                                <p> This leads to some weird results:</p>
+                                <p>      cmp eq p, p2 - illegal instruction (false-positive)</p>
+                                <p>      cmp eq p1, p2 - illegal instruction (false-positive)</p>
+                                <p>      cmp eq p, p3 - illegal instruction (false-positive)</p>
+                                <p>      cmp eq p, p1 - ok</p>
+                                <p> To fix this we need to introduce conception of generations and be able to</p>
+                                <p> check if two values belong to one generation or not. This way p2 will be</p>
+                                <p> considered to be unrelocated and no false alarm will happen.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="C77377F1BD48D17AA2D624951AA43A206718678E">
+                                <pre><code class="language-cpp code-clang-doc">bool hasLiveIncomingEdge (const PHINode * PN, const BasicBlock * InBB)</code></pre>
+                                <p>Defined at line 468 of file llvm/lib/IR/SafepointIRVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CE84B7EB09C91B55D5FCB69D72E03404B88B5901">
+                                <pre><code class="language-cpp code-clang-doc">bool isValuePoisoned (const Value * V)</code></pre>
+                                <p>Defined at line 475 of file llvm/lib/IR/SafepointIRVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="27A0230EFA3305D8A19D677F19E2D107ABA73F2C">
+                                <pre><code class="language-cpp code-clang-doc">bool isMapped (const BasicBlock * BB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true for reachable and live blocks.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 487 of file llvm/lib/IR/SafepointIRVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB8B5758F887974085FDEF05A4E07FC7601C2AC3">
+                                <pre><code class="language-cpp code-clang-doc">void GCPtrTracker (const Function &amp; F, const DominatorTree &amp; DT, const CFGDeadness &amp; CD)</code></pre>
+                                <p>Defined at line 543 of file llvm/lib/IR/SafepointIRVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FFBE11C2365D136F04900B8581004AF1B1DBC94C">
+                                <pre><code class="language-cpp code-clang-doc">BasicBlockState * getBasicBlockState (const BasicBlock * BB)</code></pre>
+                                <p>Defined at line 568 of file llvm/lib/IR/SafepointIRVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5B9C3B292592A222CBB9F9FD614DD614CA5D4A30">
+                                <pre><code class="language-cpp code-clang-doc">const BasicBlockState * getBasicBlockState (const BasicBlock * BB)</code></pre>
+                                <p>Defined at line 572 of file llvm/lib/IR/SafepointIRVerifier.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E22F972985295165E5D16F1C3C3FF7E8D9C7BF8">
+                                <pre><code class="language-cpp code-clang-doc">void verifyFunction (GCPtrTracker &amp;&amp; Tracker, InstructionVerifier &amp; Verifier)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Traverse each BB of the function and call</p>
+                                        <p> InstructionVerifier::verifyInstruction for each possibly invalid</p>
+                                        <p> instruction.</p>
+                                        <p> It destructively modifies GCPtrTracker so it&#39;s passed via rvalue reference</p>
+                                        <p> in order to prohibit further usages of GCPtrTracker as it&#39;ll be in</p>
+                                        <p> inconsistent state.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 583 of file llvm/lib/IR/SafepointIRVerifier.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

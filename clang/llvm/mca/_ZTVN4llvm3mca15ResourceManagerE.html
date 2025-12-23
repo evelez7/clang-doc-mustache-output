@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ResourceManager</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">mca</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ResourceManager</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#40BC10B38285FA0D596A9CD57410F56699C3FE12">ResourceManager</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9D449D2A068CACDC04E328211CEB4AFBF3C22695">canBeDispatched</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7A75AA15826D448C30865C450249C7D65C5E797E">resolveResourceMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#74F57C37A41B2DD2BD6CBE36AB863817736DCCF6">reserveBuffers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8CB501E499B7D4B9F8A92FC709442EFBBD0F5862">releaseBuffers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7CFDDC5C334A38E47771C38C79629D54B9173C5F">~ResourceManager</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#504AC26E52E138713FFBE9311EABD7B4CF28DE6C">setCustomStrategy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B5E2DCA47854CB90D0130CDFCD3163844CB60685">reserveResource</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#065F0A7092132D5FD5C955BAE2A6EE4A5731F017">releaseResource</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F427ABC7C981A34D3E25E778751D2A0FA624DC0C">checkAvailability</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DC22CD6E3897B6C091308554497489B3547ADABC">fastIssueInstruction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9374CB89A3066E686A0473883C648FC3DC577E47">issueInstructionImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9161646B573CF494CBB2EACB37880E96797680CC">getProcResUnitMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B55C80CE55DC2F6C8947DA2124722B6FA6EFBB4D">getAvailableProcResUnits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F4DC8E3DD9D373E232CE3D540B75C6F08959661">issueInstruction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#50FBAF1B653814D782E445D4A6DE0480522DAE60">cycleEvent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CCEC642F7F024FB275EAE6CA458AB90F63CB2B10">dump</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ResourceManager</h1>
+                        <p>Defined at line 315 of file llvm/include/llvm/MCA/HardwareUnits/ResourceManager.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A resource manager for processor resource units and groups.</p>
+                            </div>
+                            <div>
+                                <p> This class owns all the ResourceState objects, and it is responsible for</p>
+                                <p> acting on requests from a Scheduler by updating the internal state of</p>
+                                <p> ResourceState objects.</p>
+                                <p> This class doesn&#39;t know about instruction itineraries and functional units.</p>
+                                <p> In future, it can be extended to support itineraries too through the same</p>
+                                <p> public interface.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="40BC10B38285FA0D596A9CD57410F56699C3FE12">
+                                <pre><code class="language-cpp code-clang-doc">void ResourceManager (const MCSchedModel &amp; SM)</code></pre>
+                                <p>Defined at line 111 of file llvm/lib/MCA/HardwareUnits/ResourceManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9D449D2A068CACDC04E328211CEB4AFBF3C22695">
+                                <pre><code class="language-cpp code-clang-doc">ResourceStateEvent canBeDispatched (uint64_t ConsumedBuffers)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns RS_BUFFER_AVAILABLE if buffered resources are not reserved, and if</p>
+                                        <p> there are enough available slots in the buffers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 244 of file llvm/lib/MCA/HardwareUnits/ResourceManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7A75AA15826D448C30865C450249C7D65C5E797E">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int resolveResourceMask (uint64_t Mask)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the processor resource identifier associated to this Mask.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 166 of file llvm/lib/MCA/HardwareUnits/ResourceManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="74F57C37A41B2DD2BD6CBE36AB863817736DCCF6">
+                                <pre><code class="language-cpp code-clang-doc">void reserveBuffers (uint64_t ConsumedBuffers)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Acquires a slot from every buffered resource in mask `ConsumedBuffers`.</p>
+                                        <p> Units that are dispatch hazards (i.e. BufferSize=0) are marked as reserved.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 253 of file llvm/lib/MCA/HardwareUnits/ResourceManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8CB501E499B7D4B9F8A92FC709442EFBBD0F5862">
+                                <pre><code class="language-cpp code-clang-doc">void releaseBuffers (uint64_t ConsumedBuffers)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Releases a slot from every buffered resource in mask `ConsumedBuffers`.</p>
+                                        <p> ConsumedBuffers is a bitmask of previously acquired buffers (using method</p>
+                                        <p> `reserveBuffers`). Units that are dispatch hazards (i.e. BufferSize=0) are</p>
+                                        <p> not automatically unreserved by this method.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 270 of file llvm/lib/MCA/HardwareUnits/ResourceManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7CFDDC5C334A38E47771C38C79629D54B9173C5F">
+                                <pre><code class="language-cpp code-clang-doc">void ~ResourceManager ()</code></pre>
+                                <p>Defined at line 391 of file llvm/include/llvm/MCA/HardwareUnits/ResourceManager.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="504AC26E52E138713FFBE9311EABD7B4CF28DE6C">
+                                <pre><code class="language-cpp code-clang-doc">void setCustomStrategy (unique_ptr S, unsigned int ResourceID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Overrides the selection strategy for the resource at index ResourceID in</p>
+                                        <p> the MCProcResourceDesc table.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 395 of file llvm/include/llvm/MCA/HardwareUnits/ResourceManager.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B5E2DCA47854CB90D0130CDFCD3163844CB60685">
+                                <pre><code class="language-cpp code-clang-doc">void reserveResource (uint64_t ResourceID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Reserve a processor resource. A reserved resource is not available for</p>
+                                        <p> instruction issue until it is released.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 473 of file llvm/lib/MCA/HardwareUnits/ResourceManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="065F0A7092132D5FD5C955BAE2A6EE4A5731F017">
+                                <pre><code class="language-cpp code-clang-doc">void releaseResource (uint64_t ResourceID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Release a previously reserved processor resource.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 482 of file llvm/lib/MCA/HardwareUnits/ResourceManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F427ABC7C981A34D3E25E778751D2A0FA624DC0C">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t checkAvailability (const InstrDesc &amp; Desc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a zero mask if resources requested by Desc are all available during</p>
+                                        <p> this cycle. It returns a non-zero mask value only if there are unavailable</p>
+                                        <p> processor resources; each bit set in the mask represents a busy processor</p>
+                                        <p> resource unit or a reserved processor resource group.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 282 of file llvm/lib/MCA/HardwareUnits/ResourceManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DC22CD6E3897B6C091308554497489B3547ADABC">
+                                <pre><code class="language-cpp code-clang-doc">void fastIssueInstruction (const InstrDesc &amp; Desc, SmallVectorImpl&lt;ResourceWithCycles&gt; &amp; Pipes)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Selects pipeline resources consumed by an instruction.</p>
+                                        <p> This method works under the assumption that used group resources don&#39;t</p>
+                                        <p> partially overlap. The logic is guaranteed to find a valid resource unit</p>
+                                        <p> schedule, no matter in which order individual uses are processed. For that</p>
+                                        <p> reason, the vector of resource uses is simply (and quickly) processed in</p>
+                                        <p> sequence. The resulting schedule is eventually stored into vector `Pipes`.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 428 of file llvm/lib/MCA/HardwareUnits/ResourceManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9374CB89A3066E686A0473883C648FC3DC577E47">
+                                <pre><code class="language-cpp code-clang-doc">void issueInstructionImpl (const InstrDesc &amp; Desc, SmallVectorImpl&lt;ResourceWithCycles&gt; &amp; Pipes)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Selects pipeline resources consumed by an instruction.</p>
+                                        <p> This method works under the assumption that used resource groups may</p>
+                                        <p> partially overlap. This complicates the selection process, because the</p>
+                                        <p> order in which uses are processed matters. The logic internally prioritizes</p>
+                                        <p> groups which are more constrained than others.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 346 of file llvm/lib/MCA/HardwareUnits/ResourceManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9161646B573CF494CBB2EACB37880E96797680CC">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getProcResUnitMask ()</code></pre>
+                                <p>Defined at line 432 of file llvm/include/llvm/MCA/HardwareUnits/ResourceManager.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B55C80CE55DC2F6C8947DA2124722B6FA6EFBB4D">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getAvailableProcResUnits ()</code></pre>
+                                <p>Defined at line 433 of file llvm/include/llvm/MCA/HardwareUnits/ResourceManager.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F4DC8E3DD9D373E232CE3D540B75C6F08959661">
+                                <pre><code class="language-cpp code-clang-doc">void issueInstruction (const InstrDesc &amp; Desc, SmallVectorImpl&lt;ResourceWithCycles&gt; &amp; Pipes)</code></pre>
+                                <p>Defined at line 437 of file llvm/include/llvm/MCA/HardwareUnits/ResourceManager.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="50FBAF1B653814D782E445D4A6DE0480522DAE60">
+                                <pre><code class="language-cpp code-clang-doc">void cycleEvent (SmallVectorImpl&lt;ResourceRef&gt; &amp; ResourcesFreed)</code></pre>
+                                <p>Defined at line 454 of file llvm/lib/MCA/HardwareUnits/ResourceManager.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CCEC642F7F024FB275EAE6CA458AB90F63CB2B10">
+                                <pre><code class="language-cpp code-clang-doc">void dump ()</code></pre>
+                                <p>Defined at line 467 of file llvm/include/llvm/MCA/HardwareUnits/ResourceManager.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

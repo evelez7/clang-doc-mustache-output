@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>AllocaSliceRewriter</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class AllocaSliceRewriter</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDA034CD7BAD53CB07EFBECF1BC9AE13D6EE5528">AllocaSliceRewriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#87DBE21D90AE51C5A2E7926E04E38F90F52C5A2A">visit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1632688367CABD3C90F5FC57B077D05564108D6B">rewriteTreeStructuredMerge</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class AllocaSliceRewriter</h1>
+                        <p>Defined at line 2817 of file llvm/lib/Transforms/Scalar/SROA.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Visitor to rewrite instructions using p particular slice of an alloca</p>
+                                <p> to use a new alloca.</p>
+                            </div>
+                            <div>
+                                <p> Also implements the rewriting to vector-based accesses when the partition</p>
+                                <p> passes the isVectorPromotionViable predicate. Most of the rewriting logic</p>
+                                <p> lives here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="FDA034CD7BAD53CB07EFBECF1BC9AE13D6EE5528">
+                                <pre><code class="language-cpp code-clang-doc">void AllocaSliceRewriter (const DataLayout &amp; DL, AllocaSlices &amp; AS, SROA &amp; Pass, AllocaInst &amp; OldAI, AllocaInst &amp; NewAI, uint64_t NewAllocaBeginOffset, uint64_t NewAllocaEndOffset, bool IsIntegerPromotable, VectorType * PromotableVecTy, SmallSetVector&lt;PHINode *, 8&gt; &amp; PHIUsers, SmallSetVector&lt;SelectInst *, 8&gt; &amp; SelectUsers)</code></pre>
+                                <p>Defined at line 2883 of file llvm/lib/Transforms/Scalar/SROA.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="87DBE21D90AE51C5A2E7926E04E38F90F52C5A2A">
+                                <pre><code class="language-cpp code-clang-doc">bool visit (AllocaSlices::const_iterator I)</code></pre>
+                                <p>Defined at line 2914 of file llvm/lib/Transforms/Scalar/SROA.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1632688367CABD3C90F5FC57B077D05564108D6B">
+                                <pre><code class="language-cpp code-clang-doc">optional rewriteTreeStructuredMerge (Partition &amp; P)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Attempts to rewrite a partition using tree-structured merge optimization.</p>
+                                    </div>
+                                    <div>
+                                        <p> This function analyzes a partition to determine if it can be optimized</p>
+                                        <p> using a tree-structured merge pattern, where multiple non-overlapping</p>
+                                        <p> stores completely fill an alloca. And there is no load from the alloca in</p>
+                                        <p> the middle of the stores. Such patterns can be optimized by eliminating</p>
+                                        <p> the intermediate stores and directly constructing the final vector by</p>
+                                        <p> using shufflevectors.</p>
+                                    </div>
+                                    <div>
+                                        <p> Example transformation:</p>
+                                        <p> Before: (stores do not have to be in order)</p>
+                                        <p>   %alloca = alloca </p>
+                                        <p>&lt;</p>
+                                        <p>8 x float&gt;</p>
+                                        <p>   store </p>
+                                        <p>&lt;</p>
+                                        <p>2 x float&gt; %val0, ptr %alloca             ; offset 0-1</p>
+                                        <p>   store </p>
+                                        <p>&lt;</p>
+                                        <p>2 x float&gt; %val2, ptr %alloca+16          ; offset 4-5</p>
+                                        <p>   store </p>
+                                        <p>&lt;</p>
+                                        <p>2 x float&gt; %val1, ptr %alloca+8           ; offset 2-3</p>
+                                        <p>   store </p>
+                                        <p>&lt;</p>
+                                        <p>2 x float&gt; %val3, ptr %alloca+24          ; offset 6-7</p>
+                                    </div>
+                                    <div>
+                                        <p> After:</p>
+                                        <p>   %alloca = alloca </p>
+                                        <p>&lt;</p>
+                                        <p>8 x float&gt;</p>
+                                        <p>   %shuffle0 = shufflevector %val0, %val1, </p>
+                                        <p>&lt;</p>
+                                        <p>4 x i32&gt; </p>
+                                        <p>&lt;i32</p>
+                                        <p> 0, i32 1, i32 2,</p>
+                                        <p>                 i32 3&gt;</p>
+                                        <p>   %shuffle1 = shufflevector %val2, %val3, </p>
+                                        <p>&lt;</p>
+                                        <p>4 x i32&gt; </p>
+                                        <p>&lt;i32</p>
+                                        <p> 0, i32 1, i32 2,</p>
+                                        <p>                 i32 3&gt;</p>
+                                        <p>   %shuffle2 = shufflevector %shuffle0, %shuffle1, </p>
+                                        <p>&lt;</p>
+                                        <p>8 x i32&gt; </p>
+                                        <p>&lt;i32</p>
+                                        <p> 0, i32 1,</p>
+                                        <p>                 i32 2, i32 3, i32 4, i32 5, i32 6, i32 7&gt;</p>
+                                        <p>   store %shuffle2, ptr %alloca</p>
+                                    </div>
+                                    <div>
+                                        <p> The optimization looks for partitions that:</p>
+                                        <p> 1. Have no overlapping split slice tails</p>
+                                        <p> 2. Contain non-overlapping stores that cover the entire alloca</p>
+                                        <p> 3. Have exactly one load that reads the complete alloca structure and not</p>
+                                        <p>    in the middle of the stores (TODO: maybe we can relax the constraint</p>
+                                        <p>    about reading the entire alloca structure)</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>P</b>   The partition to analyze and potentially rewrite
+                                    </div> 
+                                    <h3>Returns</h3>
+                                    <p> An optional vector of values that were deleted during the rewrite</p>
+                                    <p>         process, or std::nullopt if the partition cannot be optimized</p>
+                                    <p>         using tree-structured merge</p>
+                                </div>
+                                <p>Defined at line 2991 of file llvm/lib/Transforms/Scalar/SROA.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>BlockFrequencyInfoImpl</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class BlockFrequencyInfoImpl</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7A2CDF6F971B26A4552DE0501F5DF9D8186DDE1F">BlockFrequencyInfoImpl&lt;BT&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BD1AE7E91A779E2AB0018323A66628E1647EEFBA">getFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B30BE682427FA1A9A824951ECBEBED75FFE82AFD">getBlockFreq</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#392CF3D94C69155E23D4EC464394D2D0840846F4">getBlockProfileCount</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F1C2222E6887FE51C879FB93295EB08D9C8C63C5">getProfileCountFromFreq</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3DB77265990F1E3E62A160358AAD2ED4F049596C">isIrrLoopHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#755ED358293C3355C570E1377D32AF029B751D3B">forgetBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B19CFFD070ADBC37EB31A18A574BCFFC32757C95">getFloatingBlockFreq</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B667EA65D8862618649F83F0F7E060750DDDB930">getBPI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAD55098D70A57CA8E01DFA52C16521E0EA6F86B">calculate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#47DAB49CE52D5F504BC3AD9A35E50247E591AD87">setBlockFreq</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDBEEE51E565E3C82BB5A45600B4F06E147D0175">print</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0D595DA0EF77436E2154C2748C1998182612E8A2">verifyMatch</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;class BlockT&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class BlockFrequencyInfoImpl</h1>
+                        <p>Defined at line 842 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Shared implementation for block frequency analysis.</p>
+                            </div>
+                            <div>
+                                <p> This is a shared implementation of BlockFrequencyInfo and</p>
+                                <p> MachineBlockFrequencyInfo, and calculates the relative frequencies of</p>
+                                <p> blocks.</p>
+                            </div>
+                            <div>
+                                <p> LoopInfo defines a loop as a &quot;non-trivial&quot; SCC dominated by a single block,</p>
+                                <p> which is called the header.  A given loop, L, can have sub-loops, which are</p>
+                                <p> loops within the subgraph of L that exclude its header.  (A &quot;trivial&quot; SCC</p>
+                                <p> consists of a single block that does not have a self-edge.)</p>
+                            </div>
+                            <div>
+                                <p> In addition to loops, this algorithm has limited support for irreducible</p>
+                                <p> SCCs, which are SCCs with multiple entry blocks.  Irreducible SCCs are</p>
+                                <p> discovered on the fly, and modelled as loops with multiple headers.</p>
+                            </div>
+                            <div>
+                                <p> The headers of irreducible sub-SCCs consist of its entry blocks and all</p>
+                                <p> nodes that are targets of a backedge within it (excluding backedges within</p>
+                                <p> true sub-loops).  Block frequency calculations act as if a block is</p>
+                                <p> inserted that intercepts all the edges to the headers.  All backedges and</p>
+                                <p> entries point to this block.  Its successors are the headers, which split</p>
+                                <p> the frequency evenly.</p>
+                            </div>
+                            <div>
+                                <p> This algorithm leverages BlockMass and ScaledNumber to maintain precision,</p>
+                                <p> separates mass distribution from loop scaling, and dithers to eliminate</p>
+                                <p> probability mass loss.</p>
+                            </div>
+                            <div>
+                                <p> The implementation is split between BlockFrequencyInfoImpl, which knows the</p>
+                                <p> type of graph being modelled (BasicBlock vs. MachineBasicBlock), and</p>
+                                <p> BlockFrequencyInfoImplBase, which doesn&#39;t.  The base class uses </p>
+                                <p> a wrapper around a uint32_t.  BlockNode is numbered from 0 in</p>
+                                <p> reverse-post order.  This gives two advantages:  it&#39;s easy to compare the</p>
+                                <p> relative ordering of two nodes, and maps keyed on BlockT can be represented</p>
+                                <p> by vectors.</p>
+                            </div>
+                            <div>
+                                <p> This algorithm is O(V+E), unless there is irreducible control flow, in</p>
+                                <p> which case it&#39;s O(V*E) in the worst case.</p>
+                            </div>
+                            <div>
+                                <p> These are the main stages:</p>
+                            </div>
+                            <div>
+                                <p>  0. Reverse post-order traversal (</p>
+                            </div>
+                            <div>
+                                <p>     Run a single post-order traversal and save it (in reverse) in RPOT.</p>
+                                <p>     All other stages make use of this ordering.  Save a lookup from BlockT</p>
+                                <p>     to BlockNode (the index into RPOT) in Nodes.</p>
+                            </div>
+                            <div>
+                                <p>  1. Loop initialization (</p>
+                            </div>
+                            <div>
+                                <p>     Translate LoopInfo/MachineLoopInfo into a form suitable for the rest of</p>
+                                <p>     the algorithm.  In particular, store the immediate members of each loop</p>
+                                <p>     in reverse post-order.</p>
+                            </div>
+                            <div>
+                                <p>  2. Calculate mass and scale in loops (</p>
+                            </div>
+                            <div>
+                                <p>     For each loop (bottom-up), distribute mass through the DAG resulting</p>
+                                <p>     from ignoring backedges and treating sub-loops as a single pseudo-node.</p>
+                                <p>     Track the backedge mass distributed to the loop header, and use it to</p>
+                                <p>     calculate the loop scale (number of loop iterations).  Immediate</p>
+                                <p>     members that represent sub-loops will already have been visited and</p>
+                                <p>     packaged into a pseudo-node.</p>
+                            </div>
+                            <div>
+                                <p>     Distributing mass in a loop is a reverse-post-order traversal through</p>
+                                <p>     the loop.  Start by assigning full mass to the Loop header.  For each</p>
+                                <p>     node in the loop:</p>
+                            </div>
+                            <div>
+                                <p>         - Fetch and categorize the weight distribution for its successors.</p>
+                                <p>           If this is a packaged-subloop, the weight distribution is stored</p>
+                                <p>           in </p>
+                                <p>  Otherwise, fetch it from</p>
+                                <p>           BranchProbabilityInfo.</p>
+                            </div>
+                            <div>
+                                <p>         - Each successor is categorized as </p>
+                                <p> a local edge</p>
+                                <p>           within the current loop, </p>
+                                <p> a backedge to the</p>
+                                <p>           loop header, or </p>
+                                <p> any successor outside the loop.</p>
+                                <p>           The weight, the successor, and its category are stored in </p>
+                                <p>  There can be multiple edges to each successor.</p>
+                            </div>
+                            <div>
+                                <p>         - If there&#39;s a backedge to a non-header, there&#39;s an irreducible SCC.</p>
+                                <p>           The usual flow is temporarily aborted.  </p>
+                                <p> finds the irreducible SCCs within the</p>
+                                <p>           loop, packages them up, and restarts the flow.</p>
+                            </div>
+                            <div>
+                                <p>         - Normalize the distribution:  scale weights down so that their sum</p>
+                                <p>           is 32-bits, and coalesce multiple edges to the same node.</p>
+                            </div>
+                            <div>
+                                <p>         - Distribute the mass accordingly, dithering to minimize mass loss,</p>
+                                <p>           as described in </p>
+                            </div>
+                            <div>
+                                <p>     In the case of irreducible loops, instead of a single loop header,</p>
+                                <p>     there will be several. The computation of backedge masses is similar</p>
+                                <p>     but instead of having a single backedge mass, there will be one</p>
+                                <p>     backedge per loop header. In these cases, each backedge will carry</p>
+                                <p>     a mass proportional to the edge weights along the corresponding</p>
+                                <p>     path.</p>
+                            </div>
+                            <div>
+                                <p>     At the end of propagation, the full mass assigned to the loop will be</p>
+                                <p>     distributed among the loop headers proportionally according to the</p>
+                                <p>     mass flowing through their backedges.</p>
+                            </div>
+                            <div>
+                                <p>     Finally, calculate the loop scale from the accumulated backedge mass.</p>
+                            </div>
+                            <div>
+                                <p>  3. Distribute mass in the function (</p>
+                            </div>
+                            <div>
+                                <p>     Finally, distribute mass through the DAG resulting from packaging all</p>
+                                <p>     loops in the function.  This uses the same algorithm as distributing</p>
+                                <p>     mass in a loop, except that there are no exit or backedge edges.</p>
+                            </div>
+                            <div>
+                                <p>  4. Unpackage loops (</p>
+                            </div>
+                            <div>
+                                <p>     Initialize each block&#39;s frequency to a floating point representation of</p>
+                                <p>     its mass.</p>
+                            </div>
+                            <div>
+                                <p>     Visit loops top-down, scaling the frequencies of its immediate members</p>
+                                <p>     by the loop&#39;s pseudo-node&#39;s frequency.</p>
+                            </div>
+                            <div>
+                                <p>  5. Convert frequencies to a 64-bit range (</p>
+                            </div>
+                            <div>
+                                <p>     Using the min and max frequencies as a guide, translate floating point</p>
+                                <p>     frequencies to an appropriate range in uint64_t.</p>
+                            </div>
+                            <div>
+                                <p> It has some known flaws.</p>
+                            </div>
+                            <div>
+                                <p>   - The model of irreducible control flow is a rough approximation.</p>
+                            </div>
+                            <div>
+                                <p>     Modelling irreducible control flow exactly involves setting up and</p>
+                                <p>     solving a group of infinite geometric series.  Such precision is</p>
+                                <p>     unlikely to be worthwhile, since most of our algorithms give up on</p>
+                                <p>     irreducible control flow anyway.</p>
+                            </div>
+                            <div>
+                                <p>     Nevertheless, we might find that we need to get closer.  Here&#39;s a sort</p>
+                                <p>     of TODO list for the model with diminishing returns, to be completed as</p>
+                                <p>     necessary.</p>
+                            </div>
+                            <div>
+                                <p>       - The headers for the </p>
+                                <p> representing an irreducible SCC</p>
+                                <p>         include non-entry blocks.  When these extra blocks exist, they</p>
+                                <p>         indicate a self-contained irreducible sub-SCC.  We could treat them</p>
+                                <p>         as sub-loops, rather than arbitrarily shoving the problematic</p>
+                                <p>         blocks into the headers of the main irreducible SCC.</p>
+                            </div>
+                            <div>
+                                <p>       - Entry frequencies are assumed to be evenly split between the</p>
+                                <p>         headers of a given irreducible SCC, which is the only option if we</p>
+                                <p>         need to compute mass in the SCC before its parent loop.  Instead,</p>
+                                <p>         we could partially compute mass in the parent loop, and stop when</p>
+                                <p>         we get to the SCC.  Here, we have the correct ratio of entry</p>
+                                <p>         masses, which we can use to adjust their relative frequencies.</p>
+                                <p>         Compute mass in the SCC, and then continue propagation in the</p>
+                                <p>         parent.</p>
+                            </div>
+                            <div>
+                                <p>       - We can propagate mass iteratively through the SCC, for some fixed</p>
+                                <p>         number of iterations.  Each iteration starts by assigning the entry</p>
+                                <p>         blocks their backedge mass from the prior iteration.  The final</p>
+                                <p>         mass for each block (and each exit, and the total backedge mass</p>
+                                <p>         used for computing loop scale) is the sum of all iterations.</p>
+                                <p>         (Running this until fixed point would &quot;solve&quot; the geometric</p>
+                                <p>         series by simulation.)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="7A2CDF6F971B26A4552DE0501F5DF9D8186DDE1F">
+                                <pre><code class="language-cpp code-clang-doc">void BlockFrequencyInfoImpl&lt;BT&gt; ()</code></pre>
+                                <p>Defined at line 1001 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BD1AE7E91A779E2AB0018323A66628E1647EEFBA">
+                                <pre><code class="language-cpp code-clang-doc">const FunctionT * getFunction ()</code></pre>
+                                <p>Defined at line 1003 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B30BE682427FA1A9A824951ECBEBED75FFE82AFD">
+                                <pre><code class="language-cpp code-clang-doc">BlockFrequency getBlockFreq (const BlockT * BB)</code></pre>
+                                <p>Defined at line 1010 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="392CF3D94C69155E23D4EC464394D2D0840846F4">
+                                <pre><code class="language-cpp code-clang-doc">optional getBlockProfileCount (const Function &amp; F, const BlockT * BB, bool AllowSynthetic)</code></pre>
+                                <p>Defined at line 1014 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F1C2222E6887FE51C879FB93295EB08D9C8C63C5">
+                                <pre><code class="language-cpp code-clang-doc">optional getProfileCountFromFreq (const Function &amp; F, BlockFrequency Freq, bool AllowSynthetic)</code></pre>
+                                <p>Defined at line 1021 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3DB77265990F1E3E62A160358AAD2ED4F049596C">
+                                <pre><code class="language-cpp code-clang-doc">bool isIrrLoopHeader (const BlockT * BB)</code></pre>
+                                <p>Defined at line 1028 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="755ED358293C3355C570E1377D32AF029B751D3B">
+                                <pre><code class="language-cpp code-clang-doc">void forgetBlock (const BlockT * BB)</code></pre>
+                                <p>Defined at line 1034 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B19CFFD070ADBC37EB31A18A574BCFFC32757C95">
+                                <pre><code class="language-cpp code-clang-doc">ScaledNumber getFloatingBlockFreq (const BlockT * BB)</code></pre>
+                                <p>Defined at line 1041 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B667EA65D8862618649F83F0F7E060750DDDB930">
+                                <pre><code class="language-cpp code-clang-doc">const BranchProbabilityInfoT &amp; getBPI ()</code></pre>
+                                <p>Defined at line 1045 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DAD55098D70A57CA8E01DFA52C16521E0EA6F86B">
+                                <pre><code class="language-cpp code-clang-doc">void calculate (const FunctionT &amp; F, const BranchProbabilityInfoT &amp; BPI, const LoopInfoT &amp; LI)</code></pre>
+                                <p>Defined at line 1095 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="47DAB49CE52D5F504BC3AD9A35E50247E591AD87">
+                                <pre><code class="language-cpp code-clang-doc">void setBlockFreq (const BlockT * BB, BlockFrequency Freq)</code></pre>
+                                <p>Defined at line 1137 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FDBEEE51E565E3C82BB5A45600B4F06E147D0175">
+                                <pre><code class="language-cpp code-clang-doc">raw_ostream &amp; print (raw_ostream &amp; OS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print the frequencies for the current function.</p>
+                                    </div>
+                                    <div>
+                                        <p> Prints the frequencies for the blocks in the current function.</p>
+                                    </div>
+                                    <div>
+                                        <p> Blocks are printed in the natural iteration order of the function, rather</p>
+                                        <p> than reverse post-order.  This provides two advantages:  writing -analyze</p>
+                                        <p> tests is easier (since blocks come out in source order), and even</p>
+                                        <p> unreachable blocks are printed.</p>
+                                    </div>
+                                    <div>
+                                        <p> only knows reverse post-order, so</p>
+                                        <p> we need to override it here.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1690 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0D595DA0EF77436E2154C2748C1998182612E8A2">
+                                <pre><code class="language-cpp code-clang-doc">void verifyMatch (BlockFrequencyInfoImpl&lt;BT&gt; &amp; Other)</code></pre>
+                                <p>Defined at line 1714 of file llvm/include/llvm/Analysis/BlockFrequencyInfoImpl.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

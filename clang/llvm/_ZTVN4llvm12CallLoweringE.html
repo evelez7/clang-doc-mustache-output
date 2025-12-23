@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CallLowering</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class CallLowering</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A618A74637A87D498F8495D25965F858EC52465F">lowerCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CF4978DEBF6E9137B82E6863C688F24046E46F9B">CallLowering</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#98F19FF18555655243DFC1B1CD7D9787267EEFD5">~CallLowering</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E61ACC63C42AF9294724B00532E9E3D18223FF9B">supportSwiftError</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C854DF8C49F88CBCF32370C0FF1CA9DB9A63B78">canLowerReturn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#517814F27BE231C9C4F2E0428C29429E29F6A12F">lowerReturn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#14865E97048D144E840C9BC9D61462D017C8812A">lowerReturn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#68BC368E68FCF625EA10F563E6B0AA618ABC8DB7">fallBackToDAGISel</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55EFEE1B8095FBF005FF6AE10AD287A6739F467A">lowerFormalArguments</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F0FA718D9C1ACBDA2BFDC9591DD4B488053B8651">lowerCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#78FA7AE85379A9A219C7690DD0263A6852FE6C74">enableBigEndian</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#153157239D47821A6885F4AB0C31C9E13799DACC">isTypeIsValidForThisReturn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B004FD97402EE0058703D0F35BE8CCE9BAFF8BA">insertSRetLoads</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C4BA843B2D067F6BF0E5E9CE9E2D8171AE83C96">insertSRetStores</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B54756D831F9233FAA831C8474E8E8747CB43C81">insertSRetIncomingArgument</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D1C97E20AAD43C198FC64D3B32267D5505616176">insertSRetOutgoingArgument</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B6F3BB601DF67C9A4FF42F4A0B39CC0AB604BB36">checkReturn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F48C168864CB3B07FB246F0106A99DE78DB5819A">getReturnInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E837D0217A41A8032833F0A35A492BF0ABA469B5">checkReturnTypeForCallConv</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class CallLowering</h1>
+                        <p>Defined at line 45 of file llvm/include/llvm/CodeGen/GlobalISel/CallLowering.h</p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="A618A74637A87D498F8495D25965F858EC52465F">
+                                <pre><code class="language-cpp code-clang-doc">bool lowerCall (MachineIRBuilder &amp; MIRBuilder, const CallBase &amp; Call, ArrayRef&lt;Register&gt; ResRegs, ArrayRef&lt;ArrayRef&lt;Register&gt;&gt; ArgRegs, Register SwiftErrorVReg, std::optional&lt;PtrAuthInfo&gt; PAI, Register ConvergenceCtrlToken, std::function&lt;Register ()&gt; GetCalleeReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lower the given call instruction, including argument and return value</p>
+                                        <p> marshalling.</p>
+                                    </div>
+                                    <div>
+                                        <p> is the call/invoke instruction.</p>
+                                    </div>
+                                    <div>
+                                        <p> are the registers where the call&#39;s return value should be</p>
+                                        <p> stored (or 0 if there is no return value). There will be one register for</p>
+                                        <p> each non-aggregate type, as returned by </p>
+                                    </div>
+                                    <div>
+                                        <p> is a list of lists of virtual registers containing each</p>
+                                        <p> argument that needs to be passed (argument </p>
+                                        <p> should be placed in </p>
+                                        <p> For each argument, there will be one register for each</p>
+                                        <p> non-aggregate type, as returned by </p>
+                                    </div>
+                                    <div>
+                                        <p> is non-zero if the call has a swifterror inout</p>
+                                        <p> parameter, and contains the vreg that the swifterror should be copied into</p>
+                                        <p> after the call.</p>
+                                    </div>
+                                    <div>
+                                        <p> is a callback to materialize a register for the callee if</p>
+                                        <p> the target determines it cannot jump to the destination based purely on </p>
+                                        <p> This might be because </p>
+                                        <p> is indirect, or because of the limited</p>
+                                        <p> range of an immediate jump.</p>
+                                    </div>
+                                    <h3>Returns</h3>
+                                    <p> true if the lowering succeeded, false otherwise.</p>
+                                </div>
+                                <p>Defined at line 93 of file llvm/lib/CodeGen/GlobalISel/CallLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CF4978DEBF6E9137B82E6863C688F24046E46F9B">
+                                <pre><code class="language-cpp code-clang-doc">void CallLowering (const TargetLowering * TLI)</code></pre>
+                                <p>Defined at line 452 of file llvm/include/llvm/CodeGen/GlobalISel/CallLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="98F19FF18555655243DFC1B1CD7D9787267EEFD5">
+                                <pre><code class="language-cpp code-clang-doc">void ~CallLowering ()</code></pre>
+                                <p>Defined at line 453 of file llvm/include/llvm/CodeGen/GlobalISel/CallLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E61ACC63C42AF9294724B00532E9E3D18223FF9B">
+                                <pre><code class="language-cpp code-clang-doc">bool supportSwiftError ()</code></pre>
+                                <div>
+                                    <h3>Returns</h3>
+                                    <p> true if the target is capable of handling swifterror values that</p>
+                                    <p> have been promoted to a specified register. The extended versions of</p>
+                                    <p> lowerReturn and lowerCall should be implemented.</p>
+                                </div>
+                                <p>Defined at line 458 of file llvm/include/llvm/CodeGen/GlobalISel/CallLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C854DF8C49F88CBCF32370C0FF1CA9DB9A63B78">
+                                <pre><code class="language-cpp code-clang-doc">bool canLowerReturn (MachineFunction &amp; MF, CallingConv::ID CallConv, SmallVectorImpl&lt;BaseArgInfo&gt; &amp; Outs, bool IsVarArg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This hook must be implemented to check whether the return values</p>
+                                        <p> described by </p>
+                                        <p> can fit into the return registers. If false</p>
+                                        <p> is returned, an sret-demotion is performed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 507 of file llvm/include/llvm/CodeGen/GlobalISel/CallLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="517814F27BE231C9C4F2E0428C29429E29F6A12F">
+                                <pre><code class="language-cpp code-clang-doc">bool lowerReturn (MachineIRBuilder &amp; MIRBuilder, const Value * Val, ArrayRef&lt;Register&gt; VRegs, FunctionLoweringInfo &amp; FLI, Register SwiftErrorVReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This hook must be implemented to lower outgoing return values, described</p>
+                                        <p> by </p>
+                                        <p> into the specified virtual registers </p>
+                                        <p> This hook is used by GlobalISel.</p>
+                                    </div>
+                                    <div>
+                                        <p> is required for sret demotion.</p>
+                                    </div>
+                                    <div>
+                                        <p> is non-zero if the function has a swifterror parameter</p>
+                                        <p> that needs to be implicitly returned.</p>
+                                    </div>
+                                    <h3>Returns</h3>
+                                    <p> True if the lowering succeeds, false otherwise.</p>
+                                </div>
+                                <p>Defined at line 523 of file llvm/include/llvm/CodeGen/GlobalISel/CallLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="14865E97048D144E840C9BC9D61462D017C8812A">
+                                <pre><code class="language-cpp code-clang-doc">bool lowerReturn (MachineIRBuilder &amp; MIRBuilder, const Value * Val, ArrayRef&lt;Register&gt; VRegs, FunctionLoweringInfo &amp; FLI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This hook behaves as the extended lowerReturn function, but for targets</p>
+                                        <p> that do not support swifterror value promotion.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 535 of file llvm/include/llvm/CodeGen/GlobalISel/CallLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="68BC368E68FCF625EA10F563E6B0AA618ABC8DB7">
+                                <pre><code class="language-cpp code-clang-doc">bool fallBackToDAGISel (const MachineFunction &amp; MF)</code></pre>
+                                <p>Defined at line 541 of file llvm/include/llvm/CodeGen/GlobalISel/CallLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="55EFEE1B8095FBF005FF6AE10AD287A6739F467A">
+                                <pre><code class="language-cpp code-clang-doc">bool lowerFormalArguments (MachineIRBuilder &amp; MIRBuilder, const Function &amp; F, ArrayRef&lt;ArrayRef&lt;Register&gt;&gt; VRegs, FunctionLoweringInfo &amp; FLI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This hook must be implemented to lower the incoming (formal)</p>
+                                        <p> arguments, described by </p>
+                                        <p> for GlobalISel. Each argument</p>
+                                        <p> must end up in the related virtual registers described by </p>
+                                        <p> In other words, the first argument should end up in </p>
+                                        <p> the second in </p>
+                                        <p> and so on. For each argument, there will be one</p>
+                                        <p> register for each non-aggregate type, as returned by </p>
+                                        <p> is set to the proper insertion for the argument</p>
+                                        <p> lowering. </p>
+                                        <p> is required for sret demotion.</p>
+                                    </div>
+                                    <h3>Returns</h3>
+                                    <p> True if the lowering succeeded, false otherwise.</p>
+                                </div>
+                                <p>Defined at line 555 of file llvm/include/llvm/CodeGen/GlobalISel/CallLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F0FA718D9C1ACBDA2BFDC9591DD4B488053B8651">
+                                <pre><code class="language-cpp code-clang-doc">bool lowerCall (MachineIRBuilder &amp; MIRBuilder, CallLoweringInfo &amp; Info)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This hook must be implemented to lower the given call instruction,</p>
+                                        <p> including argument and return value marshalling.</p>
+                                    </div>
+                                    <h3>Returns</h3>
+                                    <p> true if the lowering succeeded, false otherwise.</p>
+                                </div>
+                                <p>Defined at line 567 of file llvm/include/llvm/CodeGen/GlobalISel/CallLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="78FA7AE85379A9A219C7690DD0263A6852FE6C74">
+                                <pre><code class="language-cpp code-clang-doc">bool enableBigEndian ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For targets which want to use big-endian can enable it with</p>
+                                        <p> enableBigEndian() hook</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 604 of file llvm/include/llvm/CodeGen/GlobalISel/CallLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="153157239D47821A6885F4AB0C31C9E13799DACC">
+                                <pre><code class="language-cpp code-clang-doc">bool isTypeIsValidForThisReturn (EVT Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For targets which support the &quot;returned&quot; parameter attribute, returns</p>
+                                        <p> true if the given type is a valid one to use with &quot;returned&quot;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 608 of file llvm/include/llvm/CodeGen/GlobalISel/CallLowering.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3B004FD97402EE0058703D0F35BE8CCE9BAFF8BA">
+                                <pre><code class="language-cpp code-clang-doc">void insertSRetLoads (MachineIRBuilder &amp; MIRBuilder, Type * RetTy, ArrayRef&lt;Register&gt; VRegs, Register DemoteReg, int FI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Load the returned value from the stack into virtual registers in </p>
+                                        <p> It uses the frame index </p>
+                                        <p> and the start offset from </p>
+                                        <p> The loaded data size will be determined from </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 995 of file llvm/lib/CodeGen/GlobalISel/CallLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C4BA843B2D067F6BF0E5E9CE9E2D8171AE83C96">
+                                <pre><code class="language-cpp code-clang-doc">void insertSRetStores (MachineIRBuilder &amp; MIRBuilder, Type * RetTy, ArrayRef&lt;Register&gt; VRegs, Register DemoteReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Store the return value given by </p>
+                                        <p> into stack starting at the offset</p>
+                                        <p> specified in </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1027 of file llvm/lib/CodeGen/GlobalISel/CallLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B54756D831F9233FAA831C8474E8E8747CB43C81">
+                                <pre><code class="language-cpp code-clang-doc">void insertSRetIncomingArgument (const Function &amp; F, SmallVectorImpl&lt;ArgInfo&gt; &amp; SplitArgs, Register &amp; DemoteReg, MachineRegisterInfo &amp; MRI, const DataLayout &amp; DL)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Insert the hidden sret ArgInfo to the beginning of </p>
+                                        <p> This function should be called from the target specific</p>
+                                        <p> lowerFormalArguments when </p>
+                                        <p> requires the sret demotion.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1058 of file llvm/lib/CodeGen/GlobalISel/CallLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D1C97E20AAD43C198FC64D3B32267D5505616176">
+                                <pre><code class="language-cpp code-clang-doc">void insertSRetOutgoingArgument (MachineIRBuilder &amp; MIRBuilder, const CallBase &amp; CB, CallLoweringInfo &amp; Info)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For the call-base described by </p>
+                                        <p> insert the hidden sret ArgInfo to</p>
+                                        <p> the OrigArgs field of </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1080 of file llvm/lib/CodeGen/GlobalISel/CallLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B6F3BB601DF67C9A4FF42F4A0B39CC0AB604BB36">
+                                <pre><code class="language-cpp code-clang-doc">bool checkReturn (CCState &amp; CCInfo, SmallVectorImpl&lt;BaseArgInfo&gt; &amp; Outs, CCAssignFn * Fn)</code></pre>
+                                <div>
+                                    <h3>Returns</h3>
+                                    <p> True if the return type described by </p>
+                                    <p> can be returned</p>
+                                    <p> without performing sret demotion.</p>
+                                </div>
+                                <p>Defined at line 1102 of file llvm/lib/CodeGen/GlobalISel/CallLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F48C168864CB3B07FB246F0106A99DE78DB5819A">
+                                <pre><code class="language-cpp code-clang-doc">void getReturnInfo (CallingConv::ID CallConv, Type * RetTy, AttributeList Attrs, SmallVectorImpl&lt;BaseArgInfo&gt; &amp; Outs, const DataLayout &amp; DL)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the type and the ArgFlags for the split components of </p>
+                                        <p> as</p>
+                                        <p> returned by </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1113 of file llvm/lib/CodeGen/GlobalISel/CallLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E837D0217A41A8032833F0A35A492BF0ABA469B5">
+                                <pre><code class="language-cpp code-clang-doc">bool checkReturnTypeForCallConv (MachineFunction &amp; MF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Toplevel function to check the return type based on the target calling</p>
+                                        <p> convention. </p>
+                                    </div>
+                                    <h3>Returns</h3>
+                                    <p> True if the return value of </p>
+                                    <p> can be returned</p>
+                                    <p> without performing sret demotion.</p>
+                                </div>
+                                <p>Defined at line 1136 of file llvm/lib/CodeGen/GlobalISel/CallLowering.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

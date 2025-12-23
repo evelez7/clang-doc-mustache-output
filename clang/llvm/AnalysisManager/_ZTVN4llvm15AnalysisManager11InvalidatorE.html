@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Invalidator</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../_ZTVN4llvm15AnalysisManagerE.html">AnalysisManager</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class Invalidator</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BFF51EE9308262F1631F7330C1077CCED60737C0">invalidate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4136860963F106B38F85F5FCAC7B71AFD59E1C6">invalidate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#09D940AB45E5CD5D0ADB0ADD06753938978A8B66">Invalidator</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class Invalidator</h1>
+                        <p>Defined at line 293 of file llvm/include/llvm/IR/PassManager.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> API to communicate dependencies between analyses during invalidation.</p>
+                            </div>
+                            <div>
+                                <p> When an analysis result embeds handles to other analysis results, it</p>
+                                <p> needs to be invalidated both when its own information isn&#39;t preserved and</p>
+                                <p> when any of its embedded analysis results end up invalidated. We pass an</p>
+                                <p> object as an argument to </p>
+                                <p> in order to let</p>
+                                <p> the analysis results themselves define the dependency graph on the fly.</p>
+                                <p> This lets us avoid building an explicit representation of the</p>
+                                <p> dependencies between analysis results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="BFF51EE9308262F1631F7330C1077CCED60737C0">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename PassT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">bool invalidate (IRUnitT &amp; IR, const PreservedAnalyses &amp; PA)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Trigger the invalidation of some other analysis pass if not already</p>
+                                        <p> handled and return whether it was in fact invalidated.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is expected to be called from within a given analysis result&#39;s </p>
+                                        <p> method to trigger a depth-first walk of all inter-analysis</p>
+                                        <p> dependencies. The same </p>
+                                        <p> unit and </p>
+                                        <p> passed to that result&#39;s </p>
+                                        <p> method should in turn be provided to this routine.</p>
+                                    </div>
+                                    <div>
+                                        <p> The first time this is called for a given analysis pass, it will call</p>
+                                        <p> the corresponding result&#39;s </p>
+                                        <p> method.  Subsequent calls will</p>
+                                        <p> use a cache of the results of that initial call.  It is an error to form</p>
+                                        <p> cyclic dependencies between analysis results.</p>
+                                    </div>
+                                    <div>
+                                        <p> This returns true if the given analysis&#39;s result is invalid. Any</p>
+                                        <p> dependecies on it will become invalid as a result.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 311 of file llvm/include/llvm/IR/PassManager.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4136860963F106B38F85F5FCAC7B71AFD59E1C6">
+                                <pre><code class="language-cpp code-clang-doc">bool invalidate (AnalysisKey * ID, IRUnitT &amp; IR, const PreservedAnalyses &amp; PA)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> A type-erased variant of the above invalidate method with the same core</p>
+                                        <p> API other than passing an analysis ID rather than an analysis type</p>
+                                        <p> parameter.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is sadly less efficient than the above routine, which leverages</p>
+                                        <p> the type parameter to avoid the type erasure overhead.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 325 of file llvm/include/llvm/IR/PassManager.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="09D940AB45E5CD5D0ADB0ADD06753938978A8B66">
+                                <pre><code class="language-cpp code-clang-doc">void Invalidator (int &amp; IsResultInvalidated, const int &amp; Results)</code></pre>
+                                <p>Defined at line 363 of file llvm/include/llvm/IR/PassManager.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

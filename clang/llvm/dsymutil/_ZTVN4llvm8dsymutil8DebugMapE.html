@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DebugMap</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">dsymutil</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class DebugMap</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28316B1E4E8427D09963AB36213FB00C14C86C49">objects</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B08B325021D416E9DBBE048FC9C22108411FCE7D">begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8B6CF84457F3E3AB0E11BE1A2AC271A96B110D2F">end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#261A4588E473D36A1F8A35F07F8DB15B42919612">getNumberOfObjects</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C06D24AE40770E447FB42E90A3D314E9302C6EE2">DebugMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#173B4DAEB03396C422E215B7A0775855A47CF909">addDebugMapObject</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4DCAD6642560DE1FE8B7EA92067F48778697184">getTriple</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C9BA4B8BBCBA60A5241AB7366A9F821DC840F7B7">getUUID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6604CA3BAD85FC2E38E2C1D7730312DE7E18A7B6">print</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F8B4CA5DF3302A32B9E487EDDCBBA7A21ABBC6F">getBinaryPath</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#207AE5FCC06E0E8ED6CC5810BE2F1724D099B7B6">dump</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#817CCFD90808096DC2E1045B2F8D0BE75B6B5B23">parseYAMLDebugMap</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class DebugMap</h1>
+                        <p>Defined at line 76 of file llvm/tools/dsymutil/DebugMap.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> The DebugMap object stores the list of object files to query for debug</p>
+                                <p> information along with the mapping between the symbols&#39; addresses in the</p>
+                                <p> object file to their linked address in the linked binary.</p>
+                            </div>
+                            <div>
+                                <p> A DebugMap producer could look like this:</p>
+                                <p> DebugMap *DM = new DebugMap();</p>
+                                <p> for (const auto </p>
+                                <p>&amp;Obj</p>
+                                <p>: LinkedObjects) {</p>
+                                <p>     DebugMapObject </p>
+                                <p>&amp;DMO</p>
+                                <p> = DM-&gt;addDebugMapObject(Obj.getPath());</p>
+                                <p>     for (const auto </p>
+                                <p>&amp;Sym</p>
+                                <p>: Obj.getLinkedSymbols())</p>
+                                <p>         DMO.addSymbol(Sym.getName(), Sym.getObjectFileAddress(),</p>
+                                <p>                       Sym.getBinaryAddress());</p>
+                                <p> }</p>
+                            </div>
+                            <div>
+                                <p> A DebugMap consumer can then use the map to link the debug</p>
+                                <p> information. For example something along the lines of:</p>
+                                <p> for (const auto </p>
+                                <p>&amp;DMO</p>
+                                <p>: DM-&gt;objects()) {</p>
+                                <p>     auto Obj = createBinary(DMO.getObjectFilename());</p>
+                                <p>     for (auto </p>
+                                <p>&amp;DIE</p>
+                                <p>: Obj.getDwarfDIEs()) {</p>
+                                <p>         if (SymbolMapping *Sym = DMO.lookup(DIE.getName()))</p>
+                                <p>             DIE.relocate(Sym-&gt;ObjectAddress, Sym-&gt;BinaryAddress);</p>
+                                <p>         else</p>
+                                <p>             DIE.discardSubtree();</p>
+                                <p>     }</p>
+                                <p> }</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="28316B1E4E8427D09963AB36213FB00C14C86C49">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range objects ()</code></pre>
+                                <p>Defined at line 98 of file llvm/tools/dsymutil/DebugMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B08B325021D416E9DBBE048FC9C22108411FCE7D">
+                                <pre><code class="language-cpp code-clang-doc">__normal_iterator begin ()</code></pre>
+                                <p>Defined at line 102 of file llvm/tools/dsymutil/DebugMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8B6CF84457F3E3AB0E11BE1A2AC271A96B110D2F">
+                                <pre><code class="language-cpp code-clang-doc">__normal_iterator end ()</code></pre>
+                                <p>Defined at line 104 of file llvm/tools/dsymutil/DebugMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="261A4588E473D36A1F8A35F07F8DB15B42919612">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumberOfObjects ()</code></pre>
+                                <p>Defined at line 106 of file llvm/tools/dsymutil/DebugMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C06D24AE40770E447FB42E90A3D314E9302C6EE2">
+                                <pre><code class="language-cpp code-clang-doc">void DebugMap (const Triple &amp; BinaryTriple, StringRef BinaryPath, ArrayRef BinaryUUID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>@</p>
+                                        <p>}</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 138 of file llvm/tools/dsymutil/DebugMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="173B4DAEB03396C422E215B7A0775855A47CF909">
+                                <pre><code class="language-cpp code-clang-doc">DebugMapObject &amp; addDebugMapObject (StringRef ObjectFilePath, time_point Timestamp, uint8_t Type)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This function adds an DebugMapObject to the list owned by this</p>
+                                        <p> debug map.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 93 of file llvm/tools/dsymutil/DebugMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4DCAD6642560DE1FE8B7EA92067F48778697184">
+                                <pre><code class="language-cpp code-clang-doc">const Triple &amp; getTriple ()</code></pre>
+                                <p>Defined at line 115 of file llvm/tools/dsymutil/DebugMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C9BA4B8BBCBA60A5241AB7366A9F821DC840F7B7">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getUUID ()</code></pre>
+                                <p>Defined at line 117 of file llvm/tools/dsymutil/DebugMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6604CA3BAD85FC2E38E2C1D7730312DE7E18A7B6">
+                                <pre><code class="language-cpp code-clang-doc">void print (raw_ostream &amp; OS)</code></pre>
+                                <p>Defined at line 117 of file llvm/tools/dsymutil/DebugMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F8B4CA5DF3302A32B9E487EDDCBBA7A21ABBC6F">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getBinaryPath ()</code></pre>
+                                <p>Defined at line 119 of file llvm/tools/dsymutil/DebugMap.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="207AE5FCC06E0E8ED6CC5810BE2F1724D099B7B6">
+                                <pre><code class="language-cpp code-clang-doc">void dump ()</code></pre>
+                                <p>Defined at line 123 of file llvm/tools/dsymutil/DebugMap.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="817CCFD90808096DC2E1045B2F8D0BE75B6B5B23">
+                                <pre><code class="language-cpp code-clang-doc">ErrorOr&lt;std::vector&lt;std::unique_ptr&lt;DebugMap&gt;&gt;&gt; parseYAMLDebugMap (BinaryHolder &amp; BinHolder, StringRef InputFile, StringRef PrependPath, bool Verbose)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read a debug map for </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 143 of file llvm/tools/dsymutil/DebugMap.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>objdump</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>objdump</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9684CAB6F8BC68D239FBEBADA7E681F6D9940226">FunctionStartsMode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F9CC0C892967D41165A4BB529175F65F37FB3C4B">DebugFormat</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8D200D4209C97FF09D5EF6F786AA2FD7E64CDB88">LineChar</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D8803EDAE13E44A9A6BABC5DBB85AE6D73DBFF9A">Dumper</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7DA03B6E1334D8F9A3A824887B656873E578ACB">InlinedFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7144E755E860EB233A34E9EEE669106CF810D990">LiveElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DE2F6BDC3A78CB88AB2F289A916A0156FEC700F8">LiveElementPrinter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#022F69F1BBDB85A724B806F3C7E38D2D743A912E">LiveVariable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B470CE9A45B72377EFADD69D775411907691390A">SourcePrinter</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Functions">Functions</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6DEFD555F6555AB02CAFEF300E5C91F5775DA3AB">getXCOFFSymbolCsectSMC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#71BA15DCC1E2709DC2CB20E6FAC1A1F99F10BF65">getCOFFRelocationValueString</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#65C546EB69993D2D46B1514CDB633FD2A2A8EB08">getXCOFFSymbolContainingSymbolRef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7F8C7485C104A00B25596225992381A67A0250D1">getWasmRelocationValueString</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ABAB883A434FC79956E571455710488AC233E330">getELFRelocationValueString</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D23E1AFB6FC00E6CD0590225B6FF5289E75CDDE">printCOFFUnwindInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6AD3D47EE429A33E54B63387BDBD26809F6CA2C5">isLabel</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#29B0E4578EDD1C7FF03EFDAD663A4C98D9740EE0">printCOFFFileHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0700404630821663034178AA930FF73A0382C7D1">getELFSectionLMA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7163467607351D7987729A4535C02944D093B4AE">printWasmFileHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE1ACA68A2B2472DF43386167D816747790C5BF7">printCOFFSymbolTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CAF35F59125BC9F5EB8783F9C2EFD2E64348DBF6">getXCOFFSymbolDescription</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C97A22D3D31671909853E203213228F03A73A413">printCOFFSymbolTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A957350483D75670DFCEC1B30F07547E165EE380">printELFFileHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#43398A8EA3416AF03FCC941B89A64725B3BFD8D7">getXCOFFRelocationValueString</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07258E5C9B0F110BE1EBF7B36DF269D6D575B0B2">parseMachOOptions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#78E073A465307B21CFA71DBFB1F86118890850E4">dumpTracebackTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8467FC660270FABD638CCECA608F03D0E7E1695F">getMachORelocationValueString</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1106D51580EA3099F25019C7CBFBC31863203D4B">getMachODSymObject</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F35CD25E5E41CE8DFD46F8934FB191ADBA3ED4C6">parseInputMachO</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#74DC38082EF64759E91A27CAB2DBA038EBC946C1">parseInputMachO</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FFDFB27AE35BD4DA43DBDBE1630DC7435A349D4C">printMachOUnwindInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB3A2BAD9F253F3918CE37C8455DD4BD2905E41C">printMachOFileHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#608AD9D4D40188E0BFF7F237BBE02374EAD7E098">printMachOLoadCommands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#50F7C718E6CA9521A54FEFF0D84F00AA8A21411F">printExportsTrie</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D4B7FEF0ED5349C68AF318F2EA4138D680DAEFEB">printRebaseTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD12588F58D77D825BC6B64623B0EB99F695A55C">printBindTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E6041BC140185BA74C695E56D222AC157DF4887B">printLazyBindTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#98C7A502F87111B3BD8638DBCCD0F57CAB892ED5">printWeakBindTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#13B516F7F0A6E4718E86A75EF7CE95092BA3B819">createCOFFDumper</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A88946BD5CFF67F2E185B6D79234D0AEA455D4FB">createELFDumper</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9E7517AE940194B238A4ABD6855845958F780F09">unwrapOrError</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3BF6FB3A47B795C399D94BED85AA1DD380C7706A">createMachODumper</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2FE618DE213DD4E328EA77AEE2D0CF2B5D0709D3">createWasmDumper</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#94C7E54282B5EB0ED452B3221A797C1FF838B0BD">createXCOFFDumper</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C123CB49438795F8B9256B55C844B2A9E071A6D">createDXContainerDumper</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E27FBB24BA7A285DD03BC634458EFE41EB730FB2">ToolSectionFilter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#494882BE9B40306F7FEB93C9F8A78DC7743905C4">isRelocAddressLess</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BFEDE1423AF010EC4D1734C45868E17A921FEFB1">printSectionHeaders</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F08ED18F02B809239F001BEE59894BDBCC015AB7">printSectionContents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3C9567B7632ED1A55824C2CB03243479A782A3D">reportError</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0C810FA19053891B60AA8646BD515021131DE218">reportError</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F8854D1643F6EFD2669E08360EEEBA19C430F54A">reportWarning</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E896CA674897951FC4A7DAC2B55504ED78C680C0">invalidArgValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D9B2A134A4F33AEFEBAE89BE0F77F5C719E44429">getFileNameForError</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#71F41EEBAFA1825CF00E6D3A6ACF24E073632AB7">createSymbolInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8B9785ED358618B012D856A825B97D9F931A34C6">getInstStartColumn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D7CCC76F5CE6EA1C318AF077BF2BD1428445A6A1">printRawData</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5CF643A5B50172C4C5FF8631C1C622900356639E">getMachODSymObject</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                        <div id="" class="delimiter-container">
+                            <div>
+                                <pre><code class="language-cpp code-clang-doc">enum FunctionStartsMode</code></pre>
+                            </div>
+                            <table class="table-wrapper">
+                                <tbody>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Addrs</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Names</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Both</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>None</td>
+                                        <td>3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                Defined at line 37 of file llvm/tools/llvm-objdump/MachODump.h
+                            </div>
+                        </div>
+                        <div id="" class="delimiter-container">
+                            <div>
+                                <pre><code class="language-cpp code-clang-doc">enum DebugFormat</code></pre>
+                            </div>
+                            <table class="table-wrapper">
+                                <tbody>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>DFASCII</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DFDisabled</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DFInvalid</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DFLimitsOnly</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DFUnicode</td>
+                                        <td>4</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                Defined at line 44 of file llvm/tools/llvm-objdump/llvm-objdump.h
+                            </div>
+                        </div>
+                        <div id="" class="delimiter-container">
+                            <div>
+                                <pre><code class="language-cpp code-clang-doc">enum LineChar</code></pre>
+                            </div>
+                            <table class="table-wrapper">
+                                <tbody>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>RangeStart</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>RangeMid</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>RangeEnd</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LabelVert</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LabelCornerNew</td>
+                                        <td>4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LabelCornerActive</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LabelHoriz</td>
+                                        <td>6</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                Defined at line 421 of file llvm/tools/llvm-objdump/SourcePrinter.cpp
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="D8803EDAE13E44A9A6BABC5DBB85AE6D73DBFF9A" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm7objdump6DumperE.html">
+                                <pre><code class="language-cpp code-clang-doc">class Dumper</code></pre>
+                            </a>
+                        </li>
+                        <li id="F7DA03B6E1334D8F9A3A824887B656873E578ACB" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm7objdump15InlinedFunctionE.html">
+                                <pre><code class="language-cpp code-clang-doc">class InlinedFunction</code></pre>
+                            </a>
+                        </li>
+                        <li id="7144E755E860EB233A34E9EEE669106CF810D990" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm7objdump11LiveElementE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LiveElement</code></pre>
+                            </a>
+                        </li>
+                        <li id="DE2F6BDC3A78CB88AB2F289A916A0156FEC700F8" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm7objdump18LiveElementPrinterE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LiveElementPrinter</code></pre>
+                            </a>
+                        </li>
+                        <li id="022F69F1BBDB85A724B806F3C7E38D2D743A912E" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm7objdump12LiveVariableE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LiveVariable</code></pre>
+                            </a>
+                        </li>
+                        <li id="B470CE9A45B72377EFADD69D775411907691390A" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm7objdump13SourcePrinterE.html">
+                                <pre><code class="language-cpp code-clang-doc">class SourcePrinter</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Functions" class="section-container">
+                    <h2>Functions</h2>
+                    <ul class="class-container">
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="6DEFD555F6555AB02CAFEF300E5C91F5775DA3AB">
+                                    <pre><code class="language-cpp code-clang-doc">optional getXCOFFSymbolCsectSMC (const object::XCOFFObjectFile &amp; Obj, const object::SymbolRef &amp; Sym)</code></pre>
+                                    <p>Defined at line 382 of file llvm/tools/llvm-objdump/XCOFFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="71BA15DCC1E2709DC2CB20E6FAC1A1F99F10BF65">
+                                    <pre><code class="language-cpp code-clang-doc">Error getCOFFRelocationValueString (const object::COFFObjectFile * Obj, const object::RelocationRef &amp; Rel, llvm::SmallVectorImpl&lt;char&gt; &amp; Result)</code></pre>
+                                    <p>Defined at line 640 of file llvm/tools/llvm-objdump/COFFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="65C546EB69993D2D46B1514CDB633FD2A2A8EB08">
+                                    <pre><code class="language-cpp code-clang-doc">std::optional&lt;object::SymbolRef&gt; getXCOFFSymbolContainingSymbolRef (const object::XCOFFObjectFile &amp; Obj, const object::SymbolRef &amp; Sym)</code></pre>
+                                    <p>Defined at line 397 of file llvm/tools/llvm-objdump/XCOFFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="7F8C7485C104A00B25596225992381A67A0250D1">
+                                    <pre><code class="language-cpp code-clang-doc">Error getWasmRelocationValueString (const object::WasmObjectFile * Obj, const object::RelocationRef &amp; RelRef, llvm::SmallVectorImpl&lt;char&gt; &amp; Result)</code></pre>
+                                    <p>Defined at line 44 of file llvm/tools/llvm-objdump/WasmDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="ABAB883A434FC79956E571455710488AC233E330">
+                                    <pre><code class="language-cpp code-clang-doc">Error getELFRelocationValueString (const object::ELFObjectFileBase * Obj, const object::RelocationRef &amp; Rel, llvm::SmallVectorImpl&lt;char&gt; &amp; Result)</code></pre>
+                                    <p>Defined at line 172 of file llvm/tools/llvm-objdump/ELFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="3D23E1AFB6FC00E6CD0590225B6FF5289E75CDDE">
+                                    <pre><code class="language-cpp code-clang-doc">void printCOFFUnwindInfo (const object::COFFObjectFile * O)</code></pre>
+                                    <p>Defined at line 763 of file llvm/tools/llvm-objdump/COFFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="6AD3D47EE429A33E54B63387BDBD26809F6CA2C5">
+                                    <pre><code class="language-cpp code-clang-doc">bool isLabel (const object::XCOFFObjectFile &amp; Obj, const object::SymbolRef &amp; Sym)</code></pre>
+                                    <p>Defined at line 414 of file llvm/tools/llvm-objdump/XCOFFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="29B0E4578EDD1C7FF03EFDAD663A4C98D9740EE0">
+                                    <pre><code class="language-cpp code-clang-doc">void printCOFFFileHeader (const object::COFFObjectFile &amp; Obj)</code></pre>
+                                    <p>Defined at line  of file </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="0700404630821663034178AA930FF73A0382C7D1">
+                                    <pre><code class="language-cpp code-clang-doc">uint64_t getELFSectionLMA (const object::ELFSectionRef &amp; Sec)</code></pre>
+                                    <p>Defined at line 205 of file llvm/tools/llvm-objdump/ELFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="7163467607351D7987729A4535C02944D093B4AE">
+                                    <pre><code class="language-cpp code-clang-doc">void printWasmFileHeader (const object::ObjectFile * O)</code></pre>
+                                    <p>Defined at line  of file </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="EE1ACA68A2B2472DF43386167D816747790C5BF7">
+                                    <pre><code class="language-cpp code-clang-doc">void printCOFFSymbolTable (const object::COFFImportFile &amp; I)</code></pre>
+                                    <p>Defined at line 835 of file llvm/tools/llvm-objdump/COFFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="CAF35F59125BC9F5EB8783F9C2EFD2E64348DBF6">
+                                    <pre><code class="language-cpp code-clang-doc">basic_string getXCOFFSymbolDescription (const SymbolInfoTy &amp; SymbolInfo, StringRef SymbolName)</code></pre>
+                                    <p>Defined at line 426 of file llvm/tools/llvm-objdump/XCOFFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="C97A22D3D31671909853E203213228F03A73A413">
+                                    <pre><code class="language-cpp code-clang-doc">void printCOFFSymbolTable (const object::COFFObjectFile &amp; O)</code></pre>
+                                    <p>Defined at line 858 of file llvm/tools/llvm-objdump/COFFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="A957350483D75670DFCEC1B30F07547E165EE380">
+                                    <pre><code class="language-cpp code-clang-doc">void printELFFileHeader (const object::ObjectFile * O)</code></pre>
+                                    <p>Defined at line  of file </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="43398A8EA3416AF03FCC941B89A64725B3BFD8D7">
+                                    <pre><code class="language-cpp code-clang-doc">Error getXCOFFRelocationValueString (const object::XCOFFObjectFile &amp; Obj, const object::RelocationRef &amp; RelRef, bool SymbolDescription, llvm::SmallVectorImpl&lt;char&gt; &amp; Result)</code></pre>
+                                    <p>Defined at line 359 of file llvm/tools/llvm-objdump/XCOFFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="07258E5C9B0F110BE1EBF7B36DF269D6D575B0B2">
+                                    <pre><code class="language-cpp code-clang-doc">void parseMachOOptions (const llvm::opt::InputArgList &amp; InputArgs)</code></pre>
+                                    <p>Defined at line 91 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="78E073A465307B21CFA71DBFB1F86118890850E4">
+                                    <pre><code class="language-cpp code-clang-doc">void dumpTracebackTable (ArrayRef Bytes, uint64_t Address, formatted_raw_ostream &amp; OS, uint64_t End, const MCSubtargetInfo &amp; STI, const object::XCOFFObjectFile * Obj)</code></pre>
+                                    <p>Defined at line 464 of file llvm/tools/llvm-objdump/XCOFFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="8467FC660270FABD638CCECA608F03D0E7E1695F">
+                                    <pre><code class="language-cpp code-clang-doc">Error getMachORelocationValueString (const object::MachOObjectFile * Obj, const object::RelocationRef &amp; RelRef, llvm::SmallVectorImpl&lt;char&gt; &amp; Result)</code></pre>
+                                    <p>Defined at line 420 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="1106D51580EA3099F25019C7CBFBC31863203D4B">
+                                    <pre><code class="language-cpp code-clang-doc">const object::MachOObjectFile * getMachODSymObject (const object::MachOObjectFile * O, StringRef Filename, std::unique_ptr&lt;object::Binary&gt; &amp; DSYMBinary, std::unique_ptr&lt;MemoryBuffer&gt; &amp; DSYMBuf)</code></pre>
+                                    <p>Defined at line  of file </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="F35CD25E5E41CE8DFD46F8934FB191ADBA3ED4C6">
+                                    <pre><code class="language-cpp code-clang-doc">void parseInputMachO (StringRef Filename)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> ParseInputMachO() parses the named Mach-O file in Filename and handles the</p>
+                                            <p> -arch flags selecting just those slices as specified by them and also parses</p>
+                                            <p> archive files.  Then for each individual Mach-O file ProcessMachO() is</p>
+                                            <p> called to process the file based on the command line options.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 2531 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="74DC38082EF64759E91A27CAB2DBA038EBC946C1">
+                                    <pre><code class="language-cpp code-clang-doc">void parseInputMachO (object::MachOUniversalBinary * UB)</code></pre>
+                                    <p>Defined at line 2589 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="FFDFB27AE35BD4DA43DBDBE1630DC7435A349D4C">
+                                    <pre><code class="language-cpp code-clang-doc">void printMachOUnwindInfo (const object::MachOObjectFile * O)</code></pre>
+                                    <p>Defined at line 8242 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="AB3A2BAD9F253F3918CE37C8455DD4BD2905E41C">
+                                    <pre><code class="language-cpp code-clang-doc">void printMachOFileHeader (const object::ObjectFile * O)</code></pre>
+                                    <p>Defined at line 10293 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="608AD9D4D40188E0BFF7F237BBE02374EAD7E098">
+                                    <pre><code class="language-cpp code-clang-doc">void printMachOLoadCommands (const object::ObjectFile * O)</code></pre>
+                                    <p>Defined at line 10304 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="50F7C718E6CA9521A54FEFF0D84F00AA8A21411F">
+                                    <pre><code class="language-cpp code-clang-doc">void printExportsTrie (const object::ObjectFile * O)</code></pre>
+                                    <p>Defined at line 10561 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="D4B7FEF0ED5349C68AF318F2EA4138D680DAEFEB">
+                                    <pre><code class="language-cpp code-clang-doc">void printRebaseTable (object::ObjectFile * O)</code></pre>
+                                    <p>Defined at line 10571 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="FD12588F58D77D825BC6B64623B0EB99F695A55C">
+                                    <pre><code class="language-cpp code-clang-doc">void printBindTable (object::ObjectFile * O)</code></pre>
+                                    <p>Defined at line 10581 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="E6041BC140185BA74C695E56D222AC157DF4887B">
+                                    <pre><code class="language-cpp code-clang-doc">void printLazyBindTable (object::ObjectFile * O)</code></pre>
+                                    <p>Defined at line 10541 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="98C7A502F87111B3BD8638DBCCD0F57CAB892ED5">
+                                    <pre><code class="language-cpp code-clang-doc">void printWeakBindTable (object::ObjectFile * O)</code></pre>
+                                    <p>Defined at line 10551 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="13B516F7F0A6E4718E86A75EF7CE95092BA3B819">
+                                    <pre><code class="language-cpp code-clang-doc">std::unique_ptr&lt;Dumper&gt; createCOFFDumper (const object::COFFObjectFile &amp; Obj)</code></pre>
+                                    <p>Defined at line 64 of file llvm/tools/llvm-objdump/COFFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="A88946BD5CFF67F2E185B6D79234D0AEA455D4FB">
+                                    <pre><code class="language-cpp code-clang-doc">std::unique_ptr&lt;Dumper&gt; createELFDumper (const object::ELFObjectFileBase &amp; Obj)</code></pre>
+                                    <p>Defined at line 49 of file llvm/tools/llvm-objdump/ELFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="9E7517AE940194B238A4ABD6855845958F780F09">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename T, typename... Ts&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">T unwrapOrError (Expected&lt;T&gt; EO, Ts &amp;&amp;... Args)</code></pre>
+                                    <p>Defined at line 133 of file llvm/tools/llvm-objdump/llvm-objdump.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="3BF6FB3A47B795C399D94BED85AA1DD380C7706A">
+                                    <pre><code class="language-cpp code-clang-doc">std::unique_ptr&lt;Dumper&gt; createMachODumper (const object::MachOObjectFile &amp; Obj)</code></pre>
+                                    <p>Defined at line 196 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="2FE618DE213DD4E328EA77AEE2D0CF2B5D0709D3">
+                                    <pre><code class="language-cpp code-clang-doc">std::unique_ptr&lt;Dumper&gt; createWasmDumper (const object::WasmObjectFile &amp; Obj)</code></pre>
+                                    <p>Defined at line 32 of file llvm/tools/llvm-objdump/WasmDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="94C7E54282B5EB0ED452B3221A797C1FF838B0BD">
+                                    <pre><code class="language-cpp code-clang-doc">std::unique_ptr&lt;Dumper&gt; createXCOFFDumper (const object::XCOFFObjectFile &amp; Obj)</code></pre>
+                                    <p>Defined at line 354 of file llvm/tools/llvm-objdump/XCOFFDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="6C123CB49438795F8B9256B55C844B2A9E071A6D">
+                                    <pre><code class="language-cpp code-clang-doc">std::unique_ptr&lt;Dumper&gt; createDXContainerDumper (const object::DXContainerObjectFile &amp; Obj)</code></pre>
+                                    <p>Defined at line 163 of file llvm/tools/llvm-objdump/DXContainerDump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="E27FBB24BA7A285DD03BC634458EFE41EB730FB2">
+                                    <pre><code class="language-cpp code-clang-doc">SectionFilter ToolSectionFilter (const llvm::object::ObjectFile &amp; O, uint64_t * Idx)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Creates a SectionFilter with a standard predicate that conditionally skips</p>
+                                            <p> sections when the --section objdump flag is provided.</p>
+                                        </div>
+                                        <div>
+                                            <p> Idx is an optional output parameter that keeps track of which section index</p>
+                                            <p> this is. This may be different than the actual section number, as some</p>
+                                            <p> sections may be filtered (e.g. symbol tables).</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 432 of file llvm/tools/llvm-objdump/llvm-objdump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="494882BE9B40306F7FEB93C9F8A78DC7743905C4">
+                                    <pre><code class="language-cpp code-clang-doc">bool isRelocAddressLess (RelocationRef A, RelocationRef B)</code></pre>
+                                    <p>Defined at line 540 of file llvm/tools/llvm-objdump/llvm-objdump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="BFEDE1423AF010EC4D1734C45868E17A921FEFB1">
+                                    <pre><code class="language-cpp code-clang-doc">void printSectionHeaders (object::ObjectFile &amp; O)</code></pre>
+                                    <p>Defined at line 2829 of file llvm/tools/llvm-objdump/llvm-objdump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="F08ED18F02B809239F001BEE59894BDBCC015AB7">
+                                    <pre><code class="language-cpp code-clang-doc">void printSectionContents (const object::ObjectFile * O)</code></pre>
+                                    <p>Defined at line 2875 of file llvm/tools/llvm-objdump/llvm-objdump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="C3C9567B7632ED1A55824C2CB03243479A782A3D">
+                                    <pre><code class="language-cpp code-clang-doc">void reportError (StringRef File, const Twine &amp; Message)</code></pre>
+                                    <p>Defined at line 467 of file llvm/tools/llvm-objdump/llvm-objdump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="0C810FA19053891B60AA8646BD515021131DE218">
+                                    <pre><code class="language-cpp code-clang-doc">void reportError (Error E, StringRef FileName, StringRef ArchiveName, StringRef ArchitectureName)</code></pre>
+                                    <p>Defined at line 473 of file llvm/tools/llvm-objdump/llvm-objdump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="F8854D1643F6EFD2669E08360EEEBA19C430F54A">
+                                    <pre><code class="language-cpp code-clang-doc">void reportWarning (const Twine &amp; Message, StringRef File)</code></pre>
+                                    <p>Defined at line 459 of file llvm/tools/llvm-objdump/llvm-objdump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="E896CA674897951FC4A7DAC2B55504ED78C680C0">
+                                    <pre><code class="language-cpp code-clang-doc">void invalidArgValue (const opt::Arg * A)</code></pre>
+                                    <p>Defined at line 3519 of file llvm/tools/llvm-objdump/llvm-objdump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="D9B2A134A4F33AEFEBAE89BE0F77F5C719E44429">
+                                    <pre><code class="language-cpp code-clang-doc">basic_string getFileNameForError (const object::Archive::Child &amp; C, unsigned int Index)</code></pre>
+                                    <p>Defined at line 448 of file llvm/tools/llvm-objdump/llvm-objdump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="71F41EEBAFA1825CF00E6D3A6ACF24E073632AB7">
+                                    <pre><code class="language-cpp code-clang-doc">SymbolInfoTy createSymbolInfo (const object::ObjectFile &amp; Obj, const object::SymbolRef &amp; Symbol, bool IsMappingSymbol)</code></pre>
+                                    <p>Defined at line 1487 of file llvm/tools/llvm-objdump/llvm-objdump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="8B9785ED358618B012D856A825B97D9F931A34C6">
+                                    <pre><code class="language-cpp code-clang-doc">unsigned int getInstStartColumn (const MCSubtargetInfo &amp; STI)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Get the column at which we want to start printing the instruction</p>
+                                            <p> disassembly, taking into account anything which appears to the left of it.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 596 of file llvm/tools/llvm-objdump/llvm-objdump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="D7CCC76F5CE6EA1C318AF077BF2BD1428445A6A1">
+                                    <pre><code class="language-cpp code-clang-doc">void printRawData (ArrayRef Bytes, uint64_t Address, llvm::formatted_raw_ostream &amp; OS, const llvm::MCSubtargetInfo &amp; STI)</code></pre>
+                                    <p>Defined at line 609 of file llvm/tools/llvm-objdump/llvm-objdump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="5CF643A5B50172C4C5FF8631C1C622900356639E">
+                                    <pre><code class="language-cpp code-clang-doc">const MachOObjectFile * getMachODSymObject (const MachOObjectFile * MachOOFStringRef Filenameint &amp; DSYMBinaryint &amp; DSYMBuf)</code></pre>
+                                    <p>Defined at line 7142 of file llvm/tools/llvm-objdump/MachODump.cpp</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

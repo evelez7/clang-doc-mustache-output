@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ELFFile</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">object</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../_ZTVN4llvm6object22Elf_Note_Iterator_ImplE.html">Elf_Note_Iterator_Impl</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ELFFile</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BC48EBC43BEF9955A16C2BE26DF7684242A6FA1A">ELFFile&lt;ELFT&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FEFB36E5E578B1631871D175E7B1B08AB0B92571">decodeBBAddrMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#85AA924A0888B7DBE170D47FE2E10259E093F127">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ECF10511D16FD5F1A74CD2374D3171D7030CD96A">ELFFile&lt;ELFT&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8F44C52FE36C2AF98A869B21F9563EB180D62B6B">base</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5EC6B38370B2040BCBA4C74DD11B1805C329114C">end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5791A600005594DAD7E696A504BCF5ECC2A1BDE4">getBufSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#05AF1A8D28CED8D2A0529DEB0DC3CD861A5C5108">getPhNum</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#971091CA25A6CE833FD9A82435107DB65984BEE5">getShNum</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#483D144FBADD9C63061785BE3891743BA3E931F3">getShStrNdx</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BEEFBE57584EEB38AFE9C6F8DB663BB7E501F0D8">getHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BBA13913CAB8950CF46EE343463EA141341AD245">isLE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BD71110C6109DD197DB0F3D4524A40C765BC2DCA">isMipsELF64</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#36A3B49A8F1297C88C548599421815F409E50143">isMips64EL</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#94BD224B432C56A286A8AD7DDBFAE67C4CD01A08">symbols</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#56527E791B1DAC9A6D90C22EB7952B9BFD0FB303">relas</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0965C580E1FBD23E8FD5C696C391A1FC0E2290BB">rels</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#937ED1B25824053792EA992ABA97A19FF0DA3675">relrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72920636664F87C752B044F3B0431CF48499D66D">program_headers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7651FD2DD62D86D6743D094297D539ABFCEA0578">notes_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#84ABA528D335ED85556E7B30D745F55937017AE8">notes_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0F7396E044B5BFFE0E2DABBE551F9A5ACF661CB0">notes_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0ACB0916C8F87246EED804A448306E594F4291F9">notes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5782CF860174531DD6B41F99E8A4304E8AE31D39">notes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AFBDE3939FD2960251B8A39D4F71B1BEB8E780BE">getEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B1FF09DF97519583BA49D6CD13C5118EAD817A5C">getEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8818FC187CD26F5FE7B64925E3925120CE089F01">getVersionDefinitions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F9CECA8E1A80F87022961D7FF904BC68202C716C">getVersionDependencies</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#629F2AECB91A7962743046184031556F0D520FE0">getSymbolVersionByIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#64514A0B62376BCD6480AA4A1345F4C94C767280">getStringTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#985AB704569D041850A0AC635884DB68F6CB7004">getStringTableForSymtab</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#712532D950F5C877C61B2104456819D84EA2AC50">getStringTableForSymtab</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#974518B7EB01A1F81241A8F2CB439A6BDE04F502">getLinkAsStrtab</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5BAD93999459727E32C39F21082B91D63AD0D99D">getSHNDXTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#73F04CD1E834DB2CE0D80993F6F486B8B5557DC4">getSHNDXTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB09DCA1766C492DAB1187EAD0518AB0A612E226">getDynSymtabSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79AC142DD09395D6DB635A9E72F2E5A9DD4EE6C0">getRelocationTypeName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F76056B0144E1A3CC12D70AEA914B5BDC8F0E527">getRelocationTypeName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF4D7F3EB8C6F69B89653E1FC193CDA6296DF4A4">getRelativeRelocationType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#62251D18C0D354E90BF0866BE6301E84C8D07F1A">getDynamicTagAsString</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A0B6282925C633523A112AED165E9A066DFDF768">getDynamicTagAsString</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3F246FE575FBF7435A12E198BD71786EB59DFF6A">getRelocationSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4E10557119BB071872F0CFD4C2CDCFCCD7E8A7B">loadVersionMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C38522CE8D1C980ADD9E5A98406DEE0F0DE98D94">create</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A3BE616038613DE8C849D09F148C78528D7A3D21">sections</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE3EF3B8B4471FF4C13B280DB1B34623273C7294">dynamicEntries</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#83D8FBD8BF488928C5A31F5945CEFEB894D00540">toMappedAddr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FE492D996B4E554448143BE2A82D01B27D7EA653">decode_relrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0F0B72B394575FEDF55A19E59E3F093FABC0DACD">getCrelHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7596DCBF3E99175BEF5093CE085828B694F45558">decodeCrel</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4005FAAFC17CCBF98FD37A2C4E750B676C402B7B">crels</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3567884776131DC15086B7A64B8F733AFAAF79CE">android_relas</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A348AEE8DD0CAE6EFF065BF745F8CC089EEC305B">getSectionStringTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6CD245E0428CCEDF7625FC32B8F6F62E6F2B3FEC">getSectionIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B79399830359BC08FFFEEC5EFDC2D15F45D3CAB">getSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6241BB09B7313597BC040084A7FF519549F9465">getSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4A0E152A129315A6CAC980FF6931F937385D7552">getSection</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D45762551AB308F93E1D642B845CC72312E91657">getSymbol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F422F3FC139E4BF71204651ABC4CE9304AC9D25C">getSectionName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F2FAC73CC07749300B89A758606F870BCF97A9C">getSectionName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D7EC8FDA9ED0ED2D741E4FC71B7C96CD59BAD0FB">getSectionContentsAsArray</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6264F4BFA61CA793AC06C5DDB19745756E6C82F2">getSectionContents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2A7D183A33579B17ACA78549EF375C5BA137D26">getSegmentContents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BE5F1665FFD052ACE6094748157A2DEE9F3937E8">decodeBBAddrMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D0DF763F740596A6E1DE3733B4D2AD939550CBC1">getSectionAndRelocations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8998EF931BD243939D28F88B713358725B51DBBD">createFakeSections</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;class ELFFileELFT&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ELFFile</h1>
+                        <p>Defined at line 257 of file llvm/include/llvm/Object/ELF.h</p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="BC48EBC43BEF9955A16C2BE26DF7684242A6FA1A">
+                                <pre><code class="language-cpp code-clang-doc">void ELFFile&lt;ELFT&gt; (const ELFFile&lt;ELFT&gt; &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Default ctor and copy assignment operator required to instantiate the</p>
+                                        <p> template for DLL export.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 263 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FEFB36E5E578B1631871D175E7B1B08AB0B92571">
+                                <pre><code class="language-cpp code-clang-doc">int decodeBBAddrMap (const Elf_Shdr &amp; Sec, const Elf_Shdr * RelaSec, int * PGOAnalyses)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a vector of BBAddrMap structs corresponding to each function</p>
+                                        <p> within the text section that the SHT_LLVM_BB_ADDR_MAP section </p>
+                                        <p> is associated with. If the current ELFFile is relocatable, a corresponding</p>
+                                        <p> must be passed in as an argument.</p>
+                                        <p> Optional out variable to collect all PGO Analyses. New elements are only</p>
+                                        <p> added if no error occurs. If not provided, the PGO Analyses are decoded</p>
+                                        <p> then ignored.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="85AA924A0888B7DBE170D47FE2E10259E093F127">
+                                <pre><code class="language-cpp code-clang-doc">ELFFile&lt;ELFT&gt; &amp; operator= (const ELFFile&lt;ELFT&gt; &amp; )</code></pre>
+                                <p>Defined at line 264 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ECF10511D16FD5F1A74CD2374D3171D7030CD96A">
+                                <pre><code class="language-cpp code-clang-doc">void ELFFile&lt;ELFT&gt; (ELFFile&lt;ELFT&gt; &amp;&amp; )</code></pre>
+                                <p>Defined at line 266 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8F44C52FE36C2AF98A869B21F9563EB180D62B6B">
+                                <pre><code class="language-cpp code-clang-doc">const uint8_t * base ()</code></pre>
+                                <p>Defined at line 275 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5EC6B38370B2040BCBA4C74DD11B1805C329114C">
+                                <pre><code class="language-cpp code-clang-doc">const uint8_t * end ()</code></pre>
+                                <p>Defined at line 276 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5791A600005594DAD7E696A504BCF5ECC2A1BDE4">
+                                <pre><code class="language-cpp code-clang-doc">size_t getBufSize ()</code></pre>
+                                <p>Defined at line 278 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="05AF1A8D28CED8D2A0529DEB0DC3CD861A5C5108">
+                                <pre><code class="language-cpp code-clang-doc">Expected getPhNum ()</code></pre>
+                                <p>Defined at line 301 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="971091CA25A6CE833FD9A82435107DB65984BEE5">
+                                <pre><code class="language-cpp code-clang-doc">Expected getShNum ()</code></pre>
+                                <p>Defined at line 309 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="483D144FBADD9C63061785BE3891743BA3E931F3">
+                                <pre><code class="language-cpp code-clang-doc">Expected getShStrNdx ()</code></pre>
+                                <p>Defined at line 317 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BEEFBE57584EEB38AFE9C6F8DB663BB7E501F0D8">
+                                <pre><code class="language-cpp code-clang-doc">const Elf_Ehdr &amp; getHeader ()</code></pre>
+                                <p>Defined at line 325 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BBA13913CAB8950CF46EE343463EA141341AD245">
+                                <pre><code class="language-cpp code-clang-doc">bool isLE ()</code></pre>
+                                <p>Defined at line 375 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BD71110C6109DD197DB0F3D4524A40C765BC2DCA">
+                                <pre><code class="language-cpp code-clang-doc">bool isMipsELF64 ()</code></pre>
+                                <p>Defined at line 379 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="36A3B49A8F1297C88C548599421815F409E50143">
+                                <pre><code class="language-cpp code-clang-doc">bool isMips64EL ()</code></pre>
+                                <p>Defined at line 384 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="94BD224B432C56A286A8AD7DDBFAE67C4CD01A08">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;Elf_Sym_Range&gt; symbols (const Elf_Shdr * Sec)</code></pre>
+                                <p>Defined at line 394 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="56527E791B1DAC9A6D90C22EB7952B9BFD0FB303">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;Elf_Rela_Range&gt; relas (const Elf_Shdr &amp; Sec)</code></pre>
+                                <p>Defined at line 400 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0965C580E1FBD23E8FD5C696C391A1FC0E2290BB">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;Elf_Rel_Range&gt; rels (const Elf_Shdr &amp; Sec)</code></pre>
+                                <p>Defined at line 404 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="937ED1B25824053792EA992ABA97A19FF0DA3675">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;Elf_Relr_Range&gt; relrs (const Elf_Shdr &amp; Sec)</code></pre>
+                                <p>Defined at line 408 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72920636664F87C752B044F3B0431CF48499D66D">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;Elf_Phdr_Range&gt; program_headers ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Iterate over program header table.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 422 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7651FD2DD62D86D6743D094297D539ABFCEA0578">
+                                <pre><code class="language-cpp code-clang-doc">Elf_Note_Iterator notes_begin (const Elf_Phdr &amp; Phdr, Error &amp; Err)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get an iterator over notes in a program header.</p>
+                                    </div>
+                                    <div>
+                                        <p> The program header must be of type </p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Phdr</b>   the program header to iterate over.
+                                    </div> 
+                                    <div>
+                                        <b>Err</b>   [out] an error to support fallible iteration, which should  be checked after iteration ends.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 452 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="84ABA528D335ED85556E7B30D745F55937017AE8">
+                                <pre><code class="language-cpp code-clang-doc">Elf_Note_Iterator notes_begin (const Elf_Shdr &amp; Shdr, Error &amp; Err)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get an iterator over notes in a section.</p>
+                                    </div>
+                                    <div>
+                                        <p> The section must be of type </p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Shdr</b>   the section to iterate over.
+                                    </div> 
+                                    <div>
+                                        <b>Err</b>   [out] an error to support fallible iteration, which should  be checked after iteration ends.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 481 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0F7396E044B5BFFE0E2DABBE551F9A5ACF661CB0">
+                                <pre><code class="language-cpp code-clang-doc">Elf_Note_Iterator notes_end ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the end iterator for notes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 503 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0ACB0916C8F87246EED804A448306E594F4291F9">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;Elf_Note_Iterator&gt; notes (const Elf_Phdr &amp; Phdr, Error &amp; Err)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get an iterator range over notes of a program header.</p>
+                                    </div>
+                                    <div>
+                                        <p> The program header must be of type </p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Phdr</b>   the program header to iterate over.
+                                    </div> 
+                                    <div>
+                                        <b>Err</b>   [out] an error to support fallible iteration, which should  be checked after iteration ends.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 514 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5782CF860174531DD6B41F99E8A4304E8AE31D39">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range&lt;Elf_Note_Iterator&gt; notes (const Elf_Shdr &amp; Shdr, Error &amp; Err)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get an iterator range over notes of a section.</p>
+                                    </div>
+                                    <div>
+                                        <p> The section must be of type </p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Shdr</b>   the section to iterate over.
+                                    </div> 
+                                    <div>
+                                        <b>Err</b>   [out] an error to support fallible iteration, which should  be checked after iteration ends.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 526 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AFBDE3939FD2960251B8A39D4F71B1BEB8E780BE">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;const T *&gt; getEntry (uint32_t Section, uint32_t Entry)</code></pre>
+                                <p>Defined at line 1055 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B1FF09DF97519583BA49D6CD13C5118EAD817A5C">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;const T *&gt; getEntry (const Elf_Shdr &amp; Section, uint32_t Entry)</code></pre>
+                                <p>Defined at line 1065 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8818FC187CD26F5FE7B64925E3925120CE089F01">
+                                <pre><code class="language-cpp code-clang-doc">Expected getVersionDefinitions (const Elf_Shdr &amp; Sec)</code></pre>
+                                <p>Defined at line 1111 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F9CECA8E1A80F87022961D7FF904BC68202C716C">
+                                <pre><code class="language-cpp code-clang-doc">Expected getVersionDependencies (const Elf_Shdr &amp; Sec, function_ref WarnHandler)</code></pre>
+                                <p>Defined at line 1198 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="629F2AECB91A7962743046184031556F0D520FE0">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSymbolVersionByIndex (uint32_t SymbolVersionIndex, bool &amp; IsDefault, SmallVector&lt;std::optional&lt;VersionEntry&gt;, 0&gt; &amp; VersionMap, optional IsSymHidden)</code></pre>
+                                <p>Defined at line 1083 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="64514A0B62376BCD6480AA4A1345F4C94C767280">
+                                <pre><code class="language-cpp code-clang-doc">Expected getStringTable (const Elf_Shdr &amp; Section, function_ref WarnHandler)</code></pre>
+                                <p>Defined at line 1295 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="985AB704569D041850A0AC635884DB68F6CB7004">
+                                <pre><code class="language-cpp code-clang-doc">Expected getStringTableForSymtab (const Elf_Shdr &amp; Section)</code></pre>
+                                <p>Defined at line 1359 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="712532D950F5C877C61B2104456819D84EA2AC50">
+                                <pre><code class="language-cpp code-clang-doc">Expected getStringTableForSymtab (const Elf_Shdr &amp; Section, Elf_Shdr_Range Sections)</code></pre>
+                                <p>Defined at line 1368 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="974518B7EB01A1F81241A8F2CB439A6BDE04F502">
+                                <pre><code class="language-cpp code-clang-doc">Expected getLinkAsStrtab (const typename ELFT::Shdr &amp; Sec)</code></pre>
+                                <p>Defined at line 1383 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5BAD93999459727E32C39F21082B91D63AD0D99D">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;ArrayRef&lt;Elf_Word&gt;&gt; getSHNDXTable (const Elf_Shdr &amp; Section)</code></pre>
+                                <p>Defined at line 1321 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="73F04CD1E834DB2CE0D80993F6F486B8B5557DC4">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;ArrayRef&lt;Elf_Word&gt;&gt; getSHNDXTable (const Elf_Shdr &amp; Section, Elf_Shdr_Range Sections)</code></pre>
+                                <p>Defined at line 1330 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB09DCA1766C492DAB1187EAD0518AB0A612E226">
+                                <pre><code class="language-cpp code-clang-doc">Expected getDynSymtabSize ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This function determines the number of dynamic symbols. It reads section</p>
+                                        <p> headers first. If section headers are not available, the number of</p>
+                                        <p> symbols will be inferred by parsing dynamic hash tables.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 872 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79AC142DD09395D6DB635A9E72F2E5A9DD4EE6C0">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getRelocationTypeName (uint32_t Type)</code></pre>
+                                <p>Defined at line 728 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F76056B0144E1A3CC12D70AEA914B5BDC8F0E527">
+                                <pre><code class="language-cpp code-clang-doc">void getRelocationTypeName (uint32_t Type, SmallVectorImpl&lt;char&gt; &amp; Result)</code></pre>
+                                <p>Defined at line 733 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EF4D7F3EB8C6F69B89653E1FC193CDA6296DF4A4">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getRelativeRelocationType ()</code></pre>
+                                <p>Defined at line 764 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="62251D18C0D354E90BF0866BE6301E84C8D07F1A">
+                                <pre><code class="language-cpp code-clang-doc">basic_string getDynamicTagAsString (unsigned int Arch, uint64_t Type)</code></pre>
+                                <p>Defined at line 535 of file llvm/lib/Object/ELF.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A0B6282925C633523A112AED165E9A066DFDF768">
+                                <pre><code class="language-cpp code-clang-doc">basic_string getDynamicTagAsString (uint64_t Type)</code></pre>
+                                <p>Defined at line 619 of file llvm/lib/Object/ELF.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3F246FE575FBF7435A12E198BD71786EB59DFF6A">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;const Elf_Sym *&gt; getRelocationSymbol (const Elf_Rel &amp; Rel, const Elf_Shdr * SymTab)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the symbol for a given relocation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 806 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4E10557119BB071872F0CFD4C2CDCFCCD7E8A7B">
+                                <pre><code class="language-cpp code-clang-doc">Expected loadVersionMap (const Elf_Shdr * VerNeedSec, const Elf_Shdr * VerDefSec)</code></pre>
+                                <p>Defined at line 769 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C38522CE8D1C980ADD9E5A98406DEE0F0DE98D94">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;ELFFile&lt;ELFT&gt;&gt; create (StringRef Object)</code></pre>
+                                <p>Defined at line 964 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A3BE616038613DE8C849D09F148C78528D7A3D21">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;Elf_Shdr_Range&gt; sections ()</code></pre>
+                                <p>Defined at line 1001 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE3EF3B8B4471FF4C13B280DB1B34623273C7294">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;Elf_Dyn_Range&gt; dynamicEntries ()</code></pre>
+                                <p>Defined at line 624 of file llvm/lib/Object/ELF.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="83D8FBD8BF488928C5A31F5945CEFEB894D00540">
+                                <pre><code class="language-cpp code-clang-doc">Expected toMappedAddr (uint64_t VAddr, function_ref WarnHandler)</code></pre>
+                                <p>Defined at line 675 of file llvm/lib/Object/ELF.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FE492D996B4E554448143BE2A82D01B27D7EA653">
+                                <pre><code class="language-cpp code-clang-doc">std::vector&lt;Elf_Rel&gt; decode_relrs (Elf_Relr_Range relrs)</code></pre>
+                                <p>Defined at line 350 of file llvm/lib/Object/ELF.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0F0B72B394575FEDF55A19E59E3F093FABC0DACD">
+                                <pre><code class="language-cpp code-clang-doc">Expected getCrelHeader (ArrayRef Content)</code></pre>
+                                <p>Defined at line 414 of file llvm/lib/Object/ELF.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7596DCBF3E99175BEF5093CE085828B694F45558">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;RelsOrRelas&gt; decodeCrel (ArrayRef Content)</code></pre>
+                                <p>Defined at line 426 of file llvm/lib/Object/ELF.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4005FAAFC17CCBF98FD37A2C4E750B676C402B7B">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;RelsOrRelas&gt; crels (const Elf_Shdr &amp; Sec)</code></pre>
+                                <p>Defined at line 457 of file llvm/lib/Object/ELF.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3567884776131DC15086B7A64B8F733AFAAF79CE">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;std::vector&lt;Elf_Rela&gt;&gt; android_relas (const Elf_Shdr &amp; Sec)</code></pre>
+                                <p>Defined at line 466 of file llvm/lib/Object/ELF.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A348AEE8DD0CAE6EFF065BF745F8CC089EEC305B">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSectionStringTable (Elf_Shdr_Range Sections, function_ref WarnHandler)</code></pre>
+                                <p>Defined at line 816 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6CD245E0428CCEDF7625FC32B8F6F62E6F2B3FEC">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSectionIndex (const Elf_Sym &amp; Sym, Elf_Sym_Range Syms, DataRegion&lt;Elf_Word&gt; ShndxTable)</code></pre>
+                                <p>Defined at line 610 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B79399830359BC08FFFEEC5EFDC2D15F45D3CAB">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;const Elf_Shdr *&gt; getSection (const Elf_Sym &amp; Sym, const Elf_Shdr * SymTab, DataRegion&lt;Elf_Word&gt; ShndxTable)</code></pre>
+                                <p>Defined at line 627 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F6241BB09B7313597BC040084A7FF519549F9465">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;const Elf_Shdr *&gt; getSection (const Elf_Sym &amp; Sym, Elf_Sym_Range Symtab, DataRegion&lt;Elf_Word&gt; ShndxTable)</code></pre>
+                                <p>Defined at line 637 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4A0E152A129315A6CAC980FF6931F937385D7552">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;const Elf_Shdr *&gt; getSection (uint32_t Index)</code></pre>
+                                <p>Defined at line 1286 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D45762551AB308F93E1D642B845CC72312E91657">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;const Elf_Sym *&gt; getSymbol (const Elf_Shdr * Sec, uint32_t Index)</code></pre>
+                                <p>Defined at line 650 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F422F3FC139E4BF71204651ABC4CE9304AC9D25C">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSectionName (const Elf_Shdr &amp; Section, function_ref WarnHandler)</code></pre>
+                                <p>Defined at line 1400 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F2FAC73CC07749300B89A758606F870BCF97A9C">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSectionName (const Elf_Shdr &amp; Section, StringRef DotShstrtab)</code></pre>
+                                <p>Defined at line 1413 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D7EC8FDA9ED0ED2D741E4FC71B7C96CD59BAD0FB">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;ArrayRef&lt;T&gt;&gt; getSectionContentsAsArray (const Elf_Shdr &amp; Sec)</code></pre>
+                                <p>Defined at line 665 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6264F4BFA61CA793AC06C5DDB19745756E6C82F2">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSectionContents (const Elf_Shdr &amp; Sec)</code></pre>
+                                <p>Defined at line 722 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2A7D183A33579B17ACA78549EF375C5BA137D26">
+                                <pre><code class="language-cpp code-clang-doc">Expected getSegmentContents (const Elf_Phdr &amp; Phdr)</code></pre>
+                                <p>Defined at line 702 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BE5F1665FFD052ACE6094748157A2DEE9F3937E8">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;std::vector&lt;BBAddrMap&gt;&gt; decodeBBAddrMap (const Elf_Shdr &amp; Sec, const Elf_Shdr * RelaSec, std::vector&lt;PGOAnalysisMap&gt; * PGOAnalyses)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a vector of BBAddrMap structs corresponding to each function</p>
+                                        <p> within the text section that the SHT_LLVM_BB_ADDR_MAP section </p>
+                                        <p> is associated with. If the current ELFFile is relocatable, a corresponding</p>
+                                        <p> must be passed in as an argument.</p>
+                                        <p> Optional out variable to collect all PGO Analyses. New elements are only</p>
+                                        <p> added if no error occurs. If not provided, the PGO Analyses are decoded</p>
+                                        <p> then ignored.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1009 of file llvm/lib/Object/ELF.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D0DF763F740596A6E1DE3733B4D2AD939550CBC1">
+                                <pre><code class="language-cpp code-clang-doc">Expected&lt;MapVector&lt;const Elf_Shdr *, const Elf_Shdr *&gt;&gt; getSectionAndRelocations (std::function&lt;Expected&lt;bool&gt; (const Elf_Shdr &amp;)&gt; IsMatch)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a map from every section matching </p>
+                                        <p> to its relocation</p>
+                                        <p> section, or </p>
+                                        <p> if it has no relocation section. This function</p>
+                                        <p> returns an error if any of the </p>
+                                        <p> calls fail or if it fails to</p>
+                                        <p> retrieve the content section of any relocation section.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1021 of file llvm/lib/Object/ELF.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8998EF931BD243939D28F88B713358725B51DBBD">
+                                <pre><code class="language-cpp code-clang-doc">void createFakeSections ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Used by llvm-objdump -d (which needs sections for disassembly) to</p>
+                                        <p> disassemble objects without a section header table (e.g. ET_CORE objects</p>
+                                        <p> analyzed by linux perf or ET_EXEC with llvm-strip --strip-sections).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 976 of file llvm/include/llvm/Object/ELF.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

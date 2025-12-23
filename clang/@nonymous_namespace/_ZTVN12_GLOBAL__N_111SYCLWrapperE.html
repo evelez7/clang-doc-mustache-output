@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SYCLWrapper</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SYCLWrapper</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FF32734CD5D48BB4320549A58BEF45E0681A6242">SYCLWrapper</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C0F983E564BDE5ADAE1734E6CEB798A6673FE33D">createFatbinDesc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8499E696BE62FDF1F9154FB638B1BD1AA0DF95DE">createRegisterFatbinFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FA0E9239B7EAFD1D454F913B7EE02225E7D173F1">createUnregisterFunction</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SYCLWrapper</h1>
+                        <p>Defined at line 643 of file llvm/lib/Frontend/Offloading/OffloadWrapper.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> SYCLWrapper helper class that creates all LLVM IRs wrapping given images.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="FF32734CD5D48BB4320549A58BEF45E0681A6242">
+                                <pre><code class="language-cpp code-clang-doc">void SYCLWrapper (Module &amp; M, const SYCLJITOptions &amp; Options)</code></pre>
+                                <p>Defined at line 645 of file llvm/lib/Frontend/Offloading/OffloadWrapper.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C0F983E564BDE5ADAE1734E6CEB798A6673FE33D">
+                                <pre><code class="language-cpp code-clang-doc">GlobalVariable * createFatbinDesc (ArrayRef OffloadFiles)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Creates binary descriptor for the given device images. Binary descriptor</p>
+                                        <p> is an object that is passed to the offloading runtime at program startup</p>
+                                        <p> and it describes all device images available in the executable or shared</p>
+                                        <p> library. It is defined as follows:</p>
+                                    </div>
+                                    <h3>Code</h3> 
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                 __attribute__((visibility(&quot;hidden&quot;)))
+                                                 __tgt_offload_entry *__sycl_offload_entries_arr0[];
+                                                 ...
+                                                 __attribute__((visibility(&quot;hidden&quot;)))
+                                                 __tgt_offload_entry *__sycl_offload_entries_arrN[];
+                                                
+                                                 __attribute__((visibility(&quot;hidden&quot;)))
+                                                 extern const char *CompileOptions = &quot;...&quot;;
+                                                 ...
+                                                 __attribute__((visibility(&quot;hidden&quot;)))
+                                                 extern const char *LinkOptions = &quot;...&quot;;
+                                                 ...
+                                                
+                                                 static const char Image0[] = { ... };
+                                                  ...
+                                                 static const char ImageN[] = { ... };
+                                                
+                                                 static const __sycl.tgt_device_image Images[] = {
+                                                   {
+                                                     Version,                                      // Version
+                                                     OffloadKind,                                  // OffloadKind
+                                                     Format,                                       // Format of the image.
+                                                      TripleString,                                 // Arch
+                                                     CompileOptions,                               // CompileOptions
+                                                     LinkOptions,                                  // LinkOptions
+                                                     Image0,                                       // ImageStart
+                                                     Image0 + IMAGE0_SIZE,                         // ImageEnd
+                                                     __sycl_offload_entries_arr0,                  // EntriesBegin
+                                                     __sycl_offload_entries_arr0 + ENTRIES0_SIZE,  // EntriesEnd
+                                                     NULL,                                         // PropertiesBegin
+                                                     NULL,                                         // PropertiesEnd
+                                                   },
+                                                   ...
+                                                 };
+                                                
+                                                 static const __sycl.tgt_bin_desc FatbinDesc = {
+                                                   Version,                             //Version
+                                                   sizeof(Images) / sizeof(Images[0]),  //NumDeviceImages
+                                                   Images,                              //DeviceImages
+                                                   NULL,                                //HostEntriesBegin
+                                                   NULL                                 //HostEntriesEnd
+                                                 };
+                                            </code>
+                                        </pre>
+                                    </div>
+                                </div>
+                                <p>Defined at line 703 of file llvm/lib/Frontend/Offloading/OffloadWrapper.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8499E696BE62FDF1F9154FB638B1BD1AA0DF95DE">
+                                <pre><code class="language-cpp code-clang-doc">void createRegisterFatbinFunction (GlobalVariable * FatbinDesc)</code></pre>
+                                <p>Defined at line 714 of file llvm/lib/Frontend/Offloading/OffloadWrapper.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FA0E9239B7EAFD1D454F913B7EE02225E7D173F1">
+                                <pre><code class="language-cpp code-clang-doc">void createUnregisterFunction (GlobalVariable * FatbinDesc)</code></pre>
+                                <p>Defined at line 737 of file llvm/lib/Frontend/Offloading/OffloadWrapper.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

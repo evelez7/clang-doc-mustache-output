@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DWARFCFIAnalysis</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class DWARFCFIAnalysis</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1ADC352C9A6F2BDF2E7558A397833166497A4536">DWARFCFIAnalysis</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9AE84CA1AB302DEF8955995A1AA3D93B755AA43E">update</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class DWARFCFIAnalysis</h1>
+                        <p>Defined at line 76 of file llvm/include/llvm/DWARFCFIChecker/DWARFCFIAnalysis.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> `DWARFCFIAnalysis` validates the DWARF Call Frame Information one machine</p>
+                                <p> instruction at a time. This class maintains an internal CFI state</p>
+                                <p> initialized with the prologue directives and updated with each instruction&#39;s</p>
+                                <p> associated directives. In each update, it checks if the machine</p>
+                                <p> instruction changes the CFI state in a way that matches the changes</p>
+                                <p> from the CFI directives. This checking may results in errors and warnings.</p>
+                            </div>
+                            <div>
+                                <p> In current stage, the analysis is only aware of what registers the</p>
+                                <p> instruction modifies. If the modification is happening to a sub-register,</p>
+                                <p> the analysis considers the super-register is modified.</p>
+                            </div>
+                            <div>
+                                <p> In each update, for each register (or CFA), the following cases can happen:</p>
+                                <p> 1. The unwinding rule is not changed:</p>
+                                <p>   a. The registers involved in this rule are not modified: the analysis</p>
+                                <p>      proceeds without emitting error or warning.</p>
+                                <p>   b. The registers involved in this rule are modified: it emits an error.</p>
+                                <p> 2. The unwinding rule is changed:</p>
+                                <p>   a. The rule is structurally modified (i.e., the location is changed): It</p>
+                                <p>      emits a warning.</p>
+                                <p>   b. The rule is structurally the same, but the register set is changed: it</p>
+                                <p>      emits a warning.</p>
+                                <p>   c. The rule is structurally the same, using the same set of registers, but</p>
+                                <p>      the offset is changed:</p>
+                                <p>      i. If the registers included in the rule are modified as well: It</p>
+                                <p>         emits a warning.</p>
+                                <p>     ii. If the registers included in the rule are not modified: It emits an</p>
+                                <p>         error.</p>
+                            </div>
+                            <div>
+                                <p> The analysis only checks the CFA unwinding rule when the rule is a register</p>
+                                <p> plus some offset. Therefore, for CFA, only cases 1, 2.b, and 2.c are</p>
+                                <p> checked, and in all other case(s), a warning is emitted.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="1ADC352C9A6F2BDF2E7558A397833166497A4536">
+                                <pre><code class="language-cpp code-clang-doc">void DWARFCFIAnalysis (MCContext * Context, const MCInstrInfo &amp; MCII, bool IsEH, ArrayRef Prologue)</code></pre>
+                                <p>Defined at line 83 of file llvm/lib/DWARFCFIChecker/DWARFCFIAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9AE84CA1AB302DEF8955995A1AA3D93B755AA43E">
+                                <pre><code class="language-cpp code-clang-doc">void update (const MCInst &amp; Inst, ArrayRef Directives)</code></pre>
+                                <p>Defined at line 125 of file llvm/lib/DWARFCFIChecker/DWARFCFIAnalysis.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

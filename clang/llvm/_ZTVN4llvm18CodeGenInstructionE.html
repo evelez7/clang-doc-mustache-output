@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CodeGenInstruction</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class CodeGenInstruction</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TheDef">TheDef</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Namespace">Namespace</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AsmString">AsmString</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Operands">Operands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ImplicitDefs">ImplicitDefs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ImplicitUses">ImplicitUses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isPreISelOpcode">isPreISelOpcode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isReturn">isReturn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isEHScopeReturn">isEHScopeReturn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isBranch">isBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isIndirectBranch">isIndirectBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isCompare">isCompare</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isMoveImm">isMoveImm</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isMoveReg">isMoveReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isBitcast">isBitcast</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isSelect">isSelect</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isBarrier">isBarrier</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isCall">isCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isAdd">isAdd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isTrap">isTrap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#canFoldAsLoad">canFoldAsLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#mayLoad">mayLoad</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#mayLoad_Unset">mayLoad_Unset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#mayStore">mayStore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#mayStore_Unset">mayStore_Unset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#mayRaiseFPException">mayRaiseFPException</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isPredicable">isPredicable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isConvertibleToThreeAddress">isConvertibleToThreeAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isCommutable">isCommutable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isTerminator">isTerminator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isReMaterializable">isReMaterializable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasDelaySlot">hasDelaySlot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#usesCustomInserter">usesCustomInserter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasPostISelHook">hasPostISelHook</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasCtrlDep">hasCtrlDep</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isNotDuplicable">isNotDuplicable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasSideEffects">hasSideEffects</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasSideEffects_Unset">hasSideEffects_Unset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isAsCheapAsAMove">isAsCheapAsAMove</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasExtraSrcRegAllocReq">hasExtraSrcRegAllocReq</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasExtraDefRegAllocReq">hasExtraDefRegAllocReq</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isCodeGenOnly">isCodeGenOnly</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isPseudo">isPseudo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isMeta">isMeta</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isRegSequence">isRegSequence</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isExtractSubreg">isExtractSubreg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isInsertSubreg">isInsertSubreg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isConvergent">isConvergent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasNoSchedulingInfo">hasNoSchedulingInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FastISelShouldIgnore">FastISelShouldIgnore</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasChain">hasChain</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasChain_Inferred">hasChain_Inferred</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#variadicOpsAreDefs">variadicOpsAreDefs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isAuthenticated">isAuthenticated</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DeprecatedReason">DeprecatedReason</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#HasComplexDeprecationPredicate">HasComplexDeprecationPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#InferredFrom">InferredFrom</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EnumVal">EnumVal</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#32B2ECE69B3CE93C950FD37968C117A46EDD6382">hasUndefFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#62B6C7A847EB40B6B48659B91345823DBC15329A">isInOperandAPointer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#11CA73453C48BEF21F622D409A5B88205A2E9B22">isOutOperandAPointer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DC451DBF5DAF9259C1159C353C6EB101E4A458A6">isInOperandImmArg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F41FE52C517BD8CD7F6CCB405D311C2CE62CA73F">isVariableLengthEncoding</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26085131CD1C5FF8922C4C6A39882866B4883FFA">getName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7CF05B02E462687BE85327754EE5FDEB42BE9E00">CodeGenInstruction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8775A85E8E33FD3BED1ED794EFC4B3970F473414">HasOneImplicitDefWithKnownVT</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2984BE0521F7D90FA9B59093EE82291B2AE9835B">FlattenAsmStringVariants</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class CodeGenInstruction</h1>
+                        <p>Defined at line 205 of file llvm/utils/TableGen/Common/../Common/CodeGenInstruction.h</p>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="TheDef" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const Record * TheDef</code></pre>
+                        </div>
+                        <div id="Namespace" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >StringRef Namespace</code></pre>
+                        </div>
+                        <div id="AsmString" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >StringRef AsmString</code></pre>
+                        </div>
+                        <div id="Operands" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >CGIOperandList Operands</code></pre>
+                        </div>
+                        <div id="ImplicitDefs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int ImplicitDefs</code></pre>
+                        </div>
+                        <div id="ImplicitUses" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int ImplicitUses</code></pre>
+                        </div>
+                        <div id="isPreISelOpcode" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isPreISelOpcode</code></pre>
+                        </div>
+                        <div id="isReturn" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isReturn</code></pre>
+                        </div>
+                        <div id="isEHScopeReturn" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isEHScopeReturn</code></pre>
+                        </div>
+                        <div id="isBranch" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isBranch</code></pre>
+                        </div>
+                        <div id="isIndirectBranch" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isIndirectBranch</code></pre>
+                        </div>
+                        <div id="isCompare" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isCompare</code></pre>
+                        </div>
+                        <div id="isMoveImm" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isMoveImm</code></pre>
+                        </div>
+                        <div id="isMoveReg" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isMoveReg</code></pre>
+                        </div>
+                        <div id="isBitcast" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isBitcast</code></pre>
+                        </div>
+                        <div id="isSelect" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isSelect</code></pre>
+                        </div>
+                        <div id="isBarrier" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isBarrier</code></pre>
+                        </div>
+                        <div id="isCall" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isCall</code></pre>
+                        </div>
+                        <div id="isAdd" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isAdd</code></pre>
+                        </div>
+                        <div id="isTrap" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isTrap</code></pre>
+                        </div>
+                        <div id="canFoldAsLoad" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool canFoldAsLoad</code></pre>
+                        </div>
+                        <div id="mayLoad" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool mayLoad</code></pre>
+                        </div>
+                        <div id="mayLoad_Unset" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool mayLoad_Unset</code></pre>
+                        </div>
+                        <div id="mayStore" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool mayStore</code></pre>
+                        </div>
+                        <div id="mayStore_Unset" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool mayStore_Unset</code></pre>
+                        </div>
+                        <div id="mayRaiseFPException" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool mayRaiseFPException</code></pre>
+                        </div>
+                        <div id="isPredicable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isPredicable</code></pre>
+                        </div>
+                        <div id="isConvertibleToThreeAddress" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isConvertibleToThreeAddress</code></pre>
+                        </div>
+                        <div id="isCommutable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isCommutable</code></pre>
+                        </div>
+                        <div id="isTerminator" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isTerminator</code></pre>
+                        </div>
+                        <div id="isReMaterializable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isReMaterializable</code></pre>
+                        </div>
+                        <div id="hasDelaySlot" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasDelaySlot</code></pre>
+                        </div>
+                        <div id="usesCustomInserter" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool usesCustomInserter</code></pre>
+                        </div>
+                        <div id="hasPostISelHook" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasPostISelHook</code></pre>
+                        </div>
+                        <div id="hasCtrlDep" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasCtrlDep</code></pre>
+                        </div>
+                        <div id="isNotDuplicable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isNotDuplicable</code></pre>
+                        </div>
+                        <div id="hasSideEffects" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasSideEffects</code></pre>
+                        </div>
+                        <div id="hasSideEffects_Unset" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasSideEffects_Unset</code></pre>
+                        </div>
+                        <div id="isAsCheapAsAMove" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isAsCheapAsAMove</code></pre>
+                        </div>
+                        <div id="hasExtraSrcRegAllocReq" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasExtraSrcRegAllocReq</code></pre>
+                        </div>
+                        <div id="hasExtraDefRegAllocReq" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasExtraDefRegAllocReq</code></pre>
+                        </div>
+                        <div id="isCodeGenOnly" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isCodeGenOnly</code></pre>
+                        </div>
+                        <div id="isPseudo" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isPseudo</code></pre>
+                        </div>
+                        <div id="isMeta" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isMeta</code></pre>
+                        </div>
+                        <div id="isRegSequence" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isRegSequence</code></pre>
+                        </div>
+                        <div id="isExtractSubreg" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isExtractSubreg</code></pre>
+                        </div>
+                        <div id="isInsertSubreg" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isInsertSubreg</code></pre>
+                        </div>
+                        <div id="isConvergent" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isConvergent</code></pre>
+                        </div>
+                        <div id="hasNoSchedulingInfo" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasNoSchedulingInfo</code></pre>
+                        </div>
+                        <div id="FastISelShouldIgnore" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool FastISelShouldIgnore</code></pre>
+                        </div>
+                        <div id="hasChain" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasChain</code></pre>
+                        </div>
+                        <div id="hasChain_Inferred" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasChain_Inferred</code></pre>
+                        </div>
+                        <div id="variadicOpsAreDefs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool variadicOpsAreDefs</code></pre>
+                        </div>
+                        <div id="isAuthenticated" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isAuthenticated</code></pre>
+                        </div>
+                        <div id="DeprecatedReason" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >basic_string DeprecatedReason</code></pre>
+                        </div>
+                        <div id="HasComplexDeprecationPredicate" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool HasComplexDeprecationPredicate</code></pre>
+                        </div>
+                        <div id="InferredFrom" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const Record * InferredFrom</code></pre>
+                        </div>
+                        <div id="EnumVal" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int EnumVal</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="32B2ECE69B3CE93C950FD37968C117A46EDD6382">
+                                <pre><code class="language-cpp code-clang-doc">bool hasUndefFlags ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Are there any undefined flags?</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 276 of file llvm/utils/TableGen/Common/../Common/CodeGenInstruction.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="62B6C7A847EB40B6B48659B91345823DBC15329A">
+                                <pre><code class="language-cpp code-clang-doc">bool isInOperandAPointer (unsigned int i)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Is the specified operand in a generic instruction implicitly a pointer.</p>
+                                        <p> This can be used on intructions that use typeN or ptypeN to identify</p>
+                                        <p> operands that should be considered as pointers even though SelectionDAG</p>
+                                        <p> didn&#39;t make a distinction between integer and pointers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 303 of file llvm/utils/TableGen/Common/../Common/CodeGenInstruction.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="11CA73453C48BEF21F622D409A5B88205A2E9B22">
+                                <pre><code class="language-cpp code-clang-doc">bool isOutOperandAPointer (unsigned int i)</code></pre>
+                                <p>Defined at line 307 of file llvm/utils/TableGen/Common/../Common/CodeGenInstruction.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DC451DBF5DAF9259C1159C353C6EB101E4A458A6">
+                                <pre><code class="language-cpp code-clang-doc">bool isInOperandImmArg (unsigned int i)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if the operand is required to be an immediate.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 312 of file llvm/utils/TableGen/Common/../Common/CodeGenInstruction.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F41FE52C517BD8CD7F6CCB405D311C2CE62CA73F">
+                                <pre><code class="language-cpp code-clang-doc">bool isVariableLengthEncoding ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the instruction uses a variable length encoding.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 317 of file llvm/utils/TableGen/Common/../Common/CodeGenInstruction.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="26085131CD1C5FF8922C4C6A39882866B4883FFA">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getName ()</code></pre>
+                                <p>Defined at line 322 of file llvm/utils/TableGen/Common/../Common/CodeGenInstruction.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7CF05B02E462687BE85327754EE5FDEB42BE9E00">
+                                <pre><code class="language-cpp code-clang-doc">void CodeGenInstruction (const Record * R)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                        <p> CodeGenInstruction Implementation</p>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 419 of file llvm/utils/TableGen/Common/CodeGenInstruction.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8775A85E8E33FD3BED1ED794EFC4B3970F473414">
+                                <pre><code class="language-cpp code-clang-doc">MVT HasOneImplicitDefWithKnownVT (const CodeGenTarget &amp; TargetInfo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> HasOneImplicitDefWithKnownVT - If the instruction has at least one</p>
+                                        <p> implicit def and it has a known VT, return the VT, otherwise return</p>
+                                        <p> MVT::Other.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 502 of file llvm/utils/TableGen/Common/CodeGenInstruction.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2984BE0521F7D90FA9B59093EE82291B2AE9835B">
+                                <pre><code class="language-cpp code-clang-doc">basic_string FlattenAsmStringVariants (StringRef AsmString, unsigned int Variant)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> FlattenAsmStringVariants - Flatten the specified AsmString to only</p>
+                                        <p> include text from the specified variant, returning the new string.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 519 of file llvm/utils/TableGen/Common/CodeGenInstruction.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

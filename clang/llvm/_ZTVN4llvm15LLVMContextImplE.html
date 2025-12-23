@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LLVMContextImpl</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LLVMContextImpl</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#OwnedModules">OwnedModules</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MachineFunctionNums">MachineFunctionNums</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MainRemarkStreamer">MainRemarkStreamer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DiagHandler">DiagHandler</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#RespectDiagnosticFilters">RespectDiagnosticFilters</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DiagnosticsHotnessRequested">DiagnosticsHotnessRequested</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DiagnosticsHotnessThreshold">DiagnosticsHotnessThreshold</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DiagnosticsMisExpectTolerance">DiagnosticsMisExpectTolerance</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MisExpectWarningRequested">MisExpectWarningRequested</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LLVMRS">LLVMRS</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#YieldCallback">YieldCallback</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#YieldOpaqueHandle">YieldOpaqueHandle</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ValueNames">ValueNames</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#IntZeroConstants">IntZeroConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#IntOneConstants">IntOneConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#IntConstants">IntConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#IntSplatConstants">IntSplatConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FPConstants">FPConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FPSplatConstants">FPSplatConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AttrsSet">AttrsSet</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AttrsLists">AttrsLists</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AttrsSetNodes">AttrsSetNodes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MDStringCache">MDStringCache</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ValuesAsMetadata">ValuesAsMetadata</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MetadataAsValues">MetadataAsValues</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIArgLists">DIArgLists</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MDTuples">MDTuples</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DILocations">DILocations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIExpressions">DIExpressions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIGlobalVariableExpressions">DIGlobalVariableExpressions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#GenericDINodes">GenericDINodes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DISubranges">DISubranges</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIEnumerators">DIEnumerators</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIBasicTypes">DIBasicTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIDerivedTypes">DIDerivedTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DICompositeTypes">DICompositeTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DISubroutineTypes">DISubroutineTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIFiles">DIFiles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DISubprograms">DISubprograms</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DILexicalBlocks">DILexicalBlocks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DILexicalBlockFiles">DILexicalBlockFiles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DINamespaces">DINamespaces</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIModules">DIModules</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DITemplateTypeParameters">DITemplateTypeParameters</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DITemplateValueParameters">DITemplateValueParameters</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIGlobalVariables">DIGlobalVariables</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DILocalVariables">DILocalVariables</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DILabels">DILabels</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIObjCPropertys">DIObjCPropertys</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIImportedEntitys">DIImportedEntitys</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIMacros">DIMacros</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIMacroFiles">DIMacroFiles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DICommonBlocks">DICommonBlocks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIStringTypes">DIStringTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIGenericSubranges">DIGenericSubranges</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DISubrangeTypes">DISubrangeTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DIFixedPointTypes">DIFixedPointTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DITypeMap">DITypeMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DistinctMDNodes">DistinctMDNodes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ConstantRangeListAttributes">ConstantRangeListAttributes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CAZConstants">CAZConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ArrayConstants">ArrayConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#StructConstants">StructConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#VectorConstants">VectorConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CPNConstants">CPNConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CTNConstants">CTNConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#UVConstants">UVConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#PVConstants">PVConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CDSConstants">CDSConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BlockAddresses">BlockAddresses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DSOLocalEquivalents">DSOLocalEquivalents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NoCFIValues">NoCFIValues</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ConstantPtrAuths">ConstantPtrAuths</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ExprConstants">ExprConstants</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#InlineAsms">InlineAsms</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TheTrueVal">TheTrueVal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TheFalseVal">TheFalseVal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#VoidTy">VoidTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LabelTy">LabelTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#HalfTy">HalfTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BFloatTy">BFloatTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FloatTy">FloatTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DoubleTy">DoubleTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MetadataTy">MetadataTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TokenTy">TokenTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#X86_FP80Ty">X86_FP80Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FP128Ty">FP128Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#PPC_FP128Ty">PPC_FP128Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#X86_AMXTy">X86_AMXTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Int1Ty">Int1Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Int8Ty">Int8Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Int16Ty">Int16Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Int32Ty">Int32Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Int64Ty">Int64Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Int128Ty">Int128Ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TheNoneToken">TheNoneToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Alloc">Alloc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Saver">Saver</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ConstantRangeAttributeAlloc">ConstantRangeAttributeAlloc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#IntegerTypes">IntegerTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FunctionTypes">FunctionTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AnonStructTypes">AnonStructTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NamedStructTypes">NamedStructTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NamedStructTypesUniqueID">NamedStructTypesUniqueID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TargetExtTypes">TargetExtTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ArrayTypes">ArrayTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#VectorTypes">VectorTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AS0PointerType">AS0PointerType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#PointerTypes">PointerTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ASTypedPointerTypes">ASTypedPointerTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ValueHandles">ValueHandles</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CustomMDKindNames">CustomMDKindNames</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ValueMetadata">ValueMetadata</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AssignmentIDToInstrs">AssignmentIDToInstrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#GlobalObjectSections">GlobalObjectSections</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#GlobalValuePartitions">GlobalValuePartitions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#GlobalValueSanitizerMetadata">GlobalValueSanitizerMetadata</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DiscriminatorTable">DiscriminatorTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BundleTagCache">BundleTagCache</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SSC">SSC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#GCNames">GCNames</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DiscardValueNames">DiscardValueNames</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#OPG">OPG</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TrailingDbgRecords">TrailingDbgRecords</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DefaultTargetCPU">DefaultTargetCPU</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DefaultTargetFeatures">DefaultTargetFeatures</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NextAtomGroup">NextAtomGroup</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E7C3FCDA35174FAAF1D3E43F9E0860613B8003BD">getOrInsertBundleTag</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9ED515DB4D937E2CD60CA0A67A8D34BB6C6FAE18">getOperandBundleTags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9E26C447CBB4C8A64A9828BC81C6FEB5D9AE3845">getOperandBundleTagID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3280BE92FC1B191E39B70A7EF9743C54DEF57C72">getOrInsertSyncScopeID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FEEBAC2E8C002986F8F389471158FC00770FAE27">getSyncScopeNames</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#08DF1B9E254B36F4456AC1DC419BFB2B7285D05E">getSyncScopeName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23333723AB3081AEF403DD19B884528B0E76696D">LLVMContextImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#730E3950E6F408734D5DFD4A5653AE2EF14BD1AB">~LLVMContextImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE91476B82C684A6F533287E67931B5E14CBDB09">getOptPassGate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#80DAC58ECAAD285E53BD40240E05FFCE8F4BEC80">setOptPassGate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3F8E6E825FEEB95CF3EB147BCA26DC7E5B4AFF2A">setTrailingDbgRecords</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5FD2DB020082F712F2CB6E3E68AFBF16237C9CB0">getTrailingDbgRecords</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#048596E94BAC23AE997F48A07D5C25B1689A0D5F">deleteTrailingDbgRecords</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LLVMContextImpl</h1>
+                        <p>Defined at line 1620 of file llvm/lib/IR/LLVMContextImpl.h</p>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="OwnedModules" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallPtrSet OwnedModules</code></pre>
+                        </div>
+                        <div id="MachineFunctionNums" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap MachineFunctionNums</code></pre>
+                        </div>
+                        <div id="MainRemarkStreamer" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr MainRemarkStreamer</code></pre>
+                        </div>
+                        <div id="DiagHandler" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr DiagHandler</code></pre>
+                        </div>
+                        <div id="RespectDiagnosticFilters" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool RespectDiagnosticFilters</code></pre>
+                        </div>
+                        <div id="DiagnosticsHotnessRequested" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool DiagnosticsHotnessRequested</code></pre>
+                        </div>
+                        <div id="DiagnosticsHotnessThreshold" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >optional DiagnosticsHotnessThreshold</code></pre>
+                        </div>
+                        <div id="DiagnosticsMisExpectTolerance" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >optional DiagnosticsMisExpectTolerance</code></pre>
+                        </div>
+                        <div id="MisExpectWarningRequested" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool MisExpectWarningRequested</code></pre>
+                        </div>
+                        <div id="LLVMRS" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr LLVMRS</code></pre>
+                        </div>
+                        <div id="YieldCallback" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LLVMContext::YieldCallbackTy YieldCallback</code></pre>
+                        </div>
+                        <div id="YieldOpaqueHandle" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >void * YieldOpaqueHandle</code></pre>
+                        </div>
+                        <div id="ValueNames" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap ValueNames</code></pre>
+                        </div>
+                        <div id="IntZeroConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap IntZeroConstants</code></pre>
+                        </div>
+                        <div id="IntOneConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap IntOneConstants</code></pre>
+                        </div>
+                        <div id="IntConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap IntConstants</code></pre>
+                        </div>
+                        <div id="IntSplatConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap IntSplatConstants</code></pre>
+                        </div>
+                        <div id="FPConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap FPConstants</code></pre>
+                        </div>
+                        <div id="FPSplatConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap FPSplatConstants</code></pre>
+                        </div>
+                        <div id="AttrsSet" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >FoldingSet AttrsSet</code></pre>
+                        </div>
+                        <div id="AttrsLists" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >FoldingSet AttrsLists</code></pre>
+                        </div>
+                        <div id="AttrsSetNodes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >FoldingSet AttrsSetNodes</code></pre>
+                        </div>
+                        <div id="MDStringCache" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >StringMap MDStringCache</code></pre>
+                        </div>
+                        <div id="ValuesAsMetadata" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap ValuesAsMetadata</code></pre>
+                        </div>
+                        <div id="MetadataAsValues" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap MetadataAsValues</code></pre>
+                        </div>
+                        <div id="DIArgLists" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIArgLists</code></pre>
+                        </div>
+                        <div id="MDTuples" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet MDTuples</code></pre>
+                        </div>
+                        <div id="DILocations" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DILocations</code></pre>
+                        </div>
+                        <div id="DIExpressions" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIExpressions</code></pre>
+                        </div>
+                        <div id="DIGlobalVariableExpressions" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIGlobalVariableExpressions</code></pre>
+                        </div>
+                        <div id="GenericDINodes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet GenericDINodes</code></pre>
+                        </div>
+                        <div id="DISubranges" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DISubranges</code></pre>
+                        </div>
+                        <div id="DIEnumerators" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIEnumerators</code></pre>
+                        </div>
+                        <div id="DIBasicTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIBasicTypes</code></pre>
+                        </div>
+                        <div id="DIDerivedTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIDerivedTypes</code></pre>
+                        </div>
+                        <div id="DICompositeTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DICompositeTypes</code></pre>
+                        </div>
+                        <div id="DISubroutineTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DISubroutineTypes</code></pre>
+                        </div>
+                        <div id="DIFiles" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIFiles</code></pre>
+                        </div>
+                        <div id="DISubprograms" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DISubprograms</code></pre>
+                        </div>
+                        <div id="DILexicalBlocks" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DILexicalBlocks</code></pre>
+                        </div>
+                        <div id="DILexicalBlockFiles" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DILexicalBlockFiles</code></pre>
+                        </div>
+                        <div id="DINamespaces" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DINamespaces</code></pre>
+                        </div>
+                        <div id="DIModules" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIModules</code></pre>
+                        </div>
+                        <div id="DITemplateTypeParameters" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DITemplateTypeParameters</code></pre>
+                        </div>
+                        <div id="DITemplateValueParameters" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DITemplateValueParameters</code></pre>
+                        </div>
+                        <div id="DIGlobalVariables" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIGlobalVariables</code></pre>
+                        </div>
+                        <div id="DILocalVariables" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DILocalVariables</code></pre>
+                        </div>
+                        <div id="DILabels" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DILabels</code></pre>
+                        </div>
+                        <div id="DIObjCPropertys" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIObjCPropertys</code></pre>
+                        </div>
+                        <div id="DIImportedEntitys" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIImportedEntitys</code></pre>
+                        </div>
+                        <div id="DIMacros" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIMacros</code></pre>
+                        </div>
+                        <div id="DIMacroFiles" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIMacroFiles</code></pre>
+                        </div>
+                        <div id="DICommonBlocks" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DICommonBlocks</code></pre>
+                        </div>
+                        <div id="DIStringTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIStringTypes</code></pre>
+                        </div>
+                        <div id="DIGenericSubranges" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIGenericSubranges</code></pre>
+                        </div>
+                        <div id="DISubrangeTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DISubrangeTypes</code></pre>
+                        </div>
+                        <div id="DIFixedPointTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet DIFixedPointTypes</code></pre>
+                        </div>
+                        <div id="DITypeMap" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >optional DITypeMap</code></pre>
+                        </div>
+                        <div id="DistinctMDNodes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >vector DistinctMDNodes</code></pre>
+                        </div>
+                        <div id="ConstantRangeListAttributes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >vector ConstantRangeListAttributes</code></pre>
+                        </div>
+                        <div id="CAZConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap CAZConstants</code></pre>
+                        </div>
+                        <div id="ArrayConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >ConstantUniqueMap ArrayConstants</code></pre>
+                        </div>
+                        <div id="StructConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >ConstantUniqueMap StructConstants</code></pre>
+                        </div>
+                        <div id="VectorConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >ConstantUniqueMap VectorConstants</code></pre>
+                        </div>
+                        <div id="CPNConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap CPNConstants</code></pre>
+                        </div>
+                        <div id="CTNConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap CTNConstants</code></pre>
+                        </div>
+                        <div id="UVConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap UVConstants</code></pre>
+                        </div>
+                        <div id="PVConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap PVConstants</code></pre>
+                        </div>
+                        <div id="CDSConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >StringMap CDSConstants</code></pre>
+                        </div>
+                        <div id="BlockAddresses" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap BlockAddresses</code></pre>
+                        </div>
+                        <div id="DSOLocalEquivalents" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap DSOLocalEquivalents</code></pre>
+                        </div>
+                        <div id="NoCFIValues" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap NoCFIValues</code></pre>
+                        </div>
+                        <div id="ConstantPtrAuths" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >ConstantUniqueMap ConstantPtrAuths</code></pre>
+                        </div>
+                        <div id="ExprConstants" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >ConstantUniqueMap ExprConstants</code></pre>
+                        </div>
+                        <div id="InlineAsms" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >ConstantUniqueMap InlineAsms</code></pre>
+                        </div>
+                        <div id="TheTrueVal" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >ConstantInt * TheTrueVal</code></pre>
+                        </div>
+                        <div id="TheFalseVal" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >ConstantInt * TheFalseVal</code></pre>
+                        </div>
+                        <div id="VoidTy" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Type VoidTy</code></pre>
+                        </div>
+                        <div id="LabelTy" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Type LabelTy</code></pre>
+                        </div>
+                        <div id="HalfTy" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Type HalfTy</code></pre>
+                        </div>
+                        <div id="BFloatTy" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Type BFloatTy</code></pre>
+                        </div>
+                        <div id="FloatTy" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Type FloatTy</code></pre>
+                        </div>
+                        <div id="DoubleTy" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Type DoubleTy</code></pre>
+                        </div>
+                        <div id="MetadataTy" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Type MetadataTy</code></pre>
+                        </div>
+                        <div id="TokenTy" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Type TokenTy</code></pre>
+                        </div>
+                        <div id="X86_FP80Ty" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Type X86_FP80Ty</code></pre>
+                        </div>
+                        <div id="FP128Ty" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Type FP128Ty</code></pre>
+                        </div>
+                        <div id="PPC_FP128Ty" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Type PPC_FP128Ty</code></pre>
+                        </div>
+                        <div id="X86_AMXTy" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Type X86_AMXTy</code></pre>
+                        </div>
+                        <div id="Int1Ty" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >IntegerType Int1Ty</code></pre>
+                        </div>
+                        <div id="Int8Ty" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >IntegerType Int8Ty</code></pre>
+                        </div>
+                        <div id="Int16Ty" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >IntegerType Int16Ty</code></pre>
+                        </div>
+                        <div id="Int32Ty" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >IntegerType Int32Ty</code></pre>
+                        </div>
+                        <div id="Int64Ty" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >IntegerType Int64Ty</code></pre>
+                        </div>
+                        <div id="Int128Ty" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >IntegerType Int128Ty</code></pre>
+                        </div>
+                        <div id="TheNoneToken" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr TheNoneToken</code></pre>
+                        </div>
+                        <div id="Alloc" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >BumpPtrAllocatorImpl Alloc</code></pre>
+                        </div>
+                        <div id="Saver" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >UniqueStringSaver Saver</code></pre>
+                        </div>
+                        <div id="ConstantRangeAttributeAlloc" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SpecificBumpPtrAllocator ConstantRangeAttributeAlloc</code></pre>
+                        </div>
+                        <div id="IntegerTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap IntegerTypes</code></pre>
+                        </div>
+                        <div id="FunctionTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet FunctionTypes</code></pre>
+                        </div>
+                        <div id="AnonStructTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet AnonStructTypes</code></pre>
+                        </div>
+                        <div id="NamedStructTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >StringMap NamedStructTypes</code></pre>
+                        </div>
+                        <div id="NamedStructTypesUniqueID" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int NamedStructTypesUniqueID</code></pre>
+                        </div>
+                        <div id="TargetExtTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseSet TargetExtTypes</code></pre>
+                        </div>
+                        <div id="ArrayTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap ArrayTypes</code></pre>
+                        </div>
+                        <div id="VectorTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap VectorTypes</code></pre>
+                        </div>
+                        <div id="AS0PointerType" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >PointerType * AS0PointerType</code></pre>
+                        </div>
+                        <div id="PointerTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap PointerTypes</code></pre>
+                        </div>
+                        <div id="ASTypedPointerTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap ASTypedPointerTypes</code></pre>
+                        </div>
+                        <div id="ValueHandles" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap ValueHandles</code></pre>
+                        </div>
+                        <div id="CustomMDKindNames" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >StringMap CustomMDKindNames</code></pre>
+                        </div>
+                        <div id="ValueMetadata" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap ValueMetadata</code></pre>
+                        </div>
+                        <div id="AssignmentIDToInstrs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap AssignmentIDToInstrs</code></pre>
+                        </div>
+                        <div id="GlobalObjectSections" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap GlobalObjectSections</code></pre>
+                        </div>
+                        <div id="GlobalValuePartitions" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap GlobalValuePartitions</code></pre>
+                        </div>
+                        <div id="GlobalValueSanitizerMetadata" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap GlobalValueSanitizerMetadata</code></pre>
+                        </div>
+                        <div id="DiscriminatorTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap DiscriminatorTable</code></pre>
+                        </div>
+                        <div id="BundleTagCache" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >StringMap BundleTagCache</code></pre>
+                        </div>
+                        <div id="SSC" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >StringMap SSC</code></pre>
+                        </div>
+                        <div id="GCNames" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap GCNames</code></pre>
+                        </div>
+                        <div id="DiscardValueNames" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool DiscardValueNames</code></pre>
+                        </div>
+                        <div id="OPG" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >OptPassGate * OPG</code></pre>
+                        </div>
+                        <div id="TrailingDbgRecords" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallDenseMap TrailingDbgRecords</code></pre>
+                        </div>
+                        <div id="DefaultTargetCPU" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >basic_string DefaultTargetCPU</code></pre>
+                        </div>
+                        <div id="DefaultTargetFeatures" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >basic_string DefaultTargetFeatures</code></pre>
+                        </div>
+                        <div id="NextAtomGroup" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >uint64_t NextAtomGroup</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="E7C3FCDA35174FAAF1D3E43F9E0860613B8003BD">
+                                <pre><code class="language-cpp code-clang-doc">StringMapEntry&lt;uint32_t&gt; * getOrInsertBundleTag (StringRef Tag)</code></pre>
+                                <p>Defined at line 185 of file llvm/lib/IR/LLVMContextImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9ED515DB4D937E2CD60CA0A67A8D34BB6C6FAE18">
+                                <pre><code class="language-cpp code-clang-doc">void getOperandBundleTags (SmallVectorImpl&lt;StringRef&gt; &amp; Tags)</code></pre>
+                                <p>Defined at line 190 of file llvm/lib/IR/LLVMContextImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9E26C447CBB4C8A64A9828BC81C6FEB5D9AE3845">
+                                <pre><code class="language-cpp code-clang-doc">uint32_t getOperandBundleTagID (StringRef Tag)</code></pre>
+                                <p>Defined at line 196 of file llvm/lib/IR/LLVMContextImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3280BE92FC1B191E39B70A7EF9743C54DEF57C72">
+                                <pre><code class="language-cpp code-clang-doc">SyncScope::ID getOrInsertSyncScopeID (StringRef SSN)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getOrInsertSyncScopeID - Maps synchronization scope name to</p>
+                                        <p> synchronization scope ID.  Every synchronization scope registered with</p>
+                                        <p> LLVMContext has unique ID except pre-defined ones.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 202 of file llvm/lib/IR/LLVMContextImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FEEBAC2E8C002986F8F389471158FC00770FAE27">
+                                <pre><code class="language-cpp code-clang-doc">void getSyncScopeNames (SmallVectorImpl&lt;StringRef&gt; &amp; SSNs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getSyncScopeNames - Populates client supplied SmallVector with</p>
+                                        <p> synchronization scope names registered with LLVMContext.  Synchronization</p>
+                                        <p> scope names are ordered by increasing synchronization scope IDs.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 209 of file llvm/lib/IR/LLVMContextImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="08DF1B9E254B36F4456AC1DC419BFB2B7285D05E">
+                                <pre><code class="language-cpp code-clang-doc">optional getSyncScopeName (SyncScope::ID Id)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getSyncScopeName - Returns the name of a SyncScope::ID</p>
+                                        <p> registered with LLVMContext, if any.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 216 of file llvm/lib/IR/LLVMContextImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23333723AB3081AEF403DD19B884528B0E76696D">
+                                <pre><code class="language-cpp code-clang-doc">void LLVMContextImpl (LLVMContext &amp; C)</code></pre>
+                                <p>Defined at line 31 of file llvm/lib/IR/LLVMContextImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="730E3950E6F408734D5DFD4A5653AE2EF14BD1AB">
+                                <pre><code class="language-cpp code-clang-doc">void ~LLVMContextImpl ()</code></pre>
+                                <p>Defined at line 42 of file llvm/lib/IR/LLVMContextImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE91476B82C684A6F533287E67931B5E14CBDB09">
+                                <pre><code class="language-cpp code-clang-doc">OptPassGate &amp; getOptPassGate ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Access the object which can disable optional passes and individual</p>
+                                        <p> optimizations at compile time.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 228 of file llvm/lib/IR/LLVMContextImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="80DAC58ECAAD285E53BD40240E05FFCE8F4BEC80">
+                                <pre><code class="language-cpp code-clang-doc">void setOptPassGate (OptPassGate &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the object which can disable optional passes and individual</p>
+                                        <p> optimizations at compile time.</p>
+                                    </div>
+                                    <div>
+                                        <p> The lifetime of the object must be guaranteed to extend as long as the</p>
+                                        <p> LLVMContext is used by compilation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 234 of file llvm/lib/IR/LLVMContextImpl.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3F8E6E825FEEB95CF3EB147BCA26DC7E5B4AFF2A">
+                                <pre><code class="language-cpp code-clang-doc">void setTrailingDbgRecords (BasicBlock * B, DbgMarker * M)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set, get and delete operations for TrailingDbgRecords.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1880 of file llvm/lib/IR/LLVMContextImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5FD2DB020082F712F2CB6E3E68AFBF16237C9CB0">
+                                <pre><code class="language-cpp code-clang-doc">DbgMarker * getTrailingDbgRecords (BasicBlock * B)</code></pre>
+                                <p>Defined at line 1885 of file llvm/lib/IR/LLVMContextImpl.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="048596E94BAC23AE997F48A07D5C25B1689A0D5F">
+                                <pre><code class="language-cpp code-clang-doc">void deleteTrailingDbgRecords (BasicBlock * B)</code></pre>
+                                <p>Defined at line 1889 of file llvm/lib/IR/LLVMContextImpl.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

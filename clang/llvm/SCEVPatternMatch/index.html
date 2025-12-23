@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SCEVPatternMatch</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>SCEVPatternMatch</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#248BE24C56C57888EC2976C690EA7AC3D2EC6DE2">SCEVAffineAddRec_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3B35C95204933F751694E99765D1068923E8A3A">SCEVBinaryExpr_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5BB477E6DD143B22673A220FC67ED71529F20901">SCEVURem_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B97D35A9A69C6179F296597A44E50BA2FF44F192">SCEVUnaryExpr_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2FB001F64BB8718CA24E5AC47C06E4830ECD2165">bind_cst_ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7B66005DE80D92B3690FA0E6C19E8F93635D9032">bind_ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B49536AA5B93BFE225D01E8918D515CF1E7C1505">class_match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C7AA350AB7FDFCEC4ED8B232D202E266CD66B5BA">cst_pred_ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0234AE8253DFEAC3CF524F0165452B276D68E03A">is_all_ones</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5DB24400389B7056E54CA3B64B91A9078D7FFB2F">is_one</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E521B1C42D16B0C31288EEE013ECFDC82E98836D">is_specific_cst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55EEE9CA90706DBE73299C6B92006F757FDD241A">is_specific_signed_cst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#68725D2CFF7E6D50C6F2101B4D6915CC44741455">is_undef_or_poison</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7A536D4435749F6C12E14D1C4D7788C11CBC5C27">is_zero</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC90073121A040F15F1563403DC02F6E5F58777D">specificloop_ty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A081B6E3FA567CDE319650D7DD9695C8AF1C5AEC">specificscev_ty</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Functions">Functions</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4647DAEDB6533F6F4B211315507505AE9FA23AC1">match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28583B79D0009355BCA880A72484E00AE52921BC">m_scev_Zero</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C4382C7CF7AA9DDB627993C9EEBE2EC8FB2B7247">m_scev_One</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#71F70C6B0DCB7DC4B9B674F8B778C21002CFC806">m_scev_AllOnes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FECDCC9F05123FFAE3CF2FC46D904375B5CA0D9B">m_SCEV</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D5A19B43C68F666DD0E3DCA7AC6CDE07C68054F1">m_SCEVConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#261689A2BF0495BF297B0E556E28A6B7CAFB363F">m_SCEVVScale</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0CE5CD53E6B80F570BA3D25AFF9EAA0F9797BFB5">m_SCEV</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#27B2E505D1BA1590A2C44E67D723F8599F3A6BD1">m_SCEVConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55B93949440F1311C31E025165561CA44A6BDE4C">m_SCEVUnknown</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F0DC4115ED647E62B5F3A2E528237DC766FE122F">m_scev_Add</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#922918FCD5101083F22CB69EA36902EB62A3AC91">m_scev_Mul</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#42A69A6991CFE6B1C6D65C96844F5ADBA72E1F4E">m_scev_Specific</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#38C32EFE41768DA7AF4476F1C14305AF99E87B11">m_scev_SpecificInt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8B74BCB9DE79184A276B0057D7F0C3235029E028">m_scev_SpecificSInt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#151851DD765CFF26004B7BC66959BB88ED4132E1">m_scev_APInt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6B5DAA372FF85DDAD64CB9AAC9E3BAF0C3039DE4">m_scev_Unary</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#08B814B03020BFE18CD41BA0DE0656F281C65D77">m_scev_SExt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#48160CC053F951169B0A5E0D48C37B5A36C31B59">m_scev_ZExt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#49435AA4F24F934CC0F739DF56A1B7BE2484F37D">m_scev_PtrToInt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#08FB384410F60E988F337C5F3F248FB5C8F1DEA4">m_scev_Trunc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EAD57A899B9A9907CE82DE35CC440268278B0234">m_scev_Binary</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D2AEEB1FFF68642223077232777462458F807588">m_scev_Add</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#20D53EE80FC4740F843A45AF8F722C14C4B37AE7">m_scev_Mul</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#483190892A459597FE27D175C250DFF8C0CEFA8E">m_scev_c_Mul</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#48DFA8B6330032C4482DECDAEB01B9900B35A444">m_scev_c_NUWMul</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#47217DAFAA011563BE869D3260EB33BFE803AD5C">m_scev_UDiv</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CE432316685676805D84931558F9D8001C2AB4EC">m_scev_SMax</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB695A6467C847203A5F40913E56A3FAB67F2695">m_scev_MinMax</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FCCBBB8E538BC2FBCE11AD261B979B2754066EAE">m_scev_URem</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#682ACDEDD918A74730208A53FA08E405C17B4BC2">m_Loop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C96E89081033FC708095B3B304D3BEEFC68E5BC4">m_SpecificLoop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#238A0F0E6C07C0B3E06F16896A1C6C80D8E388E0">m_Loop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F05B83E78854363E651CF48AADA0773864B06A94">m_scev_AffineAddRec</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2C6161983C8000F9D550CA39C1237ACA73ED760D">m_scev_AffineAddRec</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D0EBDA220614F8EC4A5F8CB3FDB32F46B97B7E7E">m_scev_UndefOrPoison</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="248BE24C56C57888EC2976C690EA7AC3D2EC6DE2" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch22SCEVAffineAddRec_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class SCEVAffineAddRec_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="C3B35C95204933F751694E99765D1068923E8A3A" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch20SCEVBinaryExpr_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class SCEVBinaryExpr_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="5BB477E6DD143B22673A220FC67ED71529F20901" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch14SCEVURem_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class SCEVURem_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="B97D35A9A69C6179F296597A44E50BA2FF44F192" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch19SCEVUnaryExpr_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class SCEVUnaryExpr_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="2FB001F64BB8718CA24E5AC47C06E4830ECD2165" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch11bind_cst_tyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class bind_cst_ty</code></pre>
+                            </a>
+                        </li>
+                        <li id="7B66005DE80D92B3690FA0E6C19E8F93635D9032" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch7bind_tyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class bind_ty</code></pre>
+                            </a>
+                        </li>
+                        <li id="B49536AA5B93BFE225D01E8918D515CF1E7C1505" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch11class_matchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class class_match</code></pre>
+                            </a>
+                        </li>
+                        <li id="C7AA350AB7FDFCEC4ED8B232D202E266CD66B5BA" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch11cst_pred_tyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class cst_pred_ty</code></pre>
+                            </a>
+                        </li>
+                        <li id="0234AE8253DFEAC3CF524F0165452B276D68E03A" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch11is_all_onesE.html">
+                                <pre><code class="language-cpp code-clang-doc">class is_all_ones</code></pre>
+                            </a>
+                        </li>
+                        <li id="5DB24400389B7056E54CA3B64B91A9078D7FFB2F" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch6is_oneE.html">
+                                <pre><code class="language-cpp code-clang-doc">class is_one</code></pre>
+                            </a>
+                        </li>
+                        <li id="E521B1C42D16B0C31288EEE013ECFDC82E98836D" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch15is_specific_cstE.html">
+                                <pre><code class="language-cpp code-clang-doc">class is_specific_cst</code></pre>
+                            </a>
+                        </li>
+                        <li id="55EEE9CA90706DBE73299C6B92006F757FDD241A" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch22is_specific_signed_cstE.html">
+                                <pre><code class="language-cpp code-clang-doc">class is_specific_signed_cst</code></pre>
+                            </a>
+                        </li>
+                        <li id="68725D2CFF7E6D50C6F2101B4D6915CC44741455" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch18is_undef_or_poisonE.html">
+                                <pre><code class="language-cpp code-clang-doc">class is_undef_or_poison</code></pre>
+                            </a>
+                        </li>
+                        <li id="7A536D4435749F6C12E14D1C4D7788C11CBC5C27" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch7is_zeroE.html">
+                                <pre><code class="language-cpp code-clang-doc">class is_zero</code></pre>
+                            </a>
+                        </li>
+                        <li id="AC90073121A040F15F1563403DC02F6E5F58777D" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch15specificloop_tyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class specificloop_ty</code></pre>
+                            </a>
+                        </li>
+                        <li id="A081B6E3FA567CDE319650D7DD9695C8AF1C5AEC" style="max-height: 40px;">
+                            <a href="_ZTVN4llvm16SCEVPatternMatch15specificscev_tyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class specificscev_ty</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Functions" class="section-container">
+                    <h2>Functions</h2>
+                    <ul class="class-container">
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="4647DAEDB6533F6F4B211315507505AE9FA23AC1">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Pattern&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">bool match (const SCEV * S, const Pattern &amp; P)</code></pre>
+                                    <p>Defined at line 21 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="28583B79D0009355BCA880A72484E00AE52921BC">
+                                    <pre><code class="language-cpp code-clang-doc">cst_pred_ty m_scev_Zero ()</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match an integer 0.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 41 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="C4382C7CF7AA9DDB627993C9EEBE2EC8FB2B7247">
+                                    <pre><code class="language-cpp code-clang-doc">cst_pred_ty m_scev_One ()</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match an integer 1.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 48 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="71F70C6B0DCB7DC4B9B674F8B778C21002CFC806">
+                                    <pre><code class="language-cpp code-clang-doc">cst_pred_ty m_scev_AllOnes ()</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match an integer with all bits set.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 55 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="FECDCC9F05123FFAE3CF2FC46D904375B5CA0D9B">
+                                    <pre><code class="language-cpp code-clang-doc">class_match m_SCEV ()</code></pre>
+                                    <p>Defined at line 63 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="D5A19B43C68F666DD0E3DCA7AC6CDE07C68054F1">
+                                    <pre><code class="language-cpp code-clang-doc">class_match m_SCEVConstant ()</code></pre>
+                                    <p>Defined at line 64 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="261689A2BF0495BF297B0E556E28A6B7CAFB363F">
+                                    <pre><code class="language-cpp code-clang-doc">class_match m_SCEVVScale ()</code></pre>
+                                    <p>Defined at line 67 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="0CE5CD53E6B80F570BA3D25AFF9EAA0F9797BFB5">
+                                    <pre><code class="language-cpp code-clang-doc">bind_ty m_SCEV (const SCEV *&amp; V)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match a SCEV, capturing it if we match.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 86 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="27B2E505D1BA1590A2C44E67D723F8599F3A6BD1">
+                                    <pre><code class="language-cpp code-clang-doc">bind_ty m_SCEVConstant (const SCEVConstant *&amp; V)</code></pre>
+                                    <p>Defined at line 87 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="55B93949440F1311C31E025165561CA44A6BDE4C">
+                                    <pre><code class="language-cpp code-clang-doc">bind_ty m_SCEVUnknown (const SCEVUnknown *&amp; V)</code></pre>
+                                    <p>Defined at line 90 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="F0DC4115ED647E62B5F3A2E528237DC766FE122F">
+                                    <pre><code class="language-cpp code-clang-doc">bind_ty m_scev_Add (const SCEVAddExpr *&amp; V)</code></pre>
+                                    <p>Defined at line 94 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="922918FCD5101083F22CB69EA36902EB62A3AC91">
+                                    <pre><code class="language-cpp code-clang-doc">bind_ty m_scev_Mul (const SCEVMulExpr *&amp; V)</code></pre>
+                                    <p>Defined at line 98 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="42A69A6991CFE6B1C6D65C96844F5ADBA72E1F4E">
+                                    <pre><code class="language-cpp code-clang-doc">specificscev_ty m_scev_Specific (const SCEV * S)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match if we have a specific specified SCEV.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 112 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="38C32EFE41768DA7AF4476F1C14305AF99E87B11">
+                                    <pre><code class="language-cpp code-clang-doc">cst_pred_ty m_scev_SpecificInt (uint64_t V)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match an SCEV constant with a plain unsigned integer.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 121 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="8B74BCB9DE79184A276B0057D7F0C3235029E028">
+                                    <pre><code class="language-cpp code-clang-doc">cst_pred_ty m_scev_SpecificSInt (int64_t V)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match an SCEV constant with a plain signed integer (sign-extended value will</p>
+                                            <p> be matched)</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 131 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="151851DD765CFF26004B7BC66959BB88ED4132E1">
+                                    <pre><code class="language-cpp code-clang-doc">bind_cst_ty m_scev_APInt (const APInt *&amp; C)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match an SCEV constant and bind it to an APInt.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 152 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="6B5DAA372FF85DDAD64CB9AAC9E3BAF0C3039DE4">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename SCEVTy, typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVUnaryExpr_match&lt;SCEVTy, Op0_t&gt; m_scev_Unary (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 167 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="08B814B03020BFE18CD41BA0DE0656F281C65D77">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVUnaryExpr_match&lt;SCEVSignExtendExpr, Op0_t&gt; m_scev_SExt (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 172 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="48160CC053F951169B0A5E0D48C37B5A36C31B59">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVUnaryExpr_match&lt;SCEVZeroExtendExpr, Op0_t&gt; m_scev_ZExt (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 178 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="49435AA4F24F934CC0F739DF56A1B7BE2484F37D">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVUnaryExpr_match&lt;SCEVPtrToIntExpr, Op0_t&gt; m_scev_PtrToInt (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 184 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="08FB384410F60E988F337C5F3F248FB5C8F1DEA4">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVUnaryExpr_match&lt;SCEVTruncateExpr, Op0_t&gt; m_scev_Trunc (const Op0_t &amp; Op0)</code></pre>
+                                    <p>Defined at line 190 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="EAD57A899B9A9907CE82DE35CC440268278B0234">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename SCEVTy, typename Op0_t, typename Op1_t, SCEV::NoWrapFlags WrapFlags = SCEV::FlagAnyWrap, bool Commutable = false&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVBinaryExpr_match&lt;SCEVTy, Op0_t, Op1_t, WrapFlags, Commutable&gt; m_scev_Binary (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 221 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="D2AEEB1FFF68642223077232777462458F807588">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVBinaryExpr_match&lt;SCEVAddExpr, Op0_t, Op1_t&gt; m_scev_Add (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 228 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="20D53EE80FC4740F843A45AF8F722C14C4B37AE7">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVBinaryExpr_match&lt;SCEVMulExpr, Op0_t, Op1_t&gt; m_scev_Mul (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 234 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="483190892A459597FE27D175C250DFF8C0CEFA8E">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVBinaryExpr_match&lt;SCEVMulExpr, Op0_t, Op1_t, SCEV::FlagAnyWrap, true&gt; m_scev_c_Mul (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 240 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="48DFA8B6330032C4482DECDAEB01B9900B35A444">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVBinaryExpr_match&lt;SCEVMulExpr, Op0_t, Op1_t, SCEV::FlagNUW, true&gt; m_scev_c_NUWMul (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 247 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="47217DAFAA011563BE869D3260EB33BFE803AD5C">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVBinaryExpr_match&lt;SCEVUDivExpr, Op0_t, Op1_t&gt; m_scev_UDiv (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 254 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="CE432316685676805D84931558F9D8001C2AB4EC">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVBinaryExpr_match&lt;SCEVSMaxExpr, Op0_t, Op1_t&gt; m_scev_SMax (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 260 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="BB695A6467C847203A5F40913E56A3FAB67F2695">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVBinaryExpr_match&lt;SCEVMinMaxExpr, Op0_t, Op1_t&gt; m_scev_MinMax (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 266 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="FCCBBB8E538BC2FBCE11AD261B979B2754066EAE">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVURem_match&lt;Op0_t, Op1_t&gt; m_scev_URem (Op0_t LHS, Op1_t RHS, ScalarEvolution &amp; SE)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match the mathematical pattern A - (A / B) * B, where A and B can be</p>
+                                            <p> arbitrary expressions. Also match zext (trunc A to iB) to iY, which is used</p>
+                                            <p> for URem with constant power-of-2 second operands. It&#39;s not always easy, as</p>
+                                            <p> A and B can be folded (imagine A is X / 2, and B is 4, A / B becomes X / 8).</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 336 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="682ACDEDD918A74730208A53FA08E405C17B4BC2">
+                                    <pre><code class="language-cpp code-clang-doc">class_match m_Loop ()</code></pre>
+                                    <p>Defined at line 341 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="C96E89081033FC708095B3B304D3BEEFC68E5BC4">
+                                    <pre><code class="language-cpp code-clang-doc">specificloop_ty m_SpecificLoop (const Loop * L)</code></pre>
+                                    <p>Defined at line 366 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="238A0F0E6C07C0B3E06F16896A1C6C80D8E388E0">
+                                    <pre><code class="language-cpp code-clang-doc">bind_ty m_Loop (const Loop *&amp; L)</code></pre>
+                                    <p>Defined at line 368 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="F05B83E78854363E651CF48AADA0773864B06A94">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVAffineAddRec_match&lt;Op0_t, Op1_t, class_match&lt;const Loop&gt;&gt; m_scev_AffineAddRec (const Op0_t &amp; Op0, const Op1_t &amp; Op1)</code></pre>
+                                    <p>Defined at line 371 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="2C6161983C8000F9D550CA39C1237ACA73ED760D">
+                                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Op0_t, typename Op1_t, typename Loop_t&gt;</code></pre>
+                                    <pre><code class="language-cpp code-clang-doc">SCEVAffineAddRec_match&lt;Op0_t, Op1_t, Loop_t&gt; m_scev_AffineAddRec (const Op0_t &amp; Op0, const Op1_t &amp; Op1, const Loop_t &amp; L)</code></pre>
+                                    <p>Defined at line 378 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="D0EBDA220614F8EC4A5F8CB3FDB32F46B97B7E7E">
+                                    <pre><code class="language-cpp code-clang-doc">is_undef_or_poison m_scev_UndefOrPoison ()</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match an SCEVUnknown wrapping undef or poison.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 392 of file llvm/include/llvm/Analysis/ScalarEvolutionPatternMatch.h</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SelectionDAGBuilder</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SelectionDAGBuilder</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#PendingLoads">PendingLoads</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#StatepointLowering">StatepointLowering</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAG">DAG</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BatchAA">BatchAA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC">AC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LibInfo">LibInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TTI">TTI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SL">SL</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SPDescriptor">SPDescriptor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ConstantsOut">ConstantsOut</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FuncInfo">FuncInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SwiftError">SwiftError</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#GFI">GFI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LPadToCallSiteMap">LPadToCallSiteMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#HasTailCall">HasTailCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Context">Context</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7B6A340DBCFFF34F98DFF899128C2641335D0DA">SelectionDAGBuilder</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B79ED1F87DA992F1240B389DAFA7C42725942CC2">getCurSDLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E79378FA2207A62A45769D286107E4E9DB97F351">getCurDebugLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#76DA2B02463A5927025F6767D4A46D63E85740D4">setValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#58C364D8E12A4698D7A0ECB3B840E78187E21563">setUnusedArgValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9730FEADA2CDE860DC133469100FD6B86B7D112B">getFrameIndexTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#19349A23ECFE26DF7F99724AF518CF41710FB98D">init</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BB484FF7BDBBEC058F6C4AC2E0331E6A6C198B38">clear</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D3DC87718B76B3B4741E74BC4E17496A56DC92A1">clearDanglingDebugInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C34A0C9B2A2E470E581A49A251BB3BED449E09B0">getMemoryRoot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F8137E16BB9B70E04EAB7F24270C0D54346F738">getFPOperationRoot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2726201A79F0CE4EDF57487288941C11F0D08172">getRoot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#68E7F4D28C4C667F5FE07EB59D453C8D47F6098A">getControlRoot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8421F75DD45D528BA93A5C9B3F5E3205D1A9A275">CopyValueToVirtualRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1A36117F1C77C3EFFC322CE0CD6B9DC6EC78022E">visit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED330FC075718E31977ECEEED26974837985393A">visitDbgInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3873BE2903D347036A69F99FD6306B75F9CDD7E0">visit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2C55938EFCA09D93FC88CD1E92FAF9E10E76D681">getCopyFromRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BD1A0AB2412790744F9C4403F826FF1D38B3B841">addDanglingDebugInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#32FCB754B1F9B22E26E0E0D1D22FC03546D43A4A">dropDanglingDebugInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#754BD240F9AA5F42B4637C5BED06A8783186EB47">resolveDanglingDebugInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB632C3DD9E7C4398C676158DB22F651B10D3619">salvageUnresolvedDbgValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C8BB75C59B8F740EECBC9DA66EB0278147CB7BD6">handleDebugValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7F72BCF5DBBC5A1A0053E8AA95126258DF4F56B2">handleKillDebugValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C5790C7FA2B17D39F7D452E8E21C0C5983529DC">handleDebugDeclare</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#834D24BE9F51DF9481886EB215758DC7F8C19299">resolveOrClearDbgInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B8F6EBB6D61722313E6357371FA3849694CDD42">getValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#459C2951A7203ED79F6961823CEC171183E2D263">getNonRegisterValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#374921FB615DBC815EB0AC4D2FF109179AB159A9">getValueImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4BCF0A38F0CD3E37A6E030F8314792F3BD67ED9C">shouldKeepJumpConditionsTogether</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5B2483084A4A0E8D7E9E7E0F583F8304394BA8FE">FindMergedConditions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D1E4C41A6E1F03BD0D535113451094E5FB2BF07">EmitBranchForMergedCondition</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EEBF5BA80A8E09D8E7678FFE59CD605E74EFCAC9">ShouldEmitAsBranches</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EB6D56FA63E6F934D53EB9593E9DFEF5651B59F5">isExportableFromCurrentBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B3EA5B1165E39ED8D10E2D251C59892904B517F8">CopyToExportRegsIfNeeded</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD18E6D91CB99617D723092BE78DA2B4B083DFBE">ExportFromCurrentBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5CECA141852A347ED7D9396FD4723D502AE77C9B">LowerCallTo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0EDCADCEE848BE71389A79CA914924A796B7F30E">canTailCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#80EE4CED31E868DA74FB8015A1A13928DAD20B21">lowerRangeToAssertZExt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3FC1260A068D6E90F661509EB677B6B4A6FFA504">lowerNoFPClassToAssertNoFPClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#76A54EE1511747148B133EA6FE9B4B997C7993BE">populateCallLoweringInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BA57CD50F1DB904FB7809FDEEE3B11E98B1CC18">lowerInvokable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FA9FFEB6BDAB01E0E4319C53EDF68A1C1158319E">UpdateSplitBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B77B4C0B5F0A1F1C0BB2D967F5CEAE1BE38C7AA9">LowerAsSTATEPOINT</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C6C8C847928F937409CF75B0149EB2259EB6A42">LowerStatepoint</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#88BB3A40C0F7EA0651AFDD86C3CFC8148CBBE3EF">LowerCallSiteWithDeoptBundle</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#59B12D428668494338B997653D59A584352FDDD5">LowerDeoptimizeCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C233826E6CA069E87C5D6203123231234C62AF29">LowerDeoptimizingReturn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#02A5E3D6FBAAFF9D55681E8FD467330664A05491">LowerCallSiteWithDeoptBundleImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#15A037EDE4FED1FEBCB0D09BF5EBBE944BC3C50E">LowerCallSiteWithPtrAuthBundle</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3321FA59E719076388D401C19F38C62881E9EED9">visitSwitchCase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C528B26D19194064ACEFA04BDF1EA19F4A4E71B6">visitSPDescriptorParent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E33B25F2CD680820C924EC3154DAC0F1E0AA03C2">visitSPDescriptorFailure</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#266CE049EBBAB39B095AC089380E791221B164B8">visitBitTestHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8624EF619D388FE9E72F99C29B3C5884E6440529">visitBitTestCase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F30B05204799EF5D4233AD87C3370E5E8D923DC1">visitJumpTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E802FBE578BDED69203A7F7A4DCD672856AB0B9">visitJumpTableHeader</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SelectionDAGBuilder</h1>
+                        <p>Defined at line 96 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p>===----------------------------------------------------------------------===//</p>
+                                <p> SelectionDAGBuilder - This is the common target-independent lowering</p>
+                                <p> implementation that is parameterized by a TargetLowering object.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="PendingLoads" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector&lt;SDValue, 8&gt; PendingLoads</code></pre>
+                        </div>
+                        <div id="StatepointLowering" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >StatepointLoweringState StatepointLowering</code></pre>
+                        </div>
+                        <div id="DAG" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SelectionDAG &amp; DAG</code></pre>
+                        </div>
+                        <div id="BatchAA" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >BatchAAResults * BatchAA</code></pre>
+                        </div>
+                        <div id="AC" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >AssumptionCache * AC</code></pre>
+                        </div>
+                        <div id="LibInfo" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetLibraryInfo * LibInfo</code></pre>
+                        </div>
+                        <div id="TTI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetTransformInfo * TTI</code></pre>
+                        </div>
+                        <div id="SL" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int SL</code></pre>
+                        </div>
+                        <div id="SPDescriptor" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >StackProtectorDescriptor SPDescriptor</code></pre>
+                        </div>
+                        <div id="ConstantsOut" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int ConstantsOut</code></pre>
+                        </div>
+                        <div id="FuncInfo" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >FunctionLoweringInfo &amp; FuncInfo</code></pre>
+                        </div>
+                        <div id="SwiftError" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SwiftErrorValueTracking &amp; SwiftError</code></pre>
+                        </div>
+                        <div id="GFI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >GCFunctionInfo * GFI</code></pre>
+                        </div>
+                        <div id="LPadToCallSiteMap" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int LPadToCallSiteMap</code></pre>
+                        </div>
+                        <div id="HasTailCall" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool HasTailCall</code></pre>
+                        </div>
+                        <div id="Context" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LLVMContext * Context</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="F7B6A340DBCFFF34F98DFF899128C2641335D0DA">
+                                <pre><code class="language-cpp code-clang-doc">void SelectionDAGBuilder (SelectionDAG &amp; dag, FunctionLoweringInfo &amp; funcinfo, SwiftErrorValueTracking &amp; swifterror, CodeGenOptLevel ol)</code></pre>
+                                <p>Defined at line 282 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B79ED1F87DA992F1240B389DAFA7C42725942CC2">
+                                <pre><code class="language-cpp code-clang-doc">SDLoc getCurSDLoc ()</code></pre>
+                                <p>Defined at line 327 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E79378FA2207A62A45769D286107E4E9DB97F351">
+                                <pre><code class="language-cpp code-clang-doc">DebugLoc getCurDebugLoc ()</code></pre>
+                                <p>Defined at line 331 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="76DA2B02463A5927025F6767D4A46D63E85740D4">
+                                <pre><code class="language-cpp code-clang-doc">void setValue (const Value * V, SDValue NewN)</code></pre>
+                                <p>Defined at line 388 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="58C364D8E12A4698D7A0ECB3B840E78187E21563">
+                                <pre><code class="language-cpp code-clang-doc">void setUnusedArgValue (const Value * V, SDValue NewN)</code></pre>
+                                <p>Defined at line 394 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9730FEADA2CDE860DC133469100FD6B86B7D112B">
+                                <pre><code class="language-cpp code-clang-doc">MVT getFrameIndexTy ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the type of FrameIndex and TargetFrameIndex nodes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 518 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="19349A23ECFE26DF7F99724AF518CF41710FB98D">
+                                <pre><code class="language-cpp code-clang-doc">void init (GCFunctionInfo * gfi, BatchAAResults * BatchAA, AssumptionCache * AC, const TargetLibraryInfo * li, const TargetTransformInfo &amp; TTI)</code></pre>
+                                <p>Defined at line 1100 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BB484FF7BDBBEC058F6C4AC2E0331E6A6C198B38">
+                                <pre><code class="language-cpp code-clang-doc">void clear ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Clear out the current SelectionDAG and the associated state and prepare</p>
+                                        <p> this SelectionDAGBuilder object to be used for a new block. This doesn&#39;t</p>
+                                        <p> clear out information about additional blocks that are needed to complete</p>
+                                        <p> switch lowering or PHI node updating; that information is cleared out as</p>
+                                        <p> it is consumed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1115 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D3DC87718B76B3B4741E74BC4E17496A56DC92A1">
+                                <pre><code class="language-cpp code-clang-doc">void clearDanglingDebugInfo ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Clear the dangling debug information map. This function is separated from</p>
+                                        <p> the clear so that debug information that is dangling in a basic block can</p>
+                                        <p> be properly resolved in a different basic block. This allows the</p>
+                                        <p> SelectionDAG to resolve dangling debug information attached to PHI nodes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1128 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C34A0C9B2A2E470E581A49A251BB3BED449E09B0">
+                                <pre><code class="language-cpp code-clang-doc">SDValue getMemoryRoot ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the current virtual root of the Selection DAG, flushing any</p>
+                                        <p> PendingLoad items. This must be done before emitting a store or any other</p>
+                                        <p> memory node that may need to be ordered after any prior load instructions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1163 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F8137E16BB9B70E04EAB7F24270C0D54346F738">
+                                <pre><code class="language-cpp code-clang-doc">SDValue getFPOperationRoot (ExceptionBehavior EB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the current virtual root of the Selection DAG, flushing</p>
+                                        <p> PendingConstrainedFP or PendingConstrainedFPStrict items if the new</p>
+                                        <p> exception behavior (specified by </p>
+                                        <p> differs from that of the pending</p>
+                                        <p> instructions. This must be done before emitting constrained FP operation</p>
+                                        <p> call.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1167 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2726201A79F0CE4EDF57487288941C11F0D08172">
+                                <pre><code class="language-cpp code-clang-doc">SDValue getRoot ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Similar to getMemoryRoot, but also flushes PendingConstrainedFP(Strict)</p>
+                                        <p> items. This must be done before emitting any call other any other node</p>
+                                        <p> that may need to be ordered after FP instructions due to other side</p>
+                                        <p> effects.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1204 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="68E7F4D28C4C667F5FE07EB59D453C8D47F6098A">
+                                <pre><code class="language-cpp code-clang-doc">SDValue getControlRoot ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Similar to getRoot, but instead of flushing all the PendingLoad items,</p>
+                                        <p> flush all the PendingExports (and PendingConstrainedFPStrict) items.</p>
+                                        <p> It is necessary to do this before emitting a terminator instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1220 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8421F75DD45D528BA93A5C9B3F5E3205D1A9A275">
+                                <pre><code class="language-cpp code-clang-doc">void CopyValueToVirtualRegister (const Value * V, Register Reg, NodeType ExtendType)</code></pre>
+                                <p>Defined at line 11554 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1A36117F1C77C3EFFC322CE0CD6B9DC6EC78022E">
+                                <pre><code class="language-cpp code-clang-doc">void visit (const Instruction &amp; I)</code></pre>
+                                <p>Defined at line 1370 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED330FC075718E31977ECEEED26974837985393A">
+                                <pre><code class="language-cpp code-clang-doc">void visitDbgInfo (const Instruction &amp; I)</code></pre>
+                                <p>Defined at line 1282 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3873BE2903D347036A69F99FD6306B75F9CDD7E0">
+                                <pre><code class="language-cpp code-clang-doc">void visit (unsigned int Opcode, const User &amp; I)</code></pre>
+                                <p>Defined at line 1422 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2C55938EFCA09D93FC88CD1E92FAF9E10E76D681">
+                                <pre><code class="language-cpp code-clang-doc">SDValue getCopyFromRegs (const Value * V, Type * Ty)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If there was virtual register allocated for the value V emit CopyFromReg</p>
+                                        <p> of the specified type Ty. Return empty SDValue() otherwise.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1776 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BD1A0AB2412790744F9C4403F826FF1D38B3B841">
+                                <pre><code class="language-cpp code-clang-doc">void addDanglingDebugInfo (SmallVectorImpl&lt;Value *&gt; &amp; Values, DILocalVariable * Var, DIExpression * Expr, bool IsVariadic, DebugLoc DL, unsigned int Order)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Register a dbg_value which relies on a Value which we have not yet seen.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1453 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="32FCB754B1F9B22E26E0E0D1D22FC03546D43A4A">
+                                <pre><code class="language-cpp code-clang-doc">void dropDanglingDebugInfo (const DILocalVariable * Variable, const DIExpression * Expr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If we have dangling debug info that describes </p>
+                                        <p> or an</p>
+                                        <p> overlapping part of variable considering the </p>
+                                        <p> then this method</p>
+                                        <p> will drop that debug info as it isn&#39;t valid any longer.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1470 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="754BD240F9AA5F42B4637C5BED06A8783186EB47">
+                                <pre><code class="language-cpp code-clang-doc">void resolveDanglingDebugInfo (const Value * V, SDValue Val)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If we saw an earlier dbg_value referring to V, generate the debug data</p>
+                                        <p> structures now that we&#39;ve seen its definition.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1498 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB632C3DD9E7C4398C676158DB22F651B10D3619">
+                                <pre><code class="language-cpp code-clang-doc">void salvageUnresolvedDbgValue (const Value * V, DanglingDebugInfo &amp; DDI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For the given dangling debuginfo record, perform last-ditch efforts to</p>
+                                        <p> resolve the debuginfo to something that is represented in this DAG. If</p>
+                                        <p> this cannot be done, produce an Undef debug value record.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1552 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C8BB75C59B8F740EECBC9DA66EB0278147CB7BD6">
+                                <pre><code class="language-cpp code-clang-doc">bool handleDebugValue (ArrayRef&lt;const Value *&gt; Values, DILocalVariable * Var, DIExpression * Expr, DebugLoc DbgLoc, unsigned int Order, bool IsVariadic)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For a given list of Values, attempt to create and record a SDDbgValue in</p>
+                                        <p> the SelectionDAG.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1629 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7F72BCF5DBBC5A1A0053E8AA95126258DF4F56B2">
+                                <pre><code class="language-cpp code-clang-doc">void handleKillDebugValue (DILocalVariable * Var, DIExpression * Expr, DebugLoc DbgLoc, unsigned int Order)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a record for a kill location debug intrinsic.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1618 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C5790C7FA2B17D39F7D452E8E21C0C5983529DC">
+                                <pre><code class="language-cpp code-clang-doc">void handleDebugDeclare (Value * Address, DILocalVariable * Variable, DIExpression * Expression, DebugLoc DL)</code></pre>
+                                <p>Defined at line 1229 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="834D24BE9F51DF9481886EB215758DC7F8C19299">
+                                <pre><code class="language-cpp code-clang-doc">void resolveOrClearDbgInfo ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Evict any dangling debug information, attempting to salvage it first.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1766 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B8F6EBB6D61722313E6357371FA3849694CDD42">
+                                <pre><code class="language-cpp code-clang-doc">SDValue getValue (const Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getValue - Return an SDValue for the given Value.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1796 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="459C2951A7203ED79F6961823CEC171183E2D263">
+                                <pre><code class="language-cpp code-clang-doc">SDValue getNonRegisterValue (const Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getNonRegisterValue - Return an SDValue for the given Value, but</p>
+                                        <p> don&#39;t look in FuncInfo.ValueMap for a virtual register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1817 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="374921FB615DBC815EB0AC4D2FF109179AB159A9">
+                                <pre><code class="language-cpp code-clang-doc">SDValue getValueImpl (const Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getValueImpl - Helper function for getValue and getNonRegisterValue.</p>
+                                        <p> Create an SDValue for the given value.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1840 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4BCF0A38F0CD3E37A6E030F8314792F3BD67ED9C">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldKeepJumpConditionsTogether (const FunctionLoweringInfo &amp; FuncInfo, const BranchInst &amp; I, BinaryOps Opc, const Value * Lhs, const Value * Rhs, CondMergingParams Params)</code></pre>
+                                <p>Defined at line 2532 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5B2483084A4A0E8D7E9E7E0F583F8304394BA8FE">
+                                <pre><code class="language-cpp code-clang-doc">void FindMergedConditions (const Value * Cond, MachineBasicBlock * TBB, MachineBasicBlock * FBB, MachineBasicBlock * CurBB, MachineBasicBlock * SwitchBB, BinaryOps Opc, BranchProbability TProb, BranchProbability FProb, bool InvertCond)</code></pre>
+                                <p>Defined at line 2642 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D1E4C41A6E1F03BD0D535113451094E5FB2BF07">
+                                <pre><code class="language-cpp code-clang-doc">void EmitBranchForMergedCondition (const Value * Cond, MachineBasicBlock * TBB, MachineBasicBlock * FBB, MachineBasicBlock * CurBB, MachineBasicBlock * SwitchBB, BranchProbability TProb, BranchProbability FProb, bool InvertCond)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> EmitBranchForMergedCondition - Helper method for FindMergedConditions.</p>
+                                        <p> This function emits a branch and is used at the leaves of an OR or an</p>
+                                        <p> AND operator tree.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2452 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EEBF5BA80A8E09D8E7678FFE59CD605E74EFCAC9">
+                                <pre><code class="language-cpp code-clang-doc">bool ShouldEmitAsBranches (const int &amp; Cases)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If the set of cases should be emitted as a series of branches, return true.</p>
+                                        <p> If we should emit this as a bunch of and/or&#39;d together conditions, return</p>
+                                        <p> false.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2772 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EB6D56FA63E6F934D53EB9593E9DFEF5651B59F5">
+                                <pre><code class="language-cpp code-clang-doc">bool isExportableFromCurrentBlock (const Value * V, const BasicBlock * FromBB)</code></pre>
+                                <p>Defined at line 2388 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B3EA5B1165E39ED8D10E2D251C59892904B517F8">
+                                <pre><code class="language-cpp code-clang-doc">void CopyToExportRegsIfNeeded (const Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> CopyToExportRegsIfNeeded - If the given value has virtual registers</p>
+                                        <p> created for it, emit nodes to copy the value into the virtual</p>
+                                        <p> registers.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2361 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD18E6D91CB99617D723092BE78DA2B4B083DFBE">
+                                <pre><code class="language-cpp code-clang-doc">void ExportFromCurrentBlock (const Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ExportFromCurrentBlock - If this condition isn&#39;t known to be exported from</p>
+                                        <p> the current basic block, add it to ValueMap now so that we&#39;ll get a</p>
+                                        <p> CopyTo/FromReg.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2377 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5CECA141852A347ED7D9396FD4723D502AE77C9B">
+                                <pre><code class="language-cpp code-clang-doc">void LowerCallTo (const CallBase &amp; CB, SDValue Callee, bool IsTailCall, bool IsMustTailCall, const BasicBlock * EHPadBB, const TargetLowering::PtrAuthInfo * PAI)</code></pre>
+                                <p>Defined at line 9092 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0EDCADCEE848BE71389A79CA914924A796B7F30E">
+                                <pre><code class="language-cpp code-clang-doc">bool canTailCall (const CallBase &amp; CB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check some of the target-independent constraints for tail calls. This does</p>
+                                        <p> not iterate over the call arguments.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 9070 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="80EE4CED31E868DA74FB8015A1A13928DAD20B21">
+                                <pre><code class="language-cpp code-clang-doc">SDValue lowerRangeToAssertZExt (SelectionDAG &amp; DAG, const Instruction &amp; I, SDValue Op)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lower range metadata from 0 to N to assert zext to an integer of nearest</p>
+                                        <p> floor power of two.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 10696 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3FC1260A068D6E90F661509EB677B6B4A6FFA504">
+                                <pre><code class="language-cpp code-clang-doc">SDValue lowerNoFPClassToAssertNoFPClass (SelectionDAG &amp; DAG, const Instruction &amp; I, SDValue Op)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lower nofpclass attributes to AssertNoFPClass</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 10731 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="76A54EE1511747148B133EA6FE9B4B997C7993BE">
+                                <pre><code class="language-cpp code-clang-doc">void populateCallLoweringInfo (TargetLowering::CallLoweringInfo &amp; CLI, const CallBase * Call, unsigned int ArgIdx, unsigned int NumArgs, SDValue Callee, Type * ReturnTy, AttributeSet RetAttrs, bool IsPatchPoint)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Populate a CallLowerinInfo (into </p>
+                                        <p> based on the properties of</p>
+                                        <p> the call being lowered.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is a helper for lowering intrinsics that follow a target calling</p>
+                                        <p> convention or require stack pointer adjustment. Only a subset of the</p>
+                                        <p> intrinsic&#39;s operands need to participate in the calling convention.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 10761 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BA57CD50F1DB904FB7809FDEEE3B11E98B1CC18">
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;SDValue, SDValue&gt; lowerInvokable (TargetLowering::CallLoweringInfo &amp; CLI, const BasicBlock * EHPadBB)</code></pre>
+                                <p>Defined at line 9028 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FA9FFEB6BDAB01E0E4319C53EDF68A1C1158319E">
+                                <pre><code class="language-cpp code-clang-doc">void UpdateSplitBlock (MachineBasicBlock * First, MachineBasicBlock * Last)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> When an MBB was split during scheduling, update the</p>
+                                        <p> references that need to refer to the last resulting block.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3637 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B77B4C0B5F0A1F1C0BB2D967F5CEAE1BE38C7AA9">
+                                <pre><code class="language-cpp code-clang-doc">SDValue LowerAsSTATEPOINT (StatepointLoweringInfo &amp; SI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lower </p>
+                                        <p> into a STATEPOINT instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 707 of file llvm/lib/CodeGen/SelectionDAG/StatepointLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C6C8C847928F937409CF75B0149EB2259EB6A42">
+                                <pre><code class="language-cpp code-clang-doc">void LowerStatepoint (const GCStatepointInst &amp; I, const BasicBlock * EHPadBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This function is responsible for the whole statepoint lowering process.</p>
+                                        <p> It uniformly handles invoke and call statepoints.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1017 of file llvm/lib/CodeGen/SelectionDAG/StatepointLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="88BB3A40C0F7EA0651AFDD86C3CFC8148CBBE3EF">
+                                <pre><code class="language-cpp code-clang-doc">void LowerCallSiteWithDeoptBundle (const CallBase * Call, SDValue Callee, const BasicBlock * EHPadBB)</code></pre>
+                                <p>Defined at line 1178 of file llvm/lib/CodeGen/SelectionDAG/StatepointLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="59B12D428668494338B997653D59A584352FDDD5">
+                                <pre><code class="language-cpp code-clang-doc">void LowerDeoptimizeCall (const CallInst * CI)</code></pre>
+                                <p>Defined at line 1306 of file llvm/lib/CodeGen/SelectionDAG/StatepointLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C233826E6CA069E87C5D6203123231234C62AF29">
+                                <pre><code class="language-cpp code-clang-doc">void LowerDeoptimizingReturn ()</code></pre>
+                                <p>Defined at line 1319 of file llvm/lib/CodeGen/SelectionDAG/StatepointLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="02A5E3D6FBAAFF9D55681E8FD467330664A05491">
+                                <pre><code class="language-cpp code-clang-doc">void LowerCallSiteWithDeoptBundleImpl (const CallBase * Call, SDValue Callee, const BasicBlock * EHPadBB, bool VarArgDisallowed, bool ForceVoidReturnTy)</code></pre>
+                                <p>Defined at line 1144 of file llvm/lib/CodeGen/SelectionDAG/StatepointLowering.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="15A037EDE4FED1FEBCB0D09BF5EBBE944BC3C50E">
+                                <pre><code class="language-cpp code-clang-doc">void LowerCallSiteWithPtrAuthBundle (const CallBase &amp; CB, const BasicBlock * EHPadBB)</code></pre>
+                                <p>Defined at line 9760 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3321FA59E719076388D401C19F38C62881E9EED9">
+                                <pre><code class="language-cpp code-clang-doc">void visitSwitchCase (SwitchCG::CaseBlock &amp; CB, MachineBasicBlock * SwitchBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> visitSwitchCase - Emits the necessary code to represent a single node in</p>
+                                        <p> the binary search tree resulting from lowering a switch instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2908 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C528B26D19194064ACEFA04BDF1EA19F4A4E71B6">
+                                <pre><code class="language-cpp code-clang-doc">void visitSPDescriptorParent (StackProtectorDescriptor &amp; SPD, MachineBasicBlock * ParentBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Codegen a new tail for a stack protector check ParentMBB which has had its</p>
+                                        <p> tail spliced into a stack protector check success bb.</p>
+                                    </div>
+                                    <div>
+                                        <p> For a high level explanation of how this fits into the stack protector</p>
+                                        <p> generation see the comment on the declaration of class</p>
+                                        <p> StackProtectorDescriptor.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3104 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E33B25F2CD680820C924EC3154DAC0F1E0AA03C2">
+                                <pre><code class="language-cpp code-clang-doc">void visitSPDescriptorFailure (StackProtectorDescriptor &amp; SPD)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Codegen the failure basic block for a stack protector check.</p>
+                                    </div>
+                                    <div>
+                                        <p> A failure stack protector machine basic block consists simply of a call to</p>
+                                        <p> __stack_chk_fail().</p>
+                                    </div>
+                                    <div>
+                                        <p> For a high level explanation of how this fits into the stack protector</p>
+                                        <p> generation see the comment on the declaration of class</p>
+                                        <p> StackProtectorDescriptor.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3206 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="266CE049EBBAB39B095AC089380E791221B164B8">
+                                <pre><code class="language-cpp code-clang-doc">void visitBitTestHeader (SwitchCG::BitTestBlock &amp; B, MachineBasicBlock * SwitchBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> visitBitTestHeader - This function emits necessary code to produce value</p>
+                                        <p> suitable for &quot;bit tests&quot;</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3278 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8624EF619D388FE9E72F99C29B3C5884E6440529">
+                                <pre><code class="language-cpp code-clang-doc">void visitBitTestCase (SwitchCG::BitTestBlock &amp; BB, MachineBasicBlock * NextMBB, BranchProbability BranchProbToNext, Register Reg, SwitchCG::BitTestCase &amp; B, MachineBasicBlock * SwitchBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> visitBitTestCase - this function produces one &quot;bit test&quot;</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3340 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F30B05204799EF5D4233AD87C3370E5E8D923DC1">
+                                <pre><code class="language-cpp code-clang-doc">void visitJumpTable (SwitchCG::JumpTable &amp; JT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> visitJumpTable - Emit JumpTable node in the current MBB</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3004 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E802FBE578BDED69203A7F7A4DCD672856AB0B9">
+                                <pre><code class="language-cpp code-clang-doc">void visitJumpTableHeader (SwitchCG::JumpTable &amp; JT, SwitchCG::JumpTableHeader &amp; JTH, MachineBasicBlock * SwitchBB)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> visitJumpTableHeader - This function emits necessary code to produce index</p>
+                                        <p> in the JumpTable from switch case.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3018 of file llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

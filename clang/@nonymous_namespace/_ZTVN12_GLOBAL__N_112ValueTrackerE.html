@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ValueTracker</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">@nonymous_namespace</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ValueTracker</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5CB0F09C0206A8E5A9C8E4B14FD21FE8EA007871">ValueTracker</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2190094656622443BF93C59AAF2B6570391E9330">getNextSource</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ValueTracker</h1>
+                        <p>Defined at line 685 of file llvm/lib/CodeGen/PeepholeOptimizer.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Helper class to track the possible sources of a value defined by</p>
+                                <p> a (chain of) copy related instructions.</p>
+                                <p> Given a definition (instruction and definition index), this class</p>
+                                <p> follows the use-def chain to find successive suitable sources.</p>
+                                <p> The given source can be used to rewrite the definition into</p>
+                                <p> def = COPY src.</p>
+                            </div>
+                            <div>
+                                <p> For instance, let us consider the following snippet:</p>
+                                <p> v0 =</p>
+                                <p> v2 = INSERT_SUBREG v1, v0, sub0</p>
+                                <p> def = COPY v2.sub0</p>
+                            </div>
+                            <div>
+                                <p> Using a ValueTracker for def = COPY v2.sub0 will give the following</p>
+                                <p> suitable sources:</p>
+                                <p> v2.sub0 and v0.</p>
+                                <p> Then, def can be rewritten into def = COPY v0.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="5CB0F09C0206A8E5A9C8E4B14FD21FE8EA007871">
+                                <pre><code class="language-cpp code-clang-doc">void ValueTracker (Register Reg, unsigned int DefSubReg, const MachineRegisterInfo &amp; MRI, const TargetInstrInfo * TII)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a ValueTracker instance for the value defined by </p>
+                                        <p> represents the sub register index the value tracker will</p>
+                                        <p> track. It does not need to match the sub register index used in the</p>
+                                        <p> definition of </p>
+                                        <p> If </p>
+                                        <p> is a physical register, a value tracker constructed with</p>
+                                        <p> this constructor will not find any alternative source.</p>
+                                        <p> Indeed, when </p>
+                                        <p> is a physical register that constructor does not</p>
+                                        <p> know which definition of </p>
+                                        <p> it should track.</p>
+                                        <p> Use the next constructor to track a physical register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 739 of file llvm/lib/CodeGen/PeepholeOptimizer.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2190094656622443BF93C59AAF2B6570391E9330">
+                                <pre><code class="language-cpp code-clang-doc">ValueTrackerResult getNextSource ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Following the use-def chain, get the next available source</p>
+                                        <p> for the tracked value.</p>
+                                    </div>
+                                    <h3>Returns</h3>
+                                    <p> A ValueTrackerResult containing a set of registers</p>
+                                    <p> and sub registers with tracked values. A ValueTrackerResult with</p>
+                                    <p> an empty set of registers means no source was found.</p>
+                                </div>
+                                <p>Defined at line 2201 of file llvm/lib/CodeGen/PeepholeOptimizer.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

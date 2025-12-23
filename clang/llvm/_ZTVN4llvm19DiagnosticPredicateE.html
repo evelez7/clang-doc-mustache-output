@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DiagnosticPredicate</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct DiagnosticPredicate</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Predicate">Predicate</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2E5B5EEEE8BFA2029FA4CC714E275219928F20A4">DiagnosticPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F1045052823DA81713CA076CFF38A4625A5DDE0">DiagnosticPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A0933A0FCF45330B1CA56A37D93755AD6CFC396C">operator bool</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F550B1BD2A260695C3F7810223682953830EFBAD">isMatch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#942183AA319410A59C03EB52120B90AF84767E7D">isNearMatch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#10435B332A4646DE2924A3D1779014CF1A120088">isNoMatch</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct DiagnosticPredicate</h1>
+                        <p>Defined at line 182 of file llvm/include/llvm/MC/MCParser/MCTargetAsmParser.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> When an operand is parsed, the assembler will try to iterate through a set of</p>
+                                <p> possible operand classes that the operand might match and call the</p>
+                                <p> corresponding PredicateMethod to determine that.</p>
+                            </div>
+                            <div>
+                                <p> If there are two AsmOperands that would give a specific diagnostic if there</p>
+                                <p> is no match, there is currently no mechanism to distinguish which operand is</p>
+                                <p> a closer match. The DiagnosticPredicate distinguishes between &#39;completely</p>
+                                <p> no match&#39; and &#39;near match&#39;, so the assembler can decide whether to give a</p>
+                                <p> specific diagnostic, or use &#39;InvalidOperand&#39; and continue to find a</p>
+                                <p> &#39;better matching&#39; diagnostic.</p>
+                            </div>
+                            <div>
+                                <p> For example:</p>
+                                <p>    opcode opnd0, onpd1, opnd2</p>
+                            </div>
+                            <div>
+                                <p> where:</p>
+                                <p>    opnd2 could be an &#39;immediate of range [-8, 7]&#39;</p>
+                                <p>    opnd2 could be a  &#39;register + shift/extend&#39;.</p>
+                            </div>
+                            <div>
+                                <p> If opnd2 is a valid register, but with a wrong shift/extend suffix, it makes</p>
+                                <p> little sense to give a diagnostic that the operand should be an immediate</p>
+                                <p> in range [-8, 7].</p>
+                            </div>
+                            <div>
+                                <p> This is a light-weight alternative to the &#39;NearMissInfo&#39; approach</p>
+                                <p> below which collects *all* possible diagnostics. This alternative</p>
+                                <p> is optional and fully backward compatible with existing</p>
+                                <p> PredicateMethods that return a &#39;bool&#39; (match or near match).</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Predicate" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >PredicateTy Predicate</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="2E5B5EEEE8BFA2029FA4CC714E275219928F20A4">
+                                <pre><code class="language-cpp code-clang-doc">void DiagnosticPredicate (PredicateTy T)</code></pre>
+                                <p>Defined at line 189 of file llvm/include/llvm/MC/MCParser/MCTargetAsmParser.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F1045052823DA81713CA076CFF38A4625A5DDE0">
+                                <pre><code class="language-cpp code-clang-doc">void DiagnosticPredicate (bool Matches)</code></pre>
+                                <p>Defined at line 191 of file llvm/include/llvm/MC/MCParser/MCTargetAsmParser.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A0933A0FCF45330B1CA56A37D93755AD6CFC396C">
+                                <pre><code class="language-cpp code-clang-doc">bool operator bool ()</code></pre>
+                                <p>Defined at line 194 of file llvm/include/llvm/MC/MCParser/MCTargetAsmParser.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F550B1BD2A260695C3F7810223682953830EFBAD">
+                                <pre><code class="language-cpp code-clang-doc">bool isMatch ()</code></pre>
+                                <p>Defined at line 196 of file llvm/include/llvm/MC/MCParser/MCTargetAsmParser.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="942183AA319410A59C03EB52120B90AF84767E7D">
+                                <pre><code class="language-cpp code-clang-doc">bool isNearMatch ()</code></pre>
+                                <p>Defined at line 197 of file llvm/include/llvm/MC/MCParser/MCTargetAsmParser.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="10435B332A4646DE2924A3D1779014CF1A120088">
+                                <pre><code class="language-cpp code-clang-doc">bool isNoMatch ()</code></pre>
+                                <p>Defined at line 198 of file llvm/include/llvm/MC/MCParser/MCTargetAsmParser.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

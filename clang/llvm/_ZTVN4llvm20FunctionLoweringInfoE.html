@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>FunctionLoweringInfo</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class FunctionLoweringInfo</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Fn">Fn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MF">MF</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TLI">TLI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#RegInfo">RegInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BPI">BPI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#UA">UA</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CanLowerReturn">CanLowerReturn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SplitCSR">SplitCSR</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DemoteRegister">DemoteRegister</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MBBMap">MBBMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ValueMap">ValueMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#VirtReg2Value">VirtReg2Value</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CatchPadExceptionPointers">CatchPadExceptionPointers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#StatepointRelocationMaps">StatepointRelocationMaps</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#StaticAllocaMap">StaticAllocaMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ByValArgFrameIndexMap">ByValArgFrameIndexMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ArgDbgValues">ArgDbgValues</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DescribedArgs">DescribedArgs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#RegFixups">RegFixups</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#RegsWithFixups">RegsWithFixups</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#StatepointStackSlots">StatepointStackSlots</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MBB">MBB</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#InsertPt">InsertPt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#PreferredExtendType">PreferredExtendType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#VisitedBBs">VisitedBBs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#PHINodesToUpdate">PHINodesToUpdate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#OrigNumPHINodesToUpdate">OrigNumPHINodesToUpdate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ExceptionPointerVirtReg">ExceptionPointerVirtReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ExceptionSelectorVirtReg">ExceptionSelectorVirtReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CurCallSite">CurCallSite</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#PreprocessedDVRDeclares">PreprocessedDVRDeclares</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1BD51E66F6F93936EC836DB285FE0E07BB9C68C8">AddLiveOutRegInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B6283879390BD9B8ED1AFEA3821E34A58AA4B2E8">getValueFromVirtualReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DB4C54331438CE6ECBDB4FCC1CFA080C32308DFE">set</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8301DBA10EBD7C0851216FAF6A699A8D7FA6A39C">isExportedInst</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D72D60668637652F29FD104394937F2DA5C22FD3">getMBB</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E47F6C2EA9724BFE3F54CBAF7D187F2828D388A">GetLiveOutRegInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#226C980717AAD16D3AFF062D5776163EE882C25A">InvalidatePHILiveOutRegInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CA8D107A68CD85D7B7EE43D90EBFB065BC71B955">setCurrentCallSite</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CADF3A801D4CD5765730BEBA791561023FCD223F">getCurrentCallSite</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#629818C525900E1B7DDE46BCA52CFDF598F1A89B">clear</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BBCD8AE96B786E51A871F86DC606FBB310DE8BE1">CreateReg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BE4743C60D1FF9ED5C88114DE207D89396340946">CreateRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F9D567F253F072DC0A83B23D61844C78C85E22E5">CreateRegs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72D73A1CA7F1E2650B8FD919C14693F03C6D7B2B">InitializeRegForValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C304FE02D0135BCE4DA1964C9C98628ECBBD2BBD">GetLiveOutRegInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#25CA13979F7D6EB0A79FFA28222A960347A1F79D">ComputePHILiveOutRegInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5C8620A304A2D47C0DD98A48B9F78D925EB5FB40">setArgumentFrameIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EDA01BA6E70031AF096296E47953BC7610241EA5">getArgumentFrameIndex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#148A714696620361247C0EBB101C2C246DEACD7A">getCatchPadExceptionPointerVReg</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class FunctionLoweringInfo</h1>
+                        <p>Defined at line 56 of file llvm/include/llvm/CodeGen/FunctionLoweringInfo.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p>===--------------------------------------------------------------------===//</p>
+                                <p> FunctionLoweringInfo - This contains information that is global to a</p>
+                                <p> function that is used when lowering a region of the function.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Fn" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const Function * Fn</code></pre>
+                        </div>
+                        <div id="MF" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >MachineFunction * MF</code></pre>
+                        </div>
+                        <div id="TLI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetLowering * TLI</code></pre>
+                        </div>
+                        <div id="RegInfo" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >MachineRegisterInfo * RegInfo</code></pre>
+                        </div>
+                        <div id="BPI" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >BranchProbabilityInfo * BPI</code></pre>
+                        </div>
+                        <div id="UA" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const UniformityInfo * UA</code></pre>
+                        </div>
+                        <div id="CanLowerReturn" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool CanLowerReturn</code></pre>
+                        </div>
+                        <div id="SplitCSR" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool SplitCSR</code></pre>
+                        </div>
+                        <div id="DemoteRegister" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Register DemoteRegister</code></pre>
+                        </div>
+                        <div id="MBBMap" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int MBBMap</code></pre>
+                        </div>
+                        <div id="ValueMap" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int ValueMap</code></pre>
+                        </div>
+                        <div id="VirtReg2Value" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int VirtReg2Value</code></pre>
+                        </div>
+                        <div id="CatchPadExceptionPointers" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int CatchPadExceptionPointers</code></pre>
+                        </div>
+                        <div id="StatepointRelocationMaps" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int StatepointRelocationMaps</code></pre>
+                        </div>
+                        <div id="StaticAllocaMap" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int StaticAllocaMap</code></pre>
+                        </div>
+                        <div id="ByValArgFrameIndexMap" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int ByValArgFrameIndexMap</code></pre>
+                        </div>
+                        <div id="ArgDbgValues" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector&lt;MachineInstr *, 8&gt; ArgDbgValues</code></pre>
+                        </div>
+                        <div id="DescribedArgs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >BitVector DescribedArgs</code></pre>
+                        </div>
+                        <div id="RegFixups" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int RegFixups</code></pre>
+                        </div>
+                        <div id="RegsWithFixups" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int RegsWithFixups</code></pre>
+                        </div>
+                        <div id="StatepointStackSlots" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector&lt;unsigned int, 50&gt; StatepointStackSlots</code></pre>
+                        </div>
+                        <div id="MBB" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >MachineBasicBlock * MBB</code></pre>
+                        </div>
+                        <div id="InsertPt" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int InsertPt</code></pre>
+                        </div>
+                        <div id="PreferredExtendType" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int PreferredExtendType</code></pre>
+                        </div>
+                        <div id="VisitedBBs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int VisitedBBs</code></pre>
+                        </div>
+                        <div id="PHINodesToUpdate" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int PHINodesToUpdate</code></pre>
+                        </div>
+                        <div id="OrigNumPHINodesToUpdate" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int OrigNumPHINodesToUpdate</code></pre>
+                        </div>
+                        <div id="ExceptionPointerVirtReg" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Register ExceptionPointerVirtReg</code></pre>
+                        </div>
+                        <div id="ExceptionSelectorVirtReg" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Register ExceptionSelectorVirtReg</code></pre>
+                        </div>
+                        <div id="CurCallSite" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int CurCallSite</code></pre>
+                        </div>
+                        <div id="PreprocessedDVRDeclares" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallPtrSet&lt;const DbgVariableRecord *, 8&gt; PreprocessedDVRDeclares</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="1BD51E66F6F93936EC836DB285FE0E07BB9C68C8">
+                                <pre><code class="language-cpp code-clang-doc">void AddLiveOutRegInfo (Register Reg, unsigned int NumSignBits, const KnownBits &amp; Known)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> AddLiveOutRegInfo - Adds LiveOutInfo for a register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 247 of file llvm/include/llvm/CodeGen/FunctionLoweringInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B6283879390BD9B8ED1AFEA3821E34A58AA4B2E8">
+                                <pre><code class="language-cpp code-clang-doc">const Value * getValueFromVirtualReg (Register Vreg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> This method is called from TargetLowerinInfo::isSDNodeSourceOfDivergence</p>
+                                        <p> to get the Value corresponding to the live-in virtual register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 587 of file llvm/lib/CodeGen/SelectionDAG/FunctionLoweringInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DB4C54331438CE6ECBDB4FCC1CFA080C32308DFE">
+                                <pre><code class="language-cpp code-clang-doc">void set (const Function &amp; Fn, MachineFunction &amp; MF, SelectionDAG * DAG)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> set - Initialize this FunctionLoweringInfo with the given Function</p>
+                                        <p> and its associated MachineFunction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 86 of file llvm/lib/CodeGen/SelectionDAG/FunctionLoweringInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8301DBA10EBD7C0851216FAF6A699A8D7FA6A39C">
+                                <pre><code class="language-cpp code-clang-doc">bool isExportedInst (const Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> isExportedInst - Return true if the specified value is an instruction</p>
+                                        <p> exported from its block.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 209 of file llvm/include/llvm/CodeGen/FunctionLoweringInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D72D60668637652F29FD104394937F2DA5C22FD3">
+                                <pre><code class="language-cpp code-clang-doc">MachineBasicBlock * getMBB (const BasicBlock * BB)</code></pre>
+                                <p>Defined at line 213 of file llvm/include/llvm/CodeGen/FunctionLoweringInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E47F6C2EA9724BFE3F54CBAF7D187F2828D388A">
+                                <pre><code class="language-cpp code-clang-doc">const LiveOutInfo * GetLiveOutRegInfo (Register Reg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> GetLiveOutRegInfo - Gets LiveOutInfo for a register, returning NULL if the</p>
+                                        <p> register is a PHI destination and the PHI&#39;s LiveOutInfo is not valid.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 228 of file llvm/include/llvm/CodeGen/FunctionLoweringInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="226C980717AAD16D3AFF062D5776163EE882C25A">
+                                <pre><code class="language-cpp code-clang-doc">void InvalidatePHILiveOutRegInfo (const PHINode * PN)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> InvalidatePHILiveOutRegInfo - Invalidates a PHI&#39;s LiveOutInfo, to be</p>
+                                        <p> called when a block is visited before all of its predecessors.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 266 of file llvm/include/llvm/CodeGen/FunctionLoweringInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CA8D107A68CD85D7B7EE43D90EBFB065BC71B955">
+                                <pre><code class="language-cpp code-clang-doc">void setCurrentCallSite (unsigned int Site)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the call site currently being processed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 291 of file llvm/include/llvm/CodeGen/FunctionLoweringInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CADF3A801D4CD5765730BEBA791561023FCD223F">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getCurrentCallSite ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the call site currently being processed, if any. Return zero if none.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 294 of file llvm/include/llvm/CodeGen/FunctionLoweringInfo.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="629818C525900E1B7DDE46BCA52CFDF598F1A89B">
+                                <pre><code class="language-cpp code-clang-doc">void clear ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> clear - Clear out all the function-specific state. This returns this</p>
+                                        <p> FunctionLoweringInfo to an empty state, ready to be used for a</p>
+                                        <p> different function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 357 of file llvm/lib/CodeGen/SelectionDAG/FunctionLoweringInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BBCD8AE96B786E51A871F86DC606FBB310DE8BE1">
+                                <pre><code class="language-cpp code-clang-doc">Register CreateReg (MVT VT, bool isDivergent)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> CreateReg - Allocate a single virtual register for the given type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 376 of file llvm/lib/CodeGen/SelectionDAG/FunctionLoweringInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BE4743C60D1FF9ED5C88114DE207D89396340946">
+                                <pre><code class="language-cpp code-clang-doc">Register CreateRegs (const Value * V)</code></pre>
+                                <p>Defined at line 404 of file llvm/lib/CodeGen/SelectionDAG/FunctionLoweringInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F9D567F253F072DC0A83B23D61844C78C85E22E5">
+                                <pre><code class="language-cpp code-clang-doc">Register CreateRegs (Type * Ty, bool isDivergent)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> CreateRegs - Allocate the appropriate number of virtual registers of</p>
+                                        <p> the correctly promoted or expanded types.  Assign these registers</p>
+                                        <p> consecutive vreg numbers and return the first assigned number.</p>
+                                    </div>
+                                    <div>
+                                        <p> In the case that the given value has struct or array type, this function</p>
+                                        <p> will assign registers for each member or element.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 387 of file llvm/lib/CodeGen/SelectionDAG/FunctionLoweringInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72D73A1CA7F1E2650B8FD919C14693F03C6D7B2B">
+                                <pre><code class="language-cpp code-clang-doc">Register InitializeRegForValue (const Value * V)</code></pre>
+                                <p>Defined at line 409 of file llvm/lib/CodeGen/SelectionDAG/FunctionLoweringInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C304FE02D0135BCE4DA1964C9C98628ECBBD2BBD">
+                                <pre><code class="language-cpp code-clang-doc">const LiveOutInfo * GetLiveOutRegInfo (Register Reg, unsigned int BitWidth)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> GetLiveOutRegInfo - Gets LiveOutInfo for a register, returning NULL if the</p>
+                                        <p> register is a PHI destination and the PHI&#39;s LiveOutInfo is not valid. If</p>
+                                        <p> the register&#39;s LiveOutInfo is for a smaller bit width, it is extended to</p>
+                                        <p> the larger bit width by zero extension. The bit width must be no smaller</p>
+                                        <p> than the LiveOutInfo&#39;s existing bit width.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 424 of file llvm/lib/CodeGen/SelectionDAG/FunctionLoweringInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="25CA13979F7D6EB0A79FFA28222A960347A1F79D">
+                                <pre><code class="language-cpp code-clang-doc">void ComputePHILiveOutRegInfo (const PHINode * )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ComputePHILiveOutRegInfo - Compute LiveOutInfo for a PHI&#39;s destination</p>
+                                        <p> register based on the LiveOutInfo of its operands.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 443 of file llvm/lib/CodeGen/SelectionDAG/FunctionLoweringInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5C8620A304A2D47C0DD98A48B9F78D925EB5FB40">
+                                <pre><code class="language-cpp code-clang-doc">void setArgumentFrameIndex (const Argument * A, int FI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> setArgumentFrameIndex - Record frame index for the byval</p>
+                                        <p> argument.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 560 of file llvm/lib/CodeGen/SelectionDAG/FunctionLoweringInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EDA01BA6E70031AF096296E47953BC7610241EA5">
+                                <pre><code class="language-cpp code-clang-doc">int getArgumentFrameIndex (const Argument * A)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getArgumentFrameIndex - Get frame index for the byval argument.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 568 of file llvm/lib/CodeGen/SelectionDAG/FunctionLoweringInfo.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="148A714696620361247C0EBB101C2C246DEACD7A">
+                                <pre><code class="language-cpp code-clang-doc">Register getCatchPadExceptionPointerVReg (const Value * CPI, const TargetRegisterClass * RC)</code></pre>
+                                <p>Defined at line 576 of file llvm/lib/CodeGen/SelectionDAG/FunctionLoweringInfo.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

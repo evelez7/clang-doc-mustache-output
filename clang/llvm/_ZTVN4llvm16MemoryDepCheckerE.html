@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MemoryDepChecker</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MemoryDepChecker</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF17D49DD449B764EC98C7F7D5D58FA4EE8C7F77">MemoryDepChecker</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B50E51FB3B36FD8701F48A76B69EB0B6785BA1E">MemoryDepChecker</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6557EDE054C12889701582004A55CC32E98B0E1C">areDepsSafe</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F1C7C9C1B10436AAA90B943D90A76ED05EEA998F">isSafeForVectorization</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6D2C10CFC36D7E78C504F036C39A42F9AF9ECBB2">isSafeForAnyVectorWidth</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F985B302D4B4C18E4CB4DF31708F555EA6E48E90">getMaxSafeVectorWidthInBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A884DB590A1AD8D2DBC65BA13A5B990F4058C548">isSafeForAnyStoreLoadForwardDistances</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#296724538B26F0D625B30319D04292081F0262EC">getStoreLoadForwardSafeDistanceInBits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C05748A0C536D26A4D6B070B802ACD46BECFD9EC">shouldRetryWithRuntimeChecks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FE5189F48A92D8656F9A9C3C4142CCFE13884CCD">getDependences</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E495D3967AB3927A1320D3A59099EF90BC4FB978">clearDependences</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4B8384A17745716983C04ADA59CC8646CF6DDC89">getMemoryInstructions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0D745BDBC84B380A6EDF088A8A693B3F8E67F593">generateInstructionOrderMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#975EFEDC2A417740A4171CB892FAA9105349DB1F">getOrderForAccess</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5410A61E4367B13E918026D7AE22D5A5E0F73B70">getInnermostLoop</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E56AEC1D6923C01BE9C431E2EB42CC87774D1E1A">getPointerBounds</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BAC1A28D66A2D6349578CCB9DEC0D63B9211F3EE">getDT</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A7F9F5DBE45F4B83668D9825F5B8A14C19E0A165">getAC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#56B9B6530E567ACAC45210DB3E3D92A1E3B28F32">addAccess</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#464A27F36743D4CDFBD156606E7C4D263E9641F9">addAccess</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1CA2FA44174FE0F91D6E2B3C2A12FABD433300F0">areDepsSafe</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3474CD3B8B8DC71E884BAB2054CC4DC0139E81B0">getInstructionsForAccess</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MemoryDepChecker</h1>
+                        <p>Defined at line 91 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Checks memory dependences among accesses to the same underlying</p>
+                                <p> object to determine whether there vectorization is legal or not (and at</p>
+                                <p> which vectorization factor).</p>
+                            </div>
+                            <div>
+                                <p> Note: This class will compute a conservative dependence for access to</p>
+                                <p> different underlying pointers. Clients, such as the loop vectorizer, will</p>
+                                <p> sometimes deal these potential dependencies by emitting runtime checks.</p>
+                            </div>
+                            <div>
+                                <p> We use the ScalarEvolution framework to symbolically evalutate access</p>
+                                <p> functions pairs. Since we currently don&#39;t restructure the loop we can rely</p>
+                                <p> on the program order of memory accesses to determine their safety.</p>
+                                <p> At the moment we will only deem accesses as safe for:</p>
+                                <p>  * A negative constant distance assuming program order.</p>
+                            </div>
+                            <div>
+                                <p>      Safe: tmp = a[i + 1];     OR     a[i + 1] = x;</p>
+                                <p>            a[i] = tmp;                y = a[i];</p>
+                            </div>
+                            <div>
+                                <p>   The latter case is safe because later checks guarantuee that there can&#39;t</p>
+                                <p>   be a cycle through a phi node (that is, we check that &quot;x&quot; and &quot;y&quot; is not</p>
+                                <p>   the same variable: a header phi can only be an induction or a reduction, a</p>
+                                <p>   reduction can&#39;t have a memory sink, an induction can&#39;t have a memory</p>
+                                <p>   source). This is important and must not be violated (or we have to</p>
+                                <p>   resort to checking for cycles through memory).</p>
+                            </div>
+                            <div>
+                                <p>  * A positive constant distance assuming program order that is bigger</p>
+                                <p>    than the biggest memory access.</p>
+                            </div>
+                            <div>
+                                <p>     tmp = a[i]        OR              b[i] = x</p>
+                                <p>     a[i+2] = tmp                      y = b[i+2];</p>
+                            </div>
+                            <div>
+                                <p>     Safe distance: 2 x sizeof(a[0]), and 2 x sizeof(b[0]), respectively.</p>
+                            </div>
+                            <div>
+                                <p>  * Zero distances and all accesses have the same size.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="EF17D49DD449B764EC98C7F7D5D58FA4EE8C7F77">
+                                <pre><code class="language-cpp code-clang-doc">void MemoryDepChecker (PredicatedScalarEvolution &amp; PSE, AssumptionCache * AC, DominatorTree * DT, const Loop * L, const int &amp; SymbolicStrides, unsigned int MaxTargetVectorWidthInBits, std::optional&lt;ScalarEvolution::LoopGuards&gt; &amp; LoopGuards)</code></pre>
+                                <p>Defined at line 183 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3B50E51FB3B36FD8701F48A76B69EB0B6785BA1E">
+                                <pre><code class="language-cpp code-clang-doc">void MemoryDepChecker (PredicatedScalarEvolution &amp; PSE, AssumptionCache * AC, DominatorTree * DT, const Loop * L, const DenseMap&lt;Value *, const SCEV *&gt; &amp; SymbolicStrides, unsigned int MaxTargetVectorWidthInBits, std::optional&lt;ScalarEvolution::LoopGuards&gt; &amp; LoopGuards)</code></pre>
+                                <p>Defined at line 183 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6557EDE054C12889701582004A55CC32E98B0E1C">
+                                <pre><code class="language-cpp code-clang-doc">bool areDepsSafe (const DepCandidates &amp; AccessSets, const MemAccessInfoList &amp; CheckDeps)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check whether the dependencies between the accesses are safe, and records</p>
+                                        <p> the dependence information in Dependences if so.</p>
+                                    </div>
+                                    <div>
+                                        <p> Only checks sets with elements in </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F1C7C9C1B10436AAA90B943D90A76ED05EEA998F">
+                                <pre><code class="language-cpp code-clang-doc">bool isSafeForVectorization ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> No memory dependence was encountered that would inhibit</p>
+                                        <p> vectorization.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 210 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6D2C10CFC36D7E78C504F036C39A42F9AF9ECBB2">
+                                <pre><code class="language-cpp code-clang-doc">bool isSafeForAnyVectorWidth ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the number of elements that are safe to operate on</p>
+                                        <p> simultaneously is not bounded.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 216 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F985B302D4B4C18E4CB4DF31708F555EA6E48E90">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getMaxSafeVectorWidthInBits ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the number of elements that are safe to operate on</p>
+                                        <p> simultaneously, multiplied by the size of the element in bits.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 222 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A884DB590A1AD8D2DBC65BA13A5B990F4058C548">
+                                <pre><code class="language-cpp code-clang-doc">bool isSafeForAnyStoreLoadForwardDistances ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if there are no store-load forwarding dependencies.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 227 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="296724538B26F0D625B30319D04292081F0262EC">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getStoreLoadForwardSafeDistanceInBits ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return safe power-of-2 number of elements, which do not prevent store-load</p>
+                                        <p> forwarding, multiplied by the size of the elements in bits.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 234 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C05748A0C536D26A4D6B070B802ACD46BECFD9EC">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldRetryWithRuntimeChecks ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> In same cases when the dependency check fails we can still</p>
+                                        <p> vectorize the loop with a dynamic array access check.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 243 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FE5189F48A92D8656F9A9C3C4142CCFE13884CCD">
+                                <pre><code class="language-cpp code-clang-doc">const SmallVectorImpl&lt;Dependence&gt; * getDependences ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the memory dependences.  If null is returned we exceeded</p>
+                                        <p> the MaxDependences threshold and this information is not</p>
+                                        <p> available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 251 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E495D3967AB3927A1320D3A59099EF90BC4FB978">
+                                <pre><code class="language-cpp code-clang-doc">void clearDependences ()</code></pre>
+                                <p>Defined at line 255 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4B8384A17745716983C04ADA59CC8646CF6DDC89">
+                                <pre><code class="language-cpp code-clang-doc">const SmallVectorImpl&lt;Instruction *&gt; &amp; getMemoryInstructions ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The vector of memory access instructions.  The indices are used as</p>
+                                        <p> instruction identifiers in the Dependence class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 259 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0D745BDBC84B380A6EDF088A8A693B3F8E67F593">
+                                <pre><code class="language-cpp code-clang-doc">DenseMap generateInstructionOrderMap ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Generate a mapping between the memory instructions and their</p>
+                                        <p> indices according to program order.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 265 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="975EFEDC2A417740A4171CB892FAA9105349DB1F">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getOrderForAccess (Value * Ptr, bool IsWrite)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the program order indices for the access location (Ptr, IsWrite).</p>
+                                        <p> Returns an empty ArrayRef if there are no accesses for the location.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 280 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5410A61E4367B13E918026D7AE22D5A5E0F73B70">
+                                <pre><code class="language-cpp code-clang-doc">const Loop * getInnermostLoop ()</code></pre>
+                                <p>Defined at line 287 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E56AEC1D6923C01BE9C431E2EB42CC87774D1E1A">
+                                <pre><code class="language-cpp code-clang-doc">DenseMap&lt;std::pair&lt;const SCEV *, Type *&gt;, std::pair&lt;const SCEV *, const SCEV *&gt;&gt; &amp; getPointerBounds ()</code></pre>
+                                <p>Defined at line 289 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BAC1A28D66A2D6349578CCB9DEC0D63B9211F3EE">
+                                <pre><code class="language-cpp code-clang-doc">DominatorTree * getDT ()</code></pre>
+                                <p>Defined at line 295 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A7F9F5DBE45F4B83668D9825F5B8A14C19E0A165">
+                                <pre><code class="language-cpp code-clang-doc">AssumptionCache * getAC ()</code></pre>
+                                <p>Defined at line 299 of file llvm/include/llvm/Analysis/LoopAccessAnalysis.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="56B9B6530E567ACAC45210DB3E3D92A1E3B28F32">
+                                <pre><code class="language-cpp code-clang-doc">void addAccess (StoreInst * SI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Register the location (instructions are given increasing numbers)</p>
+                                        <p> of a write access.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1781 of file llvm/lib/Analysis/LoopAccessAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="464A27F36743D4CDFBD156606E7C4D263E9641F9">
+                                <pre><code class="language-cpp code-clang-doc">void addAccess (LoadInst * LI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Register the location (instructions are given increasing numbers)</p>
+                                        <p> of a write access.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1790 of file llvm/lib/Analysis/LoopAccessAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1CA2FA44174FE0F91D6E2B3C2A12FABD433300F0">
+                                <pre><code class="language-cpp code-clang-doc">bool areDepsSafe (const DepCandidates &amp; AccessSets, const MemAccessInfoList &amp; CheckDeps)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check whether the dependencies between the accesses are safe, and records</p>
+                                        <p> the dependence information in Dependences if so.</p>
+                                    </div>
+                                    <div>
+                                        <p> Only checks sets with elements in </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2365 of file llvm/lib/Analysis/LoopAccessAnalysis.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3474CD3B8B8DC71E884BAB2054CC4DC0139E81B0">
+                                <pre><code class="language-cpp code-clang-doc">SmallVector getInstructionsForAccess (Value * Ptr, bool isWrite)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Find the set of instructions that read or write via </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2438 of file llvm/lib/Analysis/LoopAccessAnalysis.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>PredicatedScalarEvolution</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class PredicatedScalarEvolution</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#270229941E9F8443A394F9C8BA7C36E602A2E12E">getSE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CF5BE7552C73562F22B0FFD2168B321A2469C45A">PredicatedScalarEvolution</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#320809A7B0A058F200A16F1BCD2C89AB6FDABD80">getPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#32947BBBDE4EAAB060AB2FB20E268D4D04DA00EA">getSCEV</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#425AC6372D2AFBB0B3A580D235CF78C92444C821">getPredicatedSCEV</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3915552BE1EB349B24CB167A2E3E0FA3F65DAE7D">getBackedgeTakenCount</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#038E5B8EBBF6FCE042265B8C6233FC5D28B2D6AE">getSymbolicMaxBackedgeTakenCount</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B8E9AB1C436509F0F1733D623B21C283D52F31CF">getSmallConstantMaxTripCount</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3C589E55A91BD9FF791F599756771C4B15588DEC">addPredicate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C6CB345EEEC11FBA914C5925F386642EF6ED8F1D">getAsAddRec</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D095701F54E387116468C688058A031FFD147FEC">setNoOverflow</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#22030297AD4D319B2D4BDEB8B3732A70B512AB0D">hasNoOverflow</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AFBF70F841925085FD62FCD61A17B176D0C67605">PredicatedScalarEvolution</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6CF109AC1A58E673A80729AD91BDF80347B2E623">print</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FBCC3250AFA4BA2781B8D9AE451781A935EB3EE">areAddRecsEqualWithPreds</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class PredicatedScalarEvolution</h1>
+                        <p>Defined at line 2442 of file llvm/include/llvm/Analysis/ScalarEvolution.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> An interface layer with SCEV used to manage how we see SCEV expressions</p>
+                                <p> for values in the context of existing predicates. We can add new</p>
+                                <p> predicates, but we cannot remove them.</p>
+                            </div>
+                            <div>
+                                <p> This layer has multiple purposes:</p>
+                                <p>   - provides a simple interface for SCEV versioning.</p>
+                                <p>   - guarantees that the order of transformations applied on a SCEV</p>
+                                <p>     expression for a single Value is consistent across two different</p>
+                                <p>     getSCEV calls. This means that, for example, once we&#39;ve obtained</p>
+                                <p>     an AddRec expression for a certain value through expression</p>
+                                <p>     rewriting, we will continue to get an AddRec expression for that</p>
+                                <p>     Value.</p>
+                                <p>   - lowers the number of expression rewrites.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="270229941E9F8443A394F9C8BA7C36E602A2E12E">
+                                <pre><code class="language-cpp code-clang-doc">ScalarEvolution * getSE ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the ScalarEvolution analysis used.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2489 of file llvm/include/llvm/Analysis/ScalarEvolution.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CF5BE7552C73562F22B0FFD2168B321A2469C45A">
+                                <pre><code class="language-cpp code-clang-doc">void PredicatedScalarEvolution (ScalarEvolution &amp; SE, Loop &amp; L)</code></pre>
+                                <p>Defined at line 15250 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="320809A7B0A058F200A16F1BCD2C89AB6FDABD80">
+                                <pre><code class="language-cpp code-clang-doc">const SCEVPredicate &amp; getPredicate ()</code></pre>
+                                <p>Defined at line 15331 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="32947BBBDE4EAAB060AB2FB20E268D4D04DA00EA">
+                                <pre><code class="language-cpp code-clang-doc">const SCEV * getSCEV (Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the SCEV expression of V, in the context of the current SCEV</p>
+                                        <p> predicate.  The order of transformations applied on the expression of V</p>
+                                        <p> returned by ScalarEvolution is guaranteed to be preserved, even when</p>
+                                        <p> adding new predicates.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 15267 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="425AC6372D2AFBB0B3A580D235CF78C92444C821">
+                                <pre><code class="language-cpp code-clang-doc">const SCEV * getPredicatedSCEV (const SCEV * Expr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the rewritten SCEV for </p>
+                                        <p> in the context of the current SCEV</p>
+                                        <p> predicate. The order of transformations applied on the expression of </p>
+                                        <p> returned by ScalarEvolution is guaranteed to be preserved, even when</p>
+                                        <p> adding new predicates.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 15272 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3915552BE1EB349B24CB167A2E3E0FA3F65DAE7D">
+                                <pre><code class="language-cpp code-clang-doc">const SCEV * getBackedgeTakenCount ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the (predicated) backedge count for the analyzed loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 15290 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="038E5B8EBBF6FCE042265B8C6233FC5D28B2D6AE">
+                                <pre><code class="language-cpp code-clang-doc">const SCEV * getSymbolicMaxBackedgeTakenCount ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the (predicated) symbolic max backedge count for the analyzed loop.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 15300 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B8E9AB1C436509F0F1733D623B21C283D52F31CF">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSmallConstantMaxTripCount ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the upper bound of the loop trip count as a normal unsigned</p>
+                                        <p> value, or 0 if the trip count is unknown.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 15311 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3C589E55A91BD9FF791F599756771C4B15588DEC">
+                                <pre><code class="language-cpp code-clang-doc">void addPredicate (const SCEVPredicate &amp; Pred)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Adds a new predicate.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 15321 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C6CB345EEEC11FBA914C5925F386642EF6ED8F1D">
+                                <pre><code class="language-cpp code-clang-doc">const SCEVAddRecExpr * getAsAddRec (Value * V)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Attempts to produce an AddRecExpr for V by adding additional SCEV</p>
+                                        <p> predicates. If we can&#39;t transform the expression into an AddRecExpr we</p>
+                                        <p> return nullptr and not add additional SCEV predicates to the current</p>
+                                        <p> context.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 15377 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D095701F54E387116468C688058A031FFD147FEC">
+                                <pre><code class="language-cpp code-clang-doc">void setNoOverflow (Value * V, IncrementWrapFlags Flags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Proves that V doesn&#39;t overflow by adding SCEV predicate.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 15345 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="22030297AD4D319B2D4BDEB8B3732A70B512AB0D">
+                                <pre><code class="language-cpp code-clang-doc">bool hasNoOverflow (Value * V, IncrementWrapFlags Flags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if we&#39;ve proved that V doesn&#39;t wrap by means of a SCEV</p>
+                                        <p> predicate.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 15361 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AFBF70F841925085FD62FCD61A17B176D0C67605">
+                                <pre><code class="language-cpp code-clang-doc">void PredicatedScalarEvolution (const PredicatedScalarEvolution &amp; )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> We need to explicitly define the copy constructor because of FlagsMap.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 15392 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6CF109AC1A58E673A80729AD91BDF80347B2E623">
+                                <pre><code class="language-cpp code-clang-doc">void print (raw_ostream &amp; OS, unsigned int Depth)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print the SCEV mappings done by the Predicated Scalar Evolution.</p>
+                                        <p> The printed text is indented by </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 15402 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9FBCC3250AFA4BA2781B8D9AE451781A935EB3EE">
+                                <pre><code class="language-cpp code-clang-doc">bool areAddRecsEqualWithPreds (const SCEVAddRecExpr * AR1, const SCEVAddRecExpr * AR2)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if </p>
+                                        <p> and </p>
+                                        <p> are equal, while taking into account</p>
+                                        <p> Equal predicates in Preds.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5743 of file llvm/lib/Analysis/ScalarEvolution.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

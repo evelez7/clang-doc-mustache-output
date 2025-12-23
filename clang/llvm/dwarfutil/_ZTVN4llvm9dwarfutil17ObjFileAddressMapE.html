@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ObjFileAddressMap</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">dwarfutil</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ObjFileAddressMap</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#684412B540FE693D12262340DFA3B7C17B5C974F">ObjFileAddressMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F03DD88DEDC17A70F38F0C67BCD1CFB969CF4C09">hasValidRelocs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5E66E0BFAFDCF798818C2310DD2669DD7FA883FD">getSubprogramRelocAdjustment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2057A2A71DECA8FADDD6D67893F2892FB8FA4765">getExprOpAddressRelocAdjustment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6F488C97C7D81868B49679402D080BEFB4803347">getLibraryInstallName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4BCDFCD8F70B7ADFCBCDD33FE3BBEF38759D0675">applyValidRelocs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5E8D31A5FF865E4781CBC32EBF87106C5299E35D">needToSaveValidRelocs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#491A765163EB6EB116EC437E9DBC135000960C19">updateAndSaveValidRelocs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B7B9877F6BA9549CC2A282A3C25A283B6A23661">updateRelocationsWithUnitOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8E6F6542BA329221C48A88CA4411292E1644A14B">clear</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ObjFileAddressMap</h1>
+                        <p>Defined at line 42 of file llvm/tools/llvm-dwarfutil/DebugInfoLinker.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> ObjFileAddressMap allows to check whether specified DIE referencing</p>
+                                <p> dead addresses. It uses tombstone values to determine dead addresses.</p>
+                                <p> The concrete values of tombstone constants were discussed in</p>
+                                <p> https://reviews.llvm.org/D81784 and https://reviews.llvm.org/D84825.</p>
+                                <p> So we use following values as indicators of dead addresses:</p>
+                            </div>
+                            <div>
+                                <p> bfd: (LowPC == 0) or (LowPC == 1 and HighPC == 1 and  DWARF v4 (or less))</p>
+                                <p>      or ([LowPC, HighPC] is not inside address ranges of .text sections).</p>
+                            </div>
+                            <div>
+                                <p> maxpc: (LowPC == -1) or (LowPC == -2 and  DWARF v4 (or less))</p>
+                                <p>        That value is assumed to be compatible with</p>
+                                <p>        http://www.dwarfstd.org/ShowIssue.php?issue=200609.1</p>
+                            </div>
+                            <div>
+                                <p> exec: [LowPC, HighPC] is not inside address ranges of .text sections</p>
+                            </div>
+                            <div>
+                                <p> universal: maxpc and bfd</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="684412B540FE693D12262340DFA3B7C17B5C974F">
+                                <pre><code class="language-cpp code-clang-doc">void ObjFileAddressMap (DWARFContext &amp; Context, const Options &amp; Options, object::ObjectFile &amp; ObjFile)</code></pre>
+                                <p>Defined at line 44 of file llvm/tools/llvm-dwarfutil/DebugInfoLinker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F03DD88DEDC17A70F38F0C67BCD1CFB969CF4C09">
+                                <pre><code class="language-cpp code-clang-doc">bool hasValidRelocs ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> should be renamed into has valid address ranges</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 81 of file llvm/tools/llvm-dwarfutil/DebugInfoLinker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5E66E0BFAFDCF798818C2310DD2669DD7FA883FD">
+                                <pre><code class="language-cpp code-clang-doc">optional getSubprogramRelocAdjustment (const DWARFDie &amp; DIE, bool Verbose)</code></pre>
+                                <p>Defined at line 83 of file llvm/tools/llvm-dwarfutil/DebugInfoLinker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2057A2A71DECA8FADDD6D67893F2892FB8FA4765">
+                                <pre><code class="language-cpp code-clang-doc">optional getExprOpAddressRelocAdjustment (DWARFUnit &amp; U, const DWARFExpression::Operation &amp; Op, uint64_t , uint64_t , bool Verbose)</code></pre>
+                                <p>Defined at line 101 of file llvm/tools/llvm-dwarfutil/DebugInfoLinker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6F488C97C7D81868B49679402D080BEFB4803347">
+                                <pre><code class="language-cpp code-clang-doc">optional getLibraryInstallName ()</code></pre>
+                                <p>Defined at line 136 of file llvm/tools/llvm-dwarfutil/DebugInfoLinker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4BCDFCD8F70B7ADFCBCDD33FE3BBEF38759D0675">
+                                <pre><code class="language-cpp code-clang-doc">bool applyValidRelocs (MutableArrayRef , uint64_t , bool )</code></pre>
+                                <p>Defined at line 140 of file llvm/tools/llvm-dwarfutil/DebugInfoLinker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5E8D31A5FF865E4781CBC32EBF87106C5299E35D">
+                                <pre><code class="language-cpp code-clang-doc">bool needToSaveValidRelocs ()</code></pre>
+                                <p>Defined at line 145 of file llvm/tools/llvm-dwarfutil/DebugInfoLinker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="491A765163EB6EB116EC437E9DBC135000960C19">
+                                <pre><code class="language-cpp code-clang-doc">void updateAndSaveValidRelocs (bool , uint64_t , int64_t , uint64_t , uint64_t )</code></pre>
+                                <p>Defined at line 147 of file llvm/tools/llvm-dwarfutil/DebugInfoLinker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B7B9877F6BA9549CC2A282A3C25A283B6A23661">
+                                <pre><code class="language-cpp code-clang-doc">void updateRelocationsWithUnitOffset (uint64_t OriginalUnitOffset, uint64_t OutputUnitOffset)</code></pre>
+                                <p>Defined at line 150 of file llvm/tools/llvm-dwarfutil/DebugInfoLinker.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8E6F6542BA329221C48A88CA4411292E1644A14B">
+                                <pre><code class="language-cpp code-clang-doc">void clear ()</code></pre>
+                                <p>Defined at line 153 of file llvm/tools/llvm-dwarfutil/DebugInfoLinker.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

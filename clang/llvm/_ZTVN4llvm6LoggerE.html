@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Logger</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class Logger</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#00C22817D044B2A2D46F9F5FCDBB54912971BA30">Logger</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E40390FB9821E8E8C5E6A6B79C34147A34BA0906">Logger</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#738BD21194BB4A7DED958BB759AFDDF259ED6BF5">switchContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#308858E3F26F19F4579B511E8B6459B6D5107730">startObservation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EBB3F91273691A3C1B4727A6520D14138F198940">endObservation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC112DFCBD18E1658A7D81BE137501CAB152B31E">flush</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EDE6ECE306FFDC9D620D11BF231C04D88F6E8B88">currentContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#623FA8F7EBD2F67D6A5F5DD66632DC64E6C5B3CF">hasObservationInProgress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B5E4F4D00F0330C7B00FE8381A36556A0BBA4FA">hasAnyObservationForContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#689D7AC0A76E0FD8194486A5E16DD5469DAC37B3">logReward</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E47AACBF6617463A1B552E2F4D00EA17879FB4DB">logTensorValue</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class Logger</h1>
+                        <p>Defined at line 92 of file llvm/include/llvm/Analysis/Utils/TrainingLogger.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Logging utility - given an ordered specification of features, and assuming</p>
+                                <p> a scalar reward, allow logging feature values and rewards.</p>
+                                <p> The assumption is that, for an event to be logged (i.e. a set of feature</p>
+                                <p> values and a reward), the user calls the log* API for each feature exactly</p>
+                                <p> once, providing the index matching the position in the feature spec list</p>
+                                <p> provided at construction. The example assumes the first feature&#39;s element</p>
+                                <p> type is float, the second is int64, and the reward is float:</p>
+                            </div>
+                            <div>
+                                <p> event 0:</p>
+                                <p>   logFloatValue(0, ...)</p>
+                                <p>   logInt64Value(1, ...)</p>
+                                <p>   ...</p>
+                                <p>   logFloatReward(...)</p>
+                                <p> event 1:</p>
+                                <p>   logFloatValue(0, ...)</p>
+                                <p>   logInt64Value(1, ...)</p>
+                                <p>   ...</p>
+                                <p>   logFloatReward(...)</p>
+                            </div>
+                            <div>
+                                <p> At the end, call print to generate the log.</p>
+                                <p> Alternatively, don&#39;t call logReward at the end of each event, just</p>
+                                <p> log{Float|Int32|Int64}FinalReward at the end.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="00C22817D044B2A2D46F9F5FCDBB54912971BA30">
+                                <pre><code class="language-cpp code-clang-doc">void Logger (int OS, const int &amp; FeatureSpecs, const TensorSpec &amp; RewardSpec, bool IncludeReward, std::optional&lt;TensorSpec&gt; AdviceSpec)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Construct a Logger. If IncludeReward is false, then logReward or</p>
+                                        <p> logFinalReward shouldn&#39;t be called, and the reward feature won&#39;t be</p>
+                                        <p> printed out.</p>
+                                        <p> NOTE: the FeatureSpecs are expected to be in the same order (i.e. have</p>
+                                        <p> corresponding indices) with any MLModelRunner implementations</p>
+                                        <p> corresponding to the model being trained/logged.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E40390FB9821E8E8C5E6A6B79C34147A34BA0906">
+                                <pre><code class="language-cpp code-clang-doc">void Logger (unique_ptr OS, const std::vector&lt;TensorSpec&gt; &amp; FeatureSpecs, const TensorSpec &amp; RewardSpec, bool IncludeReward, optional AdviceSpec)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Construct a Logger. If IncludeReward is false, then logReward or</p>
+                                        <p> logFinalReward shouldn&#39;t be called, and the reward feature won&#39;t be</p>
+                                        <p> printed out.</p>
+                                        <p> NOTE: the FeatureSpecs are expected to be in the same order (i.e. have</p>
+                                        <p> corresponding indices) with any MLModelRunner implementations</p>
+                                        <p> corresponding to the model being trained/logged.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 81 of file llvm/lib/Analysis/TrainingLogger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="738BD21194BB4A7DED958BB759AFDDF259ED6BF5">
+                                <pre><code class="language-cpp code-clang-doc">void switchContext (StringRef Name)</code></pre>
+                                <p>Defined at line 50 of file llvm/lib/Analysis/TrainingLogger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="308858E3F26F19F4579B511E8B6459B6D5107730">
+                                <pre><code class="language-cpp code-clang-doc">void startObservation ()</code></pre>
+                                <p>Defined at line 57 of file llvm/lib/Analysis/TrainingLogger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EBB3F91273691A3C1B4727A6520D14138F198940">
+                                <pre><code class="language-cpp code-clang-doc">void endObservation ()</code></pre>
+                                <p>Defined at line 67 of file llvm/lib/Analysis/TrainingLogger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC112DFCBD18E1658A7D81BE137501CAB152B31E">
+                                <pre><code class="language-cpp code-clang-doc">void flush ()</code></pre>
+                                <p>Defined at line 121 of file llvm/include/llvm/Analysis/Utils/TrainingLogger.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EDE6ECE306FFDC9D620D11BF231C04D88F6E8B88">
+                                <pre><code class="language-cpp code-clang-doc">const std::string &amp; currentContext ()</code></pre>
+                                <p>Defined at line 123 of file llvm/include/llvm/Analysis/Utils/TrainingLogger.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="623FA8F7EBD2F67D6A5F5DD66632DC64E6C5B3CF">
+                                <pre><code class="language-cpp code-clang-doc">bool hasObservationInProgress ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if there is at least an observation for `currentContext()`.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 126 of file llvm/include/llvm/Analysis/Utils/TrainingLogger.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3B5E4F4D00F0330C7B00FE8381A36556A0BBA4FA">
+                                <pre><code class="language-cpp code-clang-doc">bool hasAnyObservationForContext (StringRef Ctx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if there is at least an observation for the context `Ctx`.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 131 of file llvm/include/llvm/Analysis/Utils/TrainingLogger.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="689D7AC0A76E0FD8194486A5E16DD5469DAC37B3">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void logReward (T Value)</code></pre>
+                                <p>Defined at line 135 of file llvm/include/llvm/Analysis/Utils/TrainingLogger.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E47AACBF6617463A1B552E2F4D00EA17879FB4DB">
+                                <pre><code class="language-cpp code-clang-doc">void logTensorValue (size_t FeatureID, const char * RawData)</code></pre>
+                                <p>Defined at line 139 of file llvm/include/llvm/Analysis/Utils/TrainingLogger.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

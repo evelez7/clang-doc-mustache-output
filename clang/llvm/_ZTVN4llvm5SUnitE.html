@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SUnit</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SUnit</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#OrigNode">OrigNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SchedClass">SchedClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CopyDstRC">CopyDstRC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CopySrcRC">CopySrcRC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Preds">Preds</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Succs">Succs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NodeNum">NodeNum</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NodeQueueId">NodeQueueId</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumPreds">NumPreds</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumSuccs">NumSuccs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumPredsLeft">NumPredsLeft</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumSuccsLeft">NumSuccsLeft</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#WeakPredsLeft">WeakPredsLeft</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#WeakSuccsLeft">WeakSuccsLeft</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TopReadyCycle">TopReadyCycle</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BotReadyCycle">BotReadyCycle</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ParentClusterIdx">ParentClusterIdx</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isVRegCycle">isVRegCycle</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isCall">isCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isCallOp">isCallOp</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isTwoAddress">isTwoAddress</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isCommutable">isCommutable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasPhysRegUses">hasPhysRegUses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasPhysRegDefs">hasPhysRegDefs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasPhysRegClobbers">hasPhysRegClobbers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isPending">isPending</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isAvailable">isAvailable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isScheduled">isScheduled</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isScheduleHigh">isScheduleHigh</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isScheduleLow">isScheduleLow</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isCloned">isCloned</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#isUnbuffered">isUnbuffered</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#hasReservedResource">hasReservedResource</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NumRegDefsLeft">NumRegDefsLeft</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Latency">Latency</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SchedulingPref">SchedulingPref</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B3FADFEE9BAD3AD8B97EB060577F2C6D44BB94DC">addPred</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4EA3CC6D39A7AA235AF532D2E19CCF4B621EF709">removePred</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7177945D0CE227DCEDF5449CDB412E0F416221EE">setDepthToAtLeast</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3FA4A2129698BE76B2C390C7ED14B4896EAFAF30">setHeightToAtLeast</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4DB7372A8EC68D120493C47EBD9DA586AE452ED0">setDepthDirty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#83E077F325844555CE6B4DDD60A81050C033300E">setHeightDirty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7F22148239599E54B4CD46ED9091AC1F0450B4A9">biasCriticalPath</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A8491E5F0DF9A67CCBBB85BFF432146725D85F32">SUnit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9CFE2D90F331EC4C1C971C53A7E9DBFE9334EEE1">SUnit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F9F3F14A6A630B2BD11261399D9E759E04F28FA1">dumpAttributes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7668A655C9F95A179F34A241A67D956898626A86">SUnit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2E1360EA8077B360FD5E495966ECBB7FCFE53388">isBoundaryNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#91882229BC252D231364A7AD8469FC63A221BC44">setNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#15747C832EEFBBA6BC1BA466890C9D0477B02961">getNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BC7819519404B50F1EE462F83FCFC20D1D1F4058">isInstr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C09A4EA39A7770242A1CF36EDC03E12DCEA94691">setInstr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAF39515F7FD199A7FFC60F69C6D8985B656BE38">getInstr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1D573D6F999348A2DA1EB913470EE333E45B9761">addPredBarrier</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#29417016C9A580640A99D3C331215D41C1E8A6B9">getDepth</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#889E1DA0812CDF6FFBA5FA787771446C49515873">getHeight</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7A6DCBC0013C0D666F5289648F4164333C6A05E1">isPred</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#77A3DB48B9DC0A349CBC13F424E5C05F3C3D136D">isSucc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3556CEBE3F9050153BF22DF1E582309556D043D7">isTopReady</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#42E392DB922D345D48AC131C6DEEC80B55A2F424">isBottomReady</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SUnit</h1>
+                        <p>Defined at line 249 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Scheduling unit. This is a node in the scheduling DAG.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="OrigNode" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SUnit * OrigNode</code></pre>
+                        </div>
+                        <div id="SchedClass" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const MCSchedClassDesc * SchedClass</code></pre>
+                        </div>
+                        <div id="CopyDstRC" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetRegisterClass * CopyDstRC</code></pre>
+                        </div>
+                        <div id="CopySrcRC" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const TargetRegisterClass * CopySrcRC</code></pre>
+                        </div>
+                        <div id="Preds" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector&lt;SDep, 4&gt; Preds</code></pre>
+                        </div>
+                        <div id="Succs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector&lt;SDep, 4&gt; Succs</code></pre>
+                        </div>
+                        <div id="NodeNum" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int NodeNum</code></pre>
+                        </div>
+                        <div id="NodeQueueId" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int NodeQueueId</code></pre>
+                        </div>
+                        <div id="NumPreds" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int NumPreds</code></pre>
+                        </div>
+                        <div id="NumSuccs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int NumSuccs</code></pre>
+                        </div>
+                        <div id="NumPredsLeft" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int NumPredsLeft</code></pre>
+                        </div>
+                        <div id="NumSuccsLeft" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int NumSuccsLeft</code></pre>
+                        </div>
+                        <div id="WeakPredsLeft" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int WeakPredsLeft</code></pre>
+                        </div>
+                        <div id="WeakSuccsLeft" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int WeakSuccsLeft</code></pre>
+                        </div>
+                        <div id="TopReadyCycle" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int TopReadyCycle</code></pre>
+                        </div>
+                        <div id="BotReadyCycle" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int BotReadyCycle</code></pre>
+                        </div>
+                        <div id="ParentClusterIdx" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int ParentClusterIdx</code></pre>
+                        </div>
+                        <div id="isVRegCycle" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isVRegCycle</code></pre>
+                        </div>
+                        <div id="isCall" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isCall</code></pre>
+                        </div>
+                        <div id="isCallOp" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isCallOp</code></pre>
+                        </div>
+                        <div id="isTwoAddress" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isTwoAddress</code></pre>
+                        </div>
+                        <div id="isCommutable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isCommutable</code></pre>
+                        </div>
+                        <div id="hasPhysRegUses" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasPhysRegUses</code></pre>
+                        </div>
+                        <div id="hasPhysRegDefs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasPhysRegDefs</code></pre>
+                        </div>
+                        <div id="hasPhysRegClobbers" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasPhysRegClobbers</code></pre>
+                        </div>
+                        <div id="isPending" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isPending</code></pre>
+                        </div>
+                        <div id="isAvailable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isAvailable</code></pre>
+                        </div>
+                        <div id="isScheduled" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isScheduled</code></pre>
+                        </div>
+                        <div id="isScheduleHigh" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isScheduleHigh</code></pre>
+                        </div>
+                        <div id="isScheduleLow" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isScheduleLow</code></pre>
+                        </div>
+                        <div id="isCloned" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isCloned</code></pre>
+                        </div>
+                        <div id="isUnbuffered" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool isUnbuffered</code></pre>
+                        </div>
+                        <div id="hasReservedResource" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool hasReservedResource</code></pre>
+                        </div>
+                        <div id="NumRegDefsLeft" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned short NumRegDefsLeft</code></pre>
+                        </div>
+                        <div id="Latency" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned short Latency</code></pre>
+                        </div>
+                        <div id="SchedulingPref" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Preference SchedulingPref</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="B3FADFEE9BAD3AD8B97EB060577F2C6D44BB94DC">
+                                <pre><code class="language-cpp code-clang-doc">bool addPred (const SDep &amp; D, bool Required)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Adds the specified edge as a pred of the current node if not already.</p>
+                                        <p> It also adds the current node as a successor of the specified node.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 106 of file llvm/lib/CodeGen/ScheduleDAG.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4EA3CC6D39A7AA235AF532D2E19CCF4B621EF709">
+                                <pre><code class="language-cpp code-clang-doc">void removePred (const SDep &amp; D)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Removes the specified edge as a pred of the current node if it exists.</p>
+                                        <p> It also removes the current node as a successor of the specified node.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 175 of file llvm/lib/CodeGen/ScheduleDAG.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7177945D0CE227DCEDF5449CDB412E0F416221EE">
+                                <pre><code class="language-cpp code-clang-doc">void setDepthToAtLeast (unsigned int NewDepth)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If NewDepth is greater than this node&#39;s depth value, sets it to</p>
+                                        <p> be the new depth value. This also recursively marks successor nodes</p>
+                                        <p> dirty.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 247 of file llvm/lib/CodeGen/ScheduleDAG.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3FA4A2129698BE76B2C390C7ED14B4896EAFAF30">
+                                <pre><code class="language-cpp code-clang-doc">void setHeightToAtLeast (unsigned int NewHeight)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If NewHeight is greater than this node&#39;s height value, set it to be</p>
+                                        <p> the new height value. This also recursively marks predecessor nodes</p>
+                                        <p> dirty.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 255 of file llvm/lib/CodeGen/ScheduleDAG.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4DB7372A8EC68D120493C47EBD9DA586AE452ED0">
+                                <pre><code class="language-cpp code-clang-doc">void setDepthDirty ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Sets a flag in this node to indicate that its stored Depth value</p>
+                                        <p> will require recomputation the next time getDepth() is called.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 217 of file llvm/lib/CodeGen/ScheduleDAG.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="83E077F325844555CE6B4DDD60A81050C033300E">
+                                <pre><code class="language-cpp code-clang-doc">void setHeightDirty ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Sets a flag in this node to indicate that its stored Height value</p>
+                                        <p> will require recomputation the next time getHeight() is called.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 232 of file llvm/lib/CodeGen/ScheduleDAG.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7F22148239599E54B4CD46ED9091AC1F0450B4A9">
+                                <pre><code class="language-cpp code-clang-doc">void biasCriticalPath ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Orders this node&#39;s predecessor edges such that the critical path</p>
+                                        <p> edge occurs first.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 325 of file llvm/lib/CodeGen/ScheduleDAG.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A8491E5F0DF9A67CCBBB85BFF432146725D85F32">
+                                <pre><code class="language-cpp code-clang-doc">void SUnit (SDNode * node, unsigned int nodenum)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Constructs an SUnit for pre-regalloc scheduling to represent an</p>
+                                        <p> SDNode and any nodes flagged to it.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 327 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9CFE2D90F331EC4C1C971C53A7E9DBFE9334EEE1">
+                                <pre><code class="language-cpp code-clang-doc">void SUnit (MachineInstr * instr, unsigned int nodenum)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Constructs an SUnit for post-regalloc scheduling to represent a</p>
+                                        <p> MachineInstr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 339 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F9F3F14A6A630B2BD11261399D9E759E04F28FA1">
+                                <pre><code class="language-cpp code-clang-doc">void dumpAttributes ()</code></pre>
+                                <p>Defined at line 343 of file llvm/lib/CodeGen/ScheduleDAG.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7668A655C9F95A179F34A241A67D956898626A86">
+                                <pre><code class="language-cpp code-clang-doc">void SUnit ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Constructs a placeholder SUnit.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 350 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2E1360EA8077B360FD5E495966ECBB7FCFE53388">
+                                <pre><code class="language-cpp code-clang-doc">bool isBoundaryNode ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Boundary nodes are placeholders for the boundary of the</p>
+                                        <p> scheduling region.</p>
+                                    </div>
+                                    <div>
+                                        <p> BoundaryNodes can have DAG edges, including Data edges, but they do not</p>
+                                        <p> correspond to schedulable entities (e.g. instructions) and do not have a</p>
+                                        <p> valid ID. Consequently, always check for boundary nodes before accessing</p>
+                                        <p> an associative data structure keyed on node ID.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 367 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="91882229BC252D231364A7AD8469FC63A221BC44">
+                                <pre><code class="language-cpp code-clang-doc">void setNode (SDNode * N)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Assigns the representative SDNode for this SUnit. This may be used</p>
+                                        <p> during pre-regalloc scheduling.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 371 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="15747C832EEFBBA6BC1BA466890C9D0477B02961">
+                                <pre><code class="language-cpp code-clang-doc">SDNode * getNode ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the representative SDNode for this SUnit. This may be used</p>
+                                        <p> during pre-regalloc scheduling.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 379 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BC7819519404B50F1EE462F83FCFC20D1D1F4058">
+                                <pre><code class="language-cpp code-clang-doc">bool isInstr ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if this SUnit refers to a machine instruction as</p>
+                                        <p> opposed to an SDNode.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 387 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C09A4EA39A7770242A1CF36EDC03E12DCEA94691">
+                                <pre><code class="language-cpp code-clang-doc">void setInstr (MachineInstr * MI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Assigns the instruction for the SUnit. This may be used during</p>
+                                        <p> post-regalloc scheduling.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 391 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DAF39515F7FD199A7FFC60F69C6D8985B656BE38">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * getInstr ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the representative MachineInstr for this SUnit. This may be used</p>
+                                        <p> during post-regalloc scheduling.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 399 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1D573D6F999348A2DA1EB913470EE333E45B9761">
+                                <pre><code class="language-cpp code-clang-doc">bool addPredBarrier (SUnit * SU)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Adds a barrier edge to SU by calling addPred(), with latency 0</p>
+                                        <p> generally or latency 1 for a store followed by a load.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 411 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="29417016C9A580640A99D3C331215D41C1E8A6B9">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getDepth ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the depth of this node, which is the length of the maximum path</p>
+                                        <p> up to any node which has no predecessors.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 425 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="889E1DA0812CDF6FFBA5FA787771446C49515873">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getHeight ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the height of this node, which is the length of the</p>
+                                        <p> maximum path down to any node which has no successors.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 433 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7A6DCBC0013C0D666F5289648F4164333C6A05E1">
+                                <pre><code class="language-cpp code-clang-doc">bool isPred (const SUnit * N)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Tests if node N is a predecessor of this node.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 458 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="77A3DB48B9DC0A349CBC13F424E5C05F3C3D136D">
+                                <pre><code class="language-cpp code-clang-doc">bool isSucc (const SUnit * N)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Tests if node N is a successor of this node.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 466 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3556CEBE3F9050153BF22DF1E582309556D043D7">
+                                <pre><code class="language-cpp code-clang-doc">bool isTopReady ()</code></pre>
+                                <p>Defined at line 473 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="42E392DB922D345D48AC131C6DEEC80B55A2F424">
+                                <pre><code class="language-cpp code-clang-doc">bool isBottomReady ()</code></pre>
+                                <p>Defined at line 476 of file llvm/include/llvm/CodeGen/ScheduleDAG.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

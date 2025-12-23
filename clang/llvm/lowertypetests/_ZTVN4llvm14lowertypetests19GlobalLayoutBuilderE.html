@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>GlobalLayoutBuilder</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
+                <div class="navbar-breadcrumb-item"><a href="./index.html">lowertypetests</a></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct GlobalLayoutBuilder</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Fragments">Fragments</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FragmentMap">FragmentMap</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A9978B55F2280A3954BD903E56D12B14B5E96543">GlobalLayoutBuilder</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EA5F49A457A1F08B4EB02DAC2B73613DE3C78DC8">addFragment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5AFED177FBB6D556EE551A3C11895EECA083DCFF">addFragment</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct GlobalLayoutBuilder</h1>
+                        <p>Defined at line 124 of file llvm/include/llvm/Transforms/IPO/LowerTypeTests.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This class implements a layout algorithm for globals referenced by bit sets</p>
+                                <p> that tries to keep members of small bit sets together. This can</p>
+                                <p> significantly reduce bit set sizes in many cases.</p>
+                            </div>
+                            <div>
+                                <p> It works by assembling fragments of layout from sets of referenced globals.</p>
+                                <p> Each set of referenced globals causes the algorithm to create a new</p>
+                                <p> fragment, which is assembled by appending each referenced global in the set</p>
+                                <p> into the fragment. If a referenced global has already been referenced by an</p>
+                                <p> fragment created earlier, we instead delete that fragment and append its</p>
+                                <p> contents into the fragment we are assembling.</p>
+                            </div>
+                            <div>
+                                <p> By starting with the smallest fragments, we minimize the size of the</p>
+                                <p> fragments that are copied into larger fragments. This is most intuitively</p>
+                                <p> thought about when considering the case where the globals are virtual tables</p>
+                                <p> and the bit sets represent their derived classes: in a single inheritance</p>
+                                <p> hierarchy, the optimum layout would involve a depth-first search of the</p>
+                                <p> class hierarchy (and in fact the computed layout ends up looking a lot like</p>
+                                <p> a DFS), but a naive DFS would not work well in the presence of multiple</p>
+                                <p> inheritance. This aspect of the algorithm ends up fitting smaller</p>
+                                <p> hierarchies inside larger ones where that would be beneficial.</p>
+                            </div>
+                            <div>
+                                <p> For example, consider this class hierarchy:</p>
+                            </div>
+                            <div>
+                                <p> A       B</p>
+                                <p>\</p>
+                                <p>   / | </p>
+                                <p>\</p>
+                                <p>///     C   D   E</p>
+                            </div>
+                            <div>
+                                <p> We have five bit sets: bsA (A, C), bsB (B, C, D, E), bsC (C), bsD (D) and</p>
+                                <p> bsE (E). If we laid out our objects by DFS traversing B followed by A, our</p>
+                                <p> layout would be {B, C, D, E, A}. This is optimal for bsB as it needs to</p>
+                                <p> cover the only 4 objects in its hierarchy, but not for bsA as it needs to</p>
+                                <p> cover 5 objects, i.e. the entire layout. Our algorithm proceeds as follows:</p>
+                            </div>
+                            <div>
+                                <p> Add bsC, fragments {{C}}</p>
+                                <p> Add bsD, fragments {{C}, {D}}</p>
+                                <p> Add bsE, fragments {{C}, {D}, {E}}</p>
+                                <p> Add bsA, fragments {{A, C}, {D}, {E}}</p>
+                                <p> Add bsB, fragments {{B, A, C, D, E}}</p>
+                            </div>
+                            <div>
+                                <p> This layout is optimal for bsA, as it now only needs to cover two (i.e. 3</p>
+                                <p> fewer) objects, at the cost of bsB needing to cover 1 more object.</p>
+                            </div>
+                            <div>
+                                <p> The bit set lowering pass assigns an object index to each object that needs</p>
+                                <p> to be laid out, and calls addFragment for each bit set passing the object</p>
+                                <p> indices of its referenced globals. It then assembles a layout from the</p>
+                                <p> computed layout in the Fragments field.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Fragments" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int Fragments</code></pre>
+                        </div>
+                        <div id="FragmentMap" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int FragmentMap</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="A9978B55F2280A3954BD903E56D12B14B5E96543">
+                                <pre><code class="language-cpp code-clang-doc">void GlobalLayoutBuilder (uint64_t NumObjects)</code></pre>
+                                <p>Defined at line 132 of file llvm/include/llvm/Transforms/IPO/LowerTypeTests.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EA5F49A457A1F08B4EB02DAC2B73613DE3C78DC8">
+                                <pre><code class="language-cpp code-clang-doc">void addFragment (const int &amp; F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add F to the layout while trying to keep its indices contiguous.</p>
+                                        <p> If a previously seen fragment uses any of F&#39;s indices, that</p>
+                                        <p> fragment will be laid out inside F.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5AFED177FBB6D556EE551A3C11895EECA083DCFF">
+                                <pre><code class="language-cpp code-clang-doc">void addFragment (const std::set&lt;uint64_t&gt; &amp; F)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add F to the layout while trying to keep its indices contiguous.</p>
+                                        <p> If a previously seen fragment uses any of F&#39;s indices, that</p>
+                                        <p> fragment will be laid out inside F.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 202 of file llvm/lib/Transforms/IPO/LowerTypeTests.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

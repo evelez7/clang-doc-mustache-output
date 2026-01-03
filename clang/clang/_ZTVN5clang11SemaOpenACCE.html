@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SemaOpenACC</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SemaOpenACC</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LoopGangClauseOnKernel">LoopGangClauseOnKernel</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LoopWorkerClauseLoc">LoopWorkerClauseLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LoopVectorClauseLoc">LoopVectorClauseLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#LoopWithoutSeqInfo">LoopWithoutSeqInfo</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#33209F203002F25A743E32AAF4195FE5F2381B60">getActiveComputeConstructInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D5DD5A2D7178A06FF0D9AD1CF1C464E691667137">ActOnAssociatedStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A59BE5022C5A6E83BBBA29562145811B191C7B01">DiagnoseAllowedOnceClauses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#65FD9D7E0E90CB2F63E7BED8DF3CA676F3A033E4">DiagnoseExclusiveClauses</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CBA3592F0BD661C9664E13865FB3BD620B3AFC8A">CreatePrivateInitRecipe</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#224FF66AD36C7A1A8C14A2B371CBC2A95ABEC8BC">CreateFirstPrivateInitRecipe</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CF3D936D2E73BDD2A2D4D1E639B82ED3DF69735E">CreateReductionInitRecipe</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B65F7D8506BA40A786B4436C646EF4E5C1CB7B4A">SemaOpenACC</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B9C2C9EA54D947784626C8A538787905C3C55BDA">ActOnEndOfTranslationUnit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#291AB81DE2DDB4FFCF1D03D1AF1EBF9BA53E5055">ActOnWhileStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#278115E892A930E57CEBB292F37458E458411966">ActOnDoStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B346930A962C36ED5A718B26E281FB804FB0C78">ActOnRangeForStmtBegin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0A2FFA2D15DF537D7F9E4BD899984F5D17B7CD14">ActOnRangeForStmtBegin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8E8045F0855345509E756CC225303D51D97F65A7">ActOnForStmtBegin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5DC8BB5A0F362B0F86639F60DC28E8A696E601DB">ActOnForStmtBegin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#580872065CADC9EE043CE8979C7734781F812E49">ActOnForStmtEnd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E9CE1E659E47A4290EDE676F0CDC025301E37D3">ActOnClause</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4E4CE5642DF390353BB183EB675C386A1211CC2">ActOnConstruct</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FD91A55AC679C3FDBEF320B5793685C56241EBE">ActOnStartStmtDirective</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#91F0387889C3B606BE53F18651D9A68D73420EC0">ActOnStartDeclDirective</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D0D947C80ADAF0E5F66B425935B75184BEE587E5">ActOnAssociatedStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E434AD8B5394B646C0CB5CE8411A457ED8DFE21">CheckAtomicAssociatedStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1B96692745CE799968DC89779EDFF9362702A2F7">ActOnEndStmtDirective</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8F0B595F1DA034697D61B8216008E6D65C17EBAA">ActOnEndDeclDirective</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#41D5588BFB75B2ACBA4A90F331BC67953B202270">CheckRoutineDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#759632CF9320EA004E7000932E7F8FADCAE9282D">CheckRoutineDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BD352028B3796DE9AD89A623061360A4D1FEFC28">mergeRoutineDeclAttr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6B779933A16D6962D82FE6B6E9C0423E6E71B840">ActOnEndRoutineDeclDirective</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D3C78486101E7557E6824E26656C4E704D41477A">ActOnEndRoutineStmtDirective</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A7D86E2367E8C1476AE2868A7DF31149E59F8B54">ActOnIntExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#605E15B40D5FC049A7FE5B1A6447B0A0B65C9673">ActOnStartParseVar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3FCA21D55BA5EE4480715DF658E4E470C6057CD3">ActOnInvalidParseVar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C4CC11FC8569D708349E0F5513C7FB5F59CA565">ActOnVar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8A6F43FFC70F0062735311B76A9E40AFA6B60A6B">ActOnCacheVar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#91E6570DADD4E5C01C7F8F228B25D0D2CF9AC49A">ActOnVariableDeclarator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B1B5D962701B52D23C2963816BE8756C84AAE529">ActOnFunctionDeclarator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5A2996067A72724B9C10A688A70D52CAF4B1E01C">ActOnVariableInit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#91ECEE95D8DDCA815342FEA488CA2005F27CBA25">CheckLinkClauseVarList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#33E98F0773D5918BAB997159B83016C79806A6F8">CheckDeclareClause</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FE337A82BAA01942C4499833414119D5FC3FEC57">ActOnRoutineName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#589DCCE8193C5D84C7FF612AE55793BBA0AA26B0">CheckReductionVar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C13C582209161713BF627D1F828CCCAFE3237168">CheckReductionVarType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F452F3C12F2AC6DEF285A6E86C090B2239580895">CheckVarIsPointerType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52527B75638344C21DFECEE6C9CFF8F7D6575204">ActOnArraySectionExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#50639B328213ADDA1CCD21F4F49C911974667FA8">CheckCollapseLoopCount</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#19FEFD5B7B5FE0542D4E87B93CE55B2223B12B81">CheckTileSizeExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#92396E754F88AC62872B1D87885C979F84AA7BD9">CheckGangExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D3E7F7B25B4AD5031F62E449F42569D97F8215B7">CheckDeclReference</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#74D9633F5AFE30CEBE8A2F19665D1F8225856BAF">CheckGangClause</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BCF95145D96DD4439D66691C2D0D8403D720386">CheckReductionClause</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3ACE57752BD4746824BB863268424B113B73ED9E">BuildOpenACCAsteriskSizeExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4B4E74CD29EF14B047323F9EC083BDAE76DFF700">ActOnOpenACCAsteriskSizeExpr</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#227B1CFEDEEF8A020683EACF43BA310DF2C9BF7F">DeclGroupPtrTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F426B7296F81F81245CA5506E08511F8A36BBBCA">RoutineRefListTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8D050F174A957EEE564A86A956AA633A939A697E">DeviceTypeArgument</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F51F94CF3AAE6D89E289B8E47FBB4BF5221CA25F">AssociatedStmtRAII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#41E79A2D133DAD7AC3E68CE077DDF2D970954A00">CacheParseInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E3E8EF56126903624F5A5B728D995D41F51D9771">CollapseCheckingInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#185A6A748BC2EE1A25008DB35E88E5F172EE7AD6">ComputeConstructInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#677C90ABA063D816438736CA677A259178FE6A7C">ForStmtBeginChecker</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2009669926A47F834D367061CE4E69972448812">LoopCheckingInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1167BDABA5C87D51B24C1E6483AA25121AB7ADE7">LoopGangOnKernelTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#08FA6E3D1FCA550ACE8924CBAA93D7337B8C54DE">LoopInConstructRAII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#85BF16C053179BD01ED4E4FCEDB7CEC42FC5D656">LoopWithoutSeqCheckingInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CFCFC1045FA44A4B18A5AD1EBFF6F6C5CA6D65A6">OpenACCParsedClause</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#52052DC5506D63ACDD61C19BFECDC9B0527E5A07">TileCheckingInfo</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SemaOpenACC</h1>
+                        <p>Defined at line 37 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Sema/SemaOpenACC.h#L37">clang/include/clang/Sema/SemaOpenACC.h</a></p>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="LoopGangClauseOnKernel" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LoopGangOnKernelTy LoopGangClauseOnKernel</code></pre>
+                        </div>
+                        <div id="LoopWorkerClauseLoc" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SourceLocation LoopWorkerClauseLoc</code></pre>
+                        </div>
+                        <div id="LoopVectorClauseLoc" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SourceLocation LoopVectorClauseLoc</code></pre>
+                        </div>
+                        <div id="LoopWithoutSeqInfo" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LoopWithoutSeqCheckingInfo LoopWithoutSeqInfo</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="33209F203002F25A743E32AAF4195FE5F2381B60">
+                                <pre><code class="language-cpp code-clang-doc">ComputeConstructInfo &amp; getActiveComputeConstructInfo ()</code></pre>
+                                <p>Defined at line 261 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Sema/SemaOpenACC.h#L261">clang/include/clang/Sema/SemaOpenACC.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D5DD5A2D7178A06FF0D9AD1CF1C464E691667137">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ActOnAssociatedStmt (SourceLocation DirectiveLoc, OpenACCDirectiveKind K, ArrayRef Clauses, ActionResult AssocStmt)</code></pre>
+                                <p>Defined at line 817 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Sema/SemaOpenACC.h#L817">clang/include/clang/Sema/SemaOpenACC.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A59BE5022C5A6E83BBBA29562145811B191C7B01">
+                                <pre><code class="language-cpp code-clang-doc">bool DiagnoseAllowedOnceClauses (OpenACCDirectiveKind DK, OpenACCClauseKind CK, SourceLocation ClauseLoc, ArrayRef Clauses)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Diagnoses a &#39;CK&#39; on a &#39;DK&#39; present more than once in a clause-list when it</p>
+                                        <p> isn&#39;t allowed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 161 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCClauseAppertainment.cpp#L161">clang/lib/Sema/SemaOpenACCClauseAppertainment.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="65FD9D7E0E90CB2F63E7BED8DF3CA676F3A033E4">
+                                <pre><code class="language-cpp code-clang-doc">bool DiagnoseExclusiveClauses (OpenACCDirectiveKind DK, OpenACCClauseKind CK, SourceLocation ClauseLoc, ArrayRef Clauses)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Diagnoses a &#39;CK&#39; on a &#39;DK&#39; being added that isn&#39;t allowed to, because another</p>
+                                        <p> clause in &#39;Clauses&#39; already exists.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 187 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCClauseAppertainment.cpp#L187">clang/lib/Sema/SemaOpenACCClauseAppertainment.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CBA3592F0BD661C9664E13865FB3BD620B3AFC8A">
+                                <pre><code class="language-cpp code-clang-doc">OpenACCPrivateRecipe CreatePrivateInitRecipe (const Expr * VarExpr)</code></pre>
+                                <p>Defined at line 2761 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2761">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="224FF66AD36C7A1A8C14A2B371CBC2A95ABEC8BC">
+                                <pre><code class="language-cpp code-clang-doc">OpenACCFirstPrivateRecipe CreateFirstPrivateInitRecipe (const Expr * VarExpr)</code></pre>
+                                <p>Defined at line 2796 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2796">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CF3D936D2E73BDD2A2D4D1E639B82ED3DF69735E">
+                                <pre><code class="language-cpp code-clang-doc">OpenACCReductionRecipeWithStorage CreateReductionInitRecipe (OpenACCReductionOperator ReductionOperator, const Expr * VarExpr)</code></pre>
+                                <p>Defined at line 2897 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2897">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B65F7D8506BA40A786B4436C646EF4E5C1CB7B4A">
+                                <pre><code class="language-cpp code-clang-doc">void SemaOpenACC (Sema &amp; S)</code></pre>
+                                <p>Defined at line 107 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L107">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B9C2C9EA54D947784626C8A538787905C3C55BDA">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnEndOfTranslationUnit (TranslationUnitDecl * TU)</code></pre>
+                                <p>Defined at line 2534 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2534">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="291AB81DE2DDB4FFCF1D03D1AF1EBF9BA53E5055">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnWhileStmt (SourceLocation WhileLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called when we encounter a &#39;while&#39; statement, before looking at its &#39;body&#39;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1033 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L1033">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="278115E892A930E57CEBB292F37458E458411966">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnDoStmt (SourceLocation DoLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called when we encounter a &#39;do&#39; statement, before looking at its &#39;body&#39;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1068 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L1068">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3B346930A962C36ED5A718B26E281FB804FB0C78">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnRangeForStmtBegin (SourceLocation ForLoc, const Stmt * OldRangeFor, const Stmt * RangeFor)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called when we encounter a &#39;for&#39; statement, before looking at its &#39;body&#39;,</p>
+                                        <p> for the &#39;range-for&#39;. &#39;ActOnForStmtEnd&#39; is used after the body.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1723 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L1723">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0A2FFA2D15DF537D7F9E4BD899984F5D17B7CD14">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnRangeForStmtBegin (SourceLocation ForLoc, const Stmt * RangeFor)</code></pre>
+                                <p>Defined at line 1740 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L1740">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8E8045F0855345509E756CC225303D51D97F65A7">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnForStmtBegin (SourceLocation ForLoc, const Stmt * First, const Stmt * Second, const Stmt * Third)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called when we encounter a &#39;for&#39; statement, before looking at its &#39;body&#39;.</p>
+                                        <p> &#39;ActOnForStmtEnd&#39; is used after the body.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1708 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L1708">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5DC8BB5A0F362B0F86639F60DC28E8A696E601DB">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnForStmtBegin (SourceLocation ForLoc, const Stmt * OldFirst, const Stmt * First, const Stmt * OldSecond, const Stmt * Second, const Stmt * OldThird, const Stmt * Third)</code></pre>
+                                <p>Defined at line 1690 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L1690">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="580872065CADC9EE043CE8979C7734781F812E49">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnForStmtEnd (SourceLocation ForLoc, ActionResult Body)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called when we encounter a &#39;for&#39; statement, after we&#39;ve consumed/checked</p>
+                                        <p> the body. This is necessary for a number of checks on the contents of the</p>
+                                        <p> &#39;for&#39; statement.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1786 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L1786">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E9CE1E659E47A4290EDE676F0CDC025301E37D3">
+                                <pre><code class="language-cpp code-clang-doc">OpenACCClause * ActOnClause (ArrayRef ExistingClauses, OpenACCParsedClause &amp; Clause)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called after parsing an OpenACC Clause so that it can be checked.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1853 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCClause.cpp#L1853">clang/lib/Sema/SemaOpenACCClause.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4E4CE5642DF390353BB183EB675C386A1211CC2">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnConstruct (OpenACCDirectiveKind K, SourceLocation DirLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called after the construct has been parsed, but clauses haven&#39;t been</p>
+                                        <p> parsed.  This allows us to diagnose not-implemented, as well as set up any</p>
+                                        <p> state required for parsing the clauses.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 383 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L383">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9FD91A55AC679C3FDBEF320B5793685C56241EBE">
+                                <pre><code class="language-cpp code-clang-doc">bool ActOnStartStmtDirective (OpenACCDirectiveKind K, SourceLocation StartLoc, ArrayRef Clauses)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called after the directive, including its clauses, have been parsed and</p>
+                                        <p> parsing has consumed the &#39;annot_pragma_openacc_end&#39; token. This DOES</p>
+                                        <p> happen before any associated declarations or statements have been parsed.</p>
+                                        <p> This function is only called when we are parsing a &#39;statement&#39; context.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2025 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2025">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="91F0387889C3B606BE53F18651D9A68D73420EC0">
+                                <pre><code class="language-cpp code-clang-doc">bool ActOnStartDeclDirective (OpenACCDirectiveKind K, SourceLocation StartLoc, ArrayRef Clauses)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called after the directive, including its clauses, have been parsed and</p>
+                                        <p> parsing has consumed the &#39;annot_pragma_openacc_end&#39; token. This DOES</p>
+                                        <p> happen before any associated declarations or statements have been parsed.</p>
+                                        <p> This function is only called when we are parsing a &#39;Decl&#39; context.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2286 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2286">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D0D947C80ADAF0E5F66B425935B75184BEE587E5">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ActOnAssociatedStmt (SourceLocation DirectiveLoc, OpenACCDirectiveKind K, OpenACCAtomicKind AtKind, ArrayRef Clauses, ActionResult AssocStmt)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called when we encounter an associated statement for our construct, this</p>
+                                        <p> should check legality of the statement as it appertains to this Construct.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2157 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2157">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E434AD8B5394B646C0CB5CE8411A457ED8DFE21">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult CheckAtomicAssociatedStmt (SourceLocation AtomicDirLoc, OpenACCAtomicKind AtKind, ActionResult AssocStmt)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called to check the form of the `atomic` construct which has some fairly</p>
+                                        <p> sizable restrictions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 729 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCAtomic.cpp#L729">clang/lib/Sema/SemaOpenACCAtomic.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1B96692745CE799968DC89779EDFF9362702A2F7">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ActOnEndStmtDirective (OpenACCDirectiveKind K, SourceLocation StartLoc, SourceLocation DirLoc, SourceLocation LParenLoc, SourceLocation MiscLoc, ArrayRef Exprs, OpenACCAtomicKind AK, SourceLocation RParenLoc, SourceLocation EndLoc, ArrayRef Clauses, ActionResult AssocStmt)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called after the directive has been completely parsed, including the</p>
+                                        <p> declaration group or associated statement.</p>
+                                        <p> DirLoc: Location of the actual directive keyword.</p>
+                                        <p> LParenLoc: Location of the left paren, if it exists (not on all</p>
+                                        <p> constructs).</p>
+                                        <p> MiscLoc: First misc location, if necessary (not all constructs).</p>
+                                        <p> Exprs: List of expressions on the construct itself, if necessary (not all</p>
+                                        <p> constructs).</p>
+                                        <p> FuncRef: used only for Routine, this is the function being referenced.</p>
+                                        <p> AK: The atomic kind of the directive, if necessary (atomic only)</p>
+                                        <p> RParenLoc: Location of the right paren, if it exists (not on all</p>
+                                        <p> constructs).</p>
+                                        <p> EndLoc: The last source location of the driective.</p>
+                                        <p> Clauses: The list of clauses for the directive, if present.</p>
+                                        <p> AssocStmt: The associated statement for this construct, if necessary.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2065 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2065">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8F0B595F1DA034697D61B8216008E6D65C17EBAA">
+                                <pre><code class="language-cpp code-clang-doc">DeclGroupRef ActOnEndDeclDirective (OpenACCDirectiveKind K, SourceLocation StartLoc, SourceLocation DirLoc, SourceLocation LParenLoc, SourceLocation RParenLoc, SourceLocation EndLoc, ArrayRef Clauses)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called after the directive has been completely parsed, including the</p>
+                                        <p> declaration group or associated statement.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2304 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2304">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="41D5588BFB75B2ACBA4A90F331BC67953B202270">
+                                <pre><code class="language-cpp code-clang-doc">void CheckRoutineDecl (SourceLocation DirLoc, ArrayRef Clauses, Decl * NextParsedDecl)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Helper functions for ActOnEndRoutine*Directive, which does all the checking</p>
+                                        <p> given the proper list of declarations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2394 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2394">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="759632CF9320EA004E7000932E7F8FADCAE9282D">
+                                <pre><code class="language-cpp code-clang-doc">OpenACCRoutineDecl * CheckRoutineDecl (SourceLocation StartLoc, SourceLocation DirLoc, SourceLocation LParenLoc, Expr * FuncRef, SourceLocation RParenLoc, ArrayRef Clauses, SourceLocation EndLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Variant that adds a decl, because this is the named case.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2455 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2455">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BD352028B3796DE9AD89A623061360A4D1FEFC28">
+                                <pre><code class="language-cpp code-clang-doc">OpenACCRoutineDeclAttr * mergeRoutineDeclAttr (const OpenACCRoutineDeclAttr &amp; Old)</code></pre>
+                                <p>Defined at line 2584 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2584">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6B779933A16D6962D82FE6B6E9C0423E6E71B840">
+                                <pre><code class="language-cpp code-clang-doc">DeclGroupRef ActOnEndRoutineDeclDirective (SourceLocation StartLoc, SourceLocation DirLoc, SourceLocation LParenLoc, Expr * ReferencedFunc, SourceLocation RParenLoc, ArrayRef Clauses, SourceLocation EndLoc, DeclGroupPtrTy NextDecl)</code></pre>
+                                <p>Defined at line 2539 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2539">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D3C78486101E7557E6824E26656C4E704D41477A">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ActOnEndRoutineStmtDirective (SourceLocation StartLoc, SourceLocation DirLoc, SourceLocation LParenLoc, Expr * ReferencedFunc, SourceLocation RParenLoc, ArrayRef Clauses, SourceLocation EndLoc, Stmt * NextStmt)</code></pre>
+                                <p>Defined at line 2561 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2561">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A7D86E2367E8C1476AE2868A7DF31149E59F8B54">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ActOnIntExpr (OpenACCDirectiveKind DK, OpenACCClauseKind CK, SourceLocation Loc, Expr * IntExpr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called when encountering an &#39;int-expr&#39; for OpenACC, and manages</p>
+                                        <p> conversions and diagnostics to &#39;int&#39;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 393 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L393">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="605E15B40D5FC049A7FE5B1A6447B0A0B65C9673">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnStartParseVar (OpenACCDirectiveKind DK, OpenACCClauseKind CK)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called right before a &#39;var&#39; is parsed, so we can set the state for parsing</p>
+                                        <p> a &#39;cache&#39; var.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 524 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L524">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3FCA21D55BA5EE4480715DF658E4E470C6057CD3">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnInvalidParseVar ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called only if the parse of a &#39;var&#39; was invalid, else &#39;ActOnVar&#39; should be</p>
+                                        <p> called.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 532 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L532">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C4CC11FC8569D708349E0F5513C7FB5F59CA565">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ActOnVar (OpenACCDirectiveKind DK, OpenACCClauseKind CK, Expr * VarExpr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called when encountering a &#39;var&#39; for OpenACC, ensures it is actually a</p>
+                                        <p> declaration reference to a variable of the correct type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 719 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L719">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8A6F43FFC70F0062735311B76A9E40AFA6B60A6B">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ActOnCacheVar (Expr * VarExpr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Helper function called by ActonVar that is used to check a &#39;cache&#39; var.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 537 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L537">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="91E6570DADD4E5C01C7F8F228B25D0D2CF9AC49A">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnVariableDeclarator (VarDecl * VD)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Function called when a variable declarator is created, which lets us</p>
+                                        <p> implement the &#39;routine&#39; &#39;function static variables&#39; restriction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1920 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L1920">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B1B5D962701B52D23C2963816BE8756C84AAE529">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnFunctionDeclarator (FunctionDecl * FD)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called when a function decl is created, which lets us implement the</p>
+                                        <p> &#39;routine&#39; &#39;doesn&#39;t match next thing&#39; warning.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2019 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2019">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5A2996067A72724B9C10A688A70D52CAF4B1E01C">
+                                <pre><code class="language-cpp code-clang-doc">void ActOnVariableInit (VarDecl * VD, QualType InitType)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called when a variable is initialized, so we can implement the &#39;routine</p>
+                                        <p> &#39;doesn&#39;t match the next thing&#39; warning for lambda init.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2001 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2001">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="91ECEE95D8DDCA815342FEA488CA2005F27CBA25">
+                                <pre><code class="language-cpp code-clang-doc">SmallVector CheckLinkClauseVarList (ArrayRef VarExpr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called after &#39;ActOnVar&#39; specifically for a &#39;link&#39; clause, which has to do</p>
+                                        <p> some minor additional checks.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2194 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCClause.cpp#L2194">clang/lib/Sema/SemaOpenACCClause.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="33E98F0773D5918BAB997159B83016C79806A6F8">
+                                <pre><code class="language-cpp code-clang-doc">bool CheckDeclareClause (SemaOpenACC::OpenACCParsedClause &amp; Clause, OpenACCModifierKind Mods)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Checking for the arguments specific to the declare-clause that need to be</p>
+                                        <p> checked during both phases of template translation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2241 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCClause.cpp#L2241">clang/lib/Sema/SemaOpenACCClause.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FE337A82BAA01942C4499833414119D5FC3FEC57">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ActOnRoutineName (Expr * RoutineName)</code></pre>
+                                <p>Defined at line 1865 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L1865">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="589DCCE8193C5D84C7FF612AE55793BBA0AA26B0">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult CheckReductionVar (OpenACCDirectiveKind DirectiveKind, OpenACCReductionOperator ReductionOp, Expr * VarExpr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called while semantically analyzing the reduction clause, ensuring the var</p>
+                                        <p> is the correct kind of reference.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1970 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCClause.cpp#L1970">clang/lib/Sema/SemaOpenACCClause.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C13C582209161713BF627D1F828CCCAFE3237168">
+                                <pre><code class="language-cpp code-clang-doc">bool CheckReductionVarType (Expr * VarExpr)</code></pre>
+                                <p>Defined at line 1879 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCClause.cpp#L1879">clang/lib/Sema/SemaOpenACCClause.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F452F3C12F2AC6DEF285A6E86C090B2239580895">
+                                <pre><code class="language-cpp code-clang-doc">bool CheckVarIsPointerType (OpenACCClauseKind ClauseKind, Expr * VarExpr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called to check the &#39;var&#39; type is a variable of pointer type, necessary</p>
+                                        <p> for &#39;deviceptr&#39; and &#39;attach&#39; clauses. Returns true on success.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 494 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L494">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="52527B75638344C21DFECEE6C9CFF8F7D6575204">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ActOnArraySectionExpr (Expr * Base, SourceLocation LBLoc, Expr * LowerBound, SourceLocation ColonLocFirst, Expr * Length, SourceLocation RBLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Checks and creates an Array Section used in an OpenACC construct/clause.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 819 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L819">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="50639B328213ADDA1CCD21F4F49C911974667FA8">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult CheckCollapseLoopCount (Expr * LoopCount)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Checks the loop depth value for a collapse clause.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2034 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCClause.cpp#L2034">clang/lib/Sema/SemaOpenACCClause.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="19FEFD5B7B5FE0542D4E87B93CE55B2223B12B81">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult CheckTileSizeExpr (Expr * SizeExpr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Checks a single size expr for a tile clause.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2006 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCClause.cpp#L2006">clang/lib/Sema/SemaOpenACCClause.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="92396E754F88AC62872B1D87885C979F84AA7BD9">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult CheckGangExpr (ArrayRef ExistingClauses, OpenACCDirectiveKind DK, OpenACCGangKind GK, Expr * E)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check a single expression on a gang clause.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2062 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCClause.cpp#L2062">clang/lib/Sema/SemaOpenACCClause.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D3E7F7B25B4AD5031F62E449F42569D97F8215B7">
+                                <pre><code class="language-cpp code-clang-doc">void CheckDeclReference (SourceLocation Loc, Expr * E, Decl * D)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Called when a declaration is referenced, so that we can make sure certain</p>
+                                        <p> clauses don&#39;t do the &#39;wrong&#39; thing/have incorrect references.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 591 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L591">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="74D9633F5AFE30CEBE8A2F19665D1F8225856BAF">
+                                <pre><code class="language-cpp code-clang-doc">OpenACCClause * CheckGangClause (OpenACCDirectiveKind DirKind, ArrayRef ExistingClauses, SourceLocation BeginLoc, SourceLocation LParenLoc, ArrayRef GangKinds, ArrayRef IntExprs, SourceLocation EndLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Does the checking for a &#39;gang&#39; clause that needs to be done in dependent</p>
+                                        <p> and not dependent cases.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2113 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCClause.cpp#L2113">clang/lib/Sema/SemaOpenACCClause.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BCF95145D96DD4439D66691C2D0D8403D720386">
+                                <pre><code class="language-cpp code-clang-doc">OpenACCClause * CheckReductionClause (ArrayRef ExistingClauses, OpenACCDirectiveKind DirectiveKind, SourceLocation BeginLoc, SourceLocation LParenLoc, OpenACCReductionOperator ReductionOp, ArrayRef Vars, ArrayRef Recipes, SourceLocation EndLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Does the checking for a &#39;reduction &#39; clause that needs to be done in</p>
+                                        <p> dependent and not dependent cases.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2156 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACCClause.cpp#L2156">clang/lib/Sema/SemaOpenACCClause.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3ACE57752BD4746824BB863268424B113B73ED9E">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult BuildOpenACCAsteriskSizeExpr (SourceLocation AsteriskLoc)</code></pre>
+                                <p>Defined at line 2593 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2593">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4B4E74CD29EF14B047323F9EC083BDAE76DFF700">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ActOnOpenACCAsteriskSizeExpr (SourceLocation AsteriskLoc)</code></pre>
+                                <p>Defined at line 2598 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenACC.cpp#L2598">clang/lib/Sema/SemaOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="F51F94CF3AAE6D89E289B8E47FBB4BF5221CA25F" style="max-height: 40px;">
+                            <a href="SemaOpenACC/_ZTVN5clang11SemaOpenACC18AssociatedStmtRAIIE.html">
+                                <pre><code class="language-cpp code-clang-doc">class AssociatedStmtRAII</code></pre>
+                            </a>
+                        </li>
+                        <li id="41E79A2D133DAD7AC3E68CE077DDF2D970954A00" style="max-height: 40px;">
+                            <a href="SemaOpenACC/_ZTVN5clang11SemaOpenACC14CacheParseInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class CacheParseInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="E3E8EF56126903624F5A5B728D995D41F51D9771" style="max-height: 40px;">
+                            <a href="SemaOpenACC/_ZTVN5clang11SemaOpenACC20CollapseCheckingInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class CollapseCheckingInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="185A6A748BC2EE1A25008DB35E88E5F172EE7AD6" style="max-height: 40px;">
+                            <a href="SemaOpenACC/_ZTVN5clang11SemaOpenACC20ComputeConstructInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ComputeConstructInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="677C90ABA063D816438736CA677A259178FE6A7C" style="max-height: 40px;">
+                            <a href="SemaOpenACC/_ZTVN5clang11SemaOpenACC19ForStmtBeginCheckerE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ForStmtBeginChecker</code></pre>
+                            </a>
+                        </li>
+                        <li id="C2009669926A47F834D367061CE4E69972448812" style="max-height: 40px;">
+                            <a href="SemaOpenACC/_ZTVN5clang11SemaOpenACC16LoopCheckingInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LoopCheckingInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="1167BDABA5C87D51B24C1E6483AA25121AB7ADE7" style="max-height: 40px;">
+                            <a href="SemaOpenACC/_ZTVN5clang11SemaOpenACC18LoopGangOnKernelTyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LoopGangOnKernelTy</code></pre>
+                            </a>
+                        </li>
+                        <li id="08FA6E3D1FCA550ACE8924CBAA93D7337B8C54DE" style="max-height: 40px;">
+                            <a href="SemaOpenACC/_ZTVN5clang11SemaOpenACC19LoopInConstructRAIIE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LoopInConstructRAII</code></pre>
+                            </a>
+                        </li>
+                        <li id="85BF16C053179BD01ED4E4FCEDB7CEC42FC5D656" style="max-height: 40px;">
+                            <a href="SemaOpenACC/_ZTVN5clang11SemaOpenACC26LoopWithoutSeqCheckingInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LoopWithoutSeqCheckingInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="CFCFC1045FA44A4B18A5AD1EBFF6F6C5CA6D65A6" style="max-height: 40px;">
+                            <a href="SemaOpenACC/_ZTVN5clang11SemaOpenACC19OpenACCParsedClauseE.html">
+                                <pre><code class="language-cpp code-clang-doc">class OpenACCParsedClause</code></pre>
+                            </a>
+                        </li>
+                        <li id="52052DC5506D63ACDD61C19BFECDC9B0527E5A07" style="max-height: 40px;">
+                            <a href="SemaOpenACC/_ZTVN5clang11SemaOpenACC16TileCheckingInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class TileCheckingInfo</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="227B1CFEDEEF8A020683EACF43BA310DF2C9BF7F" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using DeclGroupPtrTy = OpaquePtr&lt;DeclGroupRef&gt;</code></pre>
+                        <p>Defined at line 39 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Sema/SemaOpenACC.h#L39">clang/include/clang/Sema/SemaOpenACC.h</a></p>
+                    </div>
+                    <div id="F426B7296F81F81245CA5506E08511F8A36BBBCA" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using RoutineRefListTy = pair</code></pre>
+                        <p>Defined at line 40 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Sema/SemaOpenACC.h#L40">clang/include/clang/Sema/SemaOpenACC.h</a></p>
+                    </div>
+                    <div id="8D050F174A957EEE564A86A956AA633A939A697E" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using DeviceTypeArgument = IdentifierLoc</code></pre>
+                        <div>
+                            <p> Redeclaration of the version in OpenACCClause.h.</p>
+                        </div>
+                        <p>Defined at line 295 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Sema/SemaOpenACC.h#L295">clang/include/clang/Sema/SemaOpenACC.h</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

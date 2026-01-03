@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>TypeStringCache</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class TypeStringCache</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C498F735129B68F5DA9B1B178C293B8272729995">TypeStringCache</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#42E4006B4414CACB2E45BD13811AB6E03810C3A2">addIncomplete</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#19ADC906BCB6032704160F6E8E1C2C0F36C717C1">removeIncomplete</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B89F26E2557CDC60F8B57A4E6C58C6B59D55F6E2">addIfComplete</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C4717EE082E35A7A23FCE0408B60F87260297870">lookupStr</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FE84822228A432044D6D3D8F54A89A5AD1A538F9">Status</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A873C7972FDA84711BC8F6DCC5AFDCE58C8AB37B">Entry</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class TypeStringCache</h1>
+                        <p>Defined at line 79 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/Targets/XCore.cpp#L79">clang/lib/CodeGen/Targets/XCore.cpp</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> TypeStringCache caches the meta encodings of Types.</p>
+                            </div>
+                            <div>
+                                <p> The reason for caching TypeStrings is two fold:</p>
+                                <p>   1. To cache a type&#39;s encoding for later uses;</p>
+                                <p>   2. As a means to break recursive member type inclusion.</p>
+                            </div>
+                            <div>
+                                <p> A cache Entry can have a Status of:</p>
+                                <p>   NonRecursive:   The type encoding is not recursive;</p>
+                                <p>   Recursive:      The type encoding is recursive;</p>
+                                <p>   Incomplete:     An incomplete TypeString;</p>
+                                <p>   IncompleteUsed: An incomplete TypeString that has been used in a</p>
+                                <p>                   Recursive type encoding.</p>
+                            </div>
+                            <div>
+                                <p> A NonRecursive entry will have all of its sub-members expanded as fully</p>
+                                <p> as possible. Whilst it may contain types which are recursive, the type</p>
+                                <p> itself is not recursive and thus its encoding may be safely used whenever</p>
+                                <p> the type is encountered.</p>
+                            </div>
+                            <div>
+                                <p> A Recursive entry will have all of its sub-members expanded as fully as</p>
+                                <p> possible. The type itself is recursive and it may contain other types which</p>
+                                <p> are recursive. The Recursive encoding must not be used during the expansion</p>
+                                <p> of a recursive type&#39;s recursive branch. For simplicity the code uses</p>
+                                <p> IncompleteCount to reject all usage of Recursive encodings for member types.</p>
+                            </div>
+                            <div>
+                                <p> An Incomplete entry is always a RecordType and only encodes its</p>
+                                <p> identifier e.g. &quot;s(S){}&quot;. Incomplete &#39;StubEnc&#39; entries are ephemeral and</p>
+                                <p> are placed into the cache during type expansion as a means to identify and</p>
+                                <p> handle recursive inclusion of types as sub-members. If there is recursion</p>
+                                <p> the entry becomes IncompleteUsed.</p>
+                            </div>
+                            <div>
+                                <p> During the expansion of a RecordType&#39;s members:</p>
+                            </div>
+                            <div>
+                                <p>   If the cache contains a NonRecursive encoding for the member type, the</p>
+                                <p>   cached encoding is used;</p>
+                            </div>
+                            <div>
+                                <p>   If the cache contains a Recursive encoding for the member type, the</p>
+                                <p>   cached encoding is &#39;Swapped&#39; out, as it may be incorrect, and...</p>
+                            </div>
+                            <div>
+                                <p>   If the member is a RecordType, an Incomplete encoding is placed into the</p>
+                                <p>   cache to break potential recursive inclusion of itself as a sub-member;</p>
+                            </div>
+                            <div>
+                                <p>   Once a member RecordType has been expanded, its temporary incomplete</p>
+                                <p>   entry is removed from the cache. If a Recursive encoding was swapped out</p>
+                                <p>   it is swapped back in;</p>
+                            </div>
+                            <div>
+                                <p>   If an incomplete entry is used to expand a sub-member, the incomplete</p>
+                                <p>   entry is marked as IncompleteUsed. The cache keeps count of how many</p>
+                                <p>   IncompleteUsed entries it currently contains in IncompleteUsedCount;</p>
+                            </div>
+                            <div>
+                                <p>   If a member&#39;s encoding is found to be a NonRecursive or Recursive viz:</p>
+                                <p>   IncompleteUsedCount==0, the member&#39;s encoding is added to the cache.</p>
+                                <p>   Else the member is part of a recursive type and thus the recursion has</p>
+                                <p>   been exited too soon for the encoding to be correct for the member.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="C498F735129B68F5DA9B1B178C293B8272729995">
+                                <pre><code class="language-cpp code-clang-doc">void TypeStringCache ()</code></pre>
+                                <p>Defined at line 91 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/Targets/XCore.cpp#L91">clang/lib/CodeGen/Targets/XCore.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="42E4006B4414CACB2E45BD13811AB6E03810C3A2">
+                                <pre><code class="language-cpp code-clang-doc">void addIncomplete (const IdentifierInfo * ID, basic_string StubEnc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> During the expansion of a RecordType, an incomplete TypeString is placed</p>
+                                        <p> into the cache as a means to identify and break recursion.</p>
+                                        <p> If there is a Recursive encoding in the cache, it is swapped out and will</p>
+                                        <p> be reinserted by removeIncomplete().</p>
+                                        <p> All other types of encoding should have been used rather than arriving here.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 195 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/Targets/XCore.cpp#L195">clang/lib/CodeGen/Targets/XCore.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="19ADC906BCB6032704160F6E8E1C2C0F36C717C1">
+                                <pre><code class="language-cpp code-clang-doc">bool removeIncomplete (const IdentifierInfo * ID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Once the RecordType has been expanded, the temporary incomplete TypeString</p>
+                                        <p> must be removed from the cache.</p>
+                                        <p> If a Recursive was swapped out by addIncomplete(), it will be replaced.</p>
+                                        <p> Returns true if the RecordType was defined recursively.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 213 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/Targets/XCore.cpp#L213">clang/lib/CodeGen/Targets/XCore.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B89F26E2557CDC60F8B57A4E6C58C6B59D55F6E2">
+                                <pre><code class="language-cpp code-clang-doc">void addIfComplete (const IdentifierInfo * ID, StringRef Str, bool IsRecursive)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add the encoded TypeString to the cache only if it is NonRecursive or</p>
+                                        <p> Recursive (viz: all sub-members were expanded as fully as possible).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 242 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/Targets/XCore.cpp#L242">clang/lib/CodeGen/Targets/XCore.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C4717EE082E35A7A23FCE0408B60F87260297870">
+                                <pre><code class="language-cpp code-clang-doc">StringRef lookupStr (const IdentifierInfo * ID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a cached TypeString encoding for the ID. If there isn&#39;t one, or we</p>
+                                        <p> are recursively expanding a type (IncompleteCount != 0) and the cached</p>
+                                        <p> encoding is Recursive, return an empty StringRef.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 263 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/Targets/XCore.cpp#L263">clang/lib/CodeGen/Targets/XCore.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div id="FE84822228A432044D6D3D8F54A89A5AD1A538F9" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum Status</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>NonRecursive</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>Recursive</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>Incomplete</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>IncompleteUsed</td>
+                                    <td>3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 80 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/Targets/XCore.cpp#L80">clang/lib/CodeGen/Targets/XCore.cpp</a></p>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="A873C7972FDA84711BC8F6DCC5AFDCE58C8AB37B" style="max-height: 40px;">
+                            <a href="TypeStringCache/_ZTVN12_GLOBAL__N_115TypeStringCache5EntryE.html">
+                                <pre><code class="language-cpp code-clang-doc">class Entry</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

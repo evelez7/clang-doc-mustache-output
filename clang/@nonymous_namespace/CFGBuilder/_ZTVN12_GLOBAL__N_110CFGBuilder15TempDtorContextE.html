@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>TempDtorContext</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct TempDtorContext</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#IsConditional">IsConditional</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#KnownExecuted">KnownExecuted</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Succ">Succ</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TerminatorExpr">TerminatorExpr</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4B8104A6D5DC7C89705BAEA1ED05697E9D113535">TempDtorContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E4F5DEFE9B99EC25CB47E862D15E395487718A74">TempDtorContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F8B862349A0FB1B57D880E415967020353B80B5">needsTempDtorBranch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#04813A4C56FEB3E7A2EF1AC35E964E0EE1055674">setDecisionPoint</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct TempDtorContext</h1>
+                        <p>Defined at line 696 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/CFG.cpp#L696">clang/lib/Analysis/CFG.cpp</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> When creating the CFG for temporary destructors, we want to mirror the</p>
+                                <p> branch structure of the corresponding constructor calls.</p>
+                                <p> Thus, while visiting a statement for temporary destructors, we keep a</p>
+                                <p> context to keep track of the following information:</p>
+                                <p> - whether a subexpression is executed unconditionally</p>
+                                <p> - if a subexpression is executed conditionally, the first</p>
+                                <p>   CXXBindTemporaryExpr we encounter in that subexpression (which</p>
+                                <p>   corresponds to the last temporary destructor we have to call for this</p>
+                                <p>   subexpression) and the CFG block at that point (which will become the</p>
+                                <p>   successor block when inserting the decision point).</p>
+                            </div>
+                            <div>
+                                <p> That way, we can build the branch structure for temporary destructors as</p>
+                                <p> follows:</p>
+                                <p> 1. If a subexpression is executed unconditionally, we add the temporary</p>
+                                <p>    destructor calls to the current block.</p>
+                                <p> 2. If a subexpression is executed conditionally, when we encounter a</p>
+                                <p>    CXXBindTemporaryExpr:</p>
+                                <p>    a) If it is the first temporary destructor call in the subexpression,</p>
+                                <p>       we remember the CXXBindTemporaryExpr and the current block in the</p>
+                                <p>       TempDtorContext; we start a new block, and insert the temporary</p>
+                                <p>       destructor call.</p>
+                                <p>    b) Otherwise, add the temporary destructor call to the current block.</p>
+                                <p>  3. When we finished visiting a conditionally executed subexpression,</p>
+                                <p>     and we found at least one temporary constructor during the visitation</p>
+                                <p>     (2.a has executed), we insert a decision block that uses the</p>
+                                <p>     CXXBindTemporaryExpr as terminator, and branches to the current block</p>
+                                <p>     if the CXXBindTemporaryExpr was marked executed, and otherwise</p>
+                                <p>     branches to the stored successor.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="IsConditional" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const bool IsConditional</code></pre>
+                        </div>
+                        <div id="KnownExecuted" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >TryResult KnownExecuted</code></pre>
+                        </div>
+                        <div id="Succ" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >CFGBlock * Succ</code></pre>
+                        </div>
+                        <div id="TerminatorExpr" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >CXXBindTemporaryExpr * TerminatorExpr</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="4B8104A6D5DC7C89705BAEA1ED05697E9D113535">
+                                <pre><code class="language-cpp code-clang-doc">void TempDtorContext ()</code></pre>
+                                <p>Defined at line 697 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/CFG.cpp#L697">clang/lib/Analysis/CFG.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E4F5DEFE9B99EC25CB47E862D15E395487718A74">
+                                <pre><code class="language-cpp code-clang-doc">void TempDtorContext (TryResult KnownExecuted)</code></pre>
+                                <p>Defined at line 698 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/CFG.cpp#L698">clang/lib/Analysis/CFG.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F8B862349A0FB1B57D880E415967020353B80B5">
+                                <pre><code class="language-cpp code-clang-doc">bool needsTempDtorBranch ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns whether we need to start a new branch for a temporary destructor</p>
+                                        <p> call. This is the case when the temporary destructor is</p>
+                                        <p> conditionally executed, and it is the first one we encounter while</p>
+                                        <p> visiting a subexpression - other temporary destructors at the same level</p>
+                                        <p> will be added to the same block and are executed under the same</p>
+                                        <p> condition.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 707 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/CFG.cpp#L707">clang/lib/Analysis/CFG.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="04813A4C56FEB3E7A2EF1AC35E964E0EE1055674">
+                                <pre><code class="language-cpp code-clang-doc">void setDecisionPoint (CFGBlock * S, CXXBindTemporaryExpr * E)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Remember the successor S of a temporary destructor decision branch for</p>
+                                        <p> the corresponding CXXBindTemporaryExpr E.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 713 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/CFG.cpp#L713">clang/lib/Analysis/CFG.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DataflowAnalysis</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class DataflowAnalysis</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F46670F9D9E07CA1F33030C5940E38EE94CC7C43">DataflowAnalysis&lt;Derived, LatticeT&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1F18E8703A452A61B80A7FFACEF2D49CB9864BDD">DataflowAnalysis&lt;Derived, LatticeT&gt;</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4A59747C098F05E34C194B5117A142EBE46788E">getASTContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#238DBDAD64B71BB0983CDA57C0C1B49169E2CF4B">typeErasedInitialElement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8995021733B38766F7C8678FFA52814619122648">joinTypeErased</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1CEAD8857D09C9F58F6AC783AEFD4FEC942E3E5B">widenTypeErased</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5B419C234A20EEE6848F725896BF6E2D279939D">isEqualTypeErased</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F00032E283AE94F25F1B2F4B3D25FA8A4BD14E3D">transferTypeErased</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#41A2FB04CED9E98312929F303E3DD1E557FA9780">transferBranchTypeErased</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F268BE50696DB37585E3908096CA6A26B1072F38">Lattice</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#37D5B18F5C0D422EE7119F1D1517A9560768AEF6">Rank0</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8FF53C0A301F55EA9566B25CD05480AE47FA8B4B">Rank1</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Derived, typename LatticeT&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class DataflowAnalysis</h1>
+                        <p>Defined at line 80 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h#L80">clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Base class template for dataflow analyses built on a single lattice type.</p>
+                            </div>
+                            <div>
+                                <p> Requirements:</p>
+                            </div>
+                            <div>
+                                <p>  `Derived` must be derived from a specialization of this class template and</p>
+                                <p>  must provide the following public members:</p>
+                                <p>   * `LatticeT initialElement()` - returns a lattice element that models the</p>
+                                <p>     initial state of a basic block;</p>
+                                <p>   * `void transfer(const CFGElement </p>
+                                <p>&amp;</p>
+                                <p>, LatticeT </p>
+                                <p>&amp;</p>
+                                <p>, Environment </p>
+                                <p>&amp;</p>
+                                <p>)` - applies</p>
+                                <p>     the analysis transfer function for a given CFG element and lattice</p>
+                                <p>     element.</p>
+                            </div>
+                            <div>
+                                <p>  `Derived` can optionally provide the following members:</p>
+                                <p>  * `void transferBranch(bool Branch, const Stmt *Stmt, TypeErasedLattice </p>
+                                <p>&amp;E</p>
+                                <p>,</p>
+                                <p>                         Environment </p>
+                                <p>&amp;Env</p>
+                                <p>)` - applies the analysis transfer</p>
+                                <p>    function for a given edge from a CFG block of a conditional statement.</p>
+                            </div>
+                            <div>
+                                <p>  `Derived` can optionally override the virtual functions in the</p>
+                                <p>  `Environment::ValueModel` interface (which is an indirect base class of</p>
+                                <p>  this class).</p>
+                            </div>
+                            <div>
+                                <p>  `LatticeT` is a bounded join-semilattice that is used by `Derived` and must</p>
+                                <p>  provide the following public members:</p>
+                                <p>   * `LatticeJoinEffect join(const LatticeT </p>
+                                <p>&amp;</p>
+                                <p>)` - joins the object and the</p>
+                                <p>     argument by computing their least upper bound, modifies the object if</p>
+                                <p>     necessary, and returns an effect indicating whether any changes were</p>
+                                <p>     made to it;</p>
+                                <p>     FIXME: make it `static LatticeT join(const LatticeT</p>
+                                <p>&amp;</p>
+                                <p>, const LatticeT</p>
+                                <p>&amp;</p>
+                                <p>)`</p>
+                                <p>   * `bool operator==(const LatticeT </p>
+                                <p>&amp;</p>
+                                <p>) const` - returns true if and only if</p>
+                                <p>     the object is equal to the argument.</p>
+                            </div>
+                            <div>
+                                <p> `LatticeT` can optionally provide the following members:</p>
+                                <p>  * `LatticeJoinEffect widen(const LatticeT </p>
+                                <p>&amp;Previous</p>
+                                <p>)` - replaces the</p>
+                                <p>    lattice element with an  approximation that can reach a fixed point more</p>
+                                <p>    quickly than iterated application of the transfer function alone. The</p>
+                                <p>    previous value is provided to inform the choice of widened value. The</p>
+                                <p>    function must also serve as a comparison operation, by indicating whether</p>
+                                <p>    the widened value is equivalent to the previous value with the returned</p>
+                                <p>    `LatticeJoinEffect`.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="F46670F9D9E07CA1F33030C5940E38EE94CC7C43">
+                                <pre><code class="language-cpp code-clang-doc">void DataflowAnalysis&lt;Derived, LatticeT&gt; (ASTContext &amp; Context)</code></pre>
+                                <p>Defined at line 85 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h#L85">clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1F18E8703A452A61B80A7FFACEF2D49CB9864BDD">
+                                <pre><code class="language-cpp code-clang-doc">void DataflowAnalysis&lt;Derived, LatticeT&gt; (ASTContext &amp; Context, DataflowAnalysisOptions Options)</code></pre>
+                                <p>Defined at line 87 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h#L87">clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4A59747C098F05E34C194B5117A142EBE46788E">
+                                <pre><code class="language-cpp code-clang-doc">ASTContext &amp; getASTContext ()</code></pre>
+                                <p>Defined at line 91 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h#L91">clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="238DBDAD64B71BB0983CDA57C0C1B49169E2CF4B">
+                                <pre><code class="language-cpp code-clang-doc">TypeErasedLattice typeErasedInitialElement ()</code></pre>
+                                <p>Defined at line 93 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h#L93">clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8995021733B38766F7C8678FFA52814619122648">
+                                <pre><code class="language-cpp code-clang-doc">TypeErasedLattice joinTypeErased (const TypeErasedLattice &amp; E1, const TypeErasedLattice &amp; E2)</code></pre>
+                                <p>Defined at line 97 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h#L97">clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1CEAD8857D09C9F58F6AC783AEFD4FEC942E3E5B">
+                                <pre><code class="language-cpp code-clang-doc">LatticeEffect widenTypeErased (TypeErasedLattice &amp; Current, const TypeErasedLattice &amp; Previous)</code></pre>
+                                <p>Defined at line 106 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h#L106">clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5B419C234A20EEE6848F725896BF6E2D279939D">
+                                <pre><code class="language-cpp code-clang-doc">bool isEqualTypeErased (const TypeErasedLattice &amp; E1, const TypeErasedLattice &amp; E2)</code></pre>
+                                <p>Defined at line 113 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h#L113">clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F00032E283AE94F25F1B2F4B3D25FA8A4BD14E3D">
+                                <pre><code class="language-cpp code-clang-doc">void transferTypeErased (const CFGElement &amp; Element, TypeErasedLattice &amp; E, Environment &amp; Env)</code></pre>
+                                <p>Defined at line 120 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h#L120">clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="41A2FB04CED9E98312929F303E3DD1E557FA9780">
+                                <pre><code class="language-cpp code-clang-doc">void transferBranchTypeErased (bool Branch, const Stmt * Stmt, TypeErasedLattice &amp; E, Environment &amp; Env)</code></pre>
+                                <p>Defined at line 126 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h#L126">clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="37D5B18F5C0D422EE7119F1D1517A9560768AEF6" style="max-height: 40px;">
+                            <a href="DataflowAnalysis/_ZTVN5clang8dataflow16DataflowAnalysis5Rank0E.html">
+                                <pre><code class="language-cpp code-clang-doc">class Rank0</code></pre>
+                            </a>
+                        </li>
+                        <li id="8FF53C0A301F55EA9566B25CD05480AE47FA8B4B" style="max-height: 40px;">
+                            <a href="DataflowAnalysis/_ZTVN5clang8dataflow16DataflowAnalysis5Rank1E.html">
+                                <pre><code class="language-cpp code-clang-doc">class Rank1</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="F268BE50696DB37585E3908096CA6A26B1072F38" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using Lattice = LatticeT</code></pre>
+                        <div>
+                            <p> Bounded join-semilattice that is used in the analysis.</p>
+                        </div>
+                        <p>Defined at line 83 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h#L83">clang/include/clang/Analysis/FlowSensitive/DataflowAnalysis.h</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

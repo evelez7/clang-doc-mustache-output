@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ArrayInitLoopExpr</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ArrayInitLoopExpr</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A64004B191500DB11E896F0ABBC81DD3FAB72094">ArrayInitLoopExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE752F6B2C314B894E76CB64F35344F09172B772">getCommonExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#98FEFFF573FE1CF9B15ECCAAC525FD02FBA7C875">getSubExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B41E7DFF939E3D2BD28FA82145F66AB6CBEEDB31">getArraySize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DDEDC8D0C593303495B686FCE93AF99C8662A39C">classof</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B90BAA263FB8A8A1FB476DDD87CE8C3F9F90EF67">getBeginLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BE04258166FCCA6C7DDB1ECC43D18FBAD0B2E162">getEndLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#78EAD0425F5DDB1410952B918D12AD223F9B46DF">children</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FFD23468AF1DDCA78212643969957AA34D156F89">children</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Friends">Friends</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DC6EEDEE4FC3661C094872ED972058D983A36A90">ASTStmtWriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26C300E34FB27F78800293859717485F84CE0E21">ASTStmtReader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3EDB6CDD887BE92C5AB23618F7B2065243C742BF">ASTReader</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ArrayInitLoopExpr</h1>
+                        <p>Defined at line 5968 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L5968">clang/include/clang/AST/Expr.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Represents a loop initializing the elements of an array.</p>
+                            </div>
+                            <div>
+                                <p> The need to initialize the elements of an array occurs in a number of</p>
+                                <p> contexts:</p>
+                            </div>
+                            <div>
+                                <p>  * in the implicit copy/move constructor for a class with an array member</p>
+                                <p>  * when a lambda-expression captures an array by value</p>
+                                <p>  * when a decomposition declaration decomposes an array</p>
+                            </div>
+                            <div>
+                                <p> There are two subexpressions: a common expression (the source array)</p>
+                                <p> that is evaluated once up-front, and a per-element initializer that</p>
+                                <p> runs once for each array element.</p>
+                            </div>
+                            <div>
+                                <p> Within the per-element initializer, the common expression may be referenced</p>
+                                <p> via an OpaqueValueExpr, and the current index may be obtained via an</p>
+                                <p> ArrayInitIndexExpr.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="A64004B191500DB11E896F0ABBC81DD3FAB72094">
+                                <pre><code class="language-cpp code-clang-doc">void ArrayInitLoopExpr (QualType T, Expr * CommonInit, Expr * ElementInit)</code></pre>
+                                <p>Defined at line 5975 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L5975">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE752F6B2C314B894E76CB64F35344F09172B772">
+                                <pre><code class="language-cpp code-clang-doc">OpaqueValueExpr * getCommonExpr ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the common subexpression shared by all initializations (the source</p>
+                                        <p> array).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5983 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L5983">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="98FEFFF573FE1CF9B15ECCAAC525FD02FBA7C875">
+                                <pre><code class="language-cpp code-clang-doc">Expr * getSubExpr ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the initializer to use for each array element.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5988 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L5988">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B41E7DFF939E3D2BD28FA82145F66AB6CBEEDB31">
+                                <pre><code class="language-cpp code-clang-doc">APInt getArraySize ()</code></pre>
+                                <p>Defined at line 5990 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L5990">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DDEDC8D0C593303495B686FCE93AF99C8662A39C">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const Stmt * S)</code></pre>
+                                <p>Defined at line 5995 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L5995">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B90BAA263FB8A8A1FB476DDD87CE8C3F9F90EF67">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getBeginLoc ()</code></pre>
+                                <p>Defined at line 5999 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L5999">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BE04258166FCCA6C7DDB1ECC43D18FBAD0B2E162">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getEndLoc ()</code></pre>
+                                <p>Defined at line 6002 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L6002">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="78EAD0425F5DDB1410952B918D12AD223F9B46DF">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range children ()</code></pre>
+                                <p>Defined at line 6006 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L6006">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FFD23468AF1DDCA78212643969957AA34D156F89">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range children ()</code></pre>
+                                <p>Defined at line 6009 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L6009">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="DC6EEDEE4FC3661C094872ED972058D983A36A90" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ASTStmtWriter</code></pre>
+                        <div>
+                            <p> Represents a loop initializing the elements of an array.</p>
+                        </div>
+                        <div>
+                            <p> The need to initialize the elements of an array occurs in a number of</p>
+                            <p> contexts:</p>
+                        </div>
+                        <div>
+                            <p>  * in the implicit copy/move constructor for a class with an array member</p>
+                            <p>  * when a lambda-expression captures an array by value</p>
+                            <p>  * when a decomposition declaration decomposes an array</p>
+                        </div>
+                        <div>
+                            <p> There are two subexpressions: a common expression (the source array)</p>
+                            <p> that is evaluated once up-front, and a per-element initializer that</p>
+                            <p> runs once for each array element.</p>
+                        </div>
+                        <div>
+                            <p> Within the per-element initializer, the common expression may be referenced</p>
+                            <p> via an OpaqueValueExpr, and the current index may be obtained via an</p>
+                            <p> ArrayInitIndexExpr.</p>
+                        </div>
+                    </div>
+                    <div id="26C300E34FB27F78800293859717485F84CE0E21" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ASTStmtReader</code></pre>
+                        <div>
+                            <p> Represents a loop initializing the elements of an array.</p>
+                        </div>
+                        <div>
+                            <p> The need to initialize the elements of an array occurs in a number of</p>
+                            <p> contexts:</p>
+                        </div>
+                        <div>
+                            <p>  * in the implicit copy/move constructor for a class with an array member</p>
+                            <p>  * when a lambda-expression captures an array by value</p>
+                            <p>  * when a decomposition declaration decomposes an array</p>
+                        </div>
+                        <div>
+                            <p> There are two subexpressions: a common expression (the source array)</p>
+                            <p> that is evaluated once up-front, and a per-element initializer that</p>
+                            <p> runs once for each array element.</p>
+                        </div>
+                        <div>
+                            <p> Within the per-element initializer, the common expression may be referenced</p>
+                            <p> via an OpaqueValueExpr, and the current index may be obtained via an</p>
+                            <p> ArrayInitIndexExpr.</p>
+                        </div>
+                    </div>
+                    <div id="3EDB6CDD887BE92C5AB23618F7B2065243C742BF" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ASTReader</code></pre>
+                        <div>
+                            <p> Represents a loop initializing the elements of an array.</p>
+                        </div>
+                        <div>
+                            <p> The need to initialize the elements of an array occurs in a number of</p>
+                            <p> contexts:</p>
+                        </div>
+                        <div>
+                            <p>  * in the implicit copy/move constructor for a class with an array member</p>
+                            <p>  * when a lambda-expression captures an array by value</p>
+                            <p>  * when a decomposition declaration decomposes an array</p>
+                        </div>
+                        <div>
+                            <p> There are two subexpressions: a common expression (the source array)</p>
+                            <p> that is evaluated once up-front, and a per-element initializer that</p>
+                            <p> runs once for each array element.</p>
+                        </div>
+                        <div>
+                            <p> Within the per-element initializer, the common expression may be referenced</p>
+                            <p> via an OpaqueValueExpr, and the current index may be obtained via an</p>
+                            <p> ArrayInitIndexExpr.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

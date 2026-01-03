@@ -1,0 +1,2362 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SourceManager</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SourceManager</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7A22AA56C7F060D71C924CFC20D96DB47329CE23">SourceManager</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D380D891559C4859E89D942894FCE98A36B77B96">~SourceManager</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B4984F93ED611E932A5716902FC6AAC0A6775CEE">clearIDTables</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F7FE1F1518EB493574EDA56B730774A3462EEF3B">initializeForReplay</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#048704EF5E10263EAF9BFD5EAC04908A9EB827C3">isMainFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#608B7C0A4C5EDD4BE72B69A9E2F30BE34B181691">createFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CB2645746FC4A96BDBC190B00C50D3477FD15AA2">createFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5B2E4B1E1201FD8DEA879E831460EA57F4137697">createFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4ABDE436F8908EE8F22A9D24F49117C14C1AF99A">getOrCreateFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C4DBECB26958F8459DB4E27CC56BEBDA279CB39C">createMacroArgExpansionLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#37977218273964C45708C8D44AB9FAB6F9F05ED9">createExpansionLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDC49C2D20BE60053A939DE64B4B247E7BEAEE45">createTokenSplitLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AD88B665605ACD455DD3DC7954C6C4F0FDC06698">getMemoryBufferForFileOrNone</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#142DCEEFAACAEF228820A5E21D3EFEB2DBBCEE74">overrideFileContents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B158FE5C9AE965A712869E92F8AF9623961C86D8">overrideFileContents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#57E43452AEBD086AD01A7F15D130BFF8A6FBC3D1">bypassFileContentsOverride</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1FD7CF9AFC171BCCB790E6FA7742003CD8A32491">setFileIsTransient</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#84871B4DD0F6545383DFE1439BBE80CCB4FA5971">getNonBuiltinFilenameForID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF8A5C9E162D5CCA569A0A527FB15FC41262B2E0">getBufferData</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#31D158DC0A80456B78FC7D72A52B55B26C049BD9">getBufferDataOrNone</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB3D3C681953054F6E2C693AB32D5A12F9D43BBC">getBufferDataIfLoaded</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8B6CC214A351A93CBA62A4B003A309D6688EC93C">SourceManager</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A451A31D610163C48B93488DEDD380D7A6C3E22B">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07814E96A3EE795D2AE5F3B0B90DBA3D39B61116">getDiagnostics</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BF9CE1FD6D1A46BCD46B594348B6A4D3B1715986">getFileManager</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#083FCADB1ACA18B82896494818CB34B09F28EE62">setOverridenFilesKeepOriginalName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#306A7B525E10E879A0982186BAB5D35CF47A8EA8">userFilesAreVolatile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B6460467F2A7DF23A7CBF3AAD869F217038196BB">getModuleBuildStack</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#79C8B7F79656CF64AA959D763589DE6ADFF97757">setModuleBuildStack</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#629A8701913E30AE22F600A8EE9AEFE8CAA5BB99">pushModuleBuildStack</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A54E45BAEFF040A631E5009EB7799A1DEE4984C8">getMainFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4D95F8EAD6A8152A6A972F205A5ABC1264EC00B0">setMainFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#369F8960531F2C52C9D12342B7C7394C43152592">setPreambleFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF4D62184C501643CE11D6E5D28329554DFD18D3">getPreambleFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDAC8492B8A6BEBB2AEF1E37A753AB63E1E7AE90">getFilename</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5A7C74A9D5999068F82D02641BA620509042FFF">getImmediateExpansionRange</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F47F576F3F823842DDBC7C849B413348055FFA0">getExpansionRange</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0FD3DF0565A1B03E28E3DFB8003A76805E269D1C">getImmediateSpellingLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4AA483AA8ADCDF9D51FD40BEC063F6876AF5F3B1">getMemoryBufferForFileOrFake</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#76D728C7721C6A38F2FBB82B8BB387B590D5F36E">isMacroArgExpansion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ECD308FAEAC6D6AAAEC05238848F1342FB0EC4C6">overrideFileContents</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#22B3EE42CC6D05168631D34462BE914B003EBEA3">isMacroBodyExpansion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#788F4DD22A20EACB11F35690D23A5C4F5F2E2C75">isAtStartOfImmediateMacroExpansion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1FB107C61DDA9674924A66798ECE3E0D5EFCC441">isFileOverridden</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6C3973708B1B760FB52B1841967249222D8BEE3">isAtEndOfImmediateMacroExpansion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F1CC42F230DB5670BB7F4955740AA2FEFE6A16C8">setAllFilesAreTransient</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#213BA1456B96B763730ED423A3980866CC0EF1B8">getBufferOrNone</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#00CA164EE682B4B67522FB162DA3A1C603FA425C">getBufferOrFake</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C01918DF14DE0A90D20180B47CA2F70B00DD07B0">getFileEntryForID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB2D67B004A28788316CDA1E9339159A3A644AA1">getFileEntryRefForID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C70D48C30CD41E9E461F794BB2589BD7A7E0C6C5">getCharacterData</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#58202541035CD2A8FEE1612B8F3F8AB47CEEEBCF">getFileEntryForSLocEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#20FCD00745CA706456C3F19B2328918A653209DF">getColumnNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#844028648E1FD3643EF7D2B7C3B5A9CA457AB025">getNumCreatedFIDsForFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F0342BF2500909A462B6D802A36D653B6FE83176">setNumCreatedFIDsForFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2295B2FF5D275E5C2DA84CE5F575E6DDBC367A5">getFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44A3FD78331633265DBA1B750D8E16CF407F9368">getLocForStartOfFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C7245CA1EB4FDC27BC2AAB1FF3B5DBB95764C723">getColumnNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1E47D61C0A620CF333F57B75CE2ED1FB6256BCAB">getLocForEndOfFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C33CEC2ADCA8912A3CAE188DCB8B02FAAA12AD67">getPresumedColumnNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8CB1B62390EA2A23D60D0CB1AA1DEA1CAA6D1F6B">getIncludeLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#50D98117F905B1A219F22216BE14158F9B3A7663">getModuleImportLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#016BEB44CC1D6C4683EEB925EEDBE4C93D8D2E79">getExpansionLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#491707E66798D9CD24AAADEEDB5368D7531659F6">getFileLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4B7E0197A6B0BA635917C6760EF13D305C33B499">getExpansionRange</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#867ED94F46BE1F6B532E8EF53D2F6BA52B9A3884">getExpansionRange</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#365F5B378D063B0B5C163ED1E5DCF4784F94C5D8">getSpellingLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AFC213349CE14CCFADBBA15C2D3586A5225E19E9">getComposedLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#270D1A0A77F0F2CAD83640AE81CBDCC27F114CA3">getDecomposedLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4C4A3354C7264AF809C786AC6C303745241E2898">getDecomposedExpansionLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D8269FDB74DC2C9737AB703D4B06F9AE37B50E4">getDecomposedSpellingLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5B6D452E0FD6974EF58E4BDA10122D3972BEB9A9">getFileOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#53697F7EA19CBE342B4A0DEF49DCA902E9A1B918">isInSLocAddrSpace</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD31FE65F94D9B27261A2328FF23A4D793A8D977">isInSameSLocAddrSpace</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#015A1F25A06CB7C872217D41C515E61BD24C62E7">getSpellingColumnNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A651E27ACF876AE0CBC2CF327C9D73CD35B1126">getExpansionColumnNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5D0D0D512C349F59215341268B7544C831C37CA0">getSpellingLineNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1666F7DC279B36AF929A937F7A0DAF35BAF4C5EF">getDecomposedIncludedLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6CD9238D719C9A2F58543ECB915EC90F1CDF0D8">getLineNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B459B0A406476B9C128B5F181D73E140F9FE8A9A">getLineNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C6FBD286B42BAC83C249C55C57A6E96F91B5C785">getPresumedLineNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CB57B5349CDC4E7CAE5D775EB2E2270E75976EA3">getBufferName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#61CCC5FC69AA4DF3016890394EAA098D02829494">getFileCharacteristic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0ADDF63170F0303E662642077AB0029002C86F80">getPresumedLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6CB2CB546C024D6E2AD2E40E248F0693F6CF7747">isInMainFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E23FC16177CA089346B1C1D1BDCC74FFC56FFDB4">getFileIDSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E26FC735D99CD829DF6B8EE42DB5D15B3EF1C71B">getLineTableFilenameID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BEE084441285B693187981B9F72182730E4FFD7">AddLineNote</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#538E1C69F4A8474C1AE137541C49FF6A437E309E">getLineTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F9F084B3051D1B8A64BD9D7AB985B39BA6FFE2F">translateFileLineCol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E085EE853DAEB61B31ECA46F6B44C1B9A18A6CA3">translateFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ABE503E9F523BC82D47137F7B9A10F01030DF0B3">translateLineCol</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DEEBBD76F1DBF58B3F8CB276AED3AEAA69E31A4B">AllocateLoadedSLocEntries</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ED899F64460BC5FC122EE1E9D0648F042C521494">getTopMacroCallerLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A78B8589EDD734F4141250F6B29A3EA864B112B9">getExpansionLineNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F94E7B0ACF6F188CDF4937106509C9EC6861478">isWrittenInSameFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC432F129BCB67DD96C9800250C91E0839D7EE51">isWrittenInMainFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#32AC04B7C23C48621A7BBC6C67A4062DE0E9D310">isWrittenInBuiltinFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD8513B9A0D409626E9A0C339679613532D0BC32">isWrittenInCommandLineFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8917E355143CE75C9C5290A82C6A7BF3C599D8F7">isWrittenInScratchSpace</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8B09E2BA430BE657DE58FD29F8742B45A622E7B6">isInPredefinedFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A17B05F21AECDAE8E553F0EB28412DAB14180D64">isInSystemHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D4B3112BFEC97F585BCC6FC235AE72917920206">isInExternCSystemHeader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD2712268A8B6E920636A1A09120C9B80E7844F9">isInSystemMacro</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D8D755B259C589E2C828D7B9994486BC7D31B796">isInFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#93CED93E784BD4FE0A1B766D12FCAFD630522158">hasLineTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8A648EA8A17379FE5F48C2EE93528DFF87F5E420">getContentCacheSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4D3FBA148C24E19003F018C68095F57DA8F804E9">translateFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F05018DA6F55D3E76ACC2C103FA1918FA36A6C00">isBeforeInSLocAddrSpace</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A388ED54225B78DA47E4612A2A18DA1A77BC0FA4">isBeforeInSLocAddrSpace</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#759A5DED7B9B6B44FA5C98D19129466CD44267B7">isPointWithin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C4BBC8FFF55D65E97B3C4D046DEEEAF0BBC8AF64">fileinfo_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1DBE55FD15CCD37A0564A234BF48D47E33A33D87">fileinfo_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2C430C0FC66FB2A5558753624B6EE0F5EB1BB055">hasFileInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#83D3D5F25C30FB944567DC08293D1285AD37E2E1">local_sloc_entry_size</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6459F9471039972389C5AEAEAAE0DAF8DBA39688">getLocalSLocEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4CD86025EB9916672ED20B4F85447E7EDE522CF">getLocalSLocEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23AB1550120E0BEF7D50F536A8D556110ED799FE">loaded_sloc_entry_size</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#02EB3D8CA3BA2B23E68B77712A68221CF52B66E4">getLoadedSLocEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#56CABA5913C74552E6B215804451C942ACD6A36A">getLoadedSLocEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D4782C7E2A8E9D1679C3EC2F17A0304E806100AC">getSLocEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7AE7B166C1EA5277EEDC5565985FDEA3258913D4">getSLocEntry</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#097E0591CC49708B6DFDFE066E22AF37980F2651">getNextLocalOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D9ABC98D0784B0DE47BEE2509F13D99778FC2DAF">setExternalSLocEntrySource</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1AA6B801BF6AA0A4BFD95F98E819CCDA8711065F">isLoadedSourceLocation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DD0C2A6A77D77E34A4782A96CD5C71EAB5AF5A52">isLocalSourceLocation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1D12B121369A32BFBD9284CBA20A140DFDF53CBB">isLoadedFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#610863B62B6FA3EB5BA9F78151A61C9D73C98F1A">getMemoryBufferSizes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#510ECE6D485FF555D8EF16F3B4003631D8086BD0">getDataStructureSizes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7A4C71A0468829CC6880A5C7EB40AAA181210E8B">getMacroArgExpandedLocation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6B9A9F85068C527035FF206C19DCF39A1F9B6097">isBeforeInTranslationUnit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DD4F39FA9FC80523169853760585C58E9B123383">isInTheSameTranslationUnit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#10ED251CCAABB633A6FA925D7FE2E96ADF603387">getUniqueLoadedASTFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1BD6055D2BBA56030F6B20FE8C04154255C03BE7">isInTheSameTranslationUnitImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4F6369281B035440E538363EC32980588DD8D14">PrintStats</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#992DAF1C88A4B1CAF9F8BBA76E29E794987493C7">dump</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#568E3382C5F872BC5A9E0EE9E1F4CBF3A1522E1E">noteSLocAddressSpaceUsage</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#05418B44BE2BD0DEE87C981F76BE5542CC142C33">isLocalFileID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3DFB97CC6C016A01D244460B59A3DC00DF0132DF">getImmediateMacroCallerLoc</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#30151634F09B1DCF1DFEAB2447F07EB6B5A0ECF7">IsBeforeInTUCacheKey</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3699E5E8862718609CB170542E12E4280219C4FF">InBeforeInTUCache</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B5F47479727309617AC27D63529B85A1F35D4908">MacroArgsMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0704A712ED54381A11C1295C558FCF184F2B346C">fileinfo_iterator</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2E35B03A54E0FEB78B02A0DA910DF65AF006A736">MemoryBufferSizes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#82FA7EEFA59F86B67AB13D1EC032E826108756C2">OverriddenFilesInfoTy</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Friends">Friends</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E5098858462BDF6136158D7103AED6E98C2D6026">ASTWriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3EDB6CDD887BE92C5AB23618F7B2065243C742BF">ASTReader</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SourceManager</h1>
+                        <p>Defined at line 663 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L663">clang/include/clang/Basic/SourceManager.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This class handles loading and caching of source files into memory.</p>
+                            </div>
+                            <div>
+                                <p> This object owns the MemoryBuffer objects for all of the loaded</p>
+                                <p> files and assigns unique FileID&#39;s for each unique </p>
+                                <p>#</p>
+                                <p>include chain.</p>
+                            </div>
+                            <div>
+                                <p> The SourceManager can be queried for information about SourceLocation</p>
+                                <p> objects, turning them into either spelling or expansion locations. Spelling</p>
+                                <p> locations represent where the bytes corresponding to a token came from and</p>
+                                <p> expansion locations represent where the location is in the user&#39;s view. In</p>
+                                <p> the case of a macro expansion, for example, the spelling location indicates</p>
+                                <p> where the expanded token came from and the expansion location specifies</p>
+                                <p> where it was expanded.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="7A22AA56C7F060D71C924CFC20D96DB47329CE23">
+                                <pre><code class="language-cpp code-clang-doc">void SourceManager (DiagnosticsEngine &amp; Diag, FileManager &amp; FileMgr, bool UserFilesAreVolatile)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                        <p> Private &#39;Create&#39; methods.</p>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 304 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L304">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D380D891559C4859E89D942894FCE98A36B77B96">
+                                <pre><code class="language-cpp code-clang-doc">void ~SourceManager ()</code></pre>
+                                <p>Defined at line 311 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L311">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B4984F93ED611E932A5716902FC6AAC0A6775CEE">
+                                <pre><code class="language-cpp code-clang-doc">void clearIDTables ()</code></pre>
+                                <p>Defined at line 329 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L329">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F7FE1F1518EB493574EDA56B730774A3462EEF3B">
+                                <pre><code class="language-cpp code-clang-doc">void initializeForReplay (const SourceManager &amp; Old)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Initialize this source manager suitably to replay the compilation</p>
+                                        <p> described by </p>
+                                        <p> Requires that </p>
+                                        <p> outlive </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 361 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L361">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="048704EF5E10263EAF9BFD5EAC04908A9EB827C3">
+                                <pre><code class="language-cpp code-clang-doc">bool isMainFile (const FileEntry &amp; SourceFile)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true when the given FileEntry corresponds to the main file.</p>
+                                    </div>
+                                    <div>
+                                        <p> The main file should be set prior to calling this function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 354 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L354">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="608B7C0A4C5EDD4BE72B69A9E2F30BE34B181691">
+                                <pre><code class="language-cpp code-clang-doc">FileID createFileID (FileEntryRef SourceFile, SourceLocation IncludePos, CharacteristicKind FileCharacter, int LoadedID, SourceLocation::UIntTy LoadedOffset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a new FileID that represents the specified file</p>
+                                        <p> being </p>
+                                        <p>#</p>
+                                        <p>included from the specified IncludePosition.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 538 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L538">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CB2645746FC4A96BDBC190B00C50D3477FD15AA2">
+                                <pre><code class="language-cpp code-clang-doc">FileID createFileID (unique_ptr Buffer, CharacteristicKind FileCharacter, int LoadedID, SourceLocation::UIntTy LoadedOffset, SourceLocation IncludeLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a new FileID that represents the specified memory buffer.</p>
+                                    </div>
+                                    <div>
+                                        <p> This does no caching of the buffer and takes ownership of the</p>
+                                        <p> MemoryBuffer, so only pass a MemoryBuffer to this once.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 559 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L559">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5B2E4B1E1201FD8DEA879E831460EA57F4137697">
+                                <pre><code class="language-cpp code-clang-doc">FileID createFileID (const llvm::MemoryBufferRef &amp; Buffer, CharacteristicKind FileCharacter, int LoadedID, SourceLocation::UIntTy LoadedOffset, SourceLocation IncludeLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a new FileID that represents the specified memory buffer.</p>
+                                    </div>
+                                    <div>
+                                        <p> This does not take ownership of the MemoryBuffer. The memory buffer must</p>
+                                        <p> outlive the SourceManager.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 573 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L573">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4ABDE436F8908EE8F22A9D24F49117C14C1AF99A">
+                                <pre><code class="language-cpp code-clang-doc">FileID getOrCreateFileID (FileEntryRef SourceFile, CharacteristicKind FileCharacter)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the FileID for </p>
+                                        <p> if it exists. Otherwise, create a</p>
+                                        <p> new FileID for the </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 584 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L584">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C4DBECB26958F8459DB4E27CC56BEBDA279CB39C">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation createMacroArgExpansionLoc (SourceLocation SpellingLoc, SourceLocation ExpansionLoc, unsigned int Length)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Creates an expansion SLocEntry for the substitution of an argument into a</p>
+                                        <p> function-like macro&#39;s body. Returns the start of the expansion.</p>
+                                    </div>
+                                    <div>
+                                        <p> The macro argument was written at </p>
+                                        <p> with length </p>
+                                        <p> is the parameter name in the (expanded) macro body.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 649 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L649">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="37977218273964C45708C8D44AB9FAB6F9F05ED9">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation createExpansionLoc (SourceLocation SpellingLoc, SourceLocation ExpansionLocStart, SourceLocation ExpansionLocEnd, unsigned int Length, bool ExpansionIsTokenRange, int LoadedID, SourceLocation::UIntTy LoadedOffset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Creates an expansion SLocEntry for a macro use. Returns its start.</p>
+                                    </div>
+                                    <div>
+                                        <p> The macro body begins at </p>
+                                        <p> with length </p>
+                                        <p> The macro use spans [ExpansionLocStart, ExpansionLocEnd].</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 656 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L656">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FDC49C2D20BE60053A939DE64B4B247E7BEAEE45">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation createTokenSplitLoc (SourceLocation SpellingLoc, SourceLocation TokenStart, SourceLocation TokenEnd)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a new SourceLocation that encodes that the token starting</p>
+                                        <p> at </p>
+                                        <p> ends prematurely at </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 666 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L666">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AD88B665605ACD455DD3DC7954C6C4F0FDC06698">
+                                <pre><code class="language-cpp code-clang-doc">optional getMemoryBufferForFileOrNone (FileEntryRef File)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the memory buffer associated with the given file.</p>
+                                    </div>
+                                    <div>
+                                        <p> Returns std::nullopt if the buffer is not valid.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 708 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L708">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="142DCEEFAACAEF228820A5E21D3EFEB2DBBCEE74">
+                                <pre><code class="language-cpp code-clang-doc">void overrideFileContents (FileEntryRef SourceFile, unique_ptr Buffer)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Override the contents of the given source file by providing an</p>
+                                        <p> already-allocated buffer.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>SourceFile</b>   the source file whose contents will be overridden.
+                                    </div> 
+                                    <div>
+                                        <b>Buffer</b>   the memory buffer whose contents will be used as the data in the given source file.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 714 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L714">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B158FE5C9AE965A712869E92F8AF9623961C86D8">
+                                <pre><code class="language-cpp code-clang-doc">void overrideFileContents (const FileEntry * SourceFile, FileEntryRef NewFile)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Override the given source file with another one.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>SourceFile</b>   the source file which will be overridden.
+                                    </div> 
+                                    <div>
+                                        <b>NewFile</b>   the file whose contents will be used as the data instead of the contents of the given source file.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 724 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L724">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="57E43452AEBD086AD01A7F15D130BFF8A6FBC3D1">
+                                <pre><code class="language-cpp code-clang-doc">CustomizableOptional bypassFileContentsOverride (FileEntryRef File)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Bypass the overridden contents of a file.  This creates a new FileEntry</p>
+                                        <p> and initializes the content cache for it.  Returns std::nullopt if there</p>
+                                        <p> is no such file in the filesystem.</p>
+                                    </div>
+                                    <div>
+                                        <p> This should be called before parsing has begun.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 739 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L739">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1FD7CF9AFC171BCCB790E6FA7742003CD8A32491">
+                                <pre><code class="language-cpp code-clang-doc">void setFileIsTransient (FileEntryRef SourceFile)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Specify that a file is transient.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 752 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L752">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="84871B4DD0F6545383DFE1439BBE80CCB4FA5971">
+                                <pre><code class="language-cpp code-clang-doc">optional getNonBuiltinFilenameForID (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the filename for the provided FileID, unless it&#39;s a built-in</p>
+                                        <p> buffer that&#39;s not represented by a filename.</p>
+                                    </div>
+                                    <div>
+                                        <p> Returns std::nullopt for non-files and built-in files.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 756 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L756">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EF8A5C9E162D5CCA569A0A527FB15FC41262B2E0">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getBufferData (FileID FID, bool * Invalid)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a StringRef to the source buffer data for the</p>
+                                        <p> specified FileID.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>FID</b>   The file ID whose contents will be returned.
+                                    </div> 
+                                    <div>
+                                        <b>Invalid</b>   If non-NULL, will be set true if an error occurred.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 764 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L764">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="31D158DC0A80456B78FC7D72A52B55B26C049BD9">
+                                <pre><code class="language-cpp code-clang-doc">optional getBufferDataOrNone (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a StringRef to the source buffer data for the</p>
+                                        <p> specified FileID, returning std::nullopt if invalid.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>FID</b>   The file ID whose contents will be returned.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 778 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L778">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB3D3C681953054F6E2C693AB32D5A12F9D43BBC">
+                                <pre><code class="language-cpp code-clang-doc">optional getBufferDataIfLoaded (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a StringRef to the source buffer data for the</p>
+                                        <p> specified FileID, returning std::nullopt if it&#39;s not yet loaded.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>FID</b>   The file ID whose contents will be returned.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 771 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L771">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8B6CC214A351A93CBA62A4B003A309D6688EC93C">
+                                <pre><code class="language-cpp code-clang-doc">void SourceManager (const SourceManager &amp; )</code></pre>
+                                <p>Defined at line 846 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L846">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A451A31D610163C48B93488DEDD380D7A6C3E22B">
+                                <pre><code class="language-cpp code-clang-doc">SourceManager &amp; operator= (const SourceManager &amp; )</code></pre>
+                                <p>Defined at line 847 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L847">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07814E96A3EE795D2AE5F3B0B90DBA3D39B61116">
+                                <pre><code class="language-cpp code-clang-doc">DiagnosticsEngine &amp; getDiagnostics ()</code></pre>
+                                <p>Defined at line 856 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L856">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BF9CE1FD6D1A46BCD46B594348B6A4D3B1715986">
+                                <pre><code class="language-cpp code-clang-doc">FileManager &amp; getFileManager ()</code></pre>
+                                <p>Defined at line 858 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L858">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="083FCADB1ACA18B82896494818CB34B09F28EE62">
+                                <pre><code class="language-cpp code-clang-doc">void setOverridenFilesKeepOriginalName (bool value)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set true if the SourceManager should report the original file name</p>
+                                        <p> for contents of files that were overridden by other files. Defaults to</p>
+                                        <p> true.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 863 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L863">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="306A7B525E10E879A0982186BAB5D35CF47A8EA8">
+                                <pre><code class="language-cpp code-clang-doc">bool userFilesAreVolatile ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> True if non-system source files should be treated as volatile</p>
+                                        <p> (likely to change while trying to use them).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 869 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L869">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B6460467F2A7DF23A7CBF3AAD869F217038196BB">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef getModuleBuildStack ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the module build stack.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 872 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L872">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79C8B7F79656CF64AA959D763589DE6ADFF97757">
+                                <pre><code class="language-cpp code-clang-doc">void setModuleBuildStack (ArrayRef stack)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the module build stack.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 877 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L877">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="629A8701913E30AE22F600A8EE9AEFE8CAA5BB99">
+                                <pre><code class="language-cpp code-clang-doc">void pushModuleBuildStack (StringRef moduleName, FullSourceLoc importLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Push an entry to the module build stack.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 883 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L883">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A54E45BAEFF040A631E5009EB7799A1DEE4984C8">
+                                <pre><code class="language-cpp code-clang-doc">FileID getMainFileID ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the FileID of the main source file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 892 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L892">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4D95F8EAD6A8152A6A972F205A5ABC1264EC00B0">
+                                <pre><code class="language-cpp code-clang-doc">void setMainFileID (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the file ID for the main source file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 895 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L895">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="369F8960531F2C52C9D12342B7C7394C43152592">
+                                <pre><code class="language-cpp code-clang-doc">void setPreambleFileID (FileID Preamble)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the file ID for the precompiled preamble.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 905 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L905">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EF4D62184C501643CE11D6E5D28329554DFD18D3">
+                                <pre><code class="language-cpp code-clang-doc">FileID getPreambleFileID ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the file ID for the precompiled preamble if there is one.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 911 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L911">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FDAC8492B8A6BEBB2AEF1E37A753AB63E1E7AE90">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getFilename (SourceLocation SpellingLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the filename of the file containing a SourceLocation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 943 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L943">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5A7C74A9D5999068F82D02641BA620509042FFF">
+                                <pre><code class="language-cpp code-clang-doc">CharSourceRange getImmediateExpansionRange (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the start/end of the expansion information for an</p>
+                                        <p> expansion location.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 951 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L951">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F47F576F3F823842DDBC7C849B413348055FFA0">
+                                <pre><code class="language-cpp code-clang-doc">CharSourceRange getExpansionRange (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a SourceLocation object, return the range of</p>
+                                        <p> tokens covered by the expansion in the ultimate file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 966 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L966">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0FD3DF0565A1B03E28E3DFB8003A76805E269D1C">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getImmediateSpellingLoc (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a SourceLocation object, return the spelling location</p>
+                                        <p> referenced by the ID.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is the first level down towards the place where the characters</p>
+                                        <p> that make up the lexed token can be found.  This should not generally</p>
+                                        <p> be used by clients.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 935 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L935">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4AA483AA8ADCDF9D51FD40BEC063F6876AF5F3B1">
+                                <pre><code class="language-cpp code-clang-doc">MemoryBufferRef getMemoryBufferForFileOrFake (FileEntryRef File)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the memory buffer associated with the given file.</p>
+                                    </div>
+                                    <div>
+                                        <p> Returns a fake buffer if there isn&#39;t a real one.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 983 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L983">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="76D728C7721C6A38F2FBB82B8BB387B590D5F36E">
+                                <pre><code class="language-cpp code-clang-doc">bool isMacroArgExpansion (SourceLocation Loc, SourceLocation * StartLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Tests whether the given source location represents a macro</p>
+                                        <p> argument&#39;s expansion into the function-like macro definition.</p>
+                                    </div>
+                                    <div>
+                                        <p> Such source locations only appear inside of the expansion</p>
+                                        <p> locations representing where a particular function-like macro was</p>
+                                        <p> expanded.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>StartLoc</b>   If non-null and function returns true, it is set to the start location of the macro argument expansion.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 984 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L984">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ECD308FAEAC6D6AAAEC05238848F1342FB0EC4C6">
+                                <pre><code class="language-cpp code-clang-doc">void overrideFileContents (FileEntryRef SourceFile, const llvm::MemoryBufferRef &amp; Buffer)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Override the contents of the given source file by providing an</p>
+                                        <p> already-allocated buffer.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>SourceFile</b>   the source file whose contents will be overridden.
+                                    </div> 
+                                    <div>
+                                        <b>Buffer</b>   the memory buffer whose contents will be used as the data in the given source file.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 996 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L996">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="22B3EE42CC6D05168631D34462BE914B003EBEA3">
+                                <pre><code class="language-cpp code-clang-doc">bool isMacroBodyExpansion (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Tests whether the given source location represents the expansion of</p>
+                                        <p> a macro body.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is equivalent to testing whether the location is part of a macro</p>
+                                        <p> expansion but not the expansion of an argument to a function-like macro.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 997 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L997">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="788F4DD22A20EACB11F35690D23A5C4F5F2E2C75">
+                                <pre><code class="language-cpp code-clang-doc">bool isAtStartOfImmediateMacroExpansion (SourceLocation Loc, SourceLocation * MacroBegin)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the given MacroID location points at the beginning</p>
+                                        <p> of the immediate macro expansion.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>MacroBegin</b>   If non-null and function returns true, it is set to the begin location of the immediate macro expansion.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1005 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1005">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1FB107C61DDA9674924A66798ECE3E0D5EFCC441">
+                                <pre><code class="language-cpp code-clang-doc">bool isFileOverridden (const FileEntry * File)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the file contents have been overridden.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1020 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1020">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F6C3973708B1B760FB52B1841967249222D8BEE3">
+                                <pre><code class="language-cpp code-clang-doc">bool isAtEndOfImmediateMacroExpansion (SourceLocation Loc, SourceLocation * MacroEnd)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the given MacroID location points at the character</p>
+                                        <p> end of the immediate macro expansion.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>MacroEnd</b>   If non-null and function returns true, it is set to the character end location of the immediate macro expansion.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1040 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1040">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F1CC42F230DB5670BB7F4955740AA2FEFE6A16C8">
+                                <pre><code class="language-cpp code-clang-doc">void setAllFilesAreTransient (bool Transient)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Specify that all files that are read during this compilation are</p>
+                                        <p> transient.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1042 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1042">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="213BA1456B96B763730ED423A3980866CC0EF1B8">
+                                <pre><code class="language-cpp code-clang-doc">optional getBufferOrNone (FileID FID, SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the buffer for the specified FileID.</p>
+                                    </div>
+                                    <div>
+                                        <p> If there is an error opening this buffer the first time, return</p>
+                                        <p> std::nullopt.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1054 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1054">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="00CA164EE682B4B67522FB162DA3A1C603FA425C">
+                                <pre><code class="language-cpp code-clang-doc">MemoryBufferRef getBufferOrFake (FileID FID, SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the buffer for the specified FileID.</p>
+                                    </div>
+                                    <div>
+                                        <p> If there is an error opening this buffer the first time, this</p>
+                                        <p> manufactures a temporary buffer and returns it.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1066 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1066">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C01918DF14DE0A90D20180B47CA2F70B00DD07B0">
+                                <pre><code class="language-cpp code-clang-doc">const FileEntry * getFileEntryForID (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the FileEntry record for the provided FileID.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1074 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1074">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB2D67B004A28788316CDA1E9339159A3A644AA1">
+                                <pre><code class="language-cpp code-clang-doc">CustomizableOptional getFileEntryRefForID (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the FileEntryRef for the provided FileID.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1081 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1081">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C70D48C30CD41E9E461F794BB2589BD7A7E0C6C5">
+                                <pre><code class="language-cpp code-clang-doc">const char * getCharacterData (SourceLocation SL, bool * Invalid)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return a pointer to the start of the specified location</p>
+                                        <p> in the appropriate spelling MemoryBuffer.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Invalid</b>   If non-NULL, will be set  if an error occurs.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1082 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1082">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="58202541035CD2A8FEE1612B8F3F8AB47CEEEBCF">
+                                <pre><code class="language-cpp code-clang-doc">const FileEntry * getFileEntryForSLocEntry (const SrcMgr::SLocEntry &amp; SLocEntry)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the FileEntry record for the provided SLocEntry.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1094 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1094">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="20FCD00745CA706456C3F19B2328918A653209DF">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getColumnNumber (FileID FID, unsigned int FilePos, bool * Invalid)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the column # for the specified file position.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is significantly cheaper to compute than the line number.  This</p>
+                                        <p> returns zero if the column number isn&#39;t known.  This may only be called</p>
+                                        <p> on a file sloc, so you must choose a spelling or expansion location</p>
+                                        <p> before calling this method.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1108 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1108">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="844028648E1FD3643EF7D2B7C3B5A9CA457AB025">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNumCreatedFIDsForFileID (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the number of FileIDs (files and macros) that were created</p>
+                                        <p> during preprocessing of </p>
+                                        <p> including it.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1122 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1122">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F0342BF2500909A462B6D802A36D653B6FE83176">
+                                <pre><code class="language-cpp code-clang-doc">void setNumCreatedFIDsForFileID (FileID FID, unsigned int NumFIDs, bool Force)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Set the number of FileIDs (files and macros) that were created</p>
+                                        <p> during preprocessing of </p>
+                                        <p> including it.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1130 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1130">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A2295B2FF5D275E5C2DA84CE5F575E6DDBC367A5">
+                                <pre><code class="language-cpp code-clang-doc">FileID getFileID (SourceLocation SpellingLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the FileID for a SourceLocation.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is a very hot method that is used for all SourceManager queries</p>
+                                        <p> that start with a SourceLocation object.  It is responsible for finding</p>
+                                        <p> the entry in SLocEntryTable which contains the specified location.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1149 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1149">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44A3FD78331633265DBA1B750D8E16CF407F9368">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getLocForStartOfFile (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the source location corresponding to the first byte of</p>
+                                        <p> the specified file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1158 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1158">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C7245CA1EB4FDC27BC2AAB1FF3B5DBB95764C723">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getColumnNumber (SourceLocation Loc, bool * Invalid)</code></pre>
+                                <p>Defined at line 1162 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1162">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1E47D61C0A620CF333F57B75CE2ED1FB6256BCAB">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getLocForEndOfFile (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the source location corresponding to the last byte of the</p>
+                                        <p> specified file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1166 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1166">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C33CEC2ADCA8912A3CAE188DCB8B02FAAA12AD67">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getPresumedColumnNumber (SourceLocation Loc, bool * Invalid)</code></pre>
+                                <p>Defined at line 1170 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1170">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8CB1B62390EA2A23D60D0CB1AA1DEA1CAA6D1F6B">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getIncludeLoc (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the include location if </p>
+                                        <p> is a </p>
+                                        <p>#</p>
+                                        <p>include&#39;d file</p>
+                                        <p> otherwise it returns an invalid location.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1175 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1175">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="50D98117F905B1A219F22216BE14158F9B3A7663">
+                                <pre><code class="language-cpp code-clang-doc">pair getModuleImportLoc (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the import location if the given source location is</p>
+                                        <p> located within a module, or an invalid location if the source location</p>
+                                        <p> is within the current translation unit.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1184 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1184">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="016BEB44CC1D6C4683EEB925EEDBE4C93D8D2E79">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getExpansionLoc (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a SourceLocation object </p>
+                                        <p> return the expansion</p>
+                                        <p> location referenced by the ID.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1198 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1198">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="491707E66798D9CD24AAADEEDB5368D7531659F6">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getFileLoc (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given </p>
+                                        <p> if it is a macro location return the expansion</p>
+                                        <p> location or the spelling location, depending on if it comes from a</p>
+                                        <p> macro argument or not.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1208 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1208">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4B7E0197A6B0BA635917C6760EF13D305C33B499">
+                                <pre><code class="language-cpp code-clang-doc">CharSourceRange getExpansionRange (SourceRange Range)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a SourceRange object, return the range of</p>
+                                        <p> tokens or characters covered by the expansion in the ultimate file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1225 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1225">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="867ED94F46BE1F6B532E8EF53D2F6BA52B9A3884">
+                                <pre><code class="language-cpp code-clang-doc">CharSourceRange getExpansionRange (CharSourceRange Range)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a CharSourceRange object, return the range of</p>
+                                        <p> tokens or characters covered by the expansion in the ultimate file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1234 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1234">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="365F5B378D063B0B5C163ED1E5DCF4784F94C5D8">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getSpellingLoc (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a SourceLocation object, return the spelling</p>
+                                        <p> location referenced by the ID.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is the place where the characters that make up the lexed token</p>
+                                        <p> can be found.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1246 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1246">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AFC213349CE14CCFADBBA15C2D3586A5225E19E9">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getComposedLoc (FileID FID, unsigned int Offset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Form a SourceLocation from a FileID and Offset pair.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1262 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1262">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="270D1A0A77F0F2CAD83640AE81CBDCC27F114CA3">
+                                <pre><code class="language-cpp code-clang-doc">pair getDecomposedLoc (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Decompose the specified location into a raw FileID + Offset pair.</p>
+                                    </div>
+                                    <div>
+                                        <p> The first element is the FileID, the second is the offset from the</p>
+                                        <p> start of the buffer of the location.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1276 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1276">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4C4A3354C7264AF809C786AC6C303745241E2898">
+                                <pre><code class="language-cpp code-clang-doc">pair getDecomposedExpansionLoc (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Decompose the specified location into a raw FileID + Offset pair.</p>
+                                    </div>
+                                    <div>
+                                        <p> If the location is an expansion record, walk through it until we find</p>
+                                        <p> the final location expanded.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1288 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1288">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3D8269FDB74DC2C9737AB703D4B06F9AE37B50E4">
+                                <pre><code class="language-cpp code-clang-doc">pair getDecomposedSpellingLoc (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Decompose the specified location into a raw FileID + Offset pair.</p>
+                                    </div>
+                                    <div>
+                                        <p> If the location is an expansion record, walk through it until we find</p>
+                                        <p> its spelling record.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1296 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1296">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5B6D452E0FD6974EF58E4BDA10122D3972BEB9A9">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getFileOffset (SourceLocation SpellingLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the offset from the start of the file that the</p>
+                                        <p> specified SourceLocation represents.</p>
+                                    </div>
+                                    <div>
+                                        <p> This is not very meaningful for a macro ID.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1308 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1308">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="53697F7EA19CBE342B4A0DEF49DCA902E9A1B918">
+                                <pre><code class="language-cpp code-clang-doc">bool isInSLocAddrSpace (SourceLocation Loc, SourceLocation Start, unsigned int Length, SourceLocation::UIntTy * RelativeOffset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> is inside the [</p>
+                                        <p> +</p>
+                                        <p> chunk of the source location address space.</p>
+                                    </div>
+                                    <div>
+                                        <p> If it&#39;s true and </p>
+                                        <p> is non-null, it will be set to the</p>
+                                        <p> relative offset of </p>
+                                        <p> inside the chunk.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1353 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1353">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD31FE65F94D9B27261A2328FF23A4D793A8D977">
+                                <pre><code class="language-cpp code-clang-doc">bool isInSameSLocAddrSpace (SourceLocation LHS, SourceLocation RHS, SourceLocation::IntTy * RelativeOffset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if both </p>
+                                        <p> and </p>
+                                        <p> are in the local source</p>
+                                        <p> location address space or the loaded one.</p>
+                                    </div>
+                                    <div>
+                                        <p> If it&#39;s true and </p>
+                                        <p> is non-null, it will be set to the</p>
+                                        <p> offset of </p>
+                                        <p> relative to </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1378 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1378">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="015A1F25A06CB7C872217D41C515E61BD24C62E7">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSpellingColumnNumber (SourceLocation Loc, bool * Invalid)</code></pre>
+                                <p>Defined at line 1413 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1413">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A651E27ACF876AE0CBC2CF327C9D73CD35B1126">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getExpansionColumnNumber (SourceLocation Loc, bool * Invalid)</code></pre>
+                                <p>Defined at line 1417 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1417">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5D0D0D512C349F59215341268B7544C831C37CA0">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getSpellingLineNumber (SourceLocation Loc, bool * Invalid)</code></pre>
+                                <p>Defined at line 1432 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1432">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1666F7DC279B36AF929A937F7A0DAF35BAF4C5EF">
+                                <pre><code class="language-cpp code-clang-doc">pair getDecomposedIncludedLoc (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the &quot;included/expanded in&quot; decomposed location of the given</p>
+                                        <p> FileID.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1865 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1865">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F6CD9238D719C9A2F58543ECB915EC90F1CDF0D8">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getLineNumber (FileID FID, unsigned int FilePos, bool * Invalid)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a SourceLocation, return the spelling line number</p>
+                                        <p> for the position indicated.</p>
+                                    </div>
+                                    <div>
+                                        <p> This requires building and caching a table of line offsets for the</p>
+                                        <p> MemoryBuffer, so this is not cheap: use only when about to emit a</p>
+                                        <p> diagnostic.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1267 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1267">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B459B0A406476B9C128B5F181D73E140F9FE8A9A">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getLineNumber (SourceLocation Loc, bool * Invalid)</code></pre>
+                                <p>Defined at line 1364 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1364">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C6FBD286B42BAC83C249C55C57A6E96F91B5C785">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getPresumedLineNumber (SourceLocation Loc, bool * Invalid)</code></pre>
+                                <p>Defined at line 1371 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1371">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CB57B5349CDC4E7CAE5D775EB2E2270E75976EA3">
+                                <pre><code class="language-cpp code-clang-doc">StringRef getBufferName (SourceLocation Loc, bool * Invalid)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the filename or buffer identifier of the buffer the</p>
+                                        <p> location is in.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that this name does not respect </p>
+                                        <p>#</p>
+                                        <p>line directives.  Use</p>
+                                        <p> getPresumedLoc for normal clients.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1416 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1416">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="61CCC5FC69AA4DF3016890394EAA098D02829494">
+                                <pre><code class="language-cpp code-clang-doc">CharacteristicKind getFileCharacteristic (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the file characteristic of the specified source</p>
+                                        <p> location, indicating whether this is a normal file, a system</p>
+                                        <p> header, or an &quot;implicit extern C&quot; system header.</p>
+                                    </div>
+                                    <div>
+                                        <p> This state can be modified with flags on GNU linemarker directives like:</p>
+                                    </div>
+                                    <div>
+                                        <p> which changes all source locations in the current file after that to be</p>
+                                        <p> considered to be from a system header.</p>
+                                    </div>
+                                    <h3>Code</h3> 
+                                    <div>
+                                        <pre class="code-block">
+                                            <code>
+                                                   # 4 &quot;foo.h&quot; 3
+                                            </code>
+                                        </pre>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1386 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1386">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0ADDF63170F0303E662642077AB0029002C86F80">
+                                <pre><code class="language-cpp code-clang-doc">PresumedLoc getPresumedLoc (SourceLocation Loc, bool UseLineDirectives)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the &quot;presumed&quot; location of a SourceLocation specifies.</p>
+                                    </div>
+                                    <div>
+                                        <p> A &quot;presumed location&quot; can be modified by </p>
+                                        <p>#</p>
+                                        <p>line or GNU line marker</p>
+                                        <p> directives.  This provides a view on the data that a user should see</p>
+                                        <p> in diagnostics, for example.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that a presumed location is always given as the expansion point of</p>
+                                        <p> an expansion location, not at the spelling location.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1433 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1433">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6CB2CB546C024D6E2AD2E40E248F0693F6CF7747">
+                                <pre><code class="language-cpp code-clang-doc">bool isInMainFile (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns whether the PresumedLoc for a given SourceLocation is</p>
+                                        <p> in the main file.</p>
+                                    </div>
+                                    <div>
+                                        <p> This computes the &quot;presumed&quot; location for a SourceLocation, then checks</p>
+                                        <p> whether it came from a file other than the main file. This is different</p>
+                                        <p> from isWrittenInMainFile() because it takes line marker directives into</p>
+                                        <p> account.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1509 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1509">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E23FC16177CA089346B1C1D1BDCC74FFC56FFDB4">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getFileIDSize (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The size of the SLocEntry that </p>
+                                        <p> represents.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1532 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1532">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E26FC735D99CD829DF6B8EE42DB5D15B3EF1C71B">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getLineTableFilenameID (StringRef Str)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the uniqued ID for the specified filename.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 259 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L259">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BEE084441285B693187981B9F72182730E4FFD7">
+                                <pre><code class="language-cpp code-clang-doc">void AddLineNote (SourceLocation Loc, unsigned int LineNo, int FilenameID, bool IsFileEntry, bool IsFileExit, CharacteristicKind FileKind)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add a line note to the line table for the FileID and offset</p>
+                                        <p> specified by Loc.</p>
+                                    </div>
+                                    <div>
+                                        <p> If FilenameID is -1, it is considered to be unspecified.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 266 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L266">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="538E1C69F4A8474C1AE137541C49FF6A437E309E">
+                                <pre><code class="language-cpp code-clang-doc">LineTableInfo &amp; getLineTable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the stored line table.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 294 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L294">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F9F084B3051D1B8A64BD9D7AB985B39BA6FFE2F">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation translateFileLineCol (const FileEntry * SourceFile, unsigned int Line, unsigned int Col)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the source location for the given file:line:col triplet.</p>
+                                    </div>
+                                    <div>
+                                        <p> If the source file is included multiple times, the source location will</p>
+                                        <p> be based upon an arbitrary inclusion.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1558 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1558">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E085EE853DAEB61B31ECA46F6B44C1B9A18A6CA3">
+                                <pre><code class="language-cpp code-clang-doc">FileID translateFile (const FileEntry * SourceFile)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the FileID for the given file.</p>
+                                    </div>
+                                    <div>
+                                        <p> If the source file is included multiple times, the FileID will be the</p>
+                                        <p> first inclusion.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1572 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1572">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ABE503E9F523BC82D47137F7B9A10F01030DF0B3">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation translateLineCol (FileID FID, unsigned int Line, unsigned int Col)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the source location in </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1611 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1611">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DEEBBD76F1DBF58B3F8CB276AED3AEAA69E31A4B">
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;int, SourceLocation::UIntTy&gt; AllocateLoadedSLocEntries (unsigned int NumSLocEntries, SourceLocation::UIntTy TotalSize)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Allocate a number of loaded SLocEntries, which will be actually</p>
+                                        <p> loaded on demand from the external source.</p>
+                                    </div>
+                                    <div>
+                                        <p> NumSLocEntries will be allocated, which occupy a total of TotalSize space</p>
+                                        <p> in the global source view. The lowest ID and the base offset of the</p>
+                                        <p> entries will be returned.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 456 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L456">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED899F64460BC5FC122EE1E9D0648F042C521494">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getTopMacroCallerLoc (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <h3>Returns</h3>
+                                    <p> Location of the top-level macro caller.</p>
+                                </div>
+                                <p>Defined at line 958 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L958">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A78B8589EDD734F4141250F6B29A3EA864B112B9">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getExpansionLineNumber (SourceLocation Loc, bool * Invalid)</code></pre>
+                                <p>Defined at line 1436 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1436">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F94E7B0ACF6F188CDF4937106509C9EC6861478">
+                                <pre><code class="language-cpp code-clang-doc">bool isWrittenInSameFile (SourceLocation Loc1, SourceLocation Loc2)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the spelling locations for both SourceLocations</p>
+                                        <p> are part of the same file buffer.</p>
+                                    </div>
+                                    <div>
+                                        <p> This check ignores line marker directives.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1490 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1490">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC432F129BCB67DD96C9800250C91E0839D7EE51">
+                                <pre><code class="language-cpp code-clang-doc">bool isWrittenInMainFile (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the spelling location for the given location</p>
+                                        <p> is in the main file buffer.</p>
+                                    </div>
+                                    <div>
+                                        <p> This check ignores line marker directives.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1498 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1498">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="32AC04B7C23C48621A7BBC6C67A4062DE0E9D310">
+                                <pre><code class="language-cpp code-clang-doc">bool isWrittenInBuiltinFile (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns whether </p>
+                                        <p> is located in a </p>
+                                        <p>&lt;built</p>
+                                        <p>-in&gt; file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1503 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1503">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD8513B9A0D409626E9A0C339679613532D0BC32">
+                                <pre><code class="language-cpp code-clang-doc">bool isWrittenInCommandLineFile (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns whether </p>
+                                        <p> is located in a </p>
+                                        <p>&lt;command</p>
+                                        <p> line&gt; file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1512 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1512">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8917E355143CE75C9C5290A82C6A7BF3C599D8F7">
+                                <pre><code class="language-cpp code-clang-doc">bool isWrittenInScratchSpace (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns whether </p>
+                                        <p> is located in a </p>
+                                        <p>&lt;scratch</p>
+                                        <p> space&gt; file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1521 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1521">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8B09E2BA430BE657DE58FD29F8742B45A622E7B6">
+                                <pre><code class="language-cpp code-clang-doc">bool isInPredefinedFile (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns whether </p>
+                                        <p> is located in a built-in or command line source.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1530 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1530">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A17B05F21AECDAE8E553F0EB28412DAB14180D64">
+                                <pre><code class="language-cpp code-clang-doc">bool isInSystemHeader (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns if a SourceLocation is in a system header.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1539 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1539">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3D4B3112BFEC97F585BCC6FC235AE72917920206">
+                                <pre><code class="language-cpp code-clang-doc">bool isInExternCSystemHeader (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns if a SourceLocation is in an &quot;extern C&quot; system header.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1546 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1546">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD2712268A8B6E920636A1A09120C9B80E7844F9">
+                                <pre><code class="language-cpp code-clang-doc">bool isInSystemMacro (SourceLocation loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns whether </p>
+                                        <p> is expanded from a macro in a system header.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1551 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1551">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D8D755B259C589E2C828D7B9994486BC7D31B796">
+                                <pre><code class="language-cpp code-clang-doc">bool isInFileID (SourceLocation Loc, FileID FID, unsigned int * RelativeOffset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a specific FileID, returns true if </p>
+                                        <p> is inside that</p>
+                                        <p> FileID chunk and sets relative offset (offset of </p>
+                                        <p> from beginning</p>
+                                        <p> of FileID) to </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1574 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1574">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="93CED93E784BD4FE0A1B766D12FCAFD630522158">
+                                <pre><code class="language-cpp code-clang-doc">bool hasLineTable ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determine if the source manager has a line table.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1602 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1602">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8A648EA8A17379FE5F48C2EE93528DFF87F5E420">
+                                <pre><code class="language-cpp code-clang-doc">size_t getContentCacheSize ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the total amount of physical memory allocated by the</p>
+                                        <p> ContentCache allocator.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1613 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1613">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4D3FBA148C24E19003F018C68095F57DA8F804E9">
+                                <pre><code class="language-cpp code-clang-doc">FileID translateFile (FileEntryRef SourceFile)</code></pre>
+                                <p>Defined at line 1649 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1649">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F05018DA6F55D3E76ACC2C103FA1918FA36A6C00">
+                                <pre><code class="language-cpp code-clang-doc">bool isBeforeInSLocAddrSpace (SourceLocation LHS, SourceLocation RHS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determines the order of 2 source locations in the &quot;source location</p>
+                                        <p> address space&quot;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1696 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1696">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A388ED54225B78DA47E4612A2A18DA1A77BC0FA4">
+                                <pre><code class="language-cpp code-clang-doc">bool isBeforeInSLocAddrSpace (SourceLocation LHS, SourceLocation::UIntTy RHS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determines the order of a source location and a source location</p>
+                                        <p> offset in the &quot;source location address space&quot;.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that we always consider source locations loaded from</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1704 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1704">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="759A5DED7B9B6B44FA5C98D19129466CD44267B7">
+                                <pre><code class="language-cpp code-clang-doc">bool isPointWithin (SourceLocation Location, SourceLocation Start, SourceLocation End)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return true if the Point is within Start and End.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1716 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1716">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C4BBC8FFF55D65E97B3C4D046DEEEAF0BBC8AF64">
+                                <pre><code class="language-cpp code-clang-doc">DenseMapIterator fileinfo_begin ()</code></pre>
+                                <p>Defined at line 1727 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1727">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1DBE55FD15CCD37A0564A234BF48D47E33A33D87">
+                                <pre><code class="language-cpp code-clang-doc">DenseMapIterator fileinfo_end ()</code></pre>
+                                <p>Defined at line 1728 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1728">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2C430C0FC66FB2A5558753624B6EE0F5EB1BB055">
+                                <pre><code class="language-cpp code-clang-doc">bool hasFileInfo (const FileEntry * File)</code></pre>
+                                <p>Defined at line 1729 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1729">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="83D3D5F25C30FB944567DC08293D1285AD37E2E1">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int local_sloc_entry_size ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the number of local SLocEntries we have.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1743 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1743">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6459F9471039972389C5AEAEAAE0DAF8DBA39688">
+                                <pre><code class="language-cpp code-clang-doc">const SrcMgr::SLocEntry &amp; getLocalSLocEntry (unsigned int Index)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get a local SLocEntry. This is exposed for indexing.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1746 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1746">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4CD86025EB9916672ED20B4F85447E7EDE522CF">
+                                <pre><code class="language-cpp code-clang-doc">SrcMgr::SLocEntry &amp; getLocalSLocEntry (unsigned int Index)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get a local SLocEntry. This is exposed for indexing.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1751 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1751">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23AB1550120E0BEF7D50F536A8D556110ED799FE">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int loaded_sloc_entry_size ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the number of loaded SLocEntries we have.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1757 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1757">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="02EB3D8CA3BA2B23E68B77712A68221CF52B66E4">
+                                <pre><code class="language-cpp code-clang-doc">const SrcMgr::SLocEntry &amp; getLoadedSLocEntry (unsigned int Index, bool * Invalid)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get a loaded SLocEntry. This is exposed for indexing.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1760 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1760">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="56CABA5913C74552E6B215804451C942ACD6A36A">
+                                <pre><code class="language-cpp code-clang-doc">SrcMgr::SLocEntry &amp; getLoadedSLocEntry (unsigned int Index, bool * Invalid)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get a loaded SLocEntry. This is exposed for indexing.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1767 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1767">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D4782C7E2A8E9D1679C3EC2F17A0304E806100AC">
+                                <pre><code class="language-cpp code-clang-doc">const SrcMgr::SLocEntry &amp; getSLocEntry (FileID FID, bool * Invalid)</code></pre>
+                                <p>Defined at line 1775 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1775">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7AE7B166C1EA5277EEDC5565985FDEA3258913D4">
+                                <pre><code class="language-cpp code-clang-doc">SrcMgr::SLocEntry &amp; getSLocEntry (FileID FID, bool * Invalid)</code></pre>
+                                <p>Defined at line 1780 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1780">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="097E0591CC49708B6DFDFE066E22AF37980F2651">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation::UIntTy getNextLocalOffset ()</code></pre>
+                                <p>Defined at line 1788 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1788">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D9ABC98D0784B0DE47BEE2509F13D99778FC2DAF">
+                                <pre><code class="language-cpp code-clang-doc">void setExternalSLocEntrySource (ExternalSLocEntrySource * Source)</code></pre>
+                                <p>Defined at line 1790 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1790">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1AA6B801BF6AA0A4BFD95F98E819CCDA8711065F">
+                                <pre><code class="language-cpp code-clang-doc">bool isLoadedSourceLocation (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> came from a PCH/Module.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1807 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1807">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DD0C2A6A77D77E34A4782A96CD5C71EAB5AF5A52">
+                                <pre><code class="language-cpp code-clang-doc">bool isLocalSourceLocation (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> did not come from a PCH/Module.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1812 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1812">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1D12B121369A32BFBD9284CBA20A140DFDF53CBB">
+                                <pre><code class="language-cpp code-clang-doc">bool isLoadedFileID (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> came from a PCH/Module.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1817 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1817">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="610863B62B6FA3EB5BA9F78151A61C9D73C98F1A">
+                                <pre><code class="language-cpp code-clang-doc">MemoryBufferSizes getMemoryBufferSizes ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the amount of memory used by memory buffers, breaking down</p>
+                                        <p> by heap-backed versus mmap&#39;ed memory.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2293 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L2293">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="510ECE6D485FF555D8EF16F3B4003631D8086BD0">
+                                <pre><code class="language-cpp code-clang-doc">size_t getDataStructureSizes ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the amount of memory used for various side tables and</p>
+                                        <p> data structures in the SourceManager.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2311 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L2311">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7A4C71A0468829CC6880A5C7EB40AAA181210E8B">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getMacroArgExpandedLocation (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1833 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1833">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6B9A9F85068C527035FF206C19DCF39A1F9B6097">
+                                <pre><code class="language-cpp code-clang-doc">bool isBeforeInTranslationUnit (SourceLocation LHS, SourceLocation RHS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determines the order of 2 source locations in the translation unit.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1979 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1979">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DD4F39FA9FC80523169853760585C58E9B123383">
+                                <pre><code class="language-cpp code-clang-doc">std::pair&lt;bool, bool&gt; isInTheSameTranslationUnit (FileIDAndOffset &amp; LOffs, FileIDAndOffset &amp; ROffs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determines whether the two decomposed source location is in the</p>
+                                        <p>        same translation unit. As a byproduct, it also calculates the order</p>
+                                        <p>        of the source locations in case they are in the same TU.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2001 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L2001">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="10ED251CCAABB633A6FA925D7FE2E96ADF603387">
+                                <pre><code class="language-cpp code-clang-doc">FileID getUniqueLoadedASTFileID (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Loc</b>   a source location in a loaded AST (of a PCH/Module file).
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1893 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1893">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1BD6055D2BBA56030F6B20FE8C04154255C03BE7">
+                                <pre><code class="language-cpp code-clang-doc">bool isInTheSameTranslationUnitImpl (const FileIDAndOffset &amp; LOffs, const FileIDAndOffset &amp; ROffs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determines whether the two decomposed source location is in the same TU.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1911 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L1911">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4F6369281B035440E538363EC32980588DD8D14">
+                                <pre><code class="language-cpp code-clang-doc">void PrintStats ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Print statistics to stderr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2114 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L2114">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="992DAF1C88A4B1CAF9F8BBA76E29E794987493C7">
+                                <pre><code class="language-cpp code-clang-doc">void dump ()</code></pre>
+                                <p>Defined at line 2144 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L2144">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="568E3382C5F872BC5A9E0EE9E1F4CBF3A1522E1E">
+                                <pre><code class="language-cpp code-clang-doc">void noteSLocAddressSpaceUsage (DiagnosticsEngine &amp; Diag, optional MaxNotes)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Produce notes describing the current source location address space usage.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2200 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/SourceManager.cpp#L2200">clang/lib/Basic/SourceManager.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="05418B44BE2BD0DEE87C981F76BE5542CC142C33">
+                                <pre><code class="language-cpp code-clang-doc">bool isLocalFileID (FileID FID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if </p>
+                                        <p> did not come from a PCH/Module.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1823 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1823">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3DFB97CC6C016A01D244460B59A3DC00DF0132DF">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getImmediateMacroCallerLoc (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Gets the location of the immediate macro caller, one level up the stack</p>
+                                        <p> toward the initial macro typed into the source.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1829 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1829">clang/include/clang/Basic/SourceManager.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="2E35B03A54E0FEB78B02A0DA910DF65AF006A736" style="max-height: 40px;">
+                            <a href="SourceManager/_ZTVN5clang13SourceManager17MemoryBufferSizesE.html">
+                                <pre><code class="language-cpp code-clang-doc">class MemoryBufferSizes</code></pre>
+                            </a>
+                        </li>
+                        <li id="82FA7EEFA59F86B67AB13D1EC032E826108756C2" style="max-height: 40px;">
+                            <a href="SourceManager/_ZTVN5clang13SourceManager21OverriddenFilesInfoTyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class OverriddenFilesInfoTy</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="30151634F09B1DCF1DFEAB2447F07EB6B5A0ECF7" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using IsBeforeInTUCacheKey = std::pair&lt;FileID, FileID&gt;</code></pre>
+                        <div>
+                            <p> The key value into the IsBeforeInTUCache table.</p>
+                        </div>
+                        <p>Defined at line 805 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L805">clang/include/clang/Basic/SourceManager.h</a></p>
+                    </div>
+                    <div id="3699E5E8862718609CB170542E12E4280219C4FF" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using InBeforeInTUCache = DenseMap</code></pre>
+                        <div>
+                            <p> The IsBeforeInTranslationUnitCache is a mapping from FileID pairs</p>
+                            <p> to cache results.</p>
+                        </div>
+                        <p>Defined at line 809 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L809">clang/include/clang/Basic/SourceManager.h</a></p>
+                    </div>
+                    <div id="B5F47479727309617AC27D63529B85A1F35D4908" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using MacroArgsMap = std::map&lt;unsigned int, SourceLocation&gt;</code></pre>
+                        <div>
+                            <p> Lazily computed map of macro argument chunks to their expanded</p>
+                            <p> source location.</p>
+                        </div>
+                        <p>Defined at line 829 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L829">clang/include/clang/Basic/SourceManager.h</a></p>
+                    </div>
+                    <div id="0704A712ED54381A11C1295C558FCF184F2B346C" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using fileinfo_iterator = DenseMapIterator</code></pre>
+                        <div>
+                            <p> Iterators over FileInfos.</p>
+                        </div>
+                        <p>Defined at line 1724 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/SourceManager.h#L1724">clang/include/clang/Basic/SourceManager.h</a></p>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="E5098858462BDF6136158D7103AED6E98C2D6026" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ASTWriter</code></pre>
+                        <div>
+                            <p> This class handles loading and caching of source files into memory.</p>
+                        </div>
+                        <div>
+                            <p> This object owns the MemoryBuffer objects for all of the loaded</p>
+                            <p> files and assigns unique FileID&#39;s for each unique </p>
+                            <p>#</p>
+                            <p>include chain.</p>
+                        </div>
+                        <div>
+                            <p> The SourceManager can be queried for information about SourceLocation</p>
+                            <p> objects, turning them into either spelling or expansion locations. Spelling</p>
+                            <p> locations represent where the bytes corresponding to a token came from and</p>
+                            <p> expansion locations represent where the location is in the user&#39;s view. In</p>
+                            <p> the case of a macro expansion, for example, the spelling location indicates</p>
+                            <p> where the expanded token came from and the expansion location specifies</p>
+                            <p> where it was expanded.</p>
+                        </div>
+                    </div>
+                    <div id="3EDB6CDD887BE92C5AB23618F7B2065243C742BF" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ASTReader</code></pre>
+                        <div>
+                            <p> This class handles loading and caching of source files into memory.</p>
+                        </div>
+                        <div>
+                            <p> This object owns the MemoryBuffer objects for all of the loaded</p>
+                            <p> files and assigns unique FileID&#39;s for each unique </p>
+                            <p>#</p>
+                            <p>include chain.</p>
+                        </div>
+                        <div>
+                            <p> The SourceManager can be queried for information about SourceLocation</p>
+                            <p> objects, turning them into either spelling or expansion locations. Spelling</p>
+                            <p> locations represent where the bytes corresponding to a token came from and</p>
+                            <p> expansion locations represent where the location is in the user&#39;s view. In</p>
+                            <p> the case of a macro expansion, for example, the spelling location indicates</p>
+                            <p> where the expanded token came from and the expansion location specifies</p>
+                            <p> where it was expanded.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

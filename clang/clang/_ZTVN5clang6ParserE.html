@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Parser</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class Parser</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#MisleadingIndentationElseLoc">MisleadingIndentationElseLoc</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6FCB7A76F420FC2D0C76A8926AFCEF4975FFC0C4">Parser</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8221D061DB9AC1EB743DB819737D92E083EEEE65">~Parser</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9F50FF293F7EB8F6BACD083F111668607E6DF916">Initialize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BEB298AD2ECB18D8CD6D595F9170D8D9541BBD0D">ParseFirstTopLevelDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1A745BD39ECBAD4A95495A793ADE9BC61382B252">ParseTopLevelDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D71A7115CE44B5404F7031F35E3794D6E5287207">getEndOfPreviousToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#127C4DBE9A60C58CB845CD522993527AE715833C">TryAnnotateTypeOrScopeToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#82AE05635EFDD403024C42A6D1796BBB0CA4F226">TryAnnotateTypeOrScopeTokenAfterScopeSpec</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1718E9A2E528DF2C7E951D964CE8474EDA147C3F">TryAnnotateCXXScopeToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#83722B038CA397E8FAD9D982EF56A12D5F47CD45">EnterScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C8267282C0923878AE27158F8B9C6303C9BBDF40">ExitScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B7DBF729CD901E0C51CC90295453B5A9CEF11611">Diag</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44D0E334F08807B26297C914F543F93C6A57523C">Diag</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1126DB62B094F6ED8528C1A8AF88BB133528C785">DiagCompat</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3AD401E64A9B3D9353326467E3238FF877D036D">DiagCompat</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#50A97BB2A112380BAF7433ED07EC49669A75CB1A">SkipUntil</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E535D77368928B29832CA811AE4E7F0CA0AC5A2E">SkipMalformedDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7FDDBDB3B819F3CA7E8D229E32E8FBE19FD6F05E">ParseTypeName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C595105096A5B5C0D161DDBFEBF55EE93A9DDEC7">ParseExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BF306007AF342496E07EA643257074D2E5BDA49B">ParseConstantExpressionInExprEvalContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7FD254A3F6C39AF0259386CD825283B06EC53F01">ParseConstantExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1067A4C3C02C38697DB558D68E714E8F58C6322E">ParseArrayBoundExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#57BFE458EA308138500B4C2C0C02FF00A9403017">ParseCaseExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7A4A1ADD5AC5F69A4E96DF98042D41D8DC972340">ParseConstraintExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2974967B8868885E49325558DF087FC0E4C18587">ParseConstraintLogicalAndExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#54AB5FA0D4F59476447B5260E06E1EE5C9B654B9">ParseConstraintLogicalOrExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5487DDFE09B2B482C32010141B6F4224556B0B3C">ParseAssignmentExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2B068654612DA84AB0B0D296571A9E6204DA9137">ParseConditionalExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C04FAE7022C7D539407FF3313F5917BF3EA865A9">getLangOpts</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E9F1A4843350FF0E480FDEB16BC8C768E2D80969">getTargetInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C4A21F72E8369CD28C37D402DEAFAB215AE7BABF">getPreprocessor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#092B51B9E7ECB9EC8A351DF610C9C60015A62CC9">getActions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8D9CBAFC7CC7C179C20F1984ED78B743C0528225">getAttrFactory</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DDB61D16895443BE2D5CF32D0EAA7DEAC2C48535">getCurToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#97FF9703E3146F1DDA13A1B54BC75F3A72DEA7DD">getCurScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#20BCAD1E1F0F7EDB60F35460CA3A7670533477BD">incrementMSManglingNumber</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F09E96C7143678400462F0625AB149A7FF581992">ParseTopLevelDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ECB1DAFDAC721D15CEFBDDDFABF46B5C56D5EC03">ConsumeToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FD2EA4137A7F0D973799F0FE44B6DAC82ABED4F">TryConsumeToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1A3DEF6D8EA5E2FA299ACF3F491604AD8FA3A0E0">TryConsumeToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#15261F88E87EA1BAF57131C10213FF4569F43C33">ConsumeAnyToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FE53E03B44119803B829CA6A2B3D87D2643BC222">GetLookAheadToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#67DAB970DCDE9EDB4357CF6C598857863F57B302">NextToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5EE6456B79DD19092F1D347B579890AEF2250969">getTypeAnnotation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8D85966554BE5D762FF3D79A9B41FC9FB0EFAF4D">ParseStringLiteralExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#76D4C024B5BFD02F6E2D6C7915FF20C2B32B9790">ParseUnevaluatedStringLiteralExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C0860F71079A07E0FF32209206E7EC93E4A0A838">ParseUnqualifiedId</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C8FF3671AD6736EC682326F2338416DF125609B1">ParseOpenACCDirectiveDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#48A2BC6F36216CCF525112360E673C93B58BADC0">ParseOpenACCDirectiveStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#92BBC2A9C8D578072AA4B2BDAAD7112F0090A16E">ParseOpenMPParensExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#25AB124C36AE4330A28B893817581F3DD734ADB8">ParseOpenMPReservedLocator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD01C72E35AFEE60225AF3198883E3E2349F7EFA">ParseOpenMPVarList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#39AC08338CCC3F96B69FAF53957A6EDF2F78D958">parseMapperModifier</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#63F321719BA81ECC5F81171802B77A48315F1F8D">parseMapTypeModifiers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#97DED720FBC4A2D2949D60D4EBE343B28369BB30">ParseOpenMPDeclareBeginVariantDirective</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A738BDD230EA657AEBD548B45D7F7DB5D17171EE">ParseMSAsmIdentifier</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#08BE528CC5ED3E10A99C3E98F22340FA86ED79C5">ReenterTemplateScopes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#358A6978F033043409AD3B7DA0730DFF33F4BC33">MightBeCXXScopeToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ACD2829FE2BBD8E8012A10CB5D0C2956880D2418">TryAnnotateOptionalCXXScopeToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#346D16988D4A648358BB03D99A5ED35FED96581C">Diag</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6A612EA6B97375E70F3099D801C3A7626047DB21">DiagCompat</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9D7263FB5D5BC1257FD88FCC82D976B87D53E4CD">SkipUntil</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5B94419EA2A329A778AF9C78BCAAE44FB5BDB7B8">SkipUntil</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C18D3FCC3368BFB84356509F6D5879F357CC4405">SkipUntil</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B8976C09D4460652129014C0D0455FF249881689">getObjCDeclContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#977C67DC2E05615FA9980EC132520F834CE60893">getNullabilityKeyword</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4989D40AF8EC71D8F4BF30067F8569D96DD72144">SkipUntilFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7DC7A35D586E2331F9A5A311C9F8905566DBCCA7">CompoundToken</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E4206A0AE20D2176A8BECDBF0CC569A3555A5D88">DeclSpecContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CFD4D022782A6904CCD2F4E49F9B9D5828AFDB7C">AllowDefiningTypeSpec</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7401CB497D72B5B093BAA2500D09C9B023CEB459">ParseAttrKindMask</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B687FCFFC9F4D6E9426A281A832052D3A78F0638">AttrRequirements</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0C07774E80CAF60F01CF461193B83FBD7B5C7927">LambdaIntroducerTentativeParse</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F8AB7F260D5F9327DC69AD2383E0705044D2136">OpenACCParseCanContinue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#75DF0E7810E862A1D5DF837C5D3B55126299E1B6">ParsedStmtContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E9715C91454B52BD335F49C2B52E2F6CE8AC03D1">ConditionOrInitStatement</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DA093673920954337B18BE74E9EDF97C1AD41719">TPResult</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC83122F5D59ACD361BEA035E0D02628C664B350">DeclGroupPtrTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E89507B3AAC40855CA9F361D6A1A73DEFA6E2B7F">TemplateTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0C40C67949B3905F0A50113196520225FF68D1A0">LateParsedDeclarationsContainer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D0436D8F6F44F450460827D02A6073973A26F52B">DirectDeclParseFunction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#43A0E7F292E3C8AD55D0A36A32F41022A849FE7C">InnerNamespaceInfoList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9E166385341ECD3324511DB8FA201520B4EA8A2D">FullExprArg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E5B2A3268E5772E817EC2990459533973727DA61">ExprVector</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#35235D73C77933CF96E7B6C7D96B001A48F504BE">OpenACCClauseParseResult</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2800F413903634BFB5BAC98A940574D9EA298DF">OpenACCVarParseResult</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D6C4DC236D80E38CDC4E1566C6FD4DA9C3910329">OpenACCIntExprParseResult</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A7771A443A8C87932EC98E9237C54D5F3215434C">OpenACCGangArgRes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FE907A19224C1143E8ECF4D323A3141B6FC8D73">StmtVector</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EBF278947306F80D525F9F6D715F6023E810E6FE">TemplateParameterLists</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#970B3AF7BEF148F3348BD3678EAC064E75312AD8">TemplateArgList</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#13F9926FF0CBC71DD3ACB170E3867E28E201C294">AngleBracketTracker</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0693EFBC6BA6A7A49A875899040015A28F3C0B8B">ConditionDeclarationOrInitStatementState</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0AA8B50147E247AAE505BC0DF8CADF5D5A2CB322">DeclaratorScopeObj</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EEAFF016013F6C0D4838E8AB4B0DC65206D4A3C2">DelayTemplateIdDestructionRAII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAF0562FE1009AD6C8E2B9B49675635484BF7142">DesignatorCompletionInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8EF5D5C6F47014774B27B8189B0183F5412F4B2E">DestroyTemplateIdAnnotationsRAIIObj</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B396B3CCDCC1CF0CC00281D398CF5D61BD001C1E">ForRangeInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#255117C12CD0D6F26A08F5C822410B756B5267F9">ForRangeInit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#09FB15F65229912B44110BE17E08719FC635A4BC">GNUAsmQualifiers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#47FD52AE4ABB690BEA35D7A90309F74C3EC00B57">IfExistsCondition</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CFBA922075A8E4A12285B1860105B730C7C7AB50">InnerNamespaceInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D936A6FAB397A3940D5B3A6BEFB96025B410CBDE">LateParsedAttrList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F52B9FE35D96378E765F6374C9DD10F6F80ACB43">LateParsedAttribute</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#85B36DE8244769FCFED6FC858C3041D26F1A86AF">LateParsedClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9054EA7989F28814AEA52388710C78A0BBB098AA">LateParsedDeclaration</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D460D9422E6D5CA5BAC3BF7A9D50D0C7D8B1EAA1">LateParsedDefaultArgument</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#16ACD3A31311C4A986E36F916127CD7731BD91E1">LateParsedMemberInitializer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5A1BCC363BD7ECB62C8AAD80AC1BA62980198345">LateParsedMethodDeclaration</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DDA022C92D2AA9586FB308B5D7F30A5BCF32E480">LateParsedPragma</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#46885A9EFD603D1AA7FEB11448109BA846D21843">LexedMethod</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1C78F0327B9B893E5B71CDC390C7A6ECB348B49B">MultiParseScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C34CE8011A8B0481B66A3CE6472B670750F6860F">ObjCDeclContextSwitch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44044E802D0AC608BA4A78AD3D2A89E15E4D355E">ObjCImplParsingDataRAII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E6282B3E21C7F2C1EEF028314F5D9EB84253A9F">ObjCTypeParamListScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4D1A45963BB5096044C837BB398BA22569865F17">OpenACCArraySectionRAII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#960B5D27EBED93BB0260BCD994CA6DEA31FDC48E">OpenACCCacheParseInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C2260AB483FF6FCF6C820EAEDCD3038861602BA4">OpenACCDirectiveParseInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BC8E973A6E365759A69DBC4D6516C52C4AB28F13">OpenACCWaitParseInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F99905D9F5EED8B11D477B020C3E557592BFD4B7">ParseScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#844B6ED3E94352E6FAB40D2B2CBFFE0F4C469AF7">ParseScopeFlags</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D7CC5461344351D387FF7E7E4669B2627ED38DE4">ParsedSemantic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#731BB711B9FD261A72A5AB70C7BCFDCA25D0E178">ParsedTemplateInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C80111AB464CC897C600819A84039CA0481AE53F">ParsingClass</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3DC6B696918F0CFD6AB9ADA729A418971306B8B">ParsingClassDefinition</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3678D378F4F24FF617F10A4E961E24514F3FEAB2">ReenterClassScopeRAII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4ECB8D40F365B870DCDBD2DF06DDA423E34158C3">ReenterTemplateScopeRAII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A23DC20C92E1CE8EF062AEF1044F33029B68246F">RevertingTentativeParsingAction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE3B9F0695A51DD578DDD9FF93401B88B4268464">TemplateParameterDepthRAII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CDFA141E0A8F4BDCB47DA8F2D43C993042C00524">TentativeParsingAction</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5AB293EBB604208BC25D106E3A1A2E99157FA52A">UsingDeclarator</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Friends">Friends</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CC11B4D245A9CCDE0FB62566E7A7616778B225A6">ParsingOpenMPDirectiveRAII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#302E23C56FC1F1973A31CC1A7AC9EB4F10A0FB17">ParsingOpenACCDirectiveRAII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E04C2A38A537AAEF3B27F7CA78C17F2887E12AE6">ObjCDeclContextSwitch</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B18A704362FEBF926CD681A5CE03242D780C1FBB">InMessageExpressionRAIIObject</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3C6ADD7E7DDACE80DBC7AD605B961275D8C01A56">OffsetOfStateRAIIObject</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AE1E12C6D264852D5B120A186F104A7F93B80C06">operator|</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3B122BAAF02D2C836768B0553AA16EF84AAADD2C">BalancedDelimiterTracker</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8A2C90819BB0EA4C5DB3BBF33E24EAE7C866F08F">ParenBraceBracketBalancer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A24A7DC38D2213558BA5F236BC35094A55A810D0">PoisonSEHIdentifiersRAIIObject</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26D1E37CD80B833EF2F4F06B3F8D67196A43A08A">ColonProtectionRAIIObject</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class Parser</h1>
+                        <p>Defined at line 171 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L171">clang/include/clang/Parse/Parser.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Parser - This implements a parser for the C family of languages.  After</p>
+                                <p> parsing units of the grammar, productions are invoked to handle whatever has</p>
+                                <p> been read.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="MisleadingIndentationElseLoc" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SourceLocation MisleadingIndentationElseLoc</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="6FCB7A76F420FC2D0C76A8926AFCEF4975FFC0C4">
+                                <pre><code class="language-cpp code-clang-doc">void Parser (Preprocessor &amp; PP, Sema &amp; Actions, bool SkipFunctionBodies)</code></pre>
+                                <p>Defined at line 56 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L56">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8221D061DB9AC1EB743DB819737D92E083EEEE65">
+                                <pre><code class="language-cpp code-clang-doc">void ~Parser ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                        <p> C99 6.9: External Definitions.</p>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 465 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L465">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F50FF293F7EB8F6BACD083F111668607E6DF916">
+                                <pre><code class="language-cpp code-clang-doc">void Initialize ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Initialize - Warm up the parser.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 483 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L483">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BEB298AD2ECB18D8CD6D595F9170D8D9541BBD0D">
+                                <pre><code class="language-cpp code-clang-doc">bool ParseFirstTopLevelDecl (DeclGroupPtrTy &amp; Result, Sema::ModuleImportState &amp; ImportState)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse the first top-level declaration in a translation unit.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that in C, it is an error if there is no first declaration.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 593 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L593">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1A745BD39ECBAD4A95495A793ADE9BC61382B252">
+                                <pre><code class="language-cpp code-clang-doc">bool ParseTopLevelDecl (DeclGroupPtrTy &amp; Result, Sema::ModuleImportState &amp; ImportState)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ParseTopLevelDecl - Parse one top-level declaration, return whatever the</p>
+                                        <p> action tells us to.  This returns true if the EOF was encountered.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 614 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L614">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D71A7115CE44B5404F7031F35E3794D6E5287207">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getEndOfPreviousToken ()</code></pre>
+                                <p>Defined at line 1871 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L1871">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="127C4DBE9A60C58CB845CD522993527AE715833C">
+                                <pre><code class="language-cpp code-clang-doc">bool TryAnnotateTypeOrScopeToken (ImplicitTypenameContext AllowImplicitTypename)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> TryAnnotateTypeOrScopeToken - If the current token position is on a</p>
+                                        <p> typename (possibly qualified in C++) or a C++ scope specifier not followed</p>
+                                        <p> by a typename, TryAnnotateTypeOrScopeToken will replace one or more tokens</p>
+                                        <p> with a single annotation token representing the typename or C++ scope</p>
+                                        <p> respectively.</p>
+                                        <p> This simplifies handling of C++ scope specifiers and allows efficient</p>
+                                        <p> backtracking without the need to re-parse and resolve nested-names and</p>
+                                        <p> typenames.</p>
+                                        <p> It will mainly be called when we expect to treat identifiers as typenames</p>
+                                        <p> (if they are typenames). For example, in C we do not expect identifiers</p>
+                                        <p> inside expressions to be treated as typenames so it will not be called</p>
+                                        <p> for expressions in C.</p>
+                                        <p> The benefit for C/ObjC is that a typename will be annotated and</p>
+                                        <p> Actions.getTypeName will not be needed to be called again (e.g.</p>
+                                        <p> getTypeName will not be called twice, once to check whether we have a</p>
+                                        <p> declaration specifier, and another one to get the actual type inside</p>
+                                        <p> ParseDeclarationSpecifiers).</p>
+                                    </div>
+                                    <div>
+                                        <p> This returns true if an error occurred.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that this routine emits an error if you call it with ::new or</p>
+                                        <p> ::delete as the current tokens, so only call it in contexts where these</p>
+                                        <p> are invalid.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1887 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L1887">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="82AE05635EFDD403024C42A6D1796BBB0CA4F226">
+                                <pre><code class="language-cpp code-clang-doc">bool TryAnnotateTypeOrScopeTokenAfterScopeSpec (CXXScopeSpec &amp; SS, bool IsNewScope, ImplicitTypenameContext AllowImplicitTypename)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Try to annotate a type or scope token, having already parsed an</p>
+                                        <p> optional scope specifier. </p>
+                                        <p> should be </p>
+                                        <p> unless the scope</p>
+                                        <p> specifier was extracted from an existing tok::annot_cxxscope annotation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2013 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L2013">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1718E9A2E528DF2C7E951D964CE8474EDA147C3F">
+                                <pre><code class="language-cpp code-clang-doc">bool TryAnnotateCXXScopeToken (bool EnteringContext)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> TryAnnotateScopeToken - Like TryAnnotateTypeOrScopeToken but only</p>
+                                        <p> annotates C++ scope specifiers and template-ids.  This returns</p>
+                                        <p> true if there was an error that could not be recovered from.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that this routine emits an error if you call it with ::new or</p>
+                                        <p> ::delete as the current tokens, so only call it in contexts where these</p>
+                                        <p> are invalid.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2130 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L2130">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="83722B038CA397E8FAD9D982EF56A12D5F47CD45">
+                                <pre><code class="language-cpp code-clang-doc">void EnterScope (unsigned int ScopeFlags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> EnterScope - Start a new scope.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 420 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L420">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C8267282C0923878AE27158F8B9C6303C9BBDF40">
+                                <pre><code class="language-cpp code-clang-doc">void ExitScope ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ExitScope - Pop a scope off the scope stack.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 430 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L430">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B7DBF729CD901E0C51CC90295453B5A9CEF11611">
+                                <pre><code class="language-cpp code-clang-doc">DiagnosticBuilder Diag (SourceLocation Loc, unsigned int DiagID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===--------------------------------------------------------------------===//</p>
+                                        <p> Diagnostic Emission and Error recovery.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 85 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L85">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44D0E334F08807B26297C914F543F93C6A57523C">
+                                <pre><code class="language-cpp code-clang-doc">DiagnosticBuilder Diag (const Token &amp; Tok, unsigned int DiagID)</code></pre>
+                                <p>Defined at line 89 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L89">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1126DB62B094F6ED8528C1A8AF88BB133528C785">
+                                <pre><code class="language-cpp code-clang-doc">DiagnosticBuilder DiagCompat (SourceLocation Loc, unsigned int CompatDiagId)</code></pre>
+                                <p>Defined at line 93 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L93">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C3AD401E64A9B3D9353326467E3238FF877D036D">
+                                <pre><code class="language-cpp code-clang-doc">DiagnosticBuilder DiagCompat (const Token &amp; Tok, unsigned int CompatDiagId)</code></pre>
+                                <p>Defined at line 99 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L99">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="50A97BB2A112380BAF7433ED07EC49669A75CB1A">
+                                <pre><code class="language-cpp code-clang-doc">bool SkipUntil (ArrayRef Toks, SkipUntilFlags Flags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> SkipUntil - Read tokens until we get to the specified token, then consume</p>
+                                        <p> it (unless no flag StopBeforeMatch).  Because we cannot guarantee that the</p>
+                                        <p> token will ever occur, this skips to the next token, or to some likely</p>
+                                        <p> good stopping point.  If StopAtSemi is true, skipping will stop at a &#39;;&#39;</p>
+                                        <p> character.</p>
+                                    </div>
+                                    <div>
+                                        <p> If SkipUntil finds the specified token, it returns true, otherwise it</p>
+                                        <p> returns false.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 287 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/Parser.cpp#L287">clang/lib/Parse/Parser.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E535D77368928B29832CA811AE4E7F0CA0AC5A2E">
+                                <pre><code class="language-cpp code-clang-doc">void SkipMalformedDecl ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> SkipMalformedDecl - Read tokens until we get to some likely good stopping</p>
+                                        <p> point for skipping past a simple-declaration.</p>
+                                    </div>
+                                    <div>
+                                        <p> Skip until we reach something which seems like a sensible place to pick</p>
+                                        <p> up parsing after a malformed declaration. This will sometimes stop sooner</p>
+                                        <p> than SkipUntil(tok::r_brace) would, but will never stop later.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2045 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseDecl.cpp#L2045">clang/lib/Parse/ParseDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7FDDBDB3B819F3CA7E8D229E32E8FBE19FD6F05E">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseTypeName (SourceRange * Range, DeclaratorContext Context, AccessSpecifier AS, Decl ** OwnedType, ParsedAttributes * Attrs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ParseTypeName</p>
+                                    </div>
+                                    <div>
+                                        <p> Called type-id in C++.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 44 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseDecl.cpp#L44">clang/lib/Parse/ParseDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C595105096A5B5C0D161DDBFEBF55EE93A9DDEC7">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseExpression (TypoCorrectionTypeBehavior CorrectionBehavior)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Simple precedence-based parser for binary/ternary operators.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note: we diverge from the C99 grammar when parsing the</p>
+                                        <p> assignment-expression production.  C99 specifies that the LHS of an</p>
+                                        <p> assignment operator should be parsed as a unary-expression, but</p>
+                                        <p> consistency dictates that it be a conditional-expession.  In practice, the</p>
+                                        <p> important thing here is that the LHS of an assignment has to be an</p>
+                                        <p> l-value, which productions between unary-expression and</p>
+                                        <p> conditional-expression don&#39;t produce.  Because we want consistency, we</p>
+                                        <p> parse the LHS as a conditional-expression, then check for l-value-ness in</p>
+                                        <p> semantic analysis stages.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 46 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExpr.cpp#L46">clang/lib/Parse/ParseExpr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BF306007AF342496E07EA643257074D2E5BDA49B">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseConstantExpressionInExprEvalContext (TypoCorrectionTypeBehavior CorrectionBehavior)</code></pre>
+                                <p>Defined at line 121 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExpr.cpp#L121">clang/lib/Parse/ParseExpr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7FD254A3F6C39AF0259386CD825283B06EC53F01">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseConstantExpression ()</code></pre>
+                                <p>Defined at line 133 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExpr.cpp#L133">clang/lib/Parse/ParseExpr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1067A4C3C02C38697DB558D68E714E8F58C6322E">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseArrayBoundExpression ()</code></pre>
+                                <p>Defined at line 144 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExpr.cpp#L144">clang/lib/Parse/ParseExpr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="57BFE458EA308138500B4C2C0C02FF00A9403017">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseCaseExpression (SourceLocation CaseLoc)</code></pre>
+                                <p>Defined at line 173 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExpr.cpp#L173">clang/lib/Parse/ParseExpr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7A4A1ADD5AC5F69A4E96DF98042D41D8DC972340">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseConstraintExpression ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse a constraint-expression.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 185 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExpr.cpp#L185">clang/lib/Parse/ParseExpr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2974967B8868885E49325558DF087FC0E4C18587">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseConstraintLogicalAndExpression (bool IsTrailingRequiresClause)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse a constraint-logical-and-expression.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 196 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExpr.cpp#L196">clang/lib/Parse/ParseExpr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54AB5FA0D4F59476447B5260E06E1EE5C9B654B9">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseConstraintLogicalOrExpression (bool IsTrailingRequiresClause)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse a constraint-logical-or-expression.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 273 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExpr.cpp#L273">clang/lib/Parse/ParseExpr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5487DDFE09B2B482C32010141B6F4224556B0B3C">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseAssignmentExpression (TypoCorrectionTypeBehavior CorrectionBehavior)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse an expr that doesn&#39;t include (top-level) commas.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 75 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExpr.cpp#L75">clang/lib/Parse/ParseExpr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2B068654612DA84AB0B0D296571A9E6204DA9137">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseConditionalExpression ()</code></pre>
+                                <p>Defined at line 95 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExpr.cpp#L95">clang/lib/Parse/ParseExpr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C04FAE7022C7D539407FF3313F5917BF3EA865A9">
+                                <pre><code class="language-cpp code-clang-doc">const LangOptions &amp; getLangOpts ()</code></pre>
+                                <p>Defined at line 204 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L204">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E9F1A4843350FF0E480FDEB16BC8C768E2D80969">
+                                <pre><code class="language-cpp code-clang-doc">const TargetInfo &amp; getTargetInfo ()</code></pre>
+                                <p>Defined at line 205 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L205">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C4A21F72E8369CD28C37D402DEAFAB215AE7BABF">
+                                <pre><code class="language-cpp code-clang-doc">Preprocessor &amp; getPreprocessor ()</code></pre>
+                                <p>Defined at line 206 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L206">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="092B51B9E7ECB9EC8A351DF610C9C60015A62CC9">
+                                <pre><code class="language-cpp code-clang-doc">Sema &amp; getActions ()</code></pre>
+                                <p>Defined at line 207 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L207">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8D9CBAFC7CC7C179C20F1984ED78B743C0528225">
+                                <pre><code class="language-cpp code-clang-doc">AttributeFactory &amp; getAttrFactory ()</code></pre>
+                                <p>Defined at line 208 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L208">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DDB61D16895443BE2D5CF32D0EAA7DEAC2C48535">
+                                <pre><code class="language-cpp code-clang-doc">const Token &amp; getCurToken ()</code></pre>
+                                <p>Defined at line 210 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L210">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="97FF9703E3146F1DDA13A1B54BC75F3A72DEA7DD">
+                                <pre><code class="language-cpp code-clang-doc">Scope * getCurScope ()</code></pre>
+                                <p>Defined at line 211 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L211">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="20BCAD1E1F0F7EDB60F35460CA3A7670533477BD">
+                                <pre><code class="language-cpp code-clang-doc">void incrementMSManglingNumber ()</code></pre>
+                                <p>Defined at line 213 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L213">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F09E96C7143678400462F0625AB149A7FF581992">
+                                <pre><code class="language-cpp code-clang-doc">bool ParseTopLevelDecl ()</code></pre>
+                                <p>Defined at line 251 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L251">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ECB1DAFDAC721D15CEFBDDDFABF46B5C56D5EC03">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation ConsumeToken ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ConsumeToken - Consume the current &#39;peek token&#39; and lex the next one.</p>
+                                        <p> This does not work with special tokens: string literals, code completion,</p>
+                                        <p> annotation tokens and balanced tokens must be handled using the specific</p>
+                                        <p> consume methods.</p>
+                                        <p> Returns the location of the consumed token.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 262 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L262">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9FD2EA4137A7F0D973799F0FE44B6DAC82ABED4F">
+                                <pre><code class="language-cpp code-clang-doc">bool TryConsumeToken (TokenKind Expected)</code></pre>
+                                <p>Defined at line 270 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L270">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1A3DEF6D8EA5E2FA299ACF3F491604AD8FA3A0E0">
+                                <pre><code class="language-cpp code-clang-doc">bool TryConsumeToken (TokenKind Expected, SourceLocation &amp; Loc)</code></pre>
+                                <p>Defined at line 280 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L280">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="15261F88E87EA1BAF57131C10213FF4569F43C33">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation ConsumeAnyToken (bool ConsumeCodeCompletionTok)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ConsumeAnyToken - Dispatch to the right Consume* method based on the</p>
+                                        <p> current token type.  This should only be used in cases where the type of</p>
+                                        <p> the token really isn&#39;t known, e.g. in error recovery.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 290 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L290">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FE53E03B44119803B829CA6A2B3D87D2643BC222">
+                                <pre><code class="language-cpp code-clang-doc">const Token &amp; GetLookAheadToken (unsigned int N)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> GetLookAheadToken - This peeks ahead N tokens and returns that token</p>
+                                        <p> without consuming any tokens.  LookAhead(0) returns &#39;Tok&#39;, LookAhead(1)</p>
+                                        <p> returns the token after Tok, etc.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that this differs from the Preprocessor&#39;s LookAhead method, because</p>
+                                        <p> the Parser always has one token lexed that the preprocessor doesn&#39;t.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 316 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L316">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="67DAB970DCDE9EDB4357CF6C598857863F57B302">
+                                <pre><code class="language-cpp code-clang-doc">const Token &amp; NextToken ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> NextToken - This peeks ahead one token and returns it without</p>
+                                        <p> consuming it.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 324 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L324">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5EE6456B79DD19092F1D347B579890AEF2250969">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult getTypeAnnotation (const Token &amp; Tok)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> getTypeAnnotation - Read a parsed type out of an annotation token.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 327 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L327">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8D85966554BE5D762FF3D79A9B41FC9FB0EFAF4D">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseStringLiteralExpression (bool AllowUserDefinedLiteral)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ParseStringLiteralExpression - This handles the various token types that</p>
+                                        <p> form string literals, and also handles string concatenation [C99 5.1.1.2,</p>
+                                        <p> translation phase #6].</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2964 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExpr.cpp#L2964">clang/lib/Parse/ParseExpr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="76D4C024B5BFD02F6E2D6C7915FF20C2B32B9790">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseUnevaluatedStringLiteralExpression ()</code></pre>
+                                <p>Defined at line 2969 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExpr.cpp#L2969">clang/lib/Parse/ParseExpr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C0860F71079A07E0FF32209206E7EC93E4A0A838">
+                                <pre><code class="language-cpp code-clang-doc">bool ParseUnqualifiedId (CXXScopeSpec &amp; SS, OpaquePtr ObjectType, bool ObjectHadErrors, bool EnteringContext, bool AllowDestructorName, bool AllowConstructorName, bool AllowDeductionGuide, SourceLocation * TemplateKWLoc, UnqualifiedId &amp; Result)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse a C++ unqualified-id (or a C identifier), which describes the</p>
+                                        <p> name of an entity.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>SS</b>   The nested-name-specifier that preceded this unqualified-id. If non-empty, then we are parsing the unqualified-id of a qualified-id.
+                                    </div> 
+                                    <div>
+                                        <b>ObjectType</b>   if this unqualified-id occurs within a member access expression, the type of the base object whose member is being accessed.
+                                    </div> 
+                                    <div>
+                                        <b>ObjectHadErrors</b>   if this unqualified-id occurs within a member access expression, indicates whether the original subexpressions had any errors. When true, diagnostics for missing &#39;template&#39; keyword will be supressed.
+                                    </div> 
+                                    <div>
+                                        <b>EnteringContext</b>   whether we are entering the scope of the nested-name-specifier.
+                                    </div> 
+                                    <div>
+                                        <b>AllowDestructorName</b>   whether we allow parsing of a destructor name.
+                                    </div> 
+                                    <div>
+                                        <b>AllowConstructorName</b>   whether we allow parsing a constructor name.
+                                    </div> 
+                                    <div>
+                                        <b>AllowDeductionGuide</b>   whether we allow parsing a deduction guide name.
+                                    </div> 
+                                    <div>
+                                        <b>Result</b>   on a successful parse, contains the parsed unqualified-id.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 2578 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseExprCXX.cpp#L2578">clang/lib/Parse/ParseExprCXX.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C8FF3671AD6736EC682326F2338416DF125609B1">
+                                <pre><code class="language-cpp code-clang-doc">OpaquePtr ParseOpenACCDirectiveDecl (AccessSpecifier &amp; AS, ParsedAttributes &amp; Attrs, TypeSpecifierType TagType, Decl * TagDecl)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse OpenACC directive on a declaration.</p>
+                                    </div>
+                                    <div>
+                                        <p> Placeholder for now, should just ignore the directives after emitting a</p>
+                                        <p> diagnostic. Eventually will be split into a few functions to parse</p>
+                                        <p> different situations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1645 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseOpenACC.cpp#L1645">clang/lib/Parse/ParseOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="48A2BC6F36216CCF525112360E673C93B58BADC0">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseOpenACCDirectiveStmt ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse OpenACC Directive on a Statement.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1666 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseOpenACC.cpp#L1666">clang/lib/Parse/ParseOpenACC.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="92BBC2A9C8D578072AA4B2BDAAD7112F0090A16E">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseOpenMPParensExpr (StringRef ClauseName, SourceLocation &amp; RLoc, bool IsAddressOfOperand)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parses simple expression in parens for single-expression clauses of OpenMP</p>
+                                        <p> constructs.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>RLoc</b>   Returned location of right paren.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 3527 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseOpenMP.cpp#L3527">clang/lib/Parse/ParseOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="25AB124C36AE4330A28B893817581F3DD734ADB8">
+                                <pre><code class="language-cpp code-clang-doc">bool ParseOpenMPReservedLocator (Clause Kind, SemaOpenMP::OpenMPVarListDataTy &amp; Data, const LangOptions &amp; LangOpts)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parses a reserved locator like &#39;omp_all_memory&#39;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4525 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseOpenMP.cpp#L4525">clang/lib/Parse/ParseOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD01C72E35AFEE60225AF3198883E3E2349F7EFA">
+                                <pre><code class="language-cpp code-clang-doc">bool ParseOpenMPVarList (Directive DKind, Clause Kind, SmallVectorImpl&lt;Expr *&gt; &amp; Vars, SemaOpenMP::OpenMPVarListDataTy &amp; Data)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parses clauses with list.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4657 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseOpenMP.cpp#L4657">clang/lib/Parse/ParseOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="39AC08338CCC3F96B69FAF53957A6EDF2F78D958">
+                                <pre><code class="language-cpp code-clang-doc">bool parseMapperModifier (SemaOpenMP::OpenMPVarListDataTy &amp; Data)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parses the mapper modifier in map, to, and from clauses.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4266 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseOpenMP.cpp#L4266">clang/lib/Parse/ParseOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="63F321719BA81ECC5F81171802B77A48315F1F8D">
+                                <pre><code class="language-cpp code-clang-doc">bool parseMapTypeModifiers (SemaOpenMP::OpenMPVarListDataTy &amp; Data)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse map-type-modifiers in map clause.</p>
+                                        <p> map([ [map-type-modifier[,] [map-type-modifier[,] ...] [map-type] : ] list)</p>
+                                        <p> where, map-type-modifier ::= always | close | mapper(mapper-identifier) |</p>
+                                        <p> present</p>
+                                        <p> where, map-type ::= alloc | delete | from | release | to | tofrom</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4296 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseOpenMP.cpp#L4296">clang/lib/Parse/ParseOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="97DED720FBC4A2D2949D60D4EBE343B28369BB30">
+                                <pre><code class="language-cpp code-clang-doc">bool ParseOpenMPDeclareBeginVariantDirective (SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parses &#39;omp begin declare variant&#39; directive.</p>
+                                        <p> The syntax is:</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 545 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseOpenMP.cpp#L545">clang/lib/Parse/ParseOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A738BDD230EA657AEBD548B45D7F7DB5D17171EE">
+                                <pre><code class="language-cpp code-clang-doc">ActionResult ParseMSAsmIdentifier (llvm::SmallVectorImpl&lt;Token&gt; &amp; LineToks, unsigned int &amp; NumLineToksConsumed, bool IsUnevaluated)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse an identifier in an MS-style inline assembly block.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 197 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseStmtAsm.cpp#L197">clang/lib/Parse/ParseStmtAsm.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="08BE528CC5ED3E10A99C3E98F22340FA86ED79C5">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int ReenterTemplateScopes (MultiParseScope &amp; S, Decl * D)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Re-enter a possible template scope, creating as many template parameter</p>
+                                        <p> scopes as necessary.</p>
+                                    </div>
+                                    <h3>Returns</h3>
+                                    <p> The number of template parameter scopes entered.</p>
+                                </div>
+                                <p>Defined at line 25 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Parse/ParseTemplate.cpp#L25">clang/lib/Parse/ParseTemplate.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="358A6978F033043409AD3B7DA0730DFF33F4BC33">
+                                <pre><code class="language-cpp code-clang-doc">bool MightBeCXXScopeToken ()</code></pre>
+                                <p>Defined at line 376 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L376">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ACD2829FE2BBD8E8012A10CB5D0C2956880D2418">
+                                <pre><code class="language-cpp code-clang-doc">bool TryAnnotateOptionalCXXScopeToken (bool EnteringContext)</code></pre>
+                                <p>Defined at line 383 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L383">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="346D16988D4A648358BB03D99A5ED35FED96581C">
+                                <pre><code class="language-cpp code-clang-doc">DiagnosticBuilder Diag (unsigned int DiagID)</code></pre>
+                                <p>Defined at line 464 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L464">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6A612EA6B97375E70F3099D801C3A7626047DB21">
+                                <pre><code class="language-cpp code-clang-doc">DiagnosticBuilder DiagCompat (unsigned int CompatDiagId)</code></pre>
+                                <p>Defined at line 468 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L468">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9D7263FB5D5BC1257FD88FCC82D976B87D53E4CD">
+                                <pre><code class="language-cpp code-clang-doc">bool SkipUntil (TokenKind T, SkipUntilFlags Flags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> SkipUntil - Read tokens until we get to the specified token, then consume</p>
+                                        <p> it (unless StopBeforeMatch is specified).  Because we cannot guarantee</p>
+                                        <p> that the token will ever occur, this skips to the next token, or to some</p>
+                                        <p> likely good stopping point.  If Flags has StopAtSemi flag, skipping will</p>
+                                        <p> stop at a &#39;;&#39; character. Balances (), [], and {} delimiter tokens while</p>
+                                        <p> skipping.</p>
+                                    </div>
+                                    <div>
+                                        <p> If SkipUntil finds the specified token, it returns true, otherwise it</p>
+                                        <p> returns false.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 495 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L495">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5B94419EA2A329A778AF9C78BCAAE44FB5BDB7B8">
+                                <pre><code class="language-cpp code-clang-doc">bool SkipUntil (TokenKind T1, TokenKind T2, SkipUntilFlags Flags)</code></pre>
+                                <p>Defined at line 499 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L499">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C18D3FCC3368BFB84356509F6D5879F357CC4405">
+                                <pre><code class="language-cpp code-clang-doc">bool SkipUntil (TokenKind T1, TokenKind T2, TokenKind T3, SkipUntilFlags Flags)</code></pre>
+                                <p>Defined at line 504 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L504">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B8976C09D4460652129014C0D0455FF249881689">
+                                <pre><code class="language-cpp code-clang-doc">ObjCContainerDecl * getObjCDeclContext ()</code></pre>
+                                <p>Defined at line 5323 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L5323">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="977C67DC2E05615FA9980EC132520F834CE60893">
+                                <pre><code class="language-cpp code-clang-doc">IdentifierInfo * getNullabilityKeyword (NullabilityKind nullability)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the underscored keyword (_Nonnull, _Nullable) that corresponds</p>
+                                        <p> to the given nullability kind.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5329 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L5329">clang/include/clang/Parse/Parser.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div id="4989D40AF8EC71D8F4BF30067F8569D96DD72144" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum SkipUntilFlags</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>StopAtSemi</td>
+                                    <td>1 &lt;&lt; 0</td>
+                                </tr>
+                                <tr>
+                                    <td>StopBeforeMatch</td>
+                                    <td>1 &lt;&lt; 1</td>
+                                </tr>
+                                <tr>
+                                    <td>StopAtCodeCompletion</td>
+                                    <td>1 &lt;&lt; 2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 473 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L473">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="7DC7A35D586E2331F9A5A311C9F8905566DBCCA7" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum CompoundToken</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>StmtExprBegin</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>StmtExprEnd</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>AttrBegin</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>AttrEnd</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>MemberPtr</td>
+                                    <td>4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 822 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L822">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="E4206A0AE20D2176A8BECDBF0CC569A3555A5D88" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum DeclSpecContext</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>DSC_normal</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_class</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_type_specifier</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_trailing</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_alias_declaration</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_conv_operator</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_top_level</td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_template_param</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_template_arg</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_template_type_arg</td>
+                                    <td>9</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_objc_method_result</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_condition</td>
+                                    <td>11</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_association</td>
+                                    <td>12</td>
+                                </tr>
+                                <tr>
+                                    <td>DSC_new</td>
+                                    <td>13</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 1535 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L1535">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="CFD4D022782A6904CCD2F4E49F9B9D5828AFDB7C" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum AllowDefiningTypeSpec</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>No</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>NoButErrorRecovery</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>YesButInvalid</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>Yes</td>
+                                    <td>3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 1579 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L1579">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="7401CB497D72B5B093BAA2500D09C9B023CEB459" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum ParseAttrKindMask</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>PAKM_GNU</td>
+                                    <td>1 &lt;&lt; 0</td>
+                                </tr>
+                                <tr>
+                                    <td>PAKM_Declspec</td>
+                                    <td>1 &lt;&lt; 1</td>
+                                </tr>
+                                <tr>
+                                    <td>PAKM_CXX11</td>
+                                    <td>1 &lt;&lt; 2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 2135 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L2135">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="B687FCFFC9F4D6E9426A281A832052D3A78F0638" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum AttrRequirements</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>AR_NoAttributesParsed</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>AR_GNUAttributesParsedAndRejected</td>
+                                    <td>1 &lt;&lt; 0</td>
+                                </tr>
+                                <tr>
+                                    <td>AR_GNUAttributesParsed</td>
+                                    <td>1 &lt;&lt; 1</td>
+                                </tr>
+                                <tr>
+                                    <td>AR_CXX11AttributesParsed</td>
+                                    <td>1 &lt;&lt; 2</td>
+                                </tr>
+                                <tr>
+                                    <td>AR_DeclspecAttributesParsed</td>
+                                    <td>1 &lt;&lt; 3</td>
+                                </tr>
+                                <tr>
+                                    <td>AR_AllAttributesParsed</td>
+                                    <td>AR_GNUAttributesParsed | AR_CXX11AttributesParsed |
+                                                 AR_DeclspecAttributesParsed</td>
+                                </tr>
+                                <tr>
+                                    <td>AR_VendorAttributesParsed</td>
+                                    <td>AR_GNUAttributesParsed | AR_DeclspecAttributesParsed</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 2584 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L2584">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="0C07774E80CAF60F01CF461193B83FBD7B5C7927" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum LambdaIntroducerTentativeParse</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>Success</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>Incomplete</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>MessageSend</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>Invalid</td>
+                                    <td>3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 4576 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L4576">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="4F8AB7F260D5F9327DC69AD2383E0705044D2136" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum OpenACCParseCanContinue</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>Cannot</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>Can</td>
+                                    <td>1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 6112 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L6112">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="75DF0E7810E862A1D5DF837C5D3B55126299E1B6" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum ParsedStmtContext</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>AllowDeclarationsInC</td>
+                                    <td>0x1</td>
+                                </tr>
+                                <tr>
+                                    <td>AllowStandaloneOpenMPDirectives</td>
+                                    <td>0x2</td>
+                                </tr>
+                                <tr>
+                                    <td>InStmtExpr</td>
+                                    <td>0x4</td>
+                                </tr>
+                                <tr>
+                                    <td>SubStmt</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>Compound</td>
+                                    <td>AllowDeclarationsInC | AllowStandaloneOpenMPDirectives</td>
+                                </tr>
+                                <tr>
+                                    <td>LLVM_BITMASK_LARGEST_ENUMERATOR</td>
+                                    <td>InStmtExpr</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 7189 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L7189">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="E9715C91454B52BD335F49C2B52E2F6CE8AC03D1" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum ConditionOrInitStatement</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>Expression</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>ConditionDecl</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>InitStmtDecl</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>ForRangeDecl</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>Error</td>
+                                    <td>4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 8497 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L8497">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="DA093673920954337B18BE74E9EDF97C1AD41719" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum TPResult</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>True</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>False</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>Ambiguous</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>Error</td>
+                                    <td>3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 8557 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L8557">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="13F9926FF0CBC71DD3ACB170E3867E28E201C294" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser19AngleBracketTrackerE.html">
+                                <pre><code class="language-cpp code-clang-doc">class AngleBracketTracker</code></pre>
+                            </a>
+                        </li>
+                        <li id="0693EFBC6BA6A7A49A875899040015A28F3C0B8B" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser40ConditionDeclarationOrInitStatementStateE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ConditionDeclarationOrInitStatementState</code></pre>
+                            </a>
+                        </li>
+                        <li id="0AA8B50147E247AAE505BC0DF8CADF5D5A2CB322" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser18DeclaratorScopeObjE.html">
+                                <pre><code class="language-cpp code-clang-doc">class DeclaratorScopeObj</code></pre>
+                            </a>
+                        </li>
+                        <li id="EEAFF016013F6C0D4838E8AB4B0DC65206D4A3C2" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser30DelayTemplateIdDestructionRAIIE.html">
+                                <pre><code class="language-cpp code-clang-doc">class DelayTemplateIdDestructionRAII</code></pre>
+                            </a>
+                        </li>
+                        <li id="DAF0562FE1009AD6C8E2B9B49675635484BF7142" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser24DesignatorCompletionInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class DesignatorCompletionInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="8EF5D5C6F47014774B27B8189B0183F5412F4B2E" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser35DestroyTemplateIdAnnotationsRAIIObjE.html">
+                                <pre><code class="language-cpp code-clang-doc">class DestroyTemplateIdAnnotationsRAIIObj</code></pre>
+                            </a>
+                        </li>
+                        <li id="B396B3CCDCC1CF0CC00281D398CF5D61BD001C1E" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser12ForRangeInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ForRangeInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="255117C12CD0D6F26A08F5C822410B756B5267F9" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser12ForRangeInitE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ForRangeInit</code></pre>
+                            </a>
+                        </li>
+                        <li id="09FB15F65229912B44110BE17E08719FC635A4BC" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser16GNUAsmQualifiersE.html">
+                                <pre><code class="language-cpp code-clang-doc">class GNUAsmQualifiers</code></pre>
+                            </a>
+                        </li>
+                        <li id="47FD52AE4ABB690BEA35D7A90309F74C3EC00B57" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser17IfExistsConditionE.html">
+                                <pre><code class="language-cpp code-clang-doc">class IfExistsCondition</code></pre>
+                            </a>
+                        </li>
+                        <li id="CFBA922075A8E4A12285B1860105B730C7C7AB50" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser18InnerNamespaceInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class InnerNamespaceInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="D936A6FAB397A3940D5B3A6BEFB96025B410CBDE" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser18LateParsedAttrListE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LateParsedAttrList</code></pre>
+                            </a>
+                        </li>
+                        <li id="F52B9FE35D96378E765F6374C9DD10F6F80ACB43" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser19LateParsedAttributeE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LateParsedAttribute</code></pre>
+                            </a>
+                        </li>
+                        <li id="85B36DE8244769FCFED6FC858C3041D26F1A86AF" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser15LateParsedClassE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LateParsedClass</code></pre>
+                            </a>
+                        </li>
+                        <li id="9054EA7989F28814AEA52388710C78A0BBB098AA" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser21LateParsedDeclarationE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LateParsedDeclaration</code></pre>
+                            </a>
+                        </li>
+                        <li id="D460D9422E6D5CA5BAC3BF7A9D50D0C7D8B1EAA1" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser25LateParsedDefaultArgumentE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LateParsedDefaultArgument</code></pre>
+                            </a>
+                        </li>
+                        <li id="16ACD3A31311C4A986E36F916127CD7731BD91E1" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser27LateParsedMemberInitializerE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LateParsedMemberInitializer</code></pre>
+                            </a>
+                        </li>
+                        <li id="5A1BCC363BD7ECB62C8AAD80AC1BA62980198345" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser27LateParsedMethodDeclarationE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LateParsedMethodDeclaration</code></pre>
+                            </a>
+                        </li>
+                        <li id="DDA022C92D2AA9586FB308B5D7F30A5BCF32E480" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser16LateParsedPragmaE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LateParsedPragma</code></pre>
+                            </a>
+                        </li>
+                        <li id="46885A9EFD603D1AA7FEB11448109BA846D21843" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser11LexedMethodE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LexedMethod</code></pre>
+                            </a>
+                        </li>
+                        <li id="1C78F0327B9B893E5B71CDC390C7A6ECB348B49B" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser15MultiParseScopeE.html">
+                                <pre><code class="language-cpp code-clang-doc">class MultiParseScope</code></pre>
+                            </a>
+                        </li>
+                        <li id="C34CE8011A8B0481B66A3CE6472B670750F6860F" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser21ObjCDeclContextSwitchE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ObjCDeclContextSwitch</code></pre>
+                            </a>
+                        </li>
+                        <li id="44044E802D0AC608BA4A78AD3D2A89E15E4D355E" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser23ObjCImplParsingDataRAIIE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ObjCImplParsingDataRAII</code></pre>
+                            </a>
+                        </li>
+                        <li id="0E6282B3E21C7F2C1EEF028314F5D9EB84253A9F" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser22ObjCTypeParamListScopeE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ObjCTypeParamListScope</code></pre>
+                            </a>
+                        </li>
+                        <li id="4D1A45963BB5096044C837BB398BA22569865F17" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser23OpenACCArraySectionRAIIE.html">
+                                <pre><code class="language-cpp code-clang-doc">class OpenACCArraySectionRAII</code></pre>
+                            </a>
+                        </li>
+                        <li id="960B5D27EBED93BB0260BCD994CA6DEA31FDC48E" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser21OpenACCCacheParseInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class OpenACCCacheParseInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="C2260AB483FF6FCF6C820EAEDCD3038861602BA4" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser25OpenACCDirectiveParseInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class OpenACCDirectiveParseInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="BC8E973A6E365759A69DBC4D6516C52C4AB28F13" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser20OpenACCWaitParseInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class OpenACCWaitParseInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="F99905D9F5EED8B11D477B020C3E557592BFD4B7" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser10ParseScopeE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ParseScope</code></pre>
+                            </a>
+                        </li>
+                        <li id="844B6ED3E94352E6FAB40D2B2CBFFE0F4C469AF7" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser15ParseScopeFlagsE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ParseScopeFlags</code></pre>
+                            </a>
+                        </li>
+                        <li id="D7CC5461344351D387FF7E7E4669B2627ED38DE4" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser14ParsedSemanticE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ParsedSemantic</code></pre>
+                            </a>
+                        </li>
+                        <li id="731BB711B9FD261A72A5AB70C7BCFDCA25D0E178" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser18ParsedTemplateInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ParsedTemplateInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="C80111AB464CC897C600819A84039CA0481AE53F" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser12ParsingClassE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ParsingClass</code></pre>
+                            </a>
+                        </li>
+                        <li id="C3DC6B696918F0CFD6AB9ADA729A418971306B8B" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser22ParsingClassDefinitionE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ParsingClassDefinition</code></pre>
+                            </a>
+                        </li>
+                        <li id="3678D378F4F24FF617F10A4E961E24514F3FEAB2" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser21ReenterClassScopeRAIIE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ReenterClassScopeRAII</code></pre>
+                            </a>
+                        </li>
+                        <li id="4ECB8D40F365B870DCDBD2DF06DDA423E34158C3" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser24ReenterTemplateScopeRAIIE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ReenterTemplateScopeRAII</code></pre>
+                            </a>
+                        </li>
+                        <li id="A23DC20C92E1CE8EF062AEF1044F33029B68246F" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser31RevertingTentativeParsingActionE.html">
+                                <pre><code class="language-cpp code-clang-doc">class RevertingTentativeParsingAction</code></pre>
+                            </a>
+                        </li>
+                        <li id="EE3B9F0695A51DD578DDD9FF93401B88B4268464" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser26TemplateParameterDepthRAIIE.html">
+                                <pre><code class="language-cpp code-clang-doc">class TemplateParameterDepthRAII</code></pre>
+                            </a>
+                        </li>
+                        <li id="CDFA141E0A8F4BDCB47DA8F2D43C993042C00524" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser22TentativeParsingActionE.html">
+                                <pre><code class="language-cpp code-clang-doc">class TentativeParsingAction</code></pre>
+                            </a>
+                        </li>
+                        <li id="5AB293EBB604208BC25D106E3A1A2E99157FA52A" style="max-height: 40px;">
+                            <a href="Parser/_ZTVN5clang6Parser15UsingDeclaratorE.html">
+                                <pre><code class="language-cpp code-clang-doc">class UsingDeclarator</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="EC83122F5D59ACD361BEA035E0D02628C664B350" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef DeclGroupPtrTy OpaquePtr</code></pre>
+                        <div>
+                            <p> Type forwarding.  All of these are statically &#39;void*&#39;, but they may all be</p>
+                            <p> different actual classes based on the actions in place.</p>
+                        </div>
+                        <p>Defined at line 219 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L219">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="E89507B3AAC40855CA9F361D6A1A73DEFA6E2B7F" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef TemplateTy OpaquePtr</code></pre>
+                        <p>Defined at line 220 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L220">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="0C40C67949B3905F0A50113196520225FF68D1A0" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef LateParsedDeclarationsContainer SmallVector</code></pre>
+                        <div>
+                            <p> LateParsedDeclarationsContainer - During parsing of a top (non-nested)</p>
+                            <p> C++ class, its method declarations that contain parts that won&#39;t be</p>
+                            <p> parsed until after the definition is completed (C++ [class.mem]p2),</p>
+                            <p> the method declarations and possibly attached inline definitions</p>
+                            <p> will be stored here with the tokens that will be parsed to create those</p>
+                            <p> entities.</p>
+                        </div>
+                        <p>Defined at line 1297 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L1297">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="D0436D8F6F44F450460827D02A6073973A26F52B" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef DirectDeclParseFunction void (Parser::*)(Declarator &amp;)</code></pre>
+                        <div>
+                            <p> A function that parses a variant of direct-declarator.</p>
+                        </div>
+                        <p>Defined at line 2552 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L2552">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="43A0E7F292E3C8AD55D0A36A32F41022A849FE7C" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using InnerNamespaceInfoList = llvm::SmallVector&lt;InnerNamespaceInfo, 4&gt;</code></pre>
+                        <p>Defined at line 3179 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L3179">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="9E166385341ECD3324511DB8FA201520B4EA8A2D" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef FullExprArg FullExprArg</code></pre>
+                        <p>Defined at line 3627 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L3627">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="E5B2A3268E5772E817EC2990459533973727DA61" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef ExprVector SmallVector&lt;Expr *, 12&gt;</code></pre>
+                        <div>
+                            <p> A SmallVector of expressions.</p>
+                        </div>
+                        <p>Defined at line 5300 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L5300">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="35235D73C77933CF96E7B6C7D96B001A48F504BE" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using OpenACCClauseParseResult = llvm::PointerIntPair&lt;OpenACCClause *, 1, OpenACCParseCanContinue&gt;</code></pre>
+                        <div>
+                            <p> A type to represent the state of parsing an OpenACC Clause. Situations</p>
+                            <p> that result in an OpenACCClause pointer are a success and can continue</p>
+                            <p> parsing, however some other situations can also continue.</p>
+                            <p> FIXME: This is better represented as a std::expected when we get C++23.</p>
+                        </div>
+                        <p>Defined at line 6118 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L6118">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="A2800F413903634BFB5BAC98A940574D9EA298DF" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using OpenACCVarParseResult = std::pair&lt;ExprResult, OpenACCParseCanContinue&gt;</code></pre>
+                        <p>Defined at line 6143 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L6143">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="D6C4DC236D80E38CDC4E1566C6FD4DA9C3910329" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using OpenACCIntExprParseResult = std::pair&lt;ExprResult, OpenACCParseCanContinue&gt;</code></pre>
+                        <div>
+                            <p> A type to represent the state of parsing after an attempt to parse an</p>
+                            <p> OpenACC int-expr. This is useful to determine whether an int-expr list can</p>
+                            <p> continue parsing after a failed int-expr.</p>
+                        </div>
+                        <p>Defined at line 6207 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L6207">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="A7771A443A8C87932EC98E9237C54D5F3215434C" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using OpenACCGangArgRes = std::pair&lt;OpenACCGangKind, ExprResult&gt;</code></pre>
+                        <p>Defined at line 6276 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L6276">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="9FE907A19224C1143E8ECF4D323A3141B6FC8D73" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef StmtVector SmallVector&lt;Stmt *, 24&gt;</code></pre>
+                        <div>
+                            <p> A SmallVector of statements.</p>
+                        </div>
+                        <p>Defined at line 7179 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L7179">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="EBF278947306F80D525F9F6D715F6023E810E6FE" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef TemplateParameterLists SmallVector</code></pre>
+                        <div>
+                            <p> Implementations are in ParseTemplate.cpp</p>
+                            <p>@</p>
+                            <p>{</p>
+                        </div>
+                        <p>Defined at line 7771 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L7771">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                    <div id="970B3AF7BEF148F3348BD3678EAC064E75312AD8" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef TemplateArgList SmallVector&lt;ParsedTemplateArgument, 16&gt;</code></pre>
+                        <div>
+                            <p> C++ 14.3: Template arguments [temp.arg]</p>
+                        </div>
+                        <p>Defined at line 8182 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Parse/Parser.h#L8182">clang/include/clang/Parse/Parser.h</a></p>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="CC11B4D245A9CCDE0FB62566E7A7616778B225A6" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ParsingOpenMPDirectiveRAII</code></pre>
+                        <div>
+                            <p> Activates OpenMP parsing mode to preseve OpenMP specific annotation</p>
+                            <p> tokens.</p>
+                        </div>
+                    </div>
+                    <div id="302E23C56FC1F1973A31CC1A7AC9EB4F10A0FB17" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ParsingOpenACCDirectiveRAII</code></pre>
+                        <div>
+                            <p> Activates OpenACC parsing mode to preseve OpenACC specific annotation</p>
+                            <p> tokens.</p>
+                        </div>
+                    </div>
+                    <div id="E04C2A38A537AAEF3B27F7CA78C17F2887E12AE6" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ObjCDeclContextSwitch</code></pre>
+                        <div>
+                            <p> Parser - This implements a parser for the C family of languages.  After</p>
+                            <p> parsing units of the grammar, productions are invoked to handle whatever has</p>
+                            <p> been read.</p>
+                        </div>
+                    </div>
+                    <div id="B18A704362FEBF926CD681A5CE03242D780C1FBB" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class InMessageExpressionRAIIObject</code></pre>
+                        <div>
+                            <p> Parser - This implements a parser for the C family of languages.  After</p>
+                            <p> parsing units of the grammar, productions are invoked to handle whatever has</p>
+                            <p> been read.</p>
+                        </div>
+                    </div>
+                    <div id="3C6ADD7E7DDACE80DBC7AD605B961275D8C01A56" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class OffsetOfStateRAIIObject</code></pre>
+                        <div>
+                            <p> Parser - This implements a parser for the C family of languages.  After</p>
+                            <p> parsing units of the grammar, productions are invoked to handle whatever has</p>
+                            <p> been read.</p>
+                        </div>
+                    </div>
+                    <div id="AE1E12C6D264852D5B120A186F104A7F93B80C06" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">SkipUntilFlags Parser (SkipUntilFlags L, SkipUntilFlags R)</code></pre>
+                        <div>
+                            <p> Parser - This implements a parser for the C family of languages.  After</p>
+                            <p> parsing units of the grammar, productions are invoked to handle whatever has</p>
+                            <p> been read.</p>
+                        </div>
+                    </div>
+                    <div id="3B122BAAF02D2C836768B0553AA16EF84AAADD2C" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class BalancedDelimiterTracker</code></pre>
+                        <div>
+                            <p> RAII class that helps handle the parsing of an open/close delimiter</p>
+                            <p> pair, such as braces { ... } or parentheses ( ... ).</p>
+                        </div>
+                    </div>
+                    <div id="8A2C90819BB0EA4C5DB3BBF33E24EAE7C866F08F" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ParenBraceBracketBalancer</code></pre>
+                        <div>
+                            <p> RAII object that makes sure paren/bracket/brace count is correct</p>
+                            <p> after declaration/statement parsing, even when there&#39;s a parsing error.</p>
+                        </div>
+                    </div>
+                    <div id="A24A7DC38D2213558BA5F236BC35094A55A810D0" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class PoisonSEHIdentifiersRAIIObject</code></pre>
+                        <div>
+                            <p> Parser - This implements a parser for the C family of languages.  After</p>
+                            <p> parsing units of the grammar, productions are invoked to handle whatever has</p>
+                            <p> been read.</p>
+                        </div>
+                    </div>
+                    <div id="26D1E37CD80B833EF2F4F06B3F8D67196A43A08A" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ColonProtectionRAIIObject</code></pre>
+                        <div>
+                            <p> ColonProtectionRAIIObject - This sets the Parser::ColonIsSacred bool and</p>
+                            <p> restores it when destroyed.  This says that &quot;foo:&quot; should not be</p>
+                            <p> considered a possible typo for &quot;foo::&quot; for error recovery purposes.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

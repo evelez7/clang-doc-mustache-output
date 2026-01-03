@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ConstructionContextLayer</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ConstructionContextLayer</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#00BE50FC5EA2F5717FAA3DBDE0C870C837D44E92">create</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#46CEB6828550D827508EDBFF19E13E9FFC01F361">isStrictlyMoreSpecificThan</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6408E15838DFADE3ED8B00AD8A44429941CC0F03">getItem</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E88C109977DEA707DCB0F12891115B64AE519174">getParent</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#56030362308683035DB3B591BD1C2EB0E74E1DF7">isLast</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ConstructionContextLayer</h1>
+                        <p>Defined at line 213 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/ConstructionContext.h#L213">clang/include/clang/Analysis/ConstructionContext.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Construction context can be seen as a linked list of multiple layers.</p>
+                                <p> Sometimes a single trigger is not enough to describe the construction</p>
+                                <p> site. That&#39;s what causing us to have a chain of &quot;partial&quot; construction</p>
+                                <p> context layers. Some examples:</p>
+                                <p> - A constructor within in an aggregate initializer list within a variable</p>
+                                <p>   would have a construction context of the initializer list with</p>
+                                <p>   the parent construction context of a variable.</p>
+                                <p> - A constructor for a temporary that needs to be both destroyed</p>
+                                <p>   and materialized into an elidable copy constructor would have a</p>
+                                <p>   construction context of a CXXBindTemporaryExpr with the parent</p>
+                                <p>   construction context of a MaterializeTemproraryExpr.</p>
+                                <p> Not all of these are currently supported.</p>
+                                <p> Layers are created gradually while traversing the AST, and layers that</p>
+                                <p> represent the outmost AST nodes are built first, while the node that</p>
+                                <p> immediately contains the constructor would be built last and capture the</p>
+                                <p> previous layers as its parents. Construction context captures the last layer</p>
+                                <p> (which has links to the previous layers) and classifies the seemingly</p>
+                                <p> arbitrary chain of layers into one of the possible ways of constructing</p>
+                                <p> an object in C++ for user-friendly experience.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="00BE50FC5EA2F5717FAA3DBDE0C870C837D44E92">
+                                <pre><code class="language-cpp code-clang-doc">const ConstructionContextLayer * create (BumpVectorContext &amp; C, const ConstructionContextItem &amp; Item, const ConstructionContextLayer * Parent)</code></pre>
+                                <p>Defined at line 21 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/ConstructionContext.cpp#L21">clang/lib/Analysis/ConstructionContext.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="46CEB6828550D827508EDBFF19E13E9FFC01F361">
+                                <pre><code class="language-cpp code-clang-doc">bool isStrictlyMoreSpecificThan (const ConstructionContextLayer * Other)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> See if Other is a proper initial segment of this construction context</p>
+                                        <p> in terms of the parent chain - i.e. a few first parents coincide and</p>
+                                        <p> then the other context terminates but our context goes further - i.e.,</p>
+                                        <p> we are providing the same context that the other context provides,</p>
+                                        <p> and a bit more above that.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 30 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/ConstructionContext.cpp#L30">clang/lib/Analysis/ConstructionContext.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6408E15838DFADE3ED8B00AD8A44429941CC0F03">
+                                <pre><code class="language-cpp code-clang-doc">const ConstructionContextItem &amp; getItem ()</code></pre>
+                                <p>Defined at line 226 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/ConstructionContext.h#L226">clang/include/clang/Analysis/ConstructionContext.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E88C109977DEA707DCB0F12891115B64AE519174">
+                                <pre><code class="language-cpp code-clang-doc">const ConstructionContextLayer * getParent ()</code></pre>
+                                <p>Defined at line 227 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/ConstructionContext.h#L227">clang/include/clang/Analysis/ConstructionContext.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="56030362308683035DB3B591BD1C2EB0E74E1DF7">
+                                <pre><code class="language-cpp code-clang-doc">bool isLast ()</code></pre>
+                                <p>Defined at line 228 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/ConstructionContext.h#L228">clang/include/clang/Analysis/ConstructionContext.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

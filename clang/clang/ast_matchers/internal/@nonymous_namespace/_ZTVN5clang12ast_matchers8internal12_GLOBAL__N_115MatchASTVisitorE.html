@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MatchASTVisitor</title>
+        <link rel="stylesheet" type="text/css" href="../../../../clang-doc-mustache.css"/>
+        <script src="../../../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MatchASTVisitor</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DCEEB28921D2EA562FF439077E6F8D0373D510BC">MatchASTVisitor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A1B16EC14114FA0C7DA9DA4A71EA0A756AA4819C">~MatchASTVisitor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#81BE8ED495DBDB1E0FA762DC84B445A903D87798">onStartOfTranslationUnit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#62597871E29DB1336F0446ADF99155EA116523CF">onEndOfTranslationUnit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1A30054E18D1789F07791BFEED63C32A0B1E2CA5">set_active_ast_context</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C9005FD65086BD9B62A73335959A13146430ADE0">VisitTypedefNameDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DDBC6534A36DD53B1583954898A2DD87F79683AA">VisitObjCCompatibleAliasDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2D379703E9041D801E098F360D20847791397480">dataTraverseNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E7F9A73486333F4A683C28963AEEAE0EFFD9FCCA">memoizedMatchesRecursively</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6CDBBC0B7C17A3E12984CBF5C79ECC78A1C3DB2B">matchesRecursively</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#755CECBC9163FD10EE2E652988D02B2D1C392F17">matchesChildOf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B883F105D289A15D3C1BDE26D456C3DE010CE5DA">matchesDescendantOf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E36DBF795904DA84B4E4EA33278D8154708D3B47">matchesAncestorOf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC9EEA55213BEAACC71F12B5F74DAAEF28E57979">match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07F36908E4F2FA94FF05059F36BA8900ED2611EA">match</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5BEBE7F7569B8A2F9327F6B952BCBB352772B355">getASTContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#208D51FAFDDF61180E505A9110B9CEAA7B0BE720">shouldVisitTemplateInstantiations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#39A5612577CAF462B2DBA90BDBA46F3FDD10DC81">shouldVisitImplicitCode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2EEA44574874F6A7DE4DD055F08F9691A4FB2B95">shouldVisitLambdaBody</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A81DE86D5961BAA9C5E9F16F510F0D6E16D6CFA2">IsMatchingInASTNodeNotSpelledInSource</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E77AEF188A72FA8CF1CB462A02AB21DDAF8F0B53">isMatchingChildrenNotSpelledInSource</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DE916D3E1D0D98CCE503DC8FBB552FAB34C654D5">setMatchingChildrenNotSpelledInSource</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD14F8D66BEC76D42A3B8C000A22815CB246EAC9">IsMatchingInASTNodeNotAsIs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2805E98F71BB8295B1895BB71D86E92395738908">TraverseTemplateInstantiations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F140F10E6E2A848FD3D733DF98A79DE5B3C6D08D">TraverseTemplateInstantiations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#983BFC2187FF58923FECDAC2F0565F22D151A43E">TraverseTemplateInstantiations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CEFD07F61A411E5848C4322BFCA2916CF36FA1F3">TraverseDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5D52F46068ED78F1775C6704B236955FD771B113">TraverseStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#657E93B668544F93F70E332A83C9DE6E721980A3">TraverseType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#211AB23CCEBB662F13E2B57F9ECEC1ADC23DFFA5">TraverseTypeLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#59CBE8B15EA41BE5B04389D89E535652A289A8B4">TraverseNestedNameSpecifier</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#09CADE571B6484DB52F7A79F424AE03CA40F0D75">TraverseNestedNameSpecifierLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72CB0251BE4FABF41752E89C02E975EA4907CA75">TraverseConstructorInitializer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BFEFD4627F4C30F0D32A2E41350539DECE267288">TraverseTemplateArgumentLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DB14C106436F1CDA34DEDA10CF45338E75DDB8EC">TraverseAttr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#93DCA2113C17D14B6BA2102B4287466745D067FD">classIsDerivedFrom</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C02F727D07D47F5763745CA88F7D3509581EA038">objcClassIsDerivedFrom</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3BF274C011362508588C52BD29EDBAE137800751">MemoizationMap</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A757A917DD10189EE6B9A8B4DBD0B1B953CA886">ASTNodeNotAsIsSourceScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4DF0E7639E0445C7CF9937867A43202279EEF00E">ASTNodeNotSpelledInSourceScope</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CE856E47B71FC9ED849E83A5A15727228CFD46EB">CurMatchData</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0CD981C227A1B6E5AA2AB4E9A7510E1556F7A191">CurMatchRAII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#02FD77F983CDEBEE8BC995D6C33C021196E79761">MatchVisitor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#21FE9D651E12F68A276CAFA1B60358642D88DC9D">TimeBucketRegion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0F5246B1AA3E292DBD384A9DBEAE93DC264B1F3C">TraceReporter</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MatchASTVisitor</h1>
+                        <p>Defined at line 420 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L420">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Controls the outermost traversal of the AST and allows to match multiple</p>
+                                <p> matchers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="DCEEB28921D2EA562FF439077E6F8D0373D510BC">
+                                <pre><code class="language-cpp code-clang-doc">void MatchASTVisitor (const MatchFinder::MatchersByType * Matchers, const MatchFinder::MatchFinderOptions &amp; Options)</code></pre>
+                                <p>Defined at line 423 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L423">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A1B16EC14114FA0C7DA9DA4A71EA0A756AA4819C">
+                                <pre><code class="language-cpp code-clang-doc">void ~MatchASTVisitor ()</code></pre>
+                                <p>Defined at line 427 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L427">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="81BE8ED495DBDB1E0FA762DC84B445A903D87798">
+                                <pre><code class="language-cpp code-clang-doc">void onStartOfTranslationUnit ()</code></pre>
+                                <p>Defined at line 433 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L433">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="62597871E29DB1336F0446ADF99155EA116523CF">
+                                <pre><code class="language-cpp code-clang-doc">void onEndOfTranslationUnit ()</code></pre>
+                                <p>Defined at line 443 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L443">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1A30054E18D1789F07791BFEED63C32A0B1E2CA5">
+                                <pre><code class="language-cpp code-clang-doc">void set_active_ast_context (ASTContext * NewActiveASTContext)</code></pre>
+                                <p>Defined at line 453 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L453">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C9005FD65086BD9B62A73335959A13146430ADE0">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitTypedefNameDecl (TypedefNameDecl * DeclNode)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The following Visit*() and Traverse*() functions &quot;override&quot;</p>
+                                        <p> methods in RecursiveASTVisitor.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 460 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L460">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DDBC6534A36DD53B1583954898A2DD87F79683AA">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitObjCCompatibleAliasDecl (ObjCCompatibleAliasDecl * CAD)</code></pre>
+                                <p>Defined at line 495 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L495">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2D379703E9041D801E098F360D20847791397480">
+                                <pre><code class="language-cpp code-clang-doc">bool dataTraverseNode (Stmt * S, DataRecursionQueue * Queue)</code></pre>
+                                <p>Defined at line 511 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L511">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E7F9A73486333F4A683C28963AEEAE0EFFD9FCCA">
+                                <pre><code class="language-cpp code-clang-doc">bool memoizedMatchesRecursively (const DynTypedNode &amp; Node, ASTContext &amp; Ctx, const DynTypedMatcher &amp; Matcher, BoundNodesTreeBuilder * Builder, int MaxDepth, BindKind Bind)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Matches children or descendants of &#39;Node&#39; with &#39;BaseMatcher&#39;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 597 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L597">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6CDBBC0B7C17A3E12984CBF5C79ECC78A1C3DB2B">
+                                <pre><code class="language-cpp code-clang-doc">bool matchesRecursively (const DynTypedNode &amp; Node, const DynTypedMatcher &amp; Matcher, BoundNodesTreeBuilder * Builder, int MaxDepth, BindKind Bind)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Matches children or descendants of &#39;Node&#39; with &#39;BaseMatcher&#39;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 632 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L632">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="755CECBC9163FD10EE2E652988D02B2D1C392F17">
+                                <pre><code class="language-cpp code-clang-doc">bool matchesChildOf (const DynTypedNode &amp; Node, ASTContext &amp; Ctx, const DynTypedMatcher &amp; Matcher, BoundNodesTreeBuilder * Builder, BindKind Bind)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Implements ASTMatchFinder::matchesChildOf.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 672 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L672">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B883F105D289A15D3C1BDE26D456C3DE010CE5DA">
+                                <pre><code class="language-cpp code-clang-doc">bool matchesDescendantOf (const DynTypedNode &amp; Node, ASTContext &amp; Ctx, const DynTypedMatcher &amp; Matcher, BoundNodesTreeBuilder * Builder, BindKind Bind)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Implements ASTMatchFinder::matchesDescendantOf.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 680 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L680">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E36DBF795904DA84B4E4EA33278D8154708D3B47">
+                                <pre><code class="language-cpp code-clang-doc">bool matchesAncestorOf (const DynTypedNode &amp; Node, ASTContext &amp; Ctx, const DynTypedMatcher &amp; Matcher, BoundNodesTreeBuilder * Builder, AncestorMatchMode MatchMode)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Implements ASTMatchFinder::matchesAncestorOf.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 690 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L690">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC9EEA55213BEAACC71F12B5F74DAAEF28E57979">
+                                <pre><code class="language-cpp code-clang-doc">void match (const DynTypedNode &amp; Node)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Matches all registered matchers on the given node and calls the</p>
+                                        <p> result callback for every node that matches.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 705 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L705">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07F36908E4F2FA94FF05059F36BA8900ED2611EA">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void match (const T &amp; Node)</code></pre>
+                                <p>Defined at line 730 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L730">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5BEBE7F7569B8A2F9327F6B952BCBB352772B355">
+                                <pre><code class="language-cpp code-clang-doc">ASTContext &amp; getASTContext ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Implements ASTMatchFinder::getASTContext.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 735 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L735">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="208D51FAFDDF61180E505A9110B9CEAA7B0BE720">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldVisitTemplateInstantiations ()</code></pre>
+                                <p>Defined at line 737 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L737">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="39A5612577CAF462B2DBA90BDBA46F3FDD10DC81">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldVisitImplicitCode ()</code></pre>
+                                <p>Defined at line 738 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L738">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2EEA44574874F6A7DE4DD055F08F9691A4FB2B95">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldVisitLambdaBody ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> We visit the lambda body explicitly, so instruct the RAV</p>
+                                        <p> to not visit it on our behalf too.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 742 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L742">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A81DE86D5961BAA9C5E9F16F510F0D6E16D6CFA2">
+                                <pre><code class="language-cpp code-clang-doc">bool IsMatchingInASTNodeNotSpelledInSource ()</code></pre>
+                                <p>Defined at line 744 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L744">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E77AEF188A72FA8CF1CB462A02AB21DDAF8F0B53">
+                                <pre><code class="language-cpp code-clang-doc">bool isMatchingChildrenNotSpelledInSource ()</code></pre>
+                                <p>Defined at line 747 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L747">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DE916D3E1D0D98CCE503DC8FBB552FAB34C654D5">
+                                <pre><code class="language-cpp code-clang-doc">void setMatchingChildrenNotSpelledInSource (bool Set)</code></pre>
+                                <p>Defined at line 750 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L750">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD14F8D66BEC76D42A3B8C000A22815CB246EAC9">
+                                <pre><code class="language-cpp code-clang-doc">bool IsMatchingInASTNodeNotAsIs ()</code></pre>
+                                <p>Defined at line 754 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L754">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2805E98F71BB8295B1895BB71D86E92395738908">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseTemplateInstantiations (ClassTemplateDecl * D)</code></pre>
+                                <p>Defined at line 758 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L758">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F140F10E6E2A848FD3D733DF98A79DE5B3C6D08D">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseTemplateInstantiations (VarTemplateDecl * D)</code></pre>
+                                <p>Defined at line 764 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L764">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="983BFC2187FF58923FECDAC2F0565F22D151A43E">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseTemplateInstantiations (FunctionTemplateDecl * D)</code></pre>
+                                <p>Defined at line 770 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L770">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CEFD07F61A411E5848C4322BFCA2916CF36FA1F3">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseDecl (Decl * DeclNode)</code></pre>
+                                <p>Defined at line 1510 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L1510">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5D52F46068ED78F1775C6704B236955FD771B113">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseStmt (Stmt * StmtNode, DataRecursionQueue * Queue)</code></pre>
+                                <p>Defined at line 1539 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L1539">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="657E93B668544F93F70E332A83C9DE6E721980A3">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseType (QualType TypeNode, bool TraverseQualifier)</code></pre>
+                                <p>Defined at line 1551 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L1551">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="211AB23CCEBB662F13E2B57F9ECEC1ADC23DFFA5">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseTypeLoc (TypeLoc TypeNode, bool TraverseQualifier)</code></pre>
+                                <p>Defined at line 1560 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L1560">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="59CBE8B15EA41BE5B04389D89E535652A289A8B4">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseNestedNameSpecifier (NestedNameSpecifier NNS)</code></pre>
+                                <p>Defined at line 1575 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L1575">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="09CADE571B6484DB52F7A79F424AE03CA40F0D75">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseNestedNameSpecifierLoc (NestedNameSpecifierLoc NNS)</code></pre>
+                                <p>Defined at line 1583 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L1583">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72CB0251BE4FABF41752E89C02E975EA4907CA75">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseConstructorInitializer (CXXCtorInitializer * CtorInit)</code></pre>
+                                <p>Defined at line 1601 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L1601">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BFEFD4627F4C30F0D32A2E41350539DECE267288">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseTemplateArgumentLoc (TemplateArgumentLoc TAL)</code></pre>
+                                <p>Defined at line 1620 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L1620">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DB14C106436F1CDA34DEDA10CF45338E75DDB8EC">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseAttr (Attr * AttrNode)</code></pre>
+                                <p>Defined at line 1628 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L1628">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="93DCA2113C17D14B6BA2102B4287466745D067FD">
+                                <pre><code class="language-cpp code-clang-doc">bool classIsDerivedFrom (const CXXRecordDecl * Declaration, const Matcher&lt;NamedDecl&gt; &amp; Base, BoundNodesTreeBuilder * Builder, bool Directly)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the given C++ class is directly or indirectly derived</p>
+                                        <p> from a base type with the given name.  A class is not considered to be</p>
+                                        <p> derived from itself.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1437 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L1437">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C02F727D07D47F5763745CA88F7D3509581EA038">
+                                <pre><code class="language-cpp code-clang-doc">bool objcClassIsDerivedFrom (const ObjCInterfaceDecl * Declaration, const Matcher&lt;NamedDecl&gt; &amp; Base, BoundNodesTreeBuilder * Builder, bool Directly)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the given Objective-C class is directly or indirectly</p>
+                                        <p> derived from a matching base class. A class is not considered to be derived</p>
+                                        <p> from itself.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1484 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L1484">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="2A757A917DD10189EE6B9A8B4DBD0B1B953CA886" style="max-height: 40px;">
+                            <a href="MatchASTVisitor/_ZTVN5clang12ast_matchers8internal12_GLOBAL__N_115MatchASTVisitor25ASTNodeNotAsIsSourceScopeE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ASTNodeNotAsIsSourceScope</code></pre>
+                            </a>
+                        </li>
+                        <li id="4DF0E7639E0445C7CF9937867A43202279EEF00E" style="max-height: 40px;">
+                            <a href="MatchASTVisitor/_ZTVN5clang12ast_matchers8internal12_GLOBAL__N_115MatchASTVisitor30ASTNodeNotSpelledInSourceScopeE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ASTNodeNotSpelledInSourceScope</code></pre>
+                            </a>
+                        </li>
+                        <li id="CE856E47B71FC9ED849E83A5A15727228CFD46EB" style="max-height: 40px;">
+                            <a href="MatchASTVisitor/_ZTVN5clang12ast_matchers8internal12_GLOBAL__N_115MatchASTVisitor12CurMatchDataE.html">
+                                <pre><code class="language-cpp code-clang-doc">class CurMatchData</code></pre>
+                            </a>
+                        </li>
+                        <li id="0CD981C227A1B6E5AA2AB4E9A7510E1556F7A191" style="max-height: 40px;">
+                            <a href="MatchASTVisitor/_ZTVN5clang12ast_matchers8internal12_GLOBAL__N_115MatchASTVisitor12CurMatchRAIIE.html">
+                                <pre><code class="language-cpp code-clang-doc">class CurMatchRAII</code></pre>
+                            </a>
+                        </li>
+                        <li id="02FD77F983CDEBEE8BC995D6C33C021196E79761" style="max-height: 40px;">
+                            <a href="MatchASTVisitor/_ZTVN5clang12ast_matchers8internal12_GLOBAL__N_115MatchASTVisitor12MatchVisitorE.html">
+                                <pre><code class="language-cpp code-clang-doc">class MatchVisitor</code></pre>
+                            </a>
+                        </li>
+                        <li id="21FE9D651E12F68A276CAFA1B60358642D88DC9D" style="max-height: 40px;">
+                            <a href="MatchASTVisitor/_ZTVN5clang12ast_matchers8internal12_GLOBAL__N_115MatchASTVisitor16TimeBucketRegionE.html">
+                                <pre><code class="language-cpp code-clang-doc">class TimeBucketRegion</code></pre>
+                            </a>
+                        </li>
+                        <li id="0F5246B1AA3E292DBD384A9DBEAE93DC264B1F3C" style="max-height: 40px;">
+                            <a href="MatchASTVisitor/_ZTVN5clang12ast_matchers8internal12_GLOBAL__N_115MatchASTVisitor13TraceReporterE.html">
+                                <pre><code class="language-cpp code-clang-doc">class TraceReporter</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="3BF274C011362508588C52BD29EDBAE137800751" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef MemoizationMap map</code></pre>
+                        <div>
+                            <p> Maps (matcher, node) -&gt; the match result for memoization.</p>
+                        </div>
+                        <p>Defined at line 1409 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchFinder.cpp#L1409">clang/lib/ASTMatchers/ASTMatchFinder.cpp</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

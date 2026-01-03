@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ConceptInfo</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ConceptInfo</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F66558A0E7BC3B35EE5AF4A165BD106FAB63252B">ConceptInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F9F1D165E5AF3092176006FBE64F60B3781EDEC8">members</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5EA1B61153ACB28D4A6D5187F52556A60D6C6443">Member</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#73569D29204F408A538A47A325AF40A21EAAE598">ValidVisitor</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ConceptInfo</h1>
+                        <p>Defined at line 5479 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaCodeComplete.cpp#L5479">clang/lib/Sema/SemaCodeComplete.cpp</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Collects completion-relevant information about a concept-constrainted type T.</p>
+                                <p> In particular, examines the constraint expressions to find members of T.</p>
+                            </div>
+                            <div>
+                                <p> The design is very simple: we walk down each constraint looking for</p>
+                                <p> expressions of the form T.foo().</p>
+                                <p> If we&#39;re extra lucky, the return type is specified.</p>
+                                <p> We don&#39;t do any clever handling of </p>
+                                <p>&amp;</p>
+                                <p>&amp;</p>
+                                <p> or || in constraint expressions, we</p>
+                                <p> take members from both branches.</p>
+                            </div>
+                            <div>
+                                <p> For example, given:</p>
+                                <p>   template </p>
+                                <p>&lt;class</p>
+                                <p> T&gt; concept X = requires (T t, string</p>
+                                <p>&amp;</p>
+                                <p> s) { t.print(s); };</p>
+                                <p>   template </p>
+                                <p>&lt;X</p>
+                                <p> U&gt; void foo(U u) { u.^ }</p>
+                                <p> We want to suggest the inferred member function &#39;print(string)&#39;.</p>
+                                <p> We see that u has type U, so X</p>
+                                <p>&lt;U</p>
+                                <p>&gt; holds.</p>
+                                <p> X</p>
+                                <p>&lt;U</p>
+                                <p>&gt; requires t.print(s) to be valid, where t has type U (substituted for T).</p>
+                                <p> By looking at the CallExpr we find the signature of print().</p>
+                            </div>
+                            <div>
+                                <p> While we tend to know in advance which kind of members (access via . -&gt; ::)</p>
+                                <p> we want, it&#39;s simpler just to gather them all and post-filter.</p>
+                            </div>
+                            <div>
+                                <p> FIXME: some of this machinery could be used for non-concept type-parms too,</p>
+                                <p> enabling completion for type parameters based on other uses of that param.</p>
+                            </div>
+                            <div>
+                                <p> FIXME: there are other cases where a type can be constrained by a concept,</p>
+                                <p> e.g. inside `if constexpr(ConceptSpecializationExpr) { ... }`</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="F66558A0E7BC3B35EE5AF4A165BD106FAB63252B">
+                                <pre><code class="language-cpp code-clang-doc">void ConceptInfo (const TemplateTypeParmType &amp; BaseType, Scope * S)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> BaseType is the type parameter T to infer members from.</p>
+                                        <p> T must be accessible within S, as we use it to find the template entity</p>
+                                        <p> that T is attached to in order to gather the relevant constraints.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 5545 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaCodeComplete.cpp#L5545">clang/lib/Sema/SemaCodeComplete.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F9F1D165E5AF3092176006FBE64F60B3781EDEC8">
+                                <pre><code class="language-cpp code-clang-doc">vector members ()</code></pre>
+                                <p>Defined at line 5552 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaCodeComplete.cpp#L5552">clang/lib/Sema/SemaCodeComplete.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="5EA1B61153ACB28D4A6D5187F52556A60D6C6443" style="max-height: 40px;">
+                            <a href="ConceptInfo/_ZTVN12_GLOBAL__N_111ConceptInfo6MemberE.html">
+                                <pre><code class="language-cpp code-clang-doc">class Member</code></pre>
+                            </a>
+                        </li>
+                        <li id="73569D29204F408A538A47A325AF40A21EAAE598" style="max-height: 40px;">
+                            <a href="ConceptInfo/_ZTVN12_GLOBAL__N_111ConceptInfo12ValidVisitorE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ValidVisitor</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

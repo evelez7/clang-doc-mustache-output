@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ASTImporterLookupTable</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ASTImporterLookupTable</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AF2FE5F8A0E28CB0D20AF3D9D2E2E4D48A376529">ASTImporterLookupTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C96B3BA69FB5F5EE12BB11DEDCAC3B80CFDBE1D1">add</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BCD4E9D9205787430C72F3018435B0C9D4862747">remove</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C9F349B8B6322D4F4D01FA37C8F729BC343700EA">update</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAAB09C1EA62C6A0E48AA322D6EE740191EDAA38">updateForced</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6599B3A99F39B996DBB164002930F2CA15BE8229">lookup</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8341D0EE50E60CB5325E4F1C77915A6F55A80E3B">contains</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#49740542F606377B3F99C2D7C4AE8D1B7F68B177">dump</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#813F1F58DF6D5B8B8E5A7A3D7C9033D77D5FD752">dump</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D780DEDB8851350D75EDB0C06AFE708BC292D04E">DeclList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9421D90043095C2F3CCCB2565C3D8B11320CC5B1">NameMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6284CFDAF643C01BC8BE41E1BB7A791A7EBB1FE7">DCMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#84F9FC0A8CF36EB446A70D4FB4DD21C7BD2D644E">LookupResult</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ASTImporterLookupTable</h1>
+                        <p>Defined at line 46 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/ASTImporterLookupTable.h#L46">clang/include/clang/AST/ASTImporterLookupTable.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> There are certain cases when normal C/C++ lookup (localUncachedLookup)</p>
+                                <p> does not find AST nodes. E.g.:</p>
+                                <p> Example 1:</p>
+                                <p>   template </p>
+                                <p>&lt;class</p>
+                                <p> T&gt;</p>
+                                <p>   struct X {</p>
+                                <p>     friend void foo(); // this is never found in the DC of the TU.</p>
+                                <p>   };</p>
+                                <p> Example 2:</p>
+                                <p>   // The fwd decl to Foo is not found in the lookupPtr of the DC of the</p>
+                                <p>   // translation unit decl.</p>
+                                <p>   // Here we could find the node by doing a traverse through the list of</p>
+                                <p>   // the Decls in the DC, but that would not scale.</p>
+                                <p>   struct A { struct Foo *p; };</p>
+                                <p> This is a severe problem because the importer decides if it has to create a</p>
+                                <p> new Decl or not based on the lookup results.</p>
+                                <p> To overcome these cases we need an importer specific lookup table which</p>
+                                <p> holds every node and we are not interested in any C/C++ specific visibility</p>
+                                <p> considerations. Simply, we must know if there is an existing Decl in a</p>
+                                <p> given DC. Once we found it then we can handle any visibility related tasks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="AF2FE5F8A0E28CB0D20AF3D9D2E2E4D48A376529">
+                                <pre><code class="language-cpp code-clang-doc">void ASTImporterLookupTable (TranslationUnitDecl &amp; TU)</code></pre>
+                                <p>Defined at line 87 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ASTImporterLookupTable.cpp#L87">clang/lib/AST/ASTImporterLookupTable.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C96B3BA69FB5F5EE12BB11DEDCAC3B80CFDBE1D1">
+                                <pre><code class="language-cpp code-clang-doc">void add (NamedDecl * ND)</code></pre>
+                                <p>Defined at line 127 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ASTImporterLookupTable.cpp#L127">clang/lib/AST/ASTImporterLookupTable.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BCD4E9D9205787430C72F3018435B0C9D4862747">
+                                <pre><code class="language-cpp code-clang-doc">void remove (NamedDecl * ND)</code></pre>
+                                <p>Defined at line 136 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ASTImporterLookupTable.cpp#L136">clang/lib/AST/ASTImporterLookupTable.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C9F349B8B6322D4F4D01FA37C8F729BC343700EA">
+                                <pre><code class="language-cpp code-clang-doc">void update (NamedDecl * ND, DeclContext * OldDC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Sometimes a declaration is created first with a temporarily value of decl</p>
+                                        <p> context (often the translation unit) and later moved to the final context.</p>
+                                        <p> This happens for declarations that are created before the final declaration</p>
+                                        <p> context. In such cases the lookup table needs to be updated.</p>
+                                        <p> (The declaration is in these cases not added to the temporary decl context,</p>
+                                        <p> only its parent is set.)</p>
+                                        <p> FIXME: It would be better to not add the declaration to the temporary</p>
+                                        <p> context at all in the lookup table, but this requires big change in</p>
+                                        <p> ASTImporter.</p>
+                                        <p> The function should be called when the old context is definitely different</p>
+                                        <p> from the new.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 145 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ASTImporterLookupTable.cpp#L145">clang/lib/AST/ASTImporterLookupTable.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DAAB09C1EA62C6A0E48AA322D6EE740191EDAA38">
+                                <pre><code class="language-cpp code-clang-doc">void updateForced (NamedDecl * ND, DeclContext * OldDC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Same as &#39;update&#39; but allow if &#39;ND&#39; is not in the table or the old context</p>
+                                        <p> is the same as the new.</p>
+                                        <p> FIXME: The old redeclaration context is not handled.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 158 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ASTImporterLookupTable.cpp#L158">clang/lib/AST/ASTImporterLookupTable.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6599B3A99F39B996DBB164002930F2CA15BE8229">
+                                <pre><code class="language-cpp code-clang-doc">SmallSetVector lookup (DeclContext * DC, DeclarationName Name)</code></pre>
+                                <p>Defined at line 163 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ASTImporterLookupTable.cpp#L163">clang/lib/AST/ASTImporterLookupTable.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8341D0EE50E60CB5325E4F1C77915A6F55A80E3B">
+                                <pre><code class="language-cpp code-clang-doc">bool contains (DeclContext * DC, NamedDecl * ND)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check if the `ND` is within the lookup table (with its current name) in</p>
+                                        <p> context `DC`. This is intended for debug purposes when the DeclContext of a</p>
+                                        <p> NamedDecl is changed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 177 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ASTImporterLookupTable.cpp#L177">clang/lib/AST/ASTImporterLookupTable.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="49740542F606377B3F99C2D7C4AE8D1B7F68B177">
+                                <pre><code class="language-cpp code-clang-doc">void dump (DeclContext * DC)</code></pre>
+                                <p>Defined at line 181 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ASTImporterLookupTable.cpp#L181">clang/lib/AST/ASTImporterLookupTable.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="813F1F58DF6D5B8B8E5A7A3D7C9033D77D5FD752">
+                                <pre><code class="language-cpp code-clang-doc">void dump ()</code></pre>
+                                <p>Defined at line 197 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ASTImporterLookupTable.cpp#L197">clang/lib/AST/ASTImporterLookupTable.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="D780DEDB8851350D75EDB0C06AFE708BC292D04E" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using DeclList = SmallSetVector</code></pre>
+                        <div>
+                            <p> We store a list of declarations for each name.</p>
+                            <p> And we collect these lists for each DeclContext.</p>
+                            <p> We could have a flat map with (DeclContext, Name) tuple as key, but a two</p>
+                            <p> level map seems easier to handle.</p>
+                        </div>
+                        <p>Defined at line 52 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/ASTImporterLookupTable.h#L52">clang/include/clang/AST/ASTImporterLookupTable.h</a></p>
+                    </div>
+                    <div id="9421D90043095C2F3CCCB2565C3D8B11320CC5B1" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using NameMap = SmallDenseMap</code></pre>
+                        <p>Defined at line 53 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/ASTImporterLookupTable.h#L53">clang/include/clang/AST/ASTImporterLookupTable.h</a></p>
+                    </div>
+                    <div id="6284CFDAF643C01BC8BE41E1BB7A791A7EBB1FE7" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using DCMap = DenseMap</code></pre>
+                        <p>Defined at line 54 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/ASTImporterLookupTable.h#L54">clang/include/clang/AST/ASTImporterLookupTable.h</a></p>
+                    </div>
+                    <div id="84F9FC0A8CF36EB446A70D4FB4DD21C7BD2D644E" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using LookupResult = SmallSetVector</code></pre>
+                        <p>Defined at line 81 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/ASTImporterLookupTable.h#L81">clang/include/clang/AST/ASTImporterLookupTable.h</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

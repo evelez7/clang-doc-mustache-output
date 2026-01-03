@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CommonOptionsParser</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class CommonOptionsParser</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#HelpMessage">HelpMessage</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#04B63BF8F36BBA193D9608A1BFFE0EF9BF363E0F">getCompilations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5F2A27A820E87A16961139BE5B8BE2A64D89CE14">getSourcePathList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4A30DE68D0BA1FA808ED4999D9AC7B9CCC5295C0">getArgumentsAdjuster</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#25EDF48E067B3B58BA57BFC769C850615A862F10">create</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class CommonOptionsParser</h1>
+                        <p>Defined at line 70 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Tooling/CommonOptionsParser.h#L70">clang/include/clang/Tooling/CommonOptionsParser.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A parser for options common to all command-line Clang tools.</p>
+                            </div>
+                            <div>
+                                <p> Parses a common subset of command-line arguments, locates and loads a</p>
+                                <p> compilation commands database and runs a tool with user-specified action. It</p>
+                                <p> also contains a help message for the common command-line options.</p>
+                            </div>
+                            <div>
+                                <p> An example of usage:</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                         #include &quot;clang/Frontend/FrontendActions.h&quot;
+                                         #include &quot;clang/Tooling/CommonOptionsParser.h&quot;
+                                         #include &quot;clang/Tooling/Tooling.h&quot;
+                                         #include &quot;llvm/Support/CommandLine.h&quot;
+                                        
+                                         using namespace clang::tooling;
+                                         using namespace llvm;
+                                        
+                                         static cl::OptionCategory MyToolCategory(&quot;my-tool options&quot;);
+                                         static cl::extrahelp CommonHelp(CommonOptionsParser::HelpMessage);
+                                         static cl::extrahelp MoreHelp(&quot;\nMore help text...\n&quot;);
+                                        
+                                         int main(int argc, const char **argv) {
+                                           auto ExpectedParser =
+                                               CommonOptionsParser::create(argc, argv, MyToolCategory);
+                                           if (!ExpectedParser) {
+                                             llvm::errs() &lt;&lt; ExpectedParser.takeError();
+                                             return 1;
+                                           }
+                                           CommonOptionsParser&amp; OptionsParser = ExpectedParser.get();
+                                           ClangTool Tool(OptionsParser.getCompilations(),
+                                                          OptionsParser.getSourcePathList());
+                                           return Tool.run(
+                                               newFrontendActionFactory&lt;clang::SyntaxOnlyAction&gt;().get());
+                                         }
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="HelpMessage" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static const char *const HelpMessage</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="04B63BF8F36BBA193D9608A1BFFE0EF9BF363E0F">
+                                <pre><code class="language-cpp code-clang-doc">CompilationDatabase &amp; getCompilations ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a reference to the loaded compilations database.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 95 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Tooling/CommonOptionsParser.h#L95">clang/include/clang/Tooling/CommonOptionsParser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F2A27A820E87A16961139BE5B8BE2A64D89CE14">
+                                <pre><code class="language-cpp code-clang-doc">const std::vector&lt;std::string&gt; &amp; getSourcePathList ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns a list of source file paths to process.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 100 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Tooling/CommonOptionsParser.h#L100">clang/include/clang/Tooling/CommonOptionsParser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4A30DE68D0BA1FA808ED4999D9AC7B9CCC5295C0">
+                                <pre><code class="language-cpp code-clang-doc">function getArgumentsAdjuster ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the argument adjuster calculated from &quot;--extra-arg&quot; and</p>
+                                        <p>&quot;--extra-arg-before&quot; options.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 106 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Tooling/CommonOptionsParser.h#L106">clang/include/clang/Tooling/CommonOptionsParser.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="25EDF48E067B3B58BA57BFC769C850615A862F10">
+                                <pre><code class="language-cpp code-clang-doc">Expected create (int &amp; argc, const char ** argv, llvm::cl::OptionCategory &amp; Category, NumOccurrencesFlag OccurrencesFlag, const char * Overview)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> A factory method that is similar to the above constructor, except</p>
+                                        <p> this returns an error instead exiting the program on error.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 155 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/CommonOptionsParser.cpp#L155">clang/lib/Tooling/CommonOptionsParser.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

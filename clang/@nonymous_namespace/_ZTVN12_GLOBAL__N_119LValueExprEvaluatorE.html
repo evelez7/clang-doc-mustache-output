@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LValueExprEvaluator</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LValueExprEvaluator</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#25A10262F1612E8EBEB97B5B4125ACC824CE08E6">LValueExprEvaluator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#822B6253BD3B344C8171F1FE0F491B83712B1C47">VisitPredefinedExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#246EBF376F562E29B328E4D8560B18E1FCFC7633">VisitStringLiteral</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FFE9DEC5CF23D7629F317AA04170BC32AC891CA5">VisitObjCEncodeExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#44D627A23911E179D3AEF664395ADD590CEAEF03">VisitUnaryPreInc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E5D9B737D3CEF050018B27AD18F9D3ABD53762DB">VisitUnaryPreDec</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E6095F9DD65854BD54E875B57550061F9266CFD3">VisitCastExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F5DA290DBC835927DC08C6D2BABB0E22EABBAB8C">VisitVarDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#78F9C444D9566CBFCE9D51AC69D999E080E2E7DC">VisitUnaryPreIncDec</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7339EE68F3E397E2A36F0EF1F7146CBFD2D6D223">VisitCallExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2E83BE4CC403FF1812EB4A1EBB0A33A5B4EF2E7">VisitDeclRefExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#48CECA89CFCCD6DB6DEC0FF72CB6B5AA34E86B36">VisitMaterializeTemporaryExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#242D00C325DD83C707E708F348AF73162691B291">VisitCompoundLiteralExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#36C082B717F95461FDCE4D26CFAF709C4147AE6D">VisitMemberExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F078C24C3C154C962A9E1D7F1DB742CDFA3EF2E">VisitCXXTypeidExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CBFE097FB7F89FB8F7058A80DA52E33C2D5A74F2">VisitCXXUuidofExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7A6F00CFE46C33AC9E92241EC3DBE3F6DAF44541">VisitArraySubscriptExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#712F316CB0548B0FB0B210DA97E9D7A957451682">VisitExtVectorElementExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3226247C5BF9F0BA79C546F633273E51DB16692E">VisitUnaryDeref</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ECA6C3A66A342F77063582D543929087E65399BA">VisitUnaryReal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#574F3CAC0643F4094E3453A8A6C14A8458CD4B96">VisitUnaryImag</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E01A9A4BF137F486ED771C4C82142F68F8B0AE6">VisitBinAssign</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2C70C2CA4FB3D4F96247E9E632DD9482E7C3F0E7">VisitCompoundAssignOperator</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LValueExprEvaluator</h1>
+                        <p>Defined at line 9316 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9316">clang/lib/AST/ExprConstant.cpp</a></p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="25A10262F1612E8EBEB97B5B4125ACC824CE08E6">
+                                <pre><code class="language-cpp code-clang-doc">void LValueExprEvaluator (EvalInfo &amp; Info, LValue &amp; Result, bool InvalidBaseOK)</code></pre>
+                                <p>Defined at line 9319 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9319">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="822B6253BD3B344C8171F1FE0F491B83712B1C47">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitPredefinedExpr (const PredefinedExpr * E)</code></pre>
+                                <p>Defined at line 9327 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9327">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="246EBF376F562E29B328E4D8560B18E1FCFC7633">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitStringLiteral (const StringLiteral * E)</code></pre>
+                                <p>Defined at line 9331 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9331">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FFE9DEC5CF23D7629F317AA04170BC32AC891CA5">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitObjCEncodeExpr (const ObjCEncodeExpr * E)</code></pre>
+                                <p>Defined at line 9335 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9335">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="44D627A23911E179D3AEF664395ADD590CEAEF03">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitUnaryPreInc (const UnaryOperator * UO)</code></pre>
+                                <p>Defined at line 9343 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9343">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E5D9B737D3CEF050018B27AD18F9D3ABD53762DB">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitUnaryPreDec (const UnaryOperator * UO)</code></pre>
+                                <p>Defined at line 9346 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9346">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E6095F9DD65854BD54E875B57550061F9266CFD3">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitCastExpr (const CastExpr * E)</code></pre>
+                                <p>Defined at line 9352 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9352">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F5DA290DBC835927DC08C6D2BABB0E22EABBAB8C">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitVarDecl (const Expr * E, const VarDecl * VD)</code></pre>
+                                <p>Defined at line 9474 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9474">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="78F9C444D9566CBFCE9D51AC69D999E080E2E7DC">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitUnaryPreIncDec (const UnaryOperator * UO)</code></pre>
+                                <p>Defined at line 9808 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9808">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7339EE68F3E397E2A36F0EF1F7146CBFD2D6D223">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitCallExpr (const CallExpr * E)</code></pre>
+                                <p>Defined at line 9530 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9530">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A2E83BE4CC403FF1812EB4A1EBB0A33A5B4EF2E7">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitDeclRefExpr (const DeclRefExpr * E)</code></pre>
+                                <p>Defined at line 9441 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9441">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="48CECA89CFCCD6DB6DEC0FF72CB6B5AA34E86B36">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitMaterializeTemporaryExpr (const MaterializeTemporaryExpr * E)</code></pre>
+                                <p>Defined at line 9550 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9550">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="242D00C325DD83C707E708F348AF73162691B291">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitCompoundLiteralExpr (const CompoundLiteralExpr * E)</code></pre>
+                                <p>Defined at line 9619 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9619">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="36C082B717F95461FDCE4D26CFAF709C4147AE6D">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitMemberExpr (const MemberExpr * E)</code></pre>
+                                <p>Defined at line 9682 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9682">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F078C24C3C154C962A9E1D7F1DB742CDFA3EF2E">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitCXXTypeidExpr (const CXXTypeidExpr * E)</code></pre>
+                                <p>Defined at line 9648 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9648">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CBFE097FB7F89FB8F7058A80DA52E33C2D5A74F2">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitCXXUuidofExpr (const CXXUuidofExpr * E)</code></pre>
+                                <p>Defined at line 9678 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9678">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7A6F00CFE46C33AC9E92241EC3DBE3F6DAF44541">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitArraySubscriptExpr (const ArraySubscriptExpr * E)</code></pre>
+                                <p>Defined at line 9731 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9731">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="712F316CB0548B0FB0B210DA97E9D7A957451682">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitExtVectorElementExpr (const ExtVectorElementExpr * E)</code></pre>
+                                <p>Defined at line 9701 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9701">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3226247C5BF9F0BA79C546F633273E51DB16692E">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitUnaryDeref (const UnaryOperator * E)</code></pre>
+                                <p>Defined at line 9776 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9776">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ECA6C3A66A342F77063582D543929087E65399BA">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitUnaryReal (const UnaryOperator * E)</code></pre>
+                                <p>Defined at line 9790 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9790">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="574F3CAC0643F4094E3453A8A6C14A8458CD4B96">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitUnaryImag (const UnaryOperator * E)</code></pre>
+                                <p>Defined at line 9799 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9799">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E01A9A4BF137F486ED771C4C82142F68F8B0AE6">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitBinAssign (const BinaryOperator * BO)</code></pre>
+                                <p>Defined at line 9845 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9845">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2C70C2CA4FB3D4F96247E9E632DD9482E7C3F0E7">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitCompoundAssignOperator (const CompoundAssignOperator * CAO)</code></pre>
+                                <p>Defined at line 9820 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/ExprConstant.cpp#L9820">clang/lib/AST/ExprConstant.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>VFTableBuilder</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class VFTableBuilder</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0D1F8A0FCE9989DA0F78274CE6147DDBF00A8411">VFTableBuilder</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC842A54EDFF93DCD10C6FED5D3B13ED270C47A2">getNumThunks</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3CB1CF84DF1BBF05FE32B91952C12AC662AF416E">thunks_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A63C531DE0D8E038393E5571D034471060BBB4A3">thunks_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#67558C65F770AD253571A20E9B7BA2EE105FDECD">vtable_locations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BF58FCFBBFE2F5B711F29579E1BDA61473081B81">vtable_components</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2D479CC16ABB86D2D89458A3E51B6E7374E8B744">vtable_thunks_begin</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#652DCCECCFE256D707942D290B039E5BB57DF567">vtable_thunks_end</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2EC202146B966A670E4C7142719693BD520278D2">dumpLayout</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A5A456BEAAE62DFF48DF8E56111C2A4FF6B3F344">MethodVFTableLocationsTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#888338FD42392B0588D025BC13F4BC320419314C">method_locations_range</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F35823D823C0586EC8075FDFDD48912DEAC68D72">MethodInfoMapTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#57D2483D671BA7B1B61EEF75F070B22B1130C937">VTableThunksMapTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0BB29284E22A71A43F07DDDE6136DDBCB056620C">ThunkInfoVectorTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F127229763058D5A124C96D2DCED21C297D5AD43">ThunksMapTy</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B6C39968B14E26B10C65DFDABA75C87A0D3725D4">MethodInfo</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class VFTableBuilder</h1>
+                        <p>Defined at line 2515 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2515">clang/lib/AST/VTableBuilder.cpp</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Vtables in the Microsoft ABI are different from the Itanium ABI.</p>
+                            </div>
+                            <div>
+                                <p> The main differences are:</p>
+                                <p>  1. Separate vftable and vbtable.</p>
+                            </div>
+                            <div>
+                                <p>  2. Each subobject with a vfptr gets its own vftable rather than an address</p>
+                                <p>     point in a single vtable shared between all the subobjects.</p>
+                                <p>     Each vftable is represented by a separate section and virtual calls</p>
+                                <p>     must be done using the vftable which has a slot for the function to be</p>
+                                <p>     called.</p>
+                            </div>
+                            <div>
+                                <p>  3. Virtual method definitions expect their &#39;this&#39; parameter to point to the</p>
+                                <p>     first vfptr whose table provides a compatible overridden method.  In many</p>
+                                <p>     cases, this permits the original vf-table entry to directly call</p>
+                                <p>     the method instead of passing through a thunk.</p>
+                                <p>     See example before VFTableBuilder::ComputeThisOffset below.</p>
+                            </div>
+                            <div>
+                                <p>     A compatible overridden method is one which does not have a non-trivial</p>
+                                <p>     covariant-return adjustment.</p>
+                            </div>
+                            <div>
+                                <p>     The first vfptr is the one with the lowest offset in the complete-object</p>
+                                <p>     layout of the defining class, and the method definition will subtract</p>
+                                <p>     that constant offset from the parameter value to get the real &#39;this&#39;</p>
+                                <p>     value.  Therefore, if the offset isn&#39;t really constant (e.g. if a virtual</p>
+                                <p>     function defined in a virtual base is overridden in a more derived</p>
+                                <p>     virtual base and these bases have a reverse order in the complete</p>
+                                <p>     object), the vf-table may require a this-adjustment thunk.</p>
+                            </div>
+                            <div>
+                                <p>  4. vftables do not contain new entries for overrides that merely require</p>
+                                <p>     this-adjustment.  Together with #3, this keeps vf-tables smaller and</p>
+                                <p>     eliminates the need for this-adjustment thunks in many cases, at the cost</p>
+                                <p>     of often requiring redundant work to adjust the &quot;this&quot; pointer.</p>
+                            </div>
+                            <div>
+                                <p>  5. Instead of VTT and constructor vtables, vbtables and vtordisps are used.</p>
+                                <p>     Vtordisps are emitted into the class layout if a class has</p>
+                                <p>      a) a user-defined ctor/dtor</p>
+                                <p>     and</p>
+                                <p>      b) a method overriding a method in a virtual base.</p>
+                            </div>
+                            <div>
+                                <p>  To get a better understanding of this code,</p>
+                                <p>  you might want to see examples in test/CodeGenCXX/microsoft-abi-vtables-*.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="0D1F8A0FCE9989DA0F78274CE6147DDBF00A8411">
+                                <pre><code class="language-cpp code-clang-doc">void VFTableBuilder (MicrosoftVTableContext &amp; VTables, const CXXRecordDecl * MostDerivedClass, const VPtrInfo &amp; Which)</code></pre>
+                                <p>Defined at line 2675 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2675">clang/lib/AST/VTableBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EC842A54EDFF93DCD10C6FED5D3B13ED270C47A2">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getNumThunks ()</code></pre>
+                                <p>Defined at line 2697 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2697">clang/lib/AST/VTableBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3CB1CF84DF1BBF05FE32B91952C12AC662AF416E">
+                                <pre><code class="language-cpp code-clang-doc">DenseMapIterator thunks_begin ()</code></pre>
+                                <p>Defined at line 2699 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2699">clang/lib/AST/VTableBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A63C531DE0D8E038393E5571D034471060BBB4A3">
+                                <pre><code class="language-cpp code-clang-doc">DenseMapIterator thunks_end ()</code></pre>
+                                <p>Defined at line 2701 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2701">clang/lib/AST/VTableBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="67558C65F770AD253571A20E9B7BA2EE105FDECD">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range vtable_locations ()</code></pre>
+                                <p>Defined at line 2703 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2703">clang/lib/AST/VTableBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BF58FCFBBFE2F5B711F29579E1BDA61473081B81">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef vtable_components ()</code></pre>
+                                <p>Defined at line 2708 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2708">clang/lib/AST/VTableBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2D479CC16ABB86D2D89458A3E51B6E7374E8B744">
+                                <pre><code class="language-cpp code-clang-doc">DenseMapIterator vtable_thunks_begin ()</code></pre>
+                                <p>Defined at line 2710 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2710">clang/lib/AST/VTableBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="652DCCECCFE256D707942D290B039E5BB57DF567">
+                                <pre><code class="language-cpp code-clang-doc">DenseMapIterator vtable_thunks_end ()</code></pre>
+                                <p>Defined at line 2714 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2714">clang/lib/AST/VTableBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2EC202146B966A670E4C7142719693BD520278D2">
+                                <pre><code class="language-cpp code-clang-doc">void dumpLayout (raw_ostream &amp; )</code></pre>
+                                <p>Defined at line 3252 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L3252">clang/lib/AST/VTableBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="B6C39968B14E26B10C65DFDABA75C87A0D3725D4" style="max-height: 40px;">
+                            <a href="VFTableBuilder/_ZTVN12_GLOBAL__N_114VFTableBuilder10MethodInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class MethodInfo</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="A5A456BEAAE62DFF48DF8E56111C2A4FF6B3F344" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef MethodVFTableLocationsTy DenseMap</code></pre>
+                        <p>Defined at line 2517 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2517">clang/lib/AST/VTableBuilder.cpp</a></p>
+                    </div>
+                    <div id="888338FD42392B0588D025BC13F4BC320419314C" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef method_locations_range iterator_range</code></pre>
+                        <p>Defined at line 2520 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2520">clang/lib/AST/VTableBuilder.cpp</a></p>
+                    </div>
+                    <div id="F35823D823C0586EC8075FDFDD48912DEAC68D72" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef MethodInfoMapTy DenseMap</code></pre>
+                        <p>Defined at line 2578 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2578">clang/lib/AST/VTableBuilder.cpp</a></p>
+                    </div>
+                    <div id="57D2483D671BA7B1B61EEF75F070B22B1130C937" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef VTableThunksMapTy DenseMap</code></pre>
+                        <p>Defined at line 2584 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2584">clang/lib/AST/VTableBuilder.cpp</a></p>
+                    </div>
+                    <div id="0BB29284E22A71A43F07DDDE6136DDBCB056620C" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef ThunkInfoVectorTy SmallVector</code></pre>
+                        <p>Defined at line 2590 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2590">clang/lib/AST/VTableBuilder.cpp</a></p>
+                    </div>
+                    <div id="F127229763058D5A124C96D2DCED21C297D5AD43" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef ThunksMapTy DenseMap</code></pre>
+                        <p>Defined at line 2591 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/VTableBuilder.cpp#L2591">clang/lib/AST/VTableBuilder.cpp</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

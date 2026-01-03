@@ -22,11 +22,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="navbar-breadcrumb-container">
-                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
-                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
-                <div class="navbar-breadcrumb-item"><a href="./index.html">mca</a></div>
-            </div>
         </div>
     </nav>
     <main>
@@ -43,10 +38,10 @@
                                 <a class="sidebar-item" href="#8C1B4155ED1F3A725B359003FD6BCFDA4B268E6A">isAvailable</a>
                             </li>
                             <li class="sidebar-item-container">
-                                <a class="sidebar-item" href="#EC7450F1E189D9403406C328997010D9C4E99A4E">issueInstruction</a>
+                                <a class="sidebar-item" href="#49E85F91FF43FAC284F30A8BDA97B63572EF81D6">dispatch</a>
                             </li>
                             <li class="sidebar-item-container">
-                                <a class="sidebar-item" href="#D7226A2A820048ECE63904A1726CE1812221E485">dump</a>
+                                <a class="sidebar-item" href="#EC7450F1E189D9403406C328997010D9C4E99A4E">issueInstruction</a>
                             </li>
                             <li class="sidebar-item-container">
                                 <a class="sidebar-item" href="#FA84286E3C2D8BBB399492009AE99D5DB6C0BE03">Scheduler</a>
@@ -59,6 +54,9 @@
                             </li>
                             <li class="sidebar-item-container">
                                 <a class="sidebar-item" href="#1D2984C479BB1975EE1CFCAE51A347641BC90A6F">getResourceID</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#70D6B26690F2685C39E1F8A5950945D0C163ACCB">mustIssueImmediately</a>
                             </li>
                             <li class="sidebar-item-container">
                                 <a class="sidebar-item" href="#C1E1BF87C99624E4ED4C8C87E2FE007CC907C660">cycleEvent</a>
@@ -81,15 +79,6 @@
                             <li class="sidebar-item-container">
                                 <a class="sidebar-item" href="#DFE54F7EFE636FD54997EC64F8C3AB98601A73DE">hadTokenStall</a>
                             </li>
-                            <li class="sidebar-item-container">
-                                <a class="sidebar-item" href="#D8C7F9CD3577D88F418BF7FFD6360C06833748B1">instructionCheck</a>
-                            </li>
-                            <li class="sidebar-item-container">
-                                <a class="sidebar-item" href="#49E85F91FF43FAC284F30A8BDA97B63572EF81D6">dispatch</a>
-                            </li>
-                            <li class="sidebar-item-container">
-                                <a class="sidebar-item" href="#70D6B26690F2685C39E1F8A5950945D0C163ACCB">mustIssueImmediately</a>
-                            </li>
                         </ul>
                     </li>
                     <li class="sidebar-section">
@@ -97,6 +86,9 @@
                     </li>
                     <li>
                         <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A6071D32F72BCED90D6CFEFA07A975B0EF0688F3">Status</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -106,7 +98,7 @@
                 <section class="hero section-container">
                     <div class="hero__title">
                         <h1 class="hero__title-large">class Scheduler</h1>
-                        <p>Defined at line 71 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                        <p>Defined at line 71 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/MCA/HardwareUnits/Scheduler.h#L71">llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</a></p>
                         <div class="hero__subtitle">
                             <div>
                                 <p> Class Scheduler is responsible for issuing instructions to pipeline</p>
@@ -136,7 +128,29 @@
                                         <p> IR cannot be dispatched to the Scheduler due to unavailable resources.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 40 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                                <p>Defined at line 40 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/MCA/HardwareUnits/Scheduler.cpp#L40">llvm/lib/MCA/HardwareUnits/Scheduler.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="49E85F91FF43FAC284F30A8BDA97B63572EF81D6">
+                                <pre><code class="language-cpp code-clang-doc">bool dispatch (InstRef &amp; IR)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Reserves buffer and LSUnit queue resources that are necessary to issue</p>
+                                        <p> this instruction.</p>
+                                    </div>
+                                    <div>
+                                        <p> Returns true if instruction IR is ready to be issued to the underlying</p>
+                                        <p> pipelines. Note that this operation cannot fail; it assumes that a</p>
+                                        <p> previous call to method `isAvailable(IR)` returned `SC_AVAILABLE`.</p>
+                                    </div>
+                                    <div>
+                                        <p> If IR is a memory operation, then the Scheduler queries the LS unit to</p>
+                                        <p> obtain a LS token. An LS token is used internally to track memory</p>
+                                        <p> dependencies.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 301 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/MCA/HardwareUnits/Scheduler.cpp#L301">llvm/lib/MCA/HardwareUnits/Scheduler.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -149,36 +163,25 @@
                                         <p> result of this event.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 100 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
-                            </div>
-                        </div>
-                        <div class="delimiter-container">
-                            <div id="D7226A2A820048ECE63904A1726CE1812221E485">
-                                <pre><code class="language-cpp code-clang-doc">void dump ()</code></pre>
-                                <div>
-                                    <div>
-                                        <p> Update the ready queues.</p>
-                                    </div>
-                                </div>
-                                <p>Defined at line 32 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                                <p>Defined at line 100 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/MCA/HardwareUnits/Scheduler.cpp#L100">llvm/lib/MCA/HardwareUnits/Scheduler.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="FA84286E3C2D8BBB399492009AE99D5DB6C0BE03">
                                 <pre><code class="language-cpp code-clang-doc">void Scheduler (const MCSchedModel &amp; Model, LSUnitBase &amp; Lsu)</code></pre>
-                                <p>Defined at line 158 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                                <p>Defined at line 158 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/MCA/HardwareUnits/Scheduler.h#L158">llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="EC78103D3EB93CD7EA74CE51CB329BC16381E549">
                                 <pre><code class="language-cpp code-clang-doc">void Scheduler (const MCSchedModel &amp; Model, LSUnitBase &amp; Lsu, unique_ptr SelectStrategy)</code></pre>
-                                <p>Defined at line 161 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                                <p>Defined at line 161 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/MCA/HardwareUnits/Scheduler.h#L161">llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="F6BD59D63817F717A9A6F5ACC15343649B226EEF">
                                 <pre><code class="language-cpp code-clang-doc">void Scheduler (unique_ptr RM, LSUnitBase &amp; Lsu, unique_ptr SelectStrategy)</code></pre>
-                                <p>Defined at line 166 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                                <p>Defined at line 166 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/MCA/HardwareUnits/Scheduler.h#L166">llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -193,7 +196,19 @@
                                         <p> identify the processor resource.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 234 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                                <p>Defined at line 234 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/MCA/HardwareUnits/Scheduler.h#L234">llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="70D6B26690F2685C39E1F8A5950945D0C163ACCB">
+                                <pre><code class="language-cpp code-clang-doc">bool mustIssueImmediately (const InstRef &amp; IR)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if IR has to be issued immediately, or if IR is a zero</p>
+                                        <p> latency instruction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 291 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/MCA/HardwareUnits/Scheduler.cpp#L291">llvm/lib/MCA/HardwareUnits/Scheduler.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -216,7 +231,7 @@
                                         <p> That means, instructions may appear in both the Pending and Ready set.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 265 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                                <p>Defined at line 265 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/MCA/HardwareUnits/Scheduler.cpp#L265">llvm/lib/MCA/HardwareUnits/Scheduler.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -229,19 +244,19 @@
                                         <p> resources are not available.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 193 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                                <p>Defined at line 193 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/MCA/HardwareUnits/Scheduler.cpp#L193">llvm/lib/MCA/HardwareUnits/Scheduler.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="A06A5D9ED3460AA9A2FAA91DCB9780C1E8864F6E">
                                 <pre><code class="language-cpp code-clang-doc">bool isReadySetEmpty ()</code></pre>
-                                <p>Defined at line 243 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                                <p>Defined at line 243 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/MCA/HardwareUnits/Scheduler.h#L243">llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="34C75188FC6DD79B24169697F9063BCBEA3F243F">
                                 <pre><code class="language-cpp code-clang-doc">bool isWaitSetEmpty ()</code></pre>
-                                <p>Defined at line 244 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
+                                <p>Defined at line 244 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/MCA/HardwareUnits/Scheduler.h#L244">llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -256,7 +271,7 @@
                                         <p> were not issued because of unsolved memory dependencies.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 249 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                                <p>Defined at line 249 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/MCA/HardwareUnits/Scheduler.cpp#L249">llvm/lib/MCA/HardwareUnits/Scheduler.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -269,7 +284,7 @@
                                         <p> not all pipeline resources were available.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 244 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                                <p>Defined at line 244 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/MCA/HardwareUnits/Scheduler.cpp#L244">llvm/lib/MCA/HardwareUnits/Scheduler.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -281,61 +296,46 @@
                                         <p> unavailable scheduler and/or LS resources.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 261 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
-                            </div>
-                        </div>
-                        <div class="delimiter-container">
-                            <div id="D8C7F9CD3577D88F418BF7FFD6360C06833748B1">
-                                <pre><code class="language-cpp code-clang-doc">void instructionCheck (const InstRef &amp; IR)</code></pre>
-                                <div>
-                                    <div>
-                                        <p> This routine performs a basic correctness check.  This routine should only</p>
-                                        <p> be called when we know that &#39;IR&#39; is not in the scheduler&#39;s instruction</p>
-                                        <p> queues.</p>
-                                    </div>
-                                </div>
-                                <p>Defined at line 270 of file llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</p>
-                            </div>
-                        </div>
-                        <div class="delimiter-container">
-                            <div id="49E85F91FF43FAC284F30A8BDA97B63572EF81D6">
-                                <pre><code class="language-cpp code-clang-doc">bool dispatch (InstRef &amp; IR)</code></pre>
-                                <div>
-                                    <div>
-                                        <p> Reserves buffer and LSUnit queue resources that are necessary to issue</p>
-                                        <p> this instruction.</p>
-                                    </div>
-                                    <div>
-                                        <p> Returns true if instruction IR is ready to be issued to the underlying</p>
-                                        <p> pipelines. Note that this operation cannot fail; it assumes that a</p>
-                                        <p> previous call to method `isAvailable(IR)` returned `SC_AVAILABLE`.</p>
-                                    </div>
-                                    <div>
-                                        <p> If IR is a memory operation, then the Scheduler queries the LS unit to</p>
-                                        <p> obtain a LS token. An LS token is used internally to track memory</p>
-                                        <p> dependencies.</p>
-                                    </div>
-                                </div>
-                                <p>Defined at line 301 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
-                            </div>
-                        </div>
-                        <div class="delimiter-container">
-                            <div id="70D6B26690F2685C39E1F8A5950945D0C163ACCB">
-                                <pre><code class="language-cpp code-clang-doc">bool mustIssueImmediately (const InstRef &amp; IR)</code></pre>
-                                <div>
-                                    <div>
-                                        <p> Returns true if IR has to be issued immediately, or if IR is a zero</p>
-                                        <p> latency instruction.</p>
-                                    </div>
-                                </div>
-                                <p>Defined at line 291 of file llvm/lib/MCA/HardwareUnits/Scheduler.cpp</p>
+                                <p>Defined at line 261 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/MCA/HardwareUnits/Scheduler.h#L261">llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</a></p>
                             </div>
                         </div>
                     </div>
                 </section>
                 <section id="Enums" class="section-container">
                     <h2>Enumerations</h2>
-                    <div>
+                    <div id="A6071D32F72BCED90D6CFEFA07A975B0EF0688F3" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum Status</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>SC_AVAILABLE</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>SC_LOAD_QUEUE_FULL</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>SC_STORE_QUEUE_FULL</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>SC_BUFFERS_FULL</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>SC_DISPATCH_GROUP_STALL</td>
+                                    <td>4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 174 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/MCA/HardwareUnits/Scheduler.h#L174">llvm/include/llvm/MCA/HardwareUnits/Scheduler.h</a></p>
                     </div>
                 </section>
             </div>

@@ -22,10 +22,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="navbar-breadcrumb-container">
-                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
-                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
-            </div>
         </div>
     </nav>
     <main>
@@ -80,6 +76,26 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F1061D612389B31BA147FD979775998ED1381A62">PathCanonicalizer</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Friends">Friends</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4BD29960EF9BBEE3C24E088B9B5ABDB3038EEB30">FileCollectorFileSystem</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="resizer" id="resizer"></div>
@@ -87,7 +103,7 @@
                 <section class="hero section-container">
                     <div class="hero__title">
                         <h1 class="hero__title-large">class FileCollector</h1>
-                        <p>Defined at line 70 of file llvm/include/llvm/Support/FileCollector.h</p>
+                        <p>Defined at line 70 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/Support/FileCollector.h#L70">llvm/include/llvm/Support/FileCollector.h</a></p>
                         <div class="hero__subtitle">
                             <div>
                                 <p> Captures file system interaction and generates data to be later replayed</p>
@@ -149,7 +165,7 @@
                                         <p> directory gets created in copyFiles unless it already exists.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 52 of file llvm/lib/Support/FileCollector.cpp</p>
+                                <p>Defined at line 52 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/Support/FileCollector.cpp#L52">llvm/lib/Support/FileCollector.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -160,7 +176,7 @@
                                         <p> Write the yaml mapping (for the VFS) to the given file.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 238 of file llvm/lib/Support/FileCollector.cpp</p>
+                                <p>Defined at line 238 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/Support/FileCollector.cpp#L238">llvm/lib/Support/FileCollector.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -176,20 +192,60 @@
                                         <p> removed after it was added to the mapping.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 178 of file llvm/lib/Support/FileCollector.cpp</p>
+                                <p>Defined at line 178 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/Support/FileCollector.cpp#L178">llvm/lib/Support/FileCollector.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="A37B01A253E4DFF6F34E713C622501F8F3C2D805">
-                                <pre><code class="language-cpp code-clang-doc">IntrusiveRefCntPtr createCollectorVFS (IntrusiveRefCntPtr BaseFS, shared_ptr Collector)</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">IntrusiveRefCntPtr createCollectorVFS (IntrusiveRefCntPtr BaseFS, std::shared_ptr&lt;FileCollector&gt; Collector)</code></pre>
                                 <div>
                                     <div>
                                         <p> Create a VFS that uses </p>
                                         <p> to collect files accessed via </p>
                                     </div>
                                 </div>
-                                <p>Defined at line 313 of file llvm/lib/Support/FileCollector.cpp</p>
+                                <p>Defined at line 313 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/Support/FileCollector.cpp#L313">llvm/lib/Support/FileCollector.cpp</a></p>
                             </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="F1061D612389B31BA147FD979775998ED1381A62" style="max-height: 40px;">
+                            <a href="FileCollector/_ZTVN4llvm13FileCollector17PathCanonicalizerE.html">
+                                <pre><code class="language-cpp code-clang-doc">class PathCanonicalizer</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="4BD29960EF9BBEE3C24E088B9B5ABDB3038EEB30" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class FileCollectorFileSystem</code></pre>
+                        <div>
+                            <p> Captures file system interaction and generates data to be later replayed</p>
+                            <p> with the RedirectingFileSystem.</p>
+                        </div>
+                        <div>
+                            <p> For any file that gets accessed we eventually create:</p>
+                            <p> - a copy of the file inside Root</p>
+                            <p> - a record in RedirectingFileSystem mapping that maps:</p>
+                            <p>   current real path -&gt; path to the copy in Root</p>
+                        </div>
+                        <div>
+                            <p> That intent is that later when the mapping is used by RedirectingFileSystem</p>
+                            <p> it simulates the state of FS that we collected.</p>
+                        </div>
+                        <div>
+                            <p> We generate file copies and mapping lazily - see writeMapping and copyFiles.</p>
+                            <p> We don&#39;t try to capture the state of the file at the exact time when it&#39;s</p>
+                            <p> accessed. Files might get changed, deleted ... we record only the &quot;final&quot;</p>
+                            <p> state.</p>
+                        </div>
+                        <div>
+                            <p> In order to preserve the relative topology of files we use their real paths</p>
+                            <p> as relative paths inside of the Root.</p>
                         </div>
                     </div>
                 </section>

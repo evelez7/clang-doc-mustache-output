@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ExtParameterInfo</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ExtParameterInfo</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C9A909E7C0FDBC3F62F1D191E331F2863D817225">ExtParameterInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#01E9E4DB0E8AC2B1970DDD5C78040DF99CA8A08F">getABI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6DDA07AB9DEC433C1F49A5F467720B83F4023712">withABI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6B091575C5896DF302F6A25C6F808C1CCC1E95CD">isConsumed</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#48239780BD772F977866288A098E484521AE5953">withIsConsumed</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#87D49634F7153617CDFFE2F048474DAF55DE148B">hasPassObjectSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5577AD36C830E08CC951DFA9AE82DBE8E084DF68">withHasPassObjectSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B7723E6212F5211B55929CC4E47621FBA332885">isNoEscape</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FC5EF63E5135DA4BD79C6D0D7F00BAA06D5832FA">withIsNoEscape</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#378106F35B979C5C917585D438ACAF06FCC9D76A">getOpaqueValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#912912F400F6B7D2EA0EC737F0C4DAFDC691F663">getFromOpaqueValue</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B69E23638625EE155B9AAB687D227BB051B58396">ExtParameterInfo</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Friends">Friends</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8D23B84B43D6DFD6680622CD83B2C4928EC14AD8">operator!=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2DA76A4A8B0836FFB1AD395079E9D23FE5B8CA3F">operator==</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ExtParameterInfo</h1>
+                        <p>Defined at line 4491 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4491">clang/include/clang/AST/TypeBase.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Interesting information about a specific parameter that can&#39;t simply</p>
+                                <p> be reflected in parameter&#39;s type. This is only used by FunctionProtoType</p>
+                                <p> but is in FunctionType to make this class available during the</p>
+                                <p> specification of the bases of FunctionProtoType.</p>
+                            </div>
+                            <div>
+                                <p> It makes sense to model language features this way when there&#39;s some</p>
+                                <p> sort of parameter-specific override (such as an attribute) that</p>
+                                <p> affects how the function is called.  For example, the ARC ns_consumed</p>
+                                <p> attribute changes whether a parameter is passed at +0 (the default)</p>
+                                <p> or +1 (ns_consumed).  This must be reflected in the function type,</p>
+                                <p> but isn&#39;t really a change to the parameter type.</p>
+                            </div>
+                            <div>
+                                <p> One serious disadvantage of modelling language features this way is</p>
+                                <p> that they generally do not work with language features that attempt</p>
+                                <p> to destructure types.  For example, template argument deduction will</p>
+                                <p> not be able to match a parameter declared as</p>
+                                <p>   T (*)(U)</p>
+                                <p> against an argument of type</p>
+                                <p>   void (*)(__attribute__((ns_consumed)) id)</p>
+                                <p> because the substitution of T=void, U=id into the former will</p>
+                                <p> not produce the latter.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="C9A909E7C0FDBC3F62F1D191E331F2863D817225">
+                                <pre><code class="language-cpp code-clang-doc">void ExtParameterInfo ()</code></pre>
+                                <p>Defined at line 4501 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4501">clang/include/clang/AST/TypeBase.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="01E9E4DB0E8AC2B1970DDD5C78040DF99CA8A08F">
+                                <pre><code class="language-cpp code-clang-doc">ParameterABI getABI ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the ABI treatment of this parameter.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4504 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4504">clang/include/clang/AST/TypeBase.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6DDA07AB9DEC433C1F49A5F467720B83F4023712">
+                                <pre><code class="language-cpp code-clang-doc">ExtParameterInfo withABI (ParameterABI kind)</code></pre>
+                                <p>Defined at line 4505 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4505">clang/include/clang/AST/TypeBase.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6B091575C5896DF302F6A25C6F808C1CCC1E95CD">
+                                <pre><code class="language-cpp code-clang-doc">bool isConsumed ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Is this parameter considered &quot;consumed&quot; by Objective-C ARC?</p>
+                                        <p> Consumed parameters must have retainable object type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 4513 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4513">clang/include/clang/AST/TypeBase.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="48239780BD772F977866288A098E484521AE5953">
+                                <pre><code class="language-cpp code-clang-doc">ExtParameterInfo withIsConsumed (bool consumed)</code></pre>
+                                <p>Defined at line 4514 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4514">clang/include/clang/AST/TypeBase.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="87D49634F7153617CDFFE2F048474DAF55DE148B">
+                                <pre><code class="language-cpp code-clang-doc">bool hasPassObjectSize ()</code></pre>
+                                <p>Defined at line 4523 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4523">clang/include/clang/AST/TypeBase.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5577AD36C830E08CC951DFA9AE82DBE8E084DF68">
+                                <pre><code class="language-cpp code-clang-doc">ExtParameterInfo withHasPassObjectSize ()</code></pre>
+                                <p>Defined at line 4524 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4524">clang/include/clang/AST/TypeBase.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B7723E6212F5211B55929CC4E47621FBA332885">
+                                <pre><code class="language-cpp code-clang-doc">bool isNoEscape ()</code></pre>
+                                <p>Defined at line 4530 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4530">clang/include/clang/AST/TypeBase.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FC5EF63E5135DA4BD79C6D0D7F00BAA06D5832FA">
+                                <pre><code class="language-cpp code-clang-doc">ExtParameterInfo withIsNoEscape (bool NoEscape)</code></pre>
+                                <p>Defined at line 4531 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4531">clang/include/clang/AST/TypeBase.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="378106F35B979C5C917585D438ACAF06FCC9D76A">
+                                <pre><code class="language-cpp code-clang-doc">unsigned char getOpaqueValue ()</code></pre>
+                                <p>Defined at line 4540 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4540">clang/include/clang/AST/TypeBase.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="912912F400F6B7D2EA0EC737F0C4DAFDC691F663">
+                                <pre><code class="language-cpp code-clang-doc">ExtParameterInfo getFromOpaqueValue (unsigned char data)</code></pre>
+                                <p>Defined at line 4541 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4541">clang/include/clang/AST/TypeBase.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div id="B69E23638625EE155B9AAB687D227BB051B58396" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum </code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>ABIMask</td>
+                                    <td>0x0F</td>
+                                </tr>
+                                <tr>
+                                    <td>IsConsumed</td>
+                                    <td>0x10</td>
+                                </tr>
+                                <tr>
+                                    <td>HasPassObjSize</td>
+                                    <td>0x20</td>
+                                </tr>
+                                <tr>
+                                    <td>IsNoEscape</td>
+                                    <td>0x40</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 4492 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/TypeBase.h#L4492">clang/include/clang/AST/TypeBase.h</a></p>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="8D23B84B43D6DFD6680622CD83B2C4928EC14AD8" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">bool ExtParameterInfo (ExtParameterInfo lhs, ExtParameterInfo rhs)</code></pre>
+                        <div>
+                            <p> Interesting information about a specific parameter that can&#39;t simply</p>
+                            <p> be reflected in parameter&#39;s type. This is only used by FunctionProtoType</p>
+                            <p> but is in FunctionType to make this class available during the</p>
+                            <p> specification of the bases of FunctionProtoType.</p>
+                        </div>
+                        <div>
+                            <p> It makes sense to model language features this way when there&#39;s some</p>
+                            <p> sort of parameter-specific override (such as an attribute) that</p>
+                            <p> affects how the function is called.  For example, the ARC ns_consumed</p>
+                            <p> attribute changes whether a parameter is passed at +0 (the default)</p>
+                            <p> or +1 (ns_consumed).  This must be reflected in the function type,</p>
+                            <p> but isn&#39;t really a change to the parameter type.</p>
+                        </div>
+                        <div>
+                            <p> One serious disadvantage of modelling language features this way is</p>
+                            <p> that they generally do not work with language features that attempt</p>
+                            <p> to destructure types.  For example, template argument deduction will</p>
+                            <p> not be able to match a parameter declared as</p>
+                            <p>   T (*)(U)</p>
+                            <p> against an argument of type</p>
+                            <p>   void (*)(__attribute__((ns_consumed)) id)</p>
+                            <p> because the substitution of T=void, U=id into the former will</p>
+                            <p> not produce the latter.</p>
+                        </div>
+                    </div>
+                    <div id="2DA76A4A8B0836FFB1AD395079E9D23FE5B8CA3F" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">bool ExtParameterInfo (ExtParameterInfo lhsExtParameterInfo rhs)</code></pre>
+                        <div>
+                            <p> Interesting information about a specific parameter that can&#39;t simply</p>
+                            <p> be reflected in parameter&#39;s type. This is only used by FunctionProtoType</p>
+                            <p> but is in FunctionType to make this class available during the</p>
+                            <p> specification of the bases of FunctionProtoType.</p>
+                        </div>
+                        <div>
+                            <p> It makes sense to model language features this way when there&#39;s some</p>
+                            <p> sort of parameter-specific override (such as an attribute) that</p>
+                            <p> affects how the function is called.  For example, the ARC ns_consumed</p>
+                            <p> attribute changes whether a parameter is passed at +0 (the default)</p>
+                            <p> or +1 (ns_consumed).  This must be reflected in the function type,</p>
+                            <p> but isn&#39;t really a change to the parameter type.</p>
+                        </div>
+                        <div>
+                            <p> One serious disadvantage of modelling language features this way is</p>
+                            <p> that they generally do not work with language features that attempt</p>
+                            <p> to destructure types.  For example, template argument deduction will</p>
+                            <p> not be able to match a parameter declared as</p>
+                            <p>   T (*)(U)</p>
+                            <p> against an argument of type</p>
+                            <p>   void (*)(__attribute__((ns_consumed)) id)</p>
+                            <p> because the substitution of T=void, U=id into the former will</p>
+                            <p> not produce the latter.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

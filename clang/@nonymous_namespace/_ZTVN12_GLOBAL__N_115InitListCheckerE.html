@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>InitListChecker</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class InitListChecker</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#27E2DB98D47933B176AD2FEA1F85F3A1B98FA821">InitListChecker</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5DEFBBD0DA3C93EEC64119C623A7AA1BABF0DB3D">HadError</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#834767220F58E7ACCA02B18B4484D47AFA478CD7">getFullyStructuredList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B393BC1A079D756E9A63980D6E33241524B37811">InitListChecker</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class InitListChecker</h1>
+                        <p>Defined at line 355 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaInit.cpp#L355">clang/lib/Sema/SemaInit.cpp</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Semantic checking for initializer lists.</p>
+                            </div>
+                            <div>
+                                <p> The InitListChecker class contains a set of routines that each</p>
+                                <p> handle the initialization of a certain kind of entity, e.g.,</p>
+                                <p> arrays, vectors, struct/union types, scalars, etc. The</p>
+                                <p> InitListChecker itself performs a recursive walk of the subobject</p>
+                                <p> structure of the type to be initialized, while stepping through</p>
+                                <p> the initializer list one element at a time. The IList and Index</p>
+                                <p> parameters to each of the Check* routines contain the active</p>
+                                <p> (syntactic) initializer list and the index into that initializer</p>
+                                <p> list that represents the current initializer. Each routine is</p>
+                                <p> responsible for moving that Index forward as it consumes elements.</p>
+                            </div>
+                            <div>
+                                <p> Each Check* routine also has a StructuredList/StructuredIndex</p>
+                                <p> arguments, which contains the current &quot;structured&quot; (semantic)</p>
+                                <p> initializer list and the index into that initializer list where we</p>
+                                <p> are copying initializers as we map them over to the semantic</p>
+                                <p> list. Once we have completed our recursive walk of the subobject</p>
+                                <p> structure, we will have constructed a full semantic initializer</p>
+                                <p> list.</p>
+                            </div>
+                            <div>
+                                <p> C99 designators cause changes in the initializer list traversal,</p>
+                                <p> because they make the initialization &quot;jump&quot; into a specific</p>
+                                <p> subobject and then continue the initialization from that</p>
+                                <p> point. CheckDesignatedInitializer() recursively steps into the</p>
+                                <p> designated subobject and manages backing out the recursion to</p>
+                                <p> initialize the subobjects after the one designated.</p>
+                            </div>
+                            <div>
+                                <p> If an initializer list contains any designators, we build a placeholder</p>
+                                <p> structured list even in &#39;verify only&#39; mode, so that we can track which</p>
+                                <p> elements need &#39;empty&#39; initializtion.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="27E2DB98D47933B176AD2FEA1F85F3A1B98FA821">
+                                <pre><code class="language-cpp code-clang-doc">void InitListChecker (Sema &amp; S, const InitializedEntity &amp; Entity, InitListExpr * IL, QualType &amp; T, SmallVectorImpl&lt;QualType&gt; &amp; AggrDeductionCandidateParamTypes)</code></pre>
+                                <p>Defined at line 599 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaInit.cpp#L599">clang/lib/Sema/SemaInit.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5DEFBBD0DA3C93EEC64119C623A7AA1BABF0DB3D">
+                                <pre><code class="language-cpp code-clang-doc">bool HadError ()</code></pre>
+                                <p>Defined at line 607 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaInit.cpp#L607">clang/lib/Sema/SemaInit.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="834767220F58E7ACCA02B18B4484D47AFA478CD7">
+                                <pre><code class="language-cpp code-clang-doc">InitListExpr * getFullyStructuredList ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieves the fully-structured initializer list used for</p>
+                                        <p> semantic analysis and code generation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 611 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaInit.cpp#L611">clang/lib/Sema/SemaInit.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B393BC1A079D756E9A63980D6E33241524B37811">
+                                <pre><code class="language-cpp code-clang-doc">void InitListChecker (Sema &amp; S, const InitializedEntity &amp; Entity, InitListExpr * IL, QualType &amp; T, bool VerifyOnly, bool TreatUnavailableAsInvalid, bool InOverloadResolution, SmallVectorImpl&lt;QualType&gt; * AggrDeductionCandidateParamTypes)</code></pre>
+                                <p>Defined at line 1092 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaInit.cpp#L1092">clang/lib/Sema/SemaInit.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

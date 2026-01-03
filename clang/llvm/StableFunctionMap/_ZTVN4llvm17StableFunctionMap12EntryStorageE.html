@@ -22,11 +22,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="navbar-breadcrumb-container">
-                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
-                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
-                <div class="navbar-breadcrumb-item"><a href="../_ZTVN4llvm17StableFunctionMapE.html">StableFunctionMap</a></div>
-            </div>
         </div>
     </nav>
     <main>
@@ -44,6 +39,19 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Friends">Friends</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#84CABCC9AEBC635DEEC8548896C94A69AD00B78C">StableFunctionMapRecord</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8FC86CA1879D9A115D795F4E8FCB58D327278BE7">StableFunctionMap</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="resizer" id="resizer"></div>
@@ -51,7 +59,7 @@
                 <section class="hero section-container">
                     <div class="hero__title">
                         <h1 class="hero__title-large">struct EntryStorage</h1>
-                        <p>Defined at line 84 of file llvm/include/llvm/CGData/StableFunctionMap.h</p>
+                        <p>Defined at line 84 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/CGData/StableFunctionMap.h#L84">llvm/include/llvm/CGData/StableFunctionMap.h</a></p>
                         <div class="hero__subtitle">
                             <div>
                                 <p> In addition to the deserialized StableFunctionEntry, the struct stores</p>
@@ -66,6 +74,42 @@
                     <div>
                         <div id="Entries" class="delimiter-container">
                             <pre><code class="language-cpp code-clang-doc" >SmallVector Entries</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="84CABCC9AEBC635DEEC8548896C94A69AD00B78C" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class StableFunctionMapRecord</code></pre>
+                        <div>
+                            <p> The structure of the serialized stable function map is as follows:</p>
+                            <p> - Number of unique function/module names</p>
+                            <p> - Total size of unique function/module names for opt-in skipping</p>
+                            <p> - Unique function/module names</p>
+                            <p> - Padding to align to 4 bytes</p>
+                            <p> - Number of StableFunctionEntries</p>
+                            <p> - Hashes of each StableFunctionEntry</p>
+                            <p> - Fixed-size fields for each StableFunctionEntry (the order is consistent</p>
+                            <p>   with the hashes above):</p>
+                            <p>   - FunctionNameId</p>
+                            <p>   - ModuleNameId</p>
+                            <p>   - InstCount</p>
+                            <p>   - Relative offset to the beginning of IndexOperandHashes for this entry</p>
+                            <p> - Total size of variable-sized IndexOperandHashes for lazy-loading support</p>
+                            <p> - Variable-sized IndexOperandHashes for each StableFunctionEntry:</p>
+                            <p>   - Number of IndexOperandHashes</p>
+                            <p>   - Contents of each IndexOperandHashes</p>
+                            <p>     - InstIndex</p>
+                            <p>     - OpndIndex</p>
+                            <p>     - OpndHash</p>
+                        </div>
+                    </div>
+                    <div id="8FC86CA1879D9A115D795F4E8FCB58D327278BE7" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class StableFunctionMap</code></pre>
+                        <div>
+                            <p> In addition to the deserialized StableFunctionEntry, the struct stores</p>
+                            <p> the offsets of corresponding serialized stable function entries, and a</p>
+                            <p> once flag for safe lazy loading in a multithreaded environment.</p>
                         </div>
                     </div>
                 </section>

@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>BuildTreeVisitor</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class BuildTreeVisitor</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#91ED48498B4B4FC2B5560A2D5656ECD278F9F38E">BuildTreeVisitor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B674816C359867CBE048144365060C02A164E336">shouldTraversePostOrder</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7253AF539BC64B8157C13B54062FD98E2BF53F31">WalkUpFromDeclaratorDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#545F72FF9AEA8101DC6C682DE5C11985E17265CD">WalkUpFromTypedefNameDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E63E07189A2BD9B35A166E55077A82D618A06707">VisitDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0AF3BD8DB46C87DE0E08BA25B43338C86DC0A332">TraverseClassTemplateSpecializationDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#412B73B6F2750FCE415360B27BCF6603CAFF5B3B">WalkUpFromTemplateDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#09AEC5CD214E201A6133C6D24380308F4D4BF8B3">WalkUpFromTagDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C8A7ADF493958FD4FC7BDBB92EC516706AE16E5">handleFreeStandingTagDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72889008A8CB7C46E676A1004668C4D099FD9936">WalkUpFromTranslationUnitDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A733AEACF671088D3B79AE7F0CB81B26129E558E">WalkUpFromCompoundStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B097FB0EC5D07A0098A76FD5B1FAB02DE317005E">WalkUpFromStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2DDD726ECB6219501AA6CE1F01D156A72F43119E">TraverseIfStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BD00BE875CB2EAC225DEACF7994017600973E45">TraverseCXXForRangeStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A82B0BD37A2DAB19BFDA1FE8F0F6A3EEE0CE5ECC">TraverseStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DD9614CDD99B7D3E2FE449B58CE87571420C02D9">TraverseOpaqueValueExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#93D252AE29811625603AD28BEC42E27FAE783B94">WalkUpFromExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#806A3807D8D8D98996D1BEFCE3036BE1E41B575F">TraverseUserDefinedLiteral</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C8F6887A2674D63AC14D8B4D81893DECC595CC3">buildUserDefinedLiteral</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0ECAC92D7A71E11BACE1B0F22168C49F35B7F014">WalkUpFromUserDefinedLiteral</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4D2CF4994CBD4C59806A81E84576673B161E9285">buildIdentifier</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC96127F6DE7D2EEE02D361340400167A9931E65">buildSimpleTemplateName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8BEF6EF452EB989E3F36F7EF76F028E96F0BE09D">buildNameSpecifier</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#248442CCC023520C27260B4A4B0CF4AAD808DD6A">TraverseNestedNameSpecifierLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7C0470ADA7859BB0D473EFE4E06741A1728195C0">buildIdExpression</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6F2F0A0217F343AE7DDF6F8D0C4216F9E9471F64">WalkUpFromMemberExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0A8BA2064626A5927FA939B24A0A93815750C8C5">WalkUpFromDeclRefExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5FA6E1E99562B37205A8657A4F830E98308AB103">WalkUpFromDependentScopeDeclRefExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5EC510BE4A23B92FAA5C2FF82433AE910A24E9FC">WalkUpFromCXXThisExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F734ECF11567EE74764999A24E818B2DB39526A3">WalkUpFromParenExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6F0DCBB97D010B3E5AEFF96B3EC74AC321B9A4D3">WalkUpFromIntegerLiteral</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CAFCDB00361ED8F795C27CAFA7E1232CDA9032F9">WalkUpFromCharacterLiteral</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FE0903B73AF0733878076D22C3DE235B9AD903C8">WalkUpFromFloatingLiteral</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#730A983643FEE86555BAC0790F2F94F2A00FDD53">WalkUpFromStringLiteral</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A30F79A08B111C280893F8FB6BBF61D96F5A97F3">WalkUpFromCXXBoolLiteralExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ACC9BD56F556C74591A8490B02776C3B5ADA9289">WalkUpFromCXXNullPtrLiteralExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B8333D2D7B6F1650388648FC5CB271B817719991">WalkUpFromUnaryOperator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6BF50F0C54C509A0DB97C9BE18D9F6829D78B05D">WalkUpFromBinaryOperator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#50A6049DE82D3BA4FEDD18EA970EF617424CD990">buildCallArguments</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5F21978B57BEC6D2492B8E756101F9CB0FD6EEAD">WalkUpFromCallExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#30173EFC8C0491F40CAE21464C0CBA17EC45B65A">WalkUpFromCXXConstructExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4C89F02C968323945ECB0ADFFA7AAE49F497DE7">TraverseCXXOperatorCallExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B200C9E6E0ECB7D0AC105C077A6AAF88F09F6AAF">WalkUpFromCXXOperatorCallExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#01F63871D07646885419BCA596BB183EDF609683">WalkUpFromCXXDefaultArgExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#073351F6F6DB8B9BBCD7689D32EF13BE9FCC524D">WalkUpFromNamespaceDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FEB4E6AF5EC2897D7FC755E1E07C8130F94B5168">TraverseParenTypeLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0FC6DAA8CF51FF230756DF721EEAA95A2E2C1062">WalkUpFromParenTypeLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#34EBBFC17C3BEE96D558B4D8D82EBF6FED0D0303">WalkUpFromArrayTypeLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4C4C2ECBCB9C048D32B0B51B6FB5B12DF845755B">buildParameterDeclarationList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7B94BE8C99384152ECAD7DF46E687BB2A11EA660">WalkUpFromFunctionTypeLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CB634D1FDE40C8C51841B0F59F7FA1B8668A7016">WalkUpFromFunctionProtoTypeLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EB2387B016016D536EDD00B567BD65B9C3C50BE6">TraverseMemberPointerTypeLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C4382867C5FB663E53B972688B646200EC67847E">WalkUpFromMemberPointerTypeLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C6BDC942483C4760A28C9681B858070C32222C9">WalkUpFromDeclStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2000C3D8797B76E06C4188A6AC35BC9866105EA">WalkUpFromNullStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B4C35A5A248B3F8ADFD9C36E9003972AC03EC8B5">WalkUpFromSwitchStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D0A85523474112691517A170C98734A9E599A1CA">WalkUpFromCaseStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#25187C777D9D88D80FE085E7694BCBA1252ABBEF">WalkUpFromDefaultStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B845657BC953B4117A7C371C586BBAE6A6954F25">WalkUpFromIfStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C4461DA19120DB40545FB3C425E4D5D39C646A2F">WalkUpFromForStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#70DC01A41E89E54520080030F88A521AB596013D">WalkUpFromWhileStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#548C38D4D405FC117A3727FAAB05C15CE1354470">WalkUpFromContinueStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F67572142C0624F7BE982B81F0525832088020D">WalkUpFromBreakStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6F71C284646F31E46C7F7A1D690D961E80D149BE">WalkUpFromReturnStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C7A81E268262EE2881ABBA2440181ACE65166781">WalkUpFromCXXForRangeStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9902681711930F31DCB7107CF546C986E1086C0B">WalkUpFromEmptyDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F8610B6E9BB3CB9B443013E5F511988C54127589">WalkUpFromStaticAssertDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7270B57CE9AA31C44971954495C139D8464E3B73">WalkUpFromLinkageSpecDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF3939F3697843A380F16E689690BC073074BFE4">WalkUpFromNamespaceAliasDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#022E2192AAF03119C618FFC7545A51E77D2CEDED">WalkUpFromUsingDirectiveDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E850C1E9376638D7207CCA787AFFD14B0C0593F8">WalkUpFromUsingDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5C430248165D7028A9201B44D17F9DFB9D4A3818">WalkUpFromUnresolvedUsingValueDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CCD354AB97F3F79B76C1194758A9E4C7790118D9">WalkUpFromUnresolvedUsingTypenameDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#42CA2D8EC78ECC5A1D97B7796091242033F19B08">WalkUpFromTypeAliasDecl</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class BuildTreeVisitor</h1>
+                        <p>Defined at line 700 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L700">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="91ED48498B4B4FC2B5560A2D5656ECD278F9F38E">
+                                <pre><code class="language-cpp code-clang-doc">void BuildTreeVisitor (ASTContext &amp; Context, syntax::TreeBuilder &amp; Builder)</code></pre>
+                                <p>Defined at line 702 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L702">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B674816C359867CBE048144365060C02A164E336">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldTraversePostOrder ()</code></pre>
+                                <p>Defined at line 705 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L705">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7253AF539BC64B8157C13B54062FD98E2BF53F31">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromDeclaratorDecl (DeclaratorDecl * DD)</code></pre>
+                                <p>Defined at line 707 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L707">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="545F72FF9AEA8101DC6C682DE5C11985E17265CD">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromTypedefNameDecl (TypedefNameDecl * TD)</code></pre>
+                                <p>Defined at line 711 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L711">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E63E07189A2BD9B35A166E55077A82D618A06707">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitDecl (Decl * D)</code></pre>
+                                <p>Defined at line 715 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L715">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0AF3BD8DB46C87DE0E08BA25B43338C86DC0A332">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseClassTemplateSpecializationDecl (ClassTemplateSpecializationDecl * C)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> RAV does not call WalkUpFrom* on explicit instantiations, so we have to</p>
+                                        <p> override Traverse.</p>
+                                        <p> FIXME: make RAV call WalkUpFrom* instead.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 725 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L725">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="412B73B6F2750FCE415360B27BCF6603CAFF5B3B">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromTemplateDecl (TemplateDecl * S)</code></pre>
+                                <p>Defined at line 740 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L740">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="09AEC5CD214E201A6133C6D24380308F4D4BF8B3">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromTagDecl (TagDecl * C)</code></pre>
+                                <p>Defined at line 748 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L748">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C8A7ADF493958FD4FC7BDBB92EC516706AE16E5">
+                                <pre><code class="language-cpp code-clang-doc">syntax::Declaration * handleFreeStandingTagDecl (TagDecl * C)</code></pre>
+                                <p>Defined at line 758 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L758">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72889008A8CB7C46E676A1004668C4D099FD9936">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromTranslationUnitDecl (TranslationUnitDecl * TU)</code></pre>
+                                <p>Defined at line 780 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L780">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A733AEACF671088D3B79AE7F0CB81B26129E558E">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromCompoundStmt (CompoundStmt * S)</code></pre>
+                                <p>Defined at line 786 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L786">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B097FB0EC5D07A0098A76FD5B1FAB02DE317005E">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromStmt (Stmt * S)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Some statements are not yet handled by syntax trees.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 800 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L800">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2DDD726ECB6219501AA6CE1F01D156A72F43119E">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseIfStmt (IfStmt * S)</code></pre>
+                                <p>Defined at line 806 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L806">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BD00BE875CB2EAC225DEACF7994017600973E45">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseCXXForRangeStmt (CXXForRangeStmt * S)</code></pre>
+                                <p>Defined at line 830 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L830">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A82B0BD37A2DAB19BFDA1FE8F0F6A3EEE0CE5ECC">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseStmt (Stmt * S)</code></pre>
+                                <p>Defined at line 850 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L850">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DD9614CDD99B7D3E2FE449B58CE87571420C02D9">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseOpaqueValueExpr (OpaqueValueExpr * VE)</code></pre>
+                                <p>Defined at line 861 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L861">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="93D252AE29811625603AD28BEC42E27FAE783B94">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromExpr (Expr * E)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Some expressions are not yet handled by syntax trees.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 867 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L867">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="806A3807D8D8D98996D1BEFCE3036BE1E41B575F">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseUserDefinedLiteral (UserDefinedLiteral * S)</code></pre>
+                                <p>Defined at line 874 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L874">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C8F6887A2674D63AC14D8B4D81893DECC595CC3">
+                                <pre><code class="language-cpp code-clang-doc">syntax::UserDefinedLiteralExpression * buildUserDefinedLiteral (UserDefinedLiteral * S)</code></pre>
+                                <p>Defined at line 883 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L883">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0ECAC92D7A71E11BACE1B0F22168C49F35B7F014">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromUserDefinedLiteral (UserDefinedLiteral * S)</code></pre>
+                                <p>Defined at line 917 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L917">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4D2CF4994CBD4C59806A81E84576673B161E9285">
+                                <pre><code class="language-cpp code-clang-doc">syntax::NameSpecifier * buildIdentifier (SourceRange SR, bool DropBack)</code></pre>
+                                <p>Defined at line 923 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L923">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EC96127F6DE7D2EEE02D361340400167A9931E65">
+                                <pre><code class="language-cpp code-clang-doc">syntax::NameSpecifier * buildSimpleTemplateName (SourceRange SR)</code></pre>
+                                <p>Defined at line 934 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L934">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8BEF6EF452EB989E3F36F7EF76F028E96F0BE09D">
+                                <pre><code class="language-cpp code-clang-doc">syntax::NameSpecifier * buildNameSpecifier (const NestedNameSpecifierLoc &amp; NNSLoc)</code></pre>
+                                <p>Defined at line 946 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L946">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="248442CCC023520C27260B4A4B0CF4AAD808DD6A">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseNestedNameSpecifierLoc (NestedNameSpecifierLoc QualifierLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> To build syntax tree nodes for NestedNameSpecifierLoc we override</p>
+                                        <p> Traverse instead of WalkUpFrom because we want to traverse the children</p>
+                                        <p> ourselves and build a list instead of a nested tree of name specifier</p>
+                                        <p> prefixes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1008 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1008">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7C0470ADA7859BB0D473EFE4E06741A1728195C0">
+                                <pre><code class="language-cpp code-clang-doc">syntax::IdExpression * buildIdExpression (NestedNameSpecifierLoc QualifierLoc, SourceLocation TemplateKeywordLoc, SourceRange UnqualifiedIdLoc, PointerUnion From)</code></pre>
+                                <p>Defined at line 1028 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1028">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6F2F0A0217F343AE7DDF6F8D0C4216F9E9471F64">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromMemberExpr (MemberExpr * S)</code></pre>
+                                <p>Defined at line 1055 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1055">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0A8BA2064626A5927FA939B24A0A93815750C8C5">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromDeclRefExpr (DeclRefExpr * S)</code></pre>
+                                <p>Defined at line 1079 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1079">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5FA6E1E99562B37205A8657A4F830E98308AB103">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromDependentScopeDeclRefExpr (DependentScopeDeclRefExpr * S)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Same logic as DeclRefExpr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1087 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1087">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5EC510BE4A23B92FAA5C2FF82433AE910A24E9FC">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromCXXThisExpr (CXXThisExpr * S)</code></pre>
+                                <p>Defined at line 1094 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1094">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F734ECF11567EE74764999A24E818B2DB39526A3">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromParenExpr (ParenExpr * S)</code></pre>
+                                <p>Defined at line 1104 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1104">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6F0DCBB97D010B3E5AEFF96B3EC74AC321B9A4D3">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromIntegerLiteral (IntegerLiteral * S)</code></pre>
+                                <p>Defined at line 1113 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1113">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CAFCDB00361ED8F795C27CAFA7E1232CDA9032F9">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromCharacterLiteral (CharacterLiteral * S)</code></pre>
+                                <p>Defined at line 1120 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1120">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FE0903B73AF0733878076D22C3DE235B9AD903C8">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromFloatingLiteral (FloatingLiteral * S)</code></pre>
+                                <p>Defined at line 1127 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1127">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="730A983643FEE86555BAC0790F2F94F2A00FDD53">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromStringLiteral (StringLiteral * S)</code></pre>
+                                <p>Defined at line 1134 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1134">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A30F79A08B111C280893F8FB6BBF61D96F5A97F3">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromCXXBoolLiteralExpr (CXXBoolLiteralExpr * S)</code></pre>
+                                <p>Defined at line 1141 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1141">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ACC9BD56F556C74591A8490B02776C3B5ADA9289">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromCXXNullPtrLiteralExpr (CXXNullPtrLiteralExpr * S)</code></pre>
+                                <p>Defined at line 1148 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1148">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B8333D2D7B6F1650388648FC5CB271B817719991">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromUnaryOperator (UnaryOperator * S)</code></pre>
+                                <p>Defined at line 1155 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1155">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6BF50F0C54C509A0DB97C9BE18D9F6829D78B05D">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromBinaryOperator (BinaryOperator * S)</code></pre>
+                                <p>Defined at line 1172 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1172">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="50A6049DE82D3BA4FEDD18EA970EF617424CD990">
+                                <pre><code class="language-cpp code-clang-doc">syntax::CallArguments * buildCallArguments (iterator_range ArgsAndDefaultArgs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Builds `CallArguments` syntax node from arguments that appear in source</p>
+                                        <p> code, i.e. not default arguments.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1184 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1184">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F21978B57BEC6D2492B8E756101F9CB0FD6EEAD">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromCallExpr (CallExpr * S)</code></pre>
+                                <p>Defined at line 1204 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1204">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="30173EFC8C0491F40CAE21464C0CBA17EC45B65A">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromCXXConstructExpr (CXXConstructExpr * S)</code></pre>
+                                <p>Defined at line 1224 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1224">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4C89F02C968323945ECB0ADFFA7AAE49F497DE7">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseCXXOperatorCallExpr (CXXOperatorCallExpr * S)</code></pre>
+                                <p>Defined at line 1232 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1232">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B200C9E6E0ECB7D0AC105C077A6AAF88F09F6AAF">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromCXXOperatorCallExpr (CXXOperatorCallExpr * S)</code></pre>
+                                <p>Defined at line 1255 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1255">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="01F63871D07646885419BCA596BB183EDF609683">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromCXXDefaultArgExpr (CXXDefaultArgExpr * S)</code></pre>
+                                <p>Defined at line 1308 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1308">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="073351F6F6DB8B9BBCD7689D32EF13BE9FCC524D">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromNamespaceDecl (NamespaceDecl * S)</code></pre>
+                                <p>Defined at line 1310 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1310">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FEB4E6AF5EC2897D7FC755E1E07C8130F94B5168">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseParenTypeLoc (ParenTypeLoc L, bool TraverseQualifier)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> FIXME: Deleting the `TraverseParenTypeLoc` override doesn&#39;t change test</p>
+                                        <p> results. Find test coverage or remove it.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1324 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1324">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0FC6DAA8CF51FF230756DF721EEAA95A2E2C1062">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromParenTypeLoc (ParenTypeLoc L)</code></pre>
+                                <p>Defined at line 1331 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1331">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="34EBBFC17C3BEE96D558B4D8D82EBF6FED0D0303">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromArrayTypeLoc (ArrayTypeLoc L)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Declarator chunks, they are produced by type locs and some clang::Decls.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1340 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1340">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4C4C2ECBCB9C048D32B0B51B6FB5B12DF845755B">
+                                <pre><code class="language-cpp code-clang-doc">syntax::ParameterDeclarationList * buildParameterDeclarationList (ArrayRef Params)</code></pre>
+                                <p>Defined at line 1349 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1349">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7B94BE8C99384152ECAD7DF46E687BB2A11EA660">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromFunctionTypeLoc (FunctionTypeLoc L)</code></pre>
+                                <p>Defined at line 1365 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1365">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CB634D1FDE40C8C51841B0F59F7FA1B8668A7016">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromFunctionProtoTypeLoc (FunctionProtoTypeLoc L)</code></pre>
+                                <p>Defined at line 1377 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1377">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EB2387B016016D536EDD00B567BD65B9C3C50BE6">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseMemberPointerTypeLoc (MemberPointerTypeLoc L, bool TraverseQualifier)</code></pre>
+                                <p>Defined at line 1387 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1387">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C4382867C5FB663E53B972688B646200EC67847E">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromMemberPointerTypeLoc (MemberPointerTypeLoc L)</code></pre>
+                                <p>Defined at line 1398 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1398">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C6BDC942483C4760A28C9681B858070C32222C9">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromDeclStmt (DeclStmt * S)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The code below is very regular, it could even be generated with some</p>
+                                        <p> preprocessor magic. We merely assign roles to the corresponding children</p>
+                                        <p> and fold resulting nodes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1408 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1408">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A2000C3D8797B76E06C4188A6AC35BC9866105EA">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromNullStmt (NullStmt * S)</code></pre>
+                                <p>Defined at line 1414 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1414">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B4C35A5A248B3F8ADFD9C36E9003972AC03EC8B5">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromSwitchStmt (SwitchStmt * S)</code></pre>
+                                <p>Defined at line 1420 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1420">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D0A85523474112691517A170C98734A9E599A1CA">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromCaseStmt (CaseStmt * S)</code></pre>
+                                <p>Defined at line 1429 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1429">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="25187C777D9D88D80FE085E7694BCBA1252ABBEF">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromDefaultStmt (DefaultStmt * S)</code></pre>
+                                <p>Defined at line 1439 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1439">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B845657BC953B4117A7C371C586BBAE6A6954F25">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromIfStmt (IfStmt * S)</code></pre>
+                                <p>Defined at line 1448 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1448">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C4461DA19120DB40545FB3C425E4D5D39C646A2F">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromForStmt (ForStmt * S)</code></pre>
+                                <p>Defined at line 1462 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1462">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="70DC01A41E89E54520080030F88A521AB596013D">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromWhileStmt (WhileStmt * S)</code></pre>
+                                <p>Defined at line 1470 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1470">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="548C38D4D405FC117A3727FAAB05C15CE1354470">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromContinueStmt (ContinueStmt * S)</code></pre>
+                                <p>Defined at line 1479 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1479">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F67572142C0624F7BE982B81F0525832088020D">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromBreakStmt (BreakStmt * S)</code></pre>
+                                <p>Defined at line 1486 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1486">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6F71C284646F31E46C7F7A1D690D961E80D149BE">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromReturnStmt (ReturnStmt * S)</code></pre>
+                                <p>Defined at line 1493 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1493">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C7A81E268262EE2881ABBA2440181ACE65166781">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromCXXForRangeStmt (CXXForRangeStmt * S)</code></pre>
+                                <p>Defined at line 1502 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1502">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9902681711930F31DCB7107CF546C986E1086C0B">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromEmptyDecl (EmptyDecl * S)</code></pre>
+                                <p>Defined at line 1510 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1510">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F8610B6E9BB3CB9B443013E5F511988C54127589">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromStaticAssertDecl (StaticAssertDecl * S)</code></pre>
+                                <p>Defined at line 1516 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1516">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7270B57CE9AA31C44971954495C139D8464E3B73">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromLinkageSpecDecl (LinkageSpecDecl * S)</code></pre>
+                                <p>Defined at line 1524 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1524">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EF3939F3697843A380F16E689690BC073074BFE4">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromNamespaceAliasDecl (NamespaceAliasDecl * S)</code></pre>
+                                <p>Defined at line 1531 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1531">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="022E2192AAF03119C618FFC7545A51E77D2CEDED">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromUsingDirectiveDecl (UsingDirectiveDecl * S)</code></pre>
+                                <p>Defined at line 1537 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1537">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E850C1E9376638D7207CCA787AFFD14B0C0593F8">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromUsingDecl (UsingDecl * S)</code></pre>
+                                <p>Defined at line 1543 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1543">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5C430248165D7028A9201B44D17F9DFB9D4A3818">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromUnresolvedUsingValueDecl (UnresolvedUsingValueDecl * S)</code></pre>
+                                <p>Defined at line 1549 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1549">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CCD354AB97F3F79B76C1194758A9E4C7790118D9">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromUnresolvedUsingTypenameDecl (UnresolvedUsingTypenameDecl * S)</code></pre>
+                                <p>Defined at line 1555 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1555">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="42CA2D8EC78ECC5A1D97B7796091242033F19B08">
+                                <pre><code class="language-cpp code-clang-doc">bool WalkUpFromTypeAliasDecl (TypeAliasDecl * S)</code></pre>
+                                <p>Defined at line 1561 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/Syntax/BuildTree.cpp#L1561">clang/lib/Tooling/Syntax/BuildTree.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

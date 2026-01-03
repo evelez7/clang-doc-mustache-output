@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>OMPBuilderCBHelpers</title>
+        <link rel="stylesheet" type="text/css" href="../../../clang-doc-mustache.css"/>
+        <script src="../../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct OMPBuilderCBHelpers</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D2FDA7227CCFCF53F51A59A051782CEED43BE1CE">getAddrOfThreadPrivate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#617170BC184A81AB8C41E3A89A4A641AF5D555FD">getAddressOfLocalVariable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6BE925D540F797DAD27BD53DF339C996E1C964FC">getNameWithSeparators</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1C459FDD4A28C7D87E2F113FCCFBA4306AB2697D">EmitOMPInlinedRegionBody</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3AF12686B6D655A332154CB5E446E356E38E9766">EmitOMPOutlinedRegionBody</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1529C7C9B5644224E793B185CA3DDA764C60448F">OMPBuilderCBHelpers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4E3A53F567E40B98AA705D72715FC3CB842E037B">OMPBuilderCBHelpers</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F233EA5E4E6A2E1969FEC084BEB41AF2F1E549C6">operator=</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3BE3B8E9AF4E46896BBEE403D980FC87BEB49239">FinalizeOMPRegion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E7E6D2BA98979CC25C2FFBB8DE6A58EC366A6BCD">EmitCaptureStmt</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AE7F2EC822844652FA8E59FB8A41CD31AE3F10D5">InsertPointTy</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8614A46A3EAF15D0A94CB6FC1B5E225082D2D4A8">InlinedRegionBodyRAII</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#842FCC427B537C98555BB78E612A97ACC777CDBB">OMPAllocateCleanupTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#29220AC90E36D40A05CA6D32DDAECD2FF37E84DE">OutlinedRegionBodyRAII</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct OMPBuilderCBHelpers</h1>
+                        <p>Defined at line 1891 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CodeGenFunction.h#L1891">clang/lib/CodeGen/CodeGenFunction.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Helper class for the OpenMP IR Builder. Allows reusability of code used for</p>
+                                <p> region body, and finalization codegen callbacks. This will class will also</p>
+                                <p> contain privatization functions used by the privatization call backs</p>
+                            </div>
+                            <div>
+                                <p> TODO: this is temporary class for things that are being moved out of</p>
+                                <p> CGOpenMPRuntime, new versions of current CodeGenFunction methods, or</p>
+                                <p> utility function for use with the OMPBuilder. Once that move to use the</p>
+                                <p> OMPBuilder is done, everything here will either become part of CodeGenFunc.</p>
+                                <p> directly, or a new helper class that will contain functions used by both</p>
+                                <p> this and the OMPBuilder</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="D2FDA7227CCFCF53F51A59A051782CEED43BE1CE">
+                                <pre><code class="language-cpp code-clang-doc">Address getAddrOfThreadPrivate (CodeGenFunction &amp; CGF, const VarDecl * VD, Address VDAddr, SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns address of the threadprivate variable for the current</p>
+                                        <p> thread. This Also create any necessary OMP runtime calls.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>VD</b>   VarDecl for Threadprivate variable.
+                                    </div> 
+                                    <div>
+                                        <b>VDAddr</b>   Address of the Vardecl
+                                    </div> 
+                                    <div>
+                                        <b>Loc</b>    The location where the barrier directive was encountered
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1778 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGStmtOpenMP.cpp#L1778">clang/lib/CodeGen/CGStmtOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="617170BC184A81AB8C41E3A89A4A641AF5D555FD">
+                                <pre><code class="language-cpp code-clang-doc">Address getAddressOfLocalVariable (CodeGenFunction &amp; CGF, const VarDecl * VD)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Gets the OpenMP-specific address of the local variable /p VD.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1728 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGStmtOpenMP.cpp#L1728">clang/lib/CodeGen/CGStmtOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6BE925D540F797DAD27BD53DF339C996E1C964FC">
+                                <pre><code class="language-cpp code-clang-doc">basic_string getNameWithSeparators (ArrayRef Parts, StringRef FirstSeparator, StringRef Separator)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the platform-specific name separator.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Parts</b>   different parts of the final name that needs separation
+                                    </div> 
+                                    <div>
+                                        <b>FirstSeparator</b>   First separator used between the initial two        parts of the name.
+                                    </div> 
+                                    <div>
+                                        <b>Separator</b>   separator used between all of the rest consecutinve        parts of the name
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1801 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGStmtOpenMP.cpp#L1801">clang/lib/CodeGen/CGStmtOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1C459FDD4A28C7D87E2F113FCCFBA4306AB2697D">
+                                <pre><code class="language-cpp code-clang-doc">void EmitOMPInlinedRegionBody (CodeGenFunction &amp; CGF, const Stmt * RegionBodyStmt, InsertPoint AllocaIP, InsertPoint CodeGenIP, Twine RegionName)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit the body of an OMP region</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>CGF</b>  	          The Codegen function this belongs to
+                                    </div> 
+                                    <div>
+                                        <b>RegionBodyStmt</b>   The body statement for the OpenMP region being                       generated
+                                    </div> 
+                                    <div>
+                                        <b>AllocaIP</b>         Where to insert alloca instructions
+                                    </div> 
+                                    <div>
+                                        <b>CodeGenIP</b>        Where to insert the region code
+                                    </div> 
+                                    <div>
+                                        <b>RegionName</b>       Name to be used for new blocks
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1813 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGStmtOpenMP.cpp#L1813">clang/lib/CodeGen/CGStmtOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3AF12686B6D655A332154CB5E446E356E38E9766">
+                                <pre><code class="language-cpp code-clang-doc">void EmitOMPOutlinedRegionBody (CodeGenFunction &amp; CGF, const Stmt * RegionBodyStmt, InsertPoint AllocaIP, InsertPoint CodeGenIP, Twine RegionName)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit the body of an OMP region that will be outlined in</p>
+                                        <p> OpenMPIRBuilder::finalize().</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>CGF</b>  	          The Codegen function this belongs to
+                                    </div> 
+                                    <div>
+                                        <b>RegionBodyStmt</b>   The body statement for the OpenMP region being                       generated
+                                    </div> 
+                                    <div>
+                                        <b>AllocaIP</b>         Where to insert alloca instructions
+                                    </div> 
+                                    <div>
+                                        <b>CodeGenIP</b>        Where to insert the region code
+                                    </div> 
+                                    <div>
+                                        <b>RegionName</b>       Name to be used for new blocks
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1830 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGStmtOpenMP.cpp#L1830">clang/lib/CodeGen/CGStmtOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1529C7C9B5644224E793B185CA3DDA764C60448F">
+                                <pre><code class="language-cpp code-clang-doc">void OMPBuilderCBHelpers ()</code></pre>
+                                <p>Defined at line 1893 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CodeGenFunction.h#L1893">clang/lib/CodeGen/CodeGenFunction.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4E3A53F567E40B98AA705D72715FC3CB842E037B">
+                                <pre><code class="language-cpp code-clang-doc">void OMPBuilderCBHelpers (const OMPBuilderCBHelpers &amp; )</code></pre>
+                                <p>Defined at line 1894 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CodeGenFunction.h#L1894">clang/lib/CodeGen/CodeGenFunction.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F233EA5E4E6A2E1969FEC084BEB41AF2F1E549C6">
+                                <pre><code class="language-cpp code-clang-doc">OMPBuilderCBHelpers &amp; operator= (const OMPBuilderCBHelpers &amp; )</code></pre>
+                                <p>Defined at line 1895 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CodeGenFunction.h#L1895">clang/lib/CodeGen/CodeGenFunction.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3BE3B8E9AF4E46896BBEE403D980FC87BEB49239">
+                                <pre><code class="language-cpp code-clang-doc">void FinalizeOMPRegion (CodeGenFunction &amp; CGF, InsertPoint IP)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit the Finalization for an OMP region</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>CGF</b>  	The Codegen function this belongs to
+                                    </div> 
+                                    <div>
+                                        <b>IP</b>  	Insertion point for generating the finalization code.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 1942 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CodeGenFunction.h#L1942">clang/lib/CodeGen/CodeGenFunction.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E7E6D2BA98979CC25C2FFBB8DE6A58EC366A6BCD">
+                                <pre><code class="language-cpp code-clang-doc">void EmitCaptureStmt (CodeGenFunction &amp; CGF, InsertPoint CodeGenIP, llvm::BasicBlock &amp; FiniBB, llvm::Function * Fn, ArrayRef Args)</code></pre>
+                                <p>Defined at line 1971 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CodeGenFunction.h#L1971">clang/lib/CodeGen/CodeGenFunction.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="8614A46A3EAF15D0A94CB6FC1B5E225082D2D4A8" style="max-height: 40px;">
+                            <a href="OMPBuilderCBHelpers/_ZTVN5clang7CodeGen15CodeGenFunction19OMPBuilderCBHelpers21InlinedRegionBodyRAIIE.html">
+                                <pre><code class="language-cpp code-clang-doc">class InlinedRegionBodyRAII</code></pre>
+                            </a>
+                        </li>
+                        <li id="842FCC427B537C98555BB78E612A97ACC777CDBB" style="max-height: 40px;">
+                            <a href="OMPBuilderCBHelpers/_ZTVN5clang7CodeGen15CodeGenFunction19OMPBuilderCBHelpers20OMPAllocateCleanupTyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class OMPAllocateCleanupTy</code></pre>
+                            </a>
+                        </li>
+                        <li id="29220AC90E36D40A05CA6D32DDAECD2FF37E84DE" style="max-height: 40px;">
+                            <a href="OMPBuilderCBHelpers/_ZTVN5clang7CodeGen15CodeGenFunction19OMPBuilderCBHelpers22OutlinedRegionBodyRAIIE.html">
+                                <pre><code class="language-cpp code-clang-doc">class OutlinedRegionBodyRAII</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="AE7F2EC822844652FA8E59FB8A41CD31AE3F10D5" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using InsertPointTy = InsertPoint</code></pre>
+                        <p>Defined at line 1897 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CodeGenFunction.h#L1897">clang/lib/CodeGen/CodeGenFunction.h</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

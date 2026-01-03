@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CNFFormulaBuilder</title>
+        <link rel="stylesheet" type="text/css" href="../../../clang-doc-mustache.css"/>
+        <script src="../../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct CNFFormulaBuilder</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EF8971252DA07BF304A3F4542C48E3F19C7D3BF7">CNFFormulaBuilder</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F1B85F506CA6EFCE238C0FB992674FFE2A3BEFD8">addClause</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#621B025E2B61A7FA55CF78D255590C8B56C2C279">isKnownContradictory</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct CNFFormulaBuilder</h1>
+                        <p>Defined at line 34 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/FlowSensitive/CNFFormula.cpp#L34">clang/lib/Analysis/FlowSensitive/CNFFormula.cpp</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Applies simplifications while building up a BooleanFormula.</p>
+                                <p> We keep track of unit clauses, which tell us variables that must be</p>
+                                <p> true/false in any model that satisfies the overall formula.</p>
+                                <p> Such variables can be dropped from subsequently-added clauses, which</p>
+                                <p> may in turn yield more unit clauses or even a contradiction.</p>
+                                <p> The total added complexity of this preprocessing is O(N) where we</p>
+                                <p> for every clause, we do a lookup for each unit clauses.</p>
+                                <p> The lookup is O(1) on average. This method won&#39;t catch all</p>
+                                <p> contradictory formulas, more passes can in principle catch</p>
+                                <p> more cases but we leave all these and the general case to the</p>
+                                <p> proper SAT solver.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="EF8971252DA07BF304A3F4542C48E3F19C7D3BF7">
+                                <pre><code class="language-cpp code-clang-doc">void CNFFormulaBuilder (CNFFormula &amp; CNF)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Formula should outlive CNFFormulaBuilder.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 36 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/FlowSensitive/CNFFormula.cpp#L36">clang/lib/Analysis/FlowSensitive/CNFFormula.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F1B85F506CA6EFCE238C0FB992674FFE2A3BEFD8">
+                                <pre><code class="language-cpp code-clang-doc">void addClause (ArrayRef Literals)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Adds the `L1 v ... v Ln` clause to the formula. Applies</p>
+                                        <p> simplifications, based on single-literal clauses.</p>
+                                    </div>
+                                    <div>
+                                        <p> Requirements:</p>
+                                    </div>
+                                    <div>
+                                        <p>  `Li` must not be `NullLit`.</p>
+                                    </div>
+                                    <div>
+                                        <p>  All literals must be distinct.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 46 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/FlowSensitive/CNFFormula.cpp#L46">clang/lib/Analysis/FlowSensitive/CNFFormula.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="621B025E2B61A7FA55CF78D255590C8B56C2C279">
+                                <pre><code class="language-cpp code-clang-doc">bool isKnownContradictory ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if we observed a contradiction while adding clauses.</p>
+                                        <p> In this case then the formula is already known to be unsatisfiable.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 88 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/FlowSensitive/CNFFormula.cpp#L88">clang/lib/Analysis/FlowSensitive/CNFFormula.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

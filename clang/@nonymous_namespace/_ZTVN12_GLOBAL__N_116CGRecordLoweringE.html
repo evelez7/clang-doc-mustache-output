@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CGRecordLowering</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct CGRecordLowering</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Types">Types</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Context">Context</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D">D</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#RD">RD</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Layout">Layout</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DataLayout">DataLayout</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Members">Members</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FieldTypes">FieldTypes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Fields">Fields</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BitFields">BitFields</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#NonVirtualBases">NonVirtualBases</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#VirtualBases">VirtualBases</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#IsZeroInitializable">IsZeroInitializable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#IsZeroInitializableAsBase">IsZeroInitializableAsBase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#Packed">Packed</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D2D1AA384F34422E553E697CCC0367DCD2F06B1E">StorageInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5D0E399BD479DA721AB01A736157818C8B36AD6D">isDiscreteBitFieldABI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4AAA0D48868064841E79A82B2DBF022F259CBED0">isAAPCS</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#99F3B36A980798F05653C8823CF2BBFDD1978D06">isBE</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#478D909ADC747620F674BBE6F6844AA8ADEF5AE3">isOverlappingVBaseABI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#04792201391A18650F4076F948BC0BA897EB284F">getIntNType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C09D63EF1CF4814F365269CCE6191DDAB9EA442B">getCharType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#68177F73FF7BFDE049368C782E0AE15CEE990379">getByteArrayType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EAB0A9D3A92B47C58904805C1EAE1C6C7E6F4CAD">getStorageType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F0F06C04B90B55DC9D103683F5C79A0114B79759">getStorageType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3AD230F5E13C74EAE3262245EB3337DF80F05101">bitsToCharUnits</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4A747123B816414B096504D21CC348DB09B8B7D6">getSize</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5FB75143D9E0128A733027055774A89F8C34CE7B">getAlignment</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EDE7CE88A33F2D565EDDA75389D58BD389396F47">isZeroInitializable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0638C863F732E594A2425B5EEB9A855854A7BFFC">isZeroInitializable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#28448879E48CA849275682A7AC90F5B95B56F045">appendPaddingBytes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F26837B24FA56A1256C58A50FA87DD8247221CC">getFieldBitOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A438FB51240C8736A69B29389AE895AC905F5E76">CGRecordLowering</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0A45BC5693C49C2962DA11900C62B52FB47C7B5C">setBitFieldInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BBBE21A905D6CE6DCC093E20CDD4F0ADC4C3096">lower</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ABFA75F752C27F010410BA1044B907AFE67F038B">lowerUnion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#50DDA58E486E64819BD45C84CB1509FFED7D8FE3">accumulateFields</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#02E95F40F1C8668C4122484AE629728A3FB618C7">accumulateBitFields</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FBC74910D69703F3BA3CF745D26D216FEB45B4EB">computeVolatileBitfields</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#351FA1E9DD5F7CE26E0824D80E78F10ECA98D740">accumulateBases</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72BE57D94FDD45B1E099A38A64A047833445C56F">accumulateVPtrs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3122C16498BB5C303220D577204A95410A282DE5">accumulateVBases</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0A6A0E5F4C14EAB7A26B450B960899BF2F4C5676">hasOwnStorage</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6F9B90A770691341DEE5C4A813FEFC60961A56D4">calculateZeroInit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DC6706E71E11D0B42BFA74328E668CA9F7ABCC86">calculateTailClippingOffset</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DEC3251AEAB92D7051B41EE30B46B35FF3FBD92B">checkBitfieldClipping</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B62D55DAD85BD75444528BD8B02027754725748B">determinePacked</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E340580CCC3643787DEEDE96FBCC4F491AB0BD77">insertPadding</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BF41C78476BD6FCCD76B5ACC8A2CC79DF118282E">fillOutputFields</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2663C454A99677F48D4B05B2B1794B05263D3F44">MemberInfo</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct CGRecordLowering</h1>
+                        <p>Defined at line 73 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L73">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> The CGRecordLowering is responsible for lowering an ASTRecordLayout to an</p>
+                                <p> llvm::Type.  Some of the lowering is straightforward, some is not.  Here we</p>
+                                <p> detail some of the complexities and weirdnesses here.</p>
+                                <p> * LLVM does not have unions - Unions can, in theory be represented by any</p>
+                                <p>   llvm::Type with correct size.  We choose a field via a specific heuristic</p>
+                                <p>   and add padding if necessary.</p>
+                                <p> * LLVM does not have bitfields - Bitfields are collected into contiguous</p>
+                                <p>   runs and allocated as a single storage type for the run.  ASTRecordLayout</p>
+                                <p>   contains enough information to determine where the runs break.  Microsoft</p>
+                                <p>   and Itanium follow different rules and use different codepaths.</p>
+                                <p> * It is desired that, when possible, bitfields use the appropriate iN type</p>
+                                <p>   when lowered to llvm types. For example unsigned x : 24 gets lowered to</p>
+                                <p>   i24.  This isn&#39;t always possible because i24 has storage size of 32 bit</p>
+                                <p>   and if it is possible to use that extra byte of padding we must use [i8 x</p>
+                                <p>   3] instead of i24. This is computed when accumulating bitfields in</p>
+                                <p>   accumulateBitfields.</p>
+                                <p>   C++ examples that require clipping:</p>
+                                <p>   struct { int a : 24; char b; }; // a must be clipped, b goes at offset 3</p>
+                                <p>   struct A { int a : 24; ~A(); }; // a must be clipped because:</p>
+                                <p>   struct B : A { char b; }; // b goes at offset 3</p>
+                                <p> * The allocation of bitfield access units is described in more detail in</p>
+                                <p>   CGRecordLowering::accumulateBitFields.</p>
+                                <p> * Clang ignores 0 sized bitfields and 0 sized bases but *not* zero sized</p>
+                                <p>   fields.  The existing asserts suggest that LLVM assumes that *every* field</p>
+                                <p>   has an underlying storage type.  Therefore empty structures containing</p>
+                                <p>   zero sized subobjects such as empty records or zero sized arrays still get</p>
+                                <p>   a zero sized (empty struct) storage type.</p>
+                                <p> * Clang reads the complete type rather than the base type when generating</p>
+                                <p>   code to access fields.  Bitfields in tail position with tail padding may</p>
+                                <p>   be clipped in the base class but not the complete class (we may discover</p>
+                                <p>   that the tail padding is not used in the complete class.) However,</p>
+                                <p>   because LLVM reads from the complete type it can generate incorrect code</p>
+                                <p>   if we do not clip the tail padding off of the bitfield in the complete</p>
+                                <p>   layout.</p>
+                                <p> * Itanium allows nearly empty primary virtual bases.  These bases don&#39;t get</p>
+                                <p>   get their own storage because they&#39;re laid out as part of another base</p>
+                                <p>   or at the beginning of the structure.  Determining if a VBase actually</p>
+                                <p>   gets storage awkwardly involves a walk of all bases.</p>
+                                <p> * VFPtrs and VBPtrs do *not* make a record NotZeroInitializable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Types" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >CodeGenTypes &amp; Types</code></pre>
+                        </div>
+                        <div id="Context" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const ASTContext &amp; Context</code></pre>
+                        </div>
+                        <div id="D" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const RecordDecl * D</code></pre>
+                        </div>
+                        <div id="RD" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const CXXRecordDecl * RD</code></pre>
+                        </div>
+                        <div id="Layout" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const ASTRecordLayout &amp; Layout</code></pre>
+                        </div>
+                        <div id="DataLayout" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const llvm::DataLayout &amp; DataLayout</code></pre>
+                        </div>
+                        <div id="Members" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >vector Members</code></pre>
+                        </div>
+                        <div id="FieldTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector FieldTypes</code></pre>
+                        </div>
+                        <div id="Fields" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap Fields</code></pre>
+                        </div>
+                        <div id="BitFields" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap BitFields</code></pre>
+                        </div>
+                        <div id="NonVirtualBases" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap NonVirtualBases</code></pre>
+                        </div>
+                        <div id="VirtualBases" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DenseMap VirtualBases</code></pre>
+                        </div>
+                        <div id="IsZeroInitializable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool IsZeroInitializable</code></pre>
+                        </div>
+                        <div id="IsZeroInitializableAsBase" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool IsZeroInitializableAsBase</code></pre>
+                        </div>
+                        <div id="Packed" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool Packed</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="D2D1AA384F34422E553E697CCC0367DCD2F06B1E">
+                                <pre><code class="language-cpp code-clang-doc">MemberInfo StorageInfo (CharUnits Offset, llvm::Type * Data)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Short helper routines.</p>
+                                        <p> Constructs a MemberInfo instance from an offset and llvm::Type *.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 98 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L98">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5D0E399BD479DA721AB01A736157818C8B36AD6D">
+                                <pre><code class="language-cpp code-clang-doc">bool isDiscreteBitFieldABI ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The Microsoft bitfield layout rule allocates discrete storage</p>
+                                        <p> units of the field&#39;s formal type and only combines adjacent</p>
+                                        <p> fields of the same formal type.  We want to emit a layout with</p>
+                                        <p> these discrete storage units instead of combining them into a</p>
+                                        <p> continuous run.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 107 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L107">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4AAA0D48868064841E79A82B2DBF022F259CBED0">
+                                <pre><code class="language-cpp code-clang-doc">bool isAAPCS ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Helper function to check if we are targeting AAPCS.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 113 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L113">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="99F3B36A980798F05653C8823CF2BBFDD1978D06">
+                                <pre><code class="language-cpp code-clang-doc">bool isBE ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Helper function to check if the target machine is BigEndian.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 118 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L118">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="478D909ADC747620F674BBE6F6844AA8ADEF5AE3">
+                                <pre><code class="language-cpp code-clang-doc">bool isOverlappingVBaseABI ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The Itanium base layout rule allows virtual bases to overlap</p>
+                                        <p> other bases, which complicates layout in specific ways.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note specifically that the ms_struct attribute doesn&#39;t change this.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 124 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L124">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="04792201391A18650F4076F948BC0BA897EB284F">
+                                <pre><code class="language-cpp code-clang-doc">llvm::Type * getIntNType (uint64_t NumBits)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Wraps llvm::Type::getIntNTy with some implicit arguments.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 129 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L129">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C09D63EF1CF4814F365269CCE6191DDAB9EA442B">
+                                <pre><code class="language-cpp code-clang-doc">llvm::Type * getCharType ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the LLVM type sized as one character unit.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 134 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L134">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="68177F73FF7BFDE049368C782E0AE15CEE990379">
+                                <pre><code class="language-cpp code-clang-doc">llvm::Type * getByteArrayType (CharUnits NumChars)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Gets an llvm type of size NumChars and alignment 1.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 139 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L139">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EAB0A9D3A92B47C58904805C1EAE1C6C7E6F4CAD">
+                                <pre><code class="language-cpp code-clang-doc">llvm::Type * getStorageType (const FieldDecl * FD)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Gets the storage type for a field decl and handles storage</p>
+                                        <p> for itanium bitfields that are smaller than their declared type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 147 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L147">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F0F06C04B90B55DC9D103683F5C79A0114B79759">
+                                <pre><code class="language-cpp code-clang-doc">llvm::Type * getStorageType (const CXXRecordDecl * RD)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Gets the llvm Basesubobject type from a CXXRecordDecl.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 155 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L155">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3AD230F5E13C74EAE3262245EB3337DF80F05101">
+                                <pre><code class="language-cpp code-clang-doc">CharUnits bitsToCharUnits (uint64_t BitOffset)</code></pre>
+                                <p>Defined at line 158 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L158">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4A747123B816414B096504D21CC348DB09B8B7D6">
+                                <pre><code class="language-cpp code-clang-doc">CharUnits getSize (llvm::Type * Type)</code></pre>
+                                <p>Defined at line 161 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L161">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5FB75143D9E0128A733027055774A89F8C34CE7B">
+                                <pre><code class="language-cpp code-clang-doc">CharUnits getAlignment (llvm::Type * Type)</code></pre>
+                                <p>Defined at line 164 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L164">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EDE7CE88A33F2D565EDDA75389D58BD389396F47">
+                                <pre><code class="language-cpp code-clang-doc">bool isZeroInitializable (const FieldDecl * FD)</code></pre>
+                                <p>Defined at line 167 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L167">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0638C863F732E594A2425B5EEB9A855854A7BFFC">
+                                <pre><code class="language-cpp code-clang-doc">bool isZeroInitializable (const RecordDecl * RD)</code></pre>
+                                <p>Defined at line 170 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L170">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="28448879E48CA849275682A7AC90F5B95B56F045">
+                                <pre><code class="language-cpp code-clang-doc">void appendPaddingBytes (CharUnits Size)</code></pre>
+                                <p>Defined at line 173 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L173">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F26837B24FA56A1256C58A50FA87DD8247221CC">
+                                <pre><code class="language-cpp code-clang-doc">uint64_t getFieldBitOffset (const FieldDecl * FD)</code></pre>
+                                <p>Defined at line 177 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L177">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A438FB51240C8736A69B29389AE895AC905F5E76">
+                                <pre><code class="language-cpp code-clang-doc">void CGRecordLowering (CodeGenTypes &amp; Types, const RecordDecl * D, bool Packed)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The constructor.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 232 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L232">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0A45BC5693C49C2962DA11900C62B52FB47C7B5C">
+                                <pre><code class="language-cpp code-clang-doc">void setBitFieldInfo (const FieldDecl * FD, CharUnits StartOffset, llvm::Type * StorageType)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Layout routines.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 240 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L240">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BBBE21A905D6CE6DCC093E20CDD4F0ADC4C3096">
+                                <pre><code class="language-cpp code-clang-doc">void lower (bool NonVirtualBaseType)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Lowers an ASTRecordLayout to a llvm type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 262 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L262">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ABFA75F752C27F010410BA1044B907AFE67F038B">
+                                <pre><code class="language-cpp code-clang-doc">void lowerUnion (bool isNonVirtualBaseType)</code></pre>
+                                <p>Defined at line 313 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L313">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="50DDA58E486E64819BD45C84CB1509FFED7D8FE3">
+                                <pre><code class="language-cpp code-clang-doc">void accumulateFields (bool isNonVirtualBaseType)</code></pre>
+                                <p>Defined at line 380 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L380">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="02E95F40F1C8668C4122484AE629728A3FB618C7">
+                                <pre><code class="language-cpp code-clang-doc">specific_decl_iterator accumulateBitFields (bool isNonVirtualBaseType, specific_decl_iterator Field, specific_decl_iterator FieldEnd)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create members for bitfields. Field is a bitfield, and FieldEnd is the end</p>
+                                        <p> iterator of the record. Return the first non-bitfield encountered.  We need</p>
+                                        <p> to know whether this is the base or complete layout, as virtual bases could</p>
+                                        <p> affect the upper bound of bitfield access unit allocation.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 409 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L409">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FBC74910D69703F3BA3CF745D26D216FEB45B4EB">
+                                <pre><code class="language-cpp code-clang-doc">void computeVolatileBitfields ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> The AAPCS that defines that, when possible, bit-fields should</p>
+                                        <p> be accessed using containers of the declared type width:</p>
+                                        <p> When a volatile bit-field is read, and its container does not overlap with</p>
+                                        <p> any non-bit-field member or any zero length bit-field member, its container</p>
+                                        <p> must be read exactly once using the access width appropriate to the type of</p>
+                                        <p> the container. When a volatile bit-field is written, and its container does</p>
+                                        <p> not overlap with any non-bit-field member or any zero-length bit-field</p>
+                                        <p> member, its container must be read exactly once and written exactly once</p>
+                                        <p> using the access width appropriate to the type of the container. The two</p>
+                                        <p> accesses are not atomic.</p>
+                                    </div>
+                                    <div>
+                                        <p> Enforcing the width restriction can be disabled using</p>
+                                        <p> -fno-aapcs-bitfield-width.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 755 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L755">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="351FA1E9DD5F7CE26E0824D80E78F10ECA98D740">
+                                <pre><code class="language-cpp code-clang-doc">void accumulateBases ()</code></pre>
+                                <p>Defined at line 720 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L720">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72BE57D94FDD45B1E099A38A64A047833445C56F">
+                                <pre><code class="language-cpp code-clang-doc">void accumulateVPtrs ()</code></pre>
+                                <p>Defined at line 859 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L859">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3122C16498BB5C303220D577204A95410A282DE5">
+                                <pre><code class="language-cpp code-clang-doc">void accumulateVBases ()</code></pre>
+                                <p>Defined at line 896 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L896">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0A6A0E5F4C14EAB7A26B450B960899BF2F4C5676">
+                                <pre><code class="language-cpp code-clang-doc">bool hasOwnStorage (const CXXRecordDecl * Decl, const CXXRecordDecl * Query)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Recursively searches all of the bases to find out if a vbase is</p>
+                                        <p> not the primary vbase of some base class.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 920 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L920">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6F9B90A770691341DEE5C4A813FEFC60961A56D4">
+                                <pre><code class="language-cpp code-clang-doc">void calculateZeroInit ()</code></pre>
+                                <p>Defined at line 931 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L931">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DC6706E71E11D0B42BFA74328E668CA9F7ABCC86">
+                                <pre><code class="language-cpp code-clang-doc">CharUnits calculateTailClippingOffset (bool isNonVirtualBaseType)</code></pre>
+                                <p>Defined at line 870 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L870">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DEC3251AEAB92D7051B41EE30B46B35FF3FBD92B">
+                                <pre><code class="language-cpp code-clang-doc">void checkBitfieldClipping (bool isNonVirtualBaseType)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Verify accumulateBitfields computed the correct storage representations.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 951 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L951">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B62D55DAD85BD75444528BD8B02027754725748B">
+                                <pre><code class="language-cpp code-clang-doc">void determinePacked (bool NVBaseType)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determines if we need a packed llvm struct.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 968 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L968">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E340580CCC3643787DEEDE96FBCC4F491AB0BD77">
+                                <pre><code class="language-cpp code-clang-doc">void insertPadding ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Inserts padding everywhere it&#39;s needed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1000 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L1000">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BF41C78476BD6FCCD76B5ACC8A2CC79DF118282E">
+                                <pre><code class="language-cpp code-clang-doc">void fillOutputFields ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Fills out the structures that are ultimately consumed.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1022 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp#L1022">clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="2663C454A99677F48D4B05B2B1794B05263D3F44" style="max-height: 40px;">
+                            <a href="CGRecordLowering/_ZTVN12_GLOBAL__N_116CGRecordLowering10MemberInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class MemberInfo</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

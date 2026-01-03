@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DeferredDiagnosticsEmitter</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class DeferredDiagnosticsEmitter</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#InUsePath">InUsePath</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#UsePath">UsePath</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DoneMap">DoneMap</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ShouldEmitRootNode">ShouldEmitRootNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#InOMPDeviceContext">InOMPDeviceContext</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#34CCDEFE8EC2A7444C4CE348BE5A285F5B0C04A9">DeferredDiagnosticsEmitter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#083201DCD747B1FD10354FB4AFC54E641B7C1049">shouldVisitDiscardedStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A857A9069ED201295E1F56F077B4A05888450205">VisitOMPTargetDirective</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B727D24CD771301CA54F992A8EEF1F3950034C1D">visitUsedDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C8D1254BBF72A853FE9114F9198D5F666AA6BD3B">VisitCalledDestructors</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8E194AC886ECEED681C0716575C1D63741D0D315">VisitDeclStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6CC6522B64E48F3087C67E2ECAF596291854FD0D">checkVar</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EAC25E54D73F5BA2ACA510870C95145DC5DC74E5">checkFunc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0214AFA082E40B057C554A71E31B9AE964DFDDD9">checkRecordedDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E9F5CA278EF9BE1EEBFACD40CA412FB445EC209B">emitDeferredDiags</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F8DBC61D4C0BF7A0212B82352E07DB72D5735A5E">Inherited</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class DeferredDiagnosticsEmitter</h1>
+                        <p>Defined at line 1841 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/Sema.cpp#L1841">clang/lib/Sema/Sema.cpp</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Helper class that emits deferred diagnostic messages if an entity directly</p>
+                                <p> or indirectly using the function that causes the deferred diagnostic</p>
+                                <p> messages is known to be emitted.</p>
+                            </div>
+                            <div>
+                                <p> During parsing of AST, certain diagnostic messages are recorded as deferred</p>
+                                <p> diagnostics since it is unknown whether the functions containing such</p>
+                                <p> diagnostics will be emitted. A list of potentially emitted functions and</p>
+                                <p> variables that may potentially trigger emission of functions are also</p>
+                                <p> recorded. DeferredDiagnosticsEmitter recursively visits used functions</p>
+                                <p> by each function to emit deferred diagnostics.</p>
+                            </div>
+                            <div>
+                                <p> During the visit, certain OpenMP directives or initializer of variables</p>
+                                <p> with certain OpenMP attributes will cause subsequent visiting of any</p>
+                                <p> functions enter a state which is called OpenMP device context in this</p>
+                                <p> implementation. The state is exited when the directive or initializer is</p>
+                                <p> exited. This state can change the emission states of subsequent uses</p>
+                                <p> of functions.</p>
+                            </div>
+                            <div>
+                                <p> Conceptually the functions or variables to be visited form a use graph</p>
+                                <p> where the parent node uses the child node. At any point of the visit,</p>
+                                <p> the tree nodes traversed from the tree root to the current node form a use</p>
+                                <p> stack. The emission state of the current node depends on two factors:</p>
+                                <p>    1. the emission state of the root node</p>
+                                <p>    2. whether the current node is in OpenMP device context</p>
+                                <p> If the function is decided to be emitted, its contained deferred diagnostics</p>
+                                <p> are emitted, together with the information about the use stack.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="InUsePath" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallPtrSet InUsePath</code></pre>
+                        </div>
+                        <div id="UsePath" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector UsePath</code></pre>
+                        </div>
+                        <div id="DoneMap" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >llvm::SmallPtrSet&lt;CanonicalDeclPtr&lt;Decl&gt;, 4&gt;[2] DoneMap</code></pre>
+                        </div>
+                        <div id="ShouldEmitRootNode" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >bool ShouldEmitRootNode</code></pre>
+                        </div>
+                        <div id="InOMPDeviceContext" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int InOMPDeviceContext</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="34CCDEFE8EC2A7444C4CE348BE5A285F5B0C04A9">
+                                <pre><code class="language-cpp code-clang-doc">void DeferredDiagnosticsEmitter (Sema &amp; S)</code></pre>
+                                <p>Defined at line 1866 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/Sema.cpp#L1866">clang/lib/Sema/Sema.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="083201DCD747B1FD10354FB4AFC54E641B7C1049">
+                                <pre><code class="language-cpp code-clang-doc">bool shouldVisitDiscardedStmt ()</code></pre>
+                                <p>Defined at line 1869 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/Sema.cpp#L1869">clang/lib/Sema/Sema.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A857A9069ED201295E1F56F077B4A05888450205">
+                                <pre><code class="language-cpp code-clang-doc">void VisitOMPTargetDirective (OMPTargetDirective * Node)</code></pre>
+                                <p>Defined at line 1871 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/Sema.cpp#L1871">clang/lib/Sema/Sema.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B727D24CD771301CA54F992A8EEF1F3950034C1D">
+                                <pre><code class="language-cpp code-clang-doc">void visitUsedDecl (SourceLocation Loc, Decl * D)</code></pre>
+                                <p>Defined at line 1877 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/Sema.cpp#L1877">clang/lib/Sema/Sema.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C8D1254BBF72A853FE9114F9198D5F666AA6BD3B">
+                                <pre><code class="language-cpp code-clang-doc">void VisitCalledDestructors (CXXDestructorDecl * DD)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Visitor member and parent dtors called by this dtor.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1887 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/Sema.cpp#L1887">clang/lib/Sema/Sema.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8E194AC886ECEED681C0716575C1D63741D0D315">
+                                <pre><code class="language-cpp code-clang-doc">void VisitDeclStmt (DeclStmt * DS)</code></pre>
+                                <p>Defined at line 1911 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/Sema.cpp#L1911">clang/lib/Sema/Sema.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6CC6522B64E48F3087C67E2ECAF596291854FD0D">
+                                <pre><code class="language-cpp code-clang-doc">void checkVar (VarDecl * VD)</code></pre>
+                                <p>Defined at line 1927 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/Sema.cpp#L1927">clang/lib/Sema/Sema.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EAC25E54D73F5BA2ACA510870C95145DC5DC74E5">
+                                <pre><code class="language-cpp code-clang-doc">void checkFunc (SourceLocation Loc, FunctionDecl * FD)</code></pre>
+                                <p>Defined at line 1942 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/Sema.cpp#L1942">clang/lib/Sema/Sema.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0214AFA082E40B057C554A71E31B9AE964DFDDD9">
+                                <pre><code class="language-cpp code-clang-doc">void checkRecordedDecl (Decl * D)</code></pre>
+                                <p>Defined at line 1974 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/Sema.cpp#L1974">clang/lib/Sema/Sema.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E9F5CA278EF9BE1EEBFACD40CA412FB445EC209B">
+                                <pre><code class="language-cpp code-clang-doc">void emitDeferredDiags (FunctionDecl * FD, bool ShowCallStack)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit any deferred diagnostics for FD</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1984 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/Sema.cpp#L1984">clang/lib/Sema/Sema.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="F8DBC61D4C0BF7A0212B82352E07DB72D5735A5E" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">typedef Inherited UsedDeclVisitor</code></pre>
+                        <p>Defined at line 1844 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/Sema.cpp#L1844">clang/lib/Sema/Sema.cpp</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

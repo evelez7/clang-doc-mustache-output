@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>WeakObjectProfileTy</title>
+        <link rel="stylesheet" type="text/css" href="../../../clang-doc-mustache.css"/>
+        <script src="../../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class WeakObjectProfileTy</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5171760F688C0450069A0703295DEED0346D5CA8">WeakObjectProfileTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5342FFEAA53208C787E6B9837BDB910A7B58C1C7">WeakObjectProfileTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FF47A89898F128D1826BCD8F9D0B728752B5F3B4">WeakObjectProfileTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#71574A9084E1238FE72772085E61D8114639B9AD">WeakObjectProfileTy</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0D20D19CE450BC2A95A4A1E131FBAC24766DFB90">getBase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#22BA80C09C001ABCE7FD6D571ECCEFBF86794618">getProperty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#31A20CC4DCE7163A80C0F7BF1B55D9D8FFF86F49">isExactProfile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#47A405243BC5B5DCD18AE21474740D1799C15702">operator==</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6B65B9FCF8A3813316B8244D54082D12C9FCB558">BaseInfoTy</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#37AD71E74FD24D953DC113E704D9755E74A60012">DenseMapInfo</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class WeakObjectProfileTy</h1>
+                        <p>Defined at line 271 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Sema/ScopeInfo.h#L271">clang/include/clang/Sema/ScopeInfo.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Represents a simple identification of a weak object.</p>
+                            </div>
+                            <div>
+                                <p> Part of the implementation of -Wrepeated-use-of-weak.</p>
+                            </div>
+                            <div>
+                                <p> This is used to determine if two weak accesses refer to the same object.</p>
+                                <p> Here are some examples of how various accesses are &quot;profiled&quot;:</p>
+                            </div>
+                            <div>
+                                <p> Access Expression |     &quot;Base&quot; Decl     |          &quot;Property&quot; Decl</p>
+                                <p> :---------------: | :-----------------: | :------------------------------:</p>
+                                <p> self.property     | self (VarDecl)      | property (ObjCPropertyDecl)</p>
+                                <p> self.implicitProp | self (VarDecl)      | -implicitProp (ObjCMethodDecl)</p>
+                                <p> self-&gt;ivar.prop   | ivar (ObjCIvarDecl) | prop (ObjCPropertyDecl)</p>
+                                <p> cxxObj.obj.prop   | obj (FieldDecl)     | prop (ObjCPropertyDecl)</p>
+                                <p> [self foo].prop   | 0 (unknown)         | prop (ObjCPropertyDecl)</p>
+                                <p> self.prop1.prop2  | prop1 (ObjCPropertyDecl)    | prop2 (ObjCPropertyDecl)</p>
+                                <p> MyClass.prop      | MyClass (ObjCInterfaceDecl) | -prop (ObjCMethodDecl)</p>
+                                <p> MyClass.foo.prop  | +foo (ObjCMethodDecl)       | -prop (ObjCPropertyDecl)</p>
+                                <p> weakVar           | 0 (known)           | weakVar (VarDecl)</p>
+                                <p> self-&gt;weakIvar    | self (VarDecl)      | weakIvar (ObjCIvarDecl)</p>
+                            </div>
+                            <div>
+                                <p> Objects are identified with only two Decls to make it reasonably fast to</p>
+                                <p> compare them.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="5171760F688C0450069A0703295DEED0346D5CA8">
+                                <pre><code class="language-cpp code-clang-doc">void WeakObjectProfileTy (const ObjCPropertyRefExpr * RE)</code></pre>
+                                <p>Defined at line 118 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/ScopeInfo.cpp#L118">clang/lib/Sema/ScopeInfo.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5342FFEAA53208C787E6B9837BDB910A7B58C1C7">
+                                <pre><code class="language-cpp code-clang-doc">void WeakObjectProfileTy (const Expr * Base, const ObjCPropertyDecl * Property)</code></pre>
+                                <p>Defined at line 133 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/ScopeInfo.cpp#L133">clang/lib/Sema/ScopeInfo.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF47A89898F128D1826BCD8F9D0B728752B5F3B4">
+                                <pre><code class="language-cpp code-clang-doc">void WeakObjectProfileTy (const DeclRefExpr * RE)</code></pre>
+                                <p>Defined at line 141 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/ScopeInfo.cpp#L141">clang/lib/Sema/ScopeInfo.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="71574A9084E1238FE72772085E61D8114639B9AD">
+                                <pre><code class="language-cpp code-clang-doc">void WeakObjectProfileTy (const ObjCIvarRefExpr * RE)</code></pre>
+                                <p>Defined at line 147 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/ScopeInfo.cpp#L147">clang/lib/Sema/ScopeInfo.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0D20D19CE450BC2A95A4A1E131FBAC24766DFB90">
+                                <pre><code class="language-cpp code-clang-doc">const NamedDecl * getBase ()</code></pre>
+                                <p>Defined at line 299 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Sema/ScopeInfo.h#L299">clang/include/clang/Sema/ScopeInfo.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="22BA80C09C001ABCE7FD6D571ECCEFBF86794618">
+                                <pre><code class="language-cpp code-clang-doc">const NamedDecl * getProperty ()</code></pre>
+                                <p>Defined at line 300 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Sema/ScopeInfo.h#L300">clang/include/clang/Sema/ScopeInfo.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="31A20CC4DCE7163A80C0F7BF1B55D9D8FFF86F49">
+                                <pre><code class="language-cpp code-clang-doc">bool isExactProfile ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the object base specifies a known object in memory,</p>
+                                        <p> rather than, say, an instance variable or property of another object.</p>
+                                    </div>
+                                    <div>
+                                        <p> Note that this ignores the effects of aliasing; that is, </p>
+                                        <p> is</p>
+                                        <p> considered an exact profile if </p>
+                                        <p> is a local variable, even if</p>
+                                        <p> another variable </p>
+                                        <p> refers to the same object as </p>
+                                    </div>
+                                    <div>
+                                        <p> For increased precision, accesses with base variables that are</p>
+                                        <p> properties or ivars of &#39;self&#39; (e.g. self.prop1.prop2) are considered to</p>
+                                        <p> be exact, though this is not true for arbitrary variables</p>
+                                        <p> (foo.prop1.prop2).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 313 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Sema/ScopeInfo.h#L313">clang/include/clang/Sema/ScopeInfo.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="47A405243BC5B5DCD18AE21474740D1799C15702">
+                                <pre><code class="language-cpp code-clang-doc">bool operator== (const WeakObjectProfileTy &amp; Other)</code></pre>
+                                <p>Defined at line 317 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Sema/ScopeInfo.h#L317">clang/include/clang/Sema/ScopeInfo.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="37AD71E74FD24D953DC113E704D9755E74A60012" style="max-height: 40px;">
+                            <a href="WeakObjectProfileTy/_ZTVN5clang4sema17FunctionScopeInfo19WeakObjectProfileTy12DenseMapInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class DenseMapInfo</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="6B65B9FCF8A3813316B8244D54082D12C9FCB558" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using BaseInfoTy = PointerIntPair</code></pre>
+                        <div>
+                            <p> The base object decl, as described in the class documentation.</p>
+                        </div>
+                        <div>
+                            <p> The extra flag is &quot;true&quot; if the Base and Property are enough to uniquely</p>
+                            <p> identify the object in memory.</p>
+                        </div>
+                        <p>Defined at line 278 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Sema/ScopeInfo.h#L278">clang/include/clang/Sema/ScopeInfo.h</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

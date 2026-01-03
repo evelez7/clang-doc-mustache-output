@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MPIBugReporter</title>
+        <link rel="stylesheet" type="text/css" href="../../../clang-doc-mustache.css"/>
+        <script src="../../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MPIBugReporter</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8B725268D147009495B057BAEB9547E3C80D4D48">reportDoubleNonblocking</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#69684D1939763EED5CE583760F96D6CA52B5367A">MPIBugReporter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B9F782D1B1EE3A67D718E2535012B373F5C7BFF2">reportMissingWait</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8965E04415022F2E9D7FFCF0392B2F4C4C8AB2F9">reportUnmatchedWait</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C0D9ECDBE605E79AD65549A572EEF47A3E47FB54">RequestNodeVisitor</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MPIBugReporter</h1>
+                        <p>Defined at line 26 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/StaticAnalyzer/Checkers/MPI-Checker/MPIBugReporter.h#L26">clang/lib/StaticAnalyzer/Checkers/MPI-Checker/MPIBugReporter.h</a></p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="8B725268D147009495B057BAEB9547E3C80D4D48">
+                                <pre><code class="language-cpp code-clang-doc">void reportDoubleNonblocking (const CallEvent &amp; MPICallEvent, const Request &amp; Req, const MemRegion *const RequestRegion, const ExplodedNode *const ExplNode, BugReporter &amp; BReporter)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Report duplicate request use by nonblocking calls without intermediate</p>
+                                        <p> wait.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>MPICallEvent</b>   MPI call that caused the double nonblocking
+                                    </div> 
+                                    <div>
+                                        <b>Req</b>   request that was used by two nonblocking calls in sequence
+                                    </div> 
+                                    <div>
+                                        <b>RequestRegion</b>   memory region of the request
+                                    </div> 
+                                    <div>
+                                        <b>ExplNode</b>   node in the graph the bug appeared at
+                                    </div> 
+                                    <div>
+                                        <b>BReporter</b>   bug reporter for current context
+                                    </div> 
+                                </div>
+                                <p>Defined at line 22 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/StaticAnalyzer/Checkers/MPI-Checker/MPIBugReporter.cpp#L22">clang/lib/StaticAnalyzer/Checkers/MPI-Checker/MPIBugReporter.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="69684D1939763EED5CE583760F96D6CA52B5367A">
+                                <pre><code class="language-cpp code-clang-doc">void MPIBugReporter (const CheckerBase &amp; CB)</code></pre>
+                                <p>Defined at line 28 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/StaticAnalyzer/Checkers/MPI-Checker/MPIBugReporter.h#L28">clang/lib/StaticAnalyzer/Checkers/MPI-Checker/MPIBugReporter.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B9F782D1B1EE3A67D718E2535012B373F5C7BFF2">
+                                <pre><code class="language-cpp code-clang-doc">void reportMissingWait (const Request &amp; Req, const MemRegion *const RequestRegion, const ExplodedNode *const ExplNode, BugReporter &amp; BReporter)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Report a missing wait for a nonblocking call.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Req</b>   request that is not matched by a wait
+                                    </div> 
+                                    <div>
+                                        <b>RequestRegion</b>   memory region of the request
+                                    </div> 
+                                    <div>
+                                        <b>ExplNode</b>   node in the graph the bug appeared at
+                                    </div> 
+                                    <div>
+                                        <b>BReporter</b>   bug reporter for current context
+                                    </div> 
+                                </div>
+                                <p>Defined at line 48 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/StaticAnalyzer/Checkers/MPI-Checker/MPIBugReporter.cpp#L48">clang/lib/StaticAnalyzer/Checkers/MPI-Checker/MPIBugReporter.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8965E04415022F2E9D7FFCF0392B2F4C4C8AB2F9">
+                                <pre><code class="language-cpp code-clang-doc">void reportUnmatchedWait (const CallEvent &amp; CE, const MemRegion *const RequestRegion, const ExplodedNode *const ExplNode, BugReporter &amp; BReporter)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Report a wait on a request that has not been used at all before.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>CE</b>   wait call that uses the request
+                                    </div> 
+                                    <div>
+                                        <b>RequestRegion</b>   memory region of the request
+                                    </div> 
+                                    <div>
+                                        <b>ExplNode</b>   node in the graph the bug appeared at
+                                    </div> 
+                                    <div>
+                                        <b>BReporter</b>   bug reporter for current context
+                                    </div> 
+                                </div>
+                                <p>Defined at line 68 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/StaticAnalyzer/Checkers/MPI-Checker/MPIBugReporter.cpp#L68">clang/lib/StaticAnalyzer/Checkers/MPI-Checker/MPIBugReporter.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="C0D9ECDBE605E79AD65549A572EEF47A3E47FB54" style="max-height: 40px;">
+                            <a href="MPIBugReporter/_ZTVN5clang4ento3mpi14MPIBugReporter18RequestNodeVisitorE.html">
+                                <pre><code class="language-cpp code-clang-doc">class RequestNodeVisitor</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

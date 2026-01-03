@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MacroCallReconstructor</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MacroCallReconstructor</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EA8BC3742E369F55F0B847AD01BD79517A72AC9D">MacroCallReconstructor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BFEA477427FD8A4AA4E9BFBB2786F180A449C8C">addLine</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB41D1CAA637F76A437CFDC78477CEBE13CE36EE">takeResult</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A1D29DE23BF7A4CD41495D1840310418105B27A5">finished</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2B0969F44A330023ECFFBE2B1C961B7ED5D3C81A">Expansion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E348190D1AA5D77C57F92F9528C3622EA91CD63F">LineNode</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D83F20619F2725C47DBBB7158C77831035881778">MacroCallState</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D4A656F6056DB762C758CB84462BF57E9D49CB38">ReconstructedLine</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MacroCallReconstructor</h1>
+                        <p>Defined at line 173 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Format/Macros.h#L173">clang/lib/Format/Macros.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Converts a sequence of UnwrappedLines containing expanded macros into a</p>
+                                <p> single UnwrappedLine containing the macro calls.  This UnwrappedLine may be</p>
+                                <p> broken into child lines, in a way that best conveys the structure of the</p>
+                                <p> expanded code.</p>
+                            </div>
+                            <div>
+                                <p> In the simplest case, a spelled UnwrappedLine contains one macro, and after</p>
+                                <p> expanding it we have one expanded UnwrappedLine.  In general, macro</p>
+                                <p> expansions can span UnwrappedLines, and multiple macros can contribute</p>
+                                <p> tokens to the same line.  We keep consuming expanded lines until:</p>
+                                <p> *   all expansions that started have finished (we&#39;re not chopping any macros</p>
+                                <p>     in half)</p>
+                                <p> *   *and* we&#39;ve reached the end of a *spelled* unwrapped line.</p>
+                            </div>
+                            <div>
+                                <p> A single UnwrappedLine represents this chunk of code.</p>
+                            </div>
+                            <div>
+                                <p> After this point, the state of the spelled/expanded stream is &quot;in sync&quot;</p>
+                                <p> (both at the start of an UnwrappedLine, with no macros open), so the</p>
+                                <p> Reconstructor can be thrown away and parsing can continue.</p>
+                            </div>
+                            <div>
+                                <p> Given a mapping from the macro name identifier token in the macro call</p>
+                                <p> to the tokens of the macro call, for example:</p>
+                                <p> CLASSA -&gt; CLASSA({public: void x();})</p>
+                            </div>
+                            <div>
+                                <p> When getting the formatted lines of the expansion via the </p>
+                                <p> method</p>
+                                <p> (each &#39;-&gt;&#39; specifies a call to </p>
+                                <p> ):</p>
+                                <p> -&gt; class A {</p>
+                                <p> -&gt; public:</p>
+                                <p> -&gt;   void x();</p>
+                                <p> -&gt; };</p>
+                            </div>
+                            <div>
+                                <p> Creates the tree of unwrapped lines containing the macro call tokens so that</p>
+                                <p> the macro call tokens fit the semantic structure of the expanded formatted</p>
+                                <p> lines:</p>
+                                <p> -&gt; CLASSA({</p>
+                                <p> -&gt; public:</p>
+                                <p> -&gt;   void x();</p>
+                                <p> -&gt; })</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="EA8BC3742E369F55F0B847AD01BD79517A72AC9D">
+                                <pre><code class="language-cpp code-clang-doc">void MacroCallReconstructor (unsigned int Level, const llvm::DenseMap&lt;FormatToken *, std::unique_ptr&lt;UnwrappedLine&gt;&gt; &amp; ActiveExpansions)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create an Reconstructor whose resulting </p>
+                                        <p> will start at</p>
+                                        <p> using the map from name identifier token to the corresponding</p>
+                                        <p> tokens of the spelled macro call.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 43 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Format/MacroCallReconstructor.cpp#L43">clang/lib/Format/MacroCallReconstructor.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BFEA477427FD8A4AA4E9BFBB2786F180A449C8C">
+                                <pre><code class="language-cpp code-clang-doc">void addLine (const UnwrappedLine &amp; Line)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> For the given </p>
+                                        <p> match all occurences of tokens expanded from a</p>
+                                        <p> macro to unwrapped lines in the spelled macro call so that the resulting</p>
+                                        <p> tree of unwrapped lines best resembles the structure of unwrapped lines</p>
+                                        <p> passed in via </p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 52 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Format/MacroCallReconstructor.cpp#L52">clang/lib/Format/MacroCallReconstructor.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB41D1CAA637F76A437CFDC78477CEBE13CE36EE">
+                                <pre><code class="language-cpp code-clang-doc">UnwrappedLine takeResult ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the formatted </p>
+                                        <p> containing the orginal</p>
+                                        <p> macro calls, formatted according to the expanded token stream received</p>
+                                        <p> via </p>
+                                        <p> Generally, this line tries to have the same structure as the expanded,</p>
+                                        <p> formatted unwrapped lines handed in via </p>
+                                        <p> with the exception</p>
+                                        <p> that for multiple top-level lines, each subsequent line will be the</p>
+                                        <p> child of the last token in its predecessor. This representation is chosen</p>
+                                        <p> because it is a precondition to the formatter that we get what looks like</p>
+                                        <p> a single statement in a single </p>
+                                        <p> (i.e. matching parens).</p>
+                                    </div>
+                                    <div>
+                                        <p> If a token in a macro argument is a child of a token in the expansion,</p>
+                                        <p> the parent will be the corresponding token in the macro call.</p>
+                                        <p> For example:</p>
+                                        <p>   #define C(a, b) class C { a b</p>
+                                        <p>   C(int x;, int y;)</p>
+                                        <p> would expand to</p>
+                                        <p>   class C { int x; int y;</p>
+                                        <p> where in a formatted line &quot;int x;&quot; and &quot;int y;&quot; would both be new separate</p>
+                                        <p> lines.</p>
+                                    </div>
+                                    <div>
+                                        <p> In the result, &quot;int x;&quot; will be a child of the opening parenthesis in &quot;C(&quot;</p>
+                                        <p> and &quot;int y;&quot; will be a child of the &quot;,&quot; token:</p>
+                                        <p>   C (</p>
+                                        <p>\</p>
+                                        <p>- int x;</p>
+                                        <p>     ,</p>
+                                        <p>\</p>
+                                        <p>- int y;</p>
+                                        <p>     )</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 60 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Format/MacroCallReconstructor.cpp#L60">clang/lib/Format/MacroCallReconstructor.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A1D29DE23BF7A4CD41495D1840310418105B27A5">
+                                <pre><code class="language-cpp code-clang-doc">bool finished ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Check whether at the current state there is no open macro expansion</p>
+                                        <p> that needs to be processed to finish an macro call.</p>
+                                        <p> Only when </p>
+                                        <p> is true, </p>
+                                        <p> can be called to retrieve</p>
+                                        <p> the resulting </p>
+                                        <p> If there are multiple subsequent macro calls within an unwrapped line in</p>
+                                        <p> the spelled token stream, the calling code may also continue to call</p>
+                                        <p> when </p>
+                                        <p> is true.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 196 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Format/Macros.h#L196">clang/lib/Format/Macros.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="2B0969F44A330023ECFFBE2B1C961B7ED5D3C81A" style="max-height: 40px;">
+                            <a href="MacroCallReconstructor/_ZTVN5clang6format22MacroCallReconstructor9ExpansionE.html">
+                                <pre><code class="language-cpp code-clang-doc">class Expansion</code></pre>
+                            </a>
+                        </li>
+                        <li id="E348190D1AA5D77C57F92F9528C3622EA91CD63F" style="max-height: 40px;">
+                            <a href="MacroCallReconstructor/_ZTVN5clang6format22MacroCallReconstructor8LineNodeE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LineNode</code></pre>
+                            </a>
+                        </li>
+                        <li id="D83F20619F2725C47DBBB7158C77831035881778" style="max-height: 40px;">
+                            <a href="MacroCallReconstructor/_ZTVN5clang6format22MacroCallReconstructor14MacroCallStateE.html">
+                                <pre><code class="language-cpp code-clang-doc">class MacroCallState</code></pre>
+                            </a>
+                        </li>
+                        <li id="D4A656F6056DB762C758CB84462BF57E9D49CB38" style="max-height: 40px;">
+                            <a href="MacroCallReconstructor/_ZTVN5clang6format22MacroCallReconstructor17ReconstructedLineE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ReconstructedLine</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

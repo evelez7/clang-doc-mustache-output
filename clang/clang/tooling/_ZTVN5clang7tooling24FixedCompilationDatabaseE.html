@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>FixedCompilationDatabase</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class FixedCompilationDatabase</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#73F5F242B60559B006479A94F9CC6314CD9BD542">loadFromCommandLine</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3EC1769F3A15801EB057448237BBD3C4EC41EB1E">loadFromFile</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0CF3ABC58D79FA1EC813792DC1914BD7E9A6DFBB">loadFromBuffer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#40490823905B9B5CF7B78BE88E0FE9B12C697692">FixedCompilationDatabase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E3E23B621F3F19B0E68FD3AEB7164B51BBF7FD7">getCompileCommands</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class FixedCompilationDatabase</h1>
+                        <p>Defined at line 154 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Tooling/CompilationDatabase.h#L154">clang/include/clang/Tooling/CompilationDatabase.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A compilation database that returns a single compile command line.</p>
+                            </div>
+                            <div>
+                                <p> Useful when we want a tool to behave more like a compiler invocation.</p>
+                                <p> This compilation database is not enumerable: getAllFiles() returns {}.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="73F5F242B60559B006479A94F9CC6314CD9BD542">
+                                <pre><code class="language-cpp code-clang-doc">std::unique_ptr&lt;FixedCompilationDatabase&gt; loadFromCommandLine (int &amp; Argc, const char *const * Argv, std::string &amp; ErrorMsg, const Twine &amp; Directory)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Creates a FixedCompilationDatabase from the arguments after &quot;--&quot;.</p>
+                                    </div>
+                                    <div>
+                                        <p> Parses the given command line for &quot;--&quot;. If &quot;--&quot; is found, the rest of</p>
+                                        <p> the arguments will make up the command line in the returned</p>
+                                        <p> FixedCompilationDatabase.</p>
+                                        <p> The arguments after &quot;--&quot; must not include positional parameters or the</p>
+                                        <p> argv[0] of the tool. Those will be added by the FixedCompilationDatabase</p>
+                                        <p> when a CompileCommand is requested. The argv[0] of the returned command</p>
+                                        <p> line will be &quot;clang-tool&quot;.</p>
+                                    </div>
+                                    <div>
+                                        <p> Returns NULL in case &quot;--&quot; is not found.</p>
+                                    </div>
+                                    <div>
+                                        <p> The argument list is meant to be compatible with normal llvm command line</p>
+                                        <p> parsing in main methods.</p>
+                                        <p> int main(int argc, char **argv) {</p>
+                                        <p>   std::unique_ptr</p>
+                                        <p>&lt;FixedCompilationDatabase</p>
+                                        <p>&gt; Compilations(</p>
+                                        <p>     FixedCompilationDatabase::loadFromCommandLine(argc, argv));</p>
+                                        <p>   cl::ParseCommandLineOptions(argc, argv);</p>
+                                        <p>   ...</p>
+                                        <p> }</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Argc</b>   The number of command line arguments - will be changed to the number of arguments before &quot;--&quot;, if &quot;--&quot; was found in the argument list.
+                                    </div> 
+                                    <div>
+                                        <b>Argv</b>   Points to the command line arguments.
+                                    </div> 
+                                    <div>
+                                        <b>ErrorMsg</b>   Contains error text if the function returns null pointer.
+                                    </div> 
+                                    <div>
+                                        <b>Directory</b>   The base directory used in the FixedCompilationDatabase.
+                                    </div> 
+                                </div>
+                                <p>Defined at line 317 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/CompilationDatabase.cpp#L317">clang/lib/Tooling/CompilationDatabase.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3EC1769F3A15801EB057448237BBD3C4EC41EB1E">
+                                <pre><code class="language-cpp code-clang-doc">std::unique_ptr&lt;FixedCompilationDatabase&gt; loadFromFile (StringRef Path, std::string &amp; ErrorMsg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Reads flags from the given file, one-per-line.</p>
+                                        <p> Returns nullptr and sets ErrorMessage if we can&#39;t read the file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 337 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/CompilationDatabase.cpp#L337">clang/lib/Tooling/CompilationDatabase.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0CF3ABC58D79FA1EC813792DC1914BD7E9A6DFBB">
+                                <pre><code class="language-cpp code-clang-doc">std::unique_ptr&lt;FixedCompilationDatabase&gt; loadFromBuffer (StringRef Directory, StringRef Data, std::string &amp; ErrorMsg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Reads flags from the given buffer, one-per-line.</p>
+                                        <p> Directory is the command CWD, typically the parent of compile_flags.txt.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 350 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/CompilationDatabase.cpp#L350">clang/lib/Tooling/CompilationDatabase.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="40490823905B9B5CF7B78BE88E0FE9B12C697692">
+                                <pre><code class="language-cpp code-clang-doc">void FixedCompilationDatabase (const Twine &amp; Directory, ArrayRef CommandLine)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Constructs a compilation data base from a specified directory</p>
+                                        <p> and command line.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 366 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/CompilationDatabase.cpp#L366">clang/lib/Tooling/CompilationDatabase.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E3E23B621F3F19B0E68FD3AEB7164B51BBF7FD7">
+                                <pre><code class="language-cpp code-clang-doc">vector getCompileCommands (StringRef FilePath)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns the given compile command.</p>
+                                    </div>
+                                    <div>
+                                        <p> Will always return a vector with one entry that contains the directory</p>
+                                        <p> and command line specified at construction with &quot;clang-tool&quot; as argv[0]</p>
+                                        <p> and &#39;FilePath&#39; as positional argument.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 376 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Tooling/CompilationDatabase.cpp#L376">clang/lib/Tooling/CompilationDatabase.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -22,11 +22,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="navbar-breadcrumb-container">
-                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
-                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
-                <div class="navbar-breadcrumb-item"><a href="../_ZTVN4llvm17PreservedAnalysesE.html">PreservedAnalyses</a></div>
-            </div>
         </div>
     </nav>
     <main>
@@ -50,6 +45,16 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Friends">Friends</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9EDCE8A1E6A8CDD61B2C19D83561D49C81370F5C">PreservedAnalyses</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="resizer" id="resizer"></div>
@@ -57,7 +62,7 @@
                 <section class="hero section-container">
                     <div class="hero__title">
                         <h1 class="hero__title-large">class PreservedAnalysisChecker</h1>
-                        <p>Defined at line 233 of file llvm/include/llvm/IR/Analysis.h</p>
+                        <p>Defined at line 233 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/IR/Analysis.h#L233">llvm/include/llvm/IR/Analysis.h</a></p>
                         <div class="hero__subtitle">
                             <div>
                                 <p> A checker object that makes it easy to query for whether an analysis or</p>
@@ -79,7 +84,7 @@
                                         <p>  - all analyses are preserved.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 250 of file llvm/include/llvm/IR/Analysis.h</p>
+                                <p>Defined at line 250 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/IR/Analysis.h#L250">llvm/include/llvm/IR/Analysis.h</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -92,7 +97,7 @@
                                         <p> preserved, if the analysis is known stateless, then it is preserved.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 258 of file llvm/include/llvm/IR/Analysis.h</p>
+                                <p>Defined at line 258 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/IR/Analysis.h#L258">llvm/include/llvm/IR/Analysis.h</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -107,8 +112,65 @@
                                         <p>  - all analyses are preserved.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 263 of file llvm/include/llvm/IR/Analysis.h</p>
+                                <p>Defined at line 263 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/IR/Analysis.h#L263">llvm/include/llvm/IR/Analysis.h</a></p>
                             </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="9EDCE8A1E6A8CDD61B2C19D83561D49C81370F5C" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class PreservedAnalyses</code></pre>
+                        <div>
+                            <p> A set of analyses that are preserved following a run of a transformation</p>
+                            <p> pass.</p>
+                        </div>
+                        <div>
+                            <p> Transformation passes build and return these objects to communicate which</p>
+                            <p> analyses are still valid after the transformation. For most passes this is</p>
+                            <p> fairly simple: if they don&#39;t change anything all analyses are preserved,</p>
+                            <p> otherwise only a short list of analyses that have been explicitly updated</p>
+                            <p> are preserved.</p>
+                        </div>
+                        <div>
+                            <p> This class also lets transformation passes mark abstract *sets* of analyses</p>
+                            <p> as preserved. A transformation that (say) does not alter the CFG can</p>
+                            <p> indicate such by marking a particular AnalysisSetKey as preserved, and</p>
+                            <p> then analyses can query whether that AnalysisSetKey is preserved.</p>
+                        </div>
+                        <div>
+                            <p> Finally, this class can represent an &quot;abandoned&quot; analysis, which is</p>
+                            <p> not preserved even if it would be covered by some abstract set of analyses.</p>
+                        </div>
+                        <div>
+                            <p> Given a `PreservedAnalyses` object, an analysis will typically want to</p>
+                            <p> figure out whether it is preserved. In the example below, MyAnalysisType is</p>
+                            <p> preserved if it&#39;s not abandoned, and (a) it&#39;s explicitly marked as</p>
+                            <p> preserved, (b), the set AllAnalysesOn</p>
+                            <p>&lt;MyIRUnit</p>
+                            <p>&gt; is preserved, or (c) both</p>
+                            <p> AnalysisSetA and AnalysisSetB are preserved.</p>
+                        </div>
+                        <div>
+                            <p> ```</p>
+                            <p>   auto PAC = PA.getChecker</p>
+                            <p>&lt;MyAnalysisType</p>
+                            <p>&gt;();</p>
+                            <p>   if (PAC.preserved() || PAC.preservedSet</p>
+                            <p>&lt;AllAnalysesOn</p>
+                            <p>&lt;MyIRUnit</p>
+                            <p>&gt;&gt;() ||</p>
+                            <p>       (PAC.preservedSet</p>
+                            <p>&lt;AnalysisSetA</p>
+                            <p>&gt;() </p>
+                            <p>&amp;</p>
+                            <p>&amp;</p>
+                            <p>        PAC.preservedSet</p>
+                            <p>&lt;AnalysisSetB</p>
+                            <p>&gt;())) {</p>
+                            <p>     // The analysis has been successfully preserved ...</p>
+                            <p>   }</p>
+                            <p> ```</p>
                         </div>
                     </div>
                 </section>

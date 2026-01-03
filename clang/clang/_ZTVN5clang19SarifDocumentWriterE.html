@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SarifDocumentWriter</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class SarifDocumentWriter</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EE125DBCE45F19CEC5DBDB35404F292B7EB63879">createRun</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A711141CB480575C20C13AB8568040EB2227591C">endRun</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6C9930B53FD3ED3224FB8FD78ABBC5CA40097CE6">createRule</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C335E947546D821D59ED10FD230C7D3D73DB5E36">appendResult</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E262987AD92AB15F46A4E43864BE788FE81AA503">createDocument</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#10DCCD2229B10C9F44CD3DEB615E84A102FB4D93">fileNameToURI</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CA4B705FA1D8C7FCAC432071F2BD5B7EB5193B63">SarifDocumentWriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F393DF74375CD91E503E70B03CDBE6E57C44BF52">SarifDocumentWriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6BB854EAE18BD562653DFE2246101A4D236C5A6">~SarifDocumentWriter</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class SarifDocumentWriter</h1>
+                        <p>Defined at line 407 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/Sarif.h#L407">clang/include/clang/Basic/Sarif.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This class handles creating a valid SARIF document given various input</p>
+                                <p> attributes. However, it requires an ordering among certain method calls:</p>
+                            </div>
+                            <div>
+                                <p> 1. Because every SARIF document must contain at least 1 </p>
+                                <p> callers</p>
+                                <p>    must ensure that </p>
+                                <p> is called before</p>
+                                <p>    any other methods.</p>
+                                <p> 2. If SarifDocumentWriter::endRun is called, callers MUST call</p>
+                                <p>    SarifDocumentWriter::createRun, before invoking any of the result</p>
+                                <p>    aggregation methods such as SarifDocumentWriter::appendResult etc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="EE125DBCE45F19CEC5DBDB35404F292B7EB63879">
+                                <pre><code class="language-cpp code-clang-doc">void createRun (StringRef ShortToolName, StringRef LongToolName, StringRef ToolVersion)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a new run with which any upcoming analysis will be associated.</p>
+                                        <p> Each run requires specifying the tool that is generating reporting items.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 342 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/Sarif.cpp#L342">clang/lib/Basic/Sarif.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A711141CB480575C20C13AB8568040EB2227591C">
+                                <pre><code class="language-cpp code-clang-doc">void endRun ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If there is a current run, end it.</p>
+                                    </div>
+                                    <div>
+                                        <p> This method collects various book-keeping required to clear and close</p>
+                                        <p> resources associated with the current run, but may also allocate some</p>
+                                        <p> for the next run.</p>
+                                    </div>
+                                    <div>
+                                        <p> Calling </p>
+                                        <p> before associating a run through </p>
+                                        <p> leads</p>
+                                        <p> to undefined behaviour.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 260 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/Sarif.cpp#L260">clang/lib/Basic/Sarif.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6C9930B53FD3ED3224FB8FD78ABBC5CA40097CE6">
+                                <pre><code class="language-cpp code-clang-doc">size_t createRule (const SarifRule &amp; Rule)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Associate the given rule with the current run.</p>
+                                    </div>
+                                    <div>
+                                        <p> Returns an integer rule index for the created rule that is unique within</p>
+                                        <p> the current run, which can then be used to create a </p>
+                                        <p> to add to the current run. Note that a rule must exist before being</p>
+                                        <p> referenced by a result.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 378 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/Sarif.cpp#L378">clang/lib/Basic/Sarif.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C335E947546D821D59ED10FD230C7D3D73DB5E36">
+                                <pre><code class="language-cpp code-clang-doc">void appendResult (const SarifResult &amp; SarifResult)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Append a new result to the currently in-flight run.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 384 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/Sarif.cpp#L384">clang/lib/Basic/Sarif.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E262987AD92AB15F46A4E43864BE788FE81AA503">
+                                <pre><code class="language-cpp code-clang-doc">Object createDocument ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the SARIF document in its current state.</p>
+                                        <p> Calling this will trigger a copy of the internal state including all</p>
+                                        <p> reported diagnostics, resulting in an expensive call.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 434 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/Sarif.cpp#L434">clang/lib/Basic/Sarif.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="10DCCD2229B10C9F44CD3DEB615E84A102FB4D93">
+                                <pre><code class="language-cpp code-clang-doc">basic_string fileNameToURI (StringRef Filename)</code></pre>
+                                <div>
+                                </div>
+                                <p>Defined at line 70 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Basic/Sarif.cpp#L70">clang/lib/Basic/Sarif.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CA4B705FA1D8C7FCAC432071F2BD5B7EB5193B63">
+                                <pre><code class="language-cpp code-clang-doc">void SarifDocumentWriter ()</code></pre>
+                                <p>Defined at line 453 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/Sarif.h#L453">clang/include/clang/Basic/Sarif.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F393DF74375CD91E503E70B03CDBE6E57C44BF52">
+                                <pre><code class="language-cpp code-clang-doc">void SarifDocumentWriter (const SourceManager &amp; SourceMgr)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a new empty SARIF document with the given source manager.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 456 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/Sarif.h#L456">clang/include/clang/Basic/Sarif.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F6BB854EAE18BD562653DFE2246101A4D236C5A6">
+                                <pre><code class="language-cpp code-clang-doc">void ~SarifDocumentWriter ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Release resources held by this SARIF document.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 459 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Basic/Sarif.h#L459">clang/include/clang/Basic/Sarif.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

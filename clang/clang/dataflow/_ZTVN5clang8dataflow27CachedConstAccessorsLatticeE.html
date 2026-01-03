@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CachedConstAccessorsLattice</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class CachedConstAccessorsLattice</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BFCA2F9BF133880BD30E4261B36544897F2FA11D">clearConstMethodReturnValues</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#347039B23D22767BD88326E0ED5567417B3B1AE4">clearConstMethodReturnStorageLocations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#09640F306DD51D4CBFE9FE969871CD859E8E7CE1">operator==</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#84D3FA036C69F0C427438EA966F3971345FDF9B6">getOrCreateConstMethodReturnValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E6F8001FD75A8AAAF462BFE2941DB6AC2413EEB7">getOrCreateConstMethodReturnStorageLocation</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2B8BC61090A2C1220CB5D1091374CB03566B02F6">join</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#43515CE1A6DF1F49B27774F86338B4540E5C710F">ConstMethodReturnValuesType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8FAEF9E394ED475A27ED69ADC82A123E8FF511A3">ConstMethodReturnStorageLocationsType</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename Base&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class CachedConstAccessorsLattice</h1>
+                        <p>Defined at line 50 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h#L50">clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A mixin for a lattice that additionally maintains a cache of stable method</p>
+                                <p> call return values to model const accessors methods. When a non-const method</p>
+                                <p> is called, the cache should be cleared causing the next call to a const</p>
+                                <p> method to be considered a different value. NOTE: The user is responsible for</p>
+                                <p> clearing the cache.</p>
+                            </div>
+                            <div>
+                                <p> For example:</p>
+                            </div>
+                            <div>
+                                <p> class Bar {</p>
+                                <p> public:</p>
+                                <p>   const std::optional</p>
+                                <p>&lt;Foo</p>
+                                <p>&gt;</p>
+                                <p>&amp;</p>
+                                <p> getFoo() const;</p>
+                                <p>   void clear();</p>
+                                <p> };</p>
+                            </div>
+                            <div>
+                                <p> void func(Bar</p>
+                                <p>&amp;</p>
+                                <p> s) {</p>
+                                <p>   if (s.getFoo().has_value()) {</p>
+                                <p>     use(s.getFoo().value()); // safe (checked earlier getFoo())</p>
+                                <p>     s.clear();</p>
+                                <p>     use(s.getFoo().value()); // unsafe (invalidate cache for s)</p>
+                                <p>   }</p>
+                                <p> }</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="BFCA2F9BF133880BD30E4261B36544897F2FA11D">
+                                <pre><code class="language-cpp code-clang-doc">void clearConstMethodReturnValues (const RecordStorageLocation &amp; RecordLoc)</code></pre>
+                                <p>Defined at line 80 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h#L80">clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="347039B23D22767BD88326E0ED5567417B3B1AE4">
+                                <pre><code class="language-cpp code-clang-doc">void clearConstMethodReturnStorageLocations (const RecordStorageLocation &amp; RecordLoc)</code></pre>
+                                <p>Defined at line 84 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h#L84">clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="09640F306DD51D4CBFE9FE969871CD859E8E7CE1">
+                                <pre><code class="language-cpp code-clang-doc">bool operator== (const CachedConstAccessorsLattice&lt;Base&gt; &amp; Other)</code></pre>
+                                <p>Defined at line 89 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h#L89">clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="84D3FA036C69F0C427438EA966F3971345FDF9B6">
+                                <pre><code class="language-cpp code-clang-doc">Value * getOrCreateConstMethodReturnValue (const RecordStorageLocation &amp; RecordLoc, const CallExpr * CE, Environment &amp; Env)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Creates or returns a previously created `Value` associated with a const</p>
+                                        <p> method call `obj.getFoo()` where `RecordLoc` is the</p>
+                                        <p> `RecordStorageLocation` of `obj`.</p>
+                                        <p> Returns nullptr if unable to find or create a value.</p>
+                                    </div>
+                                    <div>
+                                        <p> Requirements:</p>
+                                    </div>
+                                    <div>
+                                        <p>  - `CE` should return a value (not a reference or record type)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 172 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h#L172">clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E6F8001FD75A8AAAF462BFE2941DB6AC2413EEB7">
+                                <pre><code class="language-cpp code-clang-doc">StorageLocation &amp; getOrCreateConstMethodReturnStorageLocation (const RecordStorageLocation &amp; RecordLoc, const FunctionDecl * Callee, Environment &amp; Env, function_ref Initialize)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Creates or returns a previously created `StorageLocation` associated with</p>
+                                        <p> a const method call `obj.getFoo()` where `RecordLoc` is the</p>
+                                        <p> `RecordStorageLocation` of `obj`, `Callee` is the decl for `getFoo`.</p>
+                                    </div>
+                                    <div>
+                                        <p> The callback `Initialize` runs on the storage location if newly created.</p>
+                                    </div>
+                                    <div>
+                                        <p> Requirements:</p>
+                                    </div>
+                                    <div>
+                                        <p>  - `Callee` should return a location (return type is a reference type or a</p>
+                                        <p>     record type).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 195 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h#L195">clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2B8BC61090A2C1220CB5D1091374CB03566B02F6">
+                                <pre><code class="language-cpp code-clang-doc">LatticeEffect join (const CachedConstAccessorsLattice&lt;Base&gt; &amp; Other)</code></pre>
+                                <p>Defined at line 150 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h#L150">clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="43515CE1A6DF1F49B27774F86338B4540E5C710F" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using ConstMethodReturnValuesType = SmallDenseMap</code></pre>
+                        <div>
+                            <p> Maps a record storage location and const method to the value to return</p>
+                            <p> from that const method.</p>
+                        </div>
+                        <p>Defined at line 98 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h#L98">clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h</a></p>
+                    </div>
+                    <div id="8FAEF9E394ED475A27ED69ADC82A123E8FF511A3" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using ConstMethodReturnStorageLocationsType = SmallDenseMap</code></pre>
+                        <div>
+                            <p> Maps a record storage location and const method to the record storage</p>
+                            <p> location to return from that const method.</p>
+                        </div>
+                        <p>Defined at line 105 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h#L105">clang/include/clang/Analysis/FlowSensitive/CachedConstAccessorsLattice.h</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

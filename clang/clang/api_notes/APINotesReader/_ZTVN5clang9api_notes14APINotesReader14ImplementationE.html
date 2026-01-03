@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Implementation</title>
+        <link rel="stylesheet" type="text/css" href="../../../clang-doc-mustache.css"/>
+        <script src="../../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class Implementation</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#InputBuffer">InputBuffer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SwiftVersion">SwiftVersion</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ModuleName">ModuleName</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#SourceFileSizeAndModTime">SourceFileSizeAndModTime</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#IdentifierTable">IdentifierTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ContextIDTable">ContextIDTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ContextInfoTable">ContextInfoTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ObjCPropertyTable">ObjCPropertyTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FieldTable">FieldTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ObjCMethodTable">ObjCMethodTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CXXMethodTable">CXXMethodTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ObjCSelectorTable">ObjCSelectorTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#GlobalVariableTable">GlobalVariableTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#GlobalFunctionTable">GlobalFunctionTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EnumConstantTable">EnumConstantTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TagTable">TagTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#TypedefTable">TypedefTable</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B28597F1A2B3F54963FAB2534E4E4209B5A82269">getIdentifier</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0C1D47AFF677EA6887340451BB7D894F662EEFE4">getSelector</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8B97A46379927A44AAE4BEE0A7DFC911E3D7895F">readControlBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F00D8AB2A1A4352A90DE27E776A8C8FD94149183">readIdentifierBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#93F25103532AC4CEF8DFD72F35D5716D6959B394">readContextBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C512744042EB35052BA84F76279EC9CBB38C4EE2">readObjCPropertyBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#92B4DE1DAFCA8E14CA8C1A7F79B1A7673A3E20C4">readObjCMethodBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3F10B72B51FD9619CA7742B74D9CE72833E210E3">readCXXMethodBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7E7401661035632D279F4ABAB7768CABA420E575">readFieldBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7512BC88B0EA6260C98B68601BDCD6672FF647D4">readObjCSelectorBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6358291CEF1E5B86A664875E9DA7D675FC9BC18C">readGlobalVariableBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F2B08082CF21C7988FC8B9BB9E3AC2F5016EC9C3">readGlobalFunctionBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A6B622585F31BE24FA35F2C978F51CAB075F92AC">readEnumConstantBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B836D669C894B1CA9CF461899CE96326313FBD18">readTagBlock</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0BDEA7143E71806D152EDC24B39CCF0EF3628B4F">readTypedefBlock</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4A6FCFB4B079F403DE2C8CA01114A731361A178">SerializedIdentifierTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9969283B3D8E1C8DEAF09380B4A481ECE510789C">SerializedContextIDTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EFEC94339392C0185BDC66C2805165B2C785AB82">SerializedContextInfoTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3B3D23377D998CCEED234CA67511E2B0F784414">SerializedObjCPropertyTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FE625893F9E0A6AEDC1A5C424FC9E5D57567CE6">SerializedFieldTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#302F6C16B2FF829D40DDAD47468AF09318434C79">SerializedObjCMethodTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#093E6754D0E03715AEBB95624B8D46EB50C05549">SerializedCXXMethodTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#986F9BE858DBD58CEF9DEE4445EF9ECF79881244">SerializedObjCSelectorTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CFC8592F93A036469E8053E1DC856DC0FFC69B98">SerializedGlobalVariableTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1EF288949836EA6F751424A866A493BBD1E12291">SerializedGlobalFunctionTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C00942AB56F304196AC981AFC38BDEA7EED26CA">SerializedEnumConstantTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A2FBD132B06389D5ADBC61E1C23F28060282BB41">SerializedTagTable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F60FC9C452C52D1247E567A19CDB026ABC5BBF41">SerializedTypedefTable</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class Implementation</h1>
+                        <p>Defined at line 685 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L685">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="InputBuffer" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >llvm::MemoryBuffer * InputBuffer</code></pre>
+                        </div>
+                        <div id="SwiftVersion" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >VersionTuple SwiftVersion</code></pre>
+                        </div>
+                        <div id="ModuleName" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >basic_string ModuleName</code></pre>
+                        </div>
+                        <div id="SourceFileSizeAndModTime" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >optional SourceFileSizeAndModTime</code></pre>
+                        </div>
+                        <div id="IdentifierTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr IdentifierTable</code></pre>
+                        </div>
+                        <div id="ContextIDTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr ContextIDTable</code></pre>
+                        </div>
+                        <div id="ContextInfoTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr ContextInfoTable</code></pre>
+                        </div>
+                        <div id="ObjCPropertyTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr ObjCPropertyTable</code></pre>
+                        </div>
+                        <div id="FieldTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr FieldTable</code></pre>
+                        </div>
+                        <div id="ObjCMethodTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr ObjCMethodTable</code></pre>
+                        </div>
+                        <div id="CXXMethodTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr CXXMethodTable</code></pre>
+                        </div>
+                        <div id="ObjCSelectorTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr ObjCSelectorTable</code></pre>
+                        </div>
+                        <div id="GlobalVariableTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr GlobalVariableTable</code></pre>
+                        </div>
+                        <div id="GlobalFunctionTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr GlobalFunctionTable</code></pre>
+                        </div>
+                        <div id="EnumConstantTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr EnumConstantTable</code></pre>
+                        </div>
+                        <div id="TagTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr TagTable</code></pre>
+                        </div>
+                        <div id="TypedefTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unique_ptr TypedefTable</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="B28597F1A2B3F54963FAB2534E4E4209B5A82269">
+                                <pre><code class="language-cpp code-clang-doc">optional getIdentifier (StringRef Str)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the identifier ID for the given string, or an empty</p>
+                                        <p> optional if the string is unknown.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 813 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L813">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0C1D47AFF677EA6887340451BB7D894F662EEFE4">
+                                <pre><code class="language-cpp code-clang-doc">optional getSelector (ObjCSelectorRef Selector)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the selector ID for the given selector, or an empty</p>
+                                        <p> optional if the string is unknown.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 828 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L828">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8B97A46379927A44AAE4BEE0A7DFC911E3D7895F">
+                                <pre><code class="language-cpp code-clang-doc">bool readControlBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 851 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L851">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F00D8AB2A1A4352A90DE27E776A8C8FD94149183">
+                                <pre><code class="language-cpp code-clang-doc">bool readIdentifierBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 938 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L938">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="93F25103532AC4CEF8DFD72F35D5716D6959B394">
+                                <pre><code class="language-cpp code-clang-doc">bool readContextBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 1014 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L1014">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C512744042EB35052BA84F76279EC9CBB38C4EE2">
+                                <pre><code class="language-cpp code-clang-doc">bool readObjCPropertyBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 1104 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L1104">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="92B4DE1DAFCA8E14CA8C1A7F79B1A7673A3E20C4">
+                                <pre><code class="language-cpp code-clang-doc">bool readObjCMethodBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 1181 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L1181">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3F10B72B51FD9619CA7742B74D9CE72833E210E3">
+                                <pre><code class="language-cpp code-clang-doc">bool readCXXMethodBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 1256 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L1256">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7E7401661035632D279F4ABAB7768CABA420E575">
+                                <pre><code class="language-cpp code-clang-doc">bool readFieldBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 1331 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L1331">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7512BC88B0EA6260C98B68601BDCD6672FF647D4">
+                                <pre><code class="language-cpp code-clang-doc">bool readObjCSelectorBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 1406 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L1406">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6358291CEF1E5B86A664875E9DA7D675FC9BC18C">
+                                <pre><code class="language-cpp code-clang-doc">bool readGlobalVariableBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 1482 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L1482">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F2B08082CF21C7988FC8B9BB9E3AC2F5016EC9C3">
+                                <pre><code class="language-cpp code-clang-doc">bool readGlobalFunctionBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 1558 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L1558">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A6B622585F31BE24FA35F2C978F51CAB075F92AC">
+                                <pre><code class="language-cpp code-clang-doc">bool readEnumConstantBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 1634 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L1634">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B836D669C894B1CA9CF461899CE96326313FBD18">
+                                <pre><code class="language-cpp code-clang-doc">bool readTagBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 1710 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L1710">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0BDEA7143E71806D152EDC24B39CCF0EF3628B4F">
+                                <pre><code class="language-cpp code-clang-doc">bool readTypedefBlock (llvm::BitstreamCursor &amp; Cursor, llvm::SmallVectorImpl&lt;uint64_t&gt; &amp; Scratch)</code></pre>
+                                <p>Defined at line 1785 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L1785">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="A4A6FCFB4B079F403DE2C8CA01114A731361A178" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedIdentifierTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 700 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L700">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                    <div id="9969283B3D8E1C8DEAF09380B4A481ECE510789C" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedContextIDTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 706 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L706">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                    <div id="EFEC94339392C0185BDC66C2805165B2C785AB82" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedContextInfoTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 712 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L712">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                    <div id="C3B3D23377D998CCEED234CA67511E2B0F784414" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedObjCPropertyTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 718 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L718">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                    <div id="9FE625893F9E0A6AEDC1A5C424FC9E5D57567CE6" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedFieldTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 724 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L724">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                    <div id="302F6C16B2FF829D40DDAD47468AF09318434C79" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedObjCMethodTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 730 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L730">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                    <div id="093E6754D0E03715AEBB95624B8D46EB50C05549" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedCXXMethodTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 736 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L736">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                    <div id="986F9BE858DBD58CEF9DEE4445EF9ECF79881244" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedObjCSelectorTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 742 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L742">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                    <div id="CFC8592F93A036469E8053E1DC856DC0FFC69B98" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedGlobalVariableTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 748 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L748">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                    <div id="1EF288949836EA6F751424A866A493BBD1E12291" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedGlobalFunctionTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 754 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L754">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                    <div id="8C00942AB56F304196AC981AFC38BDEA7EED26CA" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedEnumConstantTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 760 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L760">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                    <div id="A2FBD132B06389D5ADBC61E1C23F28060282BB41" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedTagTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 766 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L766">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                    <div id="F60FC9C452C52D1247E567A19CDB026ABC5BBF41" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SerializedTypedefTable = OnDiskIterableChainedHashTable</code></pre>
+                        <p>Defined at line 771 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/APINotes/APINotesReader.cpp#L771">clang/lib/APINotes/APINotesReader.cpp</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>RecoveryExpr</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class RecoveryExpr</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C70FAC5EB771405E3E68D1A70BD6459716E21F01">Create</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#80429EC408FC12E4B9333052AF53C5A291D3F206">CreateEmpty</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0BB918B23F5466A026A0A5870CA9DC122051E333">subExpressions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6BAE7C1C11BD7BF132E16FB8C5B7A06F6FA8B452">subExpressions</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#51C6CB68B53C6BC201D356E6E05FD9B49CE71808">children</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5723B69E057E3DF160313332A555E94CDFBD796D">getBeginLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6252916A06C411EF8D181FCEA1868E85007786CC">getEndLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#43CD121E56E55D46E8F9CF1D8656E4930B05223C">classof</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Friends">Friends</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DC6EEDEE4FC3661C094872ED972058D983A36A90">ASTStmtWriter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26C300E34FB27F78800293859717485F84CE0E21">ASTStmtReader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#20C37433B84E24F59520D5078BAF4A7C0EE10114">TrailingObjects</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class RecoveryExpr</h1>
+                        <p>Defined at line 7454 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L7454">clang/include/clang/AST/Expr.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Frontend produces RecoveryExprs on semantic errors that prevent creating</p>
+                                <p> other well-formed expressions. E.g. when type-checking of a binary operator</p>
+                                <p> fails, we cannot produce a BinaryOperator expression. Instead, we can choose</p>
+                                <p> to produce a recovery expression storing left and right operands.</p>
+                            </div>
+                            <div>
+                                <p> RecoveryExpr does not have any semantic meaning in C++, it is only useful to</p>
+                                <p> preserve expressions in AST that would otherwise be dropped. It captures</p>
+                                <p> subexpressions of some expression that we could not construct and source</p>
+                                <p> range covered by the expression.</p>
+                            </div>
+                            <div>
+                                <p> By default, RecoveryExpr uses dependence-bits to take advantage of existing</p>
+                                <p> machinery to deal with dependent code in C++, e.g. RecoveryExpr is preserved</p>
+                                <p> in `decltype(</p>
+                                <p>&lt;broken</p>
+                                <p>-expr&gt;)` as part of the `DependentDecltypeType`. In</p>
+                                <p> addition to that, clang does not report most errors on dependent</p>
+                                <p> expressions, so we get rid of bogus errors for free. However, note that</p>
+                                <p> unlike other dependent expressions, RecoveryExpr can be produced in</p>
+                                <p> non-template contexts.</p>
+                            </div>
+                            <div>
+                                <p> We will preserve the type in RecoveryExpr when the type is known, e.g.</p>
+                                <p> preserving the return type for a broken non-overloaded function call, a</p>
+                                <p> overloaded call where all candidates have the same return type. In this</p>
+                                <p> case, the expression is not type-dependent (unless the known type is itself</p>
+                                <p> dependent)</p>
+                            </div>
+                            <div>
+                                <p> One can also reliably suppress all bogus errors on expressions containing</p>
+                                <p> recovery expressions by examining results of Expr::containsErrors().</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="C70FAC5EB771405E3E68D1A70BD6459716E21F01">
+                                <pre><code class="language-cpp code-clang-doc">RecoveryExpr * Create (ASTContext &amp; Ctx, QualType T, SourceLocation BeginLoc, SourceLocation EndLoc, ArrayRef SubExprs)</code></pre>
+                                <p>Defined at line 5338 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/Expr.cpp#L5338">clang/lib/AST/Expr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="80429EC408FC12E4B9333052AF53C5A291D3F206">
+                                <pre><code class="language-cpp code-clang-doc">RecoveryExpr * CreateEmpty (ASTContext &amp; Ctx, unsigned int NumSubExprs)</code></pre>
+                                <p>Defined at line 5347 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/AST/Expr.cpp#L5347">clang/lib/AST/Expr.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0BB918B23F5466A026A0A5870CA9DC122051E333">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef subExpressions ()</code></pre>
+                                <p>Defined at line 7462 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L7462">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6BAE7C1C11BD7BF132E16FB8C5B7A06F6FA8B452">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef subExpressions ()</code></pre>
+                                <p>Defined at line 7464 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L7464">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="51C6CB68B53C6BC201D356E6E05FD9B49CE71808">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range children ()</code></pre>
+                                <p>Defined at line 7468 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L7468">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5723B69E057E3DF160313332A555E94CDFBD796D">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getBeginLoc ()</code></pre>
+                                <p>Defined at line 7473 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L7473">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6252916A06C411EF8D181FCEA1868E85007786CC">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getEndLoc ()</code></pre>
+                                <p>Defined at line 7474 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L7474">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="43CD121E56E55D46E8F9CF1D8656E4930B05223C">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const Stmt * T)</code></pre>
+                                <p>Defined at line 7476 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/Expr.h#L7476">clang/include/clang/AST/Expr.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="DC6EEDEE4FC3661C094872ED972058D983A36A90" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ASTStmtWriter</code></pre>
+                        <div>
+                            <p> Frontend produces RecoveryExprs on semantic errors that prevent creating</p>
+                            <p> other well-formed expressions. E.g. when type-checking of a binary operator</p>
+                            <p> fails, we cannot produce a BinaryOperator expression. Instead, we can choose</p>
+                            <p> to produce a recovery expression storing left and right operands.</p>
+                        </div>
+                        <div>
+                            <p> RecoveryExpr does not have any semantic meaning in C++, it is only useful to</p>
+                            <p> preserve expressions in AST that would otherwise be dropped. It captures</p>
+                            <p> subexpressions of some expression that we could not construct and source</p>
+                            <p> range covered by the expression.</p>
+                        </div>
+                        <div>
+                            <p> By default, RecoveryExpr uses dependence-bits to take advantage of existing</p>
+                            <p> machinery to deal with dependent code in C++, e.g. RecoveryExpr is preserved</p>
+                            <p> in `decltype(</p>
+                            <p>&lt;broken</p>
+                            <p>-expr&gt;)` as part of the `DependentDecltypeType`. In</p>
+                            <p> addition to that, clang does not report most errors on dependent</p>
+                            <p> expressions, so we get rid of bogus errors for free. However, note that</p>
+                            <p> unlike other dependent expressions, RecoveryExpr can be produced in</p>
+                            <p> non-template contexts.</p>
+                        </div>
+                        <div>
+                            <p> We will preserve the type in RecoveryExpr when the type is known, e.g.</p>
+                            <p> preserving the return type for a broken non-overloaded function call, a</p>
+                            <p> overloaded call where all candidates have the same return type. In this</p>
+                            <p> case, the expression is not type-dependent (unless the known type is itself</p>
+                            <p> dependent)</p>
+                        </div>
+                        <div>
+                            <p> One can also reliably suppress all bogus errors on expressions containing</p>
+                            <p> recovery expressions by examining results of Expr::containsErrors().</p>
+                        </div>
+                    </div>
+                    <div id="26C300E34FB27F78800293859717485F84CE0E21" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ASTStmtReader</code></pre>
+                        <div>
+                            <p> Frontend produces RecoveryExprs on semantic errors that prevent creating</p>
+                            <p> other well-formed expressions. E.g. when type-checking of a binary operator</p>
+                            <p> fails, we cannot produce a BinaryOperator expression. Instead, we can choose</p>
+                            <p> to produce a recovery expression storing left and right operands.</p>
+                        </div>
+                        <div>
+                            <p> RecoveryExpr does not have any semantic meaning in C++, it is only useful to</p>
+                            <p> preserve expressions in AST that would otherwise be dropped. It captures</p>
+                            <p> subexpressions of some expression that we could not construct and source</p>
+                            <p> range covered by the expression.</p>
+                        </div>
+                        <div>
+                            <p> By default, RecoveryExpr uses dependence-bits to take advantage of existing</p>
+                            <p> machinery to deal with dependent code in C++, e.g. RecoveryExpr is preserved</p>
+                            <p> in `decltype(</p>
+                            <p>&lt;broken</p>
+                            <p>-expr&gt;)` as part of the `DependentDecltypeType`. In</p>
+                            <p> addition to that, clang does not report most errors on dependent</p>
+                            <p> expressions, so we get rid of bogus errors for free. However, note that</p>
+                            <p> unlike other dependent expressions, RecoveryExpr can be produced in</p>
+                            <p> non-template contexts.</p>
+                        </div>
+                        <div>
+                            <p> We will preserve the type in RecoveryExpr when the type is known, e.g.</p>
+                            <p> preserving the return type for a broken non-overloaded function call, a</p>
+                            <p> overloaded call where all candidates have the same return type. In this</p>
+                            <p> case, the expression is not type-dependent (unless the known type is itself</p>
+                            <p> dependent)</p>
+                        </div>
+                        <div>
+                            <p> One can also reliably suppress all bogus errors on expressions containing</p>
+                            <p> recovery expressions by examining results of Expr::containsErrors().</p>
+                        </div>
+                    </div>
+                    <div id="20C37433B84E24F59520D5078BAF4A7C0EE10114" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class TrailingObjects</code></pre>
+                        <div>
+                            <p> Frontend produces RecoveryExprs on semantic errors that prevent creating</p>
+                            <p> other well-formed expressions. E.g. when type-checking of a binary operator</p>
+                            <p> fails, we cannot produce a BinaryOperator expression. Instead, we can choose</p>
+                            <p> to produce a recovery expression storing left and right operands.</p>
+                        </div>
+                        <div>
+                            <p> RecoveryExpr does not have any semantic meaning in C++, it is only useful to</p>
+                            <p> preserve expressions in AST that would otherwise be dropped. It captures</p>
+                            <p> subexpressions of some expression that we could not construct and source</p>
+                            <p> range covered by the expression.</p>
+                        </div>
+                        <div>
+                            <p> By default, RecoveryExpr uses dependence-bits to take advantage of existing</p>
+                            <p> machinery to deal with dependent code in C++, e.g. RecoveryExpr is preserved</p>
+                            <p> in `decltype(</p>
+                            <p>&lt;broken</p>
+                            <p>-expr&gt;)` as part of the `DependentDecltypeType`. In</p>
+                            <p> addition to that, clang does not report most errors on dependent</p>
+                            <p> expressions, so we get rid of bogus errors for free. However, note that</p>
+                            <p> unlike other dependent expressions, RecoveryExpr can be produced in</p>
+                            <p> non-template contexts.</p>
+                        </div>
+                        <div>
+                            <p> We will preserve the type in RecoveryExpr when the type is known, e.g.</p>
+                            <p> preserving the return type for a broken non-overloaded function call, a</p>
+                            <p> overloaded call where all candidates have the same return type. In this</p>
+                            <p> case, the expression is not type-dependent (unless the known type is itself</p>
+                            <p> dependent)</p>
+                        </div>
+                        <div>
+                            <p> One can also reliably suppress all bogus errors on expressions containing</p>
+                            <p> recovery expressions by examining results of Expr::containsErrors().</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

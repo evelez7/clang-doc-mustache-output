@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ComplexExprEmitter</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ComplexExprEmitter</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D438FC38B3F6DC18EA82CA07338EA5FA8608BE33">ComplexExprEmitter</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23B66A420C7FD9282F8D5F7DBE08CDCD606310AC">TestAndClearIgnoreReal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#10680294EBAFD0E5C8C142A2E676CD4785D0ACF3">TestAndClearIgnoreImag</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#357E9BD3A8A4B35012328838A2B39A7D3CEB47D5">EmitLoadOfLValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#56568C41117E6BE1791355BC4CD16619AF0608A7">Visit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#30C7E743F2F69A3C2E76BA6EEB2341A86BBDDA4B">VisitStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5A7E7FBEC5CCF31B09A0570E508DB73FD4FD1CEF">VisitConstantExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A7E4E5FE2671B70F9B5579FAC61A8C2DAAB00038">VisitParenExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#739AB77971D48B1CE764A8EC31E5D397F24CD5D6">VisitGenericSelectionExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#85C509E045953833C6F3C8F19FB3404AEFC3213F">VisitSubstNonTypeTemplateParmExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E49E36F20D9440ACAC9FF79C8DED0BAF76EDAFFD">VisitCoawaitExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C0F7F9B142EE2076D682A2C615D4A1A532157D7">VisitCoyieldExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#397F94A28CAD01DD2C611A4D64EA87A7877E13A3">VisitUnaryCoawait</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2FF3CEC9056BC5B40F2BF6B8BC3B6D07CCC7F7C4">emitConstant</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C6FAFBF96177DF6CFE747536EEB354F3A78D9831">VisitDeclRefExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1AB1D2524EB5F5DAC95CED5B8D3AE4CB2FAA7188">VisitObjCIvarRefExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2D1B6C78D5911DBDB28490D5C78BC74D8763F3FB">VisitObjCMessageExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8A3C9C5E8391C576BFD8AA5CD46C326B24797147">VisitArraySubscriptExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8C9D2C149266F2F58C3064EF8D5109BD0A4EFAE2">VisitMemberExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#60D7696217BE94D36DA0676D95812613D6853EBF">VisitOpaqueValueExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2E124CE87B5554D559C190BA21B71536AF3408F2">VisitPseudoObjectExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#14FB1DE1172FCD2DCC880F1F4F6A0B256BAE3685">VisitImplicitCastExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DE3BCE855AB4984102986C284753D9E9E1D885D9">VisitCastExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F86EB7EBEA6A57A63D2C9A8B67C90D6955F5BFBE">VisitPrePostIncDec</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F011120251A5578797BC692C4745CE0FF99A59F4">VisitUnaryPostDec</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55B702E338EDFFD53DD05BF3D1ABA2C6D4827523">VisitUnaryPostInc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C58B5EAE131F5354DA21185D74563529121DF244">VisitUnaryPreDec</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6666CED3F22A0F5433B890F020E6A37F9A2800FA">VisitUnaryPreInc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C5DAE40959F7E22C26E10E8AC207AFBE8545F0B8">VisitUnaryDeref</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#08A7A5B23CD8D7339F5415A604F2F2E1D4797D7A">VisitUnaryExtension</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8F3BA3F84D4349C1FE1512F371A31AC0E28F2ED5">VisitCXXDefaultArgExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4B7FA1FC44E135F1FDA2A499455B3D845DB7D62E">VisitCXXDefaultInitExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#784C0CF1B4CF5F82C0BFE7B16EB1BB4812EAFFCB">VisitExprWithCleanups</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F860D9A0CAA1443A07F8F0B6A5A35B0E206FF7C2">VisitCXXScalarValueInitExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0A450AC5EDEA1150C03E635AF957531F5738ED7E">VisitImplicitValueInitExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F6E204CFED14DA69A62AF2A62222E75066CBEDF">HigherPrecisionTypeForComplexArithmetic</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EB0B954F6E321FDE713AAC530AF5C94AE9C7A199">getPromotionType</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6DDEDD6713EE7F9DB52B4BD50A2181EE6809031C">VisitBinMul</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#57D9C2C62F4115BD84B9DED3F37A8B8FC096A0D1">VisitBinDiv</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E53EFFBC108E594175510AC669008246E004965">VisitBinAdd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4598D32EB96751DA945BF5BED13C539B6DF93617">VisitBinSub</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB0FD39AD3A983D436B7319773271E2D895929B5">VisitCXXRewrittenBinaryOperator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#46C7ECBAC75B8F645DAF518C04EAD1E0741219AA">VisitBinAddAssign</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1451BB09E7FFD7AA99FE5D40C741FEE70DAB260C">VisitBinSubAssign</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#56C2CAC35D6269202ADDB2FC185AF363EA11257B">VisitBinMulAssign</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1AA30C8B88359AC37575C150CF0E5813A2E07E74">VisitBinDivAssign</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E2135231C3435BD3D6C1C8DB9AEE640F6C7FAC0C">VisitCompoundLiteralExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1A3237A50E2FEC24AD0322E605203DBCC2C86544">VisitAtomicExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F6EDC3FACD4DE8E5D16795D19A9E252FDF13DBE5">VisitPackIndexingExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#16DB91EA296D534A46B007578B71F701340AABD5">EmitLoadOfLValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#663208A2643DB10E5572ABCE20574A7704F23A18">EmitStoreOfComplex</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3BDEE2177BBE297031EEB973DED3CB9F2EC3EC2E">EmitComplexToComplexCast</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#388FBBC5021019C37843E1583BCFF8962CC7190B">EmitScalarToComplexCast</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D3E9C5FE32C4BEF524948479E9FA8F5B538D95F">VisitExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#872711EA43C59297F2D2017B17EBF8E8F564D7BF">VisitImaginaryLiteral</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5F86931EA4DEAB64FEBC92675F762686DE18F8DD">EmitCast</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9A4B72F04E5D4F44B21E627C432E4FBD0B488EF1">VisitCallExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4EBE5A161FC341E37658B1067312A69B5E4FFF42">VisitStmtExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0DFB51C745997D08AF7DA0C8B3340F7038A2757E">VisitUnaryPlus</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BE88076B4A1180D6CB02DAD73B6823ADD7ADE222">VisitPlus</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7488117F034620432EA86A80150F68B02E93C48A">VisitUnaryMinus</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#68D098C7159CA41C862501DDF4E9B97C63FFD4F7">VisitMinus</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#71AAB2F817408DE052274D7821C0C5093D51CA9E">VisitUnaryNot</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7C380901F84707504C909BD9DE5334F464718C14">EmitBinOps</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#58FBED4A97CDC5ED7F6E44C6513A8136E38CAF51">EmitPromoted</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A34A88DF6FD35945ED6D1EBA4AE1E2C5A9FFFFF7">EmitPromotedComplexOperand</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C51DA42713F67C07BD59BCE906B4DE2F3F8070C9">EmitCompoundAssignLValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D0E92D0284B2A5F7A752BE0CE7BEC78E108EC534">EmitCompoundAssign</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D8C5A49C0133465C496B456A8EDEF1689E7608DF">EmitBinAdd</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E4B804FB1987D143E9E59D3CC53CC28081AC4422">EmitBinSub</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FAC13FE364B565DB2BECFDB804008215CBB81C3F">EmitBinMul</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC3171EC1DA63733187FFEDCDEB6080C74405B92">EmitBinDiv</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7117B1EDD3C8CD8B3A90C6FD33757355846BF066">EmitAlgebraicDiv</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#85662033B3EC82B11DD889EE2AA66ED86355F5B1">EmitRangeReductionDiv</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#256F47D2B310742E1D40C56D892B3175CB690714">EmitComplexBinOpLibCall</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#EC461BD7DE2D08F713456240931E9FF17312B737">EmitBinAssignLValue</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07111E93AF5ADB5672FBC4773BF746AA2616BF5A">VisitBinAssign</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#91BE1980E2D3030FE795779E659E8D7C99AFC276">VisitBinComma</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8583EA6C3AA252CE8998F032A735A081E1E9A862">VisitAbstractConditionalOperator</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#204CB67159A398877A84F8D60FAC859D8C8EA95E">VisitChooseExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2DDEE6148ECB8DB8814D30E203D619F5B4A4FA00">VisitInitListExpr</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#60A4638235807EDA3612076FB4224890F7E5142F">VisitVAArgExpr</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AF7DAC37F406456E04339172B49512ECE065886B">BinOpInfo</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ComplexExprEmitter</h1>
+                        <p>Defined at line 47 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L47">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="D438FC38B3F6DC18EA82CA07338EA5FA8608BE33">
+                                <pre><code class="language-cpp code-clang-doc">void ComplexExprEmitter (CodeGenFunction &amp; cgf, bool ir, bool ii)</code></pre>
+                                <p>Defined at line 56 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L56">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23B66A420C7FD9282F8D5F7DBE08CDCD606310AC">
+                                <pre><code class="language-cpp code-clang-doc">bool TestAndClearIgnoreReal ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===--------------------------------------------------------------------===//</p>
+                                        <p>                               Utilities</p>
+                                        <p>===--------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 64 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L64">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="10680294EBAFD0E5C8C142A2E676CD4785D0ACF3">
+                                <pre><code class="language-cpp code-clang-doc">bool TestAndClearIgnoreImag ()</code></pre>
+                                <p>Defined at line 69 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L69">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="357E9BD3A8A4B35012328838A2B39A7D3CEB47D5">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitLoadOfLValue (const Expr * E)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> EmitLoadOfLValue - Given an expression with complex type that represents a</p>
+                                        <p> value l-value, this method emits the address of the l-value, then loads</p>
+                                        <p> and returns the result.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 78 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L78">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="56568C41117E6BE1791355BC4CD16619AF0608A7">
+                                <pre><code class="language-cpp code-clang-doc">pair Visit (Expr * E)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===--------------------------------------------------------------------===//</p>
+                                        <p>                            Visitor Methods</p>
+                                        <p>===--------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 99 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L99">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="30C7E743F2F69A3C2E76BA6EEB2341A86BBDDA4B">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitStmt (Stmt * S)</code></pre>
+                                <p>Defined at line 104 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L104">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5A7E7FBEC5CCF31B09A0570E508DB73FD4FD1CEF">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitConstantExpr (ConstantExpr * E)</code></pre>
+                                <p>Defined at line 109 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L109">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A7E4E5FE2671B70F9B5579FAC61A8C2DAAB00038">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitParenExpr (ParenExpr * PE)</code></pre>
+                                <p>Defined at line 115 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L115">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="739AB77971D48B1CE764A8EC31E5D397F24CD5D6">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitGenericSelectionExpr (GenericSelectionExpr * GE)</code></pre>
+                                <p>Defined at line 116 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L116">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="85C509E045953833C6F3C8F19FB3404AEFC3213F">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitSubstNonTypeTemplateParmExpr (SubstNonTypeTemplateParmExpr * PE)</code></pre>
+                                <p>Defined at line 120 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L120">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E49E36F20D9440ACAC9FF79C8DED0BAF76EDAFFD">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitCoawaitExpr (CoawaitExpr * S)</code></pre>
+                                <p>Defined at line 124 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L124">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C0F7F9B142EE2076D682A2C615D4A1A532157D7">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitCoyieldExpr (CoyieldExpr * S)</code></pre>
+                                <p>Defined at line 127 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L127">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="397F94A28CAD01DD2C611A4D64EA87A7877E13A3">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitUnaryCoawait (const UnaryOperator * E)</code></pre>
+                                <p>Defined at line 130 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L130">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2FF3CEC9056BC5B40F2BF6B8BC3B6D07CCC7F7C4">
+                                <pre><code class="language-cpp code-clang-doc">pair emitConstant (const CodeGenFunction::ConstantEmission &amp; Constant, Expr * E)</code></pre>
+                                <p>Defined at line 134 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L134">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C6FAFBF96177DF6CFE747536EEB354F3A78D9831">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitDeclRefExpr (DeclRefExpr * E)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> l-values.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 147 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L147">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1AB1D2524EB5F5DAC95CED5B8D3AE4CB2FAA7188">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitObjCIvarRefExpr (ObjCIvarRefExpr * E)</code></pre>
+                                <p>Defined at line 152 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L152">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2D1B6C78D5911DBDB28490D5C78BC74D8763F3FB">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitObjCMessageExpr (ObjCMessageExpr * E)</code></pre>
+                                <p>Defined at line 155 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L155">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8A3C9C5E8391C576BFD8AA5CD46C326B24797147">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitArraySubscriptExpr (Expr * E)</code></pre>
+                                <p>Defined at line 158 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L158">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8C9D2C149266F2F58C3064EF8D5109BD0A4EFAE2">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitMemberExpr (MemberExpr * ME)</code></pre>
+                                <p>Defined at line 159 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L159">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="60D7696217BE94D36DA0676D95812613D6853EBF">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitOpaqueValueExpr (OpaqueValueExpr * E)</code></pre>
+                                <p>Defined at line 167 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L167">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2E124CE87B5554D559C190BA21B71536AF3408F2">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitPseudoObjectExpr (PseudoObjectExpr * E)</code></pre>
+                                <p>Defined at line 174 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L174">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="14FB1DE1172FCD2DCC880F1F4F6A0B256BAE3685">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitImplicitCastExpr (ImplicitCastExpr * E)</code></pre>
+                                <p>Defined at line 181 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L181">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DE3BCE855AB4984102986C284753D9E9E1D885D9">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitCastExpr (CastExpr * E)</code></pre>
+                                <p>Defined at line 188 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L188">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F86EB7EBEA6A57A63D2C9A8B67C90D6955F5BFBE">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitPrePostIncDec (const UnaryOperator * E, bool isInc, bool isPre)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Operators.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 199 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L199">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F011120251A5578797BC692C4745CE0FF99A59F4">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitUnaryPostDec (const UnaryOperator * E)</code></pre>
+                                <p>Defined at line 204 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L204">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="55B702E338EDFFD53DD05BF3D1ABA2C6D4827523">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitUnaryPostInc (const UnaryOperator * E)</code></pre>
+                                <p>Defined at line 207 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L207">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C58B5EAE131F5354DA21185D74563529121DF244">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitUnaryPreDec (const UnaryOperator * E)</code></pre>
+                                <p>Defined at line 210 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L210">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6666CED3F22A0F5433B890F020E6A37F9A2800FA">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitUnaryPreInc (const UnaryOperator * E)</code></pre>
+                                <p>Defined at line 213 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L213">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C5DAE40959F7E22C26E10E8AC207AFBE8545F0B8">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitUnaryDeref (const Expr * E)</code></pre>
+                                <p>Defined at line 216 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L216">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="08A7A5B23CD8D7339F5415A604F2F2E1D4797D7A">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitUnaryExtension (const UnaryOperator * E)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LNot,Real,Imag never return complex.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 226 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L226">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8F3BA3F84D4349C1FE1512F371A31AC0E28F2ED5">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitCXXDefaultArgExpr (CXXDefaultArgExpr * DAE)</code></pre>
+                                <p>Defined at line 229 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L229">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4B7FA1FC44E135F1FDA2A499455B3D845DB7D62E">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitCXXDefaultInitExpr (CXXDefaultInitExpr * DIE)</code></pre>
+                                <p>Defined at line 233 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L233">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="784C0CF1B4CF5F82C0BFE7B16EB1BB4812EAFFCB">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitExprWithCleanups (ExprWithCleanups * E)</code></pre>
+                                <p>Defined at line 237 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L237">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F860D9A0CAA1443A07F8F0B6A5A35B0E206FF7C2">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitCXXScalarValueInitExpr (CXXScalarValueInitExpr * E)</code></pre>
+                                <p>Defined at line 245 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L245">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0A450AC5EDEA1150C03E635AF957531F5738ED7E">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitImplicitValueInitExpr (ImplicitValueInitExpr * E)</code></pre>
+                                <p>Defined at line 251 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L251">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F6E204CFED14DA69A62AF2A62222E75066CBEDF">
+                                <pre><code class="language-cpp code-clang-doc">QualType HigherPrecisionTypeForComplexArithmetic (QualType ElementType)</code></pre>
+                                <p>Defined at line 290 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L290">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EB0B954F6E321FDE713AAC530AF5C94AE9C7A199">
+                                <pre><code class="language-cpp code-clang-doc">QualType getPromotionType (FPOptionsOverride Features, QualType Ty, bool IsComplexDivisor)</code></pre>
+                                <p>Defined at line 320 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L320">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6DDEDD6713EE7F9DB52B4BD50A2181EE6809031C">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitBinMul (const BinaryOperator * E)</code></pre>
+                                <p>Defined at line 355 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L355">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="57D9C2C62F4115BD84B9DED3F37A8B8FC096A0D1">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitBinDiv (const BinaryOperator * E)</code></pre>
+                                <p>Defined at line 356 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L356">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E53EFFBC108E594175510AC669008246E004965">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitBinAdd (const BinaryOperator * E)</code></pre>
+                                <p>Defined at line 357 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L357">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4598D32EB96751DA945BF5BED13C539B6DF93617">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitBinSub (const BinaryOperator * E)</code></pre>
+                                <p>Defined at line 358 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L358">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB0FD39AD3A983D436B7319773271E2D895929B5">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitCXXRewrittenBinaryOperator (CXXRewrittenBinaryOperator * E)</code></pre>
+                                <p>Defined at line 361 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L361">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="46C7ECBAC75B8F645DAF518C04EAD1E0741219AA">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitBinAddAssign (const CompoundAssignOperator * E)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compound assignments.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 366 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L366">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1451BB09E7FFD7AA99FE5D40C741FEE70DAB260C">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitBinSubAssign (const CompoundAssignOperator * E)</code></pre>
+                                <p>Defined at line 370 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L370">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="56C2CAC35D6269202ADDB2FC185AF363EA11257B">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitBinMulAssign (const CompoundAssignOperator * E)</code></pre>
+                                <p>Defined at line 374 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L374">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1AA30C8B88359AC37575C150CF0E5813A2E07E74">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitBinDivAssign (const CompoundAssignOperator * E)</code></pre>
+                                <p>Defined at line 378 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L378">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E2135231C3435BD3D6C1C8DB9AEE640F6C7FAC0C">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitCompoundLiteralExpr (CompoundLiteralExpr * E)</code></pre>
+                                <p>Defined at line 400 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L400">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1A3237A50E2FEC24AD0322E605203DBCC2C86544">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitAtomicExpr (AtomicExpr * E)</code></pre>
+                                <p>Defined at line 406 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L406">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F6EDC3FACD4DE8E5D16795D19A9E252FDF13DBE5">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitPackIndexingExpr (PackIndexingExpr * E)</code></pre>
+                                <p>Defined at line 410 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L410">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="16DB91EA296D534A46B007578B71F701340AABD5">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitLoadOfLValue (LValue LV, SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> EmitLoadOfLValue - Given an RValue reference for a complex, emit code to</p>
+                                        <p> load the real and imaginary pieces, returning them as Real/Imag.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 432 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L432">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="663208A2643DB10E5572ABCE20574A7704F23A18">
+                                <pre><code class="language-cpp code-clang-doc">void EmitStoreOfComplex (pair Val, LValue LV, bool isInit)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> EmitStoreOfComplex - Store the specified real/imag parts into the</p>
+                                        <p> specified value pointer.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 458 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L458">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3BDEE2177BBE297031EEB973DED3CB9F2EC3EC2E">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitComplexToComplexCast (pair Val, QualType SrcType, QualType DestType, SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit a cast from complex value Val to DestType.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 513 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L513">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="388FBBC5021019C37843E1583BCFF8962CC7190B">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitScalarToComplexCast (llvm::Value * Val, QualType SrcType, QualType DestType, SourceLocation Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit a cast from scalar value Val to DestType.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 531 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L531">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D3E9C5FE32C4BEF524948479E9FA8F5B538D95F">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitExpr (Expr * S)</code></pre>
+                                <div>
+                                    <div>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                        <p>                            Visitor Methods</p>
+                                        <p>===----------------------------------------------------------------------===//</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 482 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L482">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="872711EA43C59297F2D2017B17EBF8E8F564D7BF">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitImaginaryLiteral (const ImaginaryLiteral * IL)</code></pre>
+                                <p>Defined at line 490 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L490">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F86931EA4DEAB64FEBC92675F762686DE18F8DD">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitCast (CastKind CK, Expr * Op, QualType DestTy)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> FIXME: CompoundLiteralExpr</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 543 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L543">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9A4B72F04E5D4F44B21E627C432E4FBD0B488EF1">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitCallExpr (const CallExpr * E)</code></pre>
+                                <p>Defined at line 497 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L497">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4EBE5A161FC341E37658B1067312A69B5E4FFF42">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitStmtExpr (const StmtExpr * E)</code></pre>
+                                <p>Defined at line 504 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L504">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0DFB51C745997D08AF7DA0C8B3340F7038A2757E">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitUnaryPlus (const UnaryOperator * E, QualType PromotionType)</code></pre>
+                                <p>Defined at line 650 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L650">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BE88076B4A1180D6CB02DAD73B6823ADD7ADE222">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitPlus (const UnaryOperator * E, QualType PromotionType)</code></pre>
+                                <p>Defined at line 664 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L664">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7488117F034620432EA86A80150F68B02E93C48A">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitUnaryMinus (const UnaryOperator * E, QualType PromotionType)</code></pre>
+                                <p>Defined at line 673 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L673">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="68D098C7159CA41C862501DDF4E9B97C63FFD4F7">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitMinus (const UnaryOperator * E, QualType PromotionType)</code></pre>
+                                <p>Defined at line 686 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L686">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="71AAB2F817408DE052274D7821C0C5093D51CA9E">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitUnaryNot (const UnaryOperator * E)</code></pre>
+                                <p>Defined at line 707 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L707">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7C380901F84707504C909BD9DE5334F464718C14">
+                                <pre><code class="language-cpp code-clang-doc">BinOpInfo EmitBinOps (const BinaryOperator * E, QualType PromotionTy)</code></pre>
+                                <p>Defined at line 1199 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1199">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="58FBED4A97CDC5ED7F6E44C6513A8136E38CAF51">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitPromoted (const Expr * E, QualType PromotionTy)</code></pre>
+                                <p>Defined at line 1141 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1141">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A34A88DF6FD35945ED6D1EBA4AE1E2C5A9FFFFF7">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitPromotedComplexOperand (const Expr * E, QualType PromotionTy)</code></pre>
+                                <p>Defined at line 1179 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1179">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C51DA42713F67C07BD59BCE906B4DE2F3F8070C9">
+                                <pre><code class="language-cpp code-clang-doc">LValue EmitCompoundAssignLValue (const CompoundAssignOperator * E, ComplexPairTy (ComplexExprEmitter::*)(const BinOpInfo &amp;) Func, RValue &amp; Val)</code></pre>
+                                <p>Defined at line 1217 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1217">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D0E92D0284B2A5F7A752BE0CE7BEC78E108EC534">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitCompoundAssign (const CompoundAssignOperator * E, ComplexPairTy (ComplexExprEmitter::*)(const BinOpInfo &amp;) Func)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Compound assignments.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1330 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1330">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D8C5A49C0133465C496B456A8EDEF1689E7608DF">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitBinAdd (const BinOpInfo &amp; Op)</code></pre>
+                                <p>Defined at line 721 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L721">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E4B804FB1987D143E9E59D3CC53CC28081AC4422">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitBinSub (const BinOpInfo &amp; Op)</code></pre>
+                                <p>Defined at line 741 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L741">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FAC13FE364B565DB2BECFDB804008215CBB81C3F">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitBinMul (const BinOpInfo &amp; Op)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> See C11 Annex G.5.1 for the semantics of multiplicative operators on complex</p>
+                                        <p> typed values.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 823 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L823">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EC3171EC1DA63733187FFEDCDEB6080C74405B92">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitBinDiv (const BinOpInfo &amp; Op)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> See C11 Annex G.5.1 for the semantics of multiplicative operators on complex</p>
+                                        <p> typed values.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1033 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1033">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7117B1EDD3C8CD8B3A90C6FD33757355846BF066">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitAlgebraicDiv (llvm::Value * A, llvm::Value * B, llvm::Value * C, llvm::Value * D)</code></pre>
+                                <p>Defined at line 926 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L926">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="85662033B3EC82B11DD889EE2AA66ED86355F5B1">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitRangeReductionDiv (llvm::Value * A, llvm::Value * B, llvm::Value * C, llvm::Value * D)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> EmitRangeReductionDiv - Implements Smith&#39;s algorithm for complex division.</p>
+                                        <p> SMITH, R. L. Algorithm 116: Complex division. Commun. ACM 5, 8 (1962).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 960 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L960">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="256F47D2B310742E1D40C56D892B3175CB690714">
+                                <pre><code class="language-cpp code-clang-doc">pair EmitComplexBinOpLibCall (StringRef LibCallName, const BinOpInfo &amp; Op)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Emit a libcall for a binary operation on complex types.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 762 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L762">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EC461BD7DE2D08F713456240931E9FF17312B737">
+                                <pre><code class="language-cpp code-clang-doc">LValue EmitBinAssignLValue (const BinaryOperator * E, ComplexPairTy &amp; Val)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> No comparisons produce a complex result.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1347 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1347">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07111E93AF5ADB5672FBC4773BF746AA2616BF5A">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitBinAssign (const BinaryOperator * E)</code></pre>
+                                <p>Defined at line 1367 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1367">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="91BE1980E2D3030FE795779E659E8D7C99AFC276">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitBinComma (const BinaryOperator * E)</code></pre>
+                                <p>Defined at line 1383 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1383">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8583EA6C3AA252CE8998F032A735A081E1E9A862">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitAbstractConditionalOperator (const AbstractConditionalOperator * CO)</code></pre>
+                                <p>Defined at line 1388 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1388">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="204CB67159A398877A84F8D60FAC859D8C8EA95E">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitChooseExpr (ChooseExpr * CE)</code></pre>
+                                <p>Defined at line 1440 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1440">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2DDEE6148ECB8DB8814D30E203D619F5B4A4FA00">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitInitListExpr (InitListExpr * E)</code></pre>
+                                <p>Defined at line 1444 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1444">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="60A4638235807EDA3612076FB4224890F7E5142F">
+                                <pre><code class="language-cpp code-clang-doc">pair VisitVAArgExpr (VAArgExpr * E)</code></pre>
+                                <p>Defined at line 1468 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CGExprComplex.cpp#L1468">clang/lib/CodeGen/CGExprComplex.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="AF7DAC37F406456E04339172B49512ECE065886B" style="max-height: 40px;">
+                            <a href="ComplexExprEmitter/_ZTVN12_GLOBAL__N_118ComplexExprEmitter9BinOpInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class BinOpInfo</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

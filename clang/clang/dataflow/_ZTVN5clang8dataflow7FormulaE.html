@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Formula</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class Formula</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BBDB489C4B5C80775B9E2877A52B68479E4D2121">print</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#57B5B744803C41EB768D7921E9D9951697FE2A35">create</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DF81992AF570CBD15645CDADE682F64441B19030">kind</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AC476580B1BBECC98956FD18D984DEC3375E4C26">getAtom</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#10710D486F1512772EA9F58211EC8E135F477B67">literal</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5B2BC32F956153F931E3515FD66FFDE3E0737967">isLiteral</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#571D956D11211829CD6805B11632D253FA8B5FEF">operands</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A776B4F45472D1BBE6C5AFCF94149AF2DA33378F">numOperands</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#58792AD491715449B2AE352041B17986D63D8552">Kind</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E2391DD062A10EAE5D339A5EE5E3D4DAA48B843">AtomNames</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class Formula</h1>
+                        <p>Defined at line 49 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/Formula.h#L49">clang/include/clang/Analysis/FlowSensitive/Formula.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A boolean expression such as &quot;true&quot; or &quot;V1 &amp; !V2&quot;.</p>
+                                <p> Expressions may refer to boolean atomic variables. These should take a</p>
+                                <p> consistent true/false value across the set of formulas being considered.</p>
+                            </div>
+                            <div>
+                                <p> (Formulas are always expressions in terms of boolean variables rather than</p>
+                                <p> e.g. integers because our underlying model is SAT rather than e.g. SMT).</p>
+                            </div>
+                            <div>
+                                <p> Simple formulas such as &quot;true&quot; and &quot;V1&quot; are self-contained.</p>
+                                <p> Compound formulas connect other formulas, e.g. &quot;(V1 &amp; V2) || V3&quot; is an &#39;or&#39;</p>
+                                <p> formula, with pointers to its operands &quot;(V1 &amp; V2)&quot; and &quot;V3&quot; stored as</p>
+                                <p> trailing objects.</p>
+                                <p> For this reason, Formulas are Arena-allocated and over-aligned.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="BBDB489C4B5C80775B9E2877A52B68479E4D2121">
+                                <pre><code class="language-cpp code-clang-doc">void print (llvm::raw_ostream &amp; OS, const AtomNames * )</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Produces a stable human-readable representation of this formula.</p>
+                                        <p> For example: (V3 | !(V1 </p>
+                                        <p>&amp;</p>
+                                        <p> V2))</p>
+                                        <p> If AtomNames is provided, these override the default V0, V1... names.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 57 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/FlowSensitive/Formula.cpp#L57">clang/lib/Analysis/FlowSensitive/Formula.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="57B5B744803C41EB768D7921E9D9951697FE2A35">
+                                <pre><code class="language-cpp code-clang-doc">const Formula &amp; create (llvm::BumpPtrAllocator &amp; Alloc, Kind K, ArrayRef Operands, unsigned int Value)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Allocates Formulas using Arena rather than calling this function directly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 19 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/FlowSensitive/Formula.cpp#L19">clang/lib/Analysis/FlowSensitive/Formula.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DF81992AF570CBD15645CDADE682F64441B19030">
+                                <pre><code class="language-cpp code-clang-doc">Kind kind ()</code></pre>
+                                <p>Defined at line 66 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/Formula.h#L66">clang/include/clang/Analysis/FlowSensitive/Formula.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC476580B1BBECC98956FD18D984DEC3375E4C26">
+                                <pre><code class="language-cpp code-clang-doc">Atom getAtom ()</code></pre>
+                                <p>Defined at line 68 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/Formula.h#L68">clang/include/clang/Analysis/FlowSensitive/Formula.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="10710D486F1512772EA9F58211EC8E135F477B67">
+                                <pre><code class="language-cpp code-clang-doc">bool literal ()</code></pre>
+                                <p>Defined at line 73 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/Formula.h#L73">clang/include/clang/Analysis/FlowSensitive/Formula.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5B2BC32F956153F931E3515FD66FFDE3E0737967">
+                                <pre><code class="language-cpp code-clang-doc">bool isLiteral (bool b)</code></pre>
+                                <p>Defined at line 78 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/Formula.h#L78">clang/include/clang/Analysis/FlowSensitive/Formula.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="571D956D11211829CD6805B11632D253FA8B5FEF">
+                                <pre><code class="language-cpp code-clang-doc">ArrayRef operands ()</code></pre>
+                                <p>Defined at line 82 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/Formula.h#L82">clang/include/clang/Analysis/FlowSensitive/Formula.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A776B4F45472D1BBE6C5AFCF94149AF2DA33378F">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int numOperands (Kind K)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Count of operands (sub-formulas) associated with Formulas of kind `K`.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 99 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/Formula.h#L99">clang/include/clang/Analysis/FlowSensitive/Formula.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div id="58792AD491715449B2AE352041B17986D63D8552" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum Kind</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>AtomRef</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>Literal</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>Not</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>And</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>Or</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>Implies</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>Equal</td>
+                                    <td>6</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 51 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/Formula.h#L51">clang/include/clang/Analysis/FlowSensitive/Formula.h</a></p>
+                    </div>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="6E2391DD062A10EAE5D339A5EE5E3D4DAA48B843" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using AtomNames = llvm::DenseMap&lt;Atom, std::string&gt;</code></pre>
+                        <p>Defined at line 87 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/Formula.h#L87">clang/include/clang/Analysis/FlowSensitive/Formula.h</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ASTMatchFinder</title>
+        <link rel="stylesheet" type="text/css" href="../../../clang-doc-mustache.css"/>
+        <script src="../../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ASTMatchFinder</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1AD12BEA5B9875F1AAAE32770802D201682A4CD1">classIsDerivedFrom</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#86F0A31E58642506F4106ADD0DBE3FB1795EB27C">objcClassIsDerivedFrom</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C3BD16D5CCACB8C9294D89B623EF71178BED9D11">getASTContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3D7A9B8DB68096E9FFBB1E5E515585D06A3F9D64">IsMatchingInASTNodeNotSpelledInSource</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C5EED5D456079FA14E64A27C5D2FA2BA2242F0F5">IsMatchingInASTNodeNotAsIs</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#932F45947BAEA89B8C059757DD2DF7850645792E">isTraversalIgnoringImplicitNodes</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4E10807481F7A091C6B8B6E6BDDF78244B403C52">~ASTMatchFinder</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DD14BC6CCE004A12867E889511AE51AAA513A0AC">matchesChildOf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6D7BF5A0B009708C7BFA30EC12C1CC86D3A52343">matchesDescendantOf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AF99101D5CD7D0D18C4DA35527155F57DAAE4BD7">matchesAncestorOf</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Enums">Enums</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C46D6CDDFD5DE6C9DEC59EEDAAD4A7BF0C698FDD">BindKind</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7181D6F0F374955999FA9787CE2AF3D2ED04A66E">AncestorMatchMode</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Friends">Friends</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#37A2D13CC1D35E97AEF2569A1A1AB61BD37EF2CB">ASTChildrenNotSpelledInSourceScope</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ASTMatchFinder</h1>
+                        <p>Defined at line 704 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/ASTMatchers/ASTMatchersInternal.h#L704">clang/include/clang/ASTMatchers/ASTMatchersInternal.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Interface that allows matchers to traverse the AST.</p>
+                                <p> FIXME: Find a better name.</p>
+                            </div>
+                            <div>
+                                <p> This provides three entry methods for each base node type in the AST:</p>
+                                <p> - </p>
+                                <p>   Matches a matcher on every child node of the given node. Returns true</p>
+                                <p>   if at least one child node could be matched.</p>
+                                <p> - </p>
+                                <p>   Matches a matcher on all descendant nodes of the given node. Returns true</p>
+                                <p>   if at least one descendant matched.</p>
+                                <p> - </p>
+                                <p>   Matches a matcher on all ancestors of the given node. Returns true if</p>
+                                <p>   at least one ancestor matched.</p>
+                            </div>
+                            <div>
+                                <p> FIXME: Currently we only allow Stmt and Decl nodes to start a traversal.</p>
+                                <p> In the future, we want to implement this for all nodes for which it makes</p>
+                                <p> sense. In the case of matchesAncestorOf, we&#39;ll want to implement it for</p>
+                                <p> all nodes, as all nodes have ancestors.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="1AD12BEA5B9875F1AAAE32770802D201682A4CD1">
+                                <pre><code class="language-cpp code-clang-doc">bool classIsDerivedFrom (const CXXRecordDecl * Declaration, const Matcher&lt;NamedDecl&gt; &amp; Base, BoundNodesTreeBuilder * Builder, bool Directly)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the given C++ class is directly or indirectly derived</p>
+                                        <p> from a base type matching </p>
+                                    </div>
+                                    <div>
+                                        <p> A class is not considered to be derived from itself.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="86F0A31E58642506F4106ADD0DBE3FB1795EB27C">
+                                <pre><code class="language-cpp code-clang-doc">bool objcClassIsDerivedFrom (const ObjCInterfaceDecl * Declaration, const Matcher&lt;NamedDecl&gt; &amp; Base, BoundNodesTreeBuilder * Builder, bool Directly)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns true if the given Objective-C class is directly or indirectly</p>
+                                        <p> derived from a base class matching </p>
+                                    </div>
+                                    <div>
+                                        <p> A class is not considered to be derived from itself.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C3BD16D5CCACB8C9294D89B623EF71178BED9D11">
+                                <pre><code class="language-cpp code-clang-doc">ASTContext &amp; getASTContext ()</code></pre>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3D7A9B8DB68096E9FFBB1E5E515585D06A3F9D64">
+                                <pre><code class="language-cpp code-clang-doc">bool IsMatchingInASTNodeNotSpelledInSource ()</code></pre>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C5EED5D456079FA14E64A27C5D2FA2BA2242F0F5">
+                                <pre><code class="language-cpp code-clang-doc">bool IsMatchingInASTNodeNotAsIs ()</code></pre>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="932F45947BAEA89B8C059757DD2DF7850645792E">
+                                <pre><code class="language-cpp code-clang-doc">bool isTraversalIgnoringImplicitNodes ()</code></pre>
+                                <p>Defined at line 189 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/ASTMatchers/ASTMatchersInternal.cpp#L189">clang/lib/ASTMatchers/ASTMatchersInternal.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4E10807481F7A091C6B8B6E6BDDF78244B403C52">
+                                <pre><code class="language-cpp code-clang-doc">void ~ASTMatchFinder ()</code></pre>
+                                <p>Defined at line 724 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/ASTMatchers/ASTMatchersInternal.h#L724">clang/include/clang/ASTMatchers/ASTMatchersInternal.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DD14BC6CCE004A12867E889511AE51AAA513A0AC">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">bool matchesChildOf (const T &amp; Node, const DynTypedMatcher &amp; Matcher, BoundNodesTreeBuilder * Builder, BindKind Bind)</code></pre>
+                                <p>Defined at line 745 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/ASTMatchers/ASTMatchersInternal.h#L745">clang/include/clang/ASTMatchers/ASTMatchersInternal.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6D7BF5A0B009708C7BFA30EC12C1CC86D3A52343">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">bool matchesDescendantOf (const T &amp; Node, const DynTypedMatcher &amp; Matcher, BoundNodesTreeBuilder * Builder, BindKind Bind)</code></pre>
+                                <p>Defined at line 760 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/ASTMatchers/ASTMatchersInternal.h#L760">clang/include/clang/ASTMatchers/ASTMatchersInternal.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AF99101D5CD7D0D18C4DA35527155F57DAAE4BD7">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">bool matchesAncestorOf (const T &amp; Node, const DynTypedMatcher &amp; Matcher, BoundNodesTreeBuilder * Builder, AncestorMatchMode MatchMode)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> FIXME: Implement support for BindKind.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 776 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/ASTMatchers/ASTMatchersInternal.h#L776">clang/include/clang/ASTMatchers/ASTMatchersInternal.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div id="C46D6CDDFD5DE6C9DEC59EEDAAD4A7BF0C698FDD" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum BindKind</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>BK_First</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>BK_All</td>
+                                    <td>1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 707 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/ASTMatchers/ASTMatchersInternal.h#L707">clang/include/clang/ASTMatchers/ASTMatchersInternal.h</a></p>
+                    </div>
+                    <div id="7181D6F0F374955999FA9787CE2AF3D2ED04A66E" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum AncestorMatchMode</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>AMM_All</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>AMM_ParentOnly</td>
+                                    <td>1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 716 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/ASTMatchers/ASTMatchersInternal.h#L716">clang/include/clang/ASTMatchers/ASTMatchersInternal.h</a></p>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="37A2D13CC1D35E97AEF2569A1A1AB61BD37EF2CB" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ASTChildrenNotSpelledInSourceScope</code></pre>
+                        <div>
+                            <p> Interface that allows matchers to traverse the AST.</p>
+                            <p> FIXME: Find a better name.</p>
+                        </div>
+                        <div>
+                            <p> This provides three entry methods for each base node type in the AST:</p>
+                            <p> - </p>
+                            <p>   Matches a matcher on every child node of the given node. Returns true</p>
+                            <p>   if at least one child node could be matched.</p>
+                            <p> - </p>
+                            <p>   Matches a matcher on all descendant nodes of the given node. Returns true</p>
+                            <p>   if at least one descendant matched.</p>
+                            <p> - </p>
+                            <p>   Matches a matcher on all ancestors of the given node. Returns true if</p>
+                            <p>   at least one ancestor matched.</p>
+                        </div>
+                        <div>
+                            <p> FIXME: Currently we only allow Stmt and Decl nodes to start a traversal.</p>
+                            <p> In the future, we want to implement this for all nodes for which it makes</p>
+                            <p> sense. In the case of matchesAncestorOf, we&#39;ll want to implement it for</p>
+                            <p> all nodes, as all nodes have ancestors.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

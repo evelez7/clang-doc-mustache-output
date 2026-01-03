@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ASTDeclReader</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ASTDeclReader</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#98D12739A9A4554EA018324560ED7F5982AA4E4A">ASTDeclReader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3E6B8C1DF4313B97D3DDC256BA00618B2D2359F2">setNextObjCCategory</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#32EE64CBA3838537C523E141C71A3E8C3A52EB7E">VisitCXXRecordDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#04D0ECB4FD017FD77635CA7F9DEB9AAEF7362FAE">VisitClassTemplateSpecializationDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#587DB762669D720D281A477E7D277681CE70C4C6">VisitVarTemplateSpecializationDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#068D6E932D9C488B0A213DDCF6529FF31AB3F6A2">VisitVarDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6EBFE3F1082668190C433C2F435FF4CE4C883ADB">getMostRecentDeclImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#672B4A20E3EB50CA39091166EF76761269BEDD79">getMostRecentDeclImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#07A071604FE02C8EE9A0A43C9F0315BD1524B62D">getMostRecentDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B5BBA54AD3F0CC3FC869FC6405B28359E9D9DD5D">attachPreviousDeclImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3BFB67389FBB34E66DACE74D142CE875CF8460D2">attachPreviousDeclImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0C3D26E0CA5250DAF5E2219C0B43E212DB684AEB">attachPreviousDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0C948FDAB025B4191A02DBF658D3E703D45F55ED">checkMultipleDefinitionInNamedModules</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3CCD53B54EC31826111747CABC742204FDCB9440">attachLatestDeclImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#96FEEFE70C49D7E5AE518B539BFD6850504FA0DA">attachLatestDeclImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9FC7ECF7FE2BDF60284626A860ADD39A17577821">attachLatestDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4BB72BC75DF48C1F99A4F208B2F326212E963B0">markIncompleteDeclChainImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#74DF7CD96D010DFA7B1C02F513B29884BE00E5D2">markIncompleteDeclChainImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B7C3504065BFCE901C6FC6D4504DF5963C9B8339">ReadSpecializations</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2CE14D75378EBC4FACD915A47766A240DDE3EA54">ReadFunctionDefinition</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CEAA61529FEFE7115F51C2ED5F328FC7B951E7FD">Visit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F288EB1B8747D392AF89D2D8513E78676C8E4CF">UpdateDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#962F131E9B6C6EFB4426589B3AC69355D373C1D0">VisitDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BC9EB685CDCF0DAE83CF9C6F4F6F3CCCBAB7B49D">VisitPragmaCommentDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3011CAA1532D5D46AAE4F0B26332061201365227">VisitPragmaDetectMismatchDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E301F947BED761573A7E7CF56D132BF4E85E58E3">VisitTranslationUnitDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E444206ADA43B329CE9C8C49EE9742C480130F5A">VisitNamedDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7BE3A277EF3EE3BAE6BB5356536BA281D4FCB033">VisitLabelDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#290B2DC30B9BAE49439F9822201031C320C8C3CF">VisitNamespaceDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAB382B3E63B1237B5A3C217D42FBE3DBDA86EA2">VisitHLSLBufferDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A9E1FD454A52FBE360A50343854D9E4D6D9EC505">VisitUsingDirectiveDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B2C3FD9157E7D273356085307CFD28FF6C3FFB61">VisitNamespaceAliasDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#55B835F36847197FBB9238D0E12F68CCB0EC085C">VisitTypeDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D785DDEFE03523DEF3D5977A89F0858D42980F0F">VisitTypedefNameDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26BBC1AD0A99A52BEE6AFC35ABEA71E6A5CA8D53">VisitTypedefDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AD87EFDA2999C943A348CC6634E0852D94B7656F">VisitTypeAliasDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#857E7919B618FA465C6FA36B025ED4221785CD0F">VisitUnresolvedUsingTypenameDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F1641D037670E771FB8E2706BD5456A00E784535">VisitUnresolvedUsingIfExistsDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D7B807F2439C3DCED082A202D482C50B4572161B">VisitTagDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A34DEF6C1A85B3485CCBEA508CB0774C8147F0F7">VisitEnumDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CE9AEBE0492C0B48329C10C81266FE9A89E93351">VisitRecordDeclImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4C8024F64A14D47F4CBBDE74440E266A2A54070">VisitRecordDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#03E22B208B3C8EA065D82FF9821270F56BD60C06">VisitCXXRecordDeclImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#83096A98B5D4251D393E61049ED3001B2747A9C6">VisitClassTemplateSpecializationDeclImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8066772ED5B2FB80B335D959706CE4D4B090B1E7">VisitClassTemplatePartialSpecializationDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#63276C9FFB0716B839A245E4629232B6D0A16A8F">VisitVarTemplateSpecializationDeclImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9800F9DB65F94D97557C859E1B7D813FB319C671">VisitVarTemplatePartialSpecializationDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FD78F36D44A07A692666373E707540E286D1E380">VisitTemplateTypeParmDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C1C374E108E96045F44FC2853CDD26BEA4CDD3D0">VisitValueDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F72FBB5374335FBF745F5EE8434E67FACF303F00">VisitEnumConstantDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F3336ACCBAA265B25FADCC3F9AA1F09E6806EFA6">VisitUnresolvedUsingValueDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2BC7E75D2CF36B42717376E75968CE56F2578A6F">VisitDeclaratorDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#471B299467D4A869C2299ABD78B7818B4CD18C3B">VisitFunctionDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4FF9BCB635E0C912C51BD4F64E3F62945ED07F50">VisitCXXDeductionGuideDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DC46CA67C0CC89F5E961D348E543D2B480588732">VisitCXXMethodDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#54E58D99586A25C820D2AEAEAB5C1783FB43156E">VisitCXXConstructorDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8FF9C1925C2D9C20EED929D4E47BF5562D96ACA7">VisitCXXDestructorDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1DF44DADF49E6A991A3D064D4B565986D4F7B429">VisitCXXConversionDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DCD7023B8528BD16CCF503BAD9ABF13408955516">VisitFieldDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0E46C220769EBC6967A1B3759DF6E2D678415CB7">VisitMSPropertyDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BF1B165E70DC831D97AE45809529E3CF09F865DF">VisitMSGuidDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#54DDE818CA8057608A9A9BC60272F6C82D9B72C8">VisitUnnamedGlobalConstantDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0AFE53D2FFC9E4892C97C9135257CF79BF42B5B2">VisitTemplateParamObjectDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#808B35B6AEB354D46FEAF0A4D99A21702675A221">VisitIndirectFieldDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E7B8CB69F82693039A1D3B7AE339A497B57EEC0D">VisitVarDeclImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#82D3FAAAA74A412867C211A957DB09D2BC6FCBC9">ReadVarDeclInit</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D6C682BE74E93D0FE0B2D980113F313095FA5A42">VisitImplicitParamDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DAE04D535B071019036D83B197B4E63C04319224">VisitParmVarDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DCF9A19588F6CB5B1D063CC1FACC8FA090F30B98">VisitDecompositionDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#348981342A5B39F28810431D706FF18C39FFD4F2">VisitBindingDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#ADCFE22E857C0C29CC6730B33E7ADDB39467D374">VisitNonTypeTemplateParmDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A3014C6316829CA61DB576986FF9490579718A44">VisitTemplateDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#700E93602324CBFEA5D58E4A4A8E8D4A06860E6F">VisitConceptDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C42BCA236CDA8A5672ED29CA659AE94393C40201">VisitImplicitConceptSpecializationDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E6985215F7633EEA77CF4017A22B2B5C475C2251">VisitRequiresExprBodyDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#21861AC08167AC7226B069344E4E60BA936E9B0A">VisitRedeclarableTemplateDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#34EBF902CCCD348D3469414F622B791D9F06C4C4">VisitClassTemplateDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5E44601F74D2179AEC973C417D8C7BC16CB02C8F">VisitBuiltinTemplateDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F145ED8A6AC1DC5B55AA27349CCFC01AD3D72049">VisitVarTemplateDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#23B8F9EB3CA8F59033EF5DDF2F56C37ABABEA14D">VisitFunctionTemplateDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#96017A1895F78900956650F206004741E6D50E32">VisitTemplateTemplateParmDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#36639DAC14FABB790CCB25A00B3A5D5ECF9F3D1A">VisitTypeAliasTemplateDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1302AEA567CECBEB527DC7643401F37789D1B2D7">VisitUsingDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E417E0E008CA6EF64E47C42F8C66F85DC5769EE1">VisitUsingEnumDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5DBA540A43049EDC61C43FB257820920EE3800CA">VisitUsingPackDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#73B5EF796347738A89A563AEBCD0AD97F6E2663D">VisitUsingShadowDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7EE5D9704F45599C7836ED452E994A45217D67DC">VisitConstructorUsingShadowDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3F3D05CA84576150CC43F55C436A4591D3CF42DB">VisitLinkageSpecDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DC26A8906C60B19CA697F73E1E0DE215715D30E4">VisitExportDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4F58AE3D66646BBB364F659549D973BEE1BCE668">VisitFileScopeAsmDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#27DF771E9009EB490C8FE4B8C5D595DFFBC9FA9F">VisitTopLevelStmtDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7202842E24DCCC57812367A60AD668EB62F23FBA">VisitImportDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D44079396EA02B78CD9157E92F00E13218A7B478">VisitAccessSpecDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1D47AEDEEBB0B69CD3260ED66C21BA77980264B5">VisitFriendDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#D8F4F3EBC1988A8AA1F0DDCC975D5A8FC47240FA">VisitFriendTemplateDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B5936B4A3458A2CD6B0D86EFD5E63FF28B4728C5">VisitStaticAssertDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#72618A50DE1A702F0BFAE679B287016F8CC8E5A9">VisitBlockDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DE3BCAE9D8781B1AF16F44B5FAB7FC3A8DFDFEF1">VisitOutlinedFunctionDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E1F49C17E64A81C98772B18F18735E97DD1E5317">VisitCapturedDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6EE85E2DAFA6FCD673E27254D62D2A9B74623F95">VisitEmptyDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F1E785EF02A067E4FCC0AD528A9560AA78341F2C">VisitLifetimeExtendedTemporaryDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#75F98E83F6770AD7938B1CFCAC2729EB2FFBEAED">VisitOpenACCDeclareDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5F63E2A7295CF9C8E9BC94F045F7D874A3ABD6F9">VisitOpenACCRoutineDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DED5924FF6905A7B6EBE2649D310E36DEA3EC739">VisitDeclContext</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F389C4AD02F5CE32140DB3BBC7726ADC04125A61">VisitRedeclarable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2E0C0CFCF5B812CB73C8BF5183C339754CD6DFE7">mergeRedeclarable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4F70CFDC94E4156A9A5975113F079B0CD5C540E">mergeRedeclarableTemplate</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#95F55E5859D0F28EBBCD58332B663E3CDF95F3D0">mergeMergeable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A3CCD9072B3BA2817A6B16D8323F847D4537F9CB">mergeMergeable</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8DB79EC8423C3EF000D041057F47A9048C0C7133">ReadObjCTypeParamList</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E8EC42A57B308EA8ED94D13C5FCDAD7B8C7A6374">VisitObjCMethodDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B9784290C50CEDA5203278D3406446B2452C6C4A">VisitObjCTypeParamDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2D9D05E2BEE93D72447F0A7334F4494389161722">VisitObjCContainerDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#886B7696C9215635F2932389AC604BACFA01C0A1">VisitObjCInterfaceDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DD9AB486D449910DBF22DFA3C15832100AB4A89F">VisitObjCIvarDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0B26771E527AEB8EB72311F06A3761E538F76C4A">VisitObjCProtocolDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8FAB5A6E14AC144EF3F23DD48788A0FDCDC3195D">VisitObjCAtDefsFieldDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4161182F23C7A44DFAAC53696ED71F9F303429C5">VisitObjCCategoryDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#C92FD00AE7FF1439629F3265A5E945348C2739DE">VisitObjCImplDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#339B36816A26C7A33BE7A55AAACF39204C16F800">VisitObjCCategoryImplDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#39F260DA6171085D0D3224047141658184212B92">VisitObjCImplementationDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7C3540E34D107C3223EDA311DA8643882BE81712">VisitObjCCompatibleAliasDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#799214B83C2603C039FF88EF8F3AFB31F9B85DF2">VisitObjCPropertyDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4FC4F506A087D35C5AEA842B5CA77CC7275ECBDC">VisitObjCPropertyImplDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2015169F7B64E19293708563C22F5AA1421677C3">VisitOMPThreadPrivateDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3F97F76BAAFB2015E0F1013DDFF2C0AEFD2BCA4A">VisitOMPAllocateDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B521270CD2B3102EEDA55FEB468AA42DB595064A">VisitOMPDeclareReductionDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#CAD8988E20D21307BD1D32BA10305A251B8BAAF9">VisitOMPDeclareMapperDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AA4C657322AF7CC404698A705F38581173707855">VisitOMPRequiresDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B2EE6C0770F58EA57EA413FD524780778992E123">VisitOMPCapturedExprDecl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A63EF25E20B3B4D8B533A11643C40D5F8EEA254D">attachPreviousDeclImpl</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#31B75FE4B2B8863A8750FCA8D128B1756567F68E">attachPreviousDeclImpl</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7630EF002B1CD53259FCAAD46CA6647B636F3B79">RecordData</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8703409B9D832C03922AC0D2344D2C204D67BBD5">FindExistingResult</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ASTDeclReader</h1>
+                        <p>Defined at line 144 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L144">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="98D12739A9A4554EA018324560ED7F5982AA4E4A">
+                                <pre><code class="language-cpp code-clang-doc">void ASTDeclReader (ASTReader &amp; Reader, ASTRecordReader &amp; Record, RecordLocation Loc, GlobalDeclID thisDeclID, SourceLocation ThisDeclLoc)</code></pre>
+                                <p>Defined at line 273 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L273">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3E6B8C1DF4313B97D3DDC256BA00618B2D2359F2">
+                                <pre><code class="language-cpp code-clang-doc">void setNextObjCCategory (ObjCCategoryDecl * Cat, ObjCCategoryDecl * Next)</code></pre>
+                                <p>Defined at line 311 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L311">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="32EE64CBA3838537C523E141C71A3E8C3A52EB7E">
+                                <pre><code class="language-cpp code-clang-doc">void VisitCXXRecordDecl (CXXRecordDecl * D)</code></pre>
+                                <p>Defined at line 337 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L337">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="04D0ECB4FD017FD77635CA7F9DEB9AAEF7362FAE">
+                                <pre><code class="language-cpp code-clang-doc">void VisitClassTemplateSpecializationDecl (ClassTemplateSpecializationDecl * D)</code></pre>
+                                <p>Defined at line 341 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L341">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="587DB762669D720D281A477E7D277681CE70C4C6">
+                                <pre><code class="language-cpp code-clang-doc">void VisitVarTemplateSpecializationDecl (VarTemplateSpecializationDecl * D)</code></pre>
+                                <p>Defined at line 351 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L351">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="068D6E932D9C488B0A213DDCF6529FF31AB3F6A2">
+                                <pre><code class="language-cpp code-clang-doc">void VisitVarDecl (VarDecl * VD)</code></pre>
+                                <p>Defined at line 376 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L376">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6EBFE3F1082668190C433C2F435FF4CE4C883ADB">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename DeclT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">Decl * getMostRecentDeclImpl (Redeclarable&lt;DeclT&gt; * D)</code></pre>
+                                <p>Defined at line 3585 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3585">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="672B4A20E3EB50CA39091166EF76761269BEDD79">
+                                <pre><code class="language-cpp code-clang-doc">Decl * getMostRecentDeclImpl ()</code></pre>
+                                <p>Defined at line 3589 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3589">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07A071604FE02C8EE9A0A43C9F0315BD1524B62D">
+                                <pre><code class="language-cpp code-clang-doc">Decl * getMostRecentDecl (Decl * D)</code></pre>
+                                <p>Defined at line 3593 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3593">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B5BBA54AD3F0CC3FC869FC6405B28359E9D9DD5D">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename DeclT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void attachPreviousDeclImpl (ASTReader &amp; Reader, Redeclarable&lt;DeclT&gt; * D, Decl * Previous, Decl * Canon)</code></pre>
+                                <p>Defined at line 3632 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3632">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3BFB67389FBB34E66DACE74D142CE875CF8460D2">
+                                <pre><code class="language-cpp code-clang-doc">void attachPreviousDeclImpl (ASTReader &amp; Reader)</code></pre>
+                                <p>Defined at line 3725 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3725">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0C3D26E0CA5250DAF5E2219C0B43E212DB684AEB">
+                                <pre><code class="language-cpp code-clang-doc">void attachPreviousDecl (ASTReader &amp; Reader, Decl * D, Decl * Previous, Decl * Canon)</code></pre>
+                                <p>Defined at line 3833 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3833">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0C948FDAB025B4191A02DBF658D3E703D45F55ED">
+                                <pre><code class="language-cpp code-clang-doc">void checkMultipleDefinitionInNamedModules (ASTReader &amp; Reader, Decl * D, Decl * Previous)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> [basic.link]/p10:</p>
+                                        <p>    If two declarations of an entity are attached to different modules,</p>
+                                        <p>    the program is ill-formed;</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3765 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3765">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3CCD53B54EC31826111747CABC742204FDCB9440">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename DeclT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void attachLatestDeclImpl (Redeclarable&lt;DeclT&gt; * D, Decl * Latest)</code></pre>
+                                <p>Defined at line 3871 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3871">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="96FEEFE70C49D7E5AE518B539BFD6850504FA0DA">
+                                <pre><code class="language-cpp code-clang-doc">void attachLatestDeclImpl ()</code></pre>
+                                <p>Defined at line 3875 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3875">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9FC7ECF7FE2BDF60284626A860ADD39A17577821">
+                                <pre><code class="language-cpp code-clang-doc">void attachLatestDecl (Decl * D, Decl * latest)</code></pre>
+                                <p>Defined at line 3879 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3879">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4BB72BC75DF48C1F99A4F208B2F326212E963B0">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename DeclT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void markIncompleteDeclChainImpl (Redeclarable&lt;DeclT&gt; * D)</code></pre>
+                                <p>Defined at line 3893 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3893">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="74DF7CD96D010DFA7B1C02F513B29884BE00E5D2">
+                                <pre><code class="language-cpp code-clang-doc">void markIncompleteDeclChainImpl ()</code></pre>
+                                <p>Defined at line 3897 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3897">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B7C3504065BFCE901C6FC6D4504DF5963C9B8339">
+                                <pre><code class="language-cpp code-clang-doc">void ReadSpecializations (ModuleFile &amp; M, Decl * D, llvm::BitstreamCursor &amp; DeclsCursor, bool IsPartial)</code></pre>
+                                <p>Defined at line 2449 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2449">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2CE14D75378EBC4FACD915A47766A240DDE3EA54">
+                                <pre><code class="language-cpp code-clang-doc">void ReadFunctionDefinition (FunctionDecl * FD)</code></pre>
+                                <p>Defined at line 508 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L508">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CEAA61529FEFE7115F51C2ED5F328FC7B951E7FD">
+                                <pre><code class="language-cpp code-clang-doc">void Visit (Decl * D)</code></pre>
+                                <p>Defined at line 526 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L526">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F288EB1B8747D392AF89D2D8513E78676C8E4CF">
+                                <pre><code class="language-cpp code-clang-doc">void UpdateDecl (Decl * D)</code></pre>
+                                <p>Defined at line 4698 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L4698">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="962F131E9B6C6EFB4426589B3AC69355D373C1D0">
+                                <pre><code class="language-cpp code-clang-doc">void VisitDecl (Decl * D)</code></pre>
+                                <p>Defined at line 568 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L568">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BC9EB685CDCF0DAE83CF9C6F4F6F3CCCBAB7B49D">
+                                <pre><code class="language-cpp code-clang-doc">void VisitPragmaCommentDecl (PragmaCommentDecl * D)</code></pre>
+                                <p>Defined at line 666 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L666">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3011CAA1532D5D46AAE4F0B26332061201365227">
+                                <pre><code class="language-cpp code-clang-doc">void VisitPragmaDetectMismatchDecl (PragmaDetectMismatchDecl * D)</code></pre>
+                                <p>Defined at line 675 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L675">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E301F947BED761573A7E7CF56D132BF4E85E58E3">
+                                <pre><code class="language-cpp code-clang-doc">void VisitTranslationUnitDecl (TranslationUnitDecl * TU)</code></pre>
+                                <p>Defined at line 688 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L688">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E444206ADA43B329CE9C8C49EE9742C480130F5A">
+                                <pre><code class="language-cpp code-clang-doc">void VisitNamedDecl (NamedDecl * ND)</code></pre>
+                                <p>Defined at line 692 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L692">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7BE3A277EF3EE3BAE6BB5356536BA281D4FCB033">
+                                <pre><code class="language-cpp code-clang-doc">void VisitLabelDecl (LabelDecl * LD)</code></pre>
+                                <p>Defined at line 1847 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1847">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="290B2DC30B9BAE49439F9822201031C320C8C3CF">
+                                <pre><code class="language-cpp code-clang-doc">void VisitNamespaceDecl (NamespaceDecl * D)</code></pre>
+                                <p>Defined at line 1852 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1852">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DAB382B3E63B1237B5A3C217D42FBE3DBDA86EA2">
+                                <pre><code class="language-cpp code-clang-doc">void VisitHLSLBufferDecl (HLSLBufferDecl * D)</code></pre>
+                                <p>Defined at line 1882 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1882">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A9E1FD454A52FBE360A50343854D9E4D6D9EC505">
+                                <pre><code class="language-cpp code-clang-doc">void VisitUsingDirectiveDecl (UsingDirectiveDecl * D)</code></pre>
+                                <p>Defined at line 1954 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1954">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B2C3FD9157E7D273356085307CFD28FF6C3FFB61">
+                                <pre><code class="language-cpp code-clang-doc">void VisitNamespaceAliasDecl (NamespaceAliasDecl * D)</code></pre>
+                                <p>Defined at line 1892 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1892">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="55B835F36847197FBB9238D0E12F68CCB0EC085C">
+                                <pre><code class="language-cpp code-clang-doc">void VisitTypeDecl (TypeDecl * TD)</code></pre>
+                                <p>Defined at line 698 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L698">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D785DDEFE03523DEF3D5977A89F0858D42980F0F">
+                                <pre><code class="language-cpp code-clang-doc">RedeclarableResult VisitTypedefNameDecl (TypedefNameDecl * TD)</code></pre>
+                                <p>Defined at line 706 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L706">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="26BBC1AD0A99A52BEE6AFC35ABEA71E6A5CA8D53">
+                                <pre><code class="language-cpp code-clang-doc">void VisitTypedefDecl (TypedefDecl * TD)</code></pre>
+                                <p>Defined at line 723 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L723">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AD87EFDA2999C943A348CC6634E0852D94B7656F">
+                                <pre><code class="language-cpp code-clang-doc">void VisitTypeAliasDecl (TypeAliasDecl * TD)</code></pre>
+                                <p>Defined at line 728 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L728">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="857E7919B618FA465C6FA36B025ED4221785CD0F">
+                                <pre><code class="language-cpp code-clang-doc">void VisitUnresolvedUsingTypenameDecl (UnresolvedUsingTypenameDecl * D)</code></pre>
+                                <p>Defined at line 1972 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1972">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F1641D037670E771FB8E2706BD5456A00E784535">
+                                <pre><code class="language-cpp code-clang-doc">void VisitUnresolvedUsingIfExistsDecl (UnresolvedUsingIfExistsDecl * D)</code></pre>
+                                <p>Defined at line 1981 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1981">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D7B807F2439C3DCED082A202D482C50B4572161B">
+                                <pre><code class="language-cpp code-clang-doc">RedeclarableResult VisitTagDecl (TagDecl * TD)</code></pre>
+                                <p>Defined at line 737 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L737">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A34DEF6C1A85B3485CCBEA508CB0774C8147F0F7">
+                                <pre><code class="language-cpp code-clang-doc">void VisitEnumDecl (EnumDecl * ED)</code></pre>
+                                <p>Defined at line 774 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L774">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CE9AEBE0492C0B48329C10C81266FE9A89E93351">
+                                <pre><code class="language-cpp code-clang-doc">RedeclarableResult VisitRecordDeclImpl (RecordDecl * RD)</code></pre>
+                                <p>Defined at line 828 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L828">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4C8024F64A14D47F4CBBDE74440E266A2A54070">
+                                <pre><code class="language-cpp code-clang-doc">void VisitRecordDecl (RecordDecl * RD)</code></pre>
+                                <p>Defined at line 850 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L850">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="03E22B208B3C8EA065D82FF9821270F56BD60C06">
+                                <pre><code class="language-cpp code-clang-doc">RedeclarableResult VisitCXXRecordDeclImpl (CXXRecordDecl * D)</code></pre>
+                                <p>Defined at line 2223 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2223">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="83096A98B5D4251D393E61049ED3001B2747A9C6">
+                                <pre><code class="language-cpp code-clang-doc">RedeclarableResult VisitClassTemplateSpecializationDeclImpl (ClassTemplateSpecializationDecl * D)</code></pre>
+                                <p>Defined at line 2521 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2521">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8066772ED5B2FB80B335D959706CE4D4B090B1E7">
+                                <pre><code class="language-cpp code-clang-doc">void VisitClassTemplatePartialSpecializationDecl (ClassTemplatePartialSpecializationDecl * D)</code></pre>
+                                <p>Defined at line 2595 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2595">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="63276C9FFB0716B839A245E4629232B6D0A16A8F">
+                                <pre><code class="language-cpp code-clang-doc">RedeclarableResult VisitVarTemplateSpecializationDeclImpl (VarTemplateSpecializationDecl * D)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> TODO: Unify with ClassTemplateSpecializationDecl version?</p>
+                                        <p>       May require unifying ClassTemplate(Partial)SpecializationDecl and</p>
+                                        <p>        VarTemplate(Partial)SpecializationDecl with a new data</p>
+                                        <p>        structure Template(Partial)SpecializationDecl, and</p>
+                                        <p>        using Template(Partial)SpecializationDecl as input type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2626 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2626">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9800F9DB65F94D97557C859E1B7D813FB319C671">
+                                <pre><code class="language-cpp code-clang-doc">void VisitVarTemplatePartialSpecializationDecl (VarTemplatePartialSpecializationDecl * D)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> TODO: Unify with ClassTemplatePartialSpecializationDecl version?</p>
+                                        <p>       May require unifying ClassTemplate(Partial)SpecializationDecl and</p>
+                                        <p>        VarTemplate(Partial)SpecializationDecl with a new data</p>
+                                        <p>        structure Template(Partial)SpecializationDecl, and</p>
+                                        <p>        using Template(Partial)SpecializationDecl as input type.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2693 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2693">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD78F36D44A07A692666373E707540E286D1E380">
+                                <pre><code class="language-cpp code-clang-doc">void VisitTemplateTypeParmDecl (TemplateTypeParmDecl * D)</code></pre>
+                                <p>Defined at line 2708 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2708">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C1C374E108E96045F44FC2853CDD26BEA4CDD3D0">
+                                <pre><code class="language-cpp code-clang-doc">void VisitValueDecl (ValueDecl * VD)</code></pre>
+                                <p>Defined at line 881 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L881">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F72FBB5374335FBF745F5EE8434E67FACF303F00">
+                                <pre><code class="language-cpp code-clang-doc">void VisitEnumConstantDecl (EnumConstantDecl * ECD)</code></pre>
+                                <p>Defined at line 892 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L892">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F3336ACCBAA265B25FADCC3F9AA1F09E6806EFA6">
+                                <pre><code class="language-cpp code-clang-doc">void VisitUnresolvedUsingValueDecl (UnresolvedUsingValueDecl * D)</code></pre>
+                                <p>Defined at line 1963 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1963">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2BC7E75D2CF36B42717376E75968CE56F2578A6F">
+                                <pre><code class="language-cpp code-clang-doc">void VisitDeclaratorDecl (DeclaratorDecl * DD)</code></pre>
+                                <p>Defined at line 900 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L900">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="471B299467D4A869C2299ABD78B7818B4CD18C3B">
+                                <pre><code class="language-cpp code-clang-doc">void VisitFunctionDecl (FunctionDecl * FD)</code></pre>
+                                <p>Defined at line 917 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L917">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4FF9BCB635E0C912C51BD4F64E3F62945ED07F50">
+                                <pre><code class="language-cpp code-clang-doc">void VisitCXXDeductionGuideDecl (CXXDeductionGuideDecl * GD)</code></pre>
+                                <p>Defined at line 2296 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2296">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DC46CA67C0CC89F5E961D348E543D2B480588732">
+                                <pre><code class="language-cpp code-clang-doc">void VisitCXXMethodDecl (CXXMethodDecl * D)</code></pre>
+                                <p>Defined at line 2308 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2308">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54E58D99586A25C820D2AEAEAB5C1783FB43156E">
+                                <pre><code class="language-cpp code-clang-doc">void VisitCXXConstructorDecl (CXXConstructorDecl * D)</code></pre>
+                                <p>Defined at line 2326 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2326">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8FF9C1925C2D9C20EED929D4E47BF5562D96ACA7">
+                                <pre><code class="language-cpp code-clang-doc">void VisitCXXDestructorDecl (CXXDestructorDecl * D)</code></pre>
+                                <p>Defined at line 2340 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2340">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1DF44DADF49E6A991A3D064D4B565986D4F7B429">
+                                <pre><code class="language-cpp code-clang-doc">void VisitCXXConversionDecl (CXXConversionDecl * D)</code></pre>
+                                <p>Defined at line 2373 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2373">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DCD7023B8528BD16CCF503BAD9ABF13408955516">
+                                <pre><code class="language-cpp code-clang-doc">void VisitFieldDecl (FieldDecl * FD)</code></pre>
+                                <p>Defined at line 1537 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1537">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E46C220769EBC6967A1B3759DF6E2D678415CB7">
+                                <pre><code class="language-cpp code-clang-doc">void VisitMSPropertyDecl (MSPropertyDecl * FD)</code></pre>
+                                <p>Defined at line 1557 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1557">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BF1B165E70DC831D97AE45809529E3CF09F865DF">
+                                <pre><code class="language-cpp code-clang-doc">void VisitMSGuidDecl (MSGuidDecl * D)</code></pre>
+                                <p>Defined at line 1563 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1563">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54DDE818CA8057608A9A9BC60272F6C82D9B72C8">
+                                <pre><code class="language-cpp code-clang-doc">void VisitUnnamedGlobalConstantDecl (UnnamedGlobalConstantDecl * D)</code></pre>
+                                <p>Defined at line 1576 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1576">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0AFE53D2FFC9E4892C97C9135257CF79BF42B5B2">
+                                <pre><code class="language-cpp code-clang-doc">void VisitTemplateParamObjectDecl (TemplateParamObjectDecl * D)</code></pre>
+                                <p>Defined at line 1587 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1587">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="808B35B6AEB354D46FEAF0A4D99A21702675A221">
+                                <pre><code class="language-cpp code-clang-doc">void VisitIndirectFieldDecl (IndirectFieldDecl * FD)</code></pre>
+                                <p>Defined at line 1598 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1598">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E7B8CB69F82693039A1D3B7AE339A497B57EEC0D">
+                                <pre><code class="language-cpp code-clang-doc">RedeclarableResult VisitVarDeclImpl (VarDecl * D)</code></pre>
+                                <p>Defined at line 1611 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1611">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="82D3FAAAA74A412867C211A957DB09D2BC6FCBC9">
+                                <pre><code class="language-cpp code-clang-doc">void ReadVarDeclInit (VarDecl * VD)</code></pre>
+                                <p>Defined at line 1702 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1702">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D6C682BE74E93D0FE0B2D980113F313095FA5A42">
+                                <pre><code class="language-cpp code-clang-doc">void VisitImplicitParamDecl (ImplicitParamDecl * PD)</code></pre>
+                                <p>Defined at line 1723 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1723">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DAE04D535B071019036D83B197B4E63C04319224">
+                                <pre><code class="language-cpp code-clang-doc">void VisitParmVarDecl (ParmVarDecl * PD)</code></pre>
+                                <p>Defined at line 1727 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1727">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DCF9A19588F6CB5B1D063CC1FACC8FA090F30B98">
+                                <pre><code class="language-cpp code-clang-doc">void VisitDecompositionDecl (DecompositionDecl * DD)</code></pre>
+                                <p>Defined at line 1755 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1755">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="348981342A5B39F28810431D706FF18C39FFD4F2">
+                                <pre><code class="language-cpp code-clang-doc">void VisitBindingDecl (BindingDecl * BD)</code></pre>
+                                <p>Defined at line 1764 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1764">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ADCFE22E857C0C29CC6730B33E7ADDB39467D374">
+                                <pre><code class="language-cpp code-clang-doc">void VisitNonTypeTemplateParmDecl (NonTypeTemplateParmDecl * D)</code></pre>
+                                <p>Defined at line 2730 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2730">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A3014C6316829CA61DB576986FF9490579718A44">
+                                <pre><code class="language-cpp code-clang-doc">void VisitTemplateDecl (TemplateDecl * D)</code></pre>
+                                <p>Defined at line 2421 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2421">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="700E93602324CBFEA5D58E4A4A8E8D4A06860E6F">
+                                <pre><code class="language-cpp code-clang-doc">void VisitConceptDecl (ConceptDecl * D)</code></pre>
+                                <p>Defined at line 2429 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2429">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C42BCA236CDA8A5672ED29CA659AE94393C40201">
+                                <pre><code class="language-cpp code-clang-doc">void VisitImplicitConceptSpecializationDecl (ImplicitConceptSpecializationDecl * D)</code></pre>
+                                <p>Defined at line 2435 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2435">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E6985215F7633EEA77CF4017A22B2B5C475C2251">
+                                <pre><code class="language-cpp code-clang-doc">void VisitRequiresExprBodyDecl (RequiresExprBodyDecl * D)</code></pre>
+                                <p>Defined at line 2446 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2446">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="21861AC08167AC7226B069344E4E60BA936E9B0A">
+                                <pre><code class="language-cpp code-clang-doc">RedeclarableResult VisitRedeclarableTemplateDecl (RedeclarableTemplateDecl * D)</code></pre>
+                                <p>Defined at line 2459 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2459">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="34EBF902CCCD348D3469414F622B791D9F06C4C4">
+                                <pre><code class="language-cpp code-clang-doc">void VisitClassTemplateDecl (ClassTemplateDecl * D)</code></pre>
+                                <p>Defined at line 2490 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2490">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5E44601F74D2179AEC973C417D8C7BC16CB02C8F">
+                                <pre><code class="language-cpp code-clang-doc">void VisitBuiltinTemplateDecl (BuiltinTemplateDecl * D)</code></pre>
+                                <p>Defined at line 2502 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2502">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F145ED8A6AC1DC5B55AA27349CCFC01AD3D72049">
+                                <pre><code class="language-cpp code-clang-doc">void VisitVarTemplateDecl (VarTemplateDecl * D)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> TODO: Unify with ClassTemplateDecl version?</p>
+                                        <p>       May require unifying ClassTemplateDecl and</p>
+                                        <p>        VarTemplateDecl beyond TemplateDecl...</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2509 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2509">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="23B8F9EB3CA8F59033EF5DDF2F56C37ABABEA14D">
+                                <pre><code class="language-cpp code-clang-doc">void VisitFunctionTemplateDecl (FunctionTemplateDecl * D)</code></pre>
+                                <p>Defined at line 2612 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2612">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="96017A1895F78900956650F206004741E6D50E32">
+                                <pre><code class="language-cpp code-clang-doc">void VisitTemplateTemplateParmDecl (TemplateTemplateParmDecl * D)</code></pre>
+                                <p>Defined at line 2753 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2753">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="36639DAC14FABB790CCB25A00B3A5D5ECF9F3D1A">
+                                <pre><code class="language-cpp code-clang-doc">void VisitTypeAliasTemplateDecl (TypeAliasTemplateDecl * D)</code></pre>
+                                <p>Defined at line 2774 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2774">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1302AEA567CECBEB527DC7643401F37789D1B2D7">
+                                <pre><code class="language-cpp code-clang-doc">void VisitUsingDecl (UsingDecl * D)</code></pre>
+                                <p>Defined at line 1902 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1902">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E417E0E008CA6EF64E47C42F8C66F85DC5769EE1">
+                                <pre><code class="language-cpp code-clang-doc">void VisitUsingEnumDecl (UsingEnumDecl * D)</code></pre>
+                                <p>Defined at line 1914 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1914">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5DBA540A43049EDC61C43FB257820920EE3800CA">
+                                <pre><code class="language-cpp code-clang-doc">void VisitUsingPackDecl (UsingPackDecl * D)</code></pre>
+                                <p>Defined at line 1925 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1925">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="73B5EF796347738A89A563AEBCD0AD97F6E2663D">
+                                <pre><code class="language-cpp code-clang-doc">void VisitUsingShadowDecl (UsingShadowDecl * D)</code></pre>
+                                <p>Defined at line 1934 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1934">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7EE5D9704F45599C7836ED452E994A45217D67DC">
+                                <pre><code class="language-cpp code-clang-doc">void VisitConstructorUsingShadowDecl (ConstructorUsingShadowDecl * D)</code></pre>
+                                <p>Defined at line 1946 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1946">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3F3D05CA84576150CC43F55C436A4591D3CF42DB">
+                                <pre><code class="language-cpp code-clang-doc">void VisitLinkageSpecDecl (LinkageSpecDecl * D)</code></pre>
+                                <p>Defined at line 1835 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1835">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DC26A8906C60B19CA697F73E1E0DE215715D30E4">
+                                <pre><code class="language-cpp code-clang-doc">void VisitExportDecl (ExportDecl * D)</code></pre>
+                                <p>Defined at line 1842 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1842">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4F58AE3D66646BBB364F659549D973BEE1BCE668">
+                                <pre><code class="language-cpp code-clang-doc">void VisitFileScopeAsmDecl (FileScopeAsmDecl * AD)</code></pre>
+                                <p>Defined at line 1769 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1769">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="27DF771E9009EB490C8FE4B8C5D595DFFBC9FA9F">
+                                <pre><code class="language-cpp code-clang-doc">void VisitTopLevelStmtDecl (TopLevelStmtDecl * D)</code></pre>
+                                <p>Defined at line 1775 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1775">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7202842E24DCCC57812367A60AD668EB62F23FBA">
+                                <pre><code class="language-cpp code-clang-doc">void VisitImportDecl (ImportDecl * D)</code></pre>
+                                <p>Defined at line 2378 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2378">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D44079396EA02B78CD9157E92F00E13218A7B478">
+                                <pre><code class="language-cpp code-clang-doc">void VisitAccessSpecDecl (AccessSpecDecl * D)</code></pre>
+                                <p>Defined at line 2388 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2388">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1D47AEDEEBB0B69CD3260ED66C21BA77980264B5">
+                                <pre><code class="language-cpp code-clang-doc">void VisitFriendDecl (FriendDecl * D)</code></pre>
+                                <p>Defined at line 2393 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2393">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D8F4F3EBC1988A8AA1F0DDCC975D5A8FC47240FA">
+                                <pre><code class="language-cpp code-clang-doc">void VisitFriendTemplateDecl (FriendTemplateDecl * D)</code></pre>
+                                <p>Defined at line 2407 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2407">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B5936B4A3458A2CD6B0D86EFD5E63FF28B4728C5">
+                                <pre><code class="language-cpp code-clang-doc">void VisitStaticAssertDecl (StaticAssertDecl * D)</code></pre>
+                                <p>Defined at line 2779 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2779">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="72618A50DE1A702F0BFAE679B287016F8CC8E5A9">
+                                <pre><code class="language-cpp code-clang-doc">void VisitBlockDecl (BlockDecl * BD)</code></pre>
+                                <p>Defined at line 1780 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1780">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DE3BCAE9D8781B1AF16F44B5FAB7FC3A8DFDFEF1">
+                                <pre><code class="language-cpp code-clang-doc">void VisitOutlinedFunctionDecl (OutlinedFunctionDecl * D)</code></pre>
+                                <p>Defined at line 1813 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1813">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E1F49C17E64A81C98772B18F18735E97DD1E5317">
+                                <pre><code class="language-cpp code-clang-doc">void VisitCapturedDecl (CapturedDecl * CD)</code></pre>
+                                <p>Defined at line 1822 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1822">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6EE85E2DAFA6FCD673E27254D62D2A9B74623F95">
+                                <pre><code class="language-cpp code-clang-doc">void VisitEmptyDecl (EmptyDecl * D)</code></pre>
+                                <p>Defined at line 2787 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2787">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F1E785EF02A067E4FCC0AD528A9560AA78341F2C">
+                                <pre><code class="language-cpp code-clang-doc">void VisitLifetimeExtendedTemporaryDecl (LifetimeExtendedTemporaryDecl * D)</code></pre>
+                                <p>Defined at line 2791 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2791">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="75F98E83F6770AD7938B1CFCAC2729EB2FFBEAED">
+                                <pre><code class="language-cpp code-clang-doc">void VisitOpenACCDeclareDecl (OpenACCDeclareDecl * D)</code></pre>
+                                <p>Defined at line 3114 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3114">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F63E2A7295CF9C8E9BC94F045F7D874A3ABD6F9">
+                                <pre><code class="language-cpp code-clang-doc">void VisitOpenACCRoutineDecl (OpenACCRoutineDecl * D)</code></pre>
+                                <p>Defined at line 3121 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3121">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DED5924FF6905A7B6EBE2649D310E36DEA3EC739">
+                                <pre><code class="language-cpp code-clang-doc">void VisitDeclContext (DeclContext * DC, LookupBlockOffsets &amp; Offsets)</code></pre>
+                                <p>Defined at line 2804 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2804">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F389C4AD02F5CE32140DB3BBC7726ADC04125A61">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">RedeclarableResult VisitRedeclarable (Redeclarable&lt;T&gt; * D)</code></pre>
+                                <p>Defined at line 2813 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2813">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2E0C0CFCF5B812CB73C8BF5183C339754CD6DFE7">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void mergeRedeclarable (Redeclarable&lt;T&gt; * D, RedeclarableResult &amp; Redecl)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Attempts to merge the given declaration (D) with another declaration</p>
+                                        <p> of the same entity.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2874 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2874">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4F70CFDC94E4156A9A5975113F079B0CD5C540E">
+                                <pre><code class="language-cpp code-clang-doc">void mergeRedeclarableTemplate (RedeclarableTemplateDecl * D, RedeclarableResult &amp; Redecl)</code></pre>
+                                <p>Defined at line 2924 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L2924">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95F55E5859D0F28EBBCD58332B663E3CDF95F3D0">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void mergeMergeable (Mergeable&lt;T&gt; * D)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Attempts to merge the given declaration (D) with another declaration</p>
+                                        <p> of the same entity, for the case where the entity is not actually</p>
+                                        <p> redeclarable. This happens, for instance, when merging the fields of</p>
+                                        <p> identical class definitions from two different modules.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3052 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3052">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A3CCD9072B3BA2817A6B16D8323F847D4537F9CB">
+                                <pre><code class="language-cpp code-clang-doc">void mergeMergeable (LifetimeExtendedTemporaryDecl * D)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Attempts to merge LifetimeExtendedTemporaryDecl with</p>
+                                        <p> identical class definitions from two different modules.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3030 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3030">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8DB79EC8423C3EF000D041057F47A9048C0C7133">
+                                <pre><code class="language-cpp code-clang-doc">ObjCTypeParamList * ReadObjCTypeParamList ()</code></pre>
+                                <p>Defined at line 1228 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1228">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E8EC42A57B308EA8ED94D13C5FCDAD7B8C7A6374">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCMethodDecl (ObjCMethodDecl * D)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> FIXME: Reorder according to DeclNodes.td?</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1167 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1167">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B9784290C50CEDA5203278D3406446B2452C6C4A">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCTypeParamDecl (ObjCTypeParamDecl * D)</code></pre>
+                                <p>Defined at line 1213 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1213">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2D9D05E2BEE93D72447F0A7334F4494389161722">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCContainerDecl (ObjCContainerDecl * D)</code></pre>
+                                <p>Defined at line 1222 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1222">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="886B7696C9215635F2932389AC604BACFA01C0A1">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCInterfaceDecl (ObjCInterfaceDecl * D)</code></pre>
+                                <p>Defined at line 1298 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1298">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DD9AB486D449910DBF22DFA3C15832100AB4A89F">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCIvarDecl (ObjCIvarDecl * D)</code></pre>
+                                <p>Defined at line 1335 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1335">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B26771E527AEB8EB72311F06A3761E538F76C4A">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCProtocolDecl (ObjCProtocolDecl * D)</code></pre>
+                                <p>Defined at line 1409 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1409">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8FAB5A6E14AC144EF3F23DD48788A0FDCDC3195D">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCAtDefsFieldDecl (ObjCAtDefsFieldDecl * D)</code></pre>
+                                <p>Defined at line 1438 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1438">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4161182F23C7A44DFAAC53696ED71F9F303429C5">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCCategoryDecl (ObjCCategoryDecl * D)</code></pre>
+                                <p>Defined at line 1442 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1442">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C92FD00AE7FF1439629F3265A5E945348C2739DE">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCImplDecl (ObjCImplDecl * D)</code></pre>
+                                <p>Defined at line 1502 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1502">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="339B36816A26C7A33BE7A55AAACF39204C16F800">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCCategoryImplDecl (ObjCCategoryImplDecl * D)</code></pre>
+                                <p>Defined at line 1507 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1507">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="39F260DA6171085D0D3224047141658184212B92">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCImplementationDecl (ObjCImplementationDecl * D)</code></pre>
+                                <p>Defined at line 1512 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1512">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7C3540E34D107C3223EDA311DA8643882BE81712">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCCompatibleAliasDecl (ObjCCompatibleAliasDecl * D)</code></pre>
+                                <p>Defined at line 1474 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1474">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="799214B83C2603C039FF88EF8F3AFB31F9B85DF2">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCPropertyDecl (ObjCPropertyDecl * D)</code></pre>
+                                <p>Defined at line 1479 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1479">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4FC4F506A087D35C5AEA842B5CA77CC7275ECBDC">
+                                <pre><code class="language-cpp code-clang-doc">void VisitObjCPropertyImplDecl (ObjCPropertyImplDecl * D)</code></pre>
+                                <p>Defined at line 1525 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L1525">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2015169F7B64E19293708563C22F5AA1421677C3">
+                                <pre><code class="language-cpp code-clang-doc">void VisitOMPThreadPrivateDecl (OMPThreadPrivateDecl * D)</code></pre>
+                                <p>Defined at line 3071 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3071">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3F97F76BAAFB2015E0F1013DDFF2C0AEFD2BCA4A">
+                                <pre><code class="language-cpp code-clang-doc">void VisitOMPAllocateDecl (OMPAllocateDecl * D)</code></pre>
+                                <p>Defined at line 3076 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3076">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B521270CD2B3102EEDA55FEB468AA42DB595064A">
+                                <pre><code class="language-cpp code-clang-doc">void VisitOMPDeclareReductionDecl (OMPDeclareReductionDecl * D)</code></pre>
+                                <p>Defined at line 3086 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3086">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CAD8988E20D21307BD1D32BA10305A251B8BAAF9">
+                                <pre><code class="language-cpp code-clang-doc">void VisitOMPDeclareMapperDecl (OMPDeclareMapperDecl * D)</code></pre>
+                                <p>Defined at line 3103 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3103">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AA4C657322AF7CC404698A705F38581173707855">
+                                <pre><code class="language-cpp code-clang-doc">void VisitOMPRequiresDecl (OMPRequiresDecl * D)</code></pre>
+                                <p>Defined at line 3081 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3081">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B2EE6C0770F58EA57EA413FD524780778992E123">
+                                <pre><code class="language-cpp code-clang-doc">void VisitOMPCapturedExprDecl (OMPCapturedExprDecl * D)</code></pre>
+                                <p>Defined at line 3110 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3110">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A63EF25E20B3B4D8B533A11643C40D5F8EEA254D">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void attachPreviousDeclImpl&lt;clang::VarDecl&gt; (ASTReader &amp; Reader, Redeclarable&lt;VarDecl&gt; * D, Decl * Previous, Decl * Canon)</code></pre>
+                                <p>Defined at line 3641 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3641">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="31B75FE4B2B8863A8750FCA8D128B1756567F68E">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">void attachPreviousDeclImpl&lt;clang::FunctionDecl&gt; (ASTReader &amp; Reader, Redeclarable&lt;FunctionDecl&gt; * D, Decl * Previous, Decl * Canon)</code></pre>
+                                <p>Defined at line 3669 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L3669">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="8703409B9D832C03922AC0D2344D2C204D67BBD5" style="max-height: 40px;">
+                            <a href="ASTDeclReader/_ZTVN5clang13ASTDeclReader18FindExistingResultE.html">
+                                <pre><code class="language-cpp code-clang-doc">class FindExistingResult</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="7630EF002B1CD53259FCAAD46CA6647B636F3B79" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using RecordData = SmallVector</code></pre>
+                        <p>Defined at line 152 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Serialization/ASTReaderDecl.cpp#L152">clang/lib/Serialization/ASTReaderDecl.cpp</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

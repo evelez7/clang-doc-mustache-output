@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CXXFinalOverriderMap</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class CXXFinalOverriderMap</h2>
+                <ul>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class CXXFinalOverriderMap</h1>
+                        <p>Defined at line 357 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/CXXInheritance.h#L357">clang/include/clang/AST/CXXInheritance.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A mapping from each virtual member function to its set of</p>
+                                <p> final overriders.</p>
+                            </div>
+                            <div>
+                                <p> Within a class hierarchy for a given derived class, each virtual</p>
+                                <p> member function in that hierarchy has one or more &quot;final</p>
+                                <p> overriders&quot; (C++ [class.virtual]p2). A final overrider for a</p>
+                                <p> virtual function &quot;f&quot; is the virtual function that will actually be</p>
+                                <p> invoked when dispatching a call to &quot;f&quot; through the</p>
+                                <p> vtable. Well-formed classes have a single final overrider for each</p>
+                                <p> virtual function; in abstract classes, the final overrider for at</p>
+                                <p> least one virtual function is a pure virtual function. Due to</p>
+                                <p> multiple, virtual inheritance, it is possible for a class to have</p>
+                                <p> more than one final overrider. Although this is an error (per C++</p>
+                                <p> [class.virtual]p2), it is not considered an error here: the final</p>
+                                <p> overrider map can represent multiple final overriders for a</p>
+                                <p> method, and it is up to the client to determine whether they are</p>
+                                <p> problem. For example, the following class </p>
+                                <p> has two final</p>
+                                <p> overriders for the virtual function </p>
+                                <p> one in </p>
+                                <p> and one</p>
+                                <p> in </p>
+                            </div>
+                            <div>
+                                <p> This data structure contains a mapping from every virtual</p>
+                                <p> function *that does not override an existing virtual function* and</p>
+                                <p> in every subobject where that virtual function occurs to the set</p>
+                                <p> of virtual functions that override it. Thus, the same virtual</p>
+                                <p> function </p>
+                                <p> can actually occur in multiple subobjects of type</p>
+                                <p> due to multiple inheritance, and may be overridden by</p>
+                                <p> different virtual functions in each, as in the following example:</p>
+                            </div>
+                            <div>
+                                <p> Unlike in the previous example, where the virtual functions </p>
+                                <p> and </p>
+                                <p> both overrode </p>
+                                <p> in the same subobject of</p>
+                                <p> type </p>
+                                <p> in this example the two virtual functions both override</p>
+                                <p> but in *different* subobjects of type A. This is</p>
+                                <p> represented by numbering the subobjects in which the overridden</p>
+                                <p> and the overriding virtual member functions are located. Subobject</p>
+                                <p> 0 represents the virtual base class subobject of that type, while</p>
+                                <p> subobject numbers greater than 0 refer to non-virtual base class</p>
+                                <p> subobjects of that type.</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                           struct A { virtual void f(); };
+                                           struct B : virtual A { virtual void f(); };
+                                           struct C : virtual A { virtual void f(); };
+                                           struct D : B, C { };
+                                    </code>
+                                </pre>
+                            </div>
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                           struct A { virtual void f(); };
+                                           struct B : A { virtual void f(); };
+                                           struct C : A { virtual void f(); };
+                                           struct D : B, C { };
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

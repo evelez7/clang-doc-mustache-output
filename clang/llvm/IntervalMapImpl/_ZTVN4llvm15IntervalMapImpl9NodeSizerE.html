@@ -22,11 +22,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="navbar-breadcrumb-container">
-                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
-                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
-                <div class="navbar-breadcrumb-item"><a href="./index.html">IntervalMapImpl</a></div>
-            </div>
         </div>
     </nav>
     <main>
@@ -39,13 +34,25 @@
                     </li>
                     <li>
                         <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#53D33A334CBD809C4C761EF118C2FE367E1A503B">NodeSizer</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#10D8358D2AC057C50C44FDB0EAA4094CDE022B27">NodeSizer</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="sidebar-section">
-                        <a class="sidebar-item" href="#Enums">Enums</a>
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
                     </li>
                     <li>
                         <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D07FDEB126F4B677FAE491A111F2B22222AE81D">LeafBase</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7D0B3191328E7B9819E531B86E5989448BD14C9E">Allocator</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -56,17 +63,77 @@
                     <pre><code class="language-cpp code-clang-doc">template &lt;typename KeyT, typename ValT&gt;</code></pre>
                     <div class="hero__title">
                         <h1 class="hero__title-large">struct NodeSizer</h1>
-                        <p>Defined at line 440 of file llvm/include/llvm/ADT/IntervalMap.h</p>
+                        <p>Defined at line 440 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/ADT/IntervalMap.h#L440">llvm/include/llvm/ADT/IntervalMap.h</a></p>
                     </div>
                 </section>
                 <section id="Enums" class="section-container">
                     <h2>Enumerations</h2>
-                    <div>
+                    <div id="53D33A334CBD809C4C761EF118C2FE367E1A503B" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum </code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>DesiredLeafSize</td>
+                                    <td>DesiredNodeBytes /
+                          static_cast&lt;unsigned&gt;(2*sizeof(KeyT)+sizeof(ValT))</td>
+                                </tr>
+                                <tr>
+                                    <td>MinLeafSize</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>LeafSize</td>
+                                    <td>DesiredLeafSize &gt; MinLeafSize ? DesiredLeafSize : MinLeafSize</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 441 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/ADT/IntervalMap.h#L441">llvm/include/llvm/ADT/IntervalMap.h</a></p>
+                    </div>
+                    <div id="10D8358D2AC057C50C44FDB0EAA4094CDE022B27" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum </code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>AllocBytes</td>
+                                    <td>(sizeof(LeafBase) + CacheLineBytes-1) &amp; ~(CacheLineBytes-1)</td>
+                                </tr>
+                                <tr>
+                                    <td>BranchSize</td>
+                                    <td>AllocBytes /
+                          static_cast&lt;unsigned&gt;(sizeof(KeyT) + sizeof(void*))</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Defined at line 455 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/ADT/IntervalMap.h#L455">llvm/include/llvm/ADT/IntervalMap.h</a></p>
                     </div>
                 </section>
-                <section id="Enums" class="section-container">
-                    <h2>Enumerations</h2>
-                    <div>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="7D07FDEB126F4B677FAE491A111F2B22222AE81D" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using LeafBase = NodeBase&lt;std::pair&lt;KeyT, KeyT&gt;, ValT, LeafSize&gt;</code></pre>
+                        <p>Defined at line 453 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/ADT/IntervalMap.h#L453">llvm/include/llvm/ADT/IntervalMap.h</a></p>
+                    </div>
+                    <div id="7D0B3191328E7B9819E531B86E5989448BD14C9E" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using Allocator = RecyclingAllocator&lt;BumpPtrAllocator, char, AllocBytes, CacheLineBytes&gt;</code></pre>
+                        <div>
+                            <p> Allocator - The recycling allocator used for both branch and leaf nodes.</p>
+                            <p> This typedef is very likely to be identical for all IntervalMaps with</p>
+                            <p> reasonably sized entries, so the same allocator can be shared among</p>
+                            <p> different kinds of maps.</p>
+                        </div>
+                        <p>Defined at line 469 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/ADT/IntervalMap.h#L469">llvm/include/llvm/ADT/IntervalMap.h</a></p>
                     </div>
                 </section>
             </div>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ASTMatchSwitchBuilder</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ASTMatchSwitchBuilder</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#001D0EED2D22DAC9C0E0293938AE07051F9D9CAA">CaseOf</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#6E85121098A7CEAABD5C3113BC7A065FBF1400D4">Build</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename BaseT, typename State, typename Result = void&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ASTMatchSwitchBuilder</h1>
+                        <p>Defined at line 96 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/MatchSwitch.h#L96">clang/include/clang/Analysis/FlowSensitive/MatchSwitch.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Collects cases of a &quot;match switch&quot;: a collection of matchers paired with</p>
+                                <p> callbacks, which together define a switch that can be applied to a node</p>
+                                <p> whose type derives from `BaseT`. This structure can simplify the definition</p>
+                                <p> of `transfer` functions that rely on pattern-matching.</p>
+                            </div>
+                            <div>
+                                <p> For example, consider an analysis that handles particular function calls. It</p>
+                                <p> can define the `ASTMatchSwitch` once, in the constructor of the analysis,</p>
+                                <p> and then reuse it each time that `transfer` is called, with a fresh state</p>
+                                <p> value.</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                         ASTMatchSwitch&lt;Stmt, TransferState&lt;MyLattice&gt; BuildSwitch() {
+                                           return ASTMatchSwitchBuilder&lt;TransferState&lt;MyLattice&gt;&gt;()
+                                             .CaseOf(callExpr(callee(functionDecl(hasName(&quot;foo&quot;)))), TransferFooCall)
+                                             .CaseOf(callExpr(argumentCountIs(2),
+                                                              callee(functionDecl(hasName(&quot;bar&quot;)))),
+                                                     TransferBarCall)
+                                             .Build();
+                                         }
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="001D0EED2D22DAC9C0E0293938AE07051F9D9CAA">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename NodeT&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">ASTMatchSwitchBuilder&lt;BaseT, State, Result&gt; &amp;&amp; CaseOf (MatchSwitchMatcher&lt;BaseT&gt; M, MatchSwitchAction&lt;NodeT, State, Result&gt; A)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Registers an action that will be triggered by the match of a pattern</p>
+                                        <p> against the input statement.</p>
+                                    </div>
+                                    <div>
+                                        <p> Requirements:</p>
+                                    </div>
+                                    <div>
+                                        <p>  `NodeT` should be derived from `BaseT`.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 105 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/MatchSwitch.h#L105">clang/include/clang/Analysis/FlowSensitive/MatchSwitch.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6E85121098A7CEAABD5C3113BC7A065FBF1400D4">
+                                <pre><code class="language-cpp code-clang-doc">ASTMatchSwitch&lt;BaseT, State, Result&gt; Build ()</code></pre>
+                                <p>Defined at line 117 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/Analysis/FlowSensitive/MatchSwitch.h#L117">clang/include/clang/Analysis/FlowSensitive/MatchSwitch.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

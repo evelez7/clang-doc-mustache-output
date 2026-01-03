@@ -22,10 +22,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="navbar-breadcrumb-container">
-                <div class="navbar-breadcrumb-item"><a href="../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
-                <div class="navbar-breadcrumb-item"><a href="./index.html">llvm</a></div>
-            </div>
         </div>
     </nav>
     <main>
@@ -66,6 +62,16 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Friends">Friends</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8D13648F31258725FFC6FE7AD537E0A7B31FFCFA">CrashRecoveryContext</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="resizer" id="resizer"></div>
@@ -73,7 +79,7 @@
                 <section class="hero section-container">
                     <div class="hero__title">
                         <h1 class="hero__title-large">class CrashRecoveryContextCleanup</h1>
-                        <p>Defined at line 125 of file llvm/include/llvm/Support/CrashRecoveryContext.h</p>
+                        <p>Defined at line 125 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/Support/CrashRecoveryContext.h#L125">llvm/include/llvm/Support/CrashRecoveryContext.h</a></p>
                         <div class="hero__subtitle">
                             <div>
                                 <p> Abstract base class of cleanup handlers.</p>
@@ -108,20 +114,63 @@
                         <div class="delimiter-container">
                             <div id="B9992A2EAF23C5C8A3A60C8072798A5A6851679A">
                                 <pre><code class="language-cpp code-clang-doc">void ~CrashRecoveryContextCleanup ()</code></pre>
-                                <p>Defined at line 98 of file llvm/lib/Support/CrashRecoveryContext.cpp</p>
+                                <p>Defined at line 98 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/Support/CrashRecoveryContext.cpp#L98">llvm/lib/Support/CrashRecoveryContext.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="93B32620E1EE5AB98D2A8EC95CA0BD8906901DB1">
                                 <pre><code class="language-cpp code-clang-doc">CrashRecoveryContext * getContext ()</code></pre>
-                                <p>Defined at line 137 of file llvm/include/llvm/Support/CrashRecoveryContext.h</p>
+                                <p>Defined at line 137 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/Support/CrashRecoveryContext.h#L137">llvm/include/llvm/Support/CrashRecoveryContext.h</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="62001CE71FAE37C307FD96FF45891D6E39D3D78E">
                                 <pre><code class="language-cpp code-clang-doc">void recoverResources ()</code></pre>
-                                <p>Defined at line  of file </p>
                             </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="8D13648F31258725FFC6FE7AD537E0A7B31FFCFA" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class CrashRecoveryContext</code></pre>
+                        <div>
+                            <p> Crash recovery helper object.</p>
+                        </div>
+                        <div>
+                            <p> This class implements support for running operations in a safe context so</p>
+                            <p> that crashes (memory errors, stack overflow, assertion violations) can be</p>
+                            <p> detected and control restored to the crashing thread. Crash detection is</p>
+                            <p> purely &quot;best effort&quot;, the exact set of failures which can be recovered from</p>
+                            <p> is platform dependent.</p>
+                        </div>
+                        <div>
+                            <p> Clients make use of this code by first calling</p>
+                            <p> CrashRecoveryContext::Enable(), and then executing unsafe operations via a</p>
+                            <p> CrashRecoveryContext object. For example:</p>
+                        </div>
+                        <div>
+                            <p> To assist recovery the class allows specifying set of actions that will be</p>
+                            <p> executed in any case, whether crash occurs or not. These actions may be used</p>
+                            <p> to reclaim resources in the case of crash.</p>
+                        </div>
+                        <h3>Code</h3> 
+                        <div>
+                            <pre class="code-block">
+                                <code>
+                                        void actual_work(void *);
+                                    
+                                        void foo() {
+                                          CrashRecoveryContext CRC;
+                                    
+                                          if (!CRC.RunSafely(actual_work, 0)) {
+                                             ... a crash was detected, report error to user ...
+                                          }
+                                    
+                                          ... no crash was detected ...
+                                        }
+                                </code>
+                            </pre>
                         </div>
                     </div>
                 </section>

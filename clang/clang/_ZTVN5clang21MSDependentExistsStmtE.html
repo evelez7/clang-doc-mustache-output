@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MSDependentExistsStmt</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MSDependentExistsStmt</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BDADAFE917BEDD5420F19E55D9BFE5B0327C6DCA">MSDependentExistsStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A4F7CEBDB7414215A2DE05B5FB69B45B869F930C">getKeywordLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#B7EEED1A75EFFC53161215759C16E0B78276993E">isIfExists</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#9C64F9B61527BD111C6A96280158A90C536F9BF4">isIfNotExists</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#2A5CC4A54297CE571CB6B4DC3F7F50631C348698">getQualifierLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#DD52DB8659FB217B5293223CE0B49D674070F359">getNameInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#1D4167CF6970928E890709497BE8EC2856728239">getSubStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#F4C355A64E12F96803D52BEB5CB3D93291D97C13">getBeginLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#7AAC550F43DCE0857D9C127A846B6AC80AD87B3D">getEndLoc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#22042A3DF2C1B13E0E1CC665EEEBC0F1C2C3A302">children</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#A52E412BD2DF9D142C04FB16153A3972C96FB1DA">children</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#8182D539165AB1BD6AC09C7B44DCB0B40B7CE6FD">classof</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Friends">Friends</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#26C300E34FB27F78800293859717485F84CE0E21">ASTStmtReader</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3EDB6CDD887BE92C5AB23618F7B2065243C742BF">ASTReader</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MSDependentExistsStmt</h1>
+                        <p>Defined at line 253 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L253">clang/include/clang/AST/StmtCXX.h</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Representation of a Microsoft __if_exists or __if_not_exists</p>
+                                <p> statement with a dependent name.</p>
+                            </div>
+                            <div>
+                                <p> The __if_exists statement can be used to include a sequence of statements</p>
+                                <p> in the program only when a particular dependent name does not exist. For</p>
+                                <p> example:</p>
+                            </div>
+                            <div>
+                                <p> Similarly, the __if_not_exists statement can be used to include the</p>
+                                <p> statements when a particular name does not exist.</p>
+                            </div>
+                            <div>
+                                <p> Note that this statement only captures __if_exists and __if_not_exists</p>
+                                <p> statements whose name is dependent. All non-dependent cases are handled</p>
+                                <p> directly in the parser, so that they don&#39;t introduce a new scope. Clang</p>
+                                <p> introduces scopes in the dependent case to keep names inside the compound</p>
+                                <p> statement from leaking out into the surround statements, which would</p>
+                                <p> compromise the template instantiation model. This behavior differs from</p>
+                                <p> Visual C++ (which never introduces a scope), but is a fairly reasonable</p>
+                                <p> approximation of the VC++ behavior.</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                         template&lt;typename T&gt;
+                                         void call_foo(T &amp;t) {
+                                           __if_exists (T::foo) {
+                                             t.foo(); // okay: only called when T::foo exists.
+                                           }
+                                         }
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="BDADAFE917BEDD5420F19E55D9BFE5B0327C6DCA">
+                                <pre><code class="language-cpp code-clang-doc">void MSDependentExistsStmt (SourceLocation KeywordLoc, bool IsIfExists, NestedNameSpecifierLoc QualifierLoc, DeclarationNameInfo NameInfo, CompoundStmt * SubStmt)</code></pre>
+                                <p>Defined at line 264 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L264">clang/include/clang/AST/StmtCXX.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A4F7CEBDB7414215A2DE05B5FB69B45B869F930C">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getKeywordLoc ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the location of the __if_exists or __if_not_exists</p>
+                                        <p> keyword.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 275 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L275">clang/include/clang/AST/StmtCXX.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B7EEED1A75EFFC53161215759C16E0B78276993E">
+                                <pre><code class="language-cpp code-clang-doc">bool isIfExists ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determine whether this is an __if_exists statement.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 278 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L278">clang/include/clang/AST/StmtCXX.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9C64F9B61527BD111C6A96280158A90C536F9BF4">
+                                <pre><code class="language-cpp code-clang-doc">bool isIfNotExists ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Determine whether this is an __if_exists statement.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 281 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L281">clang/include/clang/AST/StmtCXX.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2A5CC4A54297CE571CB6B4DC3F7F50631C348698">
+                                <pre><code class="language-cpp code-clang-doc">NestedNameSpecifierLoc getQualifierLoc ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the nested-name-specifier that qualifies this name, if</p>
+                                        <p> any.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 285 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L285">clang/include/clang/AST/StmtCXX.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DD52DB8659FB217B5293223CE0B49D674070F359">
+                                <pre><code class="language-cpp code-clang-doc">DeclarationNameInfo getNameInfo ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the name of the entity we&#39;re testing for, along with</p>
+                                        <p> location information</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 289 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L289">clang/include/clang/AST/StmtCXX.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1D4167CF6970928E890709497BE8EC2856728239">
+                                <pre><code class="language-cpp code-clang-doc">CompoundStmt * getSubStmt ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Retrieve the compound statement that will be included in the</p>
+                                        <p> program only if the existence of the symbol matches the initial keyword.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 293 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L293">clang/include/clang/AST/StmtCXX.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4C355A64E12F96803D52BEB5CB3D93291D97C13">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getBeginLoc ()</code></pre>
+                                <p>Defined at line 297 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L297">clang/include/clang/AST/StmtCXX.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7AAC550F43DCE0857D9C127A846B6AC80AD87B3D">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getEndLoc ()</code></pre>
+                                <p>Defined at line 298 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L298">clang/include/clang/AST/StmtCXX.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="22042A3DF2C1B13E0E1CC665EEEBC0F1C2C3A302">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range children ()</code></pre>
+                                <p>Defined at line 302 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L302">clang/include/clang/AST/StmtCXX.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A52E412BD2DF9D142C04FB16153A3972C96FB1DA">
+                                <pre><code class="language-cpp code-clang-doc">iterator_range children ()</code></pre>
+                                <p>Defined at line 306 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L306">clang/include/clang/AST/StmtCXX.h</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8182D539165AB1BD6AC09C7B44DCB0B40B7CE6FD">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const Stmt * T)</code></pre>
+                                <p>Defined at line 310 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/include/clang/AST/StmtCXX.h#L310">clang/include/clang/AST/StmtCXX.h</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="26C300E34FB27F78800293859717485F84CE0E21" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ASTStmtReader</code></pre>
+                        <div>
+                            <p> Representation of a Microsoft __if_exists or __if_not_exists</p>
+                            <p> statement with a dependent name.</p>
+                        </div>
+                        <div>
+                            <p> The __if_exists statement can be used to include a sequence of statements</p>
+                            <p> in the program only when a particular dependent name does not exist. For</p>
+                            <p> example:</p>
+                        </div>
+                        <div>
+                            <p> Similarly, the __if_not_exists statement can be used to include the</p>
+                            <p> statements when a particular name does not exist.</p>
+                        </div>
+                        <div>
+                            <p> Note that this statement only captures __if_exists and __if_not_exists</p>
+                            <p> statements whose name is dependent. All non-dependent cases are handled</p>
+                            <p> directly in the parser, so that they don&#39;t introduce a new scope. Clang</p>
+                            <p> introduces scopes in the dependent case to keep names inside the compound</p>
+                            <p> statement from leaking out into the surround statements, which would</p>
+                            <p> compromise the template instantiation model. This behavior differs from</p>
+                            <p> Visual C++ (which never introduces a scope), but is a fairly reasonable</p>
+                            <p> approximation of the VC++ behavior.</p>
+                        </div>
+                        <h3>Code</h3> 
+                        <div>
+                            <pre class="code-block">
+                                <code>
+                                     template&lt;typename T&gt;
+                                     void call_foo(T &amp;t) {
+                                       __if_exists (T::foo) {
+                                         t.foo(); // okay: only called when T::foo exists.
+                                       }
+                                     }
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
+                    <div id="3EDB6CDD887BE92C5AB23618F7B2065243C742BF" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class ASTReader</code></pre>
+                        <div>
+                            <p> Representation of a Microsoft __if_exists or __if_not_exists</p>
+                            <p> statement with a dependent name.</p>
+                        </div>
+                        <div>
+                            <p> The __if_exists statement can be used to include a sequence of statements</p>
+                            <p> in the program only when a particular dependent name does not exist. For</p>
+                            <p> example:</p>
+                        </div>
+                        <div>
+                            <p> Similarly, the __if_not_exists statement can be used to include the</p>
+                            <p> statements when a particular name does not exist.</p>
+                        </div>
+                        <div>
+                            <p> Note that this statement only captures __if_exists and __if_not_exists</p>
+                            <p> statements whose name is dependent. All non-dependent cases are handled</p>
+                            <p> directly in the parser, so that they don&#39;t introduce a new scope. Clang</p>
+                            <p> introduces scopes in the dependent case to keep names inside the compound</p>
+                            <p> statement from leaking out into the surround statements, which would</p>
+                            <p> compromise the template instantiation model. This behavior differs from</p>
+                            <p> Visual C++ (which never introduces a scope), but is a fairly reasonable</p>
+                            <p> approximation of the VC++ behavior.</p>
+                        </div>
+                        <h3>Code</h3> 
+                        <div>
+                            <pre class="code-block">
+                                <code>
+                                     template&lt;typename T&gt;
+                                     void call_foo(T &amp;t) {
+                                       __if_exists (T::foo) {
+                                         t.foo(); // okay: only called when T::foo exists.
+                                       }
+                                     }
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -22,11 +22,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="navbar-breadcrumb-container">
-                <div class="navbar-breadcrumb-item"><a href="../../GlobalNamespace/index.html">Global Namespace</a></div>&rarr;
-                <div class="navbar-breadcrumb-item"><a href="../index.html">llvm</a></div>&rarr;
-                <div class="navbar-breadcrumb-item"><a href="./index.html">orc</a></div>
-            </div>
         </div>
     </nav>
     <main>
@@ -39,9 +34,6 @@
                     </li>
                     <li>
                         <ul>
-                            <li class="sidebar-item-container">
-                                <a class="sidebar-item" href="#4536AAFA34FB7770A075B978592A3C708E45FAC2">Create</a>
-                            </li>
                             <li class="sidebar-item-container">
                                 <a class="sidebar-item" href="#D53753AA5103980F676C23046E40C89616C50EC2">getExecutionSession</a>
                             </li>
@@ -80,6 +72,32 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E81C7120B0C55D56EA6EB126A2F74B5F6BA82661">PushInitializersSendResultFn</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#0BEE22D54D4FE791DE5BFAAEE6C8B82D6A4E443B">SendSymbolAddressFn</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#BF6A1ACA6CCAF55093DD15D317F45C6F6B5DFAD8">BootstrapInfo</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#5215E7CC082675736064800BC95C9082EB613156">ELFNixPlatformPlugin</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="resizer" id="resizer"></div>
@@ -87,7 +105,7 @@
                 <section class="hero section-container">
                     <div class="hero__title">
                         <h1 class="hero__title-large">class ELFNixPlatform</h1>
-                        <p>Defined at line 69 of file llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h</p>
+                        <p>Defined at line 69 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h#L69">llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h</a></p>
                         <div class="hero__subtitle">
                             <div>
                                 <p> Mediates between ELFNix initialization and ExecutionSession state.</p>
@@ -99,72 +117,15 @@
                     <h2>Public Methods</h2>
                     <div>
                         <div class="delimiter-container">
-                            <div id="4536AAFA34FB7770A075B978592A3C708E45FAC2">
-                                <pre><code class="language-cpp code-clang-doc">int Create (ObjectLinkingLayer &amp; ObjLinkingLayer, JITDylib &amp; PlatformJD, int OrcRuntime, std::optional&lt;SymbolAliasMap&gt; RuntimeAliases)</code></pre>
-                                <div>
-                                    <div>
-                                        <p> Try to create a ELFNixPlatform instance, adding the ORC runtime to the</p>
-                                        <p> given JITDylib.</p>
-                                    </div>
-                                    <div>
-                                        <p> The ORC runtime requires access to a number of symbols in</p>
-                                        <p> libc++. It is up to the caller to ensure that the required</p>
-                                        <p> symbols can be referenced by code added to PlatformJD. The</p>
-                                        <p> standard way to achieve this is to first attach dynamic library</p>
-                                        <p> search generators for either the given process, or for the</p>
-                                        <p> specific required libraries, to PlatformJD, then to create the</p>
-                                        <p> platform instance:</p>
-                                    </div>
-                                    <div>
-                                        <p> Alternatively, these symbols could be added to another JITDylib that</p>
-                                        <p> PlatformJD links against.</p>
-                                    </div>
-                                    <div>
-                                        <p> Clients are also responsible for ensuring that any JIT&#39;d code that</p>
-                                        <p> depends on runtime functions (including any code using TLV or static</p>
-                                        <p> destructors) can reference the runtime symbols. This is usually achieved</p>
-                                        <p> by linking any JITDylibs containing regular code against</p>
-                                        <p> PlatformJD.</p>
-                                    </div>
-                                    <div>
-                                        <p> By default, ELFNixPlatform will add the set of aliases returned by the</p>
-                                        <p> standardPlatformAliases function. This includes both required aliases</p>
-                                        <p> (e.g. __cxa_atexit -&gt; __orc_rt_elf_cxa_atexit for static destructor</p>
-                                        <p> support), and optional aliases that provide JIT versions of common</p>
-                                        <p> functions (e.g. dlopen -&gt; __orc_rt_elf_jit_dlopen). Clients can</p>
-                                        <p> override these defaults by passing a non-None value for the</p>
-                                        <p> RuntimeAliases function, in which case the client is responsible for</p>
-                                        <p> setting up all aliases (including the required ones).</p>
-                                    </div>
-                                    <h3>Code</h3> 
-                                    <div>
-                                        <pre class="code-block">
-                                            <code>
-                                                {.cpp}
-                                                   auto &amp;PlatformJD = ES.createBareJITDylib(&quot;stdlib&quot;);
-                                                   PlatformJD.addGenerator(
-                                                     ExitOnErr(EPCDynamicLibrarySearchGenerator
-                                                                 ::GetForTargetProcess(EPC)));
-                                                   ES.setPlatform(
-                                                     ExitOnErr(ELFNixPlatform::Create(ES, ObjLayer, EPC, PlatformJD,
-                                                                                     &quot;/path/to/orc/runtime&quot;)));
-                                            </code>
-                                        </pre>
-                                    </div>
-                                </div>
-                                <p>Defined at line  of file </p>
-                            </div>
-                        </div>
-                        <div class="delimiter-container">
                             <div id="D53753AA5103980F676C23046E40C89616C50EC2">
                                 <pre><code class="language-cpp code-clang-doc">ExecutionSession &amp; getExecutionSession ()</code></pre>
-                                <p>Defined at line 120 of file llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h</p>
+                                <p>Defined at line 120 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h#L120">llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="BC9D3366F88A6F40F95225FAA3EB6A9C7BB3BFBA">
                                 <pre><code class="language-cpp code-clang-doc">ObjectLinkingLayer &amp; getObjectLinkingLayer ()</code></pre>
-                                <p>Defined at line 121 of file llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h</p>
+                                <p>Defined at line 121 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h#L121">llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -221,7 +182,7 @@
                                         </pre>
                                     </div>
                                 </div>
-                                <p>Defined at line 207 of file llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</p>
+                                <p>Defined at line 207 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp#L207">llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -232,31 +193,31 @@
                                         <p> Construct using a path to the ORC runtime.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 254 of file llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</p>
+                                <p>Defined at line 254 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp#L254">llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="87B6C2DB3A9EF2CD25A816798D4848BC4E4E79DB">
                                 <pre><code class="language-cpp code-clang-doc">Error setupJITDylib (JITDylib &amp; JD)</code></pre>
-                                <p>Defined at line 270 of file llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</p>
+                                <p>Defined at line 270 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp#L270">llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="D773BC57BE979D63EB40F8D7E61D30943F8399D3">
                                 <pre><code class="language-cpp code-clang-doc">Error teardownJITDylib (JITDylib &amp; JD)</code></pre>
-                                <p>Defined at line 278 of file llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</p>
+                                <p>Defined at line 278 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp#L278">llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="7C5B907D88DA1C341B751C532C23B69189DC7483">
                                 <pre><code class="language-cpp code-clang-doc">Error notifyAdding (ResourceTracker &amp; RT, const MaterializationUnit &amp; MU)</code></pre>
-                                <p>Defined at line 290 of file llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</p>
+                                <p>Defined at line 290 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp#L290">llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
                             <div id="0E02935CE911D92865A32A3E06E66B4817936A98">
                                 <pre><code class="language-cpp code-clang-doc">Error notifyRemoving (ResourceTracker &amp; RT)</code></pre>
-                                <p>Defined at line 307 of file llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</p>
+                                <p>Defined at line 307 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp#L307">llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -269,7 +230,7 @@
                                         <p> or remove aliases.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 321 of file llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</p>
+                                <p>Defined at line 321 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp#L321">llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -280,7 +241,7 @@
                                         <p> Returns the array of required CXX aliases.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 331 of file llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</p>
+                                <p>Defined at line 331 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp#L331">llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -291,7 +252,7 @@
                                         <p> Returns the array of standard runtime utility aliases for ELF.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 340 of file llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</p>
+                                <p>Defined at line 340 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp#L340">llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</a></p>
                             </div>
                         </div>
                         <div class="delimiter-container">
@@ -303,9 +264,35 @@
                                         <p> ORC runtime.</p>
                                     </div>
                                 </div>
-                                <p>Defined at line 356 of file llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</p>
+                                <p>Defined at line 356 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp#L356">llvm/lib/ExecutionEngine/Orc/ELFNixPlatform.cpp</a></p>
                             </div>
                         </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="BF6A1ACA6CCAF55093DD15D317F45C6F6B5DFAD8" style="max-height: 40px;">
+                            <a href="ELFNixPlatform/_ZTVN4llvm3orc14ELFNixPlatform13BootstrapInfoE.html">
+                                <pre><code class="language-cpp code-clang-doc">class BootstrapInfo</code></pre>
+                            </a>
+                        </li>
+                        <li id="5215E7CC082675736064800BC95C9082EB613156" style="max-height: 40px;">
+                            <a href="ELFNixPlatform/_ZTVN4llvm3orc14ELFNixPlatform20ELFNixPlatformPluginE.html">
+                                <pre><code class="language-cpp code-clang-doc">class ELFNixPlatformPlugin</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="E81C7120B0C55D56EA6EB126A2F74B5F6BA82661" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using PushInitializersSendResultFn = unique_function&lt;void (Expected&lt;ELFNixJITDylibDepInfoMap&gt;)&gt;</code></pre>
+                        <p>Defined at line 214 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h#L214">llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h</a></p>
+                    </div>
+                    <div id="0BEE22D54D4FE791DE5BFAAEE6C8B82D6A4E443B" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using SendSymbolAddressFn = unique_function</code></pre>
+                        <p>Defined at line 217 of file <a href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h#L217">llvm/include/llvm/ExecutionEngine/Orc/ELFNixPlatform.h</a></p>
                     </div>
                 </section>
             </div>

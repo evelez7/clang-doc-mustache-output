@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>libc_func_matchers</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>libc_func_matchers</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E6501D0DCBE612F78766B9A664D3BE526F4B5C15">LibcFunNamePrefixSuffixParser</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#Functions">Functions</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3F9986A7AB7EDD182DF98DD01219B574DB3E73DD">hasUnsafeFormatOrSArg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#05CDC5DF50E420C6112842D2309763D615A329EE">isPredefinedUnsafeLibcFunc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#3A78463A3F29AA7EEE2A1A32487F19A349853797">isUnsafeVaListPrintfFunc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#34C3E018778AAA70E62A5D9D21C212299ECE9A6F">isUnsafeSprintfFunc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AA55D5A025B617FE31F8D7723CA8326D32BCDBF5">isNormalPrintfFunc</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#94DAFC9DB4366F5B0EB1D444E7EE203D71FC01A5">hasUnsafePrintfStringArg</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#4392A3989E4F35FF543A1C17E769277F4E1FACB1">hasUnsafeSnprintfBuffer</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="E6501D0DCBE612F78766B9A664D3BE526F4B5C15" style="max-height: 40px;">
+                            <a href="_ZTVN18libc_func_matchers29LibcFunNamePrefixSuffixParserE.html">
+                                <pre><code class="language-cpp code-clang-doc">class LibcFunNamePrefixSuffixParser</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Functions" class="section-container">
+                    <h2>Functions</h2>
+                    <ul class="class-container">
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="3F9986A7AB7EDD182DF98DD01219B574DB3E73DD">
+                                    <pre><code class="language-cpp code-clang-doc">bool hasUnsafeFormatOrSArg (ASTContext &amp; Ctx, const CallExpr * Call, const Expr *&amp; UnsafeArg, const unsigned int FmtIdx, optional FmtArgIdx, bool isKprintf)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Return true iff at least one of following cases holds:</p>
+                                            <p>  1. Format string is a literal and there is an unsafe pointer argument</p>
+                                            <p>     corresponding to an `s` specifier;</p>
+                                            <p>  2. Format string is not a literal and there is least an unsafe pointer</p>
+                                            <p>     argument (including the formatter argument).</p>
+                                        </div>
+                                        <div>
+                                            <p> `UnsafeArg` is the output argument that will be set only if this function</p>
+                                            <p> returns true.</p>
+                                        </div>
+                                        <div>
+                                            <p> Format arguments start at `FmtIdx` + 1, if `FmtArgIdx` is insignificant.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 830 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/UnsafeBufferUsage.cpp#L830">clang/lib/Analysis/UnsafeBufferUsage.cpp</a></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="05CDC5DF50E420C6112842D2309763D615A329EE">
+                                    <pre><code class="language-cpp code-clang-doc">bool isPredefinedUnsafeLibcFunc (const FunctionDecl &amp; Node)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Matches a FunctionDecl node such that</p>
+                                            <p>  1. It&#39;s name, after stripping off predefined prefix and suffix, is</p>
+                                            <p>     `CoreName`; and</p>
+                                            <p>  2. `CoreName` or `CoreName[str/wcs]` is one of the `PredefinedNames`, which</p>
+                                            <p>     is a set of libc function names.</p>
+                                        </div>
+                                        <div>
+                                            <p>  Note: For predefined prefix and suffix, see `LibcFunNamePrefixSuffixParser`.</p>
+                                            <p>  The notation `CoreName[str/wcs]` means a new name obtained from replace</p>
+                                            <p>  string &quot;wcs&quot; with &quot;str&quot; in `CoreName`.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 976 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/UnsafeBufferUsage.cpp#L976">clang/lib/Analysis/UnsafeBufferUsage.cpp</a></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="3A78463A3F29AA7EEE2A1A32487F19A349853797">
+                                    <pre><code class="language-cpp code-clang-doc">bool isUnsafeVaListPrintfFunc (const FunctionDecl &amp; Node)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match a call to one of the `v*printf` functions taking `va_list`.  We cannot</p>
+                                            <p> check safety for these functions so they should be changed to their</p>
+                                            <p> non-va_list versions.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 1083 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/UnsafeBufferUsage.cpp#L1083">clang/lib/Analysis/UnsafeBufferUsage.cpp</a></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="34C3E018778AAA70E62A5D9D21C212299ECE9A6F">
+                                    <pre><code class="language-cpp code-clang-doc">bool isUnsafeSprintfFunc (const FunctionDecl &amp; Node)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Matches a call to one of the `sprintf` functions as they are always unsafe</p>
+                                            <p> and should be changed to `snprintf`.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 1099 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/UnsafeBufferUsage.cpp#L1099">clang/lib/Analysis/UnsafeBufferUsage.cpp</a></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="AA55D5A025B617FE31F8D7723CA8326D32BCDBF5">
+                                    <pre><code class="language-cpp code-clang-doc">bool isNormalPrintfFunc (const FunctionDecl &amp; Node)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> Match function declarations of `printf`, `fprintf`, `snprintf` and their wide</p>
+                                            <p> character versions.  Calls to these functions can be safe if their arguments</p>
+                                            <p> are carefully made safe.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 1123 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/UnsafeBufferUsage.cpp#L1123">clang/lib/Analysis/UnsafeBufferUsage.cpp</a></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="94DAFC9DB4366F5B0EB1D444E7EE203D71FC01A5">
+                                    <pre><code class="language-cpp code-clang-doc">bool hasUnsafePrintfStringArg (const CallExpr &amp; Node, ASTContext &amp; Ctx, MatchResult &amp; Result, StringRef Tag)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> This matcher requires that it is known that the callee `isNormalPrintf`.</p>
+                                            <p> Then if the format string is a string literal, this matcher matches when at</p>
+                                            <p> least one string argument is unsafe. If the format is not a string literal,</p>
+                                            <p> this matcher matches when at least one pointer type argument is unsafe.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 1147 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/UnsafeBufferUsage.cpp#L1147">clang/lib/Analysis/UnsafeBufferUsage.cpp</a></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delimiter-container">
+                                <div id="4392A3989E4F35FF543A1C17E769277F4E1FACB1">
+                                    <pre><code class="language-cpp code-clang-doc">bool hasUnsafeSnprintfBuffer (const CallExpr &amp; NodeASTContext &amp; Ctx)</code></pre>
+                                    <div>
+                                        <div>
+                                            <p> This function requires that it is known that the callee `isNormalPrintf`.</p>
+                                            <p> It returns true iff the first two arguments of the call is a pointer</p>
+                                            <p> `Ptr` and an unsigned integer `Size` and they are NOT safe, i.e.,</p>
+                                            <p> `!isPtrBufferSafe(Ptr, Size)`.</p>
+                                        </div>
+                                    </div>
+                                    <p>Defined at line 1223 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Analysis/UnsafeBufferUsage.cpp#L1223">clang/lib/Analysis/UnsafeBufferUsage.cpp</a></p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

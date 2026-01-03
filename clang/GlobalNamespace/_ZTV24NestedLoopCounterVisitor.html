@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>NestedLoopCounterVisitor</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class NestedLoopCounterVisitor</h2>
+                <ul>
+                    <li class="sidebar-section">
+                        <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#69595CE20F6725E9CCA4423C52AC28FA25FE0E1F">NestedLoopCounterVisitor</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FDDEDC8C6D060603E056D18C4DFE49AD8A13A416">getNestedLoopCount</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#009210C94D6117ED84DD70A22A2D0504872C04E0">VisitForStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#E1D44DC7AB242C5A45073EFC47FD427C58A8D2DE">VisitCXXForRangeStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#FC52BED4AD8FCEBA97F752839E1A3711CE845A0D">TraverseStmt</a>
+                            </li>
+                            <li class="sidebar-item-container">
+                                <a class="sidebar-item" href="#AB22BAB6946175451ECC8EC94E606046FE2739B5">TraverseDecl</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class NestedLoopCounterVisitor</h1>
+                        <p>Defined at line 14533 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenMP.cpp#L14533">clang/lib/Sema/SemaOpenMP.cpp</a></p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Counts the total number of OpenMP canonical nested loops, including the</p>
+                                <p> outermost loop (the original loop). PRECONDITION of this visitor is that it</p>
+                                <p> must be invoked from the original loop to be analyzed. The traversal stops</p>
+                                <p> for Decl&#39;s and Expr&#39;s given that they may contain inner loops that must not</p>
+                                <p> be counted.</p>
+                            </div>
+                            <div>
+                                <p> Example AST structure for the code:</p>
+                            </div>
+                            <div>
+                                <p> int main() {</p>
+                                <p>     #pragma omp fuse</p>
+                                <p>     {</p>
+                                <p>         for (int i = 0; i </p>
+                                <p>&lt;</p>
+                                <p> 100; i++) {    </p>
+                                <p>&lt;</p>
+                                <p>-- Outer loop</p>
+                                <p>             []() {</p>
+                                <p>                 for(int j = 0; j </p>
+                                <p>&lt;</p>
+                                <p> 100; j++) {}  </p>
+                                <p>&lt;</p>
+                                <p>-- NOT A LOOP (1)</p>
+                                <p>             };</p>
+                                <p>             for(int j = 0; j </p>
+                                <p>&lt;</p>
+                                <p> 5; ++j) {}    </p>
+                                <p>&lt;</p>
+                                <p>-- Inner loop</p>
+                                <p>         }</p>
+                                <p>         for (int r = 0; i </p>
+                                <p>&lt;</p>
+                                <p> 100; i++) {    </p>
+                                <p>&lt;</p>
+                                <p>-- Outer loop</p>
+                                <p>             struct LocalClass {</p>
+                                <p>                 void bar() {</p>
+                                <p>                     for(int j = 0; j </p>
+                                <p>&lt;</p>
+                                <p> 100; j++) {}  </p>
+                                <p>&lt;</p>
+                                <p>-- NOT A LOOP (2)</p>
+                                <p>                 }</p>
+                                <p>             };</p>
+                                <p>             for(int k = 0; k </p>
+                                <p>&lt;</p>
+                                <p> 10; ++k) {}    </p>
+                                <p>&lt;</p>
+                                <p>-- Inner loop</p>
+                                <p>             {x = 5; for(k = 0; k </p>
+                                <p>&lt;</p>
+                                <p> 10; ++k) x += k; x}; </p>
+                                <p>&lt;</p>
+                                <p>-- NOT A LOOP (3)</p>
+                                <p>         }</p>
+                                <p>     }</p>
+                                <p> }</p>
+                                <p> (1) because in a different function (here: a lambda)</p>
+                                <p> (2) because in a different function (here: class method)</p>
+                                <p> (3) because considered to be intervening-code of non-perfectly nested loop</p>
+                                <p> Result: Loop &#39;i&#39; contains 2 loops, Loop &#39;r&#39; also contains 2 loops.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="69595CE20F6725E9CCA4423C52AC28FA25FE0E1F">
+                                <pre><code class="language-cpp code-clang-doc">void NestedLoopCounterVisitor ()</code></pre>
+                                <p>Defined at line 14538 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenMP.cpp#L14538">clang/lib/Sema/SemaOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FDDEDC8C6D060603E056D18C4DFE49AD8A13A416">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getNestedLoopCount ()</code></pre>
+                                <p>Defined at line 14540 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenMP.cpp#L14540">clang/lib/Sema/SemaOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="009210C94D6117ED84DD70A22A2D0504872C04E0">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitForStmt (ForStmt * FS)</code></pre>
+                                <p>Defined at line 14542 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenMP.cpp#L14542">clang/lib/Sema/SemaOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E1D44DC7AB242C5A45073EFC47FD427C58A8D2DE">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitCXXForRangeStmt (CXXForRangeStmt * FRS)</code></pre>
+                                <p>Defined at line 14547 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenMP.cpp#L14547">clang/lib/Sema/SemaOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FC52BED4AD8FCEBA97F752839E1A3711CE845A0D">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseStmt (Stmt * S)</code></pre>
+                                <p>Defined at line 14552 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenMP.cpp#L14552">clang/lib/Sema/SemaOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AB22BAB6946175451ECC8EC94E606046FE2739B5">
+                                <pre><code class="language-cpp code-clang-doc">bool TraverseDecl (Decl * D)</code></pre>
+                                <p>Defined at line 14574 of file <a href="https://github.com/llvm/llvm-project/blob/main/clang/lib/Sema/SemaOpenMP.cpp#L14574">clang/lib/Sema/SemaOpenMP.cpp</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

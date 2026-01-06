@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>TokenConcatenation</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class TokenConcatenation</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#C8A57960AE574F242A93DE502806071B42A38182">TokenConcatenation</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#B7D5D785F91569C5C235CA31766D3A2C51A18866">AvoidConcat</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Enums">Enums</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D777E3A6F67D0B863AE45EF41A8B798F25B3F654">AvoidConcatInfo</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class TokenConcatenation</h1>
+                        <p>Defined at line 30 of file clang/include/clang/Lex/TokenConcatenation.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> TokenConcatenation class, which answers the question of</p>
+                                <p>   &quot;Is it safe to emit two tokens without a whitespace between them, or</p>
+                                <p>    would that cause implicit concatenation of the tokens?&quot;</p>
+                            </div>
+                            <div>
+                                <p> For example, it emitting two identifiers &quot;foo&quot; and &quot;bar&quot; next to each</p>
+                                <p> other would cause the lexer to produce one &quot;foobar&quot; token.  Emitting &quot;1&quot;</p>
+                                <p> and &quot;)&quot; next to each other is safe.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="C8A57960AE574F242A93DE502806071B42A38182">
+                                <pre><code class="language-cpp code-clang-doc">void TokenConcatenation (const Preprocessor &amp; PP)</code></pre>
+                                <p>Defined at line 69 of file clang/lib/Lex/TokenConcatenation.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B7D5D785F91569C5C235CA31766D3A2C51A18866">
+                                <pre><code class="language-cpp code-clang-doc">bool AvoidConcat (const Token &amp; PrevPrevTok, const Token &amp; PrevTok, const Token &amp; Tok)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> AvoidConcat - If printing PrevTok immediately followed by Tok would cause</p>
+                                        <p> the two individual tokens to be lexed as a single token, return true</p>
+                                        <p> (which causes a space to be printed between them).  This allows the output</p>
+                                        <p> of -E mode to be lexed to the same token stream as lexing the input</p>
+                                        <p> directly would.</p>
+                                    </div>
+                                    <div>
+                                        <p> This code must conservatively return true if it doesn&#39;t want to be 100%</p>
+                                        <p> accurate.  This will cause the output to include extra space characters,</p>
+                                        <p> but the resulting output won&#39;t have incorrect concatenations going on.</p>
+                                        <p> Examples include &quot;..&quot;, which we print with a space between, because we</p>
+                                        <p> don&#39;t want to track enough to tell &quot;x..&quot; from &quot;...&quot;.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 160 of file clang/lib/Lex/TokenConcatenation.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div id="D777E3A6F67D0B863AE45EF41A8B798F25B3F654" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum AvoidConcatInfo</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>aci_never_avoid_concat</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>aci_custom_firstchar</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>aci_custom</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>aci_avoid_equal</td>
+                                    <td>4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 33 of file clang/include/clang/Lex/TokenConcatenation.h
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

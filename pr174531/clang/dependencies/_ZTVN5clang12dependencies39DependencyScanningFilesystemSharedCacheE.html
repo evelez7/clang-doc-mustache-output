@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DependencyScanningFilesystemSharedCache</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class DependencyScanningFilesystemSharedCache</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#1DC33D69FC964F4F4E53B7DA39A2FE8A8AD88597">DependencyScanningFilesystemSharedCache</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#713C111F9AD1D62F6E02FEBEA776A549E0EB39BE">getShardForFilename</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#54E3746ED71FA1CBA4A478C1D7BBE478C9196B70">getShardForUID</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#F3A7D18CFE077033F65C1623EE7DF340AA4256D7">getOutOfDateEntries</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#E7D469D2C2CB2301DA1B42D3C50FB6EEEA2C201D">CacheShard</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#55D1B22B6875C145F5822078F0A98DCA32F61D65">OutOfDateEntry</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class DependencyScanningFilesystemSharedCache</h1>
+                        <p>Defined at line 153 of file clang/include/clang/DependencyScanning/DependencyScanningFilesystem.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> This class is a shared cache, that caches the &#39;stat&#39; and &#39;open&#39; calls to the</p>
+                                <p> underlying real file system, and the scanned preprocessor directives of</p>
+                                <p> files.</p>
+                            </div>
+                            <div>
+                                <p> It is sharded based on the hash of the key to reduce the lock contention for</p>
+                                <p> the worker threads.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="1DC33D69FC964F4F4E53B7DA39A2FE8A8AD88597">
+                                <pre><code class="language-cpp code-clang-doc">void DependencyScanningFilesystemSharedCache ()</code></pre>
+                                <p>Defined at line 83 of file clang/lib/DependencyScanning/DependencyScanningFilesystem.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="713C111F9AD1D62F6E02FEBEA776A549E0EB39BE">
+                                <pre><code class="language-cpp code-clang-doc">CacheShard &amp; getShardForFilename (StringRef Filename)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Returns shard for the given key.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 95 of file clang/lib/DependencyScanning/DependencyScanningFilesystem.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54E3746ED71FA1CBA4A478C1D7BBE478C9196B70">
+                                <pre><code class="language-cpp code-clang-doc">CacheShard &amp; getShardForUID (llvm::sys::fs::UniqueID UID)</code></pre>
+                                <p>Defined at line 102 of file clang/lib/DependencyScanning/DependencyScanningFilesystem.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F3A7D18CFE077033F65C1623EE7DF340AA4256D7">
+                                <pre><code class="language-cpp code-clang-doc">std::vector&lt;OutOfDateEntry&gt; getOutOfDateEntries (llvm::vfs::FileSystem &amp; UnderlyingFS)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Visits all cached entries and re-stat an entry using UnderlyingFS to check</p>
+                                        <p> if the cache contains out-of-date entries. An entry can be out-of-date for</p>
+                                        <p> two reasons:</p>
+                                        <p>  1. The entry contains a stat error, indicating the file did not exist</p>
+                                        <p>     in the cache, but the file exists on the UnderlyingFS.</p>
+                                        <p>  2. The entry is associated with a file whose size is different from the</p>
+                                        <p>     size of the file on the same path on the UnderlyingFS.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 109 of file clang/lib/DependencyScanning/DependencyScanningFilesystem.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="E7D469D2C2CB2301DA1B42D3C50FB6EEEA2C201D" style="max-height: 40px;">
+                            <a href="DependencyScanningFilesystemSharedCache/_ZTVN5clang12dependencies39DependencyScanningFilesystemSharedCache10CacheShardE.html">
+                                <pre><code class="language-cpp code-clang-doc">class CacheShard</code></pre>
+                            </a>
+                        </li>
+                        <li id="55D1B22B6875C145F5822078F0A98DCA32F61D65" style="max-height: 40px;">
+                            <a href="DependencyScanningFilesystemSharedCache/_ZTVN5clang12dependencies39DependencyScanningFilesystemSharedCache14OutOfDateEntryE.html">
+                                <pre><code class="language-cpp code-clang-doc">class OutOfDateEntry</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MachineInstrBuilder</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MachineInstrBuilder</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#DB5E251279164EB7BE9D1B29AC3CF5A897150B48">MachineInstrBuilder</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#EDA334AD2D92B13F26C4F4758D377E49636783E8">MachineInstrBuilder</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#665DA479DA30D71AD838F86D3286E2850061FF94">MachineInstrBuilder</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#09F314DC9364E688563BDA330146A4B29C27EFE5">operator llvm::MachineInstr *</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9B10EED548C1A0FED871D58773367FCF9191D855">operator-&gt;</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#E5FA5F63E596E066D31DF994A6CCD8335C867BDB">operator MachineInstrBundleIterator</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#6D2D3165EBF042A791ADD8E7A4596E92973B7663">getInstr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#06D4B396356EA43BDA44ABE025A9E4BAA59C0A2B">getReg</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#178E435F089063C2752E8048905F9B93126FC579">addReg</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D8A95E5C952B1DE7B7E16B983F84CCE0617975AE">addDef</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#309CC73430D2CD59099FF062D8ABCACD587EDB48">addUse</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#61FF71DA75D2F4A419DEC4B9AC7BBFDB20959AF9">addImm</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#2F7413C95E1E583A3B0461D19F53A6664D4AC2B0">addCImm</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#84605D4865F203F7BAA9D44CF2EBBCC504E8D4B1">addFPImm</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#63938C2A9D24A66E50A01CB36508A1FBD3775B09">addMBB</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#206793E98D7A291220895BE466EC8CB55F90433A">addFrameIndex</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7C39CBCA8E0FB1DF2C9E36047D3ADE9CE42434F6">addConstantPoolIndex</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#DD1E6A817B939112EA3624E55C7AF349C4CEA135">addTargetIndex</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#95C86E59F4CE22DF64C1507964B6037E9D0CC434">addJumpTableIndex</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#074DE7D38126232E929C82C99C99BE5FDFAA528B">addGlobalAddress</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#217DCAD30BFAFA8D17956D78F262FE2E11986774">addExternalSymbol</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#3ED5FCE49D19EA75158F01656DF7CDAD809CE005">addBlockAddress</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#0F2DC43849904563EF759A43EB858A6913E0BE4F">addRegMask</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#01BFEC1A2A0E1D751B40FE7BFB6C55A11726924D">addMemOperand</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#4524C85D3B89CF425BAC8D52F5DAE14B6B7AA9A0">setMemRefs</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#AC37E9C27C201607974C7106E7020FFF13E126E1">cloneMemRefs</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#1A108B69C69A13F82468110279272B58DC6D0B96">cloneMergedMemRefs</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#BD8D94764D9829222D159613AB6603640D8D3861">add</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5CB2687EE64C4771E237E33E884A538CF1A35EBF">add</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#595C8EBB6E3DD626AA7E6D690F8C1146514FBF19">addMetadata</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5AE6D1ECB70E7B4403637E267E5D031E469403F9">addCFIIndex</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#09810FEBAA6F5E3DB442FF60CAD5CD58CDC9A03A">addIntrinsicID</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#1360B1B40F55E0CB57386536C59279BC1716AE47">addPredicate</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#E3B1DF69A441FF53378C3AC97FF1E61912504C87">addShuffleMask</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#03AFC592E568BC1AC1C564ED745BE057C5B9DE0F">addLaneMask</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#A6EFD36742C5EC236129106202F0D6299665F4EF">addSym</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5195FAD08782C7BA34878DB0325B7B5AEE457384">setMIFlags</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#85C2BADEF3018DD565B657E398E5BDBD376869C4">setMIFlag</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#657CD7D2A5F31C8E63D16A25BCD6A65879463556">setOperandDead</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7D4EA70003B4F5D910266F8181C4513C98AE53FB">addDisp</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#923A5B1C669DF273B3B2D03C3E84CA0DD99B60DD">copyMIMetadata</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#BF991F31F0633D875CD23777B28D17D5C92CEBF2">copyImplicitOps</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#67E6A43EE83D5F2C3FDC2779AAD190EC9855041A">constrainAllUses</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MachineInstrBuilder</h1>
+                        <p>Defined at line 113 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="DB5E251279164EB7BE9D1B29AC3CF5A897150B48">
+                                <pre><code class="language-cpp code-clang-doc">void MachineInstrBuilder ()</code></pre>
+                                <p>Defined at line 118 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EDA334AD2D92B13F26C4F4758D377E49636783E8">
+                                <pre><code class="language-cpp code-clang-doc">void MachineInstrBuilder (MachineFunction &amp; F, MachineInstr * I)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Create a MachineInstrBuilder for manipulating an existing instruction.</p>
+                                        <p> F must be the machine function that was used to allocate I.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 122 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="665DA479DA30D71AD838F86D3286E2850061FF94">
+                                <pre><code class="language-cpp code-clang-doc">void MachineInstrBuilder (MachineFunction &amp; F, MachineBasicBlock::iterator I)</code></pre>
+                                <p>Defined at line 123 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="09F314DC9364E688563BDA330146A4B29C27EFE5">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * operator llvm::MachineInstr * ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Allow automatic conversion to the machine instruction we are working on.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 127 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9B10EED548C1A0FED871D58773367FCF9191D855">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * operator-&gt; ()</code></pre>
+                                <p>Defined at line 128 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E5FA5F63E596E066D31DF994A6CCD8335C867BDB">
+                                <pre><code class="language-cpp code-clang-doc">MachineBasicBlock::iterator operator MachineInstrBundleIterator ()</code></pre>
+                                <p>Defined at line 129 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6D2D3165EBF042A791ADD8E7A4596E92973B7663">
+                                <pre><code class="language-cpp code-clang-doc">MachineInstr * getInstr ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> If conversion operators fail, use this method to get the MachineInstr</p>
+                                        <p> explicitly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 133 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="06D4B396356EA43BDA44ABE025A9E4BAA59C0A2B">
+                                <pre><code class="language-cpp code-clang-doc">Register getReg (unsigned int Idx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the register for the operand index.</p>
+                                        <p> The operand at the index should be a register (asserted by</p>
+                                        <p> MachineOperand).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 138 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="178E435F089063C2752E8048905F9B93126FC579">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addReg (Register RegNo, unsigned int flags, unsigned int SubReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add a new virtual register operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 141 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D8A95E5C952B1DE7B7E16B983F84CCE0617975AE">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addDef (Register RegNo, unsigned int Flags, unsigned int SubReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add a virtual register definition operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 160 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="309CC73430D2CD59099FF062D8ABCACD587EDB48">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addUse (Register RegNo, unsigned int Flags, unsigned int SubReg)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add a virtual register use operand. It is an error for Flags to contain</p>
+                                        <p> `RegState::Define` when calling this function.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 167 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="61FF71DA75D2F4A419DEC4B9AC7BBFDB20959AF9">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addImm (int64_t Val)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add a new immediate operand.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 175 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2F7413C95E1E583A3B0461D19F53A6664D4AC2B0">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addCImm (const ConstantInt * Val)</code></pre>
+                                <p>Defined at line 180 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="84605D4865F203F7BAA9D44CF2EBBCC504E8D4B1">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addFPImm (const ConstantFP * Val)</code></pre>
+                                <p>Defined at line 185 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="63938C2A9D24A66E50A01CB36508A1FBD3775B09">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addMBB (MachineBasicBlock * MBB, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 190 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="206793E98D7A291220895BE466EC8CB55F90433A">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addFrameIndex (int Idx)</code></pre>
+                                <p>Defined at line 196 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7C39CBCA8E0FB1DF2C9E36047D3ADE9CE42434F6">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addConstantPoolIndex (unsigned int Idx, int Offset, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 201 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DD1E6A817B939112EA3624E55C7AF349C4CEA135">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addTargetIndex (unsigned int Idx, int64_t Offset, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 208 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95C86E59F4CE22DF64C1507964B6037E9D0CC434">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addJumpTableIndex (unsigned int Idx, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 215 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="074DE7D38126232E929C82C99C99BE5FDFAA528B">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addGlobalAddress (const GlobalValue * GV, int64_t Offset, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 221 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="217DCAD30BFAFA8D17956D78F262FE2E11986774">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addExternalSymbol (const char * FnName, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 228 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3ED5FCE49D19EA75158F01656DF7CDAD809CE005">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addBlockAddress (const BlockAddress * BA, int64_t Offset, unsigned int TargetFlags)</code></pre>
+                                <p>Defined at line 234 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0F2DC43849904563EF759A43EB858A6913E0BE4F">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addRegMask (const uint32_t * Mask)</code></pre>
+                                <p>Defined at line 241 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="01BFEC1A2A0E1D751B40FE7BFB6C55A11726924D">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addMemOperand (MachineMemOperand * MMO)</code></pre>
+                                <p>Defined at line 246 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4524C85D3B89CF425BAC8D52F5DAE14B6B7AA9A0">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; setMemRefs (ArrayRef&lt;MachineMemOperand *&gt; MMOs)</code></pre>
+                                <p>Defined at line 251 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AC37E9C27C201607974C7106E7020FFF13E126E1">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; cloneMemRefs (const MachineInstr &amp; OtherMI)</code></pre>
+                                <p>Defined at line 257 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1A108B69C69A13F82468110279272B58DC6D0B96">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; cloneMergedMemRefs (ArrayRef&lt;const MachineInstr *&gt; OtherMIs)</code></pre>
+                                <p>Defined at line 262 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BD8D94764D9829222D159613AB6603640D8D3861">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; add (const MachineOperand &amp; MO)</code></pre>
+                                <p>Defined at line 268 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5CB2687EE64C4771E237E33E884A538CF1A35EBF">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; add (ArrayRef&lt;MachineOperand&gt; MOs)</code></pre>
+                                <p>Defined at line 273 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="595C8EBB6E3DD626AA7E6D690F8C1146514FBF19">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addMetadata (const MDNode * MD)</code></pre>
+                                <p>Defined at line 279 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5AE6D1ECB70E7B4403637E267E5D031E469403F9">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addCFIIndex (unsigned int CFIIndex)</code></pre>
+                                <p>Defined at line 290 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="09810FEBAA6F5E3DB442FF60CAD5CD58CDC9A03A">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addIntrinsicID (Intrinsic::ID ID)</code></pre>
+                                <p>Defined at line 295 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1360B1B40F55E0CB57386536C59279BC1716AE47">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addPredicate (CmpInst::Predicate Pred)</code></pre>
+                                <p>Defined at line 300 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E3B1DF69A441FF53378C3AC97FF1E61912504C87">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addShuffleMask (ArrayRef&lt;int&gt; Val)</code></pre>
+                                <p>Defined at line 305 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="03AFC592E568BC1AC1C564ED745BE057C5B9DE0F">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addLaneMask (LaneBitmask LaneMask)</code></pre>
+                                <p>Defined at line 310 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A6EFD36742C5EC236129106202F0D6299665F4EF">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addSym (MCSymbol * Sym, unsigned char TargetFlags)</code></pre>
+                                <p>Defined at line 315 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5195FAD08782C7BA34878DB0325B7B5AEE457384">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; setMIFlags (unsigned int Flags)</code></pre>
+                                <p>Defined at line 321 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="85C2BADEF3018DD565B657E398E5BDBD376869C4">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; setMIFlag (MachineInstr::MIFlag Flag)</code></pre>
+                                <p>Defined at line 326 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="657CD7D2A5F31C8E63D16A25BCD6A65879463556">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; setOperandDead (unsigned int OpIdx)</code></pre>
+                                <p>Defined at line 331 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7D4EA70003B4F5D910266F8181C4513C98AE53FB">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; addDisp (const MachineOperand &amp; Disp, int64_t off, unsigned char TargetFlags)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add a displacement from an existing MachineOperand with an added offset.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 337 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="923A5B1C669DF273B3B2D03C3E84CA0DD99B60DD">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; copyMIMetadata (const MIMetadata &amp; MIMD)</code></pre>
+                                <p>Defined at line 366 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BF991F31F0633D875CD23777B28D17D5C92CEBF2">
+                                <pre><code class="language-cpp code-clang-doc">const MachineInstrBuilder &amp; copyImplicitOps (const MachineInstr &amp; OtherMI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Copy all the implicit operands from OtherMI onto this one.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 377 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="67E6A43EE83D5F2C3FDC2779AAD190EC9855041A">
+                                <pre><code class="language-cpp code-clang-doc">bool constrainAllUses (const TargetInstrInfo &amp; TII, const TargetRegisterInfo &amp; TRI, const RegisterBankInfo &amp; RBI)</code></pre>
+                                <p>Defined at line 383 of file llvm/include/llvm/CodeGen/MachineInstrBuilder.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

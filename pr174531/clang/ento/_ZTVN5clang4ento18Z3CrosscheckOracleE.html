@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Z3CrosscheckOracle</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class Z3CrosscheckOracle</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#74D034D667CD4F5868AD8BB908C09F4F81D25C35">Z3CrosscheckOracle</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#030AD237168C2BC2059D0823801365F80821D2E0">interpretQueryResult</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Enums">Enums</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5FAE6DD5110C659AEDAD7F4292E8AC97FA9E292A">Z3Decision</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class Z3CrosscheckOracle</h1>
+                        <p>Defined at line 56 of file clang/include/clang/StaticAnalyzer/Core/BugReporter/Z3CrosscheckVisitor.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> The oracle will decide if a report should be accepted or rejected based on</p>
+                                <p> the results of the Z3 solver and the statistics of the queries of a report</p>
+                                <p> equivalenece class.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="74D034D667CD4F5868AD8BB908C09F4F81D25C35">
+                                <pre><code class="language-cpp code-clang-doc">void Z3CrosscheckOracle (const AnalyzerOptions &amp; Opts)</code></pre>
+                                <p>Defined at line 58 of file clang/include/clang/StaticAnalyzer/Core/BugReporter/Z3CrosscheckVisitor.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="030AD237168C2BC2059D0823801365F80821D2E0">
+                                <pre><code class="language-cpp code-clang-doc">Z3Decision interpretQueryResult (const Z3CrosscheckVisitor::Z3Result &amp; Meta)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Updates the internal state with the new Z3Result and makes a decision how</p>
+                                        <p> to proceed:</p>
+                                        <p> - Accept the report if the Z3Result was SAT.</p>
+                                        <p> - Suggest dropping the report equvalence class based on the accumulated</p>
+                                        <p>   statistics.</p>
+                                        <p> - Otherwise, reject the report if the Z3Result was UNSAT or UNDEF.</p>
+                                    </div>
+                                    <div>
+                                        <p> Conditions for dropping the equivalence class:</p>
+                                        <p> - Accumulative time spent in Z3 checks is more than 700ms in the eqclass.</p>
+                                        <p> - Hit the 300ms query timeout in the report eqclass.</p>
+                                        <p> - Hit the 400&#39;000 rlimit in the report eqclass.</p>
+                                    </div>
+                                    <div>
+                                        <p> All these thresholds are configurable via the analyzer options.</p>
+                                    </div>
+                                    <div>
+                                        <p> Refer to</p>
+                                        <p> https://discourse.llvm.org/t/analyzer-rfc-taming-z3-query-times/79520 to</p>
+                                        <p> see why this heuristic was chosen.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 149 of file clang/lib/StaticAnalyzer/Core/Z3CrosscheckVisitor.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div id="5FAE6DD5110C659AEDAD7F4292E8AC97FA9E292A" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum Z3Decision</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>AcceptReport</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>RejectReport</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>RejectEQClass</td>
+                                    <td>2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 60 of file clang/include/clang/StaticAnalyzer/Core/BugReporter/Z3CrosscheckVisitor.h
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

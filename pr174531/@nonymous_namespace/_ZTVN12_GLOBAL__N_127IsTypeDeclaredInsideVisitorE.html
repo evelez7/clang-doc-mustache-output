@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>IsTypeDeclaredInsideVisitor</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class IsTypeDeclaredInsideVisitor</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#EAF83281926D057E6A3251F4F937F39B9B7F221D">IsTypeDeclaredInsideVisitor</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#AD9F6342DC8E996A46D28762448099B4DE72608C">CheckType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#42974D04C98F381F341201079BCB9CE45523661B">VisitTagType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5F853579C1A3FC2076EE5BD9B057591EE16D63B2">VisitPointerType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#F76828073A332707A81A2DC08BA73697CA2B7526">VisitReferenceType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#3BF69666E7928C641CB30FE9966B10EC6B529C58">VisitTypedefType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#633B5C015EA48DEEC961B5D40B3CE7344F9D9C72">VisitUsingType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#1DA12879A20B8CDEFBD43AFB988C49E9D6F2B6E4">VisitTemplateSpecializationType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5D2ED15B875F4D8B7AC89CFB82B2E2D23C8ACE65">VisitUnaryTransformType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5675618CAD2AA2CB630216A66E6812783FF8FA89">VisitSubstTemplateTypeParmType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#95E16E1BDA81D3C2D1355DE095ED9BD7804B2093">VisitConstantArrayType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#86F7D9B86A4BDAD9B4737F370594FBE56FE00A74">VisitVariableArrayType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#165D7D059CC55BCB605B08FC180E217C3FEFAA63">VisitIncompleteArrayType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#07EEAAA9A34DED2AC6D6A4A2AF425E3DDE6AAE75">VisitDependentArrayType</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class IsTypeDeclaredInsideVisitor</h1>
+                        <p>Defined at line 3759 of file clang/lib/AST/ASTImporter.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Check if a type has any reference to a declaration that is inside the body</p>
+                                <p> of a function.</p>
+                                <p> The </p>
+                                <p> function should be used to determine</p>
+                                <p> this property.</p>
+                            </div>
+                            <div>
+                                <p> The type visitor visits one type object only (not recursive).</p>
+                                <p> To find all referenced declarations we must discover all type objects until</p>
+                                <p> the canonical type is reached (walk over typedef and similar objects). This</p>
+                                <p> is done by loop over all &quot;sugar&quot; type objects. For every such type we must</p>
+                                <p> check all declarations that are referenced from it. For this check the</p>
+                                <p> visitor is used. In the visit functions all referenced declarations except</p>
+                                <p> the one that follows in the sugar chain (if any) must be checked. For this</p>
+                                <p> check the same visitor is re-used (it has no state-dependent data).</p>
+                            </div>
+                            <div>
+                                <p> The visit functions have 3 possible return values:</p>
+                                <p>  - True, found a declaration inside </p>
+                                <p>  - False, found declarations only outside </p>
+                                <p> and it is not possible</p>
+                                <p>    to find more declarations (the &quot;sugar&quot; chain does not continue).</p>
+                                <p>  - Empty optional value, found no declarations or only outside </p>
+                                <p>    but it is possible to find more declarations in the type &quot;sugar&quot; chain.</p>
+                                <p> The loop over the &quot;sugar&quot; types can be implemented by using type visit</p>
+                                <p> functions only (call </p>
+                                <p> with the desugared type). With the current</p>
+                                <p> solution no visit function is needed if the type has only a desugared type</p>
+                                <p> as data.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="EAF83281926D057E6A3251F4F937F39B9B7F221D">
+                                <pre><code class="language-cpp code-clang-doc">void IsTypeDeclaredInsideVisitor (const FunctionDecl * ParentDC)</code></pre>
+                                <p>Defined at line 3762 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AD9F6342DC8E996A46D28762448099B4DE72608C">
+                                <pre><code class="language-cpp code-clang-doc">bool CheckType (QualType T)</code></pre>
+                                <p>Defined at line 3765 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="42974D04C98F381F341201079BCB9CE45523661B">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;bool&gt; VisitTagType (const TagType * T)</code></pre>
+                                <p>Defined at line 3782 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5F853579C1A3FC2076EE5BD9B057591EE16D63B2">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;bool&gt; VisitPointerType (const PointerType * T)</code></pre>
+                                <p>Defined at line 3790 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F76828073A332707A81A2DC08BA73697CA2B7526">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;bool&gt; VisitReferenceType (const ReferenceType * T)</code></pre>
+                                <p>Defined at line 3794 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3BF69666E7928C641CB30FE9966B10EC6B529C58">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;bool&gt; VisitTypedefType (const TypedefType * T)</code></pre>
+                                <p>Defined at line 3798 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="633B5C015EA48DEEC961B5D40B3CE7344F9D9C72">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;bool&gt; VisitUsingType (const UsingType * T)</code></pre>
+                                <p>Defined at line 3802 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1DA12879A20B8CDEFBD43AFB988C49E9D6F2B6E4">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;bool&gt; VisitTemplateSpecializationType (const TemplateSpecializationType * T)</code></pre>
+                                <p>Defined at line 3806 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5D2ED15B875F4D8B7AC89CFB82B2E2D23C8ACE65">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;bool&gt; VisitUnaryTransformType (const UnaryTransformType * T)</code></pre>
+                                <p>Defined at line 3815 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5675618CAD2AA2CB630216A66E6812783FF8FA89">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;bool&gt; VisitSubstTemplateTypeParmType (const SubstTemplateTypeParmType * T)</code></pre>
+                                <p>Defined at line 3819 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="95E16E1BDA81D3C2D1355DE095ED9BD7804B2093">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;bool&gt; VisitConstantArrayType (const ConstantArrayType * T)</code></pre>
+                                <p>Defined at line 3827 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="86F7D9B86A4BDAD9B4737F370594FBE56FE00A74">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;bool&gt; VisitVariableArrayType (const VariableArrayType * T)</code></pre>
+                                <p>Defined at line 3834 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="165D7D059CC55BCB605B08FC180E217C3FEFAA63">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;bool&gt; VisitIncompleteArrayType (const IncompleteArrayType * T)</code></pre>
+                                <p>Defined at line 3839 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="07EEAAA9A34DED2AC6D6A4A2AF425E3DDE6AAE75">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;bool&gt; VisitDependentArrayType (const IncompleteArrayType * T)</code></pre>
+                                <p>Defined at line 3844 of file clang/lib/AST/ASTImporter.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

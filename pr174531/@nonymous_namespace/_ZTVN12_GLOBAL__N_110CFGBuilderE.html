@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CFGBuilder</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class CFGBuilder</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#8ED4DD7EB468ED5FAA862980351A2BA4BF3C5C2B">CFGBuilder</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#60CB6255C16DD006912F9658814197DF53759A2B">buildCFG</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#FAF51D3B909FBCD99A6EE25E2B2034610A7A9425">alwaysAdd</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#126929E7A86C07A2A6F15B3876194A4CC116A7CB">JumpTarget</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#11E6C1F1B4E5DFF9FDC6967B24ADFACB6E2280E2">JumpSource</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#6254679F6F8CA53222A08B6ADBD9D6E453BA9C62">LabelMapTy</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D30E214EB5D2E46D83CC959C01D52F844ADFD85C">BackpatchBlocksTy</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#C75E9D02BC1A3C0597327655D4ECBED8F5AAB074">LabelSetTy</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#345C52AD467589B8FFB389179C686C67F071B13B">CachedBoolEvalsTy</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#C158D7C64B12790D5B8E1F12F9913C578ED7F0A2">TempDtorContext</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class CFGBuilder</h1>
+                        <p>Defined at line 507 of file clang/lib/Analysis/CFG.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> CFGBuilder - This class implements CFG construction from an AST.</p>
+                                <p>   The builder is stateful: an instance of the builder should be used to only</p>
+                                <p>   construct a single CFG.</p>
+                            </div>
+                            <div>
+                                <p>   Example usage:</p>
+                            </div>
+                            <div>
+                                <p>     CFGBuilder builder;</p>
+                                <p>     std::unique_ptr</p>
+                                <p>&lt;CFG</p>
+                                <p>&gt; cfg = builder.buildCFG(decl, stmt1);</p>
+                            </div>
+                            <div>
+                                <p>  CFG construction is done via a recursive walk of an AST.  We actually parse</p>
+                                <p>  the AST in reverse order so that the successor of a basic block is</p>
+                                <p>  constructed prior to its predecessor.  This allows us to nicely capture</p>
+                                <p>  implicit fall-throughs without extra basic blocks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="8ED4DD7EB468ED5FAA862980351A2BA4BF3C5C2B">
+                                <pre><code class="language-cpp code-clang-doc">void CFGBuilder (ASTContext * astContext, const CFG::BuildOptions &amp; buildOpts)</code></pre>
+                                <p>Defined at line 570 of file clang/lib/Analysis/CFG.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="60CB6255C16DD006912F9658814197DF53759A2B">
+                                <pre><code class="language-cpp code-clang-doc">std::unique_ptr&lt;CFG&gt; buildCFG (const Decl * D, Stmt * Statement)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> BuildCFG - Constructs a CFG from an AST (a Stmt*).  The AST can represent an</p>
+                                        <p>  arbitrary statement.  Examples include a single expression or a function</p>
+                                        <p>  body (compound statement).  The ownership of the returned CFG is</p>
+                                        <p>  transferred to the caller.  If CFG construction fails, this method returns</p>
+                                        <p>  NULL.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1657 of file clang/lib/Analysis/CFG.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FAF51D3B909FBCD99A6EE25E2B2034610A7A9425">
+                                <pre><code class="language-cpp code-clang-doc">bool alwaysAdd (const Stmt * stmt)</code></pre>
+                                <p>Defined at line 1464 of file clang/lib/Analysis/CFG.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="C158D7C64B12790D5B8E1F12F9913C578ED7F0A2" style="max-height: 40px;">
+                            <a href="CFGBuilder/_ZTVN12_GLOBAL__N_110CFGBuilder15TempDtorContextE.html">
+                                <pre><code class="language-cpp code-clang-doc">class TempDtorContext</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="126929E7A86C07A2A6F15B3876194A4CC116A7CB" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using JumpTarget = BlockScopePosPair</code></pre>
+                        <p>Defined at line 508 of file clang/lib/Analysis/CFG.cpp</p>
+                    </div>
+                    <div id="11E6C1F1B4E5DFF9FDC6967B24ADFACB6E2280E2" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using JumpSource = BlockScopePosPair</code></pre>
+                        <p>Defined at line 509 of file clang/lib/Analysis/CFG.cpp</p>
+                    </div>
+                    <div id="6254679F6F8CA53222A08B6ADBD9D6E453BA9C62" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using LabelMapTy = DenseMap</code></pre>
+                        <div>
+                            <p> LabelMap records the mapping from Label expressions to their jump targets.</p>
+                        </div>
+                        <p>Defined at line 536 of file clang/lib/Analysis/CFG.cpp</p>
+                    </div>
+                    <div id="D30E214EB5D2E46D83CC959C01D52F844ADFD85C" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using BackpatchBlocksTy = vector</code></pre>
+                        <div>
+                            <p> A list of blocks that end with a &quot;goto&quot; that must be backpatched to their</p>
+                            <p> resolved targets upon completion of CFG construction.</p>
+                        </div>
+                        <p>Defined at line 541 of file clang/lib/Analysis/CFG.cpp</p>
+                    </div>
+                    <div id="C75E9D02BC1A3C0597327655D4ECBED8F5AAB074" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using LabelSetTy = SmallSetVector</code></pre>
+                        <div>
+                            <p> A list of labels whose address has been taken (for indirect gotos).</p>
+                        </div>
+                        <p>Defined at line 545 of file clang/lib/Analysis/CFG.cpp</p>
+                    </div>
+                    <div id="345C52AD467589B8FFB389179C686C67F071B13B" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using CachedBoolEvalsTy = DenseMap</code></pre>
+                        <div>
+                            <p> Caches boolean evaluations of expressions to avoid multiple re-evaluations</p>
+                            <p> during construction of branches for chained logical operators.</p>
+                        </div>
+                        <p>Defined at line 566 of file clang/lib/Analysis/CFG.cpp</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

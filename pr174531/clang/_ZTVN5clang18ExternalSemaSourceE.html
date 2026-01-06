@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ExternalSemaSource</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ExternalSemaSource</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#1BE151FDF8A094F491B785EFE3F1B765DBFF81AC">ExternalSemaSource</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#FB9A6CFA1164127541C5DA7B46639326573B051D">InitializeSema</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#C9A0681E8BFF0C1837F795B2A927A5829D858B6B">ForgetSema</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#38CA87BF41B363A829991D658B777BCEAF6C57C0">LookupUnqualified</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5BBA2D3FC00AAAA00CFD5A081272468958220AF9">ReadTentativeDefinitions</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#67ACFAF1C6D9C0E3DB29361C8929BA74265EFC93">ReadUnusedFileScopedDecls</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#2876F0C5208047175C2C081B7104D42FA058A6FE">ReadDelegatingConstructors</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#78BFECF73196A00D0D6BFDE6AEE5F0AA9F388E44">ReadExtVectorDecls</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#42303521FA57D43280FEA046D78C2AE22C7D4102">ReadUnusedLocalTypedefNameCandidates</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#63139FB10A46F87FE39CE9C3583A685BB623B19A">ReadReferencedSelectors</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#B1556386F7F2321C72239564D545DDE2CA4A8680">ReadWeakUndeclaredIdentifiers</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#AE29064539C68B383E8FF009C4E1AE1334D2A321">ReadUsedVTables</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#F288AA661C0021DB49AD7E632F52D882FF8A778C">ReadPendingInstantiations</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#FC2E08ADB3DD5F444AEDDF7A8E4EC86F71F398D5">ReadLateParsedTemplates</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7EDCFF0434B90CA15EBD4DBAA8517DB1E0FA14AA">ReadLateParsedTemplates</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#DCD0D8469BA83A30B27A55D52BD530DF370C3BFE">ReadDeclsToCheckForDeferredDiags</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D6B51D8F5EF764C9BF9608F11EEE165B23EC99E1">CorrectTypo</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#C7D7842CCDA4C1C8FF5DE4341CC2F469B9BBC97C">MaybeDiagnoseMissingCompleteType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#0E6DC8C86CDF71AADA06E3E89A24089ABD47C211">AssignedLambdaNumbering</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#8AEBEF3A9C26A001A97E7D6645A05B383726894A">isA</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#307433927AD65E5EB073DB7A1F6D208C024BE1BE">classof</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#0C74C0C9DEBBF434DCA1008253F1C58B12ABC9A9">~ExternalSemaSource</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#37ACE21653A8FCAEB3FB4AA62A0524346E71441F">ReadMethodPool</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#ACCF1F4F592EDABFE4E24B52EA5E523B5D3A5F58">updateOutOfDateSelector</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#003862818CAAE4B00A15C57064BB8FDF9E46B067">ReadKnownNamespaces</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#74EB4C4F3F648B1C60CB7036329F249EB833A0FC">ReadUndefinedButUsed</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#E10A7A5BC655F4A6C3F7F0F34F26FC571F3029AD">ReadUndefinedButUsed</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#8FA2C7B8DA85AA799412D23C2E43FA5BF9FCD7A3">ReadMismatchingDeleteExpressions</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#A545C48FFDE74E65B89F936A1174406470AD42FE">ReadMismatchingDeleteExpressions</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ExternalSemaSource</h1>
+                        <p>Defined at line 50 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> An abstract interface that should be implemented by</p>
+                                <p> external AST sources that also provide information for semantic</p>
+                                <p> analysis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="1BE151FDF8A094F491B785EFE3F1B765DBFF81AC">
+                                <pre><code class="language-cpp code-clang-doc">void ExternalSemaSource ()</code></pre>
+                                <p>Defined at line 55 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FB9A6CFA1164127541C5DA7B46639326573B051D">
+                                <pre><code class="language-cpp code-clang-doc">void InitializeSema (Sema &amp; S)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Initialize the semantic source with the Sema instance</p>
+                                        <p> being used to perform semantic analysis on the abstract syntax</p>
+                                        <p> tree.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 62 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C9A0681E8BFF0C1837F795B2A927A5829D858B6B">
+                                <pre><code class="language-cpp code-clang-doc">void ForgetSema ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Inform the semantic consumer that Sema is no longer available.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 65 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="38CA87BF41B363A829991D658B777BCEAF6C57C0">
+                                <pre><code class="language-cpp code-clang-doc">bool LookupUnqualified (LookupResult &amp; R, Scope * S)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Do last resort, unqualified lookup on a LookupResult that</p>
+                                        <p> Sema cannot find.</p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>R</b>   a LookupResult that is being recovered.
+                                    </div> 
+                                    <div>
+                                        <b>S</b>   the Scope of the identifier occurrence.
+                                    </div> 
+                                    <h3>Returns</h3>
+                                    <p> true to tell Sema to recover using the LookupResult.</p>
+                                </div>
+                                <p>Defined at line 96 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5BBA2D3FC00AAAA00CFD5A081272468958220AF9">
+                                <pre><code class="language-cpp code-clang-doc">void ReadTentativeDefinitions (SmallVectorImpl&lt;VarDecl *&gt; &amp; TentativeDefs)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the set of tentative definitions known to the external Sema</p>
+                                        <p> source.</p>
+                                    </div>
+                                    <div>
+                                        <p> The external source should append its own tentative definitions to the</p>
+                                        <p> given vector of tentative definitions. Note that this routine may be</p>
+                                        <p> invoked multiple times; the external source should take care not to</p>
+                                        <p> introduce the same declarations repeatedly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 105 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="67ACFAF1C6D9C0E3DB29361C8929BA74265EFC93">
+                                <pre><code class="language-cpp code-clang-doc">void ReadUnusedFileScopedDecls (SmallVectorImpl&lt;const DeclaratorDecl *&gt; &amp; Decls)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the set of unused file-scope declarations known to the</p>
+                                        <p> external Sema source.</p>
+                                    </div>
+                                    <div>
+                                        <p> The external source should append its own unused, filed-scope to the</p>
+                                        <p> given vector of declarations. Note that this routine may be</p>
+                                        <p> invoked multiple times; the external source should take care not to</p>
+                                        <p> introduce the same declarations repeatedly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 115 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2876F0C5208047175C2C081B7104D42FA058A6FE">
+                                <pre><code class="language-cpp code-clang-doc">void ReadDelegatingConstructors (SmallVectorImpl&lt;CXXConstructorDecl *&gt; &amp; Decls)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the set of delegating constructors known to the</p>
+                                        <p> external Sema source.</p>
+                                    </div>
+                                    <div>
+                                        <p> The external source should append its own delegating constructors to the</p>
+                                        <p> given vector of declarations. Note that this routine may be</p>
+                                        <p> invoked multiple times; the external source should take care not to</p>
+                                        <p> introduce the same declarations repeatedly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 125 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="78BFECF73196A00D0D6BFDE6AEE5F0AA9F388E44">
+                                <pre><code class="language-cpp code-clang-doc">void ReadExtVectorDecls (SmallVectorImpl&lt;TypedefNameDecl *&gt; &amp; Decls)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the set of ext_vector type declarations known to the</p>
+                                        <p> external Sema source.</p>
+                                    </div>
+                                    <div>
+                                        <p> The external source should append its own ext_vector type declarations to</p>
+                                        <p> the given vector of declarations. Note that this routine may be</p>
+                                        <p> invoked multiple times; the external source should take care not to</p>
+                                        <p> introduce the same declarations repeatedly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 135 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="42303521FA57D43280FEA046D78C2AE22C7D4102">
+                                <pre><code class="language-cpp code-clang-doc">void ReadUnusedLocalTypedefNameCandidates (llvm::SmallSetVector&lt;const TypedefNameDecl *, 4&gt; &amp; Decls)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the set of potentially unused typedefs known to the source.</p>
+                                    </div>
+                                    <div>
+                                        <p> The external source should append its own potentially unused local</p>
+                                        <p> typedefs to the given vector of declarations. Note that this routine may</p>
+                                        <p> be invoked multiple times; the external source should take care not to</p>
+                                        <p> introduce the same declarations repeatedly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 143 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="63139FB10A46F87FE39CE9C3583A685BB623B19A">
+                                <pre><code class="language-cpp code-clang-doc">void ReadReferencedSelectors (SmallVectorImpl&lt;std::pair&lt;Selector, SourceLocation&gt;&gt; &amp; Sels)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the set of referenced selectors known to the</p>
+                                        <p> external Sema source.</p>
+                                    </div>
+                                    <div>
+                                        <p> The external source should append its own referenced selectors to the</p>
+                                        <p> given vector of selectors. Note that this routine</p>
+                                        <p> may be invoked multiple times; the external source should take care not</p>
+                                        <p> to introduce the same selectors repeatedly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 153 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B1556386F7F2321C72239564D545DDE2CA4A8680">
+                                <pre><code class="language-cpp code-clang-doc">void ReadWeakUndeclaredIdentifiers (SmallVectorImpl&lt;std::pair&lt;IdentifierInfo *, WeakInfo&gt;&gt; &amp; WI)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the set of weak, undeclared identifiers known to the</p>
+                                        <p> external Sema source.</p>
+                                    </div>
+                                    <div>
+                                        <p> The external source should append its own weak, undeclared identifiers to</p>
+                                        <p> the given vector. Note that this routine may be invoked multiple times;</p>
+                                        <p> the external source should take care not to introduce the same identifiers</p>
+                                        <p> repeatedly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 163 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AE29064539C68B383E8FF009C4E1AE1334D2A321">
+                                <pre><code class="language-cpp code-clang-doc">void ReadUsedVTables (SmallVectorImpl&lt;ExternalVTableUse&gt; &amp; VTables)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the set of used vtables known to the external Sema source.</p>
+                                    </div>
+                                    <div>
+                                        <p> The external source should append its own used vtables to the given</p>
+                                        <p> vector. Note that this routine may be invoked multiple times; the external</p>
+                                        <p> source should take care not to introduce the same vtables repeatedly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 171 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F288AA661C0021DB49AD7E632F52D882FF8A778C">
+                                <pre><code class="language-cpp code-clang-doc">void ReadPendingInstantiations (SmallVectorImpl&lt;std::pair&lt;ValueDecl *, SourceLocation&gt;&gt; &amp; Pending)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the set of pending instantiations known to the external</p>
+                                        <p> Sema source.</p>
+                                    </div>
+                                    <div>
+                                        <p> The external source should append its own pending instantiations to the</p>
+                                        <p> given vector. Note that this routine may be invoked multiple times; the</p>
+                                        <p> external source should take care not to introduce the same instantiations</p>
+                                        <p> repeatedly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 180 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FC2E08ADB3DD5F444AEDDF7A8E4EC86F71F398D5">
+                                <pre><code class="language-cpp code-clang-doc">void ReadLateParsedTemplates (int &amp; LPTMap)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the set of late parsed template functions for this source.</p>
+                                    </div>
+                                    <div>
+                                        <p> The external source should insert its own late parsed template functions</p>
+                                        <p> into the map. Note that this routine may be invoked multiple times; the</p>
+                                        <p> external source should take care not to introduce the same map entries</p>
+                                        <p> repeatedly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 190 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7EDCFF0434B90CA15EBD4DBAA8517DB1E0FA14AA">
+                                <pre><code class="language-cpp code-clang-doc">void ReadLateParsedTemplates (llvm::MapVector&lt;const FunctionDecl *, std::unique_ptr&lt;LateParsedTemplate&gt;&gt; &amp; LPTMap)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the set of late parsed template functions for this source.</p>
+                                    </div>
+                                    <div>
+                                        <p> The external source should insert its own late parsed template functions</p>
+                                        <p> into the map. Note that this routine may be invoked multiple times; the</p>
+                                        <p> external source should take care not to introduce the same map entries</p>
+                                        <p> repeatedly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 190 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DCD0D8469BA83A30B27A55D52BD530DF370C3BFE">
+                                <pre><code class="language-cpp code-clang-doc">void ReadDeclsToCheckForDeferredDiags (llvm::SmallSetVector&lt;Decl *, 4&gt; &amp; Decls)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Read the set of decls to be checked for deferred diags.</p>
+                                    </div>
+                                    <div>
+                                        <p> The external source should append its own potentially emitted function</p>
+                                        <p> and variable decls which may cause deferred diags. Note that this routine</p>
+                                        <p> may be invoked multiple times; the external source should take care not to</p>
+                                        <p> introduce the same declarations repeatedly.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 200 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D6B51D8F5EF764C9BF9608F11EEE165B23EC99E1">
+                                <pre><code class="language-cpp code-clang-doc">TypoCorrection CorrectTypo (const DeclarationNameInfo &amp; Typo, int LookupKind, Scope * S, CXXScopeSpec * SS, CorrectionCandidateCallback &amp; CCC, DeclContext * MemberContext, bool EnteringContext, const ObjCObjectPointerType * OPT)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> ExternalSemaSource::CorrectTypo is always given the first chance to</p>
+                                        <p> correct a typo (really, to offer suggestions to repair a failed lookup).</p>
+                                        <p> It will even be called when SpellChecking is turned off or after a</p>
+                                        <p> fatal error has already been detected.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 210 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C7D7842CCDA4C1C8FF5DE4341CC2F469B9BBC97C">
+                                <pre><code class="language-cpp code-clang-doc">bool MaybeDiagnoseMissingCompleteType (SourceLocation Loc, QualType T)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Produces a diagnostic note if the external source contains a</p>
+                                        <p> complete definition for </p>
+                                    </div>
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>Loc</b>   the location at which a complete type was required but not provided
+                                    </div> 
+                                    <div>
+                                        <b>T</b>   the  that should have been complete at 
+                                    </div> 
+                                    <h3>Returns</h3>
+                                    <p> true if a diagnostic was produced, false otherwise.</p>
+                                </div>
+                                <p>Defined at line 228 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E6DC8C86CDF71AADA06E3E89A24089ABD47C211">
+                                <pre><code class="language-cpp code-clang-doc">void AssignedLambdaNumbering (CXXRecordDecl * Lambda)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Notify the external source that a lambda was assigned a mangling number.</p>
+                                        <p> This enables the external source to track the correspondence between</p>
+                                        <p> lambdas and mangling numbers if necessary.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 236 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8AEBEF3A9C26A001A97E7D6645A05B383726894A">
+                                <pre><code class="language-cpp code-clang-doc">bool isA (const void * ClassID)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> LLVM-style RTTI.</p>
+                                        <p>\</p>
+                                        <p>{</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 240 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="307433927AD65E5EB073DB7A1F6D208C024BE1BE">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const ExternalASTSource * S)</code></pre>
+                                <p>Defined at line 243 of file clang/include/clang/Sema/ExternalSemaSource.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0C74C0C9DEBBF434DCA1008253F1C58B12ABC9A9">
+                                <pre><code class="language-cpp code-clang-doc">void ~ExternalSemaSource ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Pin this vtable to this file.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2624 of file clang/lib/Sema/Sema.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="37ACE21653A8FCAEB3FB4AA62A0524346E71441F">
+                                <pre><code class="language-cpp code-clang-doc">void ReadMethodPool (Selector Sel)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Load the contents of the global method pool for a given</p>
+                                        <p> selector.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2627 of file clang/lib/Sema/Sema.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ACCF1F4F592EDABFE4E24B52EA5E523B5D3A5F58">
+                                <pre><code class="language-cpp code-clang-doc">void updateOutOfDateSelector (Selector Sel)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Load the contents of the global method pool for a given</p>
+                                        <p> selector if necessary.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2628 of file clang/lib/Sema/Sema.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="003862818CAAE4B00A15C57064BB8FDF9E46B067">
+                                <pre><code class="language-cpp code-clang-doc">void ReadKnownNamespaces (SmallVectorImpl&lt;NamespaceDecl *&gt; &amp; Namespaces)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Load the set of namespaces that are known to the external source,</p>
+                                        <p> which will be used during typo correction.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2630 of file clang/lib/Sema/Sema.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="74EB4C4F3F648B1C60CB7036329F249EB833A0FC">
+                                <pre><code class="language-cpp code-clang-doc">void ReadUndefinedButUsed (llvm::MapVector&lt;NamedDecl *, SourceLocation&gt; &amp; Undefined)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Load the set of used but not defined functions or variables with</p>
+                                        <p> internal linkage, or used but not defined internal functions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2634 of file clang/lib/Sema/Sema.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E10A7A5BC655F4A6C3F7F0F34F26FC571F3029AD">
+                                <pre><code class="language-cpp code-clang-doc">void ReadUndefinedButUsed (int &amp; Undefined)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Load the set of used but not defined functions or variables with</p>
+                                        <p> internal linkage, or used but not defined internal functions.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8FA2C7B8DA85AA799412D23C2E43FA5BF9FCD7A3">
+                                <pre><code class="language-cpp code-clang-doc">void ReadMismatchingDeleteExpressions (llvm::MapVector&lt;FieldDecl *, llvm::SmallVector&lt;std::pair&lt;SourceLocation, bool&gt;, 4&gt;&gt; &amp; )</code></pre>
+                                <p>Defined at line 2637 of file clang/lib/Sema/Sema.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A545C48FFDE74E65B89F936A1174406470AD42FE">
+                                <pre><code class="language-cpp code-clang-doc">void ReadMismatchingDeleteExpressions (int &amp; )</code></pre>
+                                <p>Defined at line  of file </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

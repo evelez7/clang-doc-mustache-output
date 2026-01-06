@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>InterpState</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class InterpState</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#P">P</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#Stk">Stk</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#Ctx">Ctx</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#BottomFrame">BottomFrame</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#Current">Current</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#EvalLocation">EvalLocation</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#EvaluatingDecl">EvaluatingDecl</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#PrevDiags">PrevDiags</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#SpeculationDepth">SpeculationDepth</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#ConstantContextOverride">ConstantContextOverride</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#SeenGlobalTemporaries">SeenGlobalTemporaries</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#InitializingBlocks">InitializingBlocks</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#Allocator">Allocator</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9599314EA3F2BB5E37936295FBA0637CF8263AB4">InterpState</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#54E191B018BBA538B5FA4AAE1E7AC4F33169AF37">InterpState</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#8FCA2FE9E39CB6A948D16E413F4F39E0E3ED5691">~InterpState</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#584C7BCFF044E6E89AB4734A616B7A54397923FC">cleanup</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#AD5F551546A8F35765F00F83D3F84FC474BB819E">getCurrentFrame</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#79E6010EE7B168B02D100967F8A126B945AEC6DF">inConstantContext</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#91DE66E94DD22558CFF0E9F934E398F63E5E66CE">InterpState</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#457F7A2352DEDCC1862A0E5476E88B03D482D100">operator=</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#B5298209C4AC03BF68215C4CF815FFFD58B7ED58">diagnosing</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#73F6D195FAD2EB95F9203A68CF8EF65A703F3B7C">getCallStackDepth</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#C182E647289CAC7BC30B6457A627FC918386165B">getBottomFrame</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#71C20001711C27B47AB1A00705ECBB544C9758BA">getEvalStatus</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D1AE848CDE23F34D6749B7A63286F5B82C7560E5">getASTContext</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#CAAC5F5EFEDCDA016561A9819A51F9F50990869F">getLangOpts</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#96072E661E7E9D09177DB8B71EB1861EAB05749B">keepEvaluatingAfterFailure</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#4BC0F194AE45EBB8A55E9ACC3DCF18AD988766DF">keepEvaluatingAfterSideEffect</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#69663643A51A8E61080483D1A92B687AE1A01026">deallocate</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#2503181746725BF1C01A9925EA0B89685CFB8659">noteUndefinedBehavior</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#F4948DEED29C118DA472B31FFD63BBE52B903D56">hasActiveDiagnostic</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D25E797617DEC1A620B95F3D1818F2D1DE8BF556">setActiveDiagnostic</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#2424393E9E67D4E022364D99F3592309C2F03D04">setFoldFailureDiagnostic</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#EE0EA8364981B35D4757CE921DF3393867F2F84F">hasPriorDiagnostic</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5C670BC72DC6FC96E5990FB6436DA7EF899E2F33">noteSideEffect</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9F9BEF176447CF718607803FC90F92BA75C15EE4">getSource</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#E33E7F03FAA25050778BD66AD174B8A4C959289C">getContext</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#2B4A12DC848C94E91D143210A9C1E04773E2C71A">maybeDiagnoseDanglingAllocations</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#4322FC6956463D40EBC6E89E44297C89018B7D7C">setEvalLocation</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9ACEAB6CB62B0D7C639BB2B7439BAC4041CFCF20">getAllocator</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#EBF0AA5515EC928B46E856ABE11D0440287A6BB5">allocate</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#F785E54B0089C72E5441319A7D3D5C8F04319845">getStdAllocatorCaller</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#0B24A92A42A4748504DFF75AD1E77CEB8696A6E7">allocate</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#3E35F97FB183B5216ED7DD7F7BB48D2980C8B935">allocAP</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5B7CE4523D945283AD1E4A311A486B36EE79C52A">allocFloat</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Friends">Friends</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#F5476127463E0BC26DB46FAC5CD13328726E11C8">InterpStateCCOverride</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9FDBEEDF0DF655E397DEC85991BE7E320F9B2D56">EvaluationResult</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class InterpState</h1>
+                        <p>Defined at line 43 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Interpreter context.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="P" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Program &amp; P</code></pre>
+                        </div>
+                        <div id="Stk" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >InterpStack &amp; Stk</code></pre>
+                        </div>
+                        <div id="Ctx" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Context &amp; Ctx</code></pre>
+                        </div>
+                        <div id="BottomFrame" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >InterpFrame BottomFrame</code></pre>
+                        </div>
+                        <div id="Current" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >InterpFrame * Current</code></pre>
+                        </div>
+                        <div id="EvalLocation" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SourceLocation EvalLocation</code></pre>
+                        </div>
+                        <div id="EvaluatingDecl" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >const VarDecl * EvaluatingDecl</code></pre>
+                        </div>
+                        <div id="PrevDiags" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVectorImpl&lt;PartialDiagnosticAt&gt; * PrevDiags</code></pre>
+                        </div>
+                        <div id="SpeculationDepth" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int SpeculationDepth</code></pre>
+                        </div>
+                        <div id="ConstantContextOverride" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >optional ConstantContextOverride</code></pre>
+                        </div>
+                        <div id="SeenGlobalTemporaries" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector SeenGlobalTemporaries</code></pre>
+                        </div>
+                        <div id="InitializingBlocks" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector InitializingBlocks</code></pre>
+                        </div>
+                        <div id="Allocator" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >optional Allocator</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="9599314EA3F2BB5E37936295FBA0637CF8263AB4">
+                                <pre><code class="language-cpp code-clang-doc">void InterpState (State &amp; Parent, Program &amp; P, InterpStack &amp; Stk, Context &amp; Ctx, SourceMapper * M)</code></pre>
+                                <p>Defined at line 20 of file clang/lib/AST/ByteCode/InterpState.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="54E191B018BBA538B5FA4AAE1E7AC4F33169AF37">
+                                <pre><code class="language-cpp code-clang-doc">void InterpState (State &amp; Parent, Program &amp; P, InterpStack &amp; Stk, Context &amp; Ctx, const Function * Func)</code></pre>
+                                <p>Defined at line 31 of file clang/lib/AST/ByteCode/InterpState.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8FCA2FE9E39CB6A948D16E413F4F39E0E3ED5691">
+                                <pre><code class="language-cpp code-clang-doc">void ~InterpState ()</code></pre>
+                                <p>Defined at line 50 of file clang/lib/AST/ByteCode/InterpState.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="584C7BCFF044E6E89AB4734A616B7A54397923FC">
+                                <pre><code class="language-cpp code-clang-doc">void cleanup ()</code></pre>
+                                <p>Defined at line 71 of file clang/lib/AST/ByteCode/InterpState.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="AD5F551546A8F35765F00F83D3F84FC474BB819E">
+                                <pre><code class="language-cpp code-clang-doc">Frame * getCurrentFrame ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Stack frame accessors.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 78 of file clang/lib/AST/ByteCode/InterpState.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="79E6010EE7B168B02D100967F8A126B945AEC6DF">
+                                <pre><code class="language-cpp code-clang-doc">bool inConstantContext ()</code></pre>
+                                <p>Defined at line 43 of file clang/lib/AST/ByteCode/InterpState.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="91DE66E94DD22558CFF0E9F934E398F63E5E66CE">
+                                <pre><code class="language-cpp code-clang-doc">void InterpState (const InterpState &amp; )</code></pre>
+                                <p>Defined at line 54 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="457F7A2352DEDCC1862A0E5476E88B03D482D100">
+                                <pre><code class="language-cpp code-clang-doc">InterpState &amp; operator= (const InterpState &amp; )</code></pre>
+                                <p>Defined at line 55 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B5298209C4AC03BF68215C4CF815FFFD58B7ED58">
+                                <pre><code class="language-cpp code-clang-doc">bool diagnosing ()</code></pre>
+                                <p>Defined at line 57 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="73F6D195FAD2EB95F9203A68CF8EF65A703F3B7C">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getCallStackDepth ()</code></pre>
+                                <p>Defined at line 61 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C182E647289CAC7BC30B6457A627FC918386165B">
+                                <pre><code class="language-cpp code-clang-doc">const Frame * getBottomFrame ()</code></pre>
+                                <p>Defined at line 64 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="71C20001711C27B47AB1A00705ECBB544C9758BA">
+                                <pre><code class="language-cpp code-clang-doc">Expr::EvalStatus &amp; getEvalStatus ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Access objects from the walker context.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 67 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D1AE848CDE23F34D6749B7A63286F5B82C7560E5">
+                                <pre><code class="language-cpp code-clang-doc">ASTContext &amp; getASTContext ()</code></pre>
+                                <p>Defined at line 70 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CAAC5F5EFEDCDA016561A9819A51F9F50990869F">
+                                <pre><code class="language-cpp code-clang-doc">const LangOptions &amp; getLangOpts ()</code></pre>
+                                <p>Defined at line 71 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="96072E661E7E9D09177DB8B71EB1861EAB05749B">
+                                <pre><code class="language-cpp code-clang-doc">bool keepEvaluatingAfterFailure ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Forward status checks and updates to the walker.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 76 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4BC0F194AE45EBB8A55E9ACC3DCF18AD988766DF">
+                                <pre><code class="language-cpp code-clang-doc">bool keepEvaluatingAfterSideEffect ()</code></pre>
+                                <p>Defined at line 79 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="69663643A51A8E61080483D1A92B687AE1A01026">
+                                <pre><code class="language-cpp code-clang-doc">void deallocate (Block * B)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Deallocates a pointer.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 80 of file clang/lib/AST/ByteCode/InterpState.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2503181746725BF1C01A9925EA0B89685CFB8659">
+                                <pre><code class="language-cpp code-clang-doc">bool noteUndefinedBehavior ()</code></pre>
+                                <p>Defined at line 82 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F4948DEED29C118DA472B31FFD63BBE52B903D56">
+                                <pre><code class="language-cpp code-clang-doc">bool hasActiveDiagnostic ()</code></pre>
+                                <p>Defined at line 86 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D25E797617DEC1A620B95F3D1818F2D1DE8BF556">
+                                <pre><code class="language-cpp code-clang-doc">void setActiveDiagnostic (bool Flag)</code></pre>
+                                <p>Defined at line 87 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2424393E9E67D4E022364D99F3592309C2F03D04">
+                                <pre><code class="language-cpp code-clang-doc">void setFoldFailureDiagnostic (bool Flag)</code></pre>
+                                <p>Defined at line 90 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EE0EA8364981B35D4757CE921DF3393867F2F84F">
+                                <pre><code class="language-cpp code-clang-doc">bool hasPriorDiagnostic ()</code></pre>
+                                <p>Defined at line 93 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5C670BC72DC6FC96E5990FB6436DA7EF899E2F33">
+                                <pre><code class="language-cpp code-clang-doc">bool noteSideEffect ()</code></pre>
+                                <p>Defined at line 94 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9F9BEF176447CF718607803FC90F92BA75C15EE4">
+                                <pre><code class="language-cpp code-clang-doc">SourceInfo getSource (const Function * F, CodePtr PC)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Delegates source mapping to the mapper.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 100 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E33E7F03FAA25050778BD66AD174B8A4C959289C">
+                                <pre><code class="language-cpp code-clang-doc">Context &amp; getContext ()</code></pre>
+                                <p>Defined at line 108 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2B4A12DC848C94E91D143210A9C1E04773E2C71A">
+                                <pre><code class="language-cpp code-clang-doc">bool maybeDiagnoseDanglingAllocations ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Diagnose any dynamic allocations that haven&#39;t been freed yet.</p>
+                                        <p> Will return </p>
+                                        <p> if there were any allocations to diagnose,</p>
+                                        <p> otherwise.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 108 of file clang/lib/AST/ByteCode/InterpState.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="4322FC6956463D40EBC6E89E44297C89018B7D7C">
+                                <pre><code class="language-cpp code-clang-doc">void setEvalLocation (SourceLocation SL)</code></pre>
+                                <p>Defined at line 110 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9ACEAB6CB62B0D7C639BB2B7439BAC4041CFCF20">
+                                <pre><code class="language-cpp code-clang-doc">DynamicAllocator &amp; getAllocator ()</code></pre>
+                                <p>Defined at line 112 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EBF0AA5515EC928B46E856ABE11D0440287A6BB5">
+                                <pre><code class="language-cpp code-clang-doc">void * allocate (size_t Size, unsigned int Align)</code></pre>
+                                <p>Defined at line 127 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F785E54B0089C72E5441319A7D3D5C8F04319845">
+                                <pre><code class="language-cpp code-clang-doc">StdAllocatorCaller getStdAllocatorCaller (StringRef Name)</code></pre>
+                                <p>Defined at line 127 of file clang/lib/AST/ByteCode/InterpState.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0B24A92A42A4748504DFF75AD1E77CEB8696A6E7">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">T * allocate (size_t Num)</code></pre>
+                                <p>Defined at line 132 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3E35F97FB183B5216ED7DD7F7BB48D2980C8B935">
+                                <pre><code class="language-cpp code-clang-doc">template &lt;typename T&gt;</code></pre>
+                                <pre><code class="language-cpp code-clang-doc">T allocAP (unsigned int BitWidth)</code></pre>
+                                <p>Defined at line 136 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5B7CE4523D945283AD1E4A311A486B36EE79C52A">
+                                <pre><code class="language-cpp code-clang-doc">Floating allocFloat (const llvm::fltSemantics &amp; Sem)</code></pre>
+                                <p>Defined at line 145 of file clang/lib/AST/ByteCode/InterpState.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="F5476127463E0BC26DB46FAC5CD13328726E11C8" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class InterpStateCCOverride</code></pre>
+                        <div>
+                            <p> Interpreter context.</p>
+                        </div>
+                    </div>
+                    <div id="9FDBEEDF0DF655E397DEC85991BE7E320F9B2D56" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class EvaluationResult</code></pre>
+                        <div>
+                            <p> Interpreter context.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

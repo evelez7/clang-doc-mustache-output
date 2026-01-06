@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LocalVariableMap</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LocalVariableMap</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#550A563472391046D8E9A4C7A83C10243AD473B7">LocalVariableMap</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#0E396A55A6CDFC186348BDA39D48EE78E1EAA77D">lookup</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#274E902F295701956963A84B37F37BA61B6D6F87">lookupExpr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#45AC2FB6B4E188CD185608554D620C0CFE0D40C0">getEmptyContext</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#6D3F86ECBF0AAC5789B35A16A78F0D8BC7E02978">getNextContext</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#96393FEE22E2CD020968CBDF1CEF0FA0CE3D3BA5">dumpVarDefinitionName</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#3AE87E96B511CFACD10E6973910275F30F833AC1">dump</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#CE150B01F807177E409ED50943981C5A69C22B50">dumpContext</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#8581852B4A81582000F866326B252739BF158CF8">traverseCFG</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Typedefs">Typedefs</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#FF17B9A0DF5173889AB5B22C6E37D38FC80F421B">Context</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9023E44AD3FD9483ED239CD7D629B527731501F6">VarDefinition</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Friends">Friends</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#177802DF4A1103950EEF6BEC86A22F41076702ED">VarMapBuilder</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LocalVariableMap</h1>
+                        <p>Defined at line 405 of file clang/lib/Analysis/ThreadSafety.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A LocalVariableMap maintains a map from local variables to their currently</p>
+                                <p> valid definitions.  It provides SSA-like functionality when traversing the</p>
+                                <p> CFG.  Like SSA, each definition or assignment to a variable is assigned a</p>
+                                <p> unique name (an integer), which acts as the SSA name for that definition.</p>
+                                <p> The total set of names is shared among all CFG basic blocks.</p>
+                                <p> Unlike SSA, we do not rewrite expressions to replace local variables declrefs</p>
+                                <p> with their SSA-names.  Instead, we compute a Context for each point in the</p>
+                                <p> code, which maps local variables to the appropriate SSA-name.  This map</p>
+                                <p> changes with each assignment.</p>
+                            </div>
+                            <div>
+                                <p> The map is computed in a single pass over the CFG.  Subsequent analyses can</p>
+                                <p> then query the map to find the appropriate Context for a statement, and use</p>
+                                <p> that Context to look up the definitions of variables.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="550A563472391046D8E9A4C7A83C10243AD473B7">
+                                <pre><code class="language-cpp code-clang-doc">void LocalVariableMap ()</code></pre>
+                                <p>Defined at line 453 of file clang/lib/Analysis/ThreadSafety.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0E396A55A6CDFC186348BDA39D48EE78E1EAA77D">
+                                <pre><code class="language-cpp code-clang-doc">const VarDefinition * lookup (const NamedDecl * D, Context Ctx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Look up a definition, within the given context.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 459 of file clang/lib/Analysis/ThreadSafety.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="274E902F295701956963A84B37F37BA61B6D6F87">
+                                <pre><code class="language-cpp code-clang-doc">const Expr * lookupExpr (const NamedDecl * D, Context &amp; Ctx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Look up the definition for D within the given context.  Returns</p>
+                                        <p> NULL if the expression is not statically known.  If successful, also</p>
+                                        <p> modifies Ctx to hold the context of the return Expr.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 470 of file clang/lib/Analysis/ThreadSafety.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="45AC2FB6B4E188CD185608554D620C0CFE0D40C0">
+                                <pre><code class="language-cpp code-clang-doc">Context getEmptyContext ()</code></pre>
+                                <p>Defined at line 486 of file clang/lib/Analysis/ThreadSafety.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="6D3F86ECBF0AAC5789B35A16A78F0D8BC7E02978">
+                                <pre><code class="language-cpp code-clang-doc">Context getNextContext (unsigned int &amp; CtxIndex, const Stmt * S, Context C)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Return the next context after processing S.  This function is used by</p>
+                                        <p> clients of the class to get the appropriate context when traversing the</p>
+                                        <p> CFG.  It must be called for every assignment or DeclStmt.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 491 of file clang/lib/Analysis/ThreadSafety.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="96393FEE22E2CD020968CBDF1CEF0FA0CE3D3BA5">
+                                <pre><code class="language-cpp code-clang-doc">void dumpVarDefinitionName (unsigned int i)</code></pre>
+                                <p>Defined at line 500 of file clang/lib/Analysis/ThreadSafety.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3AE87E96B511CFACD10E6973910275F30F833AC1">
+                                <pre><code class="language-cpp code-clang-doc">void dump ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Dumps an ASCII representation of the variable map to llvm::errs()</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 515 of file clang/lib/Analysis/ThreadSafety.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CE150B01F807177E409ED50943981C5A69C22B50">
+                                <pre><code class="language-cpp code-clang-doc">void dumpContext (Context C)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Dumps an ASCII representation of a Context to llvm::errs()</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 531 of file clang/lib/Analysis/ThreadSafety.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8581852B4A81582000F866326B252739BF158CF8">
+                                <pre><code class="language-cpp code-clang-doc">void traverseCFG (CFG * CFGraph, const PostOrderCFGView * SortedGraph, std::vector&lt;CFGBlockInfo&gt; &amp; BlockInfo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Builds the variable map.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 828 of file clang/lib/Analysis/ThreadSafety.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="9023E44AD3FD9483ED239CD7D629B527731501F6" style="max-height: 40px;">
+                            <a href="LocalVariableMap/_ZTVN12_GLOBAL__N_116LocalVariableMap13VarDefinitionE.html">
+                                <pre><code class="language-cpp code-clang-doc">class VarDefinition</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section id="Typedefs" class="section-container">
+                    <h2>Typedefs</h2>
+                    <div id="FF17B9A0DF5173889AB5B22C6E37D38FC80F421B" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">using Context = ImmutableMap</code></pre>
+                        <p>Defined at line 407 of file clang/lib/Analysis/ThreadSafety.cpp</p>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="177802DF4A1103950EEF6BEC86A22F41076702ED" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class VarMapBuilder</code></pre>
+                        <div>
+                            <p> Visitor which builds a LocalVariableMap</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

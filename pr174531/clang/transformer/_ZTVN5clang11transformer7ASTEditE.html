@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ASTEdit</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct ASTEdit</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#Kind">Kind</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#TargetRange">TargetRange</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#Replacement">Replacement</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#Note">Note</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#Metadata">Metadata</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct ASTEdit</h1>
+                        <p>Defined at line 107 of file clang/include/clang/Tooling/Transformer/RewriteRule.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Description of a source-code edit, expressed in terms of an AST node.</p>
+                                <p> Includes: an ID for the (bound) node, a selector for source related to the</p>
+                                <p> node, a replacement and, optionally, an explanation for the edit.</p>
+                            </div>
+                            <div>
+                                <p> * Target: the source code impacted by the rule. This identifies an AST node,</p>
+                                <p>   or part thereof (</p>
+                                <p> whose source range indicates the extent of the</p>
+                                <p>   replacement applied by the replacement term.  By default, the extent is the</p>
+                                <p>   node matched by the pattern term (</p>
+                                <p> Target&#39;s are typed</p>
+                                <p>   (</p>
+                                <p> which guides the determination of the node extent.</p>
+                            </div>
+                            <div>
+                                <p> * Replacement: a function that produces a replacement string for the target,</p>
+                                <p>   based on the match result.</p>
+                            </div>
+                            <div>
+                                <p> * Note: (optional) a note specifically for this edit, potentially referencing</p>
+                                <p>   elements of the match.  This will be displayed to the user, where possible;</p>
+                                <p>   for example, in clang-tidy diagnostics.  Use of notes should be rare --</p>
+                                <p>   explanations of the entire rewrite should be set in the rule</p>
+                                <p>   (`RewriteRule::Explanation`) instead.  Notes serve the rare cases wherein</p>
+                                <p>   edit-specific diagnostics are required.</p>
+                            </div>
+                            <div>
+                                <p> `ASTEdit` should be built using the `change` convenience functions. For</p>
+                                <p> example,</p>
+                            </div>
+                            <div>
+                                <p> Or, if we use Stencil for the TextGenerator:</p>
+                            </div>
+                            <div>
+                                <p> Or, if you are changing the node corresponding to the rule&#39;s matcher, you can</p>
+                                <p> use the single-argument override of </p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                           changeTo(name(fun), cat(&quot;Frodo&quot;))
+                                    </code>
+                                </pre>
+                            </div>
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                           using stencil::cat;
+                                           changeTo(statement(thenNode), cat(&quot;{&quot;, thenNode, &quot;}&quot;))
+                                           changeTo(callArgs(call), cat(x, &quot;,&quot;, y))
+                                    </code>
+                                </pre>
+                            </div>
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                           changeTo(cat(&quot;different_expr&quot;))
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Kind" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >EditKind Kind</code></pre>
+                        </div>
+                        <div id="TargetRange" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >function TargetRange</code></pre>
+                        </div>
+                        <div id="Replacement" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >shared_ptr Replacement</code></pre>
+                        </div>
+                        <div id="Note" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >shared_ptr Note</code></pre>
+                        </div>
+                        <div id="Metadata" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >function Metadata</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>TypeConstraint</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class TypeConstraint</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#FA36290D7C2ADD599520662457568230B891523F">TypeConstraint</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#C2D3FFA3E02CDB54A4A72E02215119F689DE3132">getImmediatelyDeclaredConstraint</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#FF813E907D002E744914F01DF9FF0077A5819BCC">getConceptReference</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7A7F1CADAF3DB52B16F6A55BE7483F7B735BE9B3">getArgPackSubstIndex</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#08FB4547C56AF28510BF816E7A52622EBE440E7F">getNamedConcept</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#680AAFCC817A42F61B22D065062145203E5604BF">getConceptNameLoc</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#3DF34F5BA206CAAC6EEFDA3ACD910B08A42F2BB2">hasExplicitTemplateArgs</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#EA74CAD2C933F9F041FF79F19357F8BCE85AC59A">getTemplateArgsAsWritten</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#63CCD96F55D75D45A2C47D30E64557EE6DEEF715">getTemplateKWLoc</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9CDB1BAA19097935A49FE641709A99AE195EE4EB">getFoundDecl</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7B7CEA1544587204ABAD1BEFD25B20026C1EEB63">getNestedNameSpecifierLoc</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#8961A3CE0D0E36B8D3934D4B2BA673325A026BF9">getConceptNameInfo</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#C71B288B9DB680F24E744B649D8715036E77A39F">print</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class TypeConstraint</h1>
+                        <p>Defined at line 227 of file clang/include/clang/AST/ASTConcept.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Models the abbreviated syntax to constrain a template type parameter:</p>
+                                <p>   template </p>
+                                <p>&lt;convertible</p>
+                                <p>_to</p>
+                                <p>&lt;string</p>
+                                <p>&gt; T&gt; void print(T object);</p>
+                                <p>             ~~~~~~~~~~~~~~~~~~~~~~</p>
+                                <p> Semantically, this adds an &quot;immediately-declared constraint&quot; with extra arg:</p>
+                                <p>    requires convertible_to</p>
+                                <p>&lt;T</p>
+                                <p>, string&gt;</p>
+                            </div>
+                            <div>
+                                <p> In the C++ grammar, a type-constraint is also used for auto types:</p>
+                                <p>    convertible_to</p>
+                                <p>&lt;string</p>
+                                <p>&gt; auto X = ...;</p>
+                                <p> We do *not* model these as TypeConstraints, but AutoType(Loc) directly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="FA36290D7C2ADD599520662457568230B891523F">
+                                <pre><code class="language-cpp code-clang-doc">void TypeConstraint (ConceptReference * ConceptRef, Expr * ImmediatelyDeclaredConstraint, UnsignedOrNone ArgPackSubstIndex)</code></pre>
+                                <p>Defined at line 235 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C2D3FFA3E02CDB54A4A72E02215119F689DE3132">
+                                <pre><code class="language-cpp code-clang-doc">Expr * getImmediatelyDeclaredConstraint ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the immediately-declared constraint expression introduced by</p>
+                                        <p> this type-constraint, that is - the constraint expression that is added to</p>
+                                        <p> the associated constraints of the enclosing declaration in practice.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 244 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF813E907D002E744914F01DF9FF0077A5819BCC">
+                                <pre><code class="language-cpp code-clang-doc">ConceptReference * getConceptReference ()</code></pre>
+                                <p>Defined at line 248 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7A7F1CADAF3DB52B16F6A55BE7483F7B735BE9B3">
+                                <pre><code class="language-cpp code-clang-doc">UnsignedOrNone getArgPackSubstIndex ()</code></pre>
+                                <p>Defined at line 250 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="08FB4547C56AF28510BF816E7A52622EBE440E7F">
+                                <pre><code class="language-cpp code-clang-doc">TemplateDecl * getNamedConcept ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> FIXME: Instead of using these concept related functions the callers should</p>
+                                        <p> directly work with the corresponding ConceptReference.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 254 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="680AAFCC817A42F61B22D065062145203E5604BF">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getConceptNameLoc ()</code></pre>
+                                <p>Defined at line 258 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3DF34F5BA206CAAC6EEFDA3ACD910B08A42F2BB2">
+                                <pre><code class="language-cpp code-clang-doc">bool hasExplicitTemplateArgs ()</code></pre>
+                                <p>Defined at line 262 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EA74CAD2C933F9F041FF79F19357F8BCE85AC59A">
+                                <pre><code class="language-cpp code-clang-doc">const ASTTemplateArgumentListInfo * getTemplateArgsAsWritten ()</code></pre>
+                                <p>Defined at line 266 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="63CCD96F55D75D45A2C47D30E64557EE6DEEF715">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getTemplateKWLoc ()</code></pre>
+                                <p>Defined at line 270 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9CDB1BAA19097935A49FE641709A99AE195EE4EB">
+                                <pre><code class="language-cpp code-clang-doc">NamedDecl * getFoundDecl ()</code></pre>
+                                <p>Defined at line 274 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7B7CEA1544587204ABAD1BEFD25B20026C1EEB63">
+                                <pre><code class="language-cpp code-clang-doc">const NestedNameSpecifierLoc &amp; getNestedNameSpecifierLoc ()</code></pre>
+                                <p>Defined at line 276 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8961A3CE0D0E36B8D3934D4B2BA673325A026BF9">
+                                <pre><code class="language-cpp code-clang-doc">const DeclarationNameInfo &amp; getConceptNameInfo ()</code></pre>
+                                <p>Defined at line 280 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="C71B288B9DB680F24E744B649D8715036E77A39F">
+                                <pre><code class="language-cpp code-clang-doc">void print (llvm::raw_ostream &amp; OS, const PrintingPolicy &amp; Policy)</code></pre>
+                                <p>Defined at line 284 of file clang/include/clang/AST/ASTConcept.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

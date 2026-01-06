@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DeclRefFinder</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class DeclRefFinder</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5E7BDEAF4589BB4E3CB64E793CA70F028E64BE96">find</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#DF911CDE284702532A9A21D5C5961CA2891C8C2C">VisitDeclRefExpr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#FD73612852F121322467888196D746F1DAEA770F">VisitUnaryOperator</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#17D2F3E25964AD4D04097B37BA7312E13E48B11F">VisitBinaryOperator</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#24CC4EE560C105197A7ADF9A412EC33C20183EB4">VisitOpaqueValueExpr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#989DD8B37B3BE8F9A306078A1E97EFF8F8176B73">VisitCallExpr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5415867D3E50B8A13A339E12DCE49BB56857CF80">VisitExpr</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class DeclRefFinder</h1>
+                        <p>Defined at line 282 of file clang/lib/Analysis/CalledOnceCheck.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A simple class that finds DeclRefExpr in the given expression.</p>
+                            </div>
+                            <div>
+                                <p> However, we don&#39;t want to find ANY nested DeclRefExpr skipping whatever</p>
+                                <p> expressions on our way.  Only certain expressions considered &quot;no-op&quot;</p>
+                                <p> for our task are indeed skipped.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="5E7BDEAF4589BB4E3CB64E793CA70F028E64BE96">
+                                <pre><code class="language-cpp code-clang-doc">const DeclRefExpr * find (const Expr * E, bool ShouldRetrieveFromComparisons)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Find a DeclRefExpr in the given expression.</p>
+                                    </div>
+                                    <div>
+                                        <p> In its most basic form (ShouldRetrieveFromComparisons == false),</p>
+                                        <p> this function can be simply reduced to the following question:</p>
+                                    </div>
+                                    <div>
+                                        <p>   - If expression E is used as a function argument, could we say</p>
+                                        <p>     that DeclRefExpr nested in E is used as an argument?</p>
+                                    </div>
+                                    <div>
+                                        <p> According to this rule, we can say that parens, casts and dereferencing</p>
+                                        <p> (dereferencing only applied to function pointers, but this is our case)</p>
+                                        <p> can be skipped.</p>
+                                    </div>
+                                    <div>
+                                        <p> When we should look into comparisons the question changes to:</p>
+                                    </div>
+                                    <div>
+                                        <p>   - If expression E is used as a condition, could we say that</p>
+                                        <p>     DeclRefExpr is being checked?</p>
+                                    </div>
+                                    <div>
+                                        <p> And even though, these are two different questions, they have quite a lot</p>
+                                        <p> in common.  Actually, we can say that whatever expression answers</p>
+                                        <p> positively the first question also fits the second question as well.</p>
+                                    </div>
+                                    <div>
+                                        <p> In addition, we skip binary operators == and !=, and unary opeartor !.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 307 of file clang/lib/Analysis/CalledOnceCheck.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DF911CDE284702532A9A21D5C5961CA2891C8C2C">
+                                <pre><code class="language-cpp code-clang-doc">const DeclRefExpr * VisitDeclRefExpr (const DeclRefExpr * DR)</code></pre>
+                                <p>Defined at line 312 of file clang/lib/Analysis/CalledOnceCheck.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FD73612852F121322467888196D746F1DAEA770F">
+                                <pre><code class="language-cpp code-clang-doc">const DeclRefExpr * VisitUnaryOperator (const UnaryOperator * UO)</code></pre>
+                                <p>Defined at line 314 of file clang/lib/Analysis/CalledOnceCheck.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="17D2F3E25964AD4D04097B37BA7312E13E48B11F">
+                                <pre><code class="language-cpp code-clang-doc">const DeclRefExpr * VisitBinaryOperator (const BinaryOperator * BO)</code></pre>
+                                <p>Defined at line 331 of file clang/lib/Analysis/CalledOnceCheck.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="24CC4EE560C105197A7ADF9A412EC33C20183EB4">
+                                <pre><code class="language-cpp code-clang-doc">const DeclRefExpr * VisitOpaqueValueExpr (const OpaqueValueExpr * OVE)</code></pre>
+                                <p>Defined at line 346 of file clang/lib/Analysis/CalledOnceCheck.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="989DD8B37B3BE8F9A306078A1E97EFF8F8176B73">
+                                <pre><code class="language-cpp code-clang-doc">const DeclRefExpr * VisitCallExpr (const CallExpr * CE)</code></pre>
+                                <p>Defined at line 350 of file clang/lib/Analysis/CalledOnceCheck.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="5415867D3E50B8A13A339E12DCE49BB56857CF80">
+                                <pre><code class="language-cpp code-clang-doc">const DeclRefExpr * VisitExpr (const Expr * E)</code></pre>
+                                <p>Defined at line 373 of file clang/lib/Analysis/CalledOnceCheck.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

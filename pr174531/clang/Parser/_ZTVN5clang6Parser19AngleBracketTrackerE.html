@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>AngleBracketTracker</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct AngleBracketTracker</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#Locs">Locs</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#8A0F1357DFAF3B1D3ECDD889F631945892DD6E00">add</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#13A25D57F800176CF59F10C55D5C04E5C9C6FE72">clear</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#1D1240F39576C7302A7CD9E46CBE5853C55EF95F">getCurrent</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Enums">Enums</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7E5700BDC19DDF899DC39B55133C1E32FEC29604">Priority</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#893534A49D387DAB337D207E5C101CDCCA3EE94E">Loc</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct AngleBracketTracker</h1>
+                        <p>Defined at line 7867 of file clang/include/clang/Parse/Parser.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Tracker for &#39;</p>
+                                <p>&lt;</p>
+                                <p>&#39; tokens that might have been intended to be treated as an</p>
+                                <p> angle bracket instead of a less-than comparison.</p>
+                            </div>
+                            <div>
+                                <p> This happens when the user intends to form a template-id, but typoes the</p>
+                                <p> template-name or forgets a &#39;template&#39; keyword for a dependent template</p>
+                                <p> name.</p>
+                            </div>
+                            <div>
+                                <p> We track these locations from the point where we see a &#39;</p>
+                                <p>&lt;</p>
+                                <p>&#39; with a</p>
+                                <p> name-like expression on its left until we see a &#39;&gt;&#39; or &#39;&gt;&gt;&#39; that might</p>
+                                <p> match it.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Locs" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SmallVector Locs</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="8A0F1357DFAF3B1D3ECDD889F631945892DD6E00">
+                                <pre><code class="language-cpp code-clang-doc">void add (Parser &amp; P, Expr * TemplateName, SourceLocation LessLoc, Priority Prio)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Add an expression that might have been intended to be a template name.</p>
+                                        <p> In the case of ambiguity, we arbitrarily select the innermost such</p>
+                                        <p> expression, for example in &#39;foo </p>
+                                        <p>&lt;</p>
+                                        <p> bar </p>
+                                        <p>&lt;</p>
+                                        <p> baz&#39;, &#39;bar&#39; is the current</p>
+                                        <p> candidate. No attempt is made to track that &#39;foo&#39; is also a candidate</p>
+                                        <p> for the case where we see a second suspicious &#39;&gt;&#39; token.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 7908 of file clang/include/clang/Parse/Parser.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="13A25D57F800176CF59F10C55D5C04E5C9C6FE72">
+                                <pre><code class="language-cpp code-clang-doc">void clear (Parser &amp; P)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Mark the current potential missing template location as having been</p>
+                                        <p> handled (this happens if we pass a &quot;corresponding&quot; &#39;&gt;&#39; or &#39;&gt;&gt;&#39; token</p>
+                                        <p> or leave a bracket scope).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 7925 of file clang/include/clang/Parse/Parser.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1D1240F39576C7302A7CD9E46CBE5853C55EF95F">
+                                <pre><code class="language-cpp code-clang-doc">Loc * getCurrent (Parser &amp; P)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Get the current enclosing expression that might hve been intended to be</p>
+                                        <p> a template name.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 7932 of file clang/include/clang/Parse/Parser.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div id="7E5700BDC19DDF899DC39B55133C1E32FEC29604" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum Priority</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>PotentialTypo</td>
+                                    <td>0x0</td>
+                                </tr>
+                                <tr>
+                                    <td>DependentName</td>
+                                    <td>0x2</td>
+                                </tr>
+                                <tr>
+                                    <td>SpaceBeforeLess</td>
+                                    <td>0x0</td>
+                                </tr>
+                                <tr>
+                                    <td>NoSpaceBeforeLess</td>
+                                    <td>0x1</td>
+                                </tr>
+                                <tr>
+                                    <td>LLVM_BITMASK_LARGEST_ENUMERATOR</td>
+                                    <td>DependentName</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 7870 of file clang/include/clang/Parse/Parser.h
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="893534A49D387DAB337D207E5C101CDCCA3EE94E" style="max-height: 40px;">
+                            <a href="AngleBracketTracker/_ZTVN5clang6Parser19AngleBracketTracker3LocE.html">
+                                <pre><code class="language-cpp code-clang-doc">class Loc</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

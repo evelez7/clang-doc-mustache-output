@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>FileMatchTrieNode</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class FileMatchTrieNode</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7BA80E284E612BA9B679CC6906F6948E8FCC3B25">insert</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#FF6AAFFC3DC0E42E9AEDFB89E03B9AD9FEB9276B">findEquivalent</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class FileMatchTrieNode</h1>
+                        <p>Defined at line 42 of file clang/lib/Tooling/FileMatchTrie.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A node of the </p>
+                            </div>
+                            <div>
+                                <p> Each node has storage for up to one path and a map mapping a path segment to</p>
+                                <p> child nodes. The trie starts with an empty root node.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="7BA80E284E612BA9B679CC6906F6948E8FCC3B25">
+                                <pre><code class="language-cpp code-clang-doc">void insert (StringRef NewPath, unsigned int ConsumedLength)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Inserts &#39;NewPath&#39; into this trie. </p>
+                                        <p> denotes</p>
+                                        <p> the number of </p>
+                                        <p> trailing characters already consumed during</p>
+                                        <p> recursion.</p>
+                                    </div>
+                                    <div>
+                                        <p> An insert of a path</p>
+                                        <p> &#39;p&#39;starts at the root node and does the following:</p>
+                                        <p> - If the node is empty, insert &#39;p&#39; into its storage and abort.</p>
+                                        <p> - If the node has a path &#39;p2&#39; but no children, take the last path segment</p>
+                                        <p>   &#39;s&#39; of &#39;p2&#39;, put a new child into the map at &#39;s&#39; an insert the rest of</p>
+                                        <p>   &#39;p2&#39; there.</p>
+                                        <p> - Insert a new child for the last segment of &#39;p&#39; and insert the rest of</p>
+                                        <p>   &#39;p&#39; there.</p>
+                                    </div>
+                                    <div>
+                                        <p> An insert operation is linear in the number of a path&#39;s segments.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 58 of file clang/lib/Tooling/FileMatchTrie.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FF6AAFFC3DC0E42E9AEDFB89E03B9AD9FEB9276B">
+                                <pre><code class="language-cpp code-clang-doc">StringRef findEquivalent (const PathComparator &amp; Comparator, StringRef FileName, bool &amp; IsAmbiguous, unsigned int ConsumedLength)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Tries to find the node under this </p>
+                                        <p> that best</p>
+                                        <p> matches &#39;FileName&#39;.</p>
+                                    </div>
+                                    <div>
+                                        <p> If multiple paths fit &#39;FileName&#39; equally well, </p>
+                                        <p> is set to</p>
+                                        <p> and an empty string is returned. If no path fits &#39;FileName&#39;, an</p>
+                                        <p> empty string is returned. </p>
+                                        <p> denotes the number of</p>
+                                        <p> trailing characters already consumed during recursion.</p>
+                                    </div>
+                                    <div>
+                                        <p> To find the best matching node for a given path &#39;p&#39;, the</p>
+                                        <p> function is called recursively for each path segment</p>
+                                        <p> (back to front) of &#39;p&#39; until a node &#39;n&#39; is reached that does not ..</p>
+                                        <p> - .. have children. In this case it is checked</p>
+                                        <p>   whether the stored path is equivalent to &#39;p&#39;. If yes, the best match is</p>
+                                        <p>   found. Otherwise continue with the parent node as if this node did not</p>
+                                        <p>   exist.</p>
+                                        <p> - .. a child matching the next path segment. In this case, all children of</p>
+                                        <p>   &#39;n&#39; are an equally good match for &#39;p&#39;. All children are of &#39;n&#39; are found</p>
+                                        <p>   recursively and their equivalence to &#39;p&#39; is determined. If none are</p>
+                                        <p>   equivalent, continue with the parent node as if &#39;n&#39; didn&#39;t exist. If one</p>
+                                        <p>   is equivalent, the best match is found. Otherwise, report and ambigiuity</p>
+                                        <p>   error.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 103 of file clang/lib/Tooling/FileMatchTrie.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

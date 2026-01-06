@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MasmParser</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class MasmParser</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#460030E5314E871DDD40C301BAA8BBCA24D9FBA1">MasmParser</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#EABDBFB96CC2FC0AF1DFBAF8BD7D62980FE0BDDF">operator=</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#FBC3AD5DE72231EE134CE549C8C98D1E0AE6E4A6">addDirectiveHandler</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9B84040B2650547CFCF3F8A7A159606965D70648">addAliasForDirective</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#B40651681D23047FC8414CEE7B1C17F12EFC362D">getAssemblerDialect</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#93F93BBB4EB7482CBFAA281880C5623B64711B27">setAssemblerDialect</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#150EED176B7CF1FBE55150F9EC1ADA89B20F8685">Lex</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#A9CA8B52229E039637975D80EC305E5A6BE7B1F3">setParsingMSInlineAsm</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#CCDCC533F9E2734B7093C96D1968B780D263B2D3">isParsingMSInlineAsm</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#B865FBA4664B639596AF8B60B6D7A20AB69FC0B8">isParsingMasm</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#B6C7DA91EF3D6F97986B233BF615E233538DF509">parseIdentifier</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#DF2F54F2E981513EDF74441881E1B5EB41FAE433">MasmParser</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#3F4BCFB8FDD45D42CEAD80776BC8D12B5971B807">~MasmParser</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#E13E4A7EC6310250806868B33796EFBBA365ECAB">Run</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#E01E1CCBC981280393D03983617E16CE1CBC1920">Note</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#BF07926FEA8CC2C94CFA47D5AFABA3B9B0050797">Warning</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#A91FFD3D25B9E675B182D8FA2FC6D22ECEB54484">printError</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#952948429718B61420E3377591440739D0B7C33C">Lex</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#FB8DFFBE448000D051B6A28BFEA4A0B86FE0D7F8">defineMacro</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#61E03C58C658672FD62F08AE356638AD7CA18AD5">lookUpField</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#CF90B44F9CF34336C2EAB2022A91D3AE4234DC17">lookUpField</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#526D4B7E45BFE5E8A2112F5C5EC01BB938394CF9">lookUpType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#0586A7B86AEDF85B0771EB81BDA85066A2619BAC">parseMSInlineAsm</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7109ED729707FA3521DB4C2F7780438922F13A7B">parseExpression</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#556F3ADCCB098BA3065829F6D235DF8AA4D7757A">parseExpression</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D66104871404469C8832CEBBE0FE035307A80E71">parsePrimaryExpr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#A018545C410B8CC254F6E42CAC4C580737885E6D">parseParenExpression</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7460E4B53FC5EEA47EDC2C7B19B07BF6D74B187E">parseAbsoluteExpression</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D969FE3361EBD7A3B8CCE2558D19010C79D31164">parseRealValue</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#DEA5A2DA1096987FBA57AAC946C2AF8595CDBA73">parseIdentifier</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9DE6D83194BCC9082055315C638EB5E798FB5A63">eatToEndOfStatement</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9667238A15EACB407452A6EBF494FC56EA124E12">checkForValidSection</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Enums">Enums</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#1E5BA50D73504BADFC35A23EC6DD4EA8B9629047">ExpandKind</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#819202283A5F4F58BE9497ECA083601ABD007704">IdentifierPositionKind</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#FF6ACF49F9B71C6C71D9613EC42416B0940DAB14">DirectiveKind</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#1650E36BE494AF99FB0D995632B82F7650520DD3">BuiltinSymbol</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#EFBE3EA1359BF3642BCA7E88258861193650CD71">BuiltinFunction</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D10ADA01B37A9D0A5D879F5EA9FA9C8732499AC6">CppHashInfoTy</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#4552CB9A0EA900BECEF27D4C22E003F64B0DF23C">Variable</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class MasmParser</h1>
+                        <p>Defined at line 373 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> The concrete assembly parser instance.</p>
+                                <p> Note that this is a full MCAsmParser, not an MCAsmParserExtension!</p>
+                                <p> It&#39;s a peer of AsmParser, not of COFFAsmParser, WasmAsmParser, etc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="460030E5314E871DDD40C301BAA8BBCA24D9FBA1">
+                                <pre><code class="language-cpp code-clang-doc">void MasmParser (const MasmParser &amp; )</code></pre>
+                                <p>Defined at line 457 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="EABDBFB96CC2FC0AF1DFBAF8BD7D62980FE0BDDF">
+                                <pre><code class="language-cpp code-clang-doc">MasmParser &amp; operator= (const MasmParser &amp; )</code></pre>
+                                <p>Defined at line 458 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FBC3AD5DE72231EE134CE549C8C98D1E0AE6E4A6">
+                                <pre><code class="language-cpp code-clang-doc">void addDirectiveHandler (StringRef Directive, ExtensionDirectiveHandler Handler)</code></pre>
+                                <p>Defined at line 463 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9B84040B2650547CFCF3F8A7A159606965D70648">
+                                <pre><code class="language-cpp code-clang-doc">void addAliasForDirective (StringRef Directive, StringRef Alias)</code></pre>
+                                <p>Defined at line 469 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B40651681D23047FC8414CEE7B1C17F12EFC362D">
+                                <pre><code class="language-cpp code-clang-doc">unsigned int getAssemblerDialect ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> {</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 476 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="93F93BBB4EB7482CBFAA281880C5623B64711B27">
+                                <pre><code class="language-cpp code-clang-doc">void setAssemblerDialect (unsigned int i)</code></pre>
+                                <p>Defined at line 482 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="150EED176B7CF1FBE55150F9EC1ADA89B20F8685">
+                                <pre><code class="language-cpp code-clang-doc">const AsmToken &amp; Lex ()</code></pre>
+                                <p>Defined at line 492 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A9CA8B52229E039637975D80EC305E5A6BE7B1F3">
+                                <pre><code class="language-cpp code-clang-doc">void setParsingMSInlineAsm (bool V)</code></pre>
+                                <p>Defined at line 494 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CCDCC533F9E2734B7093C96D1968B780D263B2D3">
+                                <pre><code class="language-cpp code-clang-doc">bool isParsingMSInlineAsm ()</code></pre>
+                                <p>Defined at line 500 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B865FBA4664B639596AF8B60B6D7A20AB69FC0B8">
+                                <pre><code class="language-cpp code-clang-doc">bool isParsingMasm ()</code></pre>
+                                <p>Defined at line 502 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="B6C7DA91EF3D6F97986B233BF615E233538DF509">
+                                <pre><code class="language-cpp code-clang-doc">bool parseIdentifier (StringRef &amp; Res)</code></pre>
+                                <p>Defined at line 535 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DF2F54F2E981513EDF74441881E1B5EB41FAE433">
+                                <pre><code class="language-cpp code-clang-doc">void MasmParser (SourceMgr &amp; SM, MCContext &amp; Ctx, MCStreamer &amp; Out, const MCAsmInfo &amp; MAI, struct tm TM, unsigned int CB)</code></pre>
+                                <p>Defined at line 970 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="3F4BCFB8FDD45D42CEAD80776BC8D12B5971B807">
+                                <pre><code class="language-cpp code-clang-doc">void ~MasmParser ()</code></pre>
+                                <p>Defined at line 1000 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E13E4A7EC6310250806868B33796EFBBA365ECAB">
+                                <pre><code class="language-cpp code-clang-doc">bool Run (bool NoInitialTextSection, bool NoFinalize)</code></pre>
+                                <p>Defined at line 1203 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E01E1CCBC981280393D03983617E16CE1CBC1920">
+                                <pre><code class="language-cpp code-clang-doc">void Note (SMLoc L, const Twine &amp; Msg, SMRange Range)</code></pre>
+                                <p>Defined at line 1019 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BF07926FEA8CC2C94CFA47D5AFABA3B9B0050797">
+                                <pre><code class="language-cpp code-clang-doc">bool Warning (SMLoc L, const Twine &amp; Msg, SMRange Range)</code></pre>
+                                <p>Defined at line 1025 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A91FFD3D25B9E675B182D8FA2FC6D22ECEB54484">
+                                <pre><code class="language-cpp code-clang-doc">bool printError (SMLoc L, const Twine &amp; Msg, SMRange Range)</code></pre>
+                                <p>Defined at line 1035 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="952948429718B61420E3377591440739D0B7C33C">
+                                <pre><code class="language-cpp code-clang-doc">const AsmToken &amp; Lex (ExpandKind ExpandNextToken)</code></pre>
+                                <p>Defined at line 1116 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="FB8DFFBE448000D051B6A28BFEA4A0B86FE0D7F8">
+                                <pre><code class="language-cpp code-clang-doc">bool defineMacro (StringRef Name, StringRef Value)</code></pre>
+                                <p>Defined at line 5753 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="61E03C58C658672FD62F08AE356638AD7CA18AD5">
+                                <pre><code class="language-cpp code-clang-doc">bool lookUpField (StringRef Name, AsmFieldInfo &amp; Info)</code></pre>
+                                <p>Defined at line 5770 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="CF90B44F9CF34336C2EAB2022A91D3AE4234DC17">
+                                <pre><code class="language-cpp code-clang-doc">bool lookUpField (StringRef Base, StringRef Member, AsmFieldInfo &amp; Info)</code></pre>
+                                <p>Defined at line 5776 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="526D4B7E45BFE5E8A2112F5C5EC01BB938394CF9">
+                                <pre><code class="language-cpp code-clang-doc">bool lookUpType (StringRef Name, AsmTypeInfo &amp; Info)</code></pre>
+                                <p>Defined at line 5841 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="0586A7B86AEDF85B0771EB81BDA85066A2619BAC">
+                                <pre><code class="language-cpp code-clang-doc">bool parseMSInlineAsm (std::string &amp; AsmString, unsigned int &amp; NumOutputs, unsigned int &amp; NumInputs, SmallVectorImpl&lt;std::pair&lt;void *, bool&gt;&gt; &amp; OpDecls, SmallVectorImpl&lt;std::string&gt; &amp; Constraints, SmallVectorImpl&lt;std::string&gt; &amp; Clobbers, const MCInstrInfo * MII, MCInstPrinter * IP, MCAsmParserSemaCallback &amp; SI)</code></pre>
+                                <p>Defined at line 5873 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7109ED729707FA3521DB4C2F7780438922F13A7B">
+                                <pre><code class="language-cpp code-clang-doc">bool parseExpression (const MCExpr *&amp; Res)</code></pre>
+                                <p>Defined at line 1587 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="556F3ADCCB098BA3065829F6D235DF8AA4D7757A">
+                                <pre><code class="language-cpp code-clang-doc">bool parseExpression (const MCExpr *&amp; Res, SMLoc &amp; EndLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse an expression and return it.</p>
+                                    </div>
+                                    <div>
+                                        <p>  expr ::= expr </p>
+                                        <p>&amp;</p>
+                                        <p>&amp;</p>
+                                        <p>,|| expr               -&gt; lowest.</p>
+                                        <p>  expr ::= expr |,^,</p>
+                                        <p>&amp;</p>
+                                        <p>,! expr</p>
+                                        <p>  expr ::= expr ==,!=,</p>
+                                        <p>&lt;</p>
+                                        <p>&gt;,</p>
+                                        <p>&lt;</p>
+                                        <p>,</p>
+                                        <p>&lt;</p>
+                                        <p>=,&gt;,&gt;= expr</p>
+                                        <p>  expr ::= expr </p>
+                                        <p>&lt;</p>
+                                        <p>&lt;</p>
+                                        <p>,&gt;&gt; expr</p>
+                                        <p>  expr ::= expr +,- expr</p>
+                                        <p>  expr ::= expr *,/,% expr               -&gt; highest.</p>
+                                        <p>  expr ::= primaryexpr</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1636 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D66104871404469C8832CEBBE0FE035307A80E71">
+                                <pre><code class="language-cpp code-clang-doc">bool parsePrimaryExpr (const MCExpr *&amp; Res, SMLoc &amp; EndLoc, AsmTypeInfo * TypeInfo)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse a primary expression and return it.</p>
+                                        <p>  primaryexpr ::= (parenexpr</p>
+                                        <p>  primaryexpr ::= symbol</p>
+                                        <p>  primaryexpr ::= number</p>
+                                        <p>  primaryexpr ::= &#39;.&#39;</p>
+                                        <p>  primaryexpr ::= ~,+,-,&#39;not&#39; primaryexpr</p>
+                                        <p>  primaryexpr ::= string</p>
+                                        <p>          (a string is interpreted as a 64-bit number in big-endian base-256)</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1381 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="A018545C410B8CC254F6E42CAC4C580737885E6D">
+                                <pre><code class="language-cpp code-clang-doc">bool parseParenExpression (const MCExpr *&amp; Res, SMLoc &amp; EndLoc)</code></pre>
+                                <p>Defined at line 1652 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7460E4B53FC5EEA47EDC2C7B19B07BF6D74B187E">
+                                <pre><code class="language-cpp code-clang-doc">bool parseAbsoluteExpression (int64_t &amp; Res)</code></pre>
+                                <p>Defined at line 1657 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D969FE3361EBD7A3B8CCE2558D19010C79D31164">
+                                <pre><code class="language-cpp code-clang-doc">bool parseRealValue (const fltSemantics &amp; Semantics, APInt &amp; Res)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse a floating point expression using the float </p>
+                                        <p> and set </p>
+                                        <p> to the value.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3335 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="DEA5A2DA1096987FBA57AAC946C2AF8595CDBA73">
+                                <pre><code class="language-cpp code-clang-doc">bool parseIdentifier (StringRef &amp; Res, IdentifierPositionKind Position)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> parseIdentifier:</p>
+                                        <p>   ::= identifier</p>
+                                        <p>   ::= string</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 2861 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9DE6D83194BCC9082055315C638EB5E798FB5A63">
+                                <pre><code class="language-cpp code-clang-doc">void eatToEndOfStatement ()</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Throw away the rest of the line for testing purposes.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1284 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="9667238A15EACB407452A6EBF494FC56EA124E12">
+                                <pre><code class="language-cpp code-clang-doc">bool checkForValidSection ()</code></pre>
+                                <p>Defined at line 1273 of file llvm/lib/MC/MCParser/MasmParser.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div id="1E5BA50D73504BADFC35A23EC6DD4EA8B9629047" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum ExpandKind</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>ExpandMacros</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>DoNotExpandMacros</td>
+                                    <td>1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 490 of file llvm/lib/MC/MCParser/MasmParser.cpp
+                        </div>
+                    </div>
+                    <div id="819202283A5F4F58BE9497ECA083601ABD007704" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum IdentifierPositionKind</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>StandardPosition</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>StartOfStatement</td>
+                                    <td>1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 533 of file llvm/lib/MC/MCParser/MasmParser.cpp
+                        </div>
+                    </div>
+                    <div id="FF6ACF49F9B71C6C71D9613EC42416B0940DAB14" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum DirectiveKind</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>DK_NO_DIRECTIVE</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_HANDLER_DIRECTIVE</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ASSIGN</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_EQU</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_TEXTEQU</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ASCII</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ASCIZ</td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_STRING</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_BYTE</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_SBYTE</td>
+                                    <td>9</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_WORD</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_SWORD</td>
+                                    <td>11</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_DWORD</td>
+                                    <td>12</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_SDWORD</td>
+                                    <td>13</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_FWORD</td>
+                                    <td>14</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_QWORD</td>
+                                    <td>15</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_SQWORD</td>
+                                    <td>16</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_DB</td>
+                                    <td>17</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_DD</td>
+                                    <td>18</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_DF</td>
+                                    <td>19</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_DQ</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_DW</td>
+                                    <td>21</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_REAL4</td>
+                                    <td>22</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_REAL8</td>
+                                    <td>23</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_REAL10</td>
+                                    <td>24</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ALIGN</td>
+                                    <td>25</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_EVEN</td>
+                                    <td>26</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ORG</td>
+                                    <td>27</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ENDR</td>
+                                    <td>28</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_EXTERN</td>
+                                    <td>29</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_PUBLIC</td>
+                                    <td>30</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_COMM</td>
+                                    <td>31</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_COMMENT</td>
+                                    <td>32</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_INCLUDE</td>
+                                    <td>33</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_REPEAT</td>
+                                    <td>34</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_WHILE</td>
+                                    <td>35</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_FOR</td>
+                                    <td>36</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_FORC</td>
+                                    <td>37</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_IF</td>
+                                    <td>38</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_IFE</td>
+                                    <td>39</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_IFB</td>
+                                    <td>40</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_IFNB</td>
+                                    <td>41</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_IFDEF</td>
+                                    <td>42</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_IFNDEF</td>
+                                    <td>43</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_IFDIF</td>
+                                    <td>44</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_IFDIFI</td>
+                                    <td>45</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_IFIDN</td>
+                                    <td>46</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_IFIDNI</td>
+                                    <td>47</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ELSEIF</td>
+                                    <td>48</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ELSEIFE</td>
+                                    <td>49</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ELSEIFB</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ELSEIFNB</td>
+                                    <td>51</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ELSEIFDEF</td>
+                                    <td>52</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ELSEIFNDEF</td>
+                                    <td>53</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ELSEIFDIF</td>
+                                    <td>54</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ELSEIFDIFI</td>
+                                    <td>55</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ELSEIFIDN</td>
+                                    <td>56</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ELSEIFIDNI</td>
+                                    <td>57</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ELSE</td>
+                                    <td>58</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ENDIF</td>
+                                    <td>59</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_MACRO</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_EXITM</td>
+                                    <td>61</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ENDM</td>
+                                    <td>62</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_PURGE</td>
+                                    <td>63</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ERR</td>
+                                    <td>64</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ERRB</td>
+                                    <td>65</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ERRNB</td>
+                                    <td>66</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ERRDEF</td>
+                                    <td>67</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ERRNDEF</td>
+                                    <td>68</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ERRDIF</td>
+                                    <td>69</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ERRDIFI</td>
+                                    <td>70</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ERRIDN</td>
+                                    <td>71</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ERRIDNI</td>
+                                    <td>72</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ERRE</td>
+                                    <td>73</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ERRNZ</td>
+                                    <td>74</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ECHO</td>
+                                    <td>75</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_STRUCT</td>
+                                    <td>76</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_UNION</td>
+                                    <td>77</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_ENDS</td>
+                                    <td>78</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_END</td>
+                                    <td>79</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_PUSHFRAME</td>
+                                    <td>80</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_PUSHREG</td>
+                                    <td>81</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_SAVEREG</td>
+                                    <td>82</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_SAVEXMM128</td>
+                                    <td>83</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_SETFRAME</td>
+                                    <td>84</td>
+                                </tr>
+                                <tr>
+                                    <td>DK_RADIX</td>
+                                    <td>85</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 636 of file llvm/lib/MC/MCParser/MasmParser.cpp
+                        </div>
+                    </div>
+                    <div id="1650E36BE494AF99FB0D995632B82F7650520DD3" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum BuiltinSymbol</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>BI_NO_SYMBOL</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_DATE</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_TIME</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_VERSION</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_FILECUR</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_FILENAME</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_LINE</td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_CURSEG</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_CPU</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_INTERFACE</td>
+                                    <td>9</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_CODE</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_DATA</td>
+                                    <td>11</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_FARDATA</td>
+                                    <td>12</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_WORDSIZE</td>
+                                    <td>13</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_CODESIZE</td>
+                                    <td>14</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_DATASIZE</td>
+                                    <td>15</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_MODEL</td>
+                                    <td>16</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_STACK</td>
+                                    <td>17</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 733 of file llvm/lib/MC/MCParser/MasmParser.cpp
+                        </div>
+                    </div>
+                    <div id="EFBE3EA1359BF3642BCA7E88258861193650CD71" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum BuiltinFunction</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>BI_NO_FUNCTION</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>BI_CATSTR</td>
+                                    <td>1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 764 of file llvm/lib/MC/MCParser/MasmParser.cpp
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="D10ADA01B37A9D0A5D879F5EA9FA9C8732499AC6" style="max-height: 40px;">
+                            <a href="MasmParser/_ZTVN12_GLOBAL__N_110MasmParser13CppHashInfoTyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class CppHashInfoTy</code></pre>
+                            </a>
+                        </li>
+                        <li id="4552CB9A0EA900BECEF27D4C22E003F64B0DF23C" style="max-height: 40px;">
+                            <a href="MasmParser/_ZTVN12_GLOBAL__N_110MasmParser8VariableE.html">
+                                <pre><code class="language-cpp code-clang-doc">class Variable</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

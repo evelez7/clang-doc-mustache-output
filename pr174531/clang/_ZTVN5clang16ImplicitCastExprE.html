@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ImplicitCastExpr</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ImplicitCastExpr</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5DBDBE85A9347A3CF54FEE01BD0DE819A97D7BE3">Create</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#F06E6C6DA895EA1F01202925BAB1EC6196B7A0DC">CreateEmpty</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D36D73E26F8DD8F2643E3DB59713D7371205CA04">ImplicitCastExpr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D31F0279DA02C246D2D7459C0582815BF2E307DB">isPartOfExplicitCast</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#18998F471D4690F0346DC1A5CAC2001125B5AFA0">setIsPartOfExplicitCast</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#479657B7DF7D03DE401E5103574AD2351B411E23">getBeginLoc</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#2F33F87FA186222E43DDCCABDD9BEC8EFCF6DA88">getEndLoc</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#E2EF514ED4D49BFB64452FA56173F0585B468472">classof</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Enums">Enums</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#187339B1DFB5A44D79A16124B5A652FCBA1D037C">OnStack_t</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Friends">Friends</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#605522948731B64F2287E3987FC0BB95EB2289DB">CastExpr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#E23E7D75BB4FB56A5A51877F01BEC4CA98ED94B3">TrailingObjects</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ImplicitCastExpr</h1>
+                        <p>Defined at line 3850 of file clang/include/clang/AST/Expr.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> ImplicitCastExpr - Allows us to explicitly represent implicit type</p>
+                                <p> conversions, which have no direct representation in the original</p>
+                                <p> source code. For example: converting T[]-&gt;T*, void f()-&gt;void</p>
+                                <p> (*f)(), float-&gt;double, short-&gt;int, etc.</p>
+                            </div>
+                            <div>
+                                <p> In C, implicit casts always produce rvalues. However, in C++, an</p>
+                                <p> implicit cast whose result is being bound to a reference will be</p>
+                                <p> an lvalue or xvalue. For example:</p>
+                            </div>
+                            <h3>Code</h3> 
+                            <div>
+                                <pre class="code-block">
+                                    <code>
+                                         class Base { };
+                                         class Derived : public Base { };
+                                         Derived &amp;&amp;ref();
+                                         void f(Derived d) {
+                                           Base&amp; b = d; // initializer is an ImplicitCastExpr
+                                                        // to an lvalue of type Base
+                                           Base&amp;&amp; r = ref(); // initializer is an ImplicitCastExpr
+                                                             // to an xvalue of type Base
+                                         }
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="5DBDBE85A9347A3CF54FEE01BD0DE819A97D7BE3">
+                                <pre><code class="language-cpp code-clang-doc">ImplicitCastExpr * Create (const ASTContext &amp; Context, QualType T, CastKind Kind, Expr * Operand, const CXXCastPath * BasePath, ExprValueKind Cat, FPOptionsOverride FPO)</code></pre>
+                                <p>Defined at line 2072 of file clang/lib/AST/Expr.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="F06E6C6DA895EA1F01202925BAB1EC6196B7A0DC">
+                                <pre><code class="language-cpp code-clang-doc">ImplicitCastExpr * CreateEmpty (const ASTContext &amp; Context, unsigned int PathSize, bool HasFPFeatures)</code></pre>
+                                <p>Defined at line 2094 of file clang/lib/AST/Expr.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D36D73E26F8DD8F2643E3DB59713D7371205CA04">
+                                <pre><code class="language-cpp code-clang-doc">void ImplicitCastExpr (OnStack_t _, QualType ty, CastKind kind, Expr * op, ExprValueKind VK, FPOptionsOverride FPO)</code></pre>
+                                <p>Defined at line 3876 of file clang/include/clang/AST/Expr.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D31F0279DA02C246D2D7459C0582815BF2E307DB">
+                                <pre><code class="language-cpp code-clang-doc">bool isPartOfExplicitCast ()</code></pre>
+                                <p>Defined at line 3884 of file clang/include/clang/AST/Expr.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="18998F471D4690F0346DC1A5CAC2001125B5AFA0">
+                                <pre><code class="language-cpp code-clang-doc">void setIsPartOfExplicitCast (bool PartOfExplicitCast)</code></pre>
+                                <p>Defined at line 3885 of file clang/include/clang/AST/Expr.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="479657B7DF7D03DE401E5103574AD2351B411E23">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getBeginLoc ()</code></pre>
+                                <p>Defined at line 3897 of file clang/include/clang/AST/Expr.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2F33F87FA186222E43DDCCABDD9BEC8EFCF6DA88">
+                                <pre><code class="language-cpp code-clang-doc">SourceLocation getEndLoc ()</code></pre>
+                                <p>Defined at line 3900 of file clang/include/clang/AST/Expr.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E2EF514ED4D49BFB64452FA56173F0585B468472">
+                                <pre><code class="language-cpp code-clang-doc">bool classof (const Stmt * T)</code></pre>
+                                <p>Defined at line 3904 of file clang/include/clang/AST/Expr.h</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div id="187339B1DFB5A44D79A16124B5A652FCBA1D037C" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum OnStack_t</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>OnStack</td>
+                                    <td>0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 3875 of file clang/include/clang/AST/Expr.h
+                        </div>
+                    </div>
+                </section>
+                <section id="Friends" class="section-container">
+                    <h2>Friends</h2>
+                    <div id="605522948731B64F2287E3987FC0BB95EB2289DB" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class CastExpr</code></pre>
+                        <div>
+                            <p> CastExpr - Base class for type casts, including both implicit</p>
+                            <p> casts (ImplicitCastExpr) and explicit casts that have some</p>
+                            <p> representation in the source code (ExplicitCastExpr&#39;s derived</p>
+                            <p> classes).</p>
+                        </div>
+                    </div>
+                    <div id="E23E7D75BB4FB56A5A51877F01BEC4CA98ED94B3" class="delimiter-container">
+                        <pre><code class="language-cpp code-clang-doc">class TrailingObjects</code></pre>
+                        <div>
+                            <p> ImplicitCastExpr - Allows us to explicitly represent implicit type</p>
+                            <p> conversions, which have no direct representation in the original</p>
+                            <p> source code. For example: converting T[]-&gt;T*, void f()-&gt;void</p>
+                            <p> (*f)(), float-&gt;double, short-&gt;int, etc.</p>
+                        </div>
+                        <div>
+                            <p> In C, implicit casts always produce rvalues. However, in C++, an</p>
+                            <p> implicit cast whose result is being bound to a reference will be</p>
+                            <p> an lvalue or xvalue. For example:</p>
+                        </div>
+                        <h3>Code</h3> 
+                        <div>
+                            <pre class="code-block">
+                                <code>
+                                     class Base { };
+                                     class Derived : public Base { };
+                                     Derived &amp;&amp;ref();
+                                     void f(Derived d) {
+                                       Base&amp; b = d; // initializer is an ImplicitCastExpr
+                                                    // to an lvalue of type Base
+                                       Base&amp;&amp; r = ref(); // initializer is an ImplicitCastExpr
+                                                         // to an xvalue of type Base
+                                     }
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

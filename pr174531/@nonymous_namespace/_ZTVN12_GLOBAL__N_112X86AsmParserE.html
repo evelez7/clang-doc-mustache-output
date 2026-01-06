@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>X86AsmParser</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class X86AsmParser</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#78297800B828B9C6F2641E770D3EDDF1C5838A28">X86AsmParser</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#1FFB9E796E0F25DE12E225D18516FD78AA9C3020">parseRegister</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#489A73E5E65949DC8C20020621103EBDCA18CCEB">tryParseRegister</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#8320B1D4CABE47F42711FF0B3A55FEA214ACC5CE">parsePrimaryExpr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7654D70A4D98E73412AF729CCB2161BAC1E9BE02">parseInstruction</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#76F9D402FF694D9E48A84BE1810103C7A306BB8D">ParseDirective</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Enums">Enums</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D9C7BF013071FCD04DC15B2108266627B08D3535">OpcodePrefix</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7B7E636E456F307329276270E1D52CC26C3BBE53">DispEncoding</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#63635ADE297C5532A2CE0673F7391073B3AFCF05">InfixCalculatorTok</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#960E1A5699E33AC05CC567D058E81BE83C317FA2">IntelOperatorKind</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#1EEAA07F988864C3A89B6ABFE3DCF2C5F9579BE9">MasmOperatorKind</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#169295D9EAE0AAC152305432140737E6D2D91F30">IntelExprState</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#611BD1FFFB9062D91725E90C5AF6DA5C0B828B86">X86MatchResultTy</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#DF88E0703632F4654C651F5692A9F38AA9F14BCB">InfixCalculator</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#864F827A550A3B0AB54D3609388B813455C316C8">IntelExprStateMachine</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class X86AsmParser</h1>
+                        <p>Defined at line 95 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp</p>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="78297800B828B9C6F2641E770D3EDDF1C5838A28">
+                                <pre><code class="language-cpp code-clang-doc">void X86AsmParser (const MCSubtargetInfo &amp; sti, MCAsmParser &amp; Parser, const MCInstrInfo &amp; mii, const MCTargetOptions &amp; Options)</code></pre>
+                                <p>Defined at line 1304 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1FFB9E796E0F25DE12E225D18516FD78AA9C3020">
+                                <pre><code class="language-cpp code-clang-doc">bool parseRegister (MCRegister &amp; Reg, SMLoc &amp; StartLoc, SMLoc &amp; EndLoc)</code></pre>
+                                <p>Defined at line 1621 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="489A73E5E65949DC8C20020621103EBDCA18CCEB">
+                                <pre><code class="language-cpp code-clang-doc">ParseStatus tryParseRegister (MCRegister &amp; Reg, SMLoc &amp; StartLoc, SMLoc &amp; EndLoc)</code></pre>
+                                <p>Defined at line 1626 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8320B1D4CABE47F42711FF0B3A55FEA214ACC5CE">
+                                <pre><code class="language-cpp code-clang-doc">bool parsePrimaryExpr (const MCExpr *&amp; Res, SMLoc &amp; EndLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Parse either a standard primary expression or a register.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 3249 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="7654D70A4D98E73412AF729CCB2161BAC1E9BE02">
+                                <pre><code class="language-cpp code-clang-doc">bool parseInstruction (ParseInstructionInfo &amp; Info, StringRef Name, SMLoc NameLoc, OperandVector &amp; Operands)</code></pre>
+                                <p>Defined at line 3265 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="76F9D402FF694D9E48A84BE1810103C7A306BB8D">
+                                <pre><code class="language-cpp code-clang-doc">bool ParseDirective (AsmToken DirectiveID)</code></pre>
+                                <p>Defined at line 4765 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Enums" class="section-container">
+                    <h2>Enumerations</h2>
+                    <div id="D9C7BF013071FCD04DC15B2108266627B08D3535" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum OpcodePrefix</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>OpcodePrefix_Default</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>OpcodePrefix_REX</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>OpcodePrefix_REX2</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>OpcodePrefix_VEX</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>OpcodePrefix_VEX2</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>OpcodePrefix_VEX3</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>OpcodePrefix_EVEX</td>
+                                    <td>6</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 100 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp
+                        </div>
+                    </div>
+                    <div id="7B7E636E456F307329276270E1D52CC26C3BBE53" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum DispEncoding</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>DispEncoding_Default</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>DispEncoding_Disp8</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>DispEncoding_Disp32</td>
+                                    <td>2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 112 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp
+                        </div>
+                    </div>
+                    <div id="63635ADE297C5532A2CE0673F7391073B3AFCF05" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum InfixCalculatorTok</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>IC_OR</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_XOR</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_AND</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_LSHIFT</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_RSHIFT</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_PLUS</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_MINUS</td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_MULTIPLY</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_DIVIDE</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_MOD</td>
+                                    <td>9</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_NOT</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_NEG</td>
+                                    <td>11</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_RPAREN</td>
+                                    <td>12</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_LPAREN</td>
+                                    <td>13</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_IMM</td>
+                                    <td>14</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_REGISTER</td>
+                                    <td>15</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_EQ</td>
+                                    <td>16</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_NE</td>
+                                    <td>17</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_LT</td>
+                                    <td>18</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_LE</td>
+                                    <td>19</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_GT</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>IC_GE</td>
+                                    <td>21</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 158 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp
+                        </div>
+                    </div>
+                    <div id="960E1A5699E33AC05CC567D058E81BE83C317FA2" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum IntelOperatorKind</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>IOK_INVALID</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>IOK_LENGTH</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>IOK_SIZE</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>IOK_TYPE</td>
+                                    <td>3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 183 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp
+                        </div>
+                    </div>
+                    <div id="1EEAA07F988864C3A89B6ABFE3DCF2C5F9579BE9" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum MasmOperatorKind</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>MOK_INVALID</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>MOK_LENGTHOF</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>MOK_SIZEOF</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>MOK_TYPE</td>
+                                    <td>3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 190 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp
+                        </div>
+                    </div>
+                    <div id="169295D9EAE0AAC152305432140737E6D2D91F30" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum IntelExprState</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>IES_INIT</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_OR</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_XOR</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_AND</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_EQ</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_NE</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_LT</td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_LE</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_GT</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_GE</td>
+                                    <td>9</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_LSHIFT</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_RSHIFT</td>
+                                    <td>11</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_PLUS</td>
+                                    <td>12</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_MINUS</td>
+                                    <td>13</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_OFFSET</td>
+                                    <td>14</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_CAST</td>
+                                    <td>15</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_NOT</td>
+                                    <td>16</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_MULTIPLY</td>
+                                    <td>17</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_DIVIDE</td>
+                                    <td>18</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_MOD</td>
+                                    <td>19</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_LBRAC</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_RBRAC</td>
+                                    <td>21</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_LPAREN</td>
+                                    <td>22</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_RPAREN</td>
+                                    <td>23</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_REGISTER</td>
+                                    <td>24</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_INTEGER</td>
+                                    <td>25</td>
+                                </tr>
+                                <tr>
+                                    <td>IES_ERROR</td>
+                                    <td>26</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 414 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp
+                        </div>
+                    </div>
+                    <div id="611BD1FFFB9062D91725E90C5AF6DA5C0B828B86" class="delimiter-container">
+                        <div>
+                            <pre><code class="language-cpp code-clang-doc">enum X86MatchResultTy</code></pre>
+                        </div>
+                        <table class="table-wrapper">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>Match_Unsupported</td>
+                                    <td>FIRST_TARGET_MATCH_RESULT_TY</td>
+                                </tr>
+                                <tr>
+                                    <td>Match_InvalidImmUnsignedi4</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>Match_InvalidImmUnsignedi6</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>END_OPERAND_DIAGNOSTIC_TYPES</td>
+                                    <td>9</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            Defined at line 1298 of file llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="DF88E0703632F4654C651F5692A9F38AA9F14BCB" style="max-height: 40px;">
+                            <a href="X86AsmParser/_ZTVN12_GLOBAL__N_112X86AsmParser15InfixCalculatorE.html">
+                                <pre><code class="language-cpp code-clang-doc">class InfixCalculator</code></pre>
+                            </a>
+                        </li>
+                        <li id="864F827A550A3B0AB54D3609388B813455C316C8" style="max-height: 40px;">
+                            <a href="X86AsmParser/_ZTVN12_GLOBAL__N_112X86AsmParser21IntelExprStateMachineE.html">
+                                <pre><code class="language-cpp code-clang-doc">class IntelExprStateMachine</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

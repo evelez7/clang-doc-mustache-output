@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CGBitFieldInfo</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct CGBitFieldInfo</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#Offset">Offset</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#Size">Size</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#IsSigned">IsSigned</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#StorageSize">StorageSize</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#StorageOffset">StorageOffset</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#VolatileOffset">VolatileOffset</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#VolatileStorageSize">VolatileStorageSize</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#VolatileStorageOffset">VolatileStorageOffset</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#8FCAAA2393A33B5187469D30743B964DD5E66D7D">CGBitFieldInfo</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#2D42F6E728D886BC890410E26D487C75879F3C45">CGBitFieldInfo</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#05336C9C13C43662482B99C3C76DD97ADEE0DF62">print</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#BE42555C300F743D8CB8E342860D1050F9D22A32">dump</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#8E9C7FD276366E260F292758B85F1F80BA4627C3">MakeInfo</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct CGBitFieldInfo</h1>
+                        <p>Defined at line 65 of file clang/lib/CodeGen/CGRecordLayout.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Structure with information about how a bitfield should be accessed.</p>
+                            </div>
+                            <div>
+                                <p> Often we layout a sequence of bitfields as a contiguous sequence of bits.</p>
+                                <p> When the AST record layout does this, we represent it in the LLVM IR&#39;s type</p>
+                                <p> as either a sequence of i8 members or a byte array to reserve the number of</p>
+                                <p> bytes touched without forcing any particular alignment beyond the basic</p>
+                                <p> character alignment.</p>
+                            </div>
+                            <div>
+                                <p> Then accessing a particular bitfield involves converting this byte array</p>
+                                <p> into a single integer of that size (i24 or i40 -- may not be power-of-two</p>
+                                <p> size), loading it, and shifting and masking to extract the particular</p>
+                                <p> subsequence of bits which make up that particular bitfield. This structure</p>
+                                <p> encodes the information used to construct the extraction code sequences.</p>
+                                <p> The CGRecordLayout also has a field index which encodes which byte-sequence</p>
+                                <p> this bitfield falls within. Let&#39;s assume the following C struct:</p>
+                            </div>
+                            <div>
+                                <p>   struct S {</p>
+                                <p>     char a, b, c;</p>
+                                <p>     unsigned bits : 3;</p>
+                                <p>     unsigned more_bits : 4;</p>
+                                <p>     unsigned still_more_bits : 7;</p>
+                                <p>   };</p>
+                            </div>
+                            <div>
+                                <p> This will end up as the following LLVM type. The first array is the</p>
+                                <p> bitfield, and the second is the padding out to a 4-byte alignment.</p>
+                            </div>
+                            <div>
+                                <p>   %t = type { i8, i8, i8, i8, i8, [3 x i8] }</p>
+                            </div>
+                            <div>
+                                <p> When generating code to access more_bits, we&#39;ll generate something</p>
+                                <p> essentially like this:</p>
+                            </div>
+                            <div>
+                                <p>   define i32 </p>
+                                <p>(%t* %base) {</p>
+                                <p>     %0 = gep %t* %base, i32 0, i32 3</p>
+                                <p>     %2 = load i8* %1</p>
+                                <p>     %3 = lshr i8 %2, 3</p>
+                                <p>     %4 = and i8 %3, 15</p>
+                                <p>     %5 = zext i8 %4 to i32</p>
+                                <p>     ret i32 %i</p>
+                                <p>   }</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="Offset" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int Offset</code></pre>
+                        </div>
+                        <div id="Size" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int Size</code></pre>
+                        </div>
+                        <div id="IsSigned" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int IsSigned</code></pre>
+                        </div>
+                        <div id="StorageSize" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int StorageSize</code></pre>
+                        </div>
+                        <div id="StorageOffset" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >CharUnits StorageOffset</code></pre>
+                        </div>
+                        <div id="VolatileOffset" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int VolatileOffset</code></pre>
+                        </div>
+                        <div id="VolatileStorageSize" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int VolatileStorageSize</code></pre>
+                        </div>
+                        <div id="VolatileStorageOffset" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >CharUnits VolatileStorageOffset</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="8FCAAA2393A33B5187469D30743B964DD5E66D7D">
+                                <pre><code class="language-cpp code-clang-doc">void CGBitFieldInfo ()</code></pre>
+                                <p>Defined at line 96 of file clang/lib/CodeGen/CGRecordLayout.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2D42F6E728D886BC890410E26D487C75879F3C45">
+                                <pre><code class="language-cpp code-clang-doc">void CGBitFieldInfo (unsigned int Offset, unsigned int Size, bool IsSigned, unsigned int StorageSize, CharUnits StorageOffset)</code></pre>
+                                <p>Defined at line 100 of file clang/lib/CodeGen/CGRecordLayout.h</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="05336C9C13C43662482B99C3C76DD97ADEE0DF62">
+                                <pre><code class="language-cpp code-clang-doc">void print (raw_ostream &amp; OS)</code></pre>
+                                <p>Defined at line 1244 of file clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BE42555C300F743D8CB8E342860D1050F9D22A32">
+                                <pre><code class="language-cpp code-clang-doc">void dump ()</code></pre>
+                                <p>Defined at line 1254 of file clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8E9C7FD276366E260F292758B85F1F80BA4627C3">
+                                <pre><code class="language-cpp code-clang-doc">CGBitFieldInfo MakeInfo (class CodeGenTypes &amp; Types, const FieldDecl * FD, uint64_t Offset, uint64_t Size, uint64_t StorageSize, CharUnits StorageOffset)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Given a bit-field decl, build an appropriate helper object for</p>
+                                        <p> accessing that field (which is expected to have the given offset and</p>
+                                        <p> size).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 1042 of file clang/lib/CodeGen/CGRecordLayoutBuilder.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

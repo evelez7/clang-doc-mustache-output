@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>LazyASTImporter</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class LazyASTImporter</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#F4E3C2F233B0B330790CD0EE53A24CE16C0E555F">LazyASTImporter</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#E00C44DD452422AB2227E93A51A4F5EC8B6BAFC9">ImportImpl</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#2E5AB433B940A311498CE927941EEDDE357BCAEC">GetOriginalDecl</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#2EDD3F04AF8D0AD245E60AD256492EE5C48A59D2">Imported</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#1FF1C61F872FE62E7699DDEAEA4F4C81E7D08349">GetReverse</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class LazyASTImporter</h1>
+                        <p>Defined at line 99 of file clang/lib/AST/ExternalASTMerger.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> A custom implementation of ASTImporter, for ExternalASTMerger&#39;s purposes.</p>
+                            </div>
+                            <div>
+                                <p> There are several modifications:</p>
+                            </div>
+                            <div>
+                                <p> - It enables lazy lookup (via the HasExternalLexicalStorage flag and a few</p>
+                                <p>   others), which instructs Clang to refer to ExternalASTMerger.  Also, it</p>
+                                <p>   forces MinimalImport to true, which is necessary to make this work.</p>
+                                <p> - It maintains a reverse importer for use with names.  This allows lookup of</p>
+                                <p>   arbitrary names in the source context.</p>
+                                <p> - It updates the ExternalASTMerger&#39;s origin map as needed whenever a</p>
+                                <p>   it sees a DeclContext.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="F4E3C2F233B0B330790CD0EE53A24CE16C0E555F">
+                                <pre><code class="language-cpp code-clang-doc">void LazyASTImporter (ExternalASTMerger &amp; _Parent, ASTContext &amp; ToContext, FileManager &amp; ToFileManager, const ExternalASTMerger::ImporterSource &amp; S, std::shared_ptr&lt;ASTImporterSharedState&gt; SharedState)</code></pre>
+                                <p>Defined at line 113 of file clang/lib/AST/ExternalASTMerger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="E00C44DD452422AB2227E93A51A4F5EC8B6BAFC9">
+                                <pre><code class="language-cpp code-clang-doc">llvm::Expected&lt;Decl *&gt; ImportImpl (Decl * FromD)</code></pre>
+                                <p>Defined at line 126 of file clang/lib/AST/ExternalASTMerger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2E5AB433B940A311498CE927941EEDDE357BCAEC">
+                                <pre><code class="language-cpp code-clang-doc">Decl * GetOriginalDecl (Decl * To)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Implements the ASTImporter interface for tracking back a declaration</p>
+                                        <p> to its original declaration it came from.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 189 of file clang/lib/AST/ExternalASTMerger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="2EDD3F04AF8D0AD245E60AD256492EE5C48A59D2">
+                                <pre><code class="language-cpp code-clang-doc">void Imported (Decl * From, Decl * To)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Whenever a DeclContext is imported, ensure that ExternalASTSource&#39;s origin</p>
+                                        <p> map is kept up to date.  Also set the appropriate flags.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 195 of file clang/lib/AST/ExternalASTMerger.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="1FF1C61F872FE62E7699DDEAEA4F4C81E7D08349">
+                                <pre><code class="language-cpp code-clang-doc">ASTImporter &amp; GetReverse ()</code></pre>
+                                <p>Defined at line 239 of file clang/lib/AST/ExternalASTMerger.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

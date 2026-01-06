@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>ResultObjectVisitor</title>
+        <link rel="stylesheet" type="text/css" href="../../../clang-doc-mustache.css"/>
+        <script src="../../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class ResultObjectVisitor</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#66D907B5B97AB7E9EC3638879E8DA2CB67B86DF4">ResultObjectVisitor</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D6F3ECEDB729D78138D85A0645D3C4C044EF594F">traverseConstructorInits</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#547C619AABAF8320473FF4153DABC2AF52768B44">VisitVarDecl</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#46CBC26770A443DCD6E9611BE24BCE58652B6AE4">VisitMaterializeTemporaryExpr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#ED23B66D33BDCF68C66B60652949382D3C8370EC">VisitReturnStmt</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#436EAAD935B842645C3EA26F9CA17034783A0144">VisitExpr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#BCC637E2A7E2032B563245F8AF0F709DF0695AC5">PropagateResultObjectToRecordInitList</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#8B954A3543B2FFC2299BA8124A82D7FE9AB72274">PropagateResultObject</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class ResultObjectVisitor</h1>
+                        <p>Defined at line 300 of file clang/lib/Analysis/FlowSensitive/DataflowEnvironment.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Visitor that builds a map from record prvalues to result objects.</p>
+                                <p> For each result object that it encounters, it propagates the storage location</p>
+                                <p> of the result object to all record prvalues that can initialize it.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="66D907B5B97AB7E9EC3638879E8DA2CB67B86DF4">
+                                <pre><code class="language-cpp code-clang-doc">void ResultObjectVisitor (llvm::DenseMap&lt;const Expr *, RecordStorageLocation *&gt; &amp; ResultObjectMap, RecordStorageLocation * LocForRecordReturnVal, DataflowAnalysisContext &amp; DACtx)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> `ResultObjectMap` will be filled with a map from record prvalues to result</p>
+                                        <p> object. If this visitor will traverse a function that returns a record by</p>
+                                        <p> value, `LocForRecordReturnVal` is the location to which this record should</p>
+                                        <p> be written; otherwise, it is null.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 306 of file clang/lib/Analysis/FlowSensitive/DataflowEnvironment.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D6F3ECEDB729D78138D85A0645D3C4C044EF594F">
+                                <pre><code class="language-cpp code-clang-doc">void traverseConstructorInits (const CXXConstructorDecl * Ctor, RecordStorageLocation * ThisPointeeLoc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Traverse all member and base initializers of `Ctor`. This function is not</p>
+                                        <p> called by `RecursiveASTVisitor`; it should be called manually if we are</p>
+                                        <p> analyzing a constructor. `ThisPointeeLoc` is the storage location that</p>
+                                        <p> `this` points to.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 317 of file clang/lib/Analysis/FlowSensitive/DataflowEnvironment.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="547C619AABAF8320473FF4153DABC2AF52768B44">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitVarDecl (VarDecl * VD)</code></pre>
+                                <p>Defined at line 341 of file clang/lib/Analysis/FlowSensitive/DataflowEnvironment.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="46CBC26770A443DCD6E9611BE24BCE58652B6AE4">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitMaterializeTemporaryExpr (MaterializeTemporaryExpr * MTE)</code></pre>
+                                <p>Defined at line 349 of file clang/lib/Analysis/FlowSensitive/DataflowEnvironment.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="ED23B66D33BDCF68C66B60652949382D3C8370EC">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitReturnStmt (ReturnStmt * Return)</code></pre>
+                                <p>Defined at line 357 of file clang/lib/Analysis/FlowSensitive/DataflowEnvironment.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="436EAAD935B842645C3EA26F9CA17034783A0144">
+                                <pre><code class="language-cpp code-clang-doc">bool VisitExpr (Expr * E)</code></pre>
+                                <p>Defined at line 365 of file clang/lib/Analysis/FlowSensitive/DataflowEnvironment.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="BCC637E2A7E2032B563245F8AF0F709DF0695AC5">
+                                <pre><code class="language-cpp code-clang-doc">void PropagateResultObjectToRecordInitList (const RecordInitListHelper &amp; InitList, RecordStorageLocation * Loc)</code></pre>
+                                <p>Defined at line 378 of file clang/lib/Analysis/FlowSensitive/DataflowEnvironment.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="8B954A3543B2FFC2299BA8124A82D7FE9AB72274">
+                                <pre><code class="language-cpp code-clang-doc">void PropagateResultObject (Expr * E, RecordStorageLocation * Loc)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Assigns `Loc` as the result object location of `E`, then propagates the</p>
+                                        <p> location to all lower-level prvalues that initialize the same object as</p>
+                                        <p> `E` (or one of its base classes or member variables).</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 403 of file clang/lib/Analysis/FlowSensitive/DataflowEnvironment.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

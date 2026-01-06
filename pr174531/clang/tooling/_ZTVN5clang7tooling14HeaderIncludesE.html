@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>HeaderIncludes</title>
+        <link rel="stylesheet" type="text/css" href="../../clang-doc-mustache.css"/>
+        <script src="../../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class HeaderIncludes</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#IncludeRegex">IncludeRegex</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#129B79FBBD7B345432F13BB5DA7D36508C821287">HeaderIncludes</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D9735F35D537A7CAA9B92C5218680064C0FE1D35">insert</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#30466B1DC1DA8692EE62A415B4E0752D0CD60002">remove</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#F6F089DC2ED65E55E68412846650404025962FC5">Include</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class HeaderIncludes</h1>
+                        <p>Defined at line 52 of file clang/include/clang/Tooling/Inclusions/HeaderIncludes.h</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> Generates replacements for inserting or deleting #include directives in a</p>
+                                <p> file.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="IncludeRegex" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >static Regex IncludeRegex</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="129B79FBBD7B345432F13BB5DA7D36508C821287">
+                                <pre><code class="language-cpp code-clang-doc">void HeaderIncludes (llvm::StringRef FileName, llvm::StringRef Code, const IncludeStyle &amp; Style)</code></pre>
+                                <p>Defined at line 353 of file clang/lib/Tooling/Inclusions/HeaderIncludes.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="D9735F35D537A7CAA9B92C5218680064C0FE1D35">
+                                <pre><code class="language-cpp code-clang-doc">std::optional&lt;tooling::Replacement&gt; insert (llvm::StringRef Header, bool IsAngled, IncludeDirective Directive)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Inserts an #include or #import directive of </p>
+                                        <p> into the code.</p>
+                                        <p> If </p>
+                                        <p> is true, </p>
+                                        <p> will be quoted with </p>
+                                        <p>&lt;</p>
+                                        <p>&gt; in the directive;</p>
+                                        <p> otherwise, it will be quoted with &quot;&quot;.</p>
+                                    </div>
+                                    <div>
+                                        <p> When searching for points to insert new header, this ignores #include&#39;s</p>
+                                        <p> after the #include block(s) in the beginning of a file to avoid inserting</p>
+                                        <p> headers into code sections where new #include&#39;s should not be added by</p>
+                                        <p> default. These code sections include:</p>
+                                        <p>   - raw string literals (containing #include).</p>
+                                        <p>   - #if blocks.</p>
+                                        <p>   - Special #include&#39;s among declarations (e.g. functions).</p>
+                                    </div>
+                                    <div>
+                                        <p> Returns a replacement that inserts the new header into a suitable #include</p>
+                                        <p> block of the same category. This respects the order of the existing</p>
+                                        <p> #includes in the block; if the existing #includes are not already sorted,</p>
+                                        <p> this will simply insert the #include in front of the first #include of the</p>
+                                        <p> same category in the code that should be sorted after </p>
+                                        <p> If</p>
+                                        <p> already exists (with exactly the same spelling), this</p>
+                                        <p> returns std::nullopt.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 428 of file clang/lib/Tooling/Inclusions/HeaderIncludes.cpp</p>
+                            </div>
+                        </div>
+                        <div class="delimiter-container">
+                            <div id="30466B1DC1DA8692EE62A415B4E0752D0CD60002">
+                                <pre><code class="language-cpp code-clang-doc">tooling::Replacements remove (llvm::StringRef Header, bool IsAngled)</code></pre>
+                                <div>
+                                    <div>
+                                        <p> Removes all existing #includes and #imports of </p>
+                                        <p> quoted with </p>
+                                        <p>&lt;</p>
+                                        <p>&gt; if</p>
+                                        <p> is true or &quot;&quot; if </p>
+                                        <p> is false.</p>
+                                        <p> This doesn&#39;t resolve the header file path; it only deletes #includes and</p>
+                                        <p> #imports with exactly the same spelling.</p>
+                                    </div>
+                                </div>
+                                <p>Defined at line 476 of file clang/lib/Tooling/Inclusions/HeaderIncludes.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="F6F089DC2ED65E55E68412846650404025962FC5" style="max-height: 40px;">
+                            <a href="HeaderIncludes/_ZTVN5clang7tooling14HeaderIncludes7IncludeE.html">
+                                <pre><code class="language-cpp code-clang-doc">class Include</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

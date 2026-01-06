@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>CodeGenParamAllocator</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct CodeGenParamAllocator</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#ParamTypes">ParamTypes</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#ParamValues">ParamValues</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#ParamNumberMap">ParamNumberMap</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nparams">nparams</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#D82F01717B016041729C71DE017FC48255C833F7">allocParam</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct CodeGenParamAllocator</h1>
+                        <p>Defined at line 395 of file clang/utils/TableGen/MveEmitter.cpp</p>
+                        <div class="hero__subtitle">
+                            <div>
+                                <p> -----------------------------------------------------------------------------</p>
+                                <p> Class to facilitate merging together the code generation for many intrinsics</p>
+                                <p> by means of varying a few constant or type parameters.</p>
+                            </div>
+                            <div>
+                                <p> Most obviously, the intrinsics in a single parametrised family will have</p>
+                                <p> code generation sequences that only differ in a type or two, e.g. vaddq_s8</p>
+                                <p> and vaddq_u16 will look the same apart from putting a different vector type</p>
+                                <p> in the call to CGM.getIntrinsic(). But also, completely different intrinsics</p>
+                                <p> will often code-generate in the same way, with only a different choice of</p>
+                                <p> _which_ IR intrinsic they lower to (e.g. vaddq_m_s8 and vmulq_m_s8), but</p>
+                                <p> marshalling the arguments and return values of the IR intrinsic in exactly</p>
+                                <p> the same way. And others might differ only in some other kind of constant,</p>
+                                <p> such as a lane index.</p>
+                            </div>
+                            <div>
+                                <p> So, when we generate the IR-building code for all these intrinsics, we keep</p>
+                                <p> track of every value that could possibly be pulled out of the code and</p>
+                                <p> stored ahead of time in a local variable. Then we group together intrinsics</p>
+                                <p> by textual equivalence of the code that would result if _all_ those</p>
+                                <p> parameters were stored in local variables. That gives us maximal sets that</p>
+                                <p> can be implemented by a single piece of IR-building code by changing</p>
+                                <p> parameter values ahead of time.</p>
+                            </div>
+                            <div>
+                                <p> After we&#39;ve done that, we do a second pass in which we only allocate _some_</p>
+                                <p> of the parameters into local variables, by tracking which ones have the same</p>
+                                <p> values as each other (so that a single variable can be reused) and which</p>
+                                <p> ones are the same across the whole set (so that no variable is needed at</p>
+                                <p> all).</p>
+                            </div>
+                            <div>
+                                <p> Hence the class below. Its allocParam method is invoked during code</p>
+                                <p> generation by every method of a Result subclass (see below) that wants to</p>
+                                <p> give it the opportunity to pull something out into a switchable parameter.</p>
+                                <p> It returns a variable name for the parameter, or (if it&#39;s being used in the</p>
+                                <p> second pass once we&#39;ve decided that some parameters don&#39;t need to be stored</p>
+                                <p> in variables after all) it might just return the input expression unchanged.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="ParamTypes" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >std::vector&lt;std::string&gt; * ParamTypes</code></pre>
+                        </div>
+                        <div id="ParamValues" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >std::vector&lt;std::string&gt; * ParamValues</code></pre>
+                        </div>
+                        <div id="ParamNumberMap" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >std::vector&lt;int&gt; * ParamNumberMap</code></pre>
+                        </div>
+                        <div id="nparams" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int nparams</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div>
+                        <div class="delimiter-container">
+                            <div id="D82F01717B016041729C71DE017FC48255C833F7">
+                                <pre><code class="language-cpp code-clang-doc">std::string allocParam (StringRef Type, StringRef Value)</code></pre>
+                                <p>Defined at line 416 of file clang/utils/TableGen/MveEmitter.cpp</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

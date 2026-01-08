@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MergeEngine</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <a href="./index.html"><div class="navbar-breadcrumb-item">Global Namespace</div></a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct MergeEngine</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nTree">nTree</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pTask">pTask</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#aTree">aTree</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#aReadr">aReadr</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct MergeEngine</h1>
+                        <p>Defined at line 100428 of file <a href="https://github.com/doxygen/doxygen/blob/master/deps/sqlite3/sqlite3.c#L100428">deps/sqlite3/sqlite3.c</a></p>
+                        <div class="doc-card">
+                            <div class="nested-delimiter-container">
+                                <p>* The MergeEngine object is used to combine two or more smaller PMAs into</p>
+                                <p>* one big PMA using a merge operation.  Separate PMAs all need to be</p>
+                                <p>* combined into one big PMA in order to be able to step through the sorted</p>
+                                <p>* records in order.</p>
+                                <p>*</p>
+                                <p>* The aReadr[] array contains a PmaReader object for each of the PMAs being</p>
+                                <p>* merged.  An aReadr[] object either points to a valid key or else is at EOF.</p>
+                                <p>* (&quot;EOF&quot; means &quot;End Of File&quot;.  When aReadr[] is at EOF there is no more data.)</p>
+                                <p>* For the purposes of the paragraphs below, we assume that the array is</p>
+                                <p>* actually N elements in size, where N is the smallest power of 2 greater</p>
+                                <p>* to or equal to the number of PMAs being merged. The extra aReadr[] elements</p>
+                                <p>* are treated as if they are empty (always at EOF).</p>
+                                <p>*</p>
+                                <p>* The aTree[] array is also N elements in size. The value of N is stored in</p>
+                                <p>* the MergeEngine.nTree variable.</p>
+                                <p>*</p>
+                                <p>* The final (N/2) elements of aTree[] contain the results of comparing</p>
+                                <p>* pairs of PMA keys together. Element i contains the result of</p>
+                                <p>* comparing aReadr[2*i-N] and aReadr[2*i-N+1]. Whichever key is smaller, the</p>
+                                <p>* aTree element is set to the index of it.</p>
+                                <p>*</p>
+                                <p>* For the purposes of this comparison, EOF is considered greater than any</p>
+                                <p>* other key value. If the keys are equal (only possible with two EOF</p>
+                                <p>* values), it doesn&#39;t matter which index is stored.</p>
+                                <p>*</p>
+                                <p>* The (N/4) elements of aTree[] that precede the final (N/2) described</p>
+                                <p>* above contains the index of the smallest of each block of 4 PmaReaders</p>
+                                <p>* And so on. So that aTree[1] contains the index of the PmaReader that</p>
+                                <p>* currently points to the smallest key value. aTree[0] is unused.</p>
+                                <p>*</p>
+                                <p>* Example:</p>
+                                <p>*</p>
+                                <p>*     aReadr[0] -&gt; Banana</p>
+                                <p>*     aReadr[1] -&gt; Feijoa</p>
+                                <p>*     aReadr[2] -&gt; Elderberry</p>
+                                <p>*     aReadr[3] -&gt; Currant</p>
+                                <p>*     aReadr[4] -&gt; Grapefruit</p>
+                                <p>*     aReadr[5] -&gt; Apple</p>
+                                <p>*     aReadr[6] -&gt; Durian</p>
+                                <p>*     aReadr[7] -&gt; EOF</p>
+                                <p>*</p>
+                                <p>*     aTree[] = { X, 5   0, 5    0, 3, 5, 6 }</p>
+                                <p>*</p>
+                                <p>* The current element is &quot;Apple&quot; (the value of the key indicated by</p>
+                                <p>* PmaReader 5). When the Next() operation is invoked, PmaReader 5 will</p>
+                                <p>* be advanced to the next key in its segment. Say the next key is</p>
+                                <p>* &quot;Eggplant&quot;:</p>
+                                <p>*</p>
+                                <p>*     aReadr[5] -&gt; Eggplant</p>
+                                <p>*</p>
+                                <p>* The contents of aTree[] are updated first by comparing the new PmaReader</p>
+                                <p>* 5 key to the current key of PmaReader 4 (still &quot;Grapefruit&quot;). The PmaReader</p>
+                                <p>* 5 value is still smaller, so aTree[6] is set to 5. And so on up the tree.</p>
+                                <p>* The value of PmaReader 6 - &quot;Durian&quot; - is now smaller than that of PmaReader</p>
+                                <p>* 5, so aTree[3] is set to 6. Key 0 is smaller than key 6 (Banana</p>
+                                <p>&lt;Durian</p>
+                                <p>),</p>
+                                <p>* so the value written into element 1 of the array is 0. As follows:</p>
+                                <p>*</p>
+                                <p>*     aTree[] = { X, 0   0, 6    0, 3, 5, 6 }</p>
+                                <p>*</p>
+                                <p>* In other words, each time we advance to the next sorter element, log2(N)</p>
+                                <p>* key comparison operations are required, where N is the number of segments</p>
+                                <p>* being merged (rounded up to the next power of 2).</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="nTree" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int nTree</code></pre>
+                        </div>
+                        <div id="pTask" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SortSubtask * pTask</code></pre>
+                        </div>
+                        <div id="aTree" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int * aTree</code></pre>
+                        </div>
+                        <div id="aReadr" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >PmaReader * aReadr</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>DocParser</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <a href="./index.html"><div class="navbar-breadcrumb-item">Global Namespace</div></a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>class DocParser</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#contextStack">contextStack</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#context">context</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#tokenizer">tokenizer</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#PublicMethods">Public Method</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#29B012283F04E7DE591BE36D196CF85E3AC409E0">pushContext</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7AEFEFF4EEC185645EF58DB07C7DD912BD81BCBD">popContext</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9F0362F60432A6A3551C6408218301471428AA61">handleImg</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9F5703CF926D1AC57E43432FA99A26C0E81DB413">internalValidatingParseDoc</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#6ABABF1B9107ADE0109C3C3C9011CDDC91C9BC6B">processCopyDoc</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#F569006560E283C3EEC539C51F7146842B06C518">findAndCopyImage</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#14BC63A3AAB8A23611C44A4029FF318E6B59DD77">checkArgumentName</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#B30C2151F3A434E3C3FCA7453B4DAD1D74F6ADD2">checkRetvalName</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#7C4B00C111B1843EC540648FA87CD242CD797AFA">checkUnOrMultipleDocumentedParams</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#ECC74661BA57AAF47B2B385A8CEB8F6D9F7DDF9F">findDocsForMemberOrCompound</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#6D41A952700FE8299E9DFF3BCB571F2E4BD3C80D">defaultHandleToken</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#209C31935F6D8C7CCF233147F5065280D9356391">errorHandleDefaultToken</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#4E7F1CFA3123F1AB8B69A1910943B226D030E85C">defaultHandleTitleAndSize</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#98C381CCBA373D2B72FBEE37FFE4B638DE76CC7F">handleStyleArgument</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#4A6D3F019C63967224207A362518AB889106187D">handleStyleEnter</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#17FDECCD99BBC86B7FC51749D6D1C41309DE233D">handleStyleLeave</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#59B3561136B085693513C2BEFE5F82D48D9E2E3F">handlePendingStyleCommands</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#BDEB3CE5B95171387C8A8D1BCE6D198A965F1E3B">handleInitialStyleCommands</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#B5008FFA81CA82E807D79BB0E888AABDB0B8C3FE">handleAHref</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#4D24BBC897A20966EEDD1D8AB709CAAA752FDC96">handleUnclosedStyleCommands</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#40B592AFBD500BC5DA620F1C87247644ED4EB72A">handleLinkedWord</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9FEF32630FAB025DBB32495A298D8146B6250C45">handleParameterType</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#B219BA57DFD8F0CCDB1472EC28AAD5FD9D5ADE79">handleInternalRef</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#FD83683AD7FC4921A1FA715C2C59ACEB4CB53761">handleAnchor</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#137B505C1523051C5043DFDE7FB5576AAC2C6B85">handlePrefix</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#DB242D6E13AE54F0D7653D93848CF6DBD7DE3337">handleImage</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#5C7581A70E17D9E291743BC7EA22470DFCE62EDE">readTextFileByName</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">class DocParser</h1>
+                        <p>Defined at line 99 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser_p.h#L99">src/docparser_p.h</a></p>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="contextStack" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >stack contextStack</code></pre>
+                        </div>
+                        <div id="context" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DocParserContext context</code></pre>
+                        </div>
+                        <div id="tokenizer" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >DocTokenizer tokenizer</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMethods" class="section-container">
+                    <h2>Public Methods</h2>
+                    <div id="29B012283F04E7DE591BE36D196CF85E3AC409E0" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void pushContext ()</code></pre>
+                            <p>Defined at line 60 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L60">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="7AEFEFF4EEC185645EF58DB07C7DD912BD81BCBD" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void popContext ()</code></pre>
+                            <p>Defined at line 74 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L74">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="9F0362F60432A6A3551C6408218301471428AA61" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void handleImg (DocNodeVariant * parent, DocNodeList &amp; children, const HtmlAttribList &amp; tagHtmlAttribs)</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p>---------------------------------------------------------------------------</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 1589 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L1589">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="9F5703CF926D1AC57E43432FA99A26C0E81DB413" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">Token internalValidatingParseDoc (DocNodeVariant * parent, DocNodeList &amp; children, const QCString &amp; doc)</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p>---------------------------------------------------------------------------</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 1620 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L1620">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="6ABABF1B9107ADE0109C3C3C9011CDDC91C9BC6B" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">QCString processCopyDoc (const char * data, size_t &amp; len)</code></pre>
+                            <p>Defined at line 1815 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L1815">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="F569006560E283C3EEC539C51F7146842B06C518" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">QCString findAndCopyImage (const QCString &amp; fileName, DocImage::Type type, bool doWarn)</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p> search for an image in the imageNameDict and if found</p>
+                                    <p> copies the image to the output directory (which depends on the </p>
+                                    <p> parameter).</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 94 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L94">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="14BC63A3AAB8A23611C44A4029FF318E6B59DD77" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void checkArgumentName ()</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p> Collects the parameters found with </p>
+                                    <p>@</p>
+                                    <p>param command</p>
+                                    <p>  in a list context.paramsFound. If</p>
+                                    <p>  the parameter is not an actual parameter of the current</p>
+                                    <p>  member context.memberDef, then a warning is raised (unless warnings</p>
+                                    <p>  are disabled altogether).</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 208 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L208">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="B30C2151F3A434E3C3FCA7453B4DAD1D74F6ADD2" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void checkRetvalName ()</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p> Collects the return values found with </p>
+                                    <p>@</p>
+                                    <p>retval command</p>
+                                    <p>  in a global list g_parserContext.retvalsFound.</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 273 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L273">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="7C4B00C111B1843EC540648FA87CD242CD797AFA" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void checkUnOrMultipleDocumentedParams ()</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p> Checks if the parameters that have been specified using </p>
+                                    <p>@</p>
+                                    <p>param are</p>
+                                    <p>  indeed all parameters and that a parameter does not have multiple</p>
+                                    <p>@</p>
+                                    <p>param blocks.</p>
+                                    <p>  Must be called after checkArgumentName() has been called for each</p>
+                                    <p>  argument.</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 294 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L294">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="ECC74661BA57AAF47B2B385A8CEB8F6D9F7DDF9F" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">bool findDocsForMemberOrCompound (const QCString &amp; commandName, QCString * pDoc, QCString * pBrief, const Definition ** pDef)</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p>---------------------------------------------------------------------------</p>
+                                    <p> Looks for a documentation block with name commandName in the current</p>
+                                    <p>  context (g_parserContext.context). The resulting documentation string is</p>
+                                    <p>  put in pDoc, the definition in which the documentation was found is</p>
+                                    <p>  put in pDef.</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 383 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L383">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="6D41A952700FE8299E9DFF3BCB571F2E4BD3C80D" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">bool defaultHandleToken (DocNodeVariant * parent, Token tok, DocNodeList &amp; children, bool handleWord)</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p> Helper function that deals with the most common tokens allowed in</p>
+                                    <p> title like sections.</p>
+                                </div>
+                                <div class="nested-delimiter-container">
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>parent</b>       Parent node, owner of the children list passed as                   the third argument.
+                                    </div> 
+                                    <div>
+                                        <b>tok</b>          The token to process.
+                                    </div> 
+                                    <div>
+                                        <b>children</b>     The list of child nodes to which the node representing                   the token can be added.
+                                    </div> 
+                                    <div>
+                                        <b>handleWord</b>   Indicates if word token should be processed
+                                    </div> 
+                                </div>
+                            </div>
+                            <p>Defined at line 1214 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L1214">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="209C31935F6D8C7CCF233147F5065280D9356391" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void errorHandleDefaultToken (DocNodeVariant * parent, Token tok, DocNodeList &amp; children, const QCString &amp; txt)</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p>---------------------------------------------------------------------------</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 536 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L536">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="4E7F1CFA3123F1AB8B69A1910943B226D030E85C" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void defaultHandleTitleAndSize (const CommandType cmd, DocNodeVariant * parent, DocNodeList &amp; children, QCString &amp; width, QCString &amp; height)</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p> Helper function that deals with the title, width, and height arguments of various commands.</p>
+                                </div>
+                                <div class="nested-delimiter-container">
+                                    <h3>Parameters</h3>
+                                    <div>
+                                        <b>cmd</b> [in]         Command id for which to extract caption and size info.
+                                    </div> 
+                                    <div>
+                                        <b>parent</b> [in]      Parent node, owner of the children list passed as                       the third argument.
+                                    </div> 
+                                    <div>
+                                        <b>children</b> [in]    The list of child nodes to which the node representing                       the token can be added.
+                                    </div> 
+                                    <div>
+                                        <b>width</b> [out]      the extracted width specifier
+                                    </div> 
+                                    <div>
+                                        <b>height</b> [out]     the extracted height specifier
+                                    </div> 
+                                </div>
+                            </div>
+                            <p>Defined at line 1012 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L1012">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="98C381CCBA373D2B72FBEE37FFE4B638DE76CC7F" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">Token handleStyleArgument (DocNodeVariant * parent, DocNodeList &amp; children, const QCString &amp; cmdName)</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p>---------------------------------------------------------------------------</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 569 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L569">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="4A6D3F019C63967224207A362518AB889106187D" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void handleStyleEnter (DocNodeVariant * parent, DocNodeList &amp; children, DocStyleChange::Style s, const QCString &amp; tagName, const HtmlAttribList * attribs)</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p> Called when a style change starts. For instance a </p>
+                                    <p>&lt;</p>
+                                    <p>b</p>
+                                    <p>&gt;</p>
+                                    <p> command is</p>
+                                    <p>  encountered.</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 622 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L622">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="17FDECCD99BBC86B7FC51749D6D1C41309DE233D" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void handleStyleLeave (DocNodeVariant * parent, DocNodeList &amp; children, DocStyleChange::Style s, const QCString &amp; tagName)</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p> Called when a style change ends. For instance a </p>
+                                    <p>&lt;</p>
+                                    <p>/b</p>
+                                    <p>&gt;</p>
+                                    <p> command is</p>
+                                    <p>  encountered.</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 635 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L635">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="59B3561136B085693513C2BEFE5F82D48D9E2E3F" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void handlePendingStyleCommands (DocNodeVariant * parent, DocNodeList &amp; children)</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p> Called at the end of a paragraph to close all open style changes</p>
+                                    <p>  (e.g. a </p>
+                                    <p> without a </p>
+                                    <p>). The closed styles are pushed onto a stack</p>
+                                    <p>  and entered again at the start of a new paragraph.</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 685 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L685">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="BDEB3CE5B95171387C8A8D1BCE6D198A965F1E3B" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void handleInitialStyleCommands (DocNodeVariant * parent, DocNodeList &amp; children)</code></pre>
+                            <p>Defined at line 702 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L702">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="B5008FFA81CA82E807D79BB0E888AABDB0B8C3FE" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">Token handleAHref (DocNodeVariant * parent, DocNodeList &amp; children, const HtmlAttribList &amp; tagHtmlAttribs)</code></pre>
+                            <p>Defined at line 713 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L713">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="4D24BBC897A20966EEDD1D8AB709CAAA752FDC96" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void handleUnclosedStyleCommands ()</code></pre>
+                            <p>Defined at line 758 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L758">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="40B592AFBD500BC5DA620F1C87247644ED4EB72A" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void handleLinkedWord (DocNodeVariant * parent, DocNodeList &amp; children, bool ignoreAutoLinkFlag)</code></pre>
+                            <p>Defined at line 782 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L782">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="9FEF32630FAB025DBB32495A298D8146B6250C45" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void handleParameterType (DocNodeVariant * parent, DocNodeList &amp; children, const QCString &amp; paramTypes)</code></pre>
+                            <p>Defined at line 902 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L902">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="B219BA57DFD8F0CCDB1472EC28AAD5FD9D5ADE79" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void handleInternalRef (DocNodeVariant * parent, DocNodeList &amp; children)</code></pre>
+                            <p>Defined at line 926 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L926">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="FD83683AD7FC4921A1FA715C2C59ACEB4CB53761" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void handleAnchor (DocNodeVariant * parent, DocNodeList &amp; children)</code></pre>
+                            <p>Defined at line 948 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L948">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="137B505C1523051C5043DFDE7FB5576AAC2C6B85" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void handlePrefix (DocNodeVariant * parent, DocNodeList &amp; children)</code></pre>
+                            <p>Defined at line 976 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L976">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="DB242D6E13AE54F0D7653D93848CF6DBD7DE3337" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void handleImage (DocNodeVariant * parent, DocNodeList &amp; children)</code></pre>
+                            <p>Defined at line 1096 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L1096">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                    <div id="5C7581A70E17D9E291743BC7EA22470DFCE62EDE" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc">void readTextFileByName (const QCString &amp; file, QCString &amp; text)</code></pre>
+                            <div class="doc-card">
+                                <div class="nested-delimiter-container">
+                                    <p>---------------------------------------------------------------------------</p>
+                                </div>
+                            </div>
+                            <p>Defined at line 1661 of file <a href="https://github.com/doxygen/doxygen/blob/master/src/docparser.cpp#L1661">src/docparser.cpp</a></p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

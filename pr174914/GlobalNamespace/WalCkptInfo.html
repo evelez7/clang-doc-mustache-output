@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>WalCkptInfo</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <a href="./index.html"><div class="navbar-breadcrumb-item">Global Namespace</div></a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct WalCkptInfo</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nBackfill">nBackfill</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#aReadMark">aReadMark</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#aLock">aLock</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nBackfillAttempted">nBackfillAttempted</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#notUsed0">notUsed0</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct WalCkptInfo</h1>
+                        <p>Defined at line 63880 of file <a href="https://github.com/doxygen/doxygen/blob/master/deps/sqlite3/sqlite3.c#L63880">deps/sqlite3/sqlite3.c</a></p>
+                        <div class="doc-card">
+                            <div class="nested-delimiter-container">
+                                <p>* A copy of the following object occurs in the wal-index immediately</p>
+                                <p>* following the second copy of the WalIndexHdr.  This object stores</p>
+                                <p>* information used by checkpoint.</p>
+                                <p>*</p>
+                                <p>* nBackfill is the number of frames in the WAL that have been written</p>
+                                <p>* back into the database. (We call the act of moving content from WAL to</p>
+                                <p>* database &quot;backfilling&quot;.)  The nBackfill number is never greater than</p>
+                                <p>* WalIndexHdr.mxFrame.  nBackfill can only be increased by threads</p>
+                                <p>* holding the WAL_CKPT_LOCK lock (which includes a recovery thread).</p>
+                                <p>* However, a WAL_WRITE_LOCK thread can move the value of nBackfill from</p>
+                                <p>* mxFrame back to zero when the WAL is reset.</p>
+                                <p>*</p>
+                                <p>* nBackfillAttempted is the largest value of nBackfill that a checkpoint</p>
+                                <p>* has attempted to achieve.  Normally nBackfill==nBackfillAtempted, however</p>
+                                <p>* the nBackfillAttempted is set before any backfilling is done and the</p>
+                                <p>* nBackfill is only set after all backfilling completes.  So if a checkpoint</p>
+                                <p>* crashes, nBackfillAttempted might be larger than nBackfill.  The</p>
+                                <p>* WalIndexHdr.mxFrame must never be less than nBackfillAttempted.</p>
+                                <p>*</p>
+                                <p>* The aLock[] field is a set of bytes used for locking.  These bytes should</p>
+                                <p>* never be read or written.</p>
+                                <p>*</p>
+                                <p>* There is one entry in aReadMark[] for each reader lock.  If a reader</p>
+                                <p>* holds read-lock K, then the value in aReadMark[K] is no greater than</p>
+                                <p>* the mxFrame for that reader.  The value READMARK_NOT_USED (0xffffffff)</p>
+                                <p>* for any aReadMark[] means that entry is unused.  aReadMark[0] is</p>
+                                <p>* a special case; its value is never used and it exists as a place-holder</p>
+                                <p>* to avoid having to offset aReadMark[] indexs by one.  Readers holding</p>
+                                <p>* WAL_READ_LOCK(0) always ignore the entire WAL and read all content</p>
+                                <p>* directly from the database.</p>
+                                <p>*</p>
+                                <p>* The value of aReadMark[K] may only be changed by a thread that</p>
+                                <p>* is holding an exclusive lock on WAL_READ_LOCK(K).  Thus, the value of</p>
+                                <p>* aReadMark[K] cannot changed while there is a reader is using that mark</p>
+                                <p>* since the reader will be holding a shared lock on WAL_READ_LOCK(K).</p>
+                                <p>*</p>
+                                <p>* The checkpointer may only transfer frames from WAL to database where</p>
+                                <p>* the frame numbers are less than or equal to every aReadMark[] that is</p>
+                                <p>* in use (that is, every aReadMark[j] for which there is a corresponding</p>
+                                <p>* WAL_READ_LOCK(j)).  New readers (usually) pick the aReadMark[] with the</p>
+                                <p>* largest value and will increase an unused aReadMark[] to mxFrame if there</p>
+                                <p>* is not already an aReadMark[] equal to mxFrame.  The exception to the</p>
+                                <p>* previous sentence is when nBackfill equals mxFrame (meaning that everything</p>
+                                <p>* in the WAL has been backfilled into the database) then new readers</p>
+                                <p>* will choose aReadMark[0] which has value 0 and hence such reader will</p>
+                                <p>* get all their all content directly from the database file and ignore</p>
+                                <p>* the WAL.</p>
+                                <p>*</p>
+                                <p>* Writers normally append new frames to the end of the WAL.  However,</p>
+                                <p>* if nBackfill equals mxFrame (meaning that all WAL content has been</p>
+                                <p>* written back into the database) and if no readers are using the WAL</p>
+                                <p>* (in other words, if there are no WAL_READ_LOCK(i) where i&gt;0) then</p>
+                                <p>* the writer will first &quot;reset&quot; the WAL back to the beginning and start</p>
+                                <p>* writing new content beginning at frame 1.</p>
+                                <p>*</p>
+                                <p>* We assume that 32-bit loads are atomic and so no locks are needed in</p>
+                                <p>* order to read from any aReadMark[] entries.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="nBackfill" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u32 nBackfill</code></pre>
+                        </div>
+                        <div id="aReadMark" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u32[5] aReadMark</code></pre>
+                        </div>
+                        <div id="aLock" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u8[8] aLock</code></pre>
+                        </div>
+                        <div id="nBackfillAttempted" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u32 nBackfillAttempted</code></pre>
+                        </div>
+                        <div id="notUsed0" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u32 notUsed0</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

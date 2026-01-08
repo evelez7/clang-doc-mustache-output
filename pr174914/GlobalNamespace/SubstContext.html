@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>SubstContext</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <a href="./index.html"><div class="navbar-breadcrumb-item">Global Namespace</div></a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct SubstContext</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pParse">pParse</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#iTable">iTable</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#iNewTable">iNewTable</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#isOuterJoin">isOuterJoin</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pEList">pEList</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pCList">pCList</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct SubstContext</h1>
+                        <p>Defined at line 142801 of file <a href="https://github.com/doxygen/doxygen/blob/master/deps/sqlite3/sqlite3.c#L142801">deps/sqlite3/sqlite3.c</a></p>
+                        <div class="doc-card">
+                            <div class="nested-delimiter-container">
+                                <p> An instance of the SubstContext object describes an substitution edit</p>
+                                <p>* to be performed on a parse tree.</p>
+                                <p>*</p>
+                                <p>* All references to columns in table iTable are to be replaced by corresponding</p>
+                                <p>* expressions in pEList.</p>
+                                <p>*</p>
+                                <p>* ## About &quot;isOuterJoin&quot;:</p>
+                                <p>*</p>
+                                <p>* The isOuterJoin column indicates that the replacement will occur into a</p>
+                                <p>* position in the parent that NULL-able due to an OUTER JOIN.  Either the</p>
+                                <p>* target slot in the parent is the right operand of a LEFT JOIN, or one of</p>
+                                <p>* the left operands of a RIGHT JOIN.  In either case, we need to potentially</p>
+                                <p>* bypass the substituted expression with OP_IfNullRow.</p>
+                                <p>*</p>
+                                <p>* Suppose the original expression is an integer constant. Even though the table</p>
+                                <p>* has the nullRow flag set, because the expression is an integer constant,</p>
+                                <p>* it will not be NULLed out.  So instead, we insert an OP_IfNullRow opcode</p>
+                                <p>* that checks to see if the nullRow flag is set on the table.  If the nullRow</p>
+                                <p>* flag is set, then the value in the register is set to NULL and the original</p>
+                                <p>* expression is bypassed.  If the nullRow flag is not set, then the original</p>
+                                <p>* expression runs to populate the register.</p>
+                                <p>*</p>
+                                <p>* Example where this is needed:</p>
+                                <p>*</p>
+                                <p>*      CREATE TABLE t1(a INTEGER PRIMARY KEY, b INT);</p>
+                                <p>*      CREATE TABLE t2(x INT UNIQUE);</p>
+                                <p>*</p>
+                                <p>*      SELECT a,b,m,x FROM t1 LEFT JOIN (SELECT 59 AS m,x FROM t2) ON b=x;</p>
+                                <p>*</p>
+                                <p>* When the subquery on the right side of the LEFT JOIN is flattened, we</p>
+                                <p>* have to add OP_IfNullRow in front of the OP_Integer that implements the</p>
+                                <p>* &quot;m&quot; value of the subquery so that a NULL will be loaded instead of 59</p>
+                                <p>* when processing a non-matched row of the left.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="pParse" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Parse * pParse</code></pre>
+                        </div>
+                        <div id="iTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int iTable</code></pre>
+                        </div>
+                        <div id="iNewTable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int iNewTable</code></pre>
+                        </div>
+                        <div id="isOuterJoin" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int isOuterJoin</code></pre>
+                        </div>
+                        <div id="pEList" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >ExprList * pEList</code></pre>
+                        </div>
+                        <div id="pCList" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >ExprList * pCList</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

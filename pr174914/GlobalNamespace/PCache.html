@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>PCache</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <a href="./index.html"><div class="navbar-breadcrumb-item">Global Namespace</div></a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct PCache</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pDirty">pDirty</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pDirtyTail">pDirtyTail</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pSynced">pSynced</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nRefSum">nRefSum</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#szCache">szCache</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#szSpill">szSpill</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#szPage">szPage</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#szExtra">szExtra</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#bPurgeable">bPurgeable</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#eCreate">eCreate</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#xStress">xStress</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pStress">pStress</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pCache">pCache</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct PCache</h1>
+                        <p>Defined at line 52912 of file <a href="https://github.com/doxygen/doxygen/blob/master/deps/sqlite3/sqlite3.c#L52912">deps/sqlite3/sqlite3.c</a></p>
+                        <div class="doc-card">
+                            <div class="nested-delimiter-container">
+                                <p>* A complete page cache is an instance of this structure.  Every</p>
+                                <p>* entry in the cache holds a single page of the database file.  The</p>
+                                <p>* btree layer only operates on the cached copy of the database pages.</p>
+                                <p>*</p>
+                                <p>* A page cache entry is &quot;clean&quot; if it exactly matches what is currently</p>
+                                <p>* on disk.  A page is &quot;dirty&quot; if it has been modified and needs to be</p>
+                                <p>* persisted to disk.</p>
+                                <p>*</p>
+                                <p>* pDirty, pDirtyTail, pSynced:</p>
+                                <p>*   All dirty pages are linked into the doubly linked list using</p>
+                                <p>*   PgHdr.pDirtyNext and pDirtyPrev. The list is maintained in LRU order</p>
+                                <p>*   such that p was added to the list more recently than p-&gt;pDirtyNext.</p>
+                                <p>*   PCache.pDirty points to the first (newest) element in the list and</p>
+                                <p>*   pDirtyTail to the last (oldest).</p>
+                                <p>*</p>
+                                <p>*   The PCache.pSynced variable is used to optimize searching for a dirty</p>
+                                <p>*   page to eject from the cache mid-transaction. It is better to eject</p>
+                                <p>*   a page that does not require a journal sync than one that does.</p>
+                                <p>*   Therefore, pSynced is maintained so that it *almost* always points</p>
+                                <p>*   to either the oldest page in the pDirty/pDirtyTail list that has a</p>
+                                <p>*   clear PGHDR_NEED_SYNC flag or to a page that is older than this one</p>
+                                <p>*   (so that the right page to eject can be found by following pDirtyPrev</p>
+                                <p>*   pointers).</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="pDirty" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >PgHdr * pDirty</code></pre>
+                        </div>
+                        <div id="pDirtyTail" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >PgHdr * pDirtyTail</code></pre>
+                        </div>
+                        <div id="pSynced" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >PgHdr * pSynced</code></pre>
+                        </div>
+                        <div id="nRefSum" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >i64 nRefSum</code></pre>
+                        </div>
+                        <div id="szCache" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int szCache</code></pre>
+                        </div>
+                        <div id="szSpill" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int szSpill</code></pre>
+                        </div>
+                        <div id="szPage" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int szPage</code></pre>
+                        </div>
+                        <div id="szExtra" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int szExtra</code></pre>
+                        </div>
+                        <div id="bPurgeable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u8 bPurgeable</code></pre>
+                        </div>
+                        <div id="eCreate" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u8 eCreate</code></pre>
+                        </div>
+                        <div id="xStress" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int (*)(void *, PgHdr *) xStress</code></pre>
+                        </div>
+                        <div id="pStress" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >void * pStress</code></pre>
+                        </div>
+                        <div id="pCache" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >sqlite3_pcache * pCache</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

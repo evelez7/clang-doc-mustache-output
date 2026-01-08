@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>Lookaside</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <a href="./index.html"><div class="navbar-breadcrumb-item">Global Namespace</div></a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct Lookaside</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#bDisable">bDisable</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#sz">sz</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#szTrue">szTrue</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#bMalloced">bMalloced</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nSlot">nSlot</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#anStat">anStat</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pInit">pInit</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pFree">pFree</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pSmallInit">pSmallInit</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pSmallFree">pSmallFree</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pMiddle">pMiddle</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pStart">pStart</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pEnd">pEnd</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pTrueEnd">pTrueEnd</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct Lookaside</h1>
+                        <p>Defined at line 17087 of file <a href="https://github.com/doxygen/doxygen/blob/master/deps/sqlite3/sqlite3.c#L17087">deps/sqlite3/sqlite3.c</a></p>
+                        <div class="doc-card">
+                            <div class="nested-delimiter-container">
+                                <p>* Lookaside malloc is a set of fixed-size buffers that can be used</p>
+                                <p>* to satisfy small transient memory allocation requests for objects</p>
+                                <p>* associated with a particular database connection.  The use of</p>
+                                <p>* lookaside malloc provides a significant performance enhancement</p>
+                                <p>* (approx 10%) by avoiding numerous malloc/free requests while parsing</p>
+                                <p>* SQL statements.</p>
+                                <p>*</p>
+                                <p>* The Lookaside structure holds configuration information about the</p>
+                                <p>* lookaside malloc subsystem.  Each available memory allocation in</p>
+                                <p>* the lookaside subsystem is stored on a linked list of LookasideSlot</p>
+                                <p>* objects.</p>
+                                <p>*</p>
+                                <p>* Lookaside allocations are only allowed for objects that are associated</p>
+                                <p>* with a particular database connection.  Hence, schema information cannot</p>
+                                <p>* be stored in lookaside because in shared cache mode the schema information</p>
+                                <p>* is shared by multiple database connections.  Therefore, while parsing</p>
+                                <p>* schema information, the Lookaside.bEnabled flag is cleared so that</p>
+                                <p>* lookaside allocations are not used to construct the schema objects.</p>
+                                <p>*</p>
+                                <p>* New lookaside allocations are only allowed if bDisable==0.  When</p>
+                                <p>* bDisable is greater than zero, sz is set to zero which effectively</p>
+                                <p>* disables lookaside without adding a new test for the bDisable flag</p>
+                                <p>* in a performance-critical path.  sz should be set by to szTrue whenever</p>
+                                <p>* bDisable changes back to zero.</p>
+                                <p>*</p>
+                                <p>* Lookaside buffers are initially held on the pInit list.  As they are</p>
+                                <p>* used and freed, they are added back to the pFree list.  New allocations</p>
+                                <p>* come off of pFree first, then pInit as a fallback.  This dual-list</p>
+                                <p>* allows use to compute a high-water mark - the maximum number of allocations</p>
+                                <p>* outstanding at any point in the past - by subtracting the number of</p>
+                                <p>* allocations on the pInit list from the total number of allocations.</p>
+                                <p>*</p>
+                                <p>* Enhancement on 2019-12-12:  Two-size-lookaside</p>
+                                <p>* The default lookaside configuration is 100 slots of 1200 bytes each.</p>
+                                <p>* The larger slot sizes are important for performance, but they waste</p>
+                                <p>* a lot of space, as most lookaside allocations are less than 128 bytes.</p>
+                                <p>* The two-size-lookaside enhancement breaks up the lookaside allocation</p>
+                                <p>* into two pools:  One of 128-byte slots and the other of the default size</p>
+                                <p>* (1200-byte) slots.   Allocations are filled from the small-pool first,</p>
+                                <p>* failing over to the full-size pool if that does not work.  Thus more</p>
+                                <p>* lookaside slots are available while also using less memory.</p>
+                                <p>* This enhancement can be omitted by compiling with</p>
+                                <p>* SQLITE_OMIT_TWOSIZE_LOOKASIDE.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="bDisable" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u32 bDisable</code></pre>
+                        </div>
+                        <div id="sz" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u16 sz</code></pre>
+                        </div>
+                        <div id="szTrue" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u16 szTrue</code></pre>
+                        </div>
+                        <div id="bMalloced" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u8 bMalloced</code></pre>
+                        </div>
+                        <div id="nSlot" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u32 nSlot</code></pre>
+                        </div>
+                        <div id="anStat" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u32[3] anStat</code></pre>
+                        </div>
+                        <div id="pInit" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LookasideSlot * pInit</code></pre>
+                        </div>
+                        <div id="pFree" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LookasideSlot * pFree</code></pre>
+                        </div>
+                        <div id="pSmallInit" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LookasideSlot * pSmallInit</code></pre>
+                        </div>
+                        <div id="pSmallFree" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >LookasideSlot * pSmallFree</code></pre>
+                        </div>
+                        <div id="pMiddle" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >void * pMiddle</code></pre>
+                        </div>
+                        <div id="pStart" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >void * pStart</code></pre>
+                        </div>
+                        <div id="pEnd" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >void * pEnd</code></pre>
+                        </div>
+                        <div id="pTrueEnd" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >void * pTrueEnd</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

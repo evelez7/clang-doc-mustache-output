@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>sqlite3_index_info</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <a href="./index.html"><div class="navbar-breadcrumb-item">Global Namespace</div></a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct sqlite3_index_info</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nConstraint">nConstraint</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#aConstraint">aConstraint</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nOrderBy">nOrderBy</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#aOrderBy">aOrderBy</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#aConstraintUsage">aConstraintUsage</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#idxNum">idxNum</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#idxStr">idxStr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#needToFreeIdxStr">needToFreeIdxStr</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#orderByConsumed">orderByConsumed</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#estimatedCost">estimatedCost</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#estimatedRows">estimatedRows</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#idxFlags">idxFlags</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#colUsed">colUsed</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                                <a class="sidebar-item" href="#Classes">Inner Classes</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#263D9DA4374E27E26C64297EA6E79E290AF97A8B">sqlite3_index_constraint</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#9AF48EE14F30BEE87A766BE2849CC98F5F046A52">sqlite3_index_constraint_usage</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#AD9B258EFC52C3571F0905E74C52503E87AEFA10">sqlite3_index_orderby</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct sqlite3_index_info</h1>
+                        <p>Defined at line 7273 of file <a href="https://github.com/doxygen/doxygen/blob/master/deps/sqlite3/sqlite3.h#L7273">deps/sqlite3/sqlite3.h</a></p>
+                        <div class="doc-card">
+                            <div class="nested-delimiter-container">
+                                <p>* CAPI3REF: Virtual Table Indexing Information</p>
+                                <p>* KEYWORDS: sqlite3_index_info</p>
+                                <p>*</p>
+                                <p>* The sqlite3_index_info structure and its substructures is used as part</p>
+                                <p>* of the [virtual table] interface to</p>
+                                <p>* pass information into and receive the reply from the [xBestIndex]</p>
+                                <p>* method of a [virtual table module].  The fields under **Inputs** are the</p>
+                                <p>* inputs to xBestIndex and are read-only.  xBestIndex inserts its</p>
+                                <p>* results into the **Outputs** fields.</p>
+                                <p>*</p>
+                                <p>* ^(The aConstraint[] array records WHERE clause constraints of the form:</p>
+                                <p>*</p>
+                                <p>* </p>
+                                <p>column OP expr</p>
+                                <p>*</p>
+                                <p>* where OP is =, </p>
+                                <p>&lt;</p>
+                                <p>, </p>
+                                <p>&lt;</p>
+                                <p>=, </p>
+                                <p>&gt;</p>
+                                <p>, or </p>
+                                <p>&gt;</p>
+                                <p>=.)^  ^(The particular operator is</p>
+                                <p>* stored in aConstraint[].op using one of the</p>
+                                <p>* [SQLITE_INDEX_CONSTRAINT_EQ | SQLITE_INDEX_CONSTRAINT_ values].)^</p>
+                                <p>* ^(The index of the column is stored in</p>
+                                <p>* aConstraint[].iColumn.)^  ^(aConstraint[].usable is TRUE if the</p>
+                                <p>* expr on the right-hand side can be evaluated (and thus the constraint</p>
+                                <p>* is usable) and false if it cannot.)^</p>
+                                <p>*</p>
+                                <p>* ^The optimizer automatically inverts terms of the form &quot;expr OP column&quot;</p>
+                                <p>* and makes other simplifications to the WHERE clause in an attempt to</p>
+                                <p>* get as many WHERE clause terms into the form shown above as possible.</p>
+                                <p>* ^The aConstraint[] array only reports WHERE clause terms that are</p>
+                                <p>* relevant to the particular virtual table being queried.</p>
+                                <p>*</p>
+                                <p>* ^Information about the ORDER BY clause is stored in aOrderBy[].</p>
+                                <p>* ^Each term of aOrderBy records a column of the ORDER BY clause.</p>
+                                <p>*</p>
+                                <p>* The colUsed field indicates which columns of the virtual table may be</p>
+                                <p>* required by the current scan. Virtual table columns are numbered from</p>
+                                <p>* zero in the order in which they appear within the CREATE TABLE statement</p>
+                                <p>* passed to sqlite3_declare_vtab(). For the first 63 columns (columns 0-62),</p>
+                                <p>* the corresponding bit is set within the colUsed mask if the column may be</p>
+                                <p>* required by SQLite. If the table has at least 64 columns and any column</p>
+                                <p>* to the right of the first 63 is required, then bit 63 of colUsed is also</p>
+                                <p>* set. In other words, column iCol may be required if the expression</p>
+                                <p>* (colUsed </p>
+                                <p>&amp;</p>
+                                <p> ((sqlite3_uint64)1 </p>
+                                <p>&lt;</p>
+                                <p>&lt;</p>
+                                <p> (iCol&gt;=63 ? 63 : iCol))) evaluates to</p>
+                                <p>* non-zero.</p>
+                                <p>*</p>
+                                <p>* The [xBestIndex] method must fill aConstraintUsage[] with information</p>
+                                <p>* about what parameters to pass to xFilter.  ^If argvIndex&gt;0 then</p>
+                                <p>* the right-hand side of the corresponding aConstraint[] is evaluated</p>
+                                <p>* and becomes the argvIndex-th entry in argv.  ^(If aConstraintUsage[].omit</p>
+                                <p>* is true, then the constraint is assumed to be fully handled by the</p>
+                                <p>* virtual table and might not be checked again by the byte code.)^ ^(The</p>
+                                <p>* aConstraintUsage[].omit flag is an optimization hint. When the omit flag</p>
+                                <p>* is left in its default setting of false, the constraint will always be</p>
+                                <p>* checked separately in byte code.  If the omit flag is change to true, then</p>
+                                <p>* the constraint may or may not be checked in byte code.  In other words,</p>
+                                <p>* when the omit flag is true there is no guarantee that the constraint will</p>
+                                <p>* not be checked again using byte code.)^</p>
+                                <p>*</p>
+                                <p>* ^The idxNum and idxStr values are recorded and passed into the</p>
+                                <p>* [xFilter] method.</p>
+                                <p>* ^[sqlite3_free()] is used to free idxStr if and only if</p>
+                                <p>* needToFreeIdxStr is true.</p>
+                                <p>*</p>
+                                <p>* ^The orderByConsumed means that output from [xFilter]/[xNext] will occur in</p>
+                                <p>* the correct order to satisfy the ORDER BY clause so that no separate</p>
+                                <p>* sorting step is required.</p>
+                                <p>*</p>
+                                <p>* ^The estimatedCost value is an estimate of the cost of a particular</p>
+                                <p>* strategy. A cost of N indicates that the cost of the strategy is similar</p>
+                                <p>* to a linear scan of an SQLite table with N rows. A cost of log(N)</p>
+                                <p>* indicates that the expense of the operation is similar to that of a</p>
+                                <p>* binary search on a unique indexed field of an SQLite table with N rows.</p>
+                                <p>*</p>
+                                <p>* ^The estimatedRows value is an estimate of the number of rows that</p>
+                                <p>* will be returned by the strategy.</p>
+                                <p>*</p>
+                                <p>* The xBestIndex method may optionally populate the idxFlags field with a</p>
+                                <p>* mask of SQLITE_INDEX_SCAN_* flags. Currently there is only one such flag -</p>
+                                <p>* SQLITE_INDEX_SCAN_UNIQUE. If the xBestIndex method sets this flag, SQLite</p>
+                                <p>* assumes that the strategy may visit at most one row.</p>
+                                <p>*</p>
+                                <p>* Additionally, if xBestIndex sets the SQLITE_INDEX_SCAN_UNIQUE flag, then</p>
+                                <p>* SQLite also assumes that if a call to the xUpdate() method is made as</p>
+                                <p>* part of the same statement to delete or update a virtual table row and the</p>
+                                <p>* implementation returns SQLITE_CONSTRAINT, then there is no need to rollback</p>
+                                <p>* any database changes. In other words, if the xUpdate() returns</p>
+                                <p>* SQLITE_CONSTRAINT, the database contents must be exactly as they were</p>
+                                <p>* before xUpdate was called. By contrast, if SQLITE_INDEX_SCAN_UNIQUE is not</p>
+                                <p>* set and xUpdate returns SQLITE_CONSTRAINT, any database changes made by</p>
+                                <p>* the xUpdate method are automatically rolled back by SQLite.</p>
+                                <p>*</p>
+                                <p>* IMPORTANT: The estimatedRows field was added to the sqlite3_index_info</p>
+                                <p>* structure for SQLite [version 3.8.2] ([dateof:3.8.2]).</p>
+                                <p>* If a virtual table extension is</p>
+                                <p>* used with an SQLite version earlier than 3.8.2, the results of attempting</p>
+                                <p>* to read or write the estimatedRows field are undefined (but are likely</p>
+                                <p>* to include crashing the application). The estimatedRows field should</p>
+                                <p>* therefore only be used if [sqlite3_libversion_number()] returns a</p>
+                                <p>* value greater than or equal to 3008002. Similarly, the idxFlags field</p>
+                                <p>* was added for [version 3.9.0] ([dateof:3.9.0]).</p>
+                                <p>* It may therefore only be used if</p>
+                                <p>* sqlite3_libversion_number() returns a value greater than or equal to</p>
+                                <p>* 3009000.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="nConstraint" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int nConstraint</code></pre>
+                        </div>
+                        <div id="aConstraint" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >struct sqlite3_index_constraint * aConstraint</code></pre>
+                        </div>
+                        <div id="nOrderBy" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int nOrderBy</code></pre>
+                        </div>
+                        <div id="aOrderBy" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >struct sqlite3_index_orderby * aOrderBy</code></pre>
+                        </div>
+                        <div id="aConstraintUsage" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >struct sqlite3_index_constraint_usage * aConstraintUsage</code></pre>
+                        </div>
+                        <div id="idxNum" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int idxNum</code></pre>
+                        </div>
+                        <div id="idxStr" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >char * idxStr</code></pre>
+                        </div>
+                        <div id="needToFreeIdxStr" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int needToFreeIdxStr</code></pre>
+                        </div>
+                        <div id="orderByConsumed" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int orderByConsumed</code></pre>
+                        </div>
+                        <div id="estimatedCost" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >double estimatedCost</code></pre>
+                        </div>
+                        <div id="estimatedRows" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >sqlite3_int64 estimatedRows</code></pre>
+                        </div>
+                        <div id="idxFlags" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int idxFlags</code></pre>
+                        </div>
+                        <div id="colUsed" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >sqlite3_uint64 colUsed</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section id="Classes" class="section-container">
+                    <h2>Inner Classes</h2>
+                    <ul class="class-container">
+                        <li id="263D9DA4374E27E26C64297EA6E79E290AF97A8B" style="max-height: 40px;">
+                            <a href="sqlite3_index_info/_ZTVN18sqlite3_index_info24sqlite3_index_constraintE.html">
+                                <pre><code class="language-cpp code-clang-doc">class sqlite3_index_constraint</code></pre>
+                            </a>
+                        </li>
+                        <li id="9AF48EE14F30BEE87A766BE2849CC98F5F046A52" style="max-height: 40px;">
+                            <a href="sqlite3_index_info/_ZTVN18sqlite3_index_info30sqlite3_index_constraint_usageE.html">
+                                <pre><code class="language-cpp code-clang-doc">class sqlite3_index_constraint_usage</code></pre>
+                            </a>
+                        </li>
+                        <li id="AD9B258EFC52C3571F0905E74C52503E87AEFA10" style="max-height: 40px;">
+                            <a href="sqlite3_index_info/_ZTVN18sqlite3_index_info21sqlite3_index_orderbyE.html">
+                                <pre><code class="language-cpp code-clang-doc">class sqlite3_index_orderby</code></pre>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

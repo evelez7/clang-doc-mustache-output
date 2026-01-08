@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>IncrMerger</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <a href="./index.html"><div class="navbar-breadcrumb-item">Global Namespace</div></a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct IncrMerger</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pTask">pTask</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pMerger">pMerger</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#iStartOff">iStartOff</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#mxSz">mxSz</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#bEof">bEof</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#bUseThread">bUseThread</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#aFile">aFile</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct IncrMerger</h1>
+                        <p>Defined at line 100568 of file <a href="https://github.com/doxygen/doxygen/blob/master/deps/sqlite3/sqlite3.c#L100568">deps/sqlite3/sqlite3.c</a></p>
+                        <div class="doc-card">
+                            <div class="nested-delimiter-container">
+                                <p>* Normally, a PmaReader object iterates through an existing PMA stored</p>
+                                <p>* within a temp file. However, if the PmaReader.pIncr variable points to</p>
+                                <p>* an object of the following type, it may be used to iterate/merge through</p>
+                                <p>* multiple PMAs simultaneously.</p>
+                                <p>*</p>
+                                <p>* There are two types of IncrMerger object - single (bUseThread==0) and</p>
+                                <p>* multi-threaded (bUseThread==1).</p>
+                                <p>*</p>
+                                <p>* A multi-threaded IncrMerger object uses two temporary files - aFile[0]</p>
+                                <p>* and aFile[1]. Neither file is allowed to grow to more than mxSz bytes in</p>
+                                <p>* size. When the IncrMerger is initialized, it reads enough data from</p>
+                                <p>* pMerger to populate aFile[0]. It then sets variables within the</p>
+                                <p>* corresponding PmaReader object to read from that file and kicks off</p>
+                                <p>* a background thread to populate aFile[1] with the next mxSz bytes of</p>
+                                <p>* sorted record data from pMerger.</p>
+                                <p>*</p>
+                                <p>* When the PmaReader reaches the end of aFile[0], it blocks until the</p>
+                                <p>* background thread has finished populating aFile[1]. It then exchanges</p>
+                                <p>* the contents of the aFile[0] and aFile[1] variables within this structure,</p>
+                                <p>* sets the PmaReader fields to read from the new aFile[0] and kicks off</p>
+                                <p>* another background thread to populate the new aFile[1]. And so on, until</p>
+                                <p>* the contents of pMerger are exhausted.</p>
+                                <p>*</p>
+                                <p>* A single-threaded IncrMerger does not open any temporary files of its</p>
+                                <p>* own. Instead, it has exclusive access to mxSz bytes of space beginning</p>
+                                <p>* at offset iStartOff of file pTask-&gt;file2. And instead of using a</p>
+                                <p>* background thread to prepare data for the PmaReader, with a single</p>
+                                <p>* threaded IncrMerger the allocate part of pTask-&gt;file2 is &quot;refilled&quot; with</p>
+                                <p>* keys from pMerger by the calling thread whenever the PmaReader runs out</p>
+                                <p>* of data.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="pTask" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SortSubtask * pTask</code></pre>
+                        </div>
+                        <div id="pMerger" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >MergeEngine * pMerger</code></pre>
+                        </div>
+                        <div id="iStartOff" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >i64 iStartOff</code></pre>
+                        </div>
+                        <div id="mxSz" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int mxSz</code></pre>
+                        </div>
+                        <div id="bEof" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int bEof</code></pre>
+                        </div>
+                        <div id="bUseThread" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int bUseThread</code></pre>
+                        </div>
+                        <div id="aFile" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >SorterFile[2] aFile</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

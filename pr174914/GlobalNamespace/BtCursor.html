@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>BtCursor</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <a href="./index.html"><div class="navbar-breadcrumb-item">Global Namespace</div></a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct BtCursor</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#eState">eState</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#curFlags">curFlags</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#curPagerFlags">curPagerFlags</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#hints">hints</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#skipNext">skipNext</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pBtree">pBtree</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#aOverflow">aOverflow</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pKey">pKey</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pBt">pBt</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pNext">pNext</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#info">info</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nKey">nKey</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pgnoRoot">pgnoRoot</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#iPage">iPage</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#curIntKey">curIntKey</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#ix">ix</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#aiIdx">aiIdx</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pKeyInfo">pKeyInfo</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pPage">pPage</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#apPage">apPage</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct BtCursor</h1>
+                        <p>Defined at line 68211 of file <a href="https://github.com/doxygen/doxygen/blob/master/deps/sqlite3/sqlite3.c#L68211">deps/sqlite3/sqlite3.c</a></p>
+                        <div class="doc-card">
+                            <div class="nested-delimiter-container">
+                                <p>* A cursor is a pointer to a particular entry within a particular</p>
+                                <p>* b-tree within a database file.</p>
+                                <p>*</p>
+                                <p>* The entry is identified by its MemPage and the index in</p>
+                                <p>* MemPage.aCell[] of the entry.</p>
+                                <p>*</p>
+                                <p>* A single database file can be shared by two more database connections,</p>
+                                <p>* but cursors cannot be shared.  Each cursor is associated with a</p>
+                                <p>* particular database connection identified BtCursor.pBtree.db.</p>
+                                <p>*</p>
+                                <p>* Fields in this structure are accessed under the BtShared.mutex</p>
+                                <p>* found at self-&gt;pBt-&gt;mutex.</p>
+                                <p>*</p>
+                                <p>* skipNext meaning:</p>
+                                <p>* The meaning of skipNext depends on the value of eState:</p>
+                                <p>*</p>
+                                <p>*   eState            Meaning of skipNext</p>
+                                <p>*   VALID             skipNext is meaningless and is ignored</p>
+                                <p>*   INVALID           skipNext is meaningless and is ignored</p>
+                                <p>*   SKIPNEXT          sqlite3BtreeNext() is a no-op if skipNext&gt;0 and</p>
+                                <p>*                     sqlite3BtreePrevious() is no-op if skipNext</p>
+                                <p>&lt;</p>
+                                <p>0.</p>
+                                <p>*   REQUIRESEEK       restoreCursorPosition() restores the cursor to</p>
+                                <p>*                     eState=SKIPNEXT if skipNext!=0</p>
+                                <p>*   FAULT             skipNext holds the cursor fault error code.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="eState" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u8 eState</code></pre>
+                        </div>
+                        <div id="curFlags" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u8 curFlags</code></pre>
+                        </div>
+                        <div id="curPagerFlags" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u8 curPagerFlags</code></pre>
+                        </div>
+                        <div id="hints" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u8 hints</code></pre>
+                        </div>
+                        <div id="skipNext" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int skipNext</code></pre>
+                        </div>
+                        <div id="pBtree" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Btree * pBtree</code></pre>
+                        </div>
+                        <div id="aOverflow" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Pgno * aOverflow</code></pre>
+                        </div>
+                        <div id="pKey" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >void * pKey</code></pre>
+                        </div>
+                        <div id="pBt" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >BtShared * pBt</code></pre>
+                        </div>
+                        <div id="pNext" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >BtCursor * pNext</code></pre>
+                        </div>
+                        <div id="info" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >CellInfo info</code></pre>
+                        </div>
+                        <div id="nKey" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >i64 nKey</code></pre>
+                        </div>
+                        <div id="pgnoRoot" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >Pgno pgnoRoot</code></pre>
+                        </div>
+                        <div id="iPage" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >i8 iPage</code></pre>
+                        </div>
+                        <div id="curIntKey" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u8 curIntKey</code></pre>
+                        </div>
+                        <div id="ix" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u16 ix</code></pre>
+                        </div>
+                        <div id="aiIdx" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >u16[19] aiIdx</code></pre>
+                        </div>
+                        <div id="pKeyInfo" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >struct KeyInfo * pKeyInfo</code></pre>
+                        </div>
+                        <div id="pPage" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >MemPage * pPage</code></pre>
+                        </div>
+                        <div id="apPage" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >MemPage *[19] apPage</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

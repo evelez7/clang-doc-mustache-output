@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>MemStore</title>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                
+            </div>
+            <div class="navbar__menu">
+                <ul class="navbar__links">
+                    <li class="navbar__item">
+                        <a href="../index.html" class="navbar__link">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <a href="./index.html"><div class="navbar-breadcrumb-item">Global Namespace</div></a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct MemStore</h2>
+                <ul>
+                    <li>
+                        <details open>
+                            <summary class="sidebar-section">
+                              <a class="sidebar-item" href="#PublicMembers">Public Members</a>
+                            </summary>
+                            <ul>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#sz">sz</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#szAlloc">szAlloc</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#szMax">szMax</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#aData">aData</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#pMutex">pMutex</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nMmap">nMmap</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#mFlags">mFlags</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nRdLock">nRdLock</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nWrLock">nWrLock</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#nRef">nRef</a>
+                                </li>
+                                <li class="sidebar-item-container">
+                                    <a class="sidebar-item" href="#zFName">zFName</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct MemStore</h1>
+                        <p>Defined at line 51596 of file <a href="https://github.com/doxygen/doxygen/blob/master/deps/sqlite3/sqlite3.c#L51596">deps/sqlite3/sqlite3.c</a></p>
+                        <div class="doc-card">
+                            <div class="nested-delimiter-container">
+                                <p> Storage for a memdb file.</p>
+                                <p>*</p>
+                                <p>* An memdb object can be shared or separate.  Shared memdb objects can be</p>
+                                <p>* used by more than one database connection.  Mutexes are used by shared</p>
+                                <p>* memdb objects to coordinate access.  Separate memdb objects are only</p>
+                                <p>* connected to a single database connection and do not require additional</p>
+                                <p>* mutexes.</p>
+                                <p>*</p>
+                                <p>* Shared memdb objects have .zFName!=0 and .pMutex!=0.  They are created</p>
+                                <p>* using &quot;file:/name?vfs=memdb&quot;.  The first character of the name must be</p>
+                                <p>* &quot;/&quot; or else the object will be a separate memdb object.  All shared</p>
+                                <p>* memdb objects are stored in memdb_g.apMemStore[] in an arbitrary order.</p>
+                                <p>*</p>
+                                <p>* Separate memdb objects are created using a name that does not begin</p>
+                                <p>* with &quot;/&quot; or using sqlite3_deserialize().</p>
+                                <p>*</p>
+                                <p>* Access rules for shared MemStore objects:</p>
+                                <p>*</p>
+                                <p>*   *  .zFName is initialized when the object is created and afterwards</p>
+                                <p>*      is unchanged until the object is destroyed.  So it can be accessed</p>
+                                <p>*      at any time as long as we know the object is not being destroyed,</p>
+                                <p>*      which means while either the SQLITE_MUTEX_STATIC_VFS1 or</p>
+                                <p>*      .pMutex is held or the object is not part of memdb_g.apMemStore[].</p>
+                                <p>*</p>
+                                <p>*   *  Can .pMutex can only be changed while holding the</p>
+                                <p>*      SQLITE_MUTEX_STATIC_VFS1 mutex or while the object is not part</p>
+                                <p>*      of memdb_g.apMemStore[].</p>
+                                <p>*</p>
+                                <p>*   *  Other fields can only be changed while holding the .pMutex mutex</p>
+                                <p>*      or when the .nRef is less than zero and the object is not part of</p>
+                                <p>*      memdb_g.apMemStore[].</p>
+                                <p>*</p>
+                                <p>*   *  The .aData pointer has the added requirement that it can can only</p>
+                                <p>*      be changed (for resizing) when nMmap is zero.</p>
+                                <p>*</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="PublicMembers" class="section-container">
+                    <h2>Public Members</h2>
+                    <div>
+                        <div id="sz" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >sqlite3_int64 sz</code></pre>
+                        </div>
+                        <div id="szAlloc" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >sqlite3_int64 szAlloc</code></pre>
+                        </div>
+                        <div id="szMax" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >sqlite3_int64 szMax</code></pre>
+                        </div>
+                        <div id="aData" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned char * aData</code></pre>
+                        </div>
+                        <div id="pMutex" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >sqlite3_mutex * pMutex</code></pre>
+                        </div>
+                        <div id="nMmap" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int nMmap</code></pre>
+                        </div>
+                        <div id="mFlags" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >unsigned int mFlags</code></pre>
+                        </div>
+                        <div id="nRdLock" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int nRdLock</code></pre>
+                        </div>
+                        <div id="nWrLock" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int nWrLock</code></pre>
+                        </div>
+                        <div id="nRef" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >int nRef</code></pre>
+                        </div>
+                        <div id="zFName" class="delimiter-container">
+                            <pre><code class="language-cpp code-clang-doc" >char * zFName</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -5,8 +5,8 @@
     <title>Circle</title>
         <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
         <script src="../mustache-index.js"></script>
-    <link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <link id="hljs-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css">
+    <link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
+    <link id="hljs-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=routine" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
@@ -47,34 +47,38 @@
               }
 
             }
+
+            // Listen to system theme changes.
+            const themeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+            themeQuery.addEventListener("change", (event) => {
+              if (savedTheme === null) {
+                return;
+              } else if (event.matches) {
+                changeHighlightJS("dark");
+              } else {
+                changeHighlightJS("light");
+              }
+            });
+
+              toggle.onclick = () => {
+                const currentTheme = root.getAttribute("color-scheme");
+                const next = currentTheme === "dark" ? "light" : "dark";
+                changeHighlightJS(next);
+                root.setAttribute("color-scheme", next);
+                localStorage.setItem("theme", next);
+              };
+
             document.addEventListener("DOMContentLoaded", () => {
-                const savedTheme = localStorage.getItem("theme");
-                if (savedTheme !== null) {
-                  root.setAttribute("color-scheme", savedTheme)
-                  changeHighlightJS(savedTheme)
-                } else {
-                  const newTheme = themeQuery.matches ? "dark" : "light";
-                  root.setAttribute(newTheme);
-                  changeHighlightJS(newTheme);
-                }
+              const savedTheme = localStorage.getItem("theme");
+              const currentTheme = root.getAttribute("color-scheme");
+              if (savedTheme !== null) {
+                root.setAttribute("color-scheme", savedTheme);
+                changeHighlightJS(savedTheme);
+              } else {
+                root.setAttribute("color-scheme", currentTheme);
+                changeHighlightJS(currentTheme);
+              }
 
-                // Listen to system theme changes.
-                const themeQuery = window.matchMedia("(prefers-color-scheme: dark)");
-                themeQuery.addEventListener("change", (event) => {
-                  if (event.matches) {
-                    changeHighlightJS("dark");
-                  } else {
-                    changeHighlightJS("light");
-                  }
-                });
-
-                toggle.onclick = () => {
-                  const current = root.getAttribute("color-scheme");
-                  const next = current === "dark" ? "light" : "dark";
-                  changeHighlightJS(next);
-                  root.setAttribute("color-scheme", next);
-                  localStorage.setItem("theme", next);
-                };
             });
         </script>
     </header>

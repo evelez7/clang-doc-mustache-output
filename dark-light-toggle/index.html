@@ -29,21 +29,30 @@
             </div>
         </nav>
         <script>
+            const root = document.documentElement;
+            const toggle = document.getElementById("theme-toggle");
+            const hlLight = document.getElementById("hljs-light-theme");
+            const hlDark = document.getElementById("hljs-dark-theme");
+
+            function changeHighlightJS(theme) {
+              if (theme === "dark") {
+                hlDark.disabled = false; 
+                hlLight.disabled = true;
+              } else {
+                hlDark.disabled = true;
+                hlLight.disabled = false;
+              }
+
+            }
             document.addEventListener("DOMContentLoaded", () => {
-                const root = document.documentElement;
-                const toggle = document.getElementById("theme-toggle");
-                const hlLight = document.getElementById("hljs-light-theme");
-                const hlDark = document.getElementById("hljs-dark-theme");
-
-                function changeHighlightJS(theme) {
-                  if (theme === "dark") {
-                    hlDark.disabled = false; 
-                    hlLight.disabled = true;
-                  } else {
-                    hlDark.disabled = true;
-                    hlLight.disabled = false;
-                  }
-
+                const savedTheme = localStorage.getItem("theme");
+                if (savedTheme !== null) {
+                  root.setAttribute("color-scheme", savedTheme)
+                  changeHighlightJS(savedTheme)
+                } else {
+                  const newTheme = themeQuery.matches ? "dark" : "light";
+                  root.setAttribute(newTheme);
+                  changeHighlightJS(newTheme);
                 }
 
                 // Listen to system theme changes.
@@ -55,14 +64,6 @@
                     changeHighlightJS("light");
                   }
                 });
-
-                if (localStorage.getItem("theme") !== null) {
-                  let savedTheme = sessionStorage.getItem("theme");
-                  root.setAttribute("color-scheme", savedTheme)
-                  changeHighlightJS(savedTheme)
-                } else {
-                  changeHighlightJS(themeQuery.matches ? "dark" : "light");
-                }
 
                 toggle.onclick = () => {
                   const current = root.getAttribute("color-scheme");

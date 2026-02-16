@@ -7,7 +7,7 @@
         <script src="../mustache-index.js"></script>
     <link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
     <link id="hljs-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=routine" />
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=routine" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
 </head>
@@ -24,8 +24,8 @@
                             <a href="../index.html" class="navbar__link">Home</a>
                         </li>
                     </ul>
-                    <button id="theme-toggle"><span class="material-symbols-outlined">routine</span></button>
                 </div>
+                <button id="theme-toggle"><span class="material-symbols-rounded">routine</span></button>
             </div>
             <div class="navbar-breadcrumb-container">
                 <a href="./index.html"><div class="navbar-breadcrumb-item">Global Namespace</div></a>
@@ -45,10 +45,11 @@
                 hlDark.disabled = true;
                 hlLight.disabled = false;
               }
-
             }
 
             // Listen to system theme changes.
+            // If the user manually toggles the theme, the theme wont change according
+            // to system changes.
             const themeQuery = window.matchMedia("(prefers-color-scheme: dark)");
             themeQuery.addEventListener("change", (event) => {
               if (savedTheme === null) {
@@ -60,13 +61,13 @@
               }
             });
 
-              toggle.onclick = () => {
-                const currentTheme = root.getAttribute("color-scheme");
-                const next = currentTheme === "dark" ? "light" : "dark";
-                changeHighlightJS(next);
-                root.setAttribute("color-scheme", next);
-                localStorage.setItem("theme", next);
-              };
+            toggle.onclick = () => {
+              const currentTheme = root.getAttribute("color-scheme");
+              const next = currentTheme === "dark" ? "light" : "dark";
+              changeHighlightJS(next);
+              root.setAttribute("color-scheme", next);
+              localStorage.setItem("theme", next);
+            };
 
             document.addEventListener("DOMContentLoaded", () => {
               const savedTheme = localStorage.getItem("theme");

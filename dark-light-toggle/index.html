@@ -32,6 +32,7 @@
         const initialTheme = (savedTheme === "light" || savedTheme === "dark")
           ? savedTheme
           : (themeQuery.matches ? "dark" : "light");
+        window.__initialTheme = initialTheme;
         applyTheme(initialTheme);
       })();
     </script>
@@ -50,11 +51,17 @@
       html[color-scheme="dark"], html[color-scheme="dark"] body {
         background-color: #161212;
       }
+      html[color-scheme="light"] pre code {
+        background-color: #f5f5f5;
+      }
+      html[color-scheme="dark"] pre code {
+        background-color: #1f1f1f;
+      }
     </style>
         <link rel="stylesheet" type="text/css" href="clang-doc-mustache.css"/>
         <script src="mustache-index.js"></script>
-    <link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
-    <link id="hljs-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css" />
+    <link id="hljs-light-theme" rel="stylesheet" media="not all" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
+    <link id="hljs-dark-theme" rel="stylesheet" media="not all" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css" />
     <script>
       const root = document.documentElement;
       const hlLight = document.getElementById("hljs-light-theme");
@@ -77,11 +84,11 @@
         if (!hlLight || !hlDark) {
           return;
         }
-        hlDark.disabled = theme !== "dark";
-        hlLight.disabled = theme === "dark";
+        hlDark.media = theme === "dark" ? "all" : "not all";
+        hlLight.media = theme === "dark" ? "not all" : "all";
       }
 
-      changeHighlightJS(getActiveTheme());
+      changeHighlightJS(window.__initialTheme || getActiveTheme());
 
       // Listen to system theme changes.
       // If the user manually toggles the theme, the theme won't change according

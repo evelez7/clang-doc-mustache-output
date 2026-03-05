@@ -3,58 +3,71 @@
 <head>
     <meta charset="utf-8"/>
     <title>Calculator</title>
-    <link id="hljs-theme" rel="stylesheet"/>
     <script>
-      const root = document.documentElement;
-      const highlightLink = document.getElementById("hljs-theme");
-      const highlightLight = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css";
-      const highlightDark = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css";
-
-      function changeHighlightJS(theme) {
-        if (theme === "dark") {
-          highlightLink.href = highlightDark;
-          root.style.backgroundColor = "#161212";
-        } else {
-          highlightLink.href = highlightLight;
-          root.style.backgroundColor = "#ffffff";
+      // Set theme before CSS loads to avoid a light-flash on dark mode.
+      (function() {
+        const root = document.documentElement;
+        const themeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        let savedTheme = null;
+        try {
+          savedTheme = localStorage.getItem("theme");
+        } catch (error) {
+          savedTheme = null;
         }
-      }
-
-      const savedTheme = localStorage.getItem("theme");
-      const themeQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      if (savedTheme !== null) {
-        root.setAttribute("color-scheme", savedTheme);
-        changeHighlightJS(savedTheme);
-      } else {
-        let initialTheme;
-        if (themeQuery.matches) {
-          initialTheme = "dark";
-        } else {
-          initialTheme = "light";
-        }
+        const initialTheme = (savedTheme === "light" || savedTheme === "dark")
+          ? savedTheme
+          : (themeQuery.matches ? "dark" : "light");
         root.setAttribute("color-scheme", initialTheme);
-        changeHighlightJS(initialTheme);
-      }
-
-      // Listen to system theme changes.
-      // If the user manually toggles the theme, the theme wont change according
-      // to system changes.
-      themeQuery.addEventListener("change", (event) => {
-        if (savedTheme !== null) {
-          return;
-        } else if (event.matches) {
-          changeHighlightJS("dark");
-          root.setAttribute("color-scheme", "dark");
-        } else {
-          changeHighlightJS("light");
-          root.setAttribute("color-scheme", "light");
-        }
-      });
+        root.style.colorScheme = initialTheme;
+        root.style.backgroundColor = initialTheme === "dark" ? "#161212" : "#ffffff";
+      })();
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
         <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
         <script src="../mustache-index.js"></script>
+    <link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
+    <link id="hljs-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css" />
+    <script>
+      const root = document.documentElement;
+      const hlLight = document.getElementById("hljs-light-theme");
+      const hlDark = document.getElementById("hljs-dark-theme");
+      const themeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+      function getSavedTheme() {
+        try {
+          return localStorage.getItem("theme");
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function getActiveTheme() {
+        return root.getAttribute("color-scheme") === "dark" ? "dark" : "light";
+      }
+
+      function changeHighlightJS(theme) {
+        if (!hlLight || !hlDark) {
+          return;
+        }
+        hlDark.disabled = theme !== "dark";
+        hlLight.disabled = theme === "dark";
+      }
+
+      changeHighlightJS(getActiveTheme());
+
+      // Listen to system theme changes.
+      // If the user manually toggles the theme, the theme won't change according
+      // to system changes.
+      themeQuery.addEventListener("change", (event) => {
+        const savedTheme = getSavedTheme();
+        if (savedTheme === "light" || savedTheme === "dark") {
+          return;
+        }
+        const nextTheme = event.matches ? "dark" : "light";
+        root.setAttribute("color-scheme", nextTheme);
+        root.style.colorScheme = nextTheme;
+        changeHighlightJS(nextTheme);
+      });
+    </script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=routine" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>

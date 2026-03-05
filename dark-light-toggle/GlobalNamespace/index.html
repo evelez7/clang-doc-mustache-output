@@ -8,6 +8,21 @@
       (function() {
         const root = document.documentElement;
         const themeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        const themeBackground = {
+          light: "#ffffff",
+          dark: "#161212"
+        };
+
+        function applyTheme(theme) {
+          root.setAttribute("color-scheme", theme);
+          root.style.colorScheme = theme;
+          root.style.backgroundColor = themeBackground[theme];
+          if (document.body) {
+            document.body.style.backgroundColor = themeBackground[theme];
+          }
+        }
+
+        window.applyTheme = applyTheme;
         let savedTheme = null;
         try {
           savedTheme = localStorage.getItem("theme");
@@ -17,11 +32,25 @@
         const initialTheme = (savedTheme === "light" || savedTheme === "dark")
           ? savedTheme
           : (themeQuery.matches ? "dark" : "light");
-        root.setAttribute("color-scheme", initialTheme);
-        root.style.colorScheme = initialTheme;
-        root.style.backgroundColor = initialTheme === "dark" ? "#161212" : "#ffffff";
+        applyTheme(initialTheme);
       })();
     </script>
+    <style>
+      html, body {
+        background-color: #ffffff;
+      }
+      @media (prefers-color-scheme: dark) {
+        html, body {
+          background-color: #161212;
+        }
+      }
+      html[color-scheme="light"], html[color-scheme="light"] body {
+        background-color: #ffffff;
+      }
+      html[color-scheme="dark"], html[color-scheme="dark"] body {
+        background-color: #161212;
+      }
+    </style>
         <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
         <script src="../mustache-index.js"></script>
     <link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
@@ -63,8 +92,7 @@
           return;
         }
         const nextTheme = event.matches ? "dark" : "light";
-        root.setAttribute("color-scheme", nextTheme);
-        root.style.colorScheme = nextTheme;
+        window.applyTheme(nextTheme);
         changeHighlightJS(nextTheme);
       });
     </script>
@@ -94,8 +122,12 @@
               const currentTheme = root.getAttribute("color-scheme");
               const next = currentTheme === "dark" ? "light" : "dark";
               changeHighlightJS(next);
-              root.setAttribute("color-scheme", next);
-              localStorage.setItem("theme", next);
+              window.applyTheme(next);
+              try {
+                localStorage.setItem("theme", next);
+              } catch (error) {
+                // Ignore storage errors (e.g. blocked storage in restricted contexts).
+              }
             };
         </script>
     </header>

@@ -15,19 +15,19 @@
     </script>
         <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
         <script src="../mustache-index.js"></script>
-    <link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
-    <link id="hljs-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css" />
+    <link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" media="(prefers-color-scheme: light)"/>
+    <link id="hljs-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css" media="(prefers-color-scheme: dark)"/>
     <script  data-cfasync="false">
       const hlLight = document.getElementById("hljs-light-theme");
       const hlDark = document.getElementById("hljs-dark-theme");
 
       function changeHighlightJS(theme) {
         if (theme === "dark") {
-          hlDark.disabled = false;
-          hlLight.disabled = true;
+    hlDark.media = "all";
+    hlLight.media = "not all";
         } else {
-          hlDark.disabled = true;
-          hlLight.disabled = false;
+    hlDark.media = "not all";
+    hlLight.media = "all";
         }
       }
 
@@ -75,11 +75,11 @@
         </nav>
         <script>
             themeToggle.onclick = () => {
-              const currentTheme = window.__clangDocInitialTheme;
+              const currentTheme = root.getAttribute("color-scheme");
               const next = currentTheme === "dark" ? "light" : "dark";
-              changeHighlightJS(next);
               root.setAttribute("color-scheme", next);
               root.style.colorScheme = next;
+              changeHighlightJS(next);
               localStorage.setItem("theme", next);
               window.__clangDocInitialTheme = next;
             };

@@ -9,7 +9,6 @@
         const savedTheme = localStorage.getItem("theme");
         const theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
         root.setAttribute("color-scheme", theme);
-        // Set the UA color-scheme property immediately for built-in surfaces.
         root.style.colorScheme = theme;
         window.__clangDocInitialTheme = theme;
       })();
@@ -46,15 +45,13 @@
       themeQuery.addEventListener("change", (event) => {
         if (localStorage.getItem("theme") !== null) {
           return;
-        } else if (event.matches) {
-          root.setAttribute("color-scheme", "dark");
-          root.style.colorScheme = "dark";
-          changeHighlightJS("dark");
-        } else {
-          root.setAttribute("color-scheme", "light");
-          root.style.colorScheme = "light";
-          changeHighlightJS("light");
         }
+
+        const theme = event.matches ? "dark" : "light";
+        root.setAttribute("color-scheme", theme);
+        root.style.colorScheme = theme;
+        changeHighlightJS(theme);
+        
       });
     </script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=routine" />

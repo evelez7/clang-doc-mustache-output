@@ -10,7 +10,7 @@
         const theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
         root.setAttribute("color-scheme", theme);
         root.style.colorScheme = theme;
-        root.dataset.theme = theme;
+        window.__clangDocInitialTheme = theme;
       })();
     </script>
         <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
@@ -32,7 +32,7 @@
         }
       }
 
-      changeHighlightJS(root.dataset.theme);
+      changeHighlightJS(window.__clangDocInitialTheme);
 
       const themeQuery = window.matchMedia("(prefers-color-scheme: dark)");
       // Listen to system theme changes.
@@ -74,12 +74,13 @@
         </nav>
         <script>
             themeToggle.onclick = () => {
-              const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+              const currentTheme = root.getAttribute("color-scheme");
+              const next = currentTheme === "dark" ? "light" : "dark";
               changeHighlightJS(next);
               root.setAttribute("color-scheme", next);
               root.style.colorScheme = next;
               localStorage.setItem("theme", next);
-              document.documentElement.dataset.theme = next;
+              window.__clangDocInitialTheme = next;
             };
         </script>
     </header>

@@ -3,27 +3,9 @@
 <head>
     <meta charset="utf-8"/>
     <title>Circle</title>
-    <script data-cfasync="false">
-      (function() {
-        const root = document.documentElement;
-        const savedTheme = localStorage.getItem("theme");
-        const theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-        root.setAttribute("color-scheme", theme);
-        window.__clangDocInitialTheme = theme;
-
-          // Prevent hljs flash by disabling the wrong sheet before it's parsed
-  // We do this by injecting the link tags ourselves with correct media
-  document.write(
-    `<link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" media="${theme === 'dark' ? 'not all' : 'all'}">` +
-    `<link id="hljs-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css" media="${theme === 'dark' ? 'all' : 'not all'}">`
-  );
-      })();
-    </script>
-        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
-        <script src="../mustache-index.js"></script>
     <link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
     <link id="hljs-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css" />
-    <script  data-cfasync="false">
+    <script data-cfasync="false">
       const hlLight = document.getElementById("hljs-light-theme");
       const hlDark = document.getElementById("hljs-dark-theme");
 
@@ -36,6 +18,18 @@
           hlLight.disabled = false;
         }
       }
+      (function() {
+        const root = document.documentElement;
+        const savedTheme = localStorage.getItem("theme");
+        const theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        root.setAttribute("color-scheme", theme);
+        changeHighlightJS(theme);
+        window.__clangDocInitialTheme = theme;
+      })();
+    </script>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <script  data-cfasync="false">
 
       const root = document.documentElement;
       changeHighlightJS(window.__clangDocInitialTheme);

@@ -3,9 +3,23 @@
 <head>
     <meta charset="utf-8"/>
     <title>Circle</title>
+    <script data-cfasync="false">
+      (function() {
+        const root = document.documentElement;
+        const savedTheme = localStorage.getItem("theme");
+        const theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        root.setAttribute("color-scheme", theme);
+        // Set the UA color-scheme property immediately for built-in surfaces.
+        root.style.colorScheme = theme;
+        window.__clangDocInitialTheme = theme;
+      })();
+    </script>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
     <link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
     <link id="hljs-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css" />
-    <script data-cfasync="false">
+    <script  data-cfasync="false">
+      const root = document.documentElement;
       const hlLight = document.getElementById("hljs-light-theme");
       const hlDark = document.getElementById("hljs-dark-theme");
 
@@ -18,34 +32,29 @@
           hlLight.disabled = false;
         }
       }
-      (function() {
-        const root = document.documentElement;
-        const savedTheme = localStorage.getItem("theme");
-        const theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-        root.setAttribute("color-scheme", theme);
-        changeHighlightJS(theme);
-        window.__clangDocInitialTheme = theme;
-      })();
-    </script>
-        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
-        <script src="../mustache-index.js"></script>
-    <script  data-cfasync="false">
 
-      const root = document.documentElement;
-      changeHighlightJS(window.__clangDocInitialTheme);
-
+      const savedTheme = localStorage.getItem("theme");
       const themeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      const initialTheme = window.__clangDocInitialTheme || savedTheme || (themeQuery.matches ? "dark" : "light");
+      root.setAttribute("color-scheme", initialTheme);
+      root.style.colorScheme = initialTheme;
+      changeHighlightJS(initialTheme);
+
       // Listen to system theme changes.
       // If the user manually toggles the theme, the theme wont change according
       // to system changes.
       themeQuery.addEventListener("change", (event) => {
         if (localStorage.getItem("theme") !== null) {
           return;
+        } else if (event.matches) {
+          root.setAttribute("color-scheme", "dark");
+          root.style.colorScheme = "dark";
+          changeHighlightJS("dark");
+        } else {
+          root.setAttribute("color-scheme", "light");
+          root.style.colorScheme = "light";
+          changeHighlightJS("light");
         }
-
-        const theme = event.matches ? "dark" : "light";
-        root.setAttribute("color-scheme", theme);
-        changeHighlightJS(theme);
       });
     </script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=routine" />
@@ -76,8 +85,9 @@
             themeToggle.onclick = () => {
               const currentTheme = root.getAttribute("color-scheme");
               const next = currentTheme === "dark" ? "light" : "dark";
-              root.setAttribute("color-scheme", next);
               changeHighlightJS(next);
+              root.setAttribute("color-scheme", next);
+              root.style.colorScheme = next;
               localStorage.setItem("theme", next);
             };
         </script>

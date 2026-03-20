@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>tuple</title>
+    <script data-cfasync="false">
+      (function() {
+        const root = document.documentElement;
+        const savedTheme = localStorage.getItem("theme");
+        const theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        root.setAttribute("color-scheme", theme);
+        window.__clangDocTheme = theme;
+      })();
+    </script>
+        <link rel="stylesheet" type="text/css" href="../clang-doc-mustache.css"/>
+        <script src="../mustache-index.js"></script>
+    <link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
+    <link id="hljs-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css" />
+    <script>
+      const root = document.documentElement;
+      const hlLight = document.getElementById("hljs-light-theme");
+      const hlDark = document.getElementById("hljs-dark-theme");
+
+      function changeHighlightJS(theme) {
+        if (theme === "dark") {
+          hlDark.disabled = false;
+          hlLight.disabled = true;
+        } else {
+          hlDark.disabled = true;
+          hlLight.disabled = false;
+        }
+      }
+
+      changeHighlightJS(window.__clangDocTheme);
+      const themeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      // Listen to system theme changes.
+      // If the user manually toggles the theme, the theme wont change according
+      // to system changes.
+      themeQuery.addEventListener("change", (event) => {
+        if (localStorage.getItem("theme") !== null) {
+          return;
+        }
+
+        const theme = event.matches ? "dark" : "light";
+        root.setAttribute("color-scheme", theme);
+        changeHighlightJS(theme);
+      });
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=routine" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar__container">
+                <div class="navbar__logo">
+                    
+                </div>
+                <div class="navbar__menu">
+                    <ul class="navbar__links">
+                        <li class="navbar__item">
+                            <a href="../index.html" class="navbar__link">Home</a>
+                        </li>
+                    </ul>
+                </div>
+                <button id="themeToggle"><span class="material-symbols-rounded">routine</span></button>
+            </div>
+            <div class="navbar-breadcrumb-container">
+                <a href="./index.html"><div class="navbar-breadcrumb-item">Global Namespace</div></a>
+            </div>
+        </nav>
+        <script>
+            themeToggle.onclick = () => {
+              const currentTheme = root.getAttribute("color-scheme");
+              const next = currentTheme === "dark" ? "light" : "dark";
+              changeHighlightJS(next);
+              root.setAttribute("color-scheme", next);
+              localStorage.setItem("theme", next);
+            };
+        </script>
+    </header>
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <h2>struct tuple</h2>
+                <ul>
+                </ul>
+            </div>
+            <div class="resizer" id="resizer"></div>
+            <div class="content">
+                <section class="hero section-container">
+                    <pre><code class="language-cpp code-clang-doc">template &lt;typename... Tys&gt;</code></pre>
+                    <div class="hero__title">
+                        <h1 class="hero__title-large">struct tuple</h1>
+                        <p>Defined at line 382 of file /home/erick/code/llvm/clang-tools-extra/test/clang-doc/templates.cpp</p>
+                        <div class="doc-card">
+                            <div class="nested-delimiter-container">
+                                <p>A Tuple type</p>
+                            </div>
+                            <div class="nested-delimiter-container">
+                                <p>Does Tuple things.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
